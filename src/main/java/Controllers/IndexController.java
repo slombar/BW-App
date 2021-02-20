@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class Test {
+public class IndexController {
   public MenuItem edgeEditorButton;
   public MenuItem nodeEditorButton;
   public MenuItem securityButton;

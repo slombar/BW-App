@@ -7,6 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -29,7 +30,18 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <JFXTreeTableView fx:id="nodeTable" layoutX="-7.0" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                                                <JFXTreeTableView fx:id="nodeTable" layoutX="-7.0" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                       <columns>
+                                          <TreeTableColumn fx:id="nodeIDCol" prefWidth="103.0" text="Node ID" />
+                                          <TreeTableColumn prefWidth="75.0" text="X-Coordinate" fx:id="xCoordCol" />
+                                          <TreeTableColumn fx:id="yCoordCol" prefWidth="75.0" text="Y-Coordinate" />
+                                          <TreeTableColumn fx:id="floorCol" prefWidth="75.0" text="Floor" />
+                                          <TreeTableColumn fx:id="buildingCol" prefWidth="75.0" text="Building" />
+                                          <TreeTableColumn fx:id="nodeTypeCol" prefWidth="75.0" text="Node Type" />
+                                          <TreeTableColumn fx:id="longNameCol" prefWidth="103.0" text="Long Name" />
+                                          <TreeTableColumn fx:id="shortNameCol" prefWidth="103.0" text="Short Name" />
+                                          <TreeTableColumn fx:id="updateNodeCol" prefWidth="75.0" text="Update" />
+                                       </columns></JFXTreeTableView>
                                                 <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,7 +64,13 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <JFXTreeTableView fx:id="edgeTable" layoutX="-14.0" layoutY="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                                                <JFXTreeTableView fx:id="edgeTable" layoutX="-14.0" layoutY="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                       <columns>
+                                          <TreeTableColumn fx:id="edgeIDCol" prefWidth="75.0" text="Node ID" />
+                                          <TreeTableColumn fx:id="startCol" prefWidth="75.0" text="Start" />
+                                          <TreeTableColumn fx:id="endCol" prefWidth="75.0" text="End" />
+                                          <TreeTableColumn fx:id="updateEdgeCol" prefWidth="75.0" text="Update" />
+                                       </columns></JFXTreeTableView>
                                                 <GridPane layoutX="14.0" layoutY="-31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
