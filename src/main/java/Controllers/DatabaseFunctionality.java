@@ -340,7 +340,6 @@ public class DatabaseFunctionality {
       String ycoord = "";
       String floor = "";
       String building = "";
-      String team = "";
       String nodeType = "";
       String longName = "";
       String shortName = "";
@@ -355,8 +354,6 @@ public class DatabaseFunctionality {
         nodeType = rset.getString("nodeType");
         longName = rset.getString("longName");
         shortName = rset.getString("shortName");
-        team = rset.getString("teamAssigned");
-
         nodeList.add(
             new Node(
                 ID,
@@ -367,7 +364,6 @@ public class DatabaseFunctionality {
                 nodeType,
                 longName,
                 shortName,
-                team,
                 new Button("update")));
       }
       rset.close();

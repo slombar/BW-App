@@ -147,14 +147,15 @@ public class EditNodesController implements Initializable {
                 .setShortName(e.getNewValue());
           }
         });
-    teamCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    teamCol.setOnEditCommit(
-        new EventHandler<TableColumn.CellEditEvent<Node, String>>() {
-          @Override
-          public void handle(TableColumn.CellEditEvent<Node, String> e) {
-            e.getTableView().getItems().get(e.getTablePosition().getRow()).setTeam(e.getNewValue());
-          }
-        });
+    //    teamCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    //    teamCol.setOnEditCommit(
+    //        new EventHandler<TableColumn.CellEditEvent<Node, String>>() {
+    //          @Override
+    //          public void handle(TableColumn.CellEditEvent<Node, String> e) {
+    //
+    // e.getTableView().getItems().get(e.getTablePosition().getRow()).setTeam(e.getNewValue());
+    //          }
+    //        });
 
     nodeTable.setEditable(true);
   }
