@@ -93,7 +93,7 @@ public class EditEdgesController implements Initializable {
 
   public void goToHomePage(ActionEvent actionEvent) throws IOException {
     System.out.println("Starting Up");
-    Parent parent = FXMLLoader.load(getClass().getResource("/Views/test.fxml"));
+    Parent parent = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
     Scene scene = new Scene(parent);
     // this gets Stage info
     Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

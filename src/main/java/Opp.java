@@ -16,7 +16,7 @@ public class Opp extends Application {
     DatabaseFunctionality.establishConnection();
     primaryStage.setTitle("Main Page");
     primaryStage.setScene(
-        new Scene(FXMLLoader.load(getClass().getResource("/Views/test.fxml")), 1000, 750));
+        new Scene(FXMLLoader.load(getClass().getResource("/Views/Index.fxml")), 1000, 750));
     primaryStage.show();
   }
 

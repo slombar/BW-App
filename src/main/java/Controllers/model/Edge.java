@@ -2,10 +2,11 @@ package Controllers.model;
 
 import Controllers.DatabaseFunctionality;
 import Controllers.EditEdgesController;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
-public class Edge {
+public class Edge extends RecursiveTreeObject<Edge> {
   String ID, start, end;
   Button update;
 

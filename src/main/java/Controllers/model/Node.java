@@ -2,10 +2,11 @@ package Controllers.model;
 
 import Controllers.DatabaseFunctionality;
 import Controllers.EditNodesController;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
-public class Node {
+public class Node extends RecursiveTreeObject<Node> {
   String ID, building, nodeType, longName, shortName, floor, team, xCoord, yCoord;
   Button update;
 
