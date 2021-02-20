@@ -30,7 +30,7 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <JFXTreeTableView fx:id="nodeTable" layoutX="-7.0" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                                <JFXTreeTableView fx:id="nodeTable" editable="true" layoutX="-7.0" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                        <columns>
                                           <TreeTableColumn fx:id="nodeIDCol" prefWidth="103.0" text="Node ID" />
                                           <TreeTableColumn prefWidth="75.0" text="X-Coordinate" fx:id="xCoordCol" />

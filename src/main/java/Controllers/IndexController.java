@@ -129,7 +129,7 @@ public class IndexController {
 
   public void goToEditNodes(ActionEvent actionEvent) throws IOException {
     System.out.println("Starting Up");
-    Parent parent = FXMLLoader.load(getClass().getResource("/Views/EditNodes.fxml"));
+    Parent parent = FXMLLoader.load(getClass().getResource("/Views/EditPage.fxml"));
     Scene scene = new Scene(parent);
     // this gets Stage info
     Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

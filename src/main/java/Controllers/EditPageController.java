@@ -1,18 +1,19 @@
 package Controllers;
 
+import Controllers.model.*;
 import Controllers.model.Node;
-import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import Controllers.model.*;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
 public class EditPageController implements Initializable {
   @FXML private Tab nodeTableTab;
@@ -39,42 +40,87 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Edge, String> endCol;
   @FXML private TreeTableColumn<Edge, String> updateEdgeCol;
 
-
-
-    public static ObservableList<Node> nodeList;
+  public static ObservableList<Node> nodeList;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    initNodeTable();
+  }
+
+  private void initNodeTable() {
     nodeTable2 = nodeTable;
-    initTable();
-    loadData();
+    nodeTable.setShowRoot(false);
+    initNodeCols();
+    loadNodeData();
   }
 
-  private void initTable() {
-    initCols();
+  private void loadNodeData() {
+    nodeList = FXCollections.observableArrayList();
+    DatabaseFunctionality.showNodes(nodeList);
+    ObservableList<TreeItem<Node>> nodeTreeList;
+    nodeTreeList = FXCollections.observableArrayList();
+    for (Node node : nodeList) {
+      nodeTreeList.add(new TreeItem<>(node));
+    }
+    TreeItem<Node> rootNode = new TreeItem<>(new Node());
+    rootNode.getChildren().addAll(nodeTreeList);
+    nodeTable.setRoot(rootNode);
   }
 
+  private void initNodeCols() {
 
-    // Node functionality
-    public void nodeTabSelect(Event event) {
-    }
+    nodeIDCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("ID"));
+    nodeIDCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
-    public void addNode(ActionEvent actionEvent) {
-    }
+    xCoordCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("xCoord"));
+    xCoordCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
-    public void deleteNode(ActionEvent actionEvent) {
-    }
+    yCoordCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("yCoord"));
+    yCoordCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
+    floorCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Floor"));
+    floorCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
-    // Edge functionality
-    public void edgeTabSelect(Event event) {
-    }
+    buildingCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Building"));
+    buildingCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
-    public void addEdge(ActionEvent actionEvent) {
-    }
+    nodeTypeCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("NodeType"));
+    nodeTypeCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
-    public void deleteEdge(ActionEvent actionEvent) {
-    }
+    longNameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("LongName"));
+    longNameCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
+    shortNameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("ShortName"));
+    shortNameCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
+    updateNodeCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Update"));
+
+    editableNodeCols();
+  }
+
+  private void editableNodeCols() {
+    nodeTable.setEditable(true);
+    // Turn on multiple-selection mode for the TreeTableView
+    TreeTableView.TreeTableViewSelectionModel<Node> selection = nodeTable.getSelectionModel();
+    selection.setSelectionMode(SelectionMode.MULTIPLE);
+
+    // Enable cell-level selection
+    selection.setCellSelectionEnabled(true);
+  }
+
+  // Node functionality
+  public void nodeTabSelect(Event event) {
+    initNodeTable();
+  }
+
+  public void addNode(ActionEvent actionEvent) {}
+
+  public void deleteNode(ActionEvent actionEvent) {}
+
+  // Edge functionality
+  public void edgeTabSelect(Event event) {}
+
+  public void addEdge(ActionEvent actionEvent) {}
+
+  public void deleteEdge(ActionEvent actionEvent) {}
 }

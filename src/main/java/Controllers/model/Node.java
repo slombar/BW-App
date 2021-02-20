@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
 public class Node extends RecursiveTreeObject<Node> {
-  String ID, building, nodeType, longName, shortName, floor, team, xCoord, yCoord;
+  String ID, building, nodeType, longName, shortName, floor, xCoord, yCoord;
   Button update;
 
   public Node(
@@ -19,7 +19,6 @@ public class Node extends RecursiveTreeObject<Node> {
       String nodeType,
       String longName,
       String shortName,
-      String team,
       Button update) {
     this.ID = ID;
     this.building = building;
@@ -27,7 +26,6 @@ public class Node extends RecursiveTreeObject<Node> {
     this.longName = longName;
     this.shortName = shortName;
     this.floor = floor;
-    this.team = team;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     this.update = update;
@@ -47,7 +45,6 @@ public class Node extends RecursiveTreeObject<Node> {
               System.out.println("NodeType: " + node.getNodeType());
               System.out.println("LongName: " + node.getLongName());
               System.out.println("ShortName: " + node.getShortName());
-              System.out.println("Team: " + node.getTeam());
 
               DatabaseFunctionality.editNode(
                   node.getID(),
@@ -58,10 +55,22 @@ public class Node extends RecursiveTreeObject<Node> {
                   node.getNodeType(),
                   node.getLongName(),
                   node.getShortName(),
-                  node.getTeam());
+                  "O");
             }
           }
         });
+  }
+
+  public Node() {
+    this.ID = null;
+    this.building = null;
+    this.nodeType = null;
+    this.longName = null;
+    this.shortName = null;
+    this.floor = null;
+    this.xCoord = null;
+    this.yCoord = null;
+    this.update = null;
   }
 
   public String getID() {
@@ -110,14 +119,6 @@ public class Node extends RecursiveTreeObject<Node> {
 
   public void setFloor(String floor) {
     this.floor = floor;
-  }
-
-  public String getTeam() {
-    return team;
-  }
-
-  public void setTeam(String team) {
-    this.team = team;
   }
 
   public String getXCoord() {
