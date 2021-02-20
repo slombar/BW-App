@@ -2,6 +2,7 @@ package Controllers;
 
 import Controllers.model.Edge;
 import Controllers.model.Node;
+import com.jfoenix.controls.JFXButton;
 import java.io.*;
 import java.sql.*;
 import java.util.Scanner;
@@ -364,7 +365,7 @@ public class DatabaseFunctionality {
                 nodeType,
                 longName,
                 shortName,
-                new Button("update")));
+                new JFXButton("update")));
       }
       rset.close();
       pstmt.close();
