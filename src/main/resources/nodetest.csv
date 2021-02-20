@@ -1,0 +1,3 @@
+nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName,teamAssigned
+OWALK00101,748,1004,1,Faulkner,WALK,Walkway 1,WALK_001,O
+OWALK00201,976,957,1,Faulkner,WALK,Walkway 2,WALK_002,O
