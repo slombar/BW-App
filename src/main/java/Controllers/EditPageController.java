@@ -59,6 +59,7 @@ public class EditPageController implements Initializable {
     DatabaseFunctionality.showNodes(nodeList);
     ObservableList<TreeItem<Node>> nodeTreeList;
     nodeTreeList = FXCollections.observableArrayList();
+
     for (Node node : nodeList) {
       nodeTreeList.add(new TreeItem<>(node));
     }

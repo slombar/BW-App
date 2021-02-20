@@ -1,10 +1,11 @@
 package Controllers.model;
 
 import Controllers.DatabaseFunctionality;
-import Controllers.EditNodesController;
+import Controllers.EditPageController;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
 
 public class Node extends RecursiveTreeObject<Node> {
   String ID, building, nodeType, longName, shortName, floor, xCoord, yCoord;
@@ -32,29 +33,29 @@ public class Node extends RecursiveTreeObject<Node> {
 
     update.setOnAction(
         e -> {
-          ObservableList<Node> nodes =
-              EditNodesController.nodeTable2.getSelectionModel().getSelectedItems();
+          ObservableList<TreeItem<Node>> nodes =
+              EditPageController.nodeTable2.getSelectionModel().getSelectedItems();
 
-          for (Node node : nodes) {
-            if (node.getUpdate() == update) {
-              System.out.println("ID: " + node.getID());
-              System.out.println("xCoord: " + node.getXCoord());
-              System.out.println("yCoord: " + node.getYCoord());
-              System.out.println("Floor: " + node.getFloor());
-              System.out.println("Building: " + node.getBuilding());
-              System.out.println("NodeType: " + node.getNodeType());
-              System.out.println("LongName: " + node.getLongName());
-              System.out.println("ShortName: " + node.getShortName());
+          for (TreeItem<Node> item : nodes) {
+            if (item.getValue().getUpdate() == update) {
+              System.out.println("ID: " + item.getValue().getID());
+              System.out.println("xCoord: " + item.getValue().getXCoord());
+              System.out.println("yCoord: " + item.getValue().getYCoord());
+              System.out.println("Floor: " + item.getValue().getFloor());
+              System.out.println("Building: " + item.getValue().getBuilding());
+              System.out.println("NodeType: " + item.getValue().getNodeType());
+              System.out.println("LongName: " + item.getValue().getLongName());
+              System.out.println("ShortName: " + item.getValue().getShortName());
 
               DatabaseFunctionality.editNode(
-                  node.getID(),
-                  Integer.parseInt(node.getXCoord()),
-                  Integer.parseInt(node.getYCoord()),
-                  node.getFloor(),
-                  node.getBuilding(),
-                  node.getNodeType(),
-                  node.getLongName(),
-                  node.getShortName(),
+                  item.getValue().getID(),
+                  Integer.parseInt(item.getValue().getXCoord()),
+                  Integer.parseInt(item.getValue().getYCoord()),
+                  item.getValue().getFloor(),
+                  item.getValue().getBuilding(),
+                  item.getValue().getNodeType(),
+                  item.getValue().getLongName(),
+                  item.getValue().getShortName(),
                   "O");
             }
           }
