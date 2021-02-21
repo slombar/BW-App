@@ -29,42 +29,49 @@ class Graph {
   public void initialize() {
     GraphNode node = null;
 
-    // initialize a graph
-    // new graph graph??
+    //initialize a graph
+    //new graph graph??
 
-    // get the nodes from the database function
+    //get the nodes from the database function
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
     ObservableList<Edge> edgeList = FXCollections.observableArrayList();
 
-    // initialize all the graph nodes
+    //freakk inteilkijdh
+    //initialize all the graph nodes
     for (Node n : nodeList) {
 
       nodeList = DatabaseFunctionality.showNodes(nodeList);
 
       String nodeID = n.getID();
 
-      // add to nodeIDs list?? idk what it is
+      //add to nodeIDs list?? idk what it is
 
       int xcoord = Integer.parseInt(n.getXCoord());
       int ycoord = Integer.parseInt(n.getYCoord());
 
-      // creates a single node with the given entered parameters (above)
+      //creates a single node with the given entered parameters (above)
       node = new GraphNode(nodeID, xcoord, ycoord);
 
-      // add the node to the graph
-      // Graph.addnode?
-
-      // is this right????????? shouldn't we be making a graph??
-      listOfNodes.put(nodeID, node);
+      //ADDS THE NODE
+      addNode(node);
     }
 
-    // grab edges from database
+    //grab edges from database
     edgeList = DatabaseFunctionality.showEdges(edgeList);
+    String[] nodeIDA;
+    String node1ID = "";
+    String node2ID = "";
 
-    // for each edge, parse the first half of ID, add to the
-    for (Edge e : edgeList) {}
+    //for each edge, parse the first half of ID, add to the
+    for(Edge e : edgeList){
+      //get the first half (delimiter = _)
+      nodeIDA = (e.getID()).split("_", 10);
 
-    // if this nodeid = database nodeid, then add neighbor to this edge.
+      node1ID =  nodeIDA[0];
+      node2ID = nodeIDA[1];
+
+      link(node1ID, node2ID);
+    }
 
   }
 
@@ -83,7 +90,7 @@ class Graph {
   }
 
   // adds a bi-directional edge to the nodes corresponding to both ID's
-  void link(String node1ID, GraphNode node2ID) {
+  void link(String node1ID, String node2ID) {
     // checks to make sure listOfNodes has both nodes before linking
     if (listOfNodes.containsKey(node1ID) && listOfNodes.containsKey(node2ID)) {
       // adds each node to each others list of neighbours

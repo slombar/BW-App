@@ -1,9 +1,10 @@
-// import GraphSystem.Graph;
+package GraphSystem;
 
-// copy these imports for all test classes (plus whatever else you may need obviously,
-//    but make sure it's the org.junit.jupiter.api....):
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.LinkedList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // ^ JUST MAKING SURE YOU KNOW THE ABOVE IS NECESSARY FOR SHIT TO WORK
