@@ -2,23 +2,21 @@ package Controllers;
 
 import Controllers.model.*;
 import Controllers.model.Node;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
@@ -51,6 +49,7 @@ public class EditPageController implements Initializable {
   public static ObservableList<Edge> edgeList;
 
   private boolean popUp = false;
+  private Object JFXTextField;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -177,29 +176,84 @@ public class EditPageController implements Initializable {
   }
 
   public void addNode(ActionEvent actionEvent) {
-  // checking to make sure there are currently no other popups
-    if (!popUp) {
+
+    if (!popUp) { // checking to make sure there are currently no other popups
       popUp = true;
-      JFXDialogLayout addNodeContent = new JFXDialogLayout();
-      addNodeContent.setHeading(new Text("Add a new node"));
-      addNodeContent.setBody(new Text("you've entered"));
-      JFXButton closeDialog = new JFXButton("Close");
-      addNodeContent.setActions(closeDialog);
+
+      // addNodePopup has the content of the popup
+      // addNodeDialog creates the dialog popup
+
+      JFXDialogLayout addNodePopup = new JFXDialogLayout();
+      addNodePopup.setHeading(new Text("Add a new node"));
+      VBox addNodeVBox = new VBox(12);
+
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      // JFXButton clearButton = new JFXButton("Clear");
+      // JFXButton submitButton = new JFXButton("Submit");
+      buttonBox.getChildren().addAll(closeButton);
+
+      addNodeVBox
+          .getChildren()
+          .addAll(
+              createField("Node ID"),
+              createField("X Coordinate"),
+              createField("Y Coordinate"),
+              createField("Floor"),
+              createField("Building"),
+              createField("Node Type"),
+              createField("Long Name"),
+              createField("Short Name"),
+              buttonBox);
+      addNodePopup.setBody(addNodeVBox);
+
+      addNodePopup.setActions(closeButton);
+      // addNodePopup.setActions(clearButton);
+      // addNodePopup.setActions(submitButton);
+
       stackPane.toFront();
       JFXDialog addNodeDialog =
-          new JFXDialog(stackPane, addNodeContent, JFXDialog.DialogTransition.BOTTOM);
+          new JFXDialog(stackPane, addNodePopup, JFXDialog.DialogTransition.BOTTOM);
+      addNodeDialog.setOverlayClose(false);
+      nodeTable.setDisable(true);
 
-      closeDialog.setOnAction(
-          new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-              addNodeDialog.close();
-              stackPane.toBack();
-              popUp = false;
-            }
+      closeButton.setOnAction(
+          event -> {
+            addNodeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTable.setDisable(false);
           });
+      //      clearButton.setOnAction(
+      //              event -> {
+      //                for (javafx.scene.Node hBox:addNodeVBox.getChildren()) {
+      //                  hBox.
+      //                }
+      //              });
+      //      submitButton.setOnAction(
+      //              event -> {
+      //                for (javafx.scene.Node text:addNodeVBox.getChildren()) {
+      //                  if(text.getClass()==JFXTextField){
+      //                    ((JFXTextField)text).getText();
+      //                  }
+      //                }
+      //                DatabaseFunctionality.addNode();
+      //                addNodeDialog.close();
+      //                stackPane.toBack();
+      //                popUp = false;
+      //                nodeTable.setDisable(false);
+      //              });
       addNodeDialog.show();
     }
+  }
+
+  private JFXTextField createField(String label) {
+    HBox box = new HBox();
+    JFXTextField text = new JFXTextField();
+    text.setPromptText(label);
+    text.setId(label.replace(" ", ""));
+    box.getChildren().add(text);
+    return text;
   }
 
   public void deleteNode(ActionEvent actionEvent) {}
