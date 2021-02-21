@@ -1,7 +1,6 @@
 package GraphSystem;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
 class DFS {
@@ -24,7 +23,7 @@ class DFS {
         dfsStack(g);
       }
     }*/
-    
+
     g.setVisited(true);
     llVisited.add(g.getNodeID());
     dfsStack(g);
@@ -38,7 +37,7 @@ class DFS {
     while (!stack.isEmpty()) {
 
       GraphNode actualNode = this.stack.pop();
-      //System.out.print(actualNode.getNodeID() + " "); // changed to Node.nodeID
+      // System.out.print(actualNode.getNodeID() + " "); // changed to Node.nodeID
 
       for (GraphNode g : actualNode.getNeighbourList()) {
         if (!g.isVisited()) {

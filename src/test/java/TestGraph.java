@@ -1,6 +1,8 @@
 // import GraphSystem.Graph;
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 public class TestGraph {
 
@@ -8,6 +10,6 @@ public class TestGraph {
 
   @Test
   public void testGetSize1() {
-    Assert.assertTrue(true);
+    assertTrue(true);
   }
 }
