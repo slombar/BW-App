@@ -1,6 +1,7 @@
 package GraphSystem;
 
 import java.util.LinkedList;
+import java.util.List;
 
 // main class of the 'GraphSystem' subsystem
 public class GraphSystem {
@@ -9,6 +10,8 @@ public class GraphSystem {
   Graph graph;
   AStarSearch aStarSearch;
   DFS dfs;
+  
+  LinkedList<String> unreachableNodes;  // nodeIDs of unreachable nodes via DFS
 
   // constructor
   public GraphSystem() {
@@ -26,10 +29,29 @@ public class GraphSystem {
   boolean hasUnreachableNodes() {
     initializeGraph(); // first, initialize map (bc CSV updated)
     dfs = new DFS(); // next, instantiate new DFS
+    
     LinkedList<String> listOfNodes = graph.getNodeIDList();
-
+    // run DFS:
+    dfs.dfs(graph.getNode(listOfNodes.get(0)));
+    // get list of visited nodes:
+    LinkedList<String> visitedNodes = dfs.getLLVisited();
+    
+    boolean hasUnreachable = false;
+    unreachableNodes = new LinkedList<>();
+    
+    for(String nodeID : listOfNodes) {
+      if(!visitedNodes.contains(nodeID)) {
+        unreachableNodes.add(nodeID);
+        hasUnreachable = true;
+      }
+    }
+    
     // dummy return
-    return true;
+    return hasUnreachable;
+  }
+  
+  LinkedList<String> unreachableNodes() {
+    return unreachableNodes;
   }
 
   LinkedList<String> findPath(String startID, String targetID) {
