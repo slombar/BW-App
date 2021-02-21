@@ -1,10 +1,11 @@
 package Controllers.model;
 
 import Controllers.DatabaseFunctionality;
-import Controllers.EditEdgesController;
+import Controllers.EditPageController;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
 
 public class Edge extends RecursiveTreeObject<Edge> {
   String ID, start, end;
@@ -18,19 +19,27 @@ public class Edge extends RecursiveTreeObject<Edge> {
 
     update.setOnAction(
         e -> {
-          ObservableList<Edge> edges =
-              EditEdgesController.edgeTable2.getSelectionModel().getSelectedItems();
+          ObservableList<TreeItem<Edge>> edges =
+              EditPageController.edgeTable2.getSelectionModel().getSelectedItems();
 
-          for (Edge edge : edges) {
-            if (edge.getUpdate() == update) {
-              System.out.println("ID: " + edge.getID());
-              System.out.println("Start: " + edge.getStart());
-              System.out.println("End: " + edge.getEnd());
+          for (TreeItem<Edge> item : edges) {
+            if (item.getValue().getUpdate() == update) {
+              System.out.println("ID: " + item.getValue().getID());
+              System.out.println("Start: " + item.getValue().getStart());
+              System.out.println("End: " + item.getValue().getEnd());
 
-              DatabaseFunctionality.editEdge(edge.getID(), edge.getStart(), edge.getEnd());
+              DatabaseFunctionality.editEdge(
+                  item.getValue().getID(), item.getValue().getStart(), item.getValue().getEnd());
             }
           }
         });
+  }
+
+  public Edge() {
+    this.ID = null;
+    this.start = null;
+    this.end = null;
+    this.update = null;
   }
 
   public String getID() {
