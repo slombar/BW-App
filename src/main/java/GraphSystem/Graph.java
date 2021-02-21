@@ -36,6 +36,7 @@ class Graph {
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
     ObservableList<Edge> edgeList = FXCollections.observableArrayList();
 
+    //freakk inteilkijdh
     //initialize all the graph nodes
     for (Node n : nodeList) {
 
