@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
+  @FXML private StackPane warningPane;
   @FXML private StackPane stackPane;
   @FXML private Tab nodeTableTab;
   @FXML private Tab edgeTableTab;
@@ -223,22 +224,20 @@ public class EditPageController implements Initializable {
               buttonBox);
       addNodePopup.setBody(addNodeVBox);
 
-//      addNodePopup.setActions(closeButton);
-//      addNodePopup.setActions(clearButton);
-//      addNodePopup.setActions(submitButton);
-
       stackPane.toFront();
       JFXDialog addNodeDialog =
           new JFXDialog(stackPane, addNodePopup, JFXDialog.DialogTransition.BOTTOM);
       addNodeDialog.setOverlayClose(false);
-      nodeTable.setDisable(true);
+      nodeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
 
       closeButton.setOnAction(
           event -> {
             addNodeDialog.close();
             stackPane.toBack();
             popUp = false;
-            nodeTable.setDisable(false);
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
           });
       clearButton.setOnAction(
           event -> {
@@ -253,28 +252,40 @@ public class EditPageController implements Initializable {
           });
       submitButton.setOnAction(
           event -> {
-            //                      DatabaseFunctionality.addNode(listOfFields.get(0).getText(),
-            //                              listOfFields.get(1).getText(),
-            //                              listOfFields.get(2).getText(),
-            //                              listOfFields.get(3).getText(),
-            //                              listOfFields.get(4).getText(),
-            //                              listOfFields.get(5).getText(),
-            //                              listOfFields.get(6).getText(),
-            //                              listOfFields.get(7).getText(),
-            //                              "O");
+            if (listOfFields.get(0).getText().isEmpty()
+                || listOfFields.get(1).getText().isEmpty()
+                || listOfFields.get(2).getText().isEmpty()
+                || listOfFields.get(3).getText().isEmpty()
+                || listOfFields.get(4).getText().isEmpty()
+                || listOfFields.get(5).getText().isEmpty()
+                || listOfFields.get(6).getText().isEmpty()
+                || listOfFields.get(7).getText().isEmpty()) {
+              incompletePopup();
+            } else {
+              //                      DatabaseFunctionality.addNode(listOfFields.get(0).getText(),
+              //                              listOfFields.get(1).getText(),
+              //                              listOfFields.get(2).getText(),
+              //                              listOfFields.get(3).getText(),
+              //                              listOfFields.get(4).getText(),
+              //                              listOfFields.get(5).getText(),
+              //                              listOfFields.get(6).getText(),
+              //                              listOfFields.get(7).getText(),
+              //                              "O");
 
-            System.out.println(listOfFields.get(0).getText());
-            System.out.println(listOfFields.get(1).getText());
-            System.out.println(listOfFields.get(2).getText());
-            System.out.println(listOfFields.get(3).getText());
-            System.out.println(listOfFields.get(4).getText());
-            System.out.println(listOfFields.get(5).getText());
-            System.out.println(listOfFields.get(6).getText());
-            System.out.println(listOfFields.get(7).getText());
-            addNodeDialog.close();
-            stackPane.toBack();
-            popUp = false;
-            nodeTable.setDisable(false);
+              System.out.println(listOfFields.get(0).getText());
+              System.out.println(listOfFields.get(1).getText());
+              System.out.println(listOfFields.get(2).getText());
+              System.out.println(listOfFields.get(3).getText());
+              System.out.println(listOfFields.get(4).getText());
+              System.out.println(listOfFields.get(5).getText());
+              System.out.println(listOfFields.get(6).getText());
+              System.out.println(listOfFields.get(7).getText());
+              addNodeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
           });
       addNodeDialog.show();
     }
@@ -290,6 +301,29 @@ public class EditPageController implements Initializable {
     return listOfFields;
   }
 
+  private void incompletePopup() {
+    warningPane.toFront();
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("WARNING!"));
+    warning.setBody(new Text("Text fields cannot be left blank."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    JFXDialog warningDialog =
+        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
+    warningDialog.setOverlayClose(false);
+    stackPane.setDisable(true);
+
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          warningPane.toBack();
+          //          stackPane.toFront();
+          stackPane.setDisable(false);
+        });
+    warningDialog.show();
+  }
+
   public void deleteNode(ActionEvent actionEvent) {}
 
   // Edge functionality
@@ -297,7 +331,79 @@ public class EditPageController implements Initializable {
     initEdgeTable();
   }
 
-  public void addEdge(ActionEvent actionEvent) {}
+  public void addEdge(ActionEvent actionEvent) {
+    // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+
+      // addNodePopup has the content of the popup
+      // addNodeDialog creates the dialog popup
+
+      JFXDialogLayout addEdgePopup = new JFXDialogLayout();
+      addEdgePopup.setHeading(new Text("Add a new edge"));
+      VBox addEdgeVBox = new VBox(12);
+
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Submit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      ArrayList<String> addEdgeLabels =
+          new ArrayList<String>(Arrays.asList("Edge ID", "Start Node ID", "End Node ID"));
+
+      ArrayList<JFXTextField> listOfFields = createFields(addEdgeLabels);
+
+      addEdgeVBox
+          .getChildren()
+          .addAll(listOfFields.get(0), listOfFields.get(1), listOfFields.get(2), buttonBox);
+      addEdgePopup.setBody(addEdgeVBox);
+
+      stackPane.toFront();
+      JFXDialog addEdgeDialog =
+          new JFXDialog(stackPane, addEdgePopup, JFXDialog.DialogTransition.BOTTOM);
+      addEdgeDialog.setOverlayClose(false);
+      nodeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
+
+      closeButton.setOnAction(
+          event -> {
+            addEdgeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
+          });
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+            listOfFields.get(1).clear();
+            listOfFields.get(2).clear();
+          });
+      submitButton.setOnAction(
+          event -> {
+            if (listOfFields.get(0).getText().isEmpty()
+                || listOfFields.get(1).getText().isEmpty()
+                || listOfFields.get(2).getText().isEmpty()) {
+              incompletePopup();
+            } else {
+              //                      DatabaseFunctionality.addEdge(listOfFields.get(0).getText(),
+              //                              listOfFields.get(1).getText(),
+              //                              listOfFields.get(2).getText());
+
+              System.out.println(listOfFields.get(0).getText());
+              System.out.println(listOfFields.get(1).getText());
+              System.out.println(listOfFields.get(2).getText());
+              addEdgeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
+          });
+      addEdgeDialog.show();
+    }
+  }
 
   public void deleteEdge(ActionEvent actionEvent) {}
 }
