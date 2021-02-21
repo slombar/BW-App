@@ -304,14 +304,15 @@ public class DatabaseFunctionality {
 
   /**
    * returns the given node corresponding to the String nodeID in order to create test graph
+   *
    * @param nodeID
    * @return
    */
-  public static ArrayList<String> getNode(String nodeID){
+  public static ArrayList<String> getNode(String nodeID) {
 
     Node node = new Node();
 
-    //store nodeid[0], x[1] y[2]
+    // store nodeid[0], x[1] y[2]
     ArrayList<String> list = new ArrayList<>();
 
     String ID = "";
@@ -327,20 +328,19 @@ public class DatabaseFunctionality {
         ID = rset.getString("nodeID");
         x = rset.getInt("xcoord");
         y = rset.getInt("ycoord");
-
       }
       rset.close();
       pstmt.close();
 
-    }catch(SQLException e){
+    } catch (SQLException e) {
       e.printStackTrace();
     }
 
-    list.set(0,ID);
-    list.set(1,String.valueOf(x));
-    list.set(2,String.valueOf(y));
+    list.set(0, ID);
+    list.set(1, String.valueOf(x));
+    list.set(2, String.valueOf(y));
 
-    System.out.println("VARIABLES: id,x,y"+ list.get(0) + list.get(1)+ list.get(2));
+    System.out.println("VARIABLES: id,x,y" + list.get(0) + list.get(1) + list.get(2));
 
     return list;
   }
@@ -596,5 +596,4 @@ public class DatabaseFunctionality {
       System.out.println("File is empty.");
     }
   }
-
 }

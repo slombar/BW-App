@@ -24,7 +24,7 @@ public class SharingFunctionality {
     String host = "localhost"; // where email is being sent from
 
     Properties properties = System.getProperties(); // set up mail server
-    properties.setProperty("mail.smtp.host", host);
+    properties.put("mail.smtp.host", host);
 
     Session session = Session.getDefaultInstance(properties);
 
