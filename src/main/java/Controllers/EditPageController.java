@@ -41,11 +41,15 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Edge, String> updateEdgeCol;
 
   public static ObservableList<Node> nodeList;
+  public static ObservableList<Edge> edgeList;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     initNodeTable();
+    initEdgeTable();
   }
+
+  ////////////////////////////////////// NODES //////////////////////////////////////////
 
   private void initNodeTable() {
     nodeTable2 = nodeTable;
@@ -69,7 +73,6 @@ public class EditPageController implements Initializable {
   }
 
   private void initNodeCols() {
-
     nodeIDCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("ID"));
     nodeIDCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
@@ -109,6 +112,56 @@ public class EditPageController implements Initializable {
     selection.setCellSelectionEnabled(true);
   }
 
+  ////////////////////////////////////// EDGES //////////////////////////////////////////
+
+  private void initEdgeTable() {
+    edgeTable2 = edgeTable;
+    edgeTable.setShowRoot(false);
+    initEdgeCols();
+    loadEdgeData();
+  }
+
+  private void loadEdgeData() {
+    edgeList = FXCollections.observableArrayList();
+    DatabaseFunctionality.showEdges(edgeList);
+    ObservableList<TreeItem<Edge>> edgeTreeList;
+    edgeTreeList = FXCollections.observableArrayList();
+
+    for (Edge edge : edgeList) {
+      edgeTreeList.add(new TreeItem<>(edge));
+    }
+    TreeItem<Edge> rootEdge = new TreeItem<>(new Edge());
+    rootEdge.getChildren().addAll(edgeTreeList);
+    edgeTable.setRoot(rootEdge);
+  }
+
+  private void initEdgeCols() {
+    edgeIDCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("ID"));
+    edgeIDCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
+
+    startCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Start"));
+    startCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
+
+    endCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("End"));
+    endCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
+
+    updateEdgeCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Update"));
+
+    editableEdgeCols();
+  }
+
+  private void editableEdgeCols() {
+    edgeTable.setEditable(true);
+    // Turn on multiple-selection mode for the TreeTableView
+    TreeTableView.TreeTableViewSelectionModel<Edge> selection = edgeTable.getSelectionModel();
+    selection.setSelectionMode(SelectionMode.MULTIPLE);
+
+    // Enable cell-level selection
+    selection.setCellSelectionEnabled(true);
+  }
+
+  ////////////////////////////////////// FXML onActions //////////////////////////////////////////
+
   // Node functionality
   public void nodeTabSelect(Event event) {
     initNodeTable();
@@ -119,7 +172,9 @@ public class EditPageController implements Initializable {
   public void deleteNode(ActionEvent actionEvent) {}
 
   // Edge functionality
-  public void edgeTabSelect(Event event) {}
+  public void edgeTabSelect(Event event) {
+    initEdgeTable();
+  }
 
   public void addEdge(ActionEvent actionEvent) {}
 
