@@ -39,6 +39,8 @@ dependencies {
 
             //'junit:junit:4.12' <-- THIS IS NOT NECESSARY, DON'T UNCOMMENT OR PUT IT IN AGAIN
     )
+    // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 
     // THIS IS NECESSARY FOR THE TESTS TO WORK PROPERLY:
     testCompile(
