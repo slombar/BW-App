@@ -7,23 +7,27 @@ import java.util.Stack;
 class DFS {
 
   private Stack<GraphNode> stack;
-  private LinkedList<GraphNode> llVisited;
+  private LinkedList<String> llVisited;
 
   // Constructor
   DFS() {
     this.stack = new Stack<>();
-    llVisited = new LinkedList<GraphNode>();
+    llVisited = new LinkedList<String>();
   }
 
   // main method for depth-first search
-  void dfs(List<GraphNode> nodeList) {
-    for (GraphNode g : nodeList) {
+  void dfs(GraphNode g) {
+    /*for (GraphNode g : nodeList) {
       if (!g.isVisited()) {
         g.setVisited(true);
         llVisited.add(g);
         dfsStack(g);
       }
-    }
+    }*/
+    
+    g.setVisited(true);
+    llVisited.add(g.getNodeID());
+    dfsStack(g);
   }
 
   // Helper method for dfs method
@@ -35,19 +39,19 @@ class DFS {
     while (!stack.isEmpty()) {
 
       GraphNode actualNode = this.stack.pop();
-      System.out.print(actualNode.getNodeID() + " "); // changed to Node.nodeID
+      //System.out.print(actualNode.getNodeID() + " "); // changed to Node.nodeID
 
       for (GraphNode g : actualNode.getNeighbourList()) {
         if (!g.isVisited()) {
           g.setVisited(true);
-          llVisited.add(g);
+          llVisited.add(g.getNodeID());
           this.stack.push(g);
         }
       }
     }
   }
 
-  LinkedList<GraphNode> getLLVisited() {
+  LinkedList<String> getLLVisited() {
     return llVisited;
   }
 }
