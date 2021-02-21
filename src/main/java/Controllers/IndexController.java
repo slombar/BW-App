@@ -119,6 +119,7 @@ public class IndexController {
   }
 
   public void save(ActionEvent actionEvent) throws IOException {
+
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
     gc.fillRect(5, 5, 5, 5);
 
@@ -127,5 +128,15 @@ public class IndexController {
 
     WritableImage map = mapanchor.snapshot(new SnapshotParameters(), null);
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+
+    System.out.println("Starting Up");
+    Parent parent = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
+    Scene scene = new Scene(parent);
+    // this gets Stage info
+    Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    window.setTitle("Share Image");
+    // this sets the scene to the new one specified above
+    window.setScene(scene);
+    window.show();
   }
 }
