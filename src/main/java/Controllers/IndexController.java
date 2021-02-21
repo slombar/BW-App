@@ -1,7 +1,10 @@
 package Controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,7 +16,9 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 public class IndexController {
   public MenuItem edgeEditorButton;
@@ -137,5 +142,29 @@ public class IndexController {
     // this sets the scene to the new one specified above
     window.setScene(scene);
     window.show();
+  }
+
+  // FOR LUKE, snapshot functions
+  public void start(Stage stage) {
+    String imagePath = "resources/picture/yourImage.jpg";
+    Image image = new Image(imagePath);
+
+    // ImageView imageView = new ImageView(image);  //commenting out because we're using the
+    // intialized mapImage
+
+    Button saveBtn = new Button("Save Image");
+    saveBtn.setOnAction(e -> saveToFile(image));
+
+    VBox root = new VBox(10, mapImage, saveBtn); // mapImage for the imageView
+  }
+
+  public static void saveToFile(Image image) {
+    File outputFile = new File("C:/JavaFX/");
+    BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+    try {
+      ImageIO.write(bImage, "png", outputFile);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
