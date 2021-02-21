@@ -18,7 +18,7 @@ public class GraphSystem {
     // (semi-redundant) TODO: figure out how everything will end up initializing
     graph = new Graph(); // maybe have Graph initialize based on CSV?
     // could also be separate method so then it can easily update if CSV changes
-    aStarSearch = new AStarSearch(); // maybe initialize in 'findPath()'
+    //aStarSearch = new AStarSearch(); // maybe initialize in 'findPath()'
     // dfs = new DFS();  // possibly initialize in 'hasUnreachableNodes()'
   }
 
@@ -46,7 +46,6 @@ public class GraphSystem {
       }
     }
     
-    // dummy return
     return hasUnreachable;
   }
   
@@ -55,8 +54,15 @@ public class GraphSystem {
   }
 
   LinkedList<String> findPath(String startID, String targetID) {
-
-    // dummmy return
-    return new LinkedList<>();
+    initializeGraph();
+    aStarSearch = new AStarSearch(graph, startID, targetID);
+    LinkedList<GraphNode> route = aStarSearch.findRoute();
+    
+    LinkedList<String> routeIDs = new LinkedList<>();
+    for(GraphNode node : route) {
+      routeIDs.add(node.getNodeID());
+    }
+    
+    return routeIDs;
   }
 }
