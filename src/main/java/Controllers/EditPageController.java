@@ -2,6 +2,9 @@ package Controllers;
 
 import Controllers.model.*;
 import Controllers.model.Node;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,13 +12,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
+  @FXML private StackPane stackPane;
   @FXML private Tab nodeTableTab;
   @FXML private Tab edgeTableTab;
 
@@ -167,7 +174,24 @@ public class EditPageController implements Initializable {
     initNodeTable();
   }
 
-  public void addNode(ActionEvent actionEvent) {}
+  public void addNode(ActionEvent actionEvent) {
+    JFXDialogLayout addNodeContent = new JFXDialogLayout();
+    addNodeContent.setHeading(new Text("Add a new node"));
+    addNodeContent.setBody(new Text("you've entered"));
+    JFXButton closeDialog = new JFXButton("Close");
+    addNodeContent.setActions(closeDialog);
+    JFXDialog addNodeDialog =
+        new JFXDialog(stackPane, addNodeContent, JFXDialog.DialogTransition.BOTTOM);
+
+    closeDialog.setOnAction(
+        new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            addNodeDialog.close();
+          }
+        });
+    addNodeDialog.show();
+  }
 
   public void deleteNode(ActionEvent actionEvent) {}
 
