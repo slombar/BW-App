@@ -19,11 +19,16 @@ class Graph {
   Graph() {
     listOfNodeIDs = new LinkedList<String>();
     size = 0;
-
     listOfNodes = new Hashtable<>();
   }
 
   public void initialize() {
+    // first reset everything (as though creating new graph):
+    listOfNodeIDs = new LinkedList<String>();
+    size = 0;
+    listOfNodes = new Hashtable<>();
+    
+    // then do this stuff:
     GraphNode node = null;
 
     // initialize a graph
