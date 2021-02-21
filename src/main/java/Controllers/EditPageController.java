@@ -180,6 +180,7 @@ public class EditPageController implements Initializable {
     addNodeContent.setBody(new Text("you've entered"));
     JFXButton closeDialog = new JFXButton("Close");
     addNodeContent.setActions(closeDialog);
+    stackPane.toFront();
     JFXDialog addNodeDialog =
         new JFXDialog(stackPane, addNodeContent, JFXDialog.DialogTransition.BOTTOM);
 
@@ -188,6 +189,7 @@ public class EditPageController implements Initializable {
           @Override
           public void handle(ActionEvent event) {
             addNodeDialog.close();
+            stackPane.toBack();
           }
         });
     addNodeDialog.show();
