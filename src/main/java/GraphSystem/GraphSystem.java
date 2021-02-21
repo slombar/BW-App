@@ -15,11 +15,7 @@ public class GraphSystem {
 
   // constructor
   public GraphSystem() {
-    // (semi-redundant) TODO: figure out how everything will end up initializing
     graph = new Graph(); // maybe have Graph initialize based on CSV?
-    // could also be separate method so then it can easily update if CSV changes
-    //aStarSearch = new AStarSearch(); // maybe initialize in 'findPath()'
-    // dfs = new DFS();  // possibly initialize in 'hasUnreachableNodes()'
   }
 
   public void initializeGraph() {

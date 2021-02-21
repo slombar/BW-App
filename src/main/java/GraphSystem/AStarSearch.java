@@ -19,8 +19,6 @@ class AStarSearch {
 
   // need default constructor (for subsystem design)
   AStarSearch() {
-    // just initializing everything for now
-    // TODO: figure out if/how things should be initialized here
     graph = new Graph(); // may not want/need to initialize graph here
     graphSize = -1;
     startID = "-1";
