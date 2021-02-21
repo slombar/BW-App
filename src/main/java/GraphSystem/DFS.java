@@ -27,6 +27,7 @@ class DFS {
   }
 
   // Helper method for dfs method
+  // test comment
   void dfsStack(GraphNode rootNode) {
     this.stack.add(rootNode);
     rootNode.setVisited(true);
