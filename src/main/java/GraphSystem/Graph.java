@@ -16,13 +16,13 @@ class Graph {
     size = 0;
     listOfNodes = new Hashtable<>();
   }
-  
+
   void initializeGraph() {
     //
     // Graph initialization (based on CSV files) goes here
     //
   }
-  
+
   LinkedList<String> getNodeIDList() {
     return listOfNodeIDs;
   }
@@ -31,7 +31,7 @@ class Graph {
     // put node into listOfNodes with nodeID as the key
     String key = node.getNodeID();
     listOfNodes.put(key, node);
-    listOfNodeIDs.add(node.getNodeID());  // also add nodeID to listOfNodeIDs for easy access
+    listOfNodeIDs.add(node.getNodeID()); // also add nodeID to listOfNodeIDs for easy access
 
     // increment size
     size++;

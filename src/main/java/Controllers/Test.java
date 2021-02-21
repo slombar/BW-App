@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.io.IOException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +14,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class Test {
   public MenuItem edgeEditorButton;
