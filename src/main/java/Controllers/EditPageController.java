@@ -2,23 +2,23 @@ package Controllers;
 
 import Controllers.model.*;
 import Controllers.model.Node;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
@@ -51,6 +51,7 @@ public class EditPageController implements Initializable {
   public static ObservableList<Edge> edgeList;
 
   private boolean popUp = false;
+  private Object JFXTextField;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -180,26 +181,113 @@ public class EditPageController implements Initializable {
     // checking to make sure there are currently no other popups
     if (!popUp) {
       popUp = true;
-      JFXDialogLayout addNodeContent = new JFXDialogLayout();
-      addNodeContent.setHeading(new Text("Add a new node"));
-      addNodeContent.setBody(new Text("you've entered"));
-      JFXButton closeDialog = new JFXButton("Close");
-      addNodeContent.setActions(closeDialog);
+
+      // addNodePopup has the content of the popup
+      // addNodeDialog creates the dialog popup
+
+      JFXDialogLayout addNodePopup = new JFXDialogLayout();
+      addNodePopup.setHeading(new Text("Add a new node"));
+      VBox addNodeVBox = new VBox(12);
+
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Submit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      ArrayList<String> addNodeLabels =
+          new ArrayList<String>(
+              Arrays.asList(
+                  "Node ID",
+                  "X Coordinate",
+                  "Y Coordinate",
+                  "Floor",
+                  "Building",
+                  "Node Type",
+                  "Long Name",
+                  "Short Name"));
+
+      ArrayList<JFXTextField> listOfFields = createFields(addNodeLabels);
+
+      addNodeVBox
+          .getChildren()
+          .addAll(
+              listOfFields.get(0),
+              listOfFields.get(1),
+              listOfFields.get(2),
+              listOfFields.get(3),
+              listOfFields.get(4),
+              listOfFields.get(5),
+              listOfFields.get(6),
+              listOfFields.get(7),
+              buttonBox);
+      addNodePopup.setBody(addNodeVBox);
+
+//      addNodePopup.setActions(closeButton);
+//      addNodePopup.setActions(clearButton);
+//      addNodePopup.setActions(submitButton);
+
       stackPane.toFront();
       JFXDialog addNodeDialog =
-          new JFXDialog(stackPane, addNodeContent, JFXDialog.DialogTransition.BOTTOM);
+          new JFXDialog(stackPane, addNodePopup, JFXDialog.DialogTransition.BOTTOM);
+      addNodeDialog.setOverlayClose(false);
+      nodeTable.setDisable(true);
 
-      closeDialog.setOnAction(
-          new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-              addNodeDialog.close();
-              stackPane.toBack();
-              popUp = false;
-            }
+      closeButton.setOnAction(
+          event -> {
+            addNodeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTable.setDisable(false);
+          });
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+            listOfFields.get(1).clear();
+            listOfFields.get(2).clear();
+            listOfFields.get(3).clear();
+            listOfFields.get(4).clear();
+            listOfFields.get(5).clear();
+            listOfFields.get(6).clear();
+            listOfFields.get(7).clear();
+          });
+      submitButton.setOnAction(
+          event -> {
+            //                      DatabaseFunctionality.addNode(listOfFields.get(0).getText(),
+            //                              listOfFields.get(1).getText(),
+            //                              listOfFields.get(2).getText(),
+            //                              listOfFields.get(3).getText(),
+            //                              listOfFields.get(4).getText(),
+            //                              listOfFields.get(5).getText(),
+            //                              listOfFields.get(6).getText(),
+            //                              listOfFields.get(7).getText(),
+            //                              "O");
+
+            System.out.println(listOfFields.get(0).getText());
+            System.out.println(listOfFields.get(1).getText());
+            System.out.println(listOfFields.get(2).getText());
+            System.out.println(listOfFields.get(3).getText());
+            System.out.println(listOfFields.get(4).getText());
+            System.out.println(listOfFields.get(5).getText());
+            System.out.println(listOfFields.get(6).getText());
+            System.out.println(listOfFields.get(7).getText());
+            addNodeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTable.setDisable(false);
           });
       addNodeDialog.show();
     }
+  }
+
+  private ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+    ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
+    for (String label : labels) {
+      JFXTextField text = new JFXTextField();
+      text.setPromptText(label);
+      listOfFields.add(text);
+    }
+    return listOfFields;
   }
 
   public void deleteNode(ActionEvent actionEvent) {}

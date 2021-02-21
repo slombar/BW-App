@@ -29,50 +29,49 @@ class Graph {
   public void initialize() {
     GraphNode node = null;
 
-    //initialize a graph
-    //new graph graph??
+    // initialize a graph
+    // new graph graph??
 
-    //get the nodes from the database function
+    // get the nodes from the database function
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
     ObservableList<Edge> edgeList = FXCollections.observableArrayList();
 
-    //freakk inteilkijdh
-    //initialize all the graph nodes
+    // freakk inteilkijdh
+    // initialize all the graph nodes
     for (Node n : nodeList) {
 
       nodeList = DatabaseFunctionality.showNodes(nodeList);
 
       String nodeID = n.getID();
 
-      //add to nodeIDs list?? idk what it is
+      // add to nodeIDs list?? idk what it is
 
       int xcoord = Integer.parseInt(n.getXCoord());
       int ycoord = Integer.parseInt(n.getYCoord());
 
-      //creates a single node with the given entered parameters (above)
+      // creates a single node with the given entered parameters (above)
       node = new GraphNode(nodeID, xcoord, ycoord);
 
-      //ADDS THE NODE
+      // ADDS THE NODE
       addNode(node);
     }
 
-    //grab edges from database
+    // grab edges from database
     edgeList = DatabaseFunctionality.showEdges(edgeList);
     String[] nodeIDA;
     String node1ID = "";
     String node2ID = "";
 
-    //for each edge, parse the first half of ID, add to the
-    for(Edge e : edgeList){
-      //get the first half (delimiter = _)
+    // for each edge, parse the first half of ID, add to the
+    for (Edge e : edgeList) {
+      // get the first half (delimiter = _)
       nodeIDA = (e.getID()).split("_", 10);
 
-      node1ID =  nodeIDA[0];
+      node1ID = nodeIDA[0];
       node2ID = nodeIDA[1];
 
       link(node1ID, node2ID);
     }
-
   }
 
   LinkedList<String> getNodeIDList() {

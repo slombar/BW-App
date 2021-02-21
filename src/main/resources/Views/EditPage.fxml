@@ -30,7 +30,7 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                    <StackPane fx:id="stackPane" layoutX="19.0" layoutY="37.0" prefHeight="372.0" prefWidth="406.0" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="38.0" />
+                                    <StackPane fx:id="stackPane" layoutX="19.0" layoutY="37.0" prefHeight="372.0" prefWidth="406.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="38.0" />
                                                 <JFXTreeTableView fx:id="nodeTable" editable="true" layoutX="-7.0" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                        <columns>
                                           <TreeTableColumn fx:id="nodeIDCol" prefWidth="103.0" text="Node ID" />
