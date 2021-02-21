@@ -125,7 +125,7 @@ class AStarSearch {
   }
 
   // finds distance between two nodes (length/weight of edge)
-  private double dist(GraphNode a, GraphNode b) {
+  double dist(GraphNode a, GraphNode b) {
     int x1 = a.getX();
     int x2 = b.getX();
     int y1 = a.getY();
