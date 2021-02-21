@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 
 public class DatabaseFunctionality {
 
@@ -318,7 +317,7 @@ public class DatabaseFunctionality {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
 
-        edgeList.add(new Edge(ID, startNode, endNode, new Button("update")));
+        edgeList.add(new Edge(ID, startNode, endNode, new JFXButton("update")));
       }
       rset.close();
       pstmt.close();
