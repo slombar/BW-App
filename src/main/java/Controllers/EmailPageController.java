@@ -40,6 +40,8 @@ public class EmailPageController {
     String emailString = email.getText();
     System.out.println(emailString);
 
+    SharingFunctionality.sendEmailAttachment(emailString, "mapImageThingy.png");
+
     System.out.println("Starting Up");
     Parent parent = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
     Scene scene = new Scene(parent);

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.IndexController">
+<AnchorPane prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.IndexController">
    <children>
       <GridPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
@@ -56,8 +58,18 @@
                   <Button layoutX="10.0" layoutY="19.0" mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Label fx:id="label" prefHeight="97.0" prefWidth="500.0" text="Label" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#save" text="Button" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
          </children>
       </GridPane>
+      <AnchorPane fx:id="mapanchor" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="mapimage" fitHeight="396.0" fitWidth="717.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Faulkner2_Updated.png" />
+               </image>
+            </ImageView>
+            <Canvas fx:id="mapcanvas" height="390.0" layoutX="6.0" layoutY="6.0" width="660.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
