@@ -1,4 +1,3 @@
 package Controllers;
 
-public class EmployeeLoginController {
-}
+public class EmployeeLoginController {}
