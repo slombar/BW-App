@@ -10,6 +10,7 @@ public class SharingFunctionality {
   // WORK IN PROGRESS
   public static void getEmail() {}
 
+  public static void getMapImage() {}
   /**
    * Sends email with given attachment to given email address
    *
@@ -19,7 +20,7 @@ public class SharingFunctionality {
   public static void sendEmailAttachment(String sendingTo, String fileToBeSent) {
 
     String to = sendingTo; // recipient's email
-    String from = ""; // sender's email, need default sender email !
+    String from = "lahoy1015@gmail.com"; // sender's email, need default sender email !
     String host = "localhost"; // where email is being sent from
 
     Properties properties = System.getProperties(); // set up mail server
@@ -29,7 +30,7 @@ public class SharingFunctionality {
 
     try {
 
-      MimeMessage message = new MimeMessage(session); // Create a default MimeMessage object.
+      MimeMessage message = new MimeMessage(session); // Create a default MimeMessage object
 
       // Setting Email Headers
       message.setFrom(new InternetAddress(from)); // Set From: header
