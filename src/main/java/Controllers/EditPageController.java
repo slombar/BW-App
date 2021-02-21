@@ -50,6 +50,8 @@ public class EditPageController implements Initializable {
   public static ObservableList<Node> nodeList;
   public static ObservableList<Edge> edgeList;
 
+  private boolean popUp = false;
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     initNodeTable();
@@ -175,22 +177,29 @@ public class EditPageController implements Initializable {
   }
 
   public void addNode(ActionEvent actionEvent) {
-    JFXDialogLayout addNodeContent = new JFXDialogLayout();
-    addNodeContent.setHeading(new Text("Add a new node"));
-    addNodeContent.setBody(new Text("you've entered"));
-    JFXButton closeDialog = new JFXButton("Close");
-    addNodeContent.setActions(closeDialog);
-    JFXDialog addNodeDialog =
-        new JFXDialog(stackPane, addNodeContent, JFXDialog.DialogTransition.BOTTOM);
+  // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+      JFXDialogLayout addNodeContent = new JFXDialogLayout();
+      addNodeContent.setHeading(new Text("Add a new node"));
+      addNodeContent.setBody(new Text("you've entered"));
+      JFXButton closeDialog = new JFXButton("Close");
+      addNodeContent.setActions(closeDialog);
+      stackPane.toFront();
+      JFXDialog addNodeDialog =
+          new JFXDialog(stackPane, addNodeContent, JFXDialog.DialogTransition.BOTTOM);
 
-    closeDialog.setOnAction(
-        new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            addNodeDialog.close();
-          }
-        });
-    addNodeDialog.show();
+      closeDialog.setOnAction(
+          new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              addNodeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+            }
+          });
+      addNodeDialog.show();
+    }
   }
 
   public void deleteNode(ActionEvent actionEvent) {}
