@@ -3,20 +3,16 @@ package GraphSystem;
 import Controllers.DatabaseFunctionality;
 import Controllers.model.Edge;
 import Controllers.model.Node;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 class Graph {
 
   private int size;
   private Hashtable<String, GraphNode> listOfNodes; // <NodeID, Node>
-  //what is the purpose of this?
+  // what is the purpose of this?
   private LinkedList<String> listOfNodeIDs;
 
   // default constructor
@@ -24,7 +20,7 @@ class Graph {
     // TODO: figure out how Graph should end up being initialized/setup
     // (haven't changed this constructor yet -- it may not need to?)
 
-    //width/height???
+    // width/height???
     size = 0;
 
     listOfNodes = new Hashtable<>();
@@ -33,45 +29,42 @@ class Graph {
   public void initialize() {
     GraphNode node = null;
 
-    //initialize a graph
-    //new graph graph??
+    // initialize a graph
+    // new graph graph??
 
-    //get the nodes from the database function
+    // get the nodes from the database function
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
     ObservableList<Edge> edgeList = FXCollections.observableArrayList();
 
-    //initialize all the graph nodes
+    // initialize all the graph nodes
     for (Node n : nodeList) {
 
       nodeList = DatabaseFunctionality.showNodes(nodeList);
 
       String nodeID = n.getID();
 
-      //add to nodeIDs list?? idk what it is
+      // add to nodeIDs list?? idk what it is
 
       int xcoord = Integer.parseInt(n.getXCoord());
       int ycoord = Integer.parseInt(n.getYCoord());
 
-      //creates a single node with the given entered parameters (above)
+      // creates a single node with the given entered parameters (above)
       node = new GraphNode(nodeID, xcoord, ycoord);
 
-      //add the node to the graph
-      //Graph.addnode?
+      // add the node to the graph
+      // Graph.addnode?
 
-      //is this right????????? shouldn't we be making a graph??
+      // is this right????????? shouldn't we be making a graph??
       listOfNodes.put(nodeID, node);
     }
 
-    //grab edges from database
+    // grab edges from database
     edgeList = DatabaseFunctionality.showEdges(edgeList);
 
-    //for each edge, parse the first half of ID, add to the
-    for(Edge e : edgeList){
+    // for each edge, parse the first half of ID, add to the
+    for (Edge e : edgeList) {}
 
-    }
-
-
-    //if this nodeid = database nodeid, then add neighbor to this edge.
+    // if this nodeid = database nodeid, then add neighbor to this edge.
 
   }
 

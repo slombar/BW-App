@@ -177,7 +177,7 @@ public class EditPageController implements Initializable {
   }
 
   public void addNode(ActionEvent actionEvent) {
-  // checking to make sure there are currently no other popups
+    // checking to make sure there are currently no other popups
     if (!popUp) {
       popUp = true;
       JFXDialogLayout addNodeContent = new JFXDialogLayout();
