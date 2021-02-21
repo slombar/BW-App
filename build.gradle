@@ -19,7 +19,7 @@ repositories {
 sourceSets {
     test {
         java {
-            srcDir 'src/test/java'
+            srcDir 'src/test/java' // TIM SAID THIS ISN'T NECESSARY BUT I'M NOT FUCKING WITH IT SINCE IT WORKS
         }
     }
 }
@@ -37,14 +37,16 @@ dependencies {
 
             'org.jetbrains:annotations:20.1.0',
 
-            //'junit:junit:4.12'
+            //'junit:junit:4.12' <-- THIS IS NOT NECESSARY, DON'T UNCOMMENT OR PUT IT IN AGAIN
     )
 
+    // THIS IS NECESSARY FOR THE TESTS TO WORK PROPERLY:
     testCompile(
             "org.testfx:testfx-core:4.0.16-alpha",
             'org.junit.jupiter:junit-jupiter:5.6.0',
             'org.testfx:testfx-junit5:4.0.16-alpha',
     )
+    // DON'T DELETE THE ABOVE
 }
 
 
