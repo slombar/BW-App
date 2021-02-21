@@ -55,6 +55,7 @@
                                                         <JFXButton onAction="#deleteNode" text="Delete Node" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                                                     </children>
                                                 </GridPane>
+                                    <StackPane fx:id="stackPane" layoutX="190.0" layoutY="4.0" prefHeight="43.0" prefWidth="116.0" />
                                             </children>
                                         </AnchorPane>
                                     </content>
@@ -89,7 +90,6 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
-                  <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="100.0" />
                     </children>
                 </AnchorPane>
             </items>
