@@ -17,16 +17,18 @@ class Graph {
 
   // default constructor
   Graph() {
-    // TODO: figure out how Graph should end up being initialized/setup
-    // (haven't changed this constructor yet -- it may not need to?)
-
-    // width/height???
+    listOfNodeIDs = new LinkedList<String>();
     size = 0;
-
     listOfNodes = new Hashtable<>();
   }
 
   public void initialize() {
+    // first reset everything (as though creating new graph):
+    listOfNodeIDs = new LinkedList<String>();
+    size = 0;
+    listOfNodes = new Hashtable<>();
+    
+    // then do this stuff:
     GraphNode node = null;
 
     // initialize a graph
