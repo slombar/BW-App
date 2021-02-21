@@ -17,10 +17,7 @@ class Graph {
 
   // default constructor
   Graph() {
-    // TODO: figure out how Graph should end up being initialized/setup
-    // (haven't changed this constructor yet -- it may not need to?)
-
-    // width/height???
+    listOfNodeIDs = new LinkedList<String>();
     size = 0;
 
     listOfNodes = new Hashtable<>();
