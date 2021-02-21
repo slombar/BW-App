@@ -41,6 +41,8 @@ dependencies {
     )
     // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+    // https://mvnrepository.com/artifact/javax.activation/activation
+    implementation group: 'javax.activation', name: 'activation', version: '1.2'
 
     // THIS IS NECESSARY FOR THE TESTS TO WORK PROPERLY:
     testCompile(
