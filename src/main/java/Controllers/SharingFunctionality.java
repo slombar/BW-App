@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.io.File;
 import java.util.*;
 import javax.activation.*;
 import javax.mail.*;
@@ -20,13 +21,29 @@ public class SharingFunctionality {
   public static void sendEmailAttachment(String sendingTo, String fileToBeSent) {
 
     String to = sendingTo; // recipient's email
-    String from = "lahoy1015@gmail.com"; // sender's email, need default sender email !
-    String host = "localhost"; // where email is being sent from
+    String from = "bwappteamo@gmail.com"; // sender's email, need default sender email !
+    String host = "smtp.gmail.com"; // where email is being sent from
 
     Properties properties = System.getProperties(); // set up mail server
     properties.put("mail.smtp.host", host);
+    properties.put("mail.smtp.port", "465");
+    properties.put("mail.smtp.ssl.enable", "true");
+    properties.put("mail.smtp.auth", "true");
 
-    Session session = Session.getDefaultInstance(properties);
+    String home = System.getProperty("user.home");
+    File outputFile = new File(home + "/Downloads/" + "mapImageThingy.png");
+
+    Session session =
+        Session.getInstance(
+            properties,
+            new javax.mail.Authenticator() {
+              protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication(from, "oliveopossum69");
+              }
+            });
+
+    // Session session = Session.getDefaultInstance(properties);
 
     try {
 

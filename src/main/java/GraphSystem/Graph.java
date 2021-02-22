@@ -27,7 +27,7 @@ class Graph {
     listOfNodeIDs = new LinkedList<String>();
     size = 0;
     listOfNodes = new Hashtable<>();
-    
+
     // then do this stuff:
     GraphNode node = null;
 
