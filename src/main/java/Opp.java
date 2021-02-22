@@ -8,15 +8,16 @@ import javafx.stage.Stage;
 public class Opp extends Application {
 
   public void init() {
+    // This happens every time a scene starts up. Kinda cool but not currently useful
     System.out.println("Starting Up");
   }
 
   public void start(Stage primaryStage) throws IOException {
-
+    System.out.println("Starting Method");
     DatabaseFunctionality.establishConnection();
     primaryStage.setTitle("Main Page");
     primaryStage.setScene(
-        new Scene(FXMLLoader.load(getClass().getResource("/Views/test.fxml")), 1000, 750));
+        new Scene(FXMLLoader.load(getClass().getResource("/Views/Index.fxml")), 1000, 750));
     primaryStage.show();
   }
 

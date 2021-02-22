@@ -19,12 +19,13 @@ repositories {
 sourceSets {
     test {
         java {
-            srcDir 'src/test/java'
+            srcDir 'src/test/java' // TIM SAID THIS ISN'T NECESSARY BUT I'M NOT FUCKING WITH IT SINCE IT WORKS
         }
     }
 }
 
 dependencies {
+    compile 'com.vonage:client:5.5.0'
     implementation(
             'com.jfoenix:jfoenix:8.0.10',
 
@@ -37,14 +38,19 @@ dependencies {
 
             'org.jetbrains:annotations:20.1.0',
 
-            'junit:junit:4.12'
+            //'junit:junit:4.12' <-- THIS IS NOT NECESSARY, DON'T UNCOMMENT OR PUT IT IN AGAIN
     )
+    // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+    implementation 'junit:junit:4.12'
 
-    /*testCompile(
+    // THIS IS NECESSARY FOR THE TESTS TO WORK PROPERLY:
+    testCompile(
             "org.testfx:testfx-core:4.0.16-alpha",
             'org.junit.jupiter:junit-jupiter:5.6.0',
             'org.testfx:testfx-junit5:4.0.16-alpha',
-    )*/
+    )
+    // DON'T DELETE THE ABOVE
 }
 
 

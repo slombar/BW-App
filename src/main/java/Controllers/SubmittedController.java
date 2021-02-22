@@ -8,8 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class SecFormController {
-  public void goToHomePage(ActionEvent actionEvent) throws IOException {
+public class SubmittedController {
+
+  public void back(ActionEvent actionEvent) throws IOException {
     System.out.println("Starting Up");
     Parent parent = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
     Scene scene = new Scene(parent);

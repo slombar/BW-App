@@ -19,8 +19,6 @@ class AStarSearch {
 
   // need default constructor (for subsystem design)
   AStarSearch() {
-    // just initializing everything for now
-    // TODO: figure out if/how things should be initialized here
     graph = new Graph(); // may not want/need to initialize graph here
     graphSize = -1;
     startID = "-1";
@@ -110,7 +108,7 @@ class AStarSearch {
   // first parameter is next node being added to frontier,
   // and it compares to target node
   private double heuristic(GraphNode next) {
-    int x1 = next.getX();
+    /*int x1 = next.getX();
     int x2 = graph.getNode(targetID).getX();
     int y1 = next.getY();
     int y2 = graph.getNode(targetID).getY();
@@ -120,11 +118,14 @@ class AStarSearch {
     //  but an approximation needs to be LESS than the actual distance
     //  (actual distance might mean actual distance via graph??)
     double distSq = Math.pow(Math.abs(x1 - x2), 2.0) + Math.pow(Math.abs(y1 - y2), 2.0);
-    return Math.sqrt(distSq);
+    return Math.sqrt(distSq);*/
+
+    // this method is literally just returning the dist between next and target Ryan you dummy
+    return dist(next, graph.getNode(targetID));
   }
 
   // finds distance between two nodes (length/weight of edge)
-  private double dist(GraphNode a, GraphNode b) {
+  double dist(GraphNode a, GraphNode b) {
     int x1 = a.getX();
     int x2 = b.getX();
     int y1 = a.getY();

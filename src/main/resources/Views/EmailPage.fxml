@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="639.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmailPageController">
+   <children>
+      <SplitPane dividerPositions="0.608" prefHeight="160.0" prefWidth="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="mapView" fitHeight="550.0" fitWidth="600.0" layoutX="109.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <JFXTextField fx:id="email" prefWidth="250.0" promptText="Example@mail.com" unFocusColor="#0d0d0d">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="15.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <JFXButton fx:id="confirmBtn" onAction="#sendEmail" text="Email it to me!">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                           <padding>
+                              <Insets top="15.0" />
+                           </padding>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <JFXTextField fx:id="phoneNum" prefHeight="32.0" prefWidth="250.0" promptText="+1 (XXX) XXX - XXXX" unFocusColor="#0d0d0d">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton onAction="#sendText" text="Text it to me!">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <ImageView fx:id="QRView" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="175.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="14.0" onAction="#back" prefHeight="31.0" prefWidth="86.0" text="Back" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXSpinner fx:id="spinner" visible="false" AnchorPane.bottomAnchor="280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="280.0" />
+   </children>
+</AnchorPane>

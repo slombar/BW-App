@@ -21,8 +21,14 @@ class GraphNode implements Comparable<GraphNode> {
 
   // all parameter; I guess
   GraphNode(
-      String nodeid, int xcoord, int ycoord,
-      String building, String nodetype, String longname, String shortname, String teamassigned) {
+      String nodeid,
+      int xcoord,
+      int ycoord,
+      String building,
+      String nodetype,
+      String longname,
+      String shortname,
+      String teamassigned) {
     this.nodeID = nodeid;
     this.xCoord = xcoord;
     this.yCoord = ycoord;

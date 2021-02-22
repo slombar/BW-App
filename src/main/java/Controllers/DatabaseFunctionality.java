@@ -2,12 +2,13 @@ package Controllers;
 
 import Controllers.model.Edge;
 import Controllers.model.Node;
+import com.jfoenix.controls.JFXButton;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 
 public class DatabaseFunctionality {
 
@@ -301,6 +302,49 @@ public class DatabaseFunctionality {
     }
   }
 
+  /**
+   * returns the given node corresponding to the String nodeID in order to create test graph
+   *
+   * @param nodeID
+   * @return
+   */
+  public static ArrayList<String> getNode(String nodeID) {
+
+    Node node = new Node();
+
+    // store nodeid[0], x[1] y[2]
+    ArrayList<String> list = new ArrayList<>();
+
+    String ID = "";
+    int x = 0;
+    int y = 0;
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = connection.prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + nodeID + "'");
+      ResultSet rset = pstmt.executeQuery();
+
+      while (rset.next()) {
+        ID = rset.getString("nodeID");
+        x = rset.getInt("xcoord");
+        y = rset.getInt("ycoord");
+      }
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    list.set(0, ID);
+    list.set(1, String.valueOf(x));
+    list.set(2, String.valueOf(y));
+
+    System.out.println("VARIABLES: id,x,y" + list.get(0) + list.get(1) + list.get(2));
+
+    return list;
+  }
+
   public static ObservableList<Edge> showEdges(ObservableList<Edge> edgeList) {
     try {
       PreparedStatement pstmt = null;
@@ -317,7 +361,7 @@ public class DatabaseFunctionality {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
 
-        edgeList.add(new Edge(ID, startNode, endNode, new Button("update")));
+        edgeList.add(new Edge(ID, startNode, endNode, new JFXButton("update")));
       }
       rset.close();
       pstmt.close();
@@ -340,7 +384,6 @@ public class DatabaseFunctionality {
       String ycoord = "";
       String floor = "";
       String building = "";
-      String team = "";
       String nodeType = "";
       String longName = "";
       String shortName = "";
@@ -355,8 +398,6 @@ public class DatabaseFunctionality {
         nodeType = rset.getString("nodeType");
         longName = rset.getString("longName");
         shortName = rset.getString("shortName");
-        team = rset.getString("teamAssigned");
-
         nodeList.add(
             new Node(
                 ID,
@@ -367,8 +408,7 @@ public class DatabaseFunctionality {
                 nodeType,
                 longName,
                 shortName,
-                team,
-                new Button("update")));
+                new JFXButton("update")));
       }
       rset.close();
       pstmt.close();
