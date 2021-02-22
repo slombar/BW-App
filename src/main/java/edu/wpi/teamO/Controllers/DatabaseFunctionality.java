@@ -1,4 +1,4 @@
-package Controllers;
+package edu.wpi.teamO.Controllers;
 
 import Controllers.model.Edge;
 import Controllers.model.Node;
@@ -363,6 +363,7 @@ public class DatabaseFunctionality {
 
         edgeList.add(new Edge(ID, startNode, endNode, new JFXButton("update")));
       }
+
       rset.close();
       pstmt.close();
 

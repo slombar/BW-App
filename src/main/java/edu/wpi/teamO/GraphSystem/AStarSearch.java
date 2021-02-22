@@ -1,4 +1,4 @@
-package GraphSystem;
+package edu.wpi.teamO.GraphSystem;
 
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -40,7 +40,7 @@ class AStarSearch {
   }
 
   // actual search method
-  // returns found route (in order) as LL<GraphSystem.GraphNode>
+  // returns found route (in order) as LL<edu.wpi.teamO.GraphSystem.GraphNode>
   LinkedList<GraphNode> findRoute() {
     // sets start node based on startID provided in constructor
     GraphNode startNode = graph.getNode(startID);

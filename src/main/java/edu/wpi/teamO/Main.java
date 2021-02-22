@@ -1,9 +1,16 @@
-import Controllers.DatabaseFunctionality;
+package edu.wpi.teamO;
+
+import edu.wpi.teamO.Controllers.DatabaseFunctionality;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+
+  public static void main(String args[]) throws IOException {
+    DatabaseFunctionality.establishConnection();
+    Opp.launch(Opp.class, args);
+  }
 
   public static void fileUpload() {
 
@@ -74,10 +81,5 @@ public class Main {
       System.out.println("File Saved!");
     }
     DatabaseFunctionality.shutDownDB();
-  }
-
-  public static void main(String args[]) throws IOException {
-
-    Opp.launch(Opp.class, args);
   }
 }

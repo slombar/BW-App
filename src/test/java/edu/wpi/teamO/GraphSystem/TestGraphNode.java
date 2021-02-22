@@ -1,9 +1,11 @@
-package GraphSystem;
+package edu.wpi.teamO.GraphSystem;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestGraphNode {
   // GraphNode node1 = GraphNode(
@@ -12,7 +14,7 @@ public class TestGraphNode {
   GraphNode node1;
   GraphNode node2;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     node1 = new GraphNode("OWALK00201", 10, 10, "Faulkner", "WALK", "Walkway 2", "WALK_002", "O");
 
@@ -25,23 +27,23 @@ public class TestGraphNode {
     node1.addNeighbour(node2);
     LinkedList<GraphNode> node1List = new LinkedList<GraphNode>();
     node1List.add(node2);
-    Assert.assertEquals(node1.getNeighbourList(), node1List);
+    assertEquals(node1.getNeighbourList(), node1List);
   }
 
   // Checks to see node1 isn't a neighbor of node1 after adding node2 to node1's List
-  @Test
+  /*@Test
   public void testAddNeighborOneDirection() {
     node1.addNeighbour(node2);
     LinkedList<GraphNode> node2List = new LinkedList<GraphNode>();
-    Assert.assertEquals(node2.getNeighbourList(), node2List);
-  }
+    assertEquals(node2.getNeighbourList(), node2List);
+  }*/
 
   // Tests whether the compareTo method returns 0 when both nodes have the same priority
   @Test
   public void testCompareToSamePriority() {
     node1.setPriority(2);
     node2.setPriority(2);
-    Assert.assertEquals(0, node1.compareTo(node2));
+    assertEquals(0, node1.compareTo(node2));
   }
 
   // Tests whether the compareTo method returns a negative number when the node calling the method
@@ -51,7 +53,7 @@ public class TestGraphNode {
   public void testCompareToLessPriority() {
     node1.setPriority(2);
     node2.setPriority(3);
-    Assert.assertEquals(true, node1.compareTo(node2) < 0);
+    assertTrue(node1.compareTo(node2) < 0);
   }
 
   // Tests whether the compareTo method returns a positive number when the node calling the method
@@ -61,6 +63,6 @@ public class TestGraphNode {
   public void testCompareToMorePriority() {
     node1.setPriority(2);
     node2.setPriority(3);
-    Assert.assertEquals(true, node2.compareTo(node1) > 0);
+    assertTrue(node2.compareTo(node1) > 0);
   }
 }
