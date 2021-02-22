@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
-public class IndexController {
+public class IndexController implements Initializable {
   public MenuItem edgeEditorButton;
   public MenuItem nodeEditorButton;
   public MenuItem securityButton;
@@ -53,6 +54,18 @@ public class IndexController {
   public Canvas mapcanvas;
   public Button saveBtn;
   public AnchorPane mapanchor;
+
+  ObservableList<Controllers.model.Node> nodeList = FXCollections.observableArrayList();
+
+  @Override
+  public void initialize() {
+    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
+    gc.fillRect(5, 5, 5, 5);
+
+    double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
+    double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
+    System.out.println("Initalized");
+  }
 
   public void pathfindingPress(ActionEvent actionEvent) {
     /*AStarSearch aStar = new AStarSearch(testGraph, loc, dest);
@@ -144,12 +157,10 @@ public class IndexController {
   }
 
   public void canvasClick(MouseEvent mouseEvent) {
-    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
-    gc.fillRect(5, 5, 5, 5);
-/* This is how to get a list of nodes and all the individual x and y values of that list
-    ObservableList<Controllers.model.Node> nodeList = FXCollections.observableArrayList();
-    double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
-    double nodeY = Double.valueOf(nodeList.get(0).getYCoord());*/
+    double clickx = mouseEvent.getX();
+    double clicky = mouseEvent.getY();
 
+    double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
+    double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
   }
 }

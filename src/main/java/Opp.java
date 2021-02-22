@@ -8,11 +8,12 @@ import javafx.stage.Stage;
 public class Opp extends Application {
 
   public void init() {
+    // This happens every time a scene starts up. Kinda cool but not currently useful
     System.out.println("Starting Up");
   }
 
   public void start(Stage primaryStage) throws IOException {
-
+    System.out.println("Starting Method");
     DatabaseFunctionality.establishConnection();
     primaryStage.setTitle("Main Page");
     primaryStage.setScene(
