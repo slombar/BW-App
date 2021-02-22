@@ -25,7 +25,7 @@ sourceSets {
 }
 
 dependencies {
-    compile 'com.nexmo:client:4.+'
+    compile 'com.vonage:client:5.5.0'
     implementation(
             'com.jfoenix:jfoenix:8.0.10',
 
