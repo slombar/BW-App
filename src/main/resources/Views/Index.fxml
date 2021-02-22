@@ -2,9 +2,6 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -28,21 +25,6 @@
             <ImageView fx:id="mapImage" fitHeight="343.0" fitWidth="327.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#exit" text="Exit Application" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Button fx:id="pathfindingButton" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label text="To" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <SplitMenuButton fx:id="location" mnemonicParsing="false" text="Select Location" textFill="#505cda" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-              <items>
-                  <MenuItem fx:id="loc1Button" onAction="#loc1Press" text="Hospital Room 1" />
-                  <MenuItem fx:id="loc2Button" onAction="#loc2Press" text="Hospital Room 2" />
-                  <MenuItem fx:id="loc3Button" onAction="#loc3press" text="Hospital Room 3" />
-              </items>
-            </SplitMenuButton>
-            <SplitMenuButton fx:id="destination" mnemonicParsing="false" text="Select Destination" textFill="#cd1f1f" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <items>
-                  <MenuItem fx:id="dest1Button" onAction="#dest1Press" text="Hospital Room 5" />
-                  <MenuItem fx:id="dest2Button" onAction="#dest2Press" text="Hospital Room 6" />
-                  <MenuItem fx:id="dest3Button" onAction="#dest3Press" text="Hospital Room 7" />
-               </items>
-            </SplitMenuButton>
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -59,6 +41,8 @@
                </children>
             </GridPane>
             <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#save" text="Button" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+            <Button fx:id="destButton" mnemonicParsing="false" onAction="#destClick" text="Select Destination" textFill="#e13434" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button fx:id="locButton" mnemonicParsing="false" onAction="#locClick" text="Select Starting Location" textFill="#333ce1" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
       <AnchorPane fx:id="mapanchor" prefHeight="200.0" prefWidth="200.0">
