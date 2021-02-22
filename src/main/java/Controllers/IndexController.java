@@ -2,6 +2,8 @@ package Controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,6 +49,7 @@ public class IndexController implements Initializable {
 
   String loc = "node1";
   String dest = "node5";
+  boolean selectingLoc = true;
   // Graph testGraph;
   // these variables show which of the three locations/destinations respectivly is currently being
   // tracked
@@ -58,6 +61,16 @@ public class IndexController implements Initializable {
   ObservableList<Controllers.model.Node> nodeList = FXCollections.observableArrayList();
 
   @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
+    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
+    gc.fillRect(5, 5, 5, 5);
+
+    // double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
+    // double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
+    System.out.println("Initalized");
+  }
+  /*@Override
   public void initialize() {
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
     gc.fillRect(5, 5, 5, 5);
@@ -65,7 +78,7 @@ public class IndexController implements Initializable {
     double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
     double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
     System.out.println("Initalized");
-  }
+  }*/
 
   public void pathfindingPress(ActionEvent actionEvent) {
     /*AStarSearch aStar = new AStarSearch(testGraph, loc, dest);
