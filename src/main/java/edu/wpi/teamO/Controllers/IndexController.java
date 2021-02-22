@@ -242,4 +242,11 @@ public class IndexController implements Initializable {
   public void destClick(ActionEvent actionEvent) {
     selectingLoc = false;
   }
+
+  public void resetClick(ActionEvent actionEvent) {
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+    loc = "-1";
+    dest = "-1";
+    drawNodeCircles();
+  }
 }
