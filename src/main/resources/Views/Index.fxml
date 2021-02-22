@@ -8,9 +8,20 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import com.jfoenix.controls.JFXButton?>
 
-<AnchorPane prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.IndexController">
+<AnchorPane prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.IndexController">
    <children>
+      <AnchorPane fx:id="mapanchor" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../FaulknerCampus.png" />
+               </image>
+            </ImageView>
+            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
+         </children>
+      </AnchorPane>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="10.0" prefWidth="263.1999877929687" />
@@ -23,8 +34,11 @@
          </rowConstraints>
          <children>
             <ImageView fx:id="mapImage" fitHeight="343.0" fitWidth="327.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#exit" text="Exit Application" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button fx:id="pathfindingButton" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <JFXButton mnemonicParsing="false" onAction="#exit" text="Exit Application" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <JFXButton fx:id="pathfindingButton" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <JFXButton fx:id="destButton" mnemonicParsing="false" onAction="#destClick" text="Select Destination" textFill="#e13434" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <JFXButton fx:id="locButton" mnemonicParsing="false" onAction="#locClick" text="Select Starting Location" textFill="#333ce1" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <JFXButton fx:id="saveBtn" mnemonicParsing="false" onAction="#save" text="Button" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,24 +50,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#goToEditNodes" text="Edit Graph" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Button layoutX="10.0" layoutY="19.0" mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <JFXButton mnemonicParsing="false" onAction="#goToEditNodes" text="Edit Graph" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <JFXButton layoutX="10.0" layoutY="19.0" mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#save" text="Button" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-            <Button fx:id="destButton" mnemonicParsing="false" onAction="#destClick" text="Select Destination" textFill="#e13434" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button fx:id="locButton" mnemonicParsing="false" onAction="#locClick" text="Select Starting Location" textFill="#333ce1" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <AnchorPane fx:id="mapanchor" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Downloads/Maps/FaulknerCampus.png" />
-               </image>
-            </ImageView>
-            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
-         </children>
-      </AnchorPane>
    </children>
 </AnchorPane>

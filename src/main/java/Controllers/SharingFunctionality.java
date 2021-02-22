@@ -1,5 +1,9 @@
 package Controllers;
 
+import com.nexmo.client.NexmoClient;
+import com.nexmo.client.sms.SmsSubmissionResponse;
+import com.nexmo.client.sms.SmsSubmissionResponseMessage;
+import com.nexmo.client.sms.messages.TextMessage;
 import java.io.File;
 import java.util.*;
 import javax.activation.*;
@@ -9,9 +13,23 @@ import javax.mail.internet.*;
 public class SharingFunctionality {
 
   // WORK IN PROGRESS
-  public static void getEmail() {}
+  public static void sendSMS(String sendingTo, String fileToBeSent) {
+    try {
+      NexmoClient client =
+          new NexmoClient.Builder().apiKey("390a6808").apiSecret("vdFIoqy6XZ9nFRQn").build();
 
-  public static void getMapImage() {}
+      String messageText = "Hello from Vonage SMS API";
+      TextMessage message = new TextMessage("18888571289", "16176061459", messageText);
+
+      SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+      for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
+        System.out.println(responseMessage);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
   /**
    * Sends email with given attachment to given email address
    *
@@ -60,7 +78,7 @@ public class SharingFunctionality {
       // Actual Message
       messageBodyPart.setText("This is message body");
 
-      // Create a multipar message + set text message part
+      // Create a multipart message + set text message part
       Multipart multipart = new MimeMultipart();
       multipart.addBodyPart(messageBodyPart);
 
