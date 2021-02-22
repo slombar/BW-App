@@ -28,6 +28,7 @@ public class EmailPageController {
   @FXML private ImageView mapView;
 
   private boolean popUp = false;
+  private boolean goHome = false;
 
   public void back(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
@@ -43,8 +44,15 @@ public class EmailPageController {
 
     SharingFunctionality.sendEmailAttachment(emailString, outputFile);
 
+    // still need to test if this works
+    goHome = false;
     sumbissionPopup();
+    if (goHome) {
+      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    }
 
+    //    original scene switch
     //    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
     //    Opp.getPrimaryStage().getScene().setRoot(root);
   }
@@ -60,13 +68,22 @@ public class EmailPageController {
     SharingFunctionality.sendSMS(phoneString, outputFile);
     // phoneString, outputFile
 
-    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
-    Opp.getPrimaryStage().getScene().setRoot(root);
+    // still need to test if this works
+    goHome = false;
+    sumbissionPopup();
+    if (goHome) {
+      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    }
+    //    original scene switch
+    //    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
+    //    Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
   public void sumbissionPopup() {
     if (!popUp) {
       popUp = true;
+      goHome = false;
 
       // dialogContent has the conetnt of the popup
       JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -97,7 +114,18 @@ public class EmailPageController {
             submissionDialog.close();
             stackPane.toBack();
             popUp = false;
+            goHome = false;
           });
+
+      // go to Index/Homepage
+      homeButton.setOnAction(
+          event -> {
+            submissionDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            goHome = true;
+          });
+      submissionDialog.show();
     }
   }
 }
