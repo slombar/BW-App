@@ -1,7 +1,12 @@
 package Controllers;
 
 import java.io.IOException;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,18 +19,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class EmailPageController {
-
-  public TextField email;
-  public Button backBtn;
-  public Button confirmBtn;
-  public ImageView mapimage;
-  public Canvas mapcanvas;
-  public Button saveBtn;
-  public AnchorPane mapanchor;
+  @FXML private JFXTextField phoneNum;
+  @FXML private ImageView QRView;
+  @FXML private JFXButton backBtn;
+  @FXML private JFXSpinner spinner;
+  @FXML private JFXTextField email;
+  @FXML private JFXButton confirmBtn;
+  @FXML private ImageView mapView;
 
   public void back(ActionEvent actionEvent) throws IOException {
 
-    System.out.println("Starting Up");
     Parent parent = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
     Scene scene = new Scene(parent);
     // this gets Stage info
@@ -37,6 +40,7 @@ public class EmailPageController {
   }
 
   public void sendEmail(ActionEvent actionEvent) throws IOException {
+
     String emailString = email.getText();
     System.out.println(emailString);
 
