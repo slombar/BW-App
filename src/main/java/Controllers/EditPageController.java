@@ -27,6 +27,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class EditPageController implements Initializable {
+  @FXML private JFXButton backButton;
+  @FXML private JFXButton addNodeButton;
+  @FXML private JFXButton deleteNodeButton;
+  @FXML private JFXButton addEdgeButton;
+  @FXML private JFXButton deleteEdgeButton;
+
   @FXML private StackPane warningPane;
   @FXML private StackPane stackPane;
   @FXML private Tab nodeTableTab;
@@ -62,6 +68,16 @@ public class EditPageController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     initNodeTable();
     initEdgeTable();
+    customizeButtons();
+  }
+
+  // Customize
+  private void customizeButtons() {
+    backButton.setStyle("-fx-background-color: lightgray");
+    addNodeButton.setStyle("-fx-background-color: lightgray");
+    deleteNodeButton.setStyle("-fx-background-color: lightgray");
+    addEdgeButton.setStyle("-fx-background-color: lightgray");
+    deleteEdgeButton.setStyle("-fx-background-color: lightgray");
   }
 
   ///////////////////////////// NODES TABLE //////////////////////////////
