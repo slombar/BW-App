@@ -6,7 +6,6 @@ import edu.wpi.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -62,7 +61,7 @@ public class IndexController implements Initializable {
   public Canvas mapcanvas;
   public Button saveBtn;
   public AnchorPane mapanchor;
-  private ArrayList<Circle> circleList;
+  // private ArrayList<Circle> circleList;
   private ObservableList<Node> nodeList = FXCollections.observableArrayList();
   private Hashtable<String, Circle> stringCircleHashtable;
   private GraphicsContext gc;
@@ -75,7 +74,6 @@ public class IndexController implements Initializable {
     stringCircleHashtable = new Hashtable<>();
 
     gc = mapcanvas.getGraphicsContext2D();
-    gc.fillRect(5, 5, 5, 5);
 
     drawNodeCircles(nodeList);
     System.out.println("Initalized");
@@ -142,7 +140,6 @@ public class IndexController implements Initializable {
   public void goToSecurityRequest(ActionEvent actionEvent) throws IOException {
     // add the scene switch
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/SecurityForm.fxml"));
-    // errors TODO: fix
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
@@ -150,7 +147,6 @@ public class IndexController implements Initializable {
     // add the scene switch
     try {
       AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EditPage.fxml"));
-      // errors TODO: fix
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -160,7 +156,6 @@ public class IndexController implements Initializable {
   public void save(ActionEvent actionEvent) throws IOException {
 
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
-    gc.fillRect(5, 5, 5, 5);
 
     String home = System.getProperty("user.home");
     File outputFile = new File(home + "/Downloads/" + "mapImageThingy.png");

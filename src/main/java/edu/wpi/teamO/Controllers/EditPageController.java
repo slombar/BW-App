@@ -91,7 +91,7 @@ public class EditPageController implements Initializable {
   // Loads the node data from the database and puts it into tree table
   private void loadNodeData() {
     nodeList = FXCollections.observableArrayList();
-    DatabaseFunctionality.showNodes(nodeList);
+    nodeList = DatabaseFunctionality.showNodes(nodeList);
     ObservableList<TreeItem<Node>> nodeTreeList;
     nodeTreeList = FXCollections.observableArrayList();
 
@@ -659,7 +659,6 @@ public class EditPageController implements Initializable {
    */
   public void goToIndex(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
-    // errors TODO: fix
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 }

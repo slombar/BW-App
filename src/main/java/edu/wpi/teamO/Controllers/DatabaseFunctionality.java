@@ -1,8 +1,7 @@
 package edu.wpi.teamO.Controllers;
 
-import Controllers.model.Edge;
-import Controllers.model.Node;
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.teamO.Controllers.model.*;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;

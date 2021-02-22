@@ -7,11 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lombok.Getter;
 
 public class Opp extends Application {
 
-  @Getter private static Stage primaryStage;
+  private static Stage primaryStage;
+
+  public static Stage getPrimaryStage() {
+    return primaryStage;
+  }
 
   public void init() {
     // This happens every time a scene starts up. Kinda cool but not currently useful
