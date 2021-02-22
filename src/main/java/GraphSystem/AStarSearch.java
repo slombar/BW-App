@@ -119,7 +119,7 @@ class AStarSearch {
     //  (actual distance might mean actual distance via graph??)
     double distSq = Math.pow(Math.abs(x1 - x2), 2.0) + Math.pow(Math.abs(y1 - y2), 2.0);
     return Math.sqrt(distSq);*/
-    
+
     // this method is literally just returning the dist between next and target Ryan you dummy
     return dist(next, graph.getNode(targetID));
   }
