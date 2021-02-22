@@ -280,15 +280,15 @@ public class EditPageController implements Initializable {
                 || listOfFields.get(7).getText().isEmpty()) {
               incompletePopup();
             } else {
-//                      DatabaseFunctionality.addNode(listOfFields.get(0).getText(),
-//                              listOfFields.get(1).getText(),
-//                              listOfFields.get(2).getText(),
-//                              listOfFields.get(3).getText(),
-//                              listOfFields.get(4).getText(),
-//                              listOfFields.get(5).getText(),
-//                              listOfFields.get(6).getText(),
-//                              listOfFields.get(7).getText(),
-//                              "O");
+              //                      DatabaseFunctionality.addNode(listOfFields.get(0).getText(),
+              //                              listOfFields.get(1).getText(),
+              //                              listOfFields.get(2).getText(),
+              //                              listOfFields.get(3).getText(),
+              //                              listOfFields.get(4).getText(),
+              //                              listOfFields.get(5).getText(),
+              //                              listOfFields.get(6).getText(),
+              //                              listOfFields.get(7).getText(),
+              //                              "O");
 
               System.out.println(listOfFields.get(0).getText());
               System.out.println(listOfFields.get(1).getText());
@@ -375,7 +375,7 @@ public class EditPageController implements Initializable {
             } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
               nonexistantPopup();
             } else {
-//               DatabaseFunctionality.deleteNode(listOfFields.get(0).getText());
+              //               DatabaseFunctionality.deleteNode(listOfFields.get(0).getText());
 
               System.out.println(listOfFields.get(0).getText());
               deleteNodeDialog.close();
