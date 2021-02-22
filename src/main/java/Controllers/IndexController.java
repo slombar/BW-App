@@ -3,6 +3,8 @@ package Controllers;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -138,5 +141,15 @@ public class IndexController {
     // this sets the scene to the new one specified above
     window.setScene(scene);
     window.show();
+  }
+
+  public void canvasClick(MouseEvent mouseEvent) {
+    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
+    gc.fillRect(5, 5, 5, 5);
+/* This is how to get a list of nodes and all the individual x and y values of that list
+    ObservableList<Controllers.model.Node> nodeList = FXCollections.observableArrayList();
+    double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
+    double nodeY = Double.valueOf(nodeList.get(0).getYCoord());*/
+
   }
 }
