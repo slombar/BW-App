@@ -1,6 +1,6 @@
-package GraphSystem;
+package edu.wpi.teamO.GraphSystem;
 
-import Controllers.DatabaseFunctionality;
+import edu.wpi.teamO.Controllers.DatabaseFunctionality;
 import java.util.ArrayList;
 
 public class testHelp {

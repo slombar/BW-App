@@ -1,8 +1,9 @@
-package Controllers;
+package edu.wpi.teamO.Controllers;
 
-import Controllers.model.*;
-import Controllers.model.Node;
 import com.jfoenix.controls.*;
+import edu.wpi.teamO.Controllers.model.Edge;
+import edu.wpi.teamO.Controllers.model.Node;
+import edu.wpi.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,16 +16,14 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class EditPageController implements Initializable {
   @FXML private JFXButton backButton;
@@ -155,7 +154,7 @@ public class EditPageController implements Initializable {
     loadEdgeData();
   }
 
-  // Loads the edge data from the database and puts it into tree table
+  // Loads the node data from the database and puts it into tree table
   private void loadEdgeData() {
     edgeList = FXCollections.observableArrayList();
     DatabaseFunctionality.showEdges(edgeList);
@@ -668,15 +667,14 @@ public class EditPageController implements Initializable {
             });
   }
 
-  // Switches scene to homepage
+  /**
+   * Send user back to index.fxml
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
   public void goToIndex(ActionEvent actionEvent) throws IOException {
-    Parent parent = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
-    Scene scene = new Scene(parent);
-    // this gets Stage info
-    Stage window = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
-    window.setTitle("Main Page");
-    // this sets the scene to the new one specified above
-    window.setScene(scene);
-    window.show();
+    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+    Opp.getPrimaryStage().getScene().setRoot(root);
   }
 }

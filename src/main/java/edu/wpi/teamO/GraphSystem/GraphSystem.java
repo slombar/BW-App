@@ -1,8 +1,8 @@
-package GraphSystem;
+package edu.wpi.teamO.GraphSystem;
 
 import java.util.LinkedList;
 
-// main class of the 'GraphSystem' subsystem
+// main class of the 'edu.wpi.teamO.GraphSystem' subsystem
 public class GraphSystem {
 
   // attributes

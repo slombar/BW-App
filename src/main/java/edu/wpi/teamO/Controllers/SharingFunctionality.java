@@ -1,5 +1,4 @@
-package Controllers;
-// package com.vonage.quickstart.sms;
+package edu.wpi.teamO.Controllers;
 
 import com.vonage.client.VonageClient;
 import com.vonage.client.sms.MessageStatus;
@@ -13,7 +12,7 @@ import javax.mail.internet.*;
 
 public class SharingFunctionality {
 
-  // WORK IN PROGRESS
+  // TODO:implement sending image to phone &  get a better service?
   public static void sendSMS(String sendingTo, String fileToBeSent) {
 
     VonageClient client =

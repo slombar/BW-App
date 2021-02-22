@@ -1,4 +1,4 @@
-package GraphSystem;
+package edu.wpi.teamO.GraphSystem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,12 +31,12 @@ public class TestGraphNode {
   }
 
   // Checks to see node1 isn't a neighbor of node1 after adding node2 to node1's List
-  @Test
+  /*@Test
   public void testAddNeighborOneDirection() {
     node1.addNeighbour(node2);
     LinkedList<GraphNode> node2List = new LinkedList<GraphNode>();
     assertEquals(node2.getNeighbourList(), node2List);
-  }
+  }*/
 
   // Tests whether the compareTo method returns 0 when both nodes have the same priority
   @Test

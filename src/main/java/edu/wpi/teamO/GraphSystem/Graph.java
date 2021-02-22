@@ -1,8 +1,8 @@
-package GraphSystem;
+package edu.wpi.teamO.GraphSystem;
 
-import Controllers.DatabaseFunctionality;
-import Controllers.model.Edge;
-import Controllers.model.Node;
+import edu.wpi.teamO.Controllers.DatabaseFunctionality;
+import edu.wpi.teamO.Controllers.model.Edge;
+import edu.wpi.teamO.Controllers.model.Node;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import javafx.collections.FXCollections;

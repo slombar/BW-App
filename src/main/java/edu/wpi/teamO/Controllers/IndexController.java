@@ -1,6 +1,8 @@
-package Controllers;
+package edu.wpi.teamO.Controllers;
 
-import GraphSystem.GraphSystem;
+import edu.wpi.teamO.Controllers.model.Node;
+import edu.wpi.teamO.GraphSystem.GraphSystem;
+import edu.wpi.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -14,9 +16,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,9 +27,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 public class IndexController implements Initializable {
@@ -64,10 +62,9 @@ public class IndexController implements Initializable {
   public Button saveBtn;
   public AnchorPane mapanchor;
   // private ArrayList<Circle> circleList;
-  private Hashtable<String, Circle> stringCircleHashtable; // <nodeID, corresponding Circle>
-  GraphicsContext gc;
-
-  ObservableList<Controllers.model.Node> nodeList;
+  private ObservableList<Node> nodeList = FXCollections.observableArrayList();
+  private Hashtable<String, Circle> stringCircleHashtable;
+  private GraphicsContext gc;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -77,13 +74,12 @@ public class IndexController implements Initializable {
     stringCircleHashtable = new Hashtable<>();
 
     gc = mapcanvas.getGraphicsContext2D();
-    gc.fillRect(5, 5, 5, 5);
 
-    drawNodeCircles(nodeList);
+    drawNodeCircles(/*nodeList*/ );
     System.out.println("Initalized");
   }
 
-  public void drawNodeCircles(ObservableList<Controllers.model.Node> nodeList) {
+  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
     double scaleX = 2989 / mapcanvas.getWidth();
@@ -91,8 +87,9 @@ public class IndexController implements Initializable {
 
     // circle widths:
     double cW = 10.0;
+    // TODO: (x,y) should already adjust when scrolling, but probably should also change radius
 
-    for (Controllers.model.Node n : nodeList) {
+    for (Node n : nodeList) {
       Circle circle = new Circle();
 
       double nodeX = Double.valueOf(n.getXCoord()) / scaleX;
@@ -101,24 +98,27 @@ public class IndexController implements Initializable {
       circle.setCenterX(nodeX);
       circle.setCenterY(nodeY);
       circle.setRadius(cW / 2);
-      circle.setFill(Paint.valueOf("PALEGREEN"));
-      // ^ changes color of circle object, but not of drawn oval via GC
-
       stringCircleHashtable.put(n.getID(), circle);
 
-      // we still need to figure out how to change the color
+      gc.setFill(Color.YELLOW); // default nodes are yellow
+      gc.setGlobalAlpha(.75); // will make things drawn slightly transparent (if we want to)
+      // DON'T DELETE -> JUST SET TO "1.0" IF NO TRANSPARENCY IS WANTED
+
+      // sets color to blue/red if loc or dest are selected
+      if (!loc.equals("-1") && n.getID().equals(loc)) {
+        gc.setFill(Color.BLUE);
+      }
+      if (!dest.equals("-1") && n.getID().equals(dest)) {
+        gc.setFill(Color.RED);
+      }
+
       gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      // sets alpha to 1.0 and draw a black border around circle
+      gc.setGlobalAlpha(1.0);
+      gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
     }
   }
-  /*@Override
-  public void initialize() {
-    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
-    gc.fillRect(5, 5, 5, 5);
-
-    double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
-    double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
-    System.out.println("Initalized");
-  }*/
 
   public void pathfindingPress(ActionEvent actionEvent) {
     /*AStarSearch aStar = new AStarSearch(testGraph, loc, dest);
@@ -151,33 +151,24 @@ public class IndexController implements Initializable {
   }
 
   public void goToSecurityRequest(ActionEvent actionEvent) throws IOException {
-    System.out.println("Starting Up");
-    Parent parent = FXMLLoader.load(getClass().getResource("/Views/SecurityForm.fxml"));
-    Scene scene = new Scene(parent);
-    // this gets Stage info
-    Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    window.setTitle("Edit Nodes");
-    // this sets the scene to the new one specified above
-    window.setScene(scene);
-    window.show();
+    // add the scene switch
+    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/SecurityForm.fxml"));
+    Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
   public void goToEditNodes(ActionEvent actionEvent) throws IOException {
-    System.out.println("Starting Up");
-    Parent parent = FXMLLoader.load(getClass().getResource("/Views/EditPage.fxml"));
-    Scene scene = new Scene(parent);
-    // this gets Stage info
-    Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    window.setTitle("Edit Nodes");
-    // this sets the scene to the new one specified above
-    window.setScene(scene);
-    window.show();
+    // add the scene switch
+    try {
+      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EditPage.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
   }
 
   public void save(ActionEvent actionEvent) throws IOException {
 
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
-    gc.fillRect(5, 5, 5, 5);
 
     String home = System.getProperty("user.home");
     File outputFile = new File(home + "/Downloads/" + "mapImageThingy.png");
@@ -185,15 +176,10 @@ public class IndexController implements Initializable {
     WritableImage map = mapanchor.snapshot(new SnapshotParameters(), null);
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
 
-    System.out.println("Starting Up");
-    Parent parent = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
-    Scene scene = new Scene(parent);
-    // this gets Stage info
-    Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    window.setTitle("Share Image");
-    // this sets the scene to the new one specified above
-    window.setScene(scene);
-    window.show();
+    // add the scene switch
+    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
+    // errors TODO: fix
+    Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
   public void canvasClick(MouseEvent mouseEvent) {
@@ -208,6 +194,10 @@ public class IndexController implements Initializable {
     } else {
       dest = closestID;
     }
+
+    // clear canvas and redraw circles
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+    drawNodeCircles();
   }
 
   // helper that return nodeID of closest node to click
@@ -215,7 +205,7 @@ public class IndexController implements Initializable {
     double currentDist = 1000000000;
     String nodeID = "-1";
 
-    for (Controllers.model.Node n : nodeList) {
+    for (Node n : nodeList) {
       Circle c = stringCircleHashtable.get(n.getID());
       double cX = c.getCenterX();
       double cY = c.getCenterY();

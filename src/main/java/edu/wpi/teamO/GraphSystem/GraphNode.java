@@ -1,4 +1,4 @@
-package GraphSystem;
+package edu.wpi.teamO.GraphSystem;
 
 import java.util.LinkedList;
 
