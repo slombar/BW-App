@@ -22,6 +22,7 @@ public class EmailThreader extends Thread {
 
   @Override
   public void run() {
+
     String to = sendingTo; // recipient's email
     String from = "bwappteamo@gmail.com"; // sender's email, need default sender email !
     String host = "smtp.gmail.com"; // where email is being sent from
