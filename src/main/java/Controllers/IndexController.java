@@ -26,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -56,40 +57,53 @@ public class IndexController implements Initializable {
   // these variables show which of the three locations/destinations respectivly is currently being
   // tracked
   public ImageView mapimage;
-  //the campus image is 2989 x 2457
+  // the campus image is 2989 x 2457
   public Canvas mapcanvas;
   public Button saveBtn;
   public AnchorPane mapanchor;
   private ArrayList<Circle> circleList;
-
-
+  GraphicsContext gc;
+  
   ObservableList<Controllers.model.Node> nodeList;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     nodeList = FXCollections.observableArrayList();
     nodeList = DatabaseFunctionality.showNodes(nodeList);
-    circleList=new ArrayList<>();
+    circleList = new ArrayList<>();
 
-    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
+    gc = mapcanvas.getGraphicsContext2D();
     gc.fillRect(5, 5, 5, 5);
 
-    drawNodeCircles(nodeList);
+    // drawNodeCircles(nodeList);
+
     System.out.println("Initalized");
   }
 
-  public void drawNodeCircles(ObservableList<Controllers.model.Node> nodeList){
+  public void drawNodeCircles(ObservableList<Controllers.model.Node> nodeList) {
+    // divide them by a scale factor (image is ~2937 pixels wide?) --
+    // would be imageWidth/canvasWidth and imageHeight/canvasHeight
+    double scaleX = 2989 / mapcanvas.getWidth();
+    double scaleY = 2457 / mapcanvas.getHeight();
+    
+    // circle widths:
+    double cW = 10.0;
 
-
-
-    for (Controllers.model.Node n: nodeList) {
+    for (Controllers.model.Node n : nodeList) {
       Circle circle = new Circle();
 
-
-      double nodeX = Double.valueOf(n.getXCoord());
-      double nodeY = Double.valueOf(n.getYCoord());
+      double nodeX = Double.valueOf(n.getXCoord()) / scaleX;
+      double nodeY = Double.valueOf(n.getYCoord()) / scaleY;
+      
+      circle.setCenterX(nodeX);
+      circle.setCenterY(nodeY);
+      circle.setRadius(cW/2);
+      circle.setFill(Paint.valueOf("yellow"));
+      
+      circleList.add(circle);
+      
+      gc.fillOval(circle.getCenterX() - cW/2, circle.getCenterY() - cW/2, cW, cW);
     }
-
   }
   /*@Override
   public void initialize() {
