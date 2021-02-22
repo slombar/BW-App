@@ -1,8 +1,6 @@
 package edu.wpi.teamO;
 
 import edu.wpi.teamO.Controllers.DatabaseFunctionality;
-import org.apache.derby.iapi.db.Database;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -47,7 +45,6 @@ public class Main {
       DatabaseFunctionality.importExcelData(filePath, decision);
       System.out.println("Data imported!");
     }
-
   }
 
   public static void fileSave() {
@@ -77,6 +74,8 @@ public class Main {
 
   // C:\Users\sadie\IdeaProjects\BW-App\src\main\resources\MapOEdges.csv
   public static void main(String args[]) throws IOException {
+    DatabaseFunctionality.establishConnection();
     Opp.launch(Opp.class, args);
+    DatabaseFunctionality.shutDownDB();
   }
 }

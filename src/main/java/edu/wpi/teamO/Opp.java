@@ -1,6 +1,5 @@
 package edu.wpi.teamO;
 
-import edu.wpi.teamO.Controllers.DatabaseFunctionality;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +18,6 @@ public class Opp extends Application {
   public void init() {
     // This happens every time a scene starts up. Kinda cool but not currently useful
     System.out.println("Starting Up");
-    DatabaseFunctionality.establishConnection();
   }
 
   public void start(Stage ps) {
@@ -39,7 +37,7 @@ public class Opp extends Application {
 
   public void stop() {
     // shut down database and print message to user
-    DatabaseFunctionality.shutDownDB();
+
     System.out.println("Shutting Down");
   }
 }

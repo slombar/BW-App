@@ -45,7 +45,7 @@ public class EmailPageController {
     SharingFunctionality.sendEmailAttachment(emailString, outputFile);
 
     // still need to test if this works
-    if (sumbissionPopup()) {
+    if (submissionPopup()) {
       AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     }
@@ -65,18 +65,10 @@ public class EmailPageController {
 
     SharingFunctionality.sendSMS(phoneString, outputFile);
     // phoneString, outputFile
-
-    // still need to test if this works
-    if (sumbissionPopup()) {
-      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    }
-    //    original scene switch
-    //    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
-    //    Opp.getPrimaryStage().getScene().setRoot(root);
+    Boolean paneBool = submissionPopup();
   }
 
-  public boolean sumbissionPopup() {
+  public boolean submissionPopup() {
     if (!popUp) {
       popUp = true;
       goHome = false;
@@ -118,6 +110,13 @@ public class EmailPageController {
           event -> {
             submissionDialog.close();
             stackPane.toBack();
+            AnchorPane root = null;
+            try {
+              root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+            Opp.getPrimaryStage().getScene().setRoot(root);
             popUp = false;
             goHome = true;
           });
