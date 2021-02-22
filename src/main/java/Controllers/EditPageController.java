@@ -60,7 +60,8 @@ public class EditPageController implements Initializable {
     initEdgeTable();
   }
 
-  ////////////////////////////////////// NODES //////////////////////////////////////////
+  ////////////////////////////////////// NODES TABLE
+  // ///////////////////////////////////////////////////////////////////
 
   private void initNodeTable() {
     nodeTable2 = nodeTable;
@@ -123,7 +124,8 @@ public class EditPageController implements Initializable {
     selection.setCellSelectionEnabled(true);
   }
 
-  ////////////////////////////////////// EDGES ////////////////////////////////////////////////
+  ////////////////////////////////////// EDGE TABLE
+  // ////////////////////////////////////////////////////////////////////
 
   private void initEdgeTable() {
     edgeTable2 = edgeTable;
@@ -171,9 +173,11 @@ public class EditPageController implements Initializable {
     selection.setCellSelectionEnabled(true);
   }
 
-  ////////////////////////////////////// FXML onActions //////////////////////////////////////////
+  ////////////////////////////////////// FXML onActions
+  // ////////////////////////////////////////////////////////////////
 
-  // Node functionality
+  ////////////////////////////////////// FXML onAction: Node Functionality
+  // /////////////////////////////////////////////
   public void nodeTabSelect(Event event) {
     initNodeTable();
   }
@@ -291,42 +295,71 @@ public class EditPageController implements Initializable {
     }
   }
 
-  private ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
-    ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
-    for (String label : labels) {
-      JFXTextField text = new JFXTextField();
-      text.setPromptText(label);
-      listOfFields.add(text);
+  public void deleteNode(ActionEvent actionEvent) {
+    // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+
+      // deleteNodePopup has the content of the popup
+      // deleteNodeDialog creates the dialog popup
+
+      JFXDialogLayout deleteNodePopup = new JFXDialogLayout();
+      deleteNodePopup.setHeading(new Text("Delete a Node"));
+      VBox deleteNodeVBox = new VBox(12);
+
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Submit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      ArrayList<String> deleteNodeLabels = new ArrayList<String>(Arrays.asList("Node ID"));
+
+      ArrayList<JFXTextField> listOfFields = createFields(deleteNodeLabels);
+
+      deleteNodeVBox.getChildren().addAll(listOfFields.get(0), buttonBox);
+      deleteNodePopup.setBody(deleteNodeVBox);
+
+      stackPane.toFront();
+      JFXDialog deleteNodeDialog =
+          new JFXDialog(stackPane, deleteNodePopup, JFXDialog.DialogTransition.BOTTOM);
+      deleteNodeDialog.setOverlayClose(false);
+      nodeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
+
+      closeButton.setOnAction(
+          event -> {
+            deleteNodeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
+          });
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+          });
+      submitButton.setOnAction(
+          event -> {
+            if (listOfFields.get(0).getText().isEmpty()) {
+              incompletePopup();
+            } else {
+              //               DatabaseFunctionality.deleteNode(listOfFields.get(0).getText());
+
+              System.out.println(listOfFields.get(0).getText());
+              deleteNodeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
+          });
+      deleteNodeDialog.show();
     }
-    return listOfFields;
   }
 
-  private void incompletePopup() {
-    warningPane.toFront();
-    JFXDialogLayout warning = new JFXDialogLayout();
-    warning.setHeading(new Text("WARNING!"));
-    warning.setBody(new Text("Text fields cannot be left blank."));
-    JFXButton closeButton = new JFXButton("Close");
-    warning.setActions(closeButton);
-
-    JFXDialog warningDialog =
-        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
-    warningDialog.setOverlayClose(false);
-    stackPane.setDisable(true);
-
-    closeButton.setOnAction(
-        event -> {
-          warningDialog.close();
-          warningPane.toBack();
-          //          stackPane.toFront();
-          stackPane.setDisable(false);
-        });
-    warningDialog.show();
-  }
-
-  public void deleteNode(ActionEvent actionEvent) {}
-
-  // Edge functionality
+  ////////////////////////////////////// FXML onAction: Node Functionality
+  // /////////////////////////////////////////////
   public void edgeTabSelect(Event event) {
     initEdgeTable();
   }
@@ -405,5 +438,128 @@ public class EditPageController implements Initializable {
     }
   }
 
-  public void deleteEdge(ActionEvent actionEvent) {}
+  public void deleteEdge(ActionEvent actionEvent) {
+    // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+
+      // deleteEdgePopup has the content of the popup
+      // deleteEdgeDialog creates the dialog popup
+
+      JFXDialogLayout deleteEdgePopup = new JFXDialogLayout();
+      deleteEdgePopup.setHeading(new Text("Delete an Edge"));
+      VBox deleteEdgeVBox = new VBox(12);
+
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Submit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      ArrayList<String> deleteEdgeLabels = new ArrayList<String>(Arrays.asList("Edge ID"));
+
+      ArrayList<JFXTextField> listOfFields = createFields(deleteEdgeLabels);
+
+      deleteEdgeVBox.getChildren().addAll(listOfFields.get(0), buttonBox);
+      deleteEdgePopup.setBody(deleteEdgeVBox);
+
+      //      ObservableList<TreeTableColumn<Edge, String>>
+      //      autoComplete(edgeIDCol.getColumns(),listOfFields.get(0));
+
+      stackPane.toFront();
+      JFXDialog deleteEdgeDialog =
+          new JFXDialog(stackPane, deleteEdgePopup, JFXDialog.DialogTransition.BOTTOM);
+      deleteEdgeDialog.setOverlayClose(false);
+      nodeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
+
+      closeButton.setOnAction(
+          event -> {
+            deleteEdgeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
+          });
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+          });
+      submitButton.setOnAction(
+          event -> {
+            if (listOfFields.get(0).getText().isEmpty()) {
+              incompletePopup();
+            } else {
+              //               DatabaseFunctionality.deleteEdge(listOfFields.get(0).getText());
+
+              System.out.println(listOfFields.get(0).getText());
+              deleteEdgeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
+          });
+      deleteEdgeDialog.show();
+    }
+  }
+
+  ////////////////////////////////////// Additional Helper Functions
+  // ///////////////////////////////////////////////////
+  private ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+    ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
+    for (String label : labels) {
+      JFXTextField text = new JFXTextField();
+      text.setPromptText(label);
+      listOfFields.add(text);
+    }
+    return listOfFields;
+  }
+
+  private void incompletePopup() {
+    warningPane.toFront();
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("WARNING!"));
+    warning.setBody(new Text("Text fields cannot be left blank."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    JFXDialog warningDialog =
+        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
+    warningDialog.setOverlayClose(false);
+    stackPane.setDisable(true);
+
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          warningPane.toBack();
+          stackPane.setDisable(false);
+        });
+    warningDialog.show();
+  }
+
+  private void autoComplete(ArrayList<String> list, JFXTextField textfield) {
+    JFXAutoCompletePopup<String> autoComplete = new JFXAutoCompletePopup<>();
+    autoComplete.getSuggestions().addAll(list);
+
+    autoComplete.setSelectionHandler(
+        event -> {
+          textfield.setText(event.getObject());
+        });
+
+    // filtering
+    textfield
+        .textProperty()
+        .addListener(
+            observable -> {
+              autoComplete.filter(
+                  string -> string.toLowerCase().contains(textfield.getText().toLowerCase()));
+              if (autoComplete.getFilteredSuggestions().isEmpty()
+                  || textfield.getText().isEmpty()) {
+                autoComplete.hide();
+              } else {
+                autoComplete.show(textfield);
+              }
+            });
+  }
 }
