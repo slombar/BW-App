@@ -68,7 +68,7 @@
                   <Image url="@../../../../../../Downloads/Maps/FaulknerCampus.png" />
                </image>
             </ImageView>
-            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" width="728.0" />
+            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
          </children>
       </AnchorPane>
    </children>
