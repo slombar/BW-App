@@ -40,7 +40,10 @@ public class EmailPageController {
     String emailString = email.getText();
     System.out.println(emailString);
 
-    SharingFunctionality.sendEmailAttachment(emailString, "mapImageThingy.png");
+    String home = System.getProperty("user.home");
+    String outputFile = home + "/Downloads/" + "mapImageThingy.png";
+
+    SharingFunctionality.sendEmailAttachment(emailString, outputFile);
 
     System.out.println("Starting Up");
     Parent parent = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
