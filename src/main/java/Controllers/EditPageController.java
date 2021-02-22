@@ -347,6 +347,8 @@ public class EditPageController implements Initializable {
           event -> {
             if (listOfFields.get(0).getText().isEmpty()) {
               incompletePopup();
+            } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
+              nonexistantPopup();
             } else {
               //               DatabaseFunctionality.deleteNode(listOfFields.get(0).getText());
 
@@ -496,6 +498,8 @@ public class EditPageController implements Initializable {
           event -> {
             if (listOfFields.get(0).getText().isEmpty()) {
               incompletePopup();
+            } else if (!edgeIDColData.contains(listOfFields.get(0).getText())) {
+              nonexistantPopup();
             } else {
               //               DatabaseFunctionality.deleteEdge(listOfFields.get(0).getText());
 
@@ -528,6 +532,28 @@ public class EditPageController implements Initializable {
     JFXDialogLayout warning = new JFXDialogLayout();
     warning.setHeading(new Text("WARNING!"));
     warning.setBody(new Text("Text fields cannot be left blank."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    JFXDialog warningDialog =
+        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
+    warningDialog.setOverlayClose(false);
+    stackPane.setDisable(true);
+
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          warningPane.toBack();
+          stackPane.setDisable(false);
+        });
+    warningDialog.show();
+  }
+
+  private void nonexistantPopup() {
+    warningPane.toFront();
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("WARNING!"));
+    warning.setBody(new Text("The given ID does not exist in the database."));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
