@@ -3,6 +3,7 @@ package Controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -25,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
@@ -54,21 +56,40 @@ public class IndexController implements Initializable {
   // these variables show which of the three locations/destinations respectivly is currently being
   // tracked
   public ImageView mapimage;
+  //the campus image is 2989 x 2457
   public Canvas mapcanvas;
   public Button saveBtn;
   public AnchorPane mapanchor;
+  private ArrayList<Circle> circleList;
 
-  ObservableList<Controllers.model.Node> nodeList = FXCollections.observableArrayList();
+
+  ObservableList<Controllers.model.Node> nodeList;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    nodeList = FXCollections.observableArrayList();
+    nodeList = DatabaseFunctionality.showNodes(nodeList);
+    circleList=new ArrayList<>();
 
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
     gc.fillRect(5, 5, 5, 5);
 
-    // double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
-    // double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
+    drawNodeCircles(nodeList);
     System.out.println("Initalized");
+  }
+
+  public void drawNodeCircles(ObservableList<Controllers.model.Node> nodeList){
+
+
+
+    for (Controllers.model.Node n: nodeList) {
+      Circle circle = new Circle();
+
+
+      double nodeX = Double.valueOf(n.getXCoord());
+      double nodeY = Double.valueOf(n.getYCoord());
+    }
+
   }
   /*@Override
   public void initialize() {
@@ -91,33 +112,6 @@ public class IndexController implements Initializable {
 
     label.setText(String.valueOf(pathSTRING));*/
   }
-
-  public void loc1Press(ActionEvent actionEvent) {
-    loc = "node1";
-  }
-
-  public void loc2Press(ActionEvent actionEvent) {
-    loc = "node2";
-  }
-
-  public void loc3press(ActionEvent actionEvent) {
-    loc = "node3";
-  }
-
-  public void dest1Press(ActionEvent actionEvent) {
-    dest = "node5";
-  }
-
-  public void dest2Press(ActionEvent actionEvent) {
-    dest = "node6";
-  }
-
-  public void dest3Press(ActionEvent actionEvent) {
-    dest = "node7";
-  }
-
-  // after any of these the loc/destDot should be moved so they can check if its right. The line
-  // doesn't move until the pathfindingPress is activated.
 
   public void exit(ActionEvent actionEvent) {
     Platform.exit();
@@ -175,5 +169,13 @@ public class IndexController implements Initializable {
 
     double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
     double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
+  }
+
+  public void locClick(ActionEvent actionEvent) {
+    selectingLoc = true;
+  }
+
+  public void destClick(ActionEvent actionEvent) {
+    selectingLoc = false;
   }
 }
