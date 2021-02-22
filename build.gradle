@@ -25,6 +25,7 @@ sourceSets {
 }
 
 dependencies {
+    compile 'com.nexmo:client:4.+'
     implementation(
             'com.jfoenix:jfoenix:8.0.10',
 
