@@ -24,7 +24,7 @@
          <children>
             <ImageView fx:id="mapImage" fitHeight="343.0" fitWidth="327.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#exit" text="Exit Application" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button fx:id="pathfindingButton" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button fx:id="pathfindingButton" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
