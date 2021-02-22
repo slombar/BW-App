@@ -51,7 +51,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <JFXTextField fx:id="email" prefHeight="32.0" prefWidth="250.0" promptText="+1 (XXX) XXX - XXXX" unFocusColor="#0d0d0d">
+                              <JFXTextField fx:id="phoneNum" prefHeight="32.0" prefWidth="250.0" promptText="+1 (XXX) XXX - XXXX" unFocusColor="#0d0d0d">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

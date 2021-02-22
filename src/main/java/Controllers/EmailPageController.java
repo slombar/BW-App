@@ -55,4 +55,6 @@ public class EmailPageController {
     window.setScene(scene);
     window.show();
   }
+
+  public void sendText(ActionEvent actionEvent) {}
 }
