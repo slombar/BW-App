@@ -1,28 +1,22 @@
 package Controllers;
 
+import com.nexmo.client.NexmoClient;
+import com.nexmo.client.sms.SmsSubmissionResponse;
+import com.nexmo.client.sms.SmsSubmissionResponseMessage;
+import com.nexmo.client.sms.messages.TextMessage;
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import com.nexmo.client.NexmoClient;
-import com.nexmo.client.NexmoClientException;
-import com.nexmo.client.auth.AuthMethod;
-import com.nexmo.client.auth.TokenAuthMethod;
-import com.nexmo.client.sms.SmsSubmissionResponse;
-import com.nexmo.client.sms.SmsSubmissionResponseMessage;
-import com.nexmo.client.sms.messages.TextMessage;
 
 public class SharingFunctionality {
 
   // WORK IN PROGRESS
   public static void sendSMS(String sendingTo, String fileToBeSent) {
     try {
-      NexmoClient client = new NexmoClient.Builder()
-              .apiKey("390a6808")
-              .apiSecret("vdFIoqy6XZ9nFRQn")
-              .build();
+      NexmoClient client =
+          new NexmoClient.Builder().apiKey("390a6808").apiSecret("vdFIoqy6XZ9nFRQn").build();
 
       String messageText = "Hello from Vonage SMS API";
       TextMessage message = new TextMessage("18888571289", "16176061459", messageText);
