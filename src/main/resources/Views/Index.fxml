@@ -49,7 +49,7 @@
          <children>
             <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/Maps/FaulknerCampus.png" />
+                  <Image url="@../FaulknerCampus.png" />
                </image>
             </ImageView>
             <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
