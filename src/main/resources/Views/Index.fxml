@@ -12,16 +12,7 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.IndexController">
    <children>
-      <AnchorPane fx:id="mapanchor" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../FaulknerCampus.png" />
-               </image>
-            </ImageView>
-            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
-         </children>
-      </AnchorPane>
+
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="10.0" prefWidth="263.1999877929687" />
@@ -56,5 +47,15 @@
             </GridPane>
          </children>
       </GridPane>
+       <AnchorPane fx:id="mapanchor" prefHeight="200.0" prefWidth="200.0">
+           <children>
+               <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@../FaulknerCampus.png" />
+                   </image>
+               </ImageView>
+               <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
+           </children>
+       </AnchorPane>
    </children>
 </AnchorPane>

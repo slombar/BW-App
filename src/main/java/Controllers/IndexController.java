@@ -1,9 +1,11 @@
 package Controllers;
 
+import GraphSystem.GraphSystem;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -26,7 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -51,8 +52,8 @@ public class IndexController implements Initializable {
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
 
-  String loc = "node1";
-  String dest = "node5";
+  String loc = "OWALK00101";
+  String dest = "OEXIT00101";
   boolean selectingLoc = true;
   // Graph testGraph;
   // these variables show which of the three locations/destinations respectivly is currently being
@@ -62,7 +63,8 @@ public class IndexController implements Initializable {
   public Canvas mapcanvas;
   public Button saveBtn;
   public AnchorPane mapanchor;
-  private ArrayList<Circle> circleList;
+  // private ArrayList<Circle> circleList;
+  private Hashtable<String, Circle> stringCircleHashtable; // <nodeID, corresponding Circle>
   GraphicsContext gc;
 
   ObservableList<Controllers.model.Node> nodeList;
@@ -71,7 +73,8 @@ public class IndexController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     nodeList = FXCollections.observableArrayList();
     nodeList = DatabaseFunctionality.showNodes(nodeList);
-    circleList = new ArrayList<>();
+    // circleList = new ArrayList<>();
+    stringCircleHashtable = new Hashtable<>();
 
     gc = mapcanvas.getGraphicsContext2D();
     gc.fillRect(5, 5, 5, 5);
@@ -99,11 +102,12 @@ public class IndexController implements Initializable {
       circle.setCenterY(nodeY);
       circle.setRadius(cW / 2);
       circle.setFill(Paint.valueOf("PALEGREEN"));
+      // ^ changes color of circle object, but not of drawn oval via GC
 
-      circleList.add(circle);
+      stringCircleHashtable.put(n.getID(), circle);
+
       // we still need to figure out how to change the color
       gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
-      
     }
   }
   /*@Override
@@ -126,6 +130,20 @@ public class IndexController implements Initializable {
     }
 
     label.setText(String.valueOf(pathSTRING));*/
+
+    GraphSystem gs = new GraphSystem();
+    LinkedList<String> pathSTRING = gs.findPath(loc, dest);
+    drawPath(pathSTRING);
+  }
+
+  // helper that actually draws the provided path
+  public void drawPath(LinkedList<String> path) {
+    for (int i = 0; i < path.size() - 1; i++) {
+      Circle a = stringCircleHashtable.get(path.get(i));
+      Circle b = stringCircleHashtable.get(path.get(i + 1));
+
+      gc.strokeLine(a.getCenterX(), a.getCenterY(), b.getCenterX(), b.getCenterY());
+    }
   }
 
   public void exit(ActionEvent actionEvent) {
@@ -179,11 +197,38 @@ public class IndexController implements Initializable {
   }
 
   public void canvasClick(MouseEvent mouseEvent) {
-    double clickx = mouseEvent.getX();
-    double clicky = mouseEvent.getY();
+    double clickX = mouseEvent.getX();
+    double clickY = mouseEvent.getY();
+    System.out.println("CANVAS CLICKING");
+    String closestID = closestCircle(clickX, clickY);
 
-    double nodeX = Double.valueOf(nodeList.get(0).getXCoord());
-    double nodeY = Double.valueOf(nodeList.get(0).getYCoord());
+    // TODO: in each of these, would set the appropriate color
+    if (selectingLoc) {
+      loc = closestID;
+    } else {
+      dest = closestID;
+    }
+  }
+
+  // helper that return nodeID of closest node to click
+  public String closestCircle(double x, double y) {
+    double currentDist = 1000000000;
+    String nodeID = "-1";
+
+    for (Controllers.model.Node n : nodeList) {
+      Circle c = stringCircleHashtable.get(n.getID());
+      double cX = c.getCenterX();
+      double cY = c.getCenterY();
+
+      double dist = Math.pow(Math.abs(x - cX), 2.0) + Math.pow(Math.abs(y - cY), 2.0);
+      if (dist < currentDist) {
+        currentDist = dist;
+        nodeID = n.getID();
+      }
+    }
+
+    // dummy return
+    return nodeID;
   }
 
   public void locClick(ActionEvent actionEvent) {

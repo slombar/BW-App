@@ -18,10 +18,10 @@ public class GraphSystem {
   }
 
   public void initializeGraph() {
-    graph = new Graph();
+    graph.initialize();
   }
 
-  boolean hasUnreachableNodes() {
+  public boolean hasUnreachableNodes() {
     initializeGraph(); // first, initialize map (bc CSV updated)
     dfs = new DFS(); // next, instantiate new DFS
 
@@ -44,11 +44,11 @@ public class GraphSystem {
     return hasUnreachable;
   }
 
-  LinkedList<String> unreachableNodes() {
+  public LinkedList<String> unreachableNodes() {
     return unreachableNodes;
   }
 
-  LinkedList<String> findPath(String startID, String targetID) {
+  public LinkedList<String> findPath(String startID, String targetID) {
     initializeGraph();
     aStarSearch = new AStarSearch(graph, startID, targetID);
     LinkedList<GraphNode> route = aStarSearch.findRoute();
