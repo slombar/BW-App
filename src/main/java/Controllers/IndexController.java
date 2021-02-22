@@ -52,8 +52,8 @@ public class IndexController implements Initializable {
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
 
-  String loc = "OWALK00101";
-  String dest = "OEXIT00101";
+  String loc = "-1";
+  String dest = "-1";
   boolean selectingLoc = true;
   // Graph testGraph;
   // these variables show which of the three locations/destinations respectivly is currently being
