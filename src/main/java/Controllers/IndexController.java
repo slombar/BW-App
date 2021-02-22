@@ -56,12 +56,11 @@ public class IndexController implements Initializable {
   // these variables show which of the three locations/destinations respectivly is currently being
   // tracked
   public ImageView mapimage;
-  //the campus image is 2989 x 2457
+  // the campus image is 2989 x 2457
   public Canvas mapcanvas;
   public Button saveBtn;
   public AnchorPane mapanchor;
   private ArrayList<Circle> circleList;
-
 
   ObservableList<Controllers.model.Node> nodeList;
 
@@ -69,7 +68,7 @@ public class IndexController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     nodeList = FXCollections.observableArrayList();
     nodeList = DatabaseFunctionality.showNodes(nodeList);
-    circleList=new ArrayList<>();
+    circleList = new ArrayList<>();
 
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
     gc.fillRect(5, 5, 5, 5);
@@ -78,18 +77,14 @@ public class IndexController implements Initializable {
     System.out.println("Initalized");
   }
 
-  public void drawNodeCircles(ObservableList<Controllers.model.Node> nodeList){
+  public void drawNodeCircles(ObservableList<Controllers.model.Node> nodeList) {
 
-
-
-    for (Controllers.model.Node n: nodeList) {
+    for (Controllers.model.Node n : nodeList) {
       Circle circle = new Circle();
-
 
       double nodeX = Double.valueOf(n.getXCoord());
       double nodeY = Double.valueOf(n.getYCoord());
     }
-
   }
   /*@Override
   public void initialize() {
