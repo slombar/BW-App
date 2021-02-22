@@ -52,7 +52,6 @@ public class EditPageController implements Initializable {
   public static ObservableList<Edge> edgeList;
 
   private boolean popUp = false;
-  private Object JFXTextField;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -60,8 +59,7 @@ public class EditPageController implements Initializable {
     initEdgeTable();
   }
 
-  ////////////////////////////////////// NODES TABLE
-  // /////////////////////////////////////////////////
+  ///////////////////////////// NODES TABLE //////////////////////////////
 
   private void initNodeTable() {
     nodeTable2 = nodeTable;
@@ -124,8 +122,7 @@ public class EditPageController implements Initializable {
     selection.setCellSelectionEnabled(true);
   }
 
-  ////////////////////////////////////// EDGE TABLE
-  // /////////////////////////////////////////////////
+  ///////////////////////////// EDGES TABLE //////////////////////////////
 
   private void initEdgeTable() {
     edgeTable2 = edgeTable;
@@ -173,9 +170,9 @@ public class EditPageController implements Initializable {
     selection.setCellSelectionEnabled(true);
   }
 
-  ////////////////////////////////////// FXML onActions/////////////////////////////////////////////
+  ////////////////////////////////////// FXML onActions/////////////////////////////////
 
-  ////////////////////////////////////// FXML onAction: Node Functionality /////////////////////////
+  ///////////////////////// FXML onAction: Edge Functionality //////////////////////////
   public void nodeTabSelect(Event event) {
     initNodeTable();
   }
@@ -364,8 +361,7 @@ public class EditPageController implements Initializable {
     }
   }
 
-  ////////////////////////////////////// FXML onAction: Node Functionality
-  // /////////////////////////////////
+  ///////////////////////// FXML onAction: Edge Functionality //////////////////////////
   public void edgeTabSelect(Event event) {
     initEdgeTable();
   }
