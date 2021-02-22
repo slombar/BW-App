@@ -75,11 +75,11 @@ public class IndexController implements Initializable {
 
     gc = mapcanvas.getGraphicsContext2D();
 
-    drawNodeCircles(nodeList);
+    drawNodeCircles(/*nodeList*/ );
     System.out.println("Initalized");
   }
 
-  public void drawNodeCircles(ObservableList<Node> nodeList) {
+  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
     double scaleX = 2989 / mapcanvas.getWidth();
@@ -194,6 +194,10 @@ public class IndexController implements Initializable {
     } else {
       dest = closestID;
     }
+
+    // clear canvas and redraw circles
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+    drawNodeCircles();
   }
 
   // helper that return nodeID of closest node to click
