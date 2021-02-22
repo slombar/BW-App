@@ -27,7 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 
@@ -87,6 +87,7 @@ public class IndexController implements Initializable {
 
     // circle widths:
     double cW = 10.0;
+    // TODO: (x,y) should already adjust when scrolling, but probably should also change radius
 
     for (Node n : nodeList) {
       Circle circle = new Circle();
@@ -97,13 +98,25 @@ public class IndexController implements Initializable {
       circle.setCenterX(nodeX);
       circle.setCenterY(nodeY);
       circle.setRadius(cW / 2);
-      circle.setFill(Paint.valueOf("PALEGREEN"));
-      // ^ changes color of circle object, but not of drawn oval via GC
-
       stringCircleHashtable.put(n.getID(), circle);
 
-      // we still need to figure out how to change the color
+      gc.setFill(Color.YELLOW); // default nodes are yellow
+      gc.setGlobalAlpha(.75); // will make things drawn slightly transparent (if we want to)
+      // DON'T DELETE -> JUST SET TO "1.0" IF NO TRANSPARENCY IS WANTED
+
+      // sets color to blue/red if loc or dest are selected
+      if (!loc.equals("-1") && n.getID().equals(loc)) {
+        gc.setFill(Color.BLUE);
+      }
+      if (!dest.equals("-1") && n.getID().equals(dest)) {
+        gc.setFill(Color.RED);
+      }
+
       gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      // sets alpha to 1.0 and draw a black border around circle
+      gc.setGlobalAlpha(1.0);
+      gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
     }
   }
 
