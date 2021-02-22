@@ -1,10 +1,11 @@
 package Controllers;
+// package com.vonage.quickstart.sms;
 
-import com.nexmo.client.NexmoClient;
-import com.nexmo.client.sms.SmsSubmissionResponse;
-import com.nexmo.client.sms.SmsSubmissionResponseMessage;
-import com.nexmo.client.sms.messages.TextMessage;
-import java.io.File;
+import com.vonage.client.VonageClient;
+import com.vonage.client.sms.MessageStatus;
+import com.vonage.client.sms.SmsSubmissionResponse;
+import com.vonage.client.sms.messages.TextMessage;
+import java.io.*;
 import java.util.*;
 import javax.activation.*;
 import javax.mail.*;
@@ -14,28 +15,23 @@ public class SharingFunctionality {
 
   // WORK IN PROGRESS
   public static void sendSMS(String sendingTo, String fileToBeSent) {
-    try {
-      NexmoClient client =
-          new NexmoClient.Builder().apiKey("390a6808").apiSecret("vdFIoqy6XZ9nFRQn").build();
 
-      String messageText = "Hello from Vonage SMS API";
-      TextMessage message = new TextMessage("18888571289", "16176061459", messageText);
+    VonageClient client =
+        VonageClient.builder().apiKey("390a6808").apiSecret("vdFIoqy6XZ9nFRQn").build();
 
-      SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+    TextMessage message =
+        new TextMessage("18888571289", sendingTo, "A text message sent using the Vonage SMS API");
 
-      for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
-        System.out.println(responseMessage);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+    SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+    if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+      System.out.println("Message sent successfully.");
+    } else {
+      System.out.println(
+          "Message failed with error: " + response.getMessages().get(0).getErrorText());
     }
   }
-  /**
-   * Sends email with given attachment to given email address
-   *
-   * @param sendingTo
-   * @param fileToBeSent
-   */
+
   public static void sendEmailAttachment(String sendingTo, String fileToBeSent) {
 
     String to = sendingTo; // recipient's email

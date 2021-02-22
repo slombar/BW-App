@@ -17,9 +17,10 @@ class Graph {
 
   // default constructor
   Graph() {
-    listOfNodeIDs = new LinkedList<String>();
+    /*listOfNodeIDs = new LinkedList<String>();
     size = 0;
-    listOfNodes = new Hashtable<>();
+    listOfNodes = new Hashtable<>();*/
+    this.initialize();
   }
 
   public void initialize() {
@@ -29,20 +30,21 @@ class Graph {
     listOfNodes = new Hashtable<>();
 
     // then do this stuff:
-    GraphNode node = null;
+    GraphNode node;
 
     // initialize a graph
     // new graph graph??
 
-    // get the nodes from the database function
+    // get the nodes (and edges) from the database function
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
+    nodeList = DatabaseFunctionality.showNodes(nodeList);
+
     ObservableList<Edge> edgeList = FXCollections.observableArrayList();
+    edgeList = DatabaseFunctionality.showEdges(edgeList);
 
     // freakk inteilkijdh
     // initialize all the graph nodes
     for (Node n : nodeList) {
-
-      nodeList = DatabaseFunctionality.showNodes(nodeList);
 
       String nodeID = n.getID();
 
@@ -55,11 +57,11 @@ class Graph {
       node = new GraphNode(nodeID, xcoord, ycoord);
 
       // ADDS THE NODE
-      addNode(node);
+      this.addNode(node);
     }
 
     // grab edges from database
-    edgeList = DatabaseFunctionality.showEdges(edgeList);
+    // edgeList = DatabaseFunctionality.showEdges(edgeList);
     String[] nodeIDA;
     String node1ID = "";
     String node2ID = "";
