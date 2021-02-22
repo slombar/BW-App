@@ -65,6 +65,7 @@ public class IndexController implements Initializable {
   private ObservableList<Node> nodeList = FXCollections.observableArrayList();
   private Hashtable<String, Circle> stringCircleHashtable;
   private GraphicsContext gc;
+  double cW = 10.0;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -86,7 +87,7 @@ public class IndexController implements Initializable {
     double scaleY = 2457 / mapcanvas.getHeight();
 
     // circle widths:
-    double cW = 10.0;
+    // double cW = 10.0;
     // TODO: (x,y) should already adjust when scrolling, but probably should also change radius
 
     for (Node n : nodeList) {
@@ -121,23 +122,37 @@ public class IndexController implements Initializable {
   }
 
   public void pathfindingPress(ActionEvent actionEvent) {
-    /*AStarSearch aStar = new AStarSearch(testGraph, loc, dest);
-    LinkedList<GraphNode> pathNODE = aStar.findRoute();
-    LinkedList<String> pathSTRING = new LinkedList<>();
-
-    for (GraphNode node : pathNODE) {
-      pathSTRING.add(node.getNodeID());
-    }
-
-    label.setText(String.valueOf(pathSTRING));*/
-
+    // make new graph system and get the path
     GraphSystem gs = new GraphSystem();
     LinkedList<String> pathSTRING = gs.findPath(loc, dest);
+
+    // then clear canvas and draw given path
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     drawPath(pathSTRING);
   }
 
   // helper that actually draws the provided path
   public void drawPath(LinkedList<String> path) {
+    // want to just draw start and end nodes, then draw lines (will be arrows eventually)
+    // TODO: should probably make a drawCircle(), singular, helper at some point
+    Circle locC = stringCircleHashtable.get(loc);
+    Circle destC = stringCircleHashtable.get(dest);
+
+    // draw start node and outline
+    gc.setGlobalAlpha(0.75); // TODO: should make alpha a variable at some point
+    gc.setFill(Color.BLUE);
+    gc.fillOval(locC.getCenterX() - cW / 2, locC.getCenterY() - cW / 2, cW, cW);
+    gc.setGlobalAlpha(1.0);
+    gc.strokeOval(locC.getCenterX() - cW / 2, locC.getCenterY() - cW / 2, cW, cW);
+
+    // draw dest node and outline
+    gc.setGlobalAlpha(0.75);
+    gc.setFill(Color.RED);
+    gc.fillOval(destC.getCenterX() - cW / 2, destC.getCenterY() - cW / 2, cW, cW);
+    gc.setGlobalAlpha(1.0);
+    gc.strokeOval(destC.getCenterX() - cW / 2, destC.getCenterY() - cW / 2, cW, cW);
+
+    gc.setGlobalAlpha(1.0); // makes the lines fully opaque
     for (int i = 0; i < path.size() - 1; i++) {
       Circle a = stringCircleHashtable.get(path.get(i));
       Circle b = stringCircleHashtable.get(path.get(i + 1));
@@ -188,7 +203,6 @@ public class IndexController implements Initializable {
     System.out.println("CANVAS CLICKING");
     String closestID = closestCircle(clickX, clickY);
 
-    // TODO: in each of these, would set the appropriate color
     if (selectingLoc) {
       loc = closestID;
     } else {
