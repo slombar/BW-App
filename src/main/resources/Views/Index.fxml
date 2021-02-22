@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.IndexController">
+<AnchorPane prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.IndexController">
 
    <children>
 
@@ -30,8 +29,6 @@
             <JFXButton fx:id="pathfindingButton" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <JFXButton fx:id="destButton" mnemonicParsing="false" onAction="#destClick" text="Select Destination" textFill="#e13434" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <JFXButton fx:id="locButton" mnemonicParsing="false" onAction="#locClick" text="Select Starting Location" textFill="#333ce1" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-
-            <JFXButton fx:id="saveBtn" mnemonicParsing="false" onAction="#save" text="Button" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
 
             <GridPane GridPane.rowIndex="1">
                <columnConstraints>

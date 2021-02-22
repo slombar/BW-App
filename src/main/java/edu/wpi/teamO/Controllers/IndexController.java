@@ -164,7 +164,7 @@ public class IndexController implements Initializable {
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
 
     // add the scene switch
-    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
     // errors TODO: fix
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
