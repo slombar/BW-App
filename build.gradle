@@ -6,7 +6,7 @@ plugins {
     id "io.freefair.lombok" version "5.0.0-rc6"
     id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
-mainClassName = 'Main'
+mainClassName = 'edu.wpi.teamO.Main'
 
 repositories {
     mavenCentral()
@@ -16,15 +16,8 @@ repositories {
     }
 }
 
-sourceSets {
-    test {
-        java {
-            srcDir 'src/test/java' // TIM SAID THIS ISN'T NECESSARY BUT I'M NOT FUCKING WITH IT SINCE IT WORKS
-        }
-    }
-}
-
 dependencies {
+    compile 'com.vonage:client:5.5.0'
     implementation(
             'com.jfoenix:jfoenix:8.0.10',
 
@@ -37,11 +30,12 @@ dependencies {
 
             'org.jetbrains:annotations:20.1.0',
 
+
+
             //'junit:junit:4.12' <-- THIS IS NOT NECESSARY, DON'T UNCOMMENT OR PUT IT IN AGAIN
     )
     // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
-
     // THIS IS NECESSARY FOR THE TESTS TO WORK PROPERLY:
     testCompile(
             "org.testfx:testfx-core:4.0.16-alpha",
@@ -66,8 +60,9 @@ jar {
 }
 
 def codeCoverageExcludes = [
-        'edu.wpi.teamname.App',
-        'edu.wpi.teamname.Main',
+        'edu.wpi.teamO.Opp',
+        'edu.wpi.teamO.Main',
+
 ]
 
 jacoco {
