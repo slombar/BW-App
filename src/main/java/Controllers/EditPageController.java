@@ -61,7 +61,7 @@ public class EditPageController implements Initializable {
   }
 
   ////////////////////////////////////// NODES TABLE
-  // ///////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////
 
   private void initNodeTable() {
     nodeTable2 = nodeTable;
@@ -125,7 +125,7 @@ public class EditPageController implements Initializable {
   }
 
   ////////////////////////////////////// EDGE TABLE
-  // ////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////
 
   private void initEdgeTable() {
     edgeTable2 = edgeTable;
@@ -173,11 +173,9 @@ public class EditPageController implements Initializable {
     selection.setCellSelectionEnabled(true);
   }
 
-  ////////////////////////////////////// FXML onActions
-  // ////////////////////////////////////////////////////////////////
+  ////////////////////////////////////// FXML onActions/////////////////////////////////////////////
 
-  ////////////////////////////////////// FXML onAction: Node Functionality
-  // /////////////////////////////////////////////
+  ////////////////////////////////////// FXML onAction: Node Functionality /////////////////////////
   public void nodeTabSelect(Event event) {
     initNodeTable();
   }
@@ -320,6 +318,12 @@ public class EditPageController implements Initializable {
       deleteNodeVBox.getChildren().addAll(listOfFields.get(0), buttonBox);
       deleteNodePopup.setBody(deleteNodeVBox);
 
+      ArrayList<String> nodeIDColData = new ArrayList<>();
+      for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+        nodeIDColData.add(nodeIDCol.getCellData(i));
+      }
+      autoComplete(nodeIDColData, listOfFields.get(0));
+
       stackPane.toFront();
       JFXDialog deleteNodeDialog =
           new JFXDialog(stackPane, deleteNodePopup, JFXDialog.DialogTransition.BOTTOM);
@@ -343,6 +347,8 @@ public class EditPageController implements Initializable {
           event -> {
             if (listOfFields.get(0).getText().isEmpty()) {
               incompletePopup();
+            } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
+              nonexistantPopup();
             } else {
               //               DatabaseFunctionality.deleteNode(listOfFields.get(0).getText());
 
@@ -359,7 +365,7 @@ public class EditPageController implements Initializable {
   }
 
   ////////////////////////////////////// FXML onAction: Node Functionality
-  // /////////////////////////////////////////////
+  // /////////////////////////////////
   public void edgeTabSelect(Event event) {
     initEdgeTable();
   }
@@ -463,8 +469,11 @@ public class EditPageController implements Initializable {
       deleteEdgeVBox.getChildren().addAll(listOfFields.get(0), buttonBox);
       deleteEdgePopup.setBody(deleteEdgeVBox);
 
-      //      ObservableList<TreeTableColumn<Edge, String>>
-      //      autoComplete(edgeIDCol.getColumns(),listOfFields.get(0));
+      ArrayList<String> edgeIDColData = new ArrayList<>();
+      for (int i = 0; i < edgeTable.getExpandedItemCount(); i++) {
+        edgeIDColData.add(edgeIDCol.getCellData(i));
+      }
+      autoComplete(edgeIDColData, listOfFields.get(0));
 
       stackPane.toFront();
       JFXDialog deleteEdgeDialog =
@@ -489,6 +498,8 @@ public class EditPageController implements Initializable {
           event -> {
             if (listOfFields.get(0).getText().isEmpty()) {
               incompletePopup();
+            } else if (!edgeIDColData.contains(listOfFields.get(0).getText())) {
+              nonexistantPopup();
             } else {
               //               DatabaseFunctionality.deleteEdge(listOfFields.get(0).getText());
 
@@ -505,7 +516,7 @@ public class EditPageController implements Initializable {
   }
 
   ////////////////////////////////////// Additional Helper Functions
-  // ///////////////////////////////////////////////////
+  // ////////////////////////////////////
   private ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
     ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
     for (String label : labels) {
@@ -521,6 +532,28 @@ public class EditPageController implements Initializable {
     JFXDialogLayout warning = new JFXDialogLayout();
     warning.setHeading(new Text("WARNING!"));
     warning.setBody(new Text("Text fields cannot be left blank."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    JFXDialog warningDialog =
+        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
+    warningDialog.setOverlayClose(false);
+    stackPane.setDisable(true);
+
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          warningPane.toBack();
+          stackPane.setDisable(false);
+        });
+    warningDialog.show();
+  }
+
+  private void nonexistantPopup() {
+    warningPane.toFront();
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("WARNING!"));
+    warning.setBody(new Text("The given ID does not exist in the database."));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
