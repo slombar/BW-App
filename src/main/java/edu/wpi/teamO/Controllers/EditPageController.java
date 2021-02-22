@@ -91,7 +91,7 @@ public class EditPageController implements Initializable {
   // Loads the node data from the database and puts it into tree table
   private void loadNodeData() {
     nodeList = FXCollections.observableArrayList();
-    nodeList = DatabaseFunctionality.showNodes(nodeList);
+    DatabaseFunctionality.showNodes(nodeList);
     ObservableList<TreeItem<Node>> nodeTreeList;
     nodeTreeList = FXCollections.observableArrayList();
 
@@ -151,6 +151,22 @@ public class EditPageController implements Initializable {
     edgeTable2 = edgeTable;
     edgeTable.setShowRoot(false);
     initEdgeCols();
+    loadEdgeData();
+  }
+
+  // Loads the node data from the database and puts it into tree table
+  private void loadEdgeData() {
+    edgeList = FXCollections.observableArrayList();
+    DatabaseFunctionality.showEdges(edgeList);
+    ObservableList<TreeItem<Edge>> edgeTreeList;
+    edgeTreeList = FXCollections.observableArrayList();
+
+    for (Edge edge : edgeList) {
+      edgeTreeList.add(new TreeItem<>(edge));
+    }
+    TreeItem<Edge> rootEdge = new TreeItem<>(new Edge());
+    rootEdge.getChildren().addAll(edgeTreeList);
+    edgeTable.setRoot(rootEdge);
   }
 
   // Initializes all the columns of the table
