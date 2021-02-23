@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
@@ -26,10 +27,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 
+// TODO: make all these private
 public class IndexController implements Initializable {
   public MenuItem edgeEditorButton;
   public MenuItem nodeEditorButton;
@@ -45,10 +48,12 @@ public class IndexController implements Initializable {
   public MenuItem dest3Button;
   public MenuButton menu;
   public Label label;
+  public JFXButton editButton;
+  @FXML private AnchorPane bigAnchor;
   public JFXButton locButton;
   public JFXButton destButton;
   public JFXButton resetButton;
-  public JFXButton editButton;
+  public StackPane sharePane;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
@@ -71,12 +76,7 @@ public class IndexController implements Initializable {
   double cW = 10.0;
 
   public static final Image bwLogo =
-      new Image(
-          "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Brigham_and_Womens_Hospital_logo.svg/878px-Brigham_and_Womens_Hospital_logo.svg.png",
-          116,
-          100,
-          true,
-          true);
+      new Image("Brigham_and_Womens_Hospital_logo.png", 116, 100, true, true);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -85,12 +85,28 @@ public class IndexController implements Initializable {
     // circleList = new ArrayList<>();
     stringCircleHashtable = new Hashtable<>();
 
+    //////////////////////////////////// SCALING//////////////////////////////////
+
+    double scale = 1.5;
+    mapimage.setScaleX(scale);
+    mapimage.setScaleY(scale);
+    mapcanvas.setScaleX(scale);
+    mapcanvas.setScaleY(scale);
+    mapimage.setTranslateX(200);
+    mapcanvas.setTranslateX(200);
+    mapimage.setTranslateY(165);
+    mapcanvas.setTranslateY(165);
+    mapcanvas.toFront();
+
+    /////////////////////////////////////////////////////////////////////
+
     gc = mapcanvas.getGraphicsContext2D();
 
     // draws circles on canvas
 
     drawNodeCircles();
     customizeButtons();
+    sharePane.toFront();
 
     System.out.println("Initalized");
   }
@@ -154,17 +170,8 @@ public class IndexController implements Initializable {
       gc.setGlobalAlpha(1.0);
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
-      // Starting ToolTip popup
-      /*
-      ArrayList<String> d = new ArrayList<>();
-      d = DatabaseFunctionality.getInfo(n.getID());
-      String description = "";
-
-          description = d.get(0) + "\n" + d.get(1);
-
-      description = "random fuck shit";
-      Tooltip.install(circle, new Tooltip(description));
-      */
+      circle.getCenterX();
+      circle.getCenterY();
     }
 
     // draws the BW logo and text
@@ -261,6 +268,7 @@ public class IndexController implements Initializable {
   public void goToSecurityRequest(ActionEvent actionEvent) throws IOException {
     // add the scene switch
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/SecurityForm.fxml"));
+    Opp.getPrimaryStage().setFullScreen(false);
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
@@ -275,7 +283,7 @@ public class IndexController implements Initializable {
   }
 
   public void save(ActionEvent actionEvent) throws IOException {
-
+    sharePane.toBack();
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
 
     String home = System.getProperty("user.home");
@@ -300,6 +308,7 @@ public class IndexController implements Initializable {
     double clickY = mouseEvent.getY();
     System.out.println("CANVAS CLICKING");
     String closestID = closestCircle(clickX, clickY);
+    // System.out.println(closestID); // for debugging
 
     if (selectingLoc) {
       loc = closestID;

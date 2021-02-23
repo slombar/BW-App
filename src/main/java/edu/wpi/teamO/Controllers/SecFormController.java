@@ -32,12 +32,14 @@ public class SecFormController {
   @FXML
   public void goToHomePage(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+    Opp.getPrimaryStage().setFullScreen(true);
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
   public void submitForm(ActionEvent actionEvent) throws IOException {
     if (submissionPopup()) {
       AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+      Opp.getPrimaryStage().setFullScreen(true);
       Opp.getPrimaryStage().getScene().setRoot(root);
     }
   }
@@ -99,6 +101,7 @@ public class SecFormController {
             } catch (IOException e) {
               e.printStackTrace();
             }
+            Opp.getPrimaryStage().setFullScreen(true);
             Opp.getPrimaryStage().getScene().setRoot(root);
             popUp = false;
             goHome = true;
