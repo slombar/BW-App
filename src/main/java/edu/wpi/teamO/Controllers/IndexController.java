@@ -119,8 +119,7 @@ public class IndexController implements Initializable {
     // double cW = 10.0;
     // TODO: (x,y) should already adjust when scrolling, but probably should also change radius
 
-
-    //for each node in the DB, add their circle to the map
+    // for each node in the DB, add their circle to the map
     for (Node n : nodeList) {
       double difference = 0;
       Circle circle = new Circle();

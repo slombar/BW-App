@@ -72,7 +72,7 @@ public class EmailThreader extends Thread {
       String filename = fileToBeSent; // file to be sent, map image
       DataSource source = new FileDataSource(filename);
       messageBodyPart.setDataHandler(new DataHandler(source));
-      messageBodyPart.setFileName(filename);
+      messageBodyPart.setFileName("yourMapRoute");
       multipart.addBodyPart(messageBodyPart);
 
       // Send the complete message parts
