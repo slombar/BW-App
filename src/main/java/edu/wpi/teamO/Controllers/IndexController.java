@@ -1,5 +1,6 @@
 package edu.wpi.teamO.Controllers;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.teamO.Controllers.model.Node;
 import edu.wpi.teamO.GraphSystem.GraphSystem;
 import edu.wpi.teamO.Opp;
@@ -14,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
@@ -29,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 
+// TODO: make all these private
 public class IndexController implements Initializable {
   public MenuItem edgeEditorButton;
   public MenuItem nodeEditorButton;
@@ -44,11 +47,11 @@ public class IndexController implements Initializable {
   public MenuItem dest3Button;
   public MenuButton menu;
   public Label label;
+  public JFXButton editButton;
   @FXML private AnchorPane bigAnchor;
   public JFXButton locButton;
   public JFXButton destButton;
   public JFXButton resetButton;
-  public JFXButton editButton;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
