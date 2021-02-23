@@ -727,7 +727,8 @@ public class EditPageController implements Initializable {
             incompletePopup();
           } else {
             String filePath = listOfFields.get(0).getText();
-            DatabaseFunctionality.saveNodes(filePath);
+            // 1 = is a node
+            DatabaseFunctionality.importExcelData(filePath, true);
             loadDialog.close();
             stackPane.toBack();
           }
