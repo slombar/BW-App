@@ -164,8 +164,47 @@ public class IndexController implements Initializable {
       Circle a = stringCircleHashtable.get(path.get(i));
       Circle b = stringCircleHashtable.get(path.get(i + 1));
 
-      gc.strokeLine(a.getCenterX(), a.getCenterY(), b.getCenterX(), b.getCenterY());
+      // gc.strokeLine(a.getCenterX(), a.getCenterY(), b.getCenterX(), b.getCenterY());
+      drawMidArrow(a.getCenterX(), a.getCenterY(), b.getCenterX(), b.getCenterY());
     }
+  }
+
+  private static final double arrowLength = 6;
+  private static final double arrowWidth = 4;
+  private static final double minArrowDistSq = 72;
+  // ^ do the dist you wanted squared (probably want 2*(arrowLength^2))
+
+  // draws an arrow from a to b, with the arrowhead halfway between them
+  public void drawMidArrow(double ax, double ay, double bx, double by) {
+
+    double distSq = Math.pow(Math.abs(ax - bx), 2.0) + Math.pow(Math.abs(ay - by), 2.0);
+
+    if (distSq >= minArrowDistSq) {
+      double cx = (ax + bx) / 2;
+      double cy = (ay + by) / 2;
+
+      double hypot = Math.hypot(ax - cx, ay - cy);
+      double factor = arrowLength / hypot;
+      double factorO = arrowWidth / hypot;
+
+      // part in direction of main line
+      double dx = (ax - cx) * factor;
+      double dy = (ay - cy) * factor;
+
+      // part orthogonal to main line
+      double ox = (ax - cx) * factorO;
+      double oy = (ay - cy) * factorO;
+
+      double arrow1startX = (cx + dx - oy);
+      double arrow1startY = (cy + dy + ox);
+      double arrow2startX = (cx + dx + oy);
+      double arrow2startY = (cy + dy - ox);
+
+      gc.strokeLine(arrow1startX, arrow1startY, cx, cy);
+      gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
+    }
+
+    gc.strokeLine(ax, ay, bx, by);
   }
 
   public void exit(ActionEvent actionEvent) {
