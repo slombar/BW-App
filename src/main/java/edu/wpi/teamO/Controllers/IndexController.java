@@ -6,7 +6,6 @@ import edu.wpi.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -124,12 +123,9 @@ public class IndexController implements Initializable {
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
       // Starting ToolTip click
-      ArrayList<String> descripA = null;
-      try {
-        descripA = DatabaseFunctionality.getInfo(n.getID());
-      } catch (SQLException throwables) {
-        throwables.printStackTrace();
-      }
+      ArrayList<String> descripA = new ArrayList<String>();
+      descripA = DatabaseFunctionality.getInfo(n.getID());
+
       String description = descripA.get(0) + "\n" + descripA.get(1);
       Tooltip.install(circle, new Tooltip(description));
     }
