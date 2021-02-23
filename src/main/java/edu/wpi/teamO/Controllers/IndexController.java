@@ -76,10 +76,13 @@ public class IndexController implements Initializable {
 
     gc = mapcanvas.getGraphicsContext2D();
 
-    drawNodeCircles(/*nodeList*/ );
+    // draws circles on canvas
+    drawNodeCircles();
+
     System.out.println("Initalized");
   }
 
+  /** draws the circles on the canvas */
   public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
@@ -113,11 +116,15 @@ public class IndexController implements Initializable {
         gc.setFill(Color.RED);
       }
 
+      // create the circle utilizing the algorithm
       gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
       // sets alpha to 1.0 and draw a black border around circle
       gc.setGlobalAlpha(1.0);
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      circle.getCenterX();
+      circle.getCenterY();
     }
   }
 
@@ -236,6 +243,11 @@ public class IndexController implements Initializable {
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
+  /**
+   * sdfgh
+   *
+   * @param mouseEvent
+   */
   public void canvasClick(MouseEvent mouseEvent) {
     double clickX = mouseEvent.getX();
     double clickY = mouseEvent.getY();
