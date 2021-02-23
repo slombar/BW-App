@@ -17,7 +17,7 @@ public class SecFormController {
   @FXML
   public void goToHomePage(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
-    // errors TODO: fix
+    Opp.getPrimaryStage().setFullScreen(true);
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 }

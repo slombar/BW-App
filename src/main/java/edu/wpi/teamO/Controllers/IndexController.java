@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
@@ -46,6 +47,7 @@ public class IndexController implements Initializable {
   public MenuItem dest3Button;
   public MenuButton menu;
   public Label label;
+  @FXML private AnchorPane bigAnchor;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
@@ -73,6 +75,21 @@ public class IndexController implements Initializable {
     nodeList = DatabaseFunctionality.showNodes(nodeList);
     // circleList = new ArrayList<>();
     stringCircleHashtable = new Hashtable<>();
+
+    //////////////////////////////////// SCALING//////////////////////////////////
+
+    double scale = 1.5;
+    mapimage.setScaleX(scale);
+    mapimage.setScaleY(scale);
+    mapcanvas.setScaleX(scale);
+    mapcanvas.setScaleY(scale);
+    mapimage.setTranslateX(200);
+    mapcanvas.setTranslateX(200);
+    mapimage.setTranslateY(165);
+    mapcanvas.setTranslateY(165);
+    mapcanvas.toFront();
+
+    /////////////////////////////////////////////////////////////////////
 
     gc = mapcanvas.getGraphicsContext2D();
 
@@ -212,8 +229,8 @@ public class IndexController implements Initializable {
   }
 
   public void goToSecurityRequest(ActionEvent actionEvent) throws IOException {
-    // add the scene switch
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/SecurityForm.fxml"));
+    Opp.getPrimaryStage().setFullScreen(false);
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 

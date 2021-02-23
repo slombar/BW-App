@@ -27,8 +27,8 @@ public class Opp extends Application {
     try {
       AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
       Scene scene = new Scene(root);
-
       ps.setScene(scene);
+      ps.setFullScreen(true);
       ps.show();
     } catch (IOException e) {
       e.printStackTrace();
