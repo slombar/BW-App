@@ -139,7 +139,11 @@ public class IndexController implements Initializable {
       Tooltip.install(circle, new Tooltip(description));*/
     }
 
+    // draws the BW logo and text
+    gc.setFill(Color.WHITE);
+    gc.setGlobalAlpha(.75);
     gc.drawImage(bwLogo, 0, 0);
+    gc.fillRect(87, -5, 350, 45);
     gc.strokeText("Brigham and Women's Faulkner Hospital Campus", 90, 30);
   }
 
