@@ -6,6 +6,8 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.teamO.Opp;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,32 +29,40 @@ public class EmailPageController {
   @FXML private JFXButton confirmBtn;
   @FXML private ImageView mapView;
 
-  private boolean popUp = false;
-  private boolean goHome = false;
+  private String errorMsg = "";
 
   public void back(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
-  public void sendEmail(ActionEvent actionEvent) throws IOException {
-    String emailString = email.getText();
-    System.out.println(emailString);
+  public static boolean isValidEmail(String email) {
+    String emailRegex =
+        "^[a-zA-Z0-9_+&*-]+(?:\\."
+            + "[a-zA-Z0-9_+&*-]+)*@"
+            + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+            + "A-Z]{2,7}$";
 
-    String home = System.getProperty("user.home");
-    String outputFile = home + "/Downloads/" + "mapImageThingy.png";
+    Pattern pat = Pattern.compile(emailRegex);
+    if (email == null) return false;
+    return pat.matcher(email).matches();
+  }
 
-    SharingFunctionality.sendEmailAttachment(emailString, outputFile);
+  public static boolean isValidNum(String s) {
+    // The given argument to compile() method
+    // is regular expression. With the help of
+    // regular expression we can validate mobile
+    // number.
+    // 1) Begins with 0 or 91
+    // 2) Then contains 7 or 8 or 9.
+    // 3) Then contains 9 digits
+    Pattern p = Pattern.compile("(0/91)?[7-9][0-9]{9}");
 
-    // still need to test if this works
-    if (submissionPopup()) {
-      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    }
-
-    //    original scene switch
-    //    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
-    //    Opp.getPrimaryStage().getScene().setRoot(root);
+    // Pattern class contains matcher() method
+    // to find matching between given number
+    // and regular expression
+    Matcher m = p.matcher(s);
+    return (m.find() && m.group().equals(s));
   }
 
   public void sendText(ActionEvent actionEvent) throws IOException {
@@ -60,68 +70,132 @@ public class EmailPageController {
     String phoneString = phoneNum.getText();
     System.out.println(phoneString);
 
-    String home = System.getProperty("user.home");
-    String outputFile = home + "/Downloads/" + "mapImageThingy.png";
+    if (isValidNum(phoneString)) {
 
-    SharingFunctionality.sendSMS(phoneString, outputFile);
-    // phoneString, outputFile
-    Boolean paneBool = submissionPopup();
+      String home = System.getProperty("user.home");
+      String outputFile = home + "/Downloads/" + "mapImageThingy.png";
+
+      SharingFunctionality.sendSMS(phoneString, outputFile);
+      submissionPopup();
+
+    } else {
+      errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
+      System.out.print(errorMsg);
+      invalidPopup();
+    }
   }
 
-  public boolean submissionPopup() {
-    if (!popUp) {
-      popUp = true;
-      goHome = false;
+  public void sendEmail(ActionEvent actionEvent) throws IOException {
+    String emailString = email.getText();
+    System.out.println(emailString);
 
-      // dialogContent has the conetnt of the popup
-      JFXDialogLayout dialogContent = new JFXDialogLayout();
-      dialogContent.setHeading(new Text("Success!"));
-      VBox dialogVBox = new VBox(12);
+    if (isValidEmail(emailString)) {
+      String home = System.getProperty("user.home");
+      String outputFile = home + "/Downloads/" + "mapImageThingy.png";
 
-      // Creating an HBox of buttons
-      HBox buttonBox = new HBox(20);
-      JFXButton closeButton = new JFXButton("Close");
-      JFXButton homeButton = new JFXButton("Return to Homepage");
-      buttonBox.getChildren().addAll(closeButton, homeButton);
+      SharingFunctionality.sendEmailAttachment(emailString, outputFile);
 
-      // Creating the format
-      dialogVBox
-          .getChildren()
-          .addAll(new Text("The message has been sent successfully."), buttonBox);
-      dialogContent.setBody(dialogVBox);
+      submissionPopup();
 
-      // Bringing the popup screen to the front and disabling the background
-      stackPane.toFront();
-      JFXDialog submissionDialog =
-          new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.BOTTOM);
-      submissionDialog.setOverlayClose(false);
-
-      // Closing the popup
-      closeButton.setOnAction(
-          event -> {
-            submissionDialog.close();
-            stackPane.toBack();
-            popUp = false;
-            goHome = false;
-          });
-
-      // go to Index/Homepage
-      homeButton.setOnAction(
-          event -> {
-            submissionDialog.close();
-            stackPane.toBack();
-            AnchorPane root = null;
-            try {
-              root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-            Opp.getPrimaryStage().getScene().setRoot(root);
-            popUp = false;
-            goHome = true;
-          });
-      submissionDialog.show();
+    } else {
+      errorMsg =
+          "Email is invalid. Make sure your email is spelled correctly and follows typical conventions. (email@company.com)";
+      System.out.print("Email invalid.");
+      invalidPopup();
     }
-    return goHome;
+  }
+
+  public void invalidPopup() {
+    // dialogContent has the conetnt of the popup
+    JFXDialogLayout dialogContent = new JFXDialogLayout();
+    dialogContent.setHeading(new Text("Failed. Invalid Information."));
+    VBox dialogVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton homeButton = new JFXButton("Return to Homepage");
+    buttonBox.getChildren().addAll(closeButton, homeButton);
+
+    // Creating the format
+    dialogVBox
+        .getChildren()
+        .addAll(
+            new Text("The message has not been sent, your credentials are invalid."), buttonBox);
+    dialogContent.setBody(dialogVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    stackPane.toFront();
+    JFXDialog submissionDialog =
+        new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.BOTTOM);
+    submissionDialog.setOverlayClose(false);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          submissionDialog.close();
+          stackPane.toBack();
+        });
+
+    // go to Index/Homepage
+    homeButton.setOnAction(
+        event -> {
+          submissionDialog.close();
+          stackPane.toBack();
+          AnchorPane root = null;
+          try {
+            root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          Opp.getPrimaryStage().getScene().setRoot(root);
+        });
+    submissionDialog.show();
+  }
+
+  public void submissionPopup() {
+
+    // dialogContent has the conetnt of the popup
+    JFXDialogLayout dialogContent = new JFXDialogLayout();
+    dialogContent.setHeading(new Text("Success!"));
+    VBox dialogVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton homeButton = new JFXButton("Return to Homepage");
+    buttonBox.getChildren().addAll(closeButton, homeButton);
+
+    // Creating the format
+    dialogVBox.getChildren().addAll(new Text("The message has been sent successfully."), buttonBox);
+    dialogContent.setBody(dialogVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    stackPane.toFront();
+    JFXDialog submissionDialog =
+        new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.BOTTOM);
+    submissionDialog.setOverlayClose(false);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          submissionDialog.close();
+          stackPane.toBack();
+        });
+
+    // go to Index/Homepage
+    homeButton.setOnAction(
+        event -> {
+          submissionDialog.close();
+          stackPane.toBack();
+          AnchorPane root = null;
+          try {
+            root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          Opp.getPrimaryStage().getScene().setRoot(root);
+        });
+    submissionDialog.show();
   }
 }

@@ -24,7 +24,7 @@ public class EmailThreader extends Thread {
   public void run() {
 
     String to = sendingTo; // recipient's email
-    String from = "bwappteamo@gmail.com"; // sender's email, need default sender email !
+    String from = "bwolive3733@gmail.com"; // sender's email, need default sender email !
     String host = "smtp.gmail.com"; // where email is being sent from
 
     Properties properties = System.getProperties(); // set up mail server
@@ -55,13 +55,13 @@ public class EmailThreader extends Thread {
       // Setting Email Headers
       message.setFrom(new InternetAddress(from)); // Set From: header
       message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); // Set To: header
-      message.setSubject("This is the Subject Line!"); // Set Subject: header
+      message.setSubject("BW-App Pathfinding Route"); // Set Subject: header
 
       // PART 1 - BODY OF EMAIL ----------------------------------------------------------------
       BodyPart messageBodyPart = new MimeBodyPart();
 
       // Actual Message
-      messageBodyPart.setText("This is message body");
+      messageBodyPart.setText("Below is the image of your pathfinding route.");
 
       // Create a multipart message + set text message part
       Multipart multipart = new MimeMultipart();
@@ -72,7 +72,7 @@ public class EmailThreader extends Thread {
       String filename = fileToBeSent; // file to be sent, map image
       DataSource source = new FileDataSource(filename);
       messageBodyPart.setDataHandler(new DataHandler(source));
-      messageBodyPart.setFileName(filename);
+      messageBodyPart.setFileName("yourMapRoute");
       multipart.addBodyPart(messageBodyPart);
 
       // Send the complete message parts

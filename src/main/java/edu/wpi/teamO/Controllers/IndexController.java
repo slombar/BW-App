@@ -14,16 +14,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
@@ -35,10 +32,10 @@ import javax.imageio.ImageIO;
 public class IndexController implements Initializable {
   public MenuItem edgeEditorButton;
   public MenuItem nodeEditorButton;
-  public MenuItem securityButton;
+  public JFXButton securityButton;
   public MenuItem maintenanceButton;
-  public Button exitButton;
-  public Button pathfindingButton;
+  public JFXButton exitButton;
+  public JFXButton pathfindingButton;
   public MenuItem loc1Button;
   public MenuItem loc2Button;
   public MenuItem loc3Button;
@@ -48,6 +45,10 @@ public class IndexController implements Initializable {
   public MenuButton menu;
   public Label label;
   @FXML private AnchorPane bigAnchor;
+  public JFXButton locButton;
+  public JFXButton destButton;
+  public JFXButton resetButton;
+  public JFXButton editButton;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
@@ -56,18 +57,26 @@ public class IndexController implements Initializable {
   String dest = "-1";
   boolean selectingLoc = true;
   // Graph testGraph;
-  // these variables show which of the three locations/destinations respectivly is currently being
+  // these variables show which of the three locations/destinations respectively is currently being
   // tracked
   public ImageView mapimage;
   // the campus image is 2989 x 2457
   public Canvas mapcanvas;
-  public Button saveBtn;
+  public JFXButton saveBtn;
   public AnchorPane mapanchor;
   // private ArrayList<Circle> circleList;
   private ObservableList<Node> nodeList = FXCollections.observableArrayList();
   private Hashtable<String, Circle> stringCircleHashtable;
   private GraphicsContext gc;
   double cW = 10.0;
+
+  public static final Image bwLogo =
+      new Image(
+          "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Brigham_and_Womens_Hospital_logo.svg/878px-Brigham_and_Womens_Hospital_logo.svg.png",
+          116,
+          100,
+          true,
+          true);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -94,9 +103,24 @@ public class IndexController implements Initializable {
     gc = mapcanvas.getGraphicsContext2D();
 
     // draws circles on canvas
+
     drawNodeCircles();
+    customizeButtons();
 
     System.out.println("Initalized");
+  }
+
+  // Customize buttons
+  private void customizeButtons() {
+    // #b4d1ed is pretty nice too
+    editButton.setStyle("-fx-background-color: #c3d6e8");
+    securityButton.setStyle("-fx-background-color: #c3d6e8");
+    exitButton.setStyle("-fx-background-color: #c3d6e8");
+    locButton.setStyle("-fx-background-color: #c3d6e8");
+    destButton.setStyle("-fx-background-color: #c3d6e8");
+    resetButton.setStyle("-fx-background-color: #c3d6e8");
+    pathfindingButton.setStyle("-fx-background-color: #c3d6e8");
+    saveBtn.setStyle("-fx-background-color: #ffffff");
   }
 
   /** draws the circles on the canvas */
@@ -110,8 +134,13 @@ public class IndexController implements Initializable {
     // double cW = 10.0;
     // TODO: (x,y) should already adjust when scrolling, but probably should also change radius
 
+    // for each node in the DB, add their circle to the map
     for (Node n : nodeList) {
+      double difference = 0;
       Circle circle = new Circle();
+      /*add functionality to make the route path
+      go left... go right?
+       */
 
       double nodeX = Double.valueOf(n.getXCoord()) / scaleX;
       double nodeY = Double.valueOf(n.getYCoord()) / scaleY;
@@ -143,6 +172,13 @@ public class IndexController implements Initializable {
       circle.getCenterX();
       circle.getCenterY();
     }
+
+    // draws the BW logo and text
+    gc.setFill(Color.WHITE);
+    gc.setGlobalAlpha(.75);
+    gc.drawImage(bwLogo, 0, 0);
+    gc.fillRect(87, -5, 350, 45);
+    gc.strokeText("Brigham and Women's Faulkner Hospital Campus", 90, 30);
   }
 
   public void pathfindingPress(ActionEvent actionEvent) {
@@ -188,8 +224,8 @@ public class IndexController implements Initializable {
 
   private static final double arrowLength = 6;
   private static final double arrowWidth = 4;
-  private static final double minArrowDistSq = 72;
-  // ^ do the dist you wanted squared (probably want 2*(arrowLength^2))
+  private static final double minArrowDistSq = 108;
+  // ^ do the dist you wanted squared (probably want 3*(arrowLength^2))
 
   // draws an arrow from a to b, with the arrowhead halfway between them
   public void drawMidArrow(double ax, double ay, double bx, double by) {

@@ -72,11 +72,12 @@ public class EditPageController implements Initializable {
 
   // Customize
   private void customizeButtons() {
-    backButton.setStyle("-fx-background-color: lightgray");
-    addNodeButton.setStyle("-fx-background-color: lightgray");
-    deleteNodeButton.setStyle("-fx-background-color: lightgray");
-    addEdgeButton.setStyle("-fx-background-color: lightgray");
-    deleteEdgeButton.setStyle("-fx-background-color: lightgray");
+    // can also use lightgray
+    backButton.setStyle("-fx-background-color: #c3d6e8");
+    addNodeButton.setStyle("-fx-background-color: #c3d6e8");
+    deleteNodeButton.setStyle("-fx-background-color: #c3d6e8");
+    addEdgeButton.setStyle("-fx-background-color: #c3d6e8");
+    deleteEdgeButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
   ///////////////////////////// NODES TABLE //////////////////////////////
@@ -676,5 +677,61 @@ public class EditPageController implements Initializable {
   public void goToIndex(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
     Opp.getPrimaryStage().getScene().setRoot(root);
+  }
+
+  public void loadCSV(ActionEvent actionEvent) {
+    // dialogContent has the conetnt of the popup
+    JFXDialogLayout dialogContent = new JFXDialogLayout();
+    dialogContent.setHeading(new Text("Load CSV text file."));
+    VBox dialogVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton clearButton = new JFXButton("Clear");
+    JFXButton submitButton = new JFXButton("Load");
+    buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+    // Creating a list of labels to create teh textfields
+    ArrayList<String> label = new ArrayList<String>(Arrays.asList("CSV File Path"));
+    ArrayList<JFXTextField> listOfFields = createFields(label);
+
+    // Creating the form with a VBox
+    dialogVBox.getChildren().addAll(listOfFields.get(0), buttonBox);
+    dialogContent.setBody(dialogVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    stackPane.toFront();
+    JFXDialog loadDialog =
+        new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.BOTTOM);
+    loadDialog.setOverlayClose(false);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          loadDialog.close();
+          stackPane.toBack();
+        });
+    // Clearing the form, keeps the popup open
+    clearButton.setOnAction(
+        event -> {
+          listOfFields.get(0).clear();
+        });
+    // Submits deletion to the database
+    submitButton.setOnAction(
+        event -> {
+          // If incomplete form, sends an error msg
+          // If edge is not in database, send sn error msg
+          // Otherwise, sends to database and closes popup
+          if (listOfFields.get(0).getText().isEmpty()) {
+            incompletePopup();
+          } else {
+            String filePath = listOfFields.get(0).getText();
+            DatabaseFunctionality.saveNodes(filePath);
+            loadDialog.close();
+            stackPane.toBack();
+          }
+        });
+    loadDialog.show();
   }
 }
