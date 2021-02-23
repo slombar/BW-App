@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="639.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.EmailPageController">
    <children>
-      <SplitPane dividerPositions="0.608" prefHeight="160.0" prefWidth="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+      <SplitPane dividerPositions="0.55" prefHeight="160.0" prefWidth="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
@@ -26,14 +26,14 @@
                   </ImageView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="300.0">
                <children>
                   <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox>
+                        <HBox alignment="TOP_CENTER">
                            <children>
-                              <JFXTextField fx:id="email" prefWidth="250.0" promptText="Example@mail.com" unFocusColor="#0d0d0d">
+                              <JFXTextField fx:id="email" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="175.0" promptText="Example@mail.com" unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -41,7 +41,7 @@
                                     <Insets bottom="15.0" />
                                  </HBox.margin>
                               </JFXTextField>
-                              <JFXButton fx:id="confirmBtn" onAction="#sendEmail" text="Email it to me!">
+                              <JFXButton fx:id="confirmBtn" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" onAction="#sendEmail" prefWidth="116.0" text="Email it to me!">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -51,14 +51,14 @@
                               <Insets top="15.0" />
                            </padding>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="TOP_CENTER">
                            <children>
-                              <JFXTextField fx:id="phoneNum" prefHeight="32.0" prefWidth="250.0" promptText="+1 (XXX) XXX - XXXX" unFocusColor="#0d0d0d">
+                              <JFXTextField fx:id="phoneNum" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="32.0" prefWidth="175.0" promptText="+1 (XXX) XXX - XXXX" unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXButton onAction="#sendText" text="Text it to me!">
+                              <JFXButton minWidth="-Infinity" onAction="#sendText" prefWidth="116.0" text="Text it to me!">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

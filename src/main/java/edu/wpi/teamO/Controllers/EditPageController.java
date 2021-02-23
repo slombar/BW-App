@@ -72,11 +72,12 @@ public class EditPageController implements Initializable {
 
   // Customize
   private void customizeButtons() {
-    backButton.setStyle("-fx-background-color: lightgray");
-    addNodeButton.setStyle("-fx-background-color: lightgray");
-    deleteNodeButton.setStyle("-fx-background-color: lightgray");
-    addEdgeButton.setStyle("-fx-background-color: lightgray");
-    deleteEdgeButton.setStyle("-fx-background-color: lightgray");
+    // can also use lightgray
+    backButton.setStyle("-fx-background-color: #c3d6e8");
+    addNodeButton.setStyle("-fx-background-color: #c3d6e8");
+    deleteNodeButton.setStyle("-fx-background-color: #c3d6e8");
+    addEdgeButton.setStyle("-fx-background-color: #c3d6e8");
+    deleteEdgeButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
   ///////////////////////////// NODES TABLE //////////////////////////////
