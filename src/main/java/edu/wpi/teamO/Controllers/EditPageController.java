@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
+  public JFXButton refreshButton;
   @FXML private JFXButton loadEdge;
   @FXML private JFXButton loadNode;
   @FXML private JFXButton backButton;
@@ -87,10 +88,10 @@ public class EditPageController implements Initializable {
   ///////////////////////////// NODES TABLE //////////////////////////////
   // Initializes the node table and ensures that its updated
   public void initNodeTable() {
-    nodeTable2 = nodeTable;
     nodeTable.setShowRoot(false);
     initNodeCols();
     loadNodeData();
+    nodeTable2 = nodeTable;
   }
 
   // Loads the node data from the database and puts it into tree table
@@ -795,5 +796,10 @@ public class EditPageController implements Initializable {
           }
         });
     loadDialog.show();
+  }
+
+  public void refresh(ActionEvent actionEvent) {
+    initNodeTable();
+    initEdgeTable();
   }
 }
