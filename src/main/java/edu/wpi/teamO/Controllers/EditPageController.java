@@ -86,7 +86,7 @@ public class EditPageController implements Initializable {
 
   ///////////////////////////// NODES TABLE //////////////////////////////
   // Initializes the node table and ensures that its updated
-  private void initNodeTable() {
+  public void initNodeTable() {
     nodeTable2 = nodeTable;
     nodeTable.setShowRoot(false);
     initNodeCols();
@@ -152,7 +152,7 @@ public class EditPageController implements Initializable {
 
   ///////////////////////////// EDGES TABLE //////////////////////////////
   // Initializes the edge table and ensures that its updated
-  private void initEdgeTable() {
+  public void initEdgeTable() {
     edgeTable2 = edgeTable;
     edgeTable.setShowRoot(false);
     initEdgeCols();
