@@ -55,13 +55,13 @@ public class EmailThreader extends Thread {
       // Setting Email Headers
       message.setFrom(new InternetAddress(from)); // Set From: header
       message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); // Set To: header
-      message.setSubject("This is the Subject Line!"); // Set Subject: header
+      message.setSubject("BW-App Pathfinding Route"); // Set Subject: header
 
       // PART 1 - BODY OF EMAIL ----------------------------------------------------------------
       BodyPart messageBodyPart = new MimeBodyPart();
 
       // Actual Message
-      messageBodyPart.setText("This is message body");
+      messageBodyPart.setText("Below is the image of your pathfinding route.");
 
       // Create a multipart message + set text message part
       Multipart multipart = new MimeMultipart();
