@@ -829,4 +829,65 @@ public class EditPageController implements Initializable {
   }
 
   public void canvasClick(MouseEvent mouseEvent) {}
+
+  public void savePopup(ActionEvent actionEvent) {
+    // dialogContent has the conetnt of the popup
+    JFXDialogLayout dialogContent = new JFXDialogLayout();
+    dialogContent.setHeading(new Text("Load node CSV text file."));
+    VBox dialogVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton clearButton = new JFXButton("Clear");
+    JFXButton submitButton = new JFXButton("Save");
+    buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+    // Creating a list of labels to create teh textfields
+    ArrayList<String> label =
+        new ArrayList<String>(Arrays.asList("Location to save file:", "node or edge (n/e)"));
+    ArrayList<JFXTextField> listOfFields = createFields(label);
+
+    // Creating the form with a VBox
+    dialogVBox.getChildren().addAll(listOfFields.get(0), listOfFields.get(1), buttonBox);
+    dialogContent.setBody(dialogVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    stackPane.toFront();
+    JFXDialog loadDialog =
+        new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.BOTTOM);
+    loadDialog.setOverlayClose(false);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          loadDialog.close();
+          stackPane.toBack();
+        });
+    // Clearing the form, keeps the popup open
+    clearButton.setOnAction(
+        event -> {
+          listOfFields.get(0).clear();
+        });
+    // Submits deletion to the database
+    submitButton.setOnAction(
+        event -> {
+          // If incomplete form, sends an error msg
+          // If edge is not in database, send sn error msg
+          // Otherwise, sends to database and closes popup
+          if (listOfFields.get(0).getText().isEmpty() || listOfFields.get(1).getText().isEmpty()) {
+            incompletePopup();
+          } else {
+            String filePath = listOfFields.get(0).getText();
+            char nodeOrEdge = listOfFields.get(1).getText().charAt(0);
+            boolean node = (nodeOrEdge == 'n');
+
+            // true = is a node
+            DatabaseFunctionality.save(filePath, node);
+            loadDialog.close();
+            stackPane.toBack();
+          }
+        });
+    loadDialog.show();
+  }
 }

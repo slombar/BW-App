@@ -456,6 +456,14 @@ public class DatabaseFunctionality {
     }
   }
 
+  public static void save(String url, boolean node) {
+    if (node) {
+      saveNodes(url);
+    } else {
+      saveEdges(url);
+    }
+  }
+
   public static void saveNodes(String url) {
 
     String nodeID = "";
