@@ -6,6 +6,8 @@ import edu.wpi.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -19,10 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
@@ -30,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
+import lombok.SneakyThrows;
 
 public class IndexController implements Initializable {
   public MenuItem edgeEditorButton;
@@ -67,6 +67,7 @@ public class IndexController implements Initializable {
   private GraphicsContext gc;
   double cW = 10.0;
 
+  @SneakyThrows
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     nodeList = FXCollections.observableArrayList();
@@ -77,13 +78,14 @@ public class IndexController implements Initializable {
     gc = mapcanvas.getGraphicsContext2D();
 
     // draws circles on canvas
+
     drawNodeCircles();
 
     System.out.println("Initalized");
   }
 
   /** draws the circles on the canvas */
-  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
+  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) throws SQLException, IOException {
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
     double scaleX = 2989 / mapcanvas.getWidth();
@@ -123,8 +125,10 @@ public class IndexController implements Initializable {
       gc.setGlobalAlpha(1.0);
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
-      circle.getCenterX();
-      circle.getCenterY();
+      // Starting ToolTip click
+      ArrayList<String> descripA = DatabaseFunctionality.getInfo(n.getID());
+      String description = descripA.get(0) + "\n" + descripA.get(1);
+      Tooltip.install(circle, new Tooltip(description));
     }
   }
 
@@ -248,7 +252,7 @@ public class IndexController implements Initializable {
    *
    * @param mouseEvent
    */
-  public void canvasClick(MouseEvent mouseEvent) {
+  public void canvasClick(MouseEvent mouseEvent) throws SQLException, IOException {
     double clickX = mouseEvent.getX();
     double clickY = mouseEvent.getY();
     System.out.println("CANVAS CLICKING");
@@ -294,7 +298,7 @@ public class IndexController implements Initializable {
     selectingLoc = false;
   }
 
-  public void resetClick(ActionEvent actionEvent) {
+  public void resetClick(ActionEvent actionEvent) throws IOException, SQLException {
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     loc = "-1";
     dest = "-1";
