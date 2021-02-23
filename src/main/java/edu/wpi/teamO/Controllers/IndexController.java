@@ -71,12 +71,7 @@ public class IndexController implements Initializable {
   double cW = 10.0;
 
   public static final Image bwLogo =
-      new Image(
-          "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Brigham_and_Womens_Hospital_logo.svg/878px-Brigham_and_Womens_Hospital_logo.svg.png",
-          116,
-          100,
-          true,
-          true);
+      new Image("Brigham_and_Womens_Hospital_logo.png", 116, 100, true, true);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -295,6 +290,7 @@ public class IndexController implements Initializable {
     double clickY = mouseEvent.getY();
     System.out.println("CANVAS CLICKING");
     String closestID = closestCircle(clickX, clickY);
+    // System.out.println(closestID); // for debugging
 
     if (selectingLoc) {
       loc = closestID;
