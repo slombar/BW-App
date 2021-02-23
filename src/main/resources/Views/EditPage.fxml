@@ -4,10 +4,13 @@
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import com.jfoenix.controls.pannable.PannablePane?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -33,6 +36,12 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="204.0" prefWidth="204.0">
                     <children>
+                  <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../FaulknerCampus.png" />
+                     </image>
+                  </ImageView>
+                  <Canvas fx:id="mapcanvas" height="583.0" onMouseClicked="#canvasClick" width="728.0" />
                         <PannablePane layoutX="27.0" layoutY="63.0" prefHeight="138.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                     </children>
                 </AnchorPane>
@@ -40,7 +49,7 @@
                     <children>
                         <StackPane fx:id="warningPane" layoutX="55.0" layoutY="48.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <StackPane fx:id="stackPane" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <TabPane layoutX="52.0" layoutY="70.0" prefHeight="156.0" prefWidth="220.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TabPane layoutX="52.0" layoutY="70.0" prefHeight="156.0" prefWidth="376.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <tabs>
                                 <Tab fx:id="nodeTableTab" onSelectionChanged="#nodeTabSelect" text="Nodes">
                                     <content>

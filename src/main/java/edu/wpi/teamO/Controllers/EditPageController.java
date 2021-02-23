@@ -16,9 +16,13 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -60,6 +64,9 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Edge, String> startCol;
   @FXML private TreeTableColumn<Edge, String> endCol;
   @FXML private TreeTableColumn<Edge, String> updateEdgeCol;
+  @FXML private ImageView mapimage;
+  @FXML private Canvas mapcanvas;
+  private GraphicsContext gc;
 
   public static ObservableList<Node> nodeList;
   public static ObservableList<Edge> edgeList;
@@ -71,6 +78,23 @@ public class EditPageController implements Initializable {
     initNodeTable();
     initEdgeTable();
     customizeButtons();
+
+    //////////////////////////////////// SCALING//////////////////////////////////
+
+    double scale = 1.5;
+    mapimage.setScaleX(scale);
+    mapimage.setScaleY(scale);
+    mapcanvas.setScaleX(scale);
+    mapcanvas.setScaleY(scale);
+    mapimage.setTranslateX(200);
+    mapcanvas.setTranslateX(200);
+    mapimage.setTranslateY(165);
+    mapcanvas.setTranslateY(165);
+    mapcanvas.toFront();
+
+    /////////////////////////////////////////////////////////////////////
+
+    gc = mapcanvas.getGraphicsContext2D();
   }
 
   // Customize
@@ -803,4 +827,6 @@ public class EditPageController implements Initializable {
     initNodeTable();
     initEdgeTable();
   }
+
+  public void canvasClick(MouseEvent mouseEvent) {}
 }
