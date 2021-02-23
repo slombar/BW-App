@@ -681,6 +681,7 @@ public class EditPageController implements Initializable {
    */
   public void goToIndex(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+    Opp.getPrimaryStage().setFullScreen(true);
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
