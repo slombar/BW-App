@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.teamO.Opp;
 import java.io.IOException;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,16 +29,36 @@ public class EmailPageController {
   @FXML private ImageView mapView;
 
   private boolean popUp = false;
-  private boolean goHome = false;
+  private boolean success = false;
 
   public void back(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
+  public static boolean isValid(String email) {
+    String emailRegex =
+        "^[a-zA-Z0-9_+&*-]+(?:\\."
+            + "[a-zA-Z0-9_+&*-]+)*@"
+            + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+            + "A-Z]{2,7}$";
+
+    Pattern pat = Pattern.compile(emailRegex);
+    if (email == null) return false;
+    return pat.matcher(email).matches();
+  }
+
   public void sendEmail(ActionEvent actionEvent) throws IOException {
     String emailString = email.getText();
     System.out.println(emailString);
+
+    if (isValid(emailString)) {
+      System.out.print("Email valid. Sending...");
+      success = true;
+    } else {
+      System.out.print("Email invalid.");
+      success = false;
+    }
 
     String home = System.getProperty("user.home");
     String outputFile = home + "/Downloads/" + "mapImageThingy.png";
@@ -45,14 +66,12 @@ public class EmailPageController {
     SharingFunctionality.sendEmailAttachment(emailString, outputFile);
 
     // still need to test if this works
-    if (submissionPopup()) {
-      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    }
+    if (success) {
+      submissionPopup();
 
-    //    original scene switch
-    //    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Submitted.fxml"));
-    //    Opp.getPrimaryStage().getScene().setRoot(root);
+    } else {
+      invalidEmailPopup();
+    }
   }
 
   public void sendText(ActionEvent actionEvent) throws IOException {
@@ -68,10 +87,58 @@ public class EmailPageController {
     Boolean paneBool = submissionPopup();
   }
 
+  public void invalidEmailPopup() {
+    // dialogContent has the conetnt of the popup
+    JFXDialogLayout dialogContent = new JFXDialogLayout();
+    dialogContent.setHeading(new Text("Failed. Invalid Information."));
+    VBox dialogVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton homeButton = new JFXButton("Return to Homepage");
+    buttonBox.getChildren().addAll(closeButton, homeButton);
+
+    // Creating the format
+    dialogVBox
+        .getChildren()
+        .addAll(
+            new Text("The message has not been sent, your credentials are invalid."), buttonBox);
+    dialogContent.setBody(dialogVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    stackPane.toFront();
+    JFXDialog submissionDialog =
+        new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.BOTTOM);
+    submissionDialog.setOverlayClose(false);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          submissionDialog.close();
+          stackPane.toBack();
+        });
+
+    // go to Index/Homepage
+    homeButton.setOnAction(
+        event -> {
+          submissionDialog.close();
+          stackPane.toBack();
+          AnchorPane root = null;
+          try {
+            root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          Opp.getPrimaryStage().getScene().setRoot(root);
+        });
+    submissionDialog.show();
+  }
+
   public boolean submissionPopup() {
+
     if (!popUp) {
       popUp = true;
-      goHome = false;
 
       // dialogContent has the conetnt of the popup
       JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -102,7 +169,6 @@ public class EmailPageController {
             submissionDialog.close();
             stackPane.toBack();
             popUp = false;
-            goHome = false;
           });
 
       // go to Index/Homepage
@@ -118,10 +184,9 @@ public class EmailPageController {
             }
             Opp.getPrimaryStage().getScene().setRoot(root);
             popUp = false;
-            goHome = true;
           });
       submissionDialog.show();
     }
-    return goHome;
+    return success;
   }
 }

@@ -149,13 +149,17 @@ public class IndexController implements Initializable {
       gc.setGlobalAlpha(1.0);
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
-      // Starting ToolTip click
+      // Starting ToolTip popup
       /*
-      ArrayList<String> descripA = new ArrayList<String>();
-      descripA = DatabaseFunctionality.getInfo(n.getID());
+      ArrayList<String> d = new ArrayList<>();
+      d = DatabaseFunctionality.getInfo(n.getID());
+      String description = "";
 
-      String description = descripA.get(0) + "\n" + descripA.get(1);
-      Tooltip.install(circle, new Tooltip(description));*/
+          description = d.get(0) + "\n" + d.get(1);
+
+      description = "random fuck shit";
+      Tooltip.install(circle, new Tooltip(description));
+      */
     }
 
     // draws the BW logo and text

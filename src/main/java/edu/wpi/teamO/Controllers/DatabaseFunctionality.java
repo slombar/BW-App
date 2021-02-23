@@ -607,11 +607,11 @@ public class DatabaseFunctionality {
     ArrayList<String> list = new ArrayList<String>();
 
     try {
-      pstmt = connection.prepareStatement("SELECT * FROM Tools WHERE NODEID = '" + id + "'");
+      pstmt = connection.prepareStatement("SELECT * FROM Tools WHERE nodeID = '" + id + "'");
 
       ResultSet rset = pstmt.executeQuery();
-      String title = rset.getString("title");
-      String toolText = rset.getString("toolText");
+      String title = rset.getString("TITLE");
+      String toolText = rset.getString("DESCRIP");
 
       // Adds title and text description of node to a list
       list.add(title);
@@ -623,6 +623,7 @@ public class DatabaseFunctionality {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+
     return list;
   }
 }
