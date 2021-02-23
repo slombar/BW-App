@@ -53,7 +53,6 @@ public class IndexController implements Initializable {
   public JFXButton locButton;
   public JFXButton destButton;
   public JFXButton resetButton;
-  public JFXButton editButton;
   public StackPane sharePane;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
