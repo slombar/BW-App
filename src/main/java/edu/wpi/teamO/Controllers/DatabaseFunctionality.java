@@ -1,6 +1,5 @@
 package edu.wpi.teamO.Controllers;
 
-import com.jfoenix.controls.JFXButton;
 import edu.wpi.teamO.Controllers.model.*;
 import java.io.*;
 import java.sql.*;
@@ -360,7 +359,7 @@ public class DatabaseFunctionality {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
 
-        edgeList.add(new Edge(ID, startNode, endNode, new JFXButton("update")));
+        edgeList.add(new Edge(ID, startNode, endNode));
       }
 
       rset.close();
@@ -398,17 +397,7 @@ public class DatabaseFunctionality {
         nodeType = rset.getString("nodeType");
         longName = rset.getString("longName");
         shortName = rset.getString("shortName");
-        nodeList.add(
-            new Node(
-                ID,
-                xcoord,
-                ycoord,
-                floor,
-                building,
-                nodeType,
-                longName,
-                shortName,
-                new JFXButton("update")));
+        nodeList.add(new Node(ID, xcoord, ycoord, floor, building, nodeType, longName, shortName));
       }
       rset.close();
       pstmt.close();
@@ -453,6 +442,14 @@ public class DatabaseFunctionality {
       System.out.println("Save Edge CSV Information: Failed!");
       e.printStackTrace();
       return;
+    }
+  }
+
+  public static void save(String url, boolean node) {
+    if (node) {
+      saveNodes(url);
+    } else {
+      saveEdges(url);
     }
   }
 

@@ -6,10 +6,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="bigAnchor" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.IndexController">
 
@@ -27,47 +27,71 @@
                                </image>
                            </ImageView>
                            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
-                        <StackPane fx:id="sharePane" prefHeight="30.0" prefWidth="60.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
-                           <children>
-                              <JFXButton fx:id="saveBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="60.0" text="Share" />
-                           </children>
-                        </StackPane>
                        </children>
                    </AnchorPane>
                </children>
             </VBox>
          </children>
       </VBox>
-      <Pane layoutX="30.0" prefHeight="120.0" prefWidth="458.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
+      <Pane layoutX="238.0" layoutY="275.0" prefHeight="45.0" prefWidth="120.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
-            <HBox prefHeight="120.0" prefWidth="721.0">
+            <StackPane fx:id="sharePane" prefHeight="30.0" prefWidth="60.0">
                <children>
-                  <VBox alignment="BOTTOM_LEFT" prefHeight="120.0" prefWidth="415.0">
-                     <children>
-                        <JFXButton fx:id="editButton" mnemonicParsing="false" onAction="#goToEditNodes" text="Edit Graph" />
-                        <Pane maxHeight="15.0" minHeight="15.0" />
-                        <JFXButton fx:id="securityButton" mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" />
-                        <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
-                        <JFXButton fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit Application" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" maxWidth="300.0">
-                     <children>
-                        <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
-                        <HBox>
-                           <children>
-                               <JFXButton fx:id="locButton" mnemonicParsing="false" onAction="#locClick" text="Select Starting Location" textFill="#333ce1" />
-                              <JFXButton fx:id="destButton" mnemonicParsing="false" onAction="#destClick" prefHeight="25.0" prefWidth="141.0" text="Select Destination" textFill="#e13434" />
-                           </children>
-                        </HBox>
-                        <Pane maxHeight="15.0" minHeight="15.0" />
-                        <JFXButton fx:id="pathfindingButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" />
-                        <Pane layoutX="10.0" layoutY="50.0" maxHeight="15.0" minHeight="15.0" />
-                        <JFXButton fx:id="resetButton" mnemonicParsing="false" onAction="#resetClick" text="Reset" textFill="BLACK" />
-                     </children>
-                  </VBox>
+                  <JFXButton fx:id="saveBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#save" prefHeight="45.0" prefWidth="120.0" text="Share">
+                     <font>
+                        <Font size="20.0" />
+                     </font></JFXButton>
                </children>
-            </HBox>
+            </StackPane>
+         </children>
+      </Pane>
+      <Pane layoutX="30.0" prefHeight="120.0" prefWidth="458.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="250.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="120.0" prefWidth="415.0">
+               <children>
+                   <JFXButton fx:id="locButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#locClick" prefHeight="45.0" prefWidth="240.0" text="Select Starting Location" textFill="#333ce1">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
+                  <JFXButton fx:id="destButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#destClick" prefHeight="45.0" prefWidth="240.0" text="Select Destination" textFill="#e13434">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane layoutX="10.0" layoutY="35.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
+                  <JFXButton fx:id="pathfindingButton" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#pathfindingPress" prefHeight="45.0" prefWidth="240.0" text="Implement Pathfinding">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane layoutX="10.0" layoutY="35.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
+                  <JFXButton fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetClick" prefHeight="45.0" prefWidth="240.0" text="Reset" textFill="BLACK">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane layoutX="10.0" layoutY="35.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
+                  <JFXButton fx:id="editButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToEditNodes" prefHeight="45.0" prefWidth="240.0" text="Edit Graph">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane layoutX="10.0" layoutY="35.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
+                  <JFXButton fx:id="securityButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToSecurityRequest" prefHeight="45.0" prefWidth="240.0" text="Request Security">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane layoutX="10.0" layoutY="35.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
+                  <JFXButton fx:id="exitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exit" prefHeight="45.0" prefWidth="240.0" text="Exit Application">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </VBox>
          </children>
       </Pane>
 

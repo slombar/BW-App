@@ -84,15 +84,15 @@ public class IndexController implements Initializable {
 
     //////////////////////////////////// SCALING//////////////////////////////////
 
-    double scale = 1.5;
+    double scale = 1.75;
     mapimage.setScaleX(scale);
     mapimage.setScaleY(scale);
     mapcanvas.setScaleX(scale);
     mapcanvas.setScaleY(scale);
-    mapimage.setTranslateX(200);
-    mapcanvas.setTranslateX(200);
-    mapimage.setTranslateY(165);
-    mapcanvas.setTranslateY(165);
+    mapimage.setTranslateX(270);
+    mapcanvas.setTranslateX(270);
+    mapimage.setTranslateY(225);
+    mapcanvas.setTranslateY(225);
     mapcanvas.toFront();
 
     /////////////////////////////////////////////////////////////////////
