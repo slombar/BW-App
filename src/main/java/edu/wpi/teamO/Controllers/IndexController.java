@@ -6,6 +6,8 @@ import edu.wpi.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -19,10 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
@@ -76,10 +75,14 @@ public class IndexController implements Initializable {
 
     gc = mapcanvas.getGraphicsContext2D();
 
-    drawNodeCircles(/*nodeList*/ );
+    // draws circles on canvas
+
+    drawNodeCircles();
+
     System.out.println("Initalized");
   }
 
+  /** draws the circles on the canvas */
   public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
@@ -113,11 +116,22 @@ public class IndexController implements Initializable {
         gc.setFill(Color.RED);
       }
 
+      // create the circle utilizing the algorithm
       gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
       // sets alpha to 1.0 and draw a black border around circle
       gc.setGlobalAlpha(1.0);
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      // Starting ToolTip click
+      ArrayList<String> descripA = null;
+      try {
+        descripA = DatabaseFunctionality.getInfo(n.getID());
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+      String description = descripA.get(0) + "\n" + descripA.get(1);
+      Tooltip.install(circle, new Tooltip(description));
     }
   }
 
@@ -157,8 +171,47 @@ public class IndexController implements Initializable {
       Circle a = stringCircleHashtable.get(path.get(i));
       Circle b = stringCircleHashtable.get(path.get(i + 1));
 
-      gc.strokeLine(a.getCenterX(), a.getCenterY(), b.getCenterX(), b.getCenterY());
+      // gc.strokeLine(a.getCenterX(), a.getCenterY(), b.getCenterX(), b.getCenterY());
+      drawMidArrow(a.getCenterX(), a.getCenterY(), b.getCenterX(), b.getCenterY());
     }
+  }
+
+  private static final double arrowLength = 6;
+  private static final double arrowWidth = 4;
+  private static final double minArrowDistSq = 72;
+  // ^ do the dist you wanted squared (probably want 2*(arrowLength^2))
+
+  // draws an arrow from a to b, with the arrowhead halfway between them
+  public void drawMidArrow(double ax, double ay, double bx, double by) {
+
+    double distSq = Math.pow(Math.abs(ax - bx), 2.0) + Math.pow(Math.abs(ay - by), 2.0);
+
+    if (distSq >= minArrowDistSq) {
+      double cx = (ax + bx) / 2;
+      double cy = (ay + by) / 2;
+
+      double hypot = Math.hypot(ax - cx, ay - cy);
+      double factor = arrowLength / hypot;
+      double factorO = arrowWidth / hypot;
+
+      // part in direction of main line
+      double dx = (ax - cx) * factor;
+      double dy = (ay - cy) * factor;
+
+      // part orthogonal to main line
+      double ox = (ax - cx) * factorO;
+      double oy = (ay - cy) * factorO;
+
+      double arrow1startX = (cx + dx - oy);
+      double arrow1startY = (cy + dy + ox);
+      double arrow2startX = (cx + dx + oy);
+      double arrow2startY = (cy + dy - ox);
+
+      gc.strokeLine(arrow1startX, arrow1startY, cx, cy);
+      gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
+    }
+
+    gc.strokeLine(ax, ay, bx, by);
   }
 
   public void exit(ActionEvent actionEvent) {
@@ -197,6 +250,11 @@ public class IndexController implements Initializable {
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
+  /**
+   * sdfgh
+   *
+   * @param mouseEvent
+   */
   public void canvasClick(MouseEvent mouseEvent) {
     double clickX = mouseEvent.getX();
     double clickY = mouseEvent.getY();
