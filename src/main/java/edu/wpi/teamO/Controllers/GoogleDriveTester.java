@@ -5,7 +5,6 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonError;
@@ -94,15 +93,13 @@ public class GoogleDriveTester {
             }
           };
 
-  //    Permission domainPermission =
-  //        new Permission().setType("domain").setRole("reader").setValue("example.com");
-  //    driveService
-  //        .permissions()
-  //        .insert(fileId, domainPermission)
-  //        .setFields("id")
-  //        .queue(batch, callback);
-
-
+      //    Permission domainPermission =
+      //        new Permission().setType("domain").setRole("reader").setValue("example.com");
+      //    driveService
+      //        .permissions()
+      //        .insert(fileId, domainPermission)
+      //        .setFields("id")
+      //        .queue(batch, callback);
 
       System.out.println(uploadedfile.getWebViewLink());
     } catch (IOException e) {

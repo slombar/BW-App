@@ -123,11 +123,12 @@ public class IndexController implements Initializable {
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
       // Starting ToolTip click
+      /*
       ArrayList<String> descripA = new ArrayList<String>();
       descripA = DatabaseFunctionality.getInfo(n.getID());
 
       String description = descripA.get(0) + "\n" + descripA.get(1);
-      Tooltip.install(circle, new Tooltip(description));
+      Tooltip.install(circle, new Tooltip(description));*/
     }
   }
 
