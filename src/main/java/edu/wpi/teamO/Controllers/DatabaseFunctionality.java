@@ -596,4 +596,27 @@ public class DatabaseFunctionality {
       System.out.println("File is empty.");
     }
   }
+
+  /**
+   * @param id
+   * @return ArrayList<String>
+   * @throws SQLException
+   */
+  public static ArrayList<String> getInfo(String id) throws SQLException {
+    PreparedStatement pstmt = null;
+    pstmt = connection.prepareStatement("SELECT * FROM Description WHERE NODEID = '" + id + "'");
+    ResultSet rset = pstmt.executeQuery();
+    String title = rset.getString("title");
+    String toolText = rset.getString("toolText");
+    ArrayList<String> list = new ArrayList<String>();
+
+    // Adds title and text description of node to a list
+    list.add(title);
+    list.add(toolText);
+
+    rset.close();
+    pstmt.close();
+
+    return list;
+  }
 }
