@@ -324,7 +324,6 @@ public class EditPageController implements Initializable {
           });
       addNodeDialog.show();
     }
-    initNodeTable();
   }
 
   public void deleteNode(ActionEvent actionEvent) {
@@ -494,7 +493,6 @@ public class EditPageController implements Initializable {
           });
       addEdgeDialog.show();
     }
-    initEdgeTable();
   }
 
   // Deleting the Edge from the database
