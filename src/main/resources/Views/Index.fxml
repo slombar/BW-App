@@ -31,13 +31,16 @@
                    </AnchorPane>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" maxWidth="300.0">
+            <VBox alignment="TOP_CENTER" maxWidth="363.0" prefHeight="138.0" prefWidth="363.0">
                <children>
                   <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
                   <HBox>
                      <children>
-                         <JFXButton fx:id="locButton" mnemonicParsing="false" onAction="#locClick" text="Select Starting Location" textFill="#333ce1" />
-                        <JFXButton fx:id="destButton" mnemonicParsing="false" onAction="#destClick" prefHeight="25.0" prefWidth="141.0" text="Select Destination" textFill="#e13434" />
+                         <JFXButton fx:id="locButton" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#locClick" prefWidth="180.0" text="Select Starting Location" textFill="#333ce1" />
+                        <JFXButton fx:id="destButton" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#destClick" prefHeight="31.0" prefWidth="180.0" text="Select Destination" textFill="#e13434">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin></JFXButton>
                      </children>
                   </HBox>
                   <Pane maxHeight="15.0" minHeight="15.0" />
@@ -52,11 +55,11 @@
          <children>
             <VBox alignment="BOTTOM_LEFT">
                <children>
-                  <JFXButton mnemonicParsing="false" onAction="#goToEditNodes" text="Edit Graph" />
+                  <JFXButton fx:id="editButton" mnemonicParsing="false" onAction="#goToEditNodes" text="Edit Graph" />
                   <Pane maxHeight="15.0" minHeight="15.0" />
-                  <JFXButton mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" />
+                  <JFXButton fx:id="securityButton" mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" />
                   <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
-                  <JFXButton mnemonicParsing="false" onAction="#exit" text="Exit Application" />
+                  <JFXButton fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit Application" />
                </children>
             </VBox>
          </children>

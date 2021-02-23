@@ -1,5 +1,6 @@
 package edu.wpi.teamO.Controllers;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.teamO.Controllers.model.Node;
 import edu.wpi.teamO.GraphSystem.GraphSystem;
 import edu.wpi.teamO.Opp;
@@ -32,10 +33,10 @@ import javax.imageio.ImageIO;
 public class IndexController implements Initializable {
   public MenuItem edgeEditorButton;
   public MenuItem nodeEditorButton;
-  public MenuItem securityButton;
+  public JFXButton securityButton;
   public MenuItem maintenanceButton;
-  public Button exitButton;
-  public Button pathfindingButton;
+  public JFXButton exitButton;
+  public JFXButton pathfindingButton;
   public MenuItem loc1Button;
   public MenuItem loc2Button;
   public MenuItem loc3Button;
@@ -44,6 +45,10 @@ public class IndexController implements Initializable {
   public MenuItem dest3Button;
   public MenuButton menu;
   public Label label;
+  public JFXButton locButton;
+  public JFXButton destButton;
+  public JFXButton resetButton;
+  public JFXButton editButton;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
@@ -57,7 +62,7 @@ public class IndexController implements Initializable {
   public ImageView mapimage;
   // the campus image is 2989 x 2457
   public Canvas mapcanvas;
-  public Button saveBtn;
+  public JFXButton saveBtn;
   public AnchorPane mapanchor;
   // private ArrayList<Circle> circleList;
   private ObservableList<Node> nodeList = FXCollections.observableArrayList();
@@ -85,8 +90,22 @@ public class IndexController implements Initializable {
     // draws circles on canvas
 
     drawNodeCircles();
+    customizeButtons();
 
     System.out.println("Initalized");
+  }
+
+  // Customize buttons
+  private void customizeButtons() {
+    // #b4d1ed is pretty nice too
+    editButton.setStyle("-fx-background-color: #c3d6e8");
+    securityButton.setStyle("-fx-background-color: #c3d6e8");
+    exitButton.setStyle("-fx-background-color: #c3d6e8");
+    locButton.setStyle("-fx-background-color: #c3d6e8");
+    destButton.setStyle("-fx-background-color: #c3d6e8");
+    resetButton.setStyle("-fx-background-color: #c3d6e8");
+    pathfindingButton.setStyle("-fx-background-color: #c3d6e8");
+    saveBtn.setStyle("-fx-background-color: #ffffff");
   }
 
   /** draws the circles on the canvas */
