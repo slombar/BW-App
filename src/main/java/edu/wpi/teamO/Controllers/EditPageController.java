@@ -26,6 +26,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
+  @FXML private JFXButton loadEdge;
+  @FXML private JFXButton loadNode;
   @FXML private JFXButton backButton;
   @FXML private JFXButton addNodeButton;
   @FXML private JFXButton deleteNodeButton;
@@ -78,6 +80,8 @@ public class EditPageController implements Initializable {
     deleteNodeButton.setStyle("-fx-background-color: #c3d6e8");
     addEdgeButton.setStyle("-fx-background-color: #c3d6e8");
     deleteEdgeButton.setStyle("-fx-background-color: #c3d6e8");
+    loadNode.setStyle("-fx-background-color: #c3d6e8");
+    loadEdge.setStyle("-fx-background-color: #c3d6e8");
   }
 
   ///////////////////////////// NODES TABLE //////////////////////////////
@@ -679,10 +683,10 @@ public class EditPageController implements Initializable {
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
-  public void loadCSV(ActionEvent actionEvent) {
+  public void loadNodeCSV(ActionEvent actionEvent) {
     // dialogContent has the conetnt of the popup
     JFXDialogLayout dialogContent = new JFXDialogLayout();
-    dialogContent.setHeading(new Text("Load CSV text file."));
+    dialogContent.setHeading(new Text("Load node CSV text file."));
     VBox dialogVBox = new VBox(12);
 
     // Creating an HBox of buttons
@@ -727,7 +731,65 @@ public class EditPageController implements Initializable {
             incompletePopup();
           } else {
             String filePath = listOfFields.get(0).getText();
-            DatabaseFunctionality.saveNodes(filePath);
+            // true = is a node
+            DatabaseFunctionality.importExcelData(filePath, true);
+            loadDialog.close();
+            stackPane.toBack();
+          }
+        });
+    loadDialog.show();
+  }
+
+  public void loadEdgeCSV(ActionEvent actionEvent) {
+    // dialogContent has the conetnt of the popup
+    JFXDialogLayout dialogContent = new JFXDialogLayout();
+    dialogContent.setHeading(new Text("Load edge CSV text file."));
+    VBox dialogVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton clearButton = new JFXButton("Clear");
+    JFXButton submitButton = new JFXButton("Load");
+    buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+    // Creating a list of labels to create teh textfields
+    ArrayList<String> label = new ArrayList<String>(Arrays.asList("CSV File Path"));
+    ArrayList<JFXTextField> listOfFields = createFields(label);
+
+    // Creating the form with a VBox
+    dialogVBox.getChildren().addAll(listOfFields.get(0), buttonBox);
+    dialogContent.setBody(dialogVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    stackPane.toFront();
+    JFXDialog loadDialog =
+        new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.BOTTOM);
+    loadDialog.setOverlayClose(false);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          loadDialog.close();
+          stackPane.toBack();
+        });
+    // Clearing the form, keeps the popup open
+    clearButton.setOnAction(
+        event -> {
+          listOfFields.get(0).clear();
+        });
+    // Submits deletion to the database
+    submitButton.setOnAction(
+        event -> {
+          // If incomplete form, sends an error msg
+          // If edge is not in database, send sn error msg
+          // Otherwise, sends to database and closes popup
+          if (listOfFields.get(0).getText().isEmpty()) {
+            incompletePopup();
+          } else {
+            String filePath = listOfFields.get(0).getText();
+            // false = is an edge
+            DatabaseFunctionality.importExcelData(filePath, false);
             loadDialog.close();
             stackPane.toBack();
           }

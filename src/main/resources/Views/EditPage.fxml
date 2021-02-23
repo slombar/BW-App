@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import com.jfoenix.controls.pannable.PannablePane?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -10,12 +11,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.EditPageController">
     <children>
-      <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loadCSV" prefHeight="30.0" prefWidth="140.0" text="Upload a CSV File" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <HBox alignment="TOP_RIGHT" layoutX="582.0" layoutY="-20.0" prefHeight="30.0" prefWidth="375.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <JFXButton fx:id="loadNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loadNodeCSV" prefHeight="30.0" prefWidth="160.0" text="Upload a Node File">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="loadEdge" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loadEdgeCSV" prefHeight="30.0" prefWidth="160.0" text="Upload an Edge File" />
+         </children>
+      </HBox>
       <JFXButton fx:id="backButton" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#goToIndex" prefHeight="30.0" prefWidth="80.0" text="Back" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
         <SplitPane dividerPositions="0.5" layoutX="254.0" layoutY="120.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
             <items>
