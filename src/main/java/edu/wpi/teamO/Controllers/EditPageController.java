@@ -890,4 +890,235 @@ public class EditPageController implements Initializable {
         });
     loadDialog.show();
   }
+
+  public void editNodePopup(ActionEvent actionEvent) {
+    // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+
+      // addNodePopup has the content of the popup
+      // addNodeDialog creates the dialog popup
+      JFXDialogLayout editNodePopup = new JFXDialogLayout();
+      editNodePopup.setHeading(new Text("Edit a Node"));
+      VBox editNodeVBox = new VBox(12);
+
+      // Creating an HBox of buttons
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Commit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      // Creating a list of labels to create the textfields
+      ArrayList<String> editNodeLabels =
+          new ArrayList<String>(
+              Arrays.asList(
+                  "Node ID",
+                  "X Coordinate",
+                  "Y Coordinate",
+                  "Floor",
+                  "Building",
+                  "Node Type",
+                  "Long Name",
+                  "Short Name"));
+      ArrayList<JFXTextField> listOfFields = createFields(editNodeLabels);
+
+      // Creating the form with a VBox
+      editNodeVBox
+          .getChildren()
+          .addAll(
+              listOfFields.get(0),
+              listOfFields.get(1),
+              listOfFields.get(2),
+              listOfFields.get(3),
+              listOfFields.get(4),
+              listOfFields.get(5),
+              listOfFields.get(6),
+              listOfFields.get(7),
+              buttonBox);
+      editNodePopup.setBody(editNodeVBox);
+      // Getting column data to make textfield autocomplete
+      ArrayList<String> nodeIDColData = new ArrayList<>();
+      for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+        nodeIDColData.add(nodeIDCol.getCellData(i));
+      }
+      autoComplete(nodeIDColData, listOfFields.get(0));
+
+      // Bringing the popup screen to the front and disabling the background
+      stackPane.toFront();
+      JFXDialog editNodeDialog =
+          new JFXDialog(stackPane, editNodePopup, JFXDialog.DialogTransition.BOTTOM);
+      editNodeDialog.setOverlayClose(false);
+      nodeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
+
+      // Closing the popup
+      closeButton.setOnAction(
+          event -> {
+            editNodeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
+          });
+      // Clearing the form, keeps the popup open
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+            listOfFields.get(1).clear();
+            listOfFields.get(2).clear();
+            listOfFields.get(3).clear();
+            listOfFields.get(4).clear();
+            listOfFields.get(5).clear();
+            listOfFields.get(6).clear();
+            listOfFields.get(7).clear();
+          });
+      // Submits edit to the database
+      submitButton.setOnAction(
+          event -> {
+            // If incomplete form, sends an error msg
+            // Otherwise, sends to database and closes popup
+            if (listOfFields.get(0).getText().isEmpty()
+                || listOfFields.get(1).getText().isEmpty()
+                || listOfFields.get(2).getText().isEmpty()
+                || listOfFields.get(3).getText().isEmpty()
+                || listOfFields.get(4).getText().isEmpty()
+                || listOfFields.get(5).getText().isEmpty()
+                || listOfFields.get(6).getText().isEmpty()
+                || listOfFields.get(7).getText().isEmpty()) {
+              incompletePopup();
+            } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
+              nonexistantPopup();
+            } else {
+              DatabaseFunctionality.editNode(
+                  listOfFields.get(0).getText(),
+                  Integer.parseInt(listOfFields.get(1).getText()),
+                  Integer.parseInt(listOfFields.get(2).getText()),
+                  listOfFields.get(3).getText(),
+                  listOfFields.get(4).getText(),
+                  listOfFields.get(5).getText(),
+                  listOfFields.get(6).getText(),
+                  listOfFields.get(7).getText(),
+                  "O");
+
+              //              System.out.println(listOfFields.get(0).getText());
+              //              System.out.println(listOfFields.get(1).getText());
+              //              System.out.println(listOfFields.get(2).getText());
+              //              System.out.println(listOfFields.get(3).getText());
+              //              System.out.println(listOfFields.get(4).getText());
+              //              System.out.println(listOfFields.get(5).getText());
+              //              System.out.println(listOfFields.get(6).getText());
+              //              System.out.println(listOfFields.get(7).getText());
+              editNodeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
+          });
+      editNodeDialog.show();
+    }
+  }
+
+  public void editEdgePopup(
+      ActionEvent actionEvent) { // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+
+      // addEdgePopup has the content of the popup
+      // addEdgeDialog creates the dialog popup
+      JFXDialogLayout editEdgePopup = new JFXDialogLayout();
+      editEdgePopup.setHeading(new Text("Edit a Edge"));
+      VBox editEdgeVBox = new VBox(12);
+
+      // Creating an HBox of buttons
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Commit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      // Creating a list of labels to create the textfields
+      ArrayList<String> editEdgeLabels =
+          new ArrayList<String>(Arrays.asList("Edge ID", "Start Node ID", "End Node ID"));
+      ArrayList<JFXTextField> listOfFields = createFields(editEdgeLabels);
+
+      // Creating the form with a VBox
+      editEdgeVBox
+          .getChildren()
+          .addAll(listOfFields.get(0), listOfFields.get(1), listOfFields.get(2), buttonBox);
+      editEdgePopup.setBody(editEdgeVBox);
+
+      // Getting column data to make textfield autocomplete
+      ArrayList<String> EdgeIDColData = new ArrayList<>();
+      for (int i = 0; i < edgeTable.getExpandedItemCount(); i++) {
+        EdgeIDColData.add(edgeIDCol.getCellData(i));
+      }
+      autoComplete(EdgeIDColData, listOfFields.get(0));
+
+      ArrayList<String> nodeIDColData = new ArrayList<>();
+      for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+        nodeIDColData.add(nodeIDCol.getCellData(i));
+      }
+      autoComplete(nodeIDColData, listOfFields.get(1));
+      autoComplete(nodeIDColData, listOfFields.get(2));
+
+      //      ArrayList<String> endIDColData = new ArrayList<>();
+      //      for (int i = 0; i < edgeTable.getExpandedItemCount(); i++) {
+      //        endIDColData.add(endCol.getCellData(i));
+      //      }
+
+      // Bringing the popup screen to the front and disabling the background
+      stackPane.toFront();
+      JFXDialog editEdgeDialog =
+          new JFXDialog(stackPane, editEdgePopup, JFXDialog.DialogTransition.BOTTOM);
+      editEdgeDialog.setOverlayClose(false);
+      edgeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
+
+      // Closing the popup
+      closeButton.setOnAction(
+          event -> {
+            editEdgeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
+          });
+      // Clearing the form, keeps the popup open
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+            listOfFields.get(1).clear();
+            listOfFields.get(2).clear();
+          });
+      // Submits edit to the database
+      submitButton.setOnAction(
+          event -> {
+            // If incomplete form, sends an error msg
+            // Otherwise, sends to database and closes popup
+            if (listOfFields.get(0).getText().isEmpty()
+                || listOfFields.get(1).getText().isEmpty()
+                || listOfFields.get(2).getText().isEmpty()) {
+              incompletePopup();
+            } else if (!EdgeIDColData.contains(listOfFields.get(0).getText())
+                || !nodeIDColData.contains(listOfFields.get(1).getText())
+                || !nodeIDColData.contains(listOfFields.get(2).getText())) {
+              nonexistantPopup();
+            } else {
+              DatabaseFunctionality.editEdge(
+                  listOfFields.get(0).getText(),
+                  listOfFields.get(1).getText(),
+                  listOfFields.get(2).getText());
+
+              editEdgeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
+          });
+      editEdgeDialog.show();
+    }
+  }
 }
