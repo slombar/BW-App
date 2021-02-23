@@ -60,6 +60,7 @@ public class Node extends RecursiveTreeObject<Node> {
             }
           }
         });
+
   }
 
   public Node() {
