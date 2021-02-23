@@ -35,7 +35,7 @@ public class SharingFunctionality {
     EmailThreader emailThreader = new EmailThreader(sendingTo, fileToBeSent);
     emailThreader.start();
 
-    //this has been moved to email threader//
+    // this has been moved to email threader//
     //    String to = sendingTo; // recipient's email
     //    String from = "bwappteamo@gmail.com"; // sender's email, need default sender email !
     //    String host = "smtp.gmail.com"; // where email is being sent from
