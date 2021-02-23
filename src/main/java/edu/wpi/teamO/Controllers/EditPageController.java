@@ -34,6 +34,7 @@ import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
   public JFXButton refreshButton;
+  public Label selectedNodeLabel;
   @FXML private JFXButton loadEdge;
   @FXML private JFXButton loadNode;
   @FXML private JFXButton backButton;
@@ -837,8 +838,6 @@ public class EditPageController implements Initializable {
     initEdgeTable();
   }
 
-  public void canvasClick(MouseEvent mouseEvent) {}
-
   public void savePopup(ActionEvent actionEvent) {
     // dialogContent has the conetnt of the popup
     JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -1130,8 +1129,8 @@ public class EditPageController implements Initializable {
       editEdgeDialog.show();
     }
   }
-  //////////////////////////////////////////// SHIT FOR DRAWING NODES
-  // //////////////////////////////////////
+
+  //////////////////////////////////// SHIT FOR DRAWING NODES ///////////////////////////////////
   // TODO: make this it's own fucking class (to also be used in IndexController)
 
   /** draws the circles on the canvas */
@@ -1199,6 +1198,8 @@ public class EditPageController implements Initializable {
     // clear canvas and redraw circles
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     drawNodeCircles();
+
+    selectedNodeLabel.setText(closestID);
   }
 
   // helper that return nodeID of closest node to click
