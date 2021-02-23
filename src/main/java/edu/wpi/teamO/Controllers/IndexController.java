@@ -119,8 +119,14 @@ public class IndexController implements Initializable {
     // double cW = 10.0;
     // TODO: (x,y) should already adjust when scrolling, but probably should also change radius
 
+
+    //for each node in the DB, add their circle to the map
     for (Node n : nodeList) {
+      double difference = 0;
       Circle circle = new Circle();
+      /*add functionality to make the route path
+      go left... go right?
+       */
 
       double nodeX = Double.valueOf(n.getXCoord()) / scaleX;
       double nodeY = Double.valueOf(n.getYCoord()) / scaleY;
