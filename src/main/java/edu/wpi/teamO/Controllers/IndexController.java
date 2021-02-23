@@ -20,6 +20,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
@@ -51,7 +52,7 @@ public class IndexController implements Initializable {
   String dest = "-1";
   boolean selectingLoc = true;
   // Graph testGraph;
-  // these variables show which of the three locations/destinations respectivly is currently being
+  // these variables show which of the three locations/destinations respectively is currently being
   // tracked
   public ImageView mapimage;
   // the campus image is 2989 x 2457
@@ -63,6 +64,14 @@ public class IndexController implements Initializable {
   private Hashtable<String, Circle> stringCircleHashtable;
   private GraphicsContext gc;
   double cW = 10.0;
+
+  public static final Image bwLogo =
+      new Image(
+          "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Brigham_and_Womens_Hospital_logo.svg/878px-Brigham_and_Womens_Hospital_logo.svg.png",
+          116,
+          100,
+          true,
+          true);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -129,6 +138,9 @@ public class IndexController implements Initializable {
       String description = descripA.get(0) + "\n" + descripA.get(1);
       Tooltip.install(circle, new Tooltip(description));*/
     }
+
+    gc.drawImage(bwLogo, 0, 0);
+    gc.strokeText("Brigham and Women's Faulkner Hospital Campus", 90, 30);
   }
 
   public void pathfindingPress(ActionEvent actionEvent) {
@@ -174,8 +186,8 @@ public class IndexController implements Initializable {
 
   private static final double arrowLength = 6;
   private static final double arrowWidth = 4;
-  private static final double minArrowDistSq = 72;
-  // ^ do the dist you wanted squared (probably want 2*(arrowLength^2))
+  private static final double minArrowDistSq = 108;
+  // ^ do the dist you wanted squared (probably want 3*(arrowLength^2))
 
   // draws an arrow from a to b, with the arrowhead halfway between them
   public void drawMidArrow(double ax, double ay, double bx, double by) {
