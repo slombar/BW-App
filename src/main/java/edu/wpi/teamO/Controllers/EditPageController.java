@@ -111,9 +111,10 @@ public class EditPageController implements Initializable {
   // Initializes the node table and ensures that its updated
   public void initNodeTable() {
     nodeTable.setShowRoot(false);
+    nodeTable2 = nodeTable;
     initNodeCols();
     loadNodeData();
-    nodeTable2 = nodeTable;
+
   }
 
   // Loads the node data from the database and puts it into tree table
@@ -174,8 +175,8 @@ public class EditPageController implements Initializable {
   ///////////////////////////// EDGES TABLE //////////////////////////////
   // Initializes the edge table and ensures that its updated
   public void initEdgeTable() {
-    edgeTable2 = edgeTable;
     edgeTable.setShowRoot(false);
+    edgeTable2 = edgeTable;
     initEdgeCols();
     loadEdgeData();
   }

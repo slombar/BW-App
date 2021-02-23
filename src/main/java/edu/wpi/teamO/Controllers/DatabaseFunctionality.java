@@ -534,9 +534,12 @@ public class DatabaseFunctionality {
     try {
       scan = new Scanner(new File(url)).useDelimiter(d);
       System.out.println("File read! Importing data...");
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
+
+
 
     // if the file is not empty
     if (scan.hasNext()) {
@@ -554,6 +557,17 @@ public class DatabaseFunctionality {
         String longName = "";
         String shortName = "";
         String teamAssigned = "";
+
+        //delete current nodes
+        PreparedStatement pstmt = null;
+
+        try {
+          pstmt = connection.prepareStatement("DELETE * FROM Nodes");
+          pstmt.executeQuery();
+          pstmt.close();
+        } catch (SQLException throwables) {
+          throwables.printStackTrace();
+        }
 
         // while the file is not at its end
         while (scan.hasNext()) {
@@ -576,6 +590,18 @@ public class DatabaseFunctionality {
         String nodeID = "";
         String startNode = "";
         String endNode = "";
+
+        //delete current nodes
+        PreparedStatement pstmt = null;
+
+        try {
+          pstmt = connection.prepareStatement("DELETE * FROM Edges");
+          pstmt.executeQuery();
+          pstmt.close();
+
+        } catch (SQLException throwables) {
+          throwables.printStackTrace();
+        }
 
         while (scan.hasNext()) {
 
