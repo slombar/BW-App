@@ -12,7 +12,6 @@ import javax.mail.internet.*;
 
 public class SharingFunctionality {
 
-
   // TODO:implement sending image to phone &  get a better service?
   public static void sendSMS(String sendingTo, String fileToBeSent) {
 
