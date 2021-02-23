@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +28,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
@@ -64,9 +67,14 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Edge, String> startCol;
   @FXML private TreeTableColumn<Edge, String> endCol;
   @FXML private TreeTableColumn<Edge, String> updateEdgeCol;
+
+  // stuff for drawing things
   @FXML private ImageView mapimage;
   @FXML private Canvas mapcanvas;
   private GraphicsContext gc;
+  private Hashtable<String, Circle> stringCircleHashtable;
+  double cW = 10.0;
+  String selected = "-1";
 
   public static ObservableList<Node> nodeList;
   public static ObservableList<Edge> edgeList;
@@ -78,6 +86,9 @@ public class EditPageController implements Initializable {
     initNodeTable();
     initEdgeTable();
     customizeButtons();
+
+    // nodeList = DatabaseFunctionality.showNodes(nodeList);
+    // stringCircleHashtable = new Hashtable<>();
 
     //////////////////////////////////// SCALING//////////////////////////////////
 
@@ -95,6 +106,10 @@ public class EditPageController implements Initializable {
     /////////////////////////////////////////////////////////////////////
 
     gc = mapcanvas.getGraphicsContext2D();
+
+    // draws circles on canvas
+    drawNodeCircles();
+    customizeButtons();
   }
 
   // Customize
@@ -828,5 +843,94 @@ public class EditPageController implements Initializable {
     initEdgeTable();
   }
 
-  public void canvasClick(MouseEvent mouseEvent) {}
+  //////////////////////////////////////////// SHIT FOR DRAWING NODES
+  // //////////////////////////////////////
+  // TODO: make this it's own fucking class (to also be used in IndexController)
+
+  /** draws the circles on the canvas */
+  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
+    // probably needs to re-get node list?
+    nodeList = DatabaseFunctionality.showNodes(nodeList);
+    stringCircleHashtable = new Hashtable<>();
+
+    // divide them by a scale factor (image is ~2937 pixels wide?) --
+    // would be imageWidth/canvasWidth and imageHeight/canvasHeight
+    double scaleX = 2989 / mapcanvas.getWidth();
+    double scaleY = 2457 / mapcanvas.getHeight();
+
+    // circle widths:
+    // double cW = 10.0;
+    // TODO: (x,y) should already adjust when scrolling, but probably should also change radius?
+
+    // for each node in the DB, add their circle to the map
+    for (Node n : nodeList) {
+      double difference = 0;
+      Circle circle = new Circle();
+      /*add functionality to make the route path
+      go left... go right?
+       */
+
+      double nodeX = Double.valueOf(n.getXCoord()) / scaleX;
+      double nodeY = Double.valueOf(n.getYCoord()) / scaleY;
+
+      circle.setCenterX(nodeX);
+      circle.setCenterY(nodeY);
+      circle.setRadius(cW / 2);
+      stringCircleHashtable.put(n.getID(), circle);
+
+      gc.setFill(Color.YELLOW); // default nodes are yellow
+      gc.setGlobalAlpha(.75); // will make things drawn slightly transparent (if we want to)
+      // DON'T DELETE -> JUST SET TO "1.0" IF NO TRANSPARENCY IS WANTED
+
+      // sets color to blue/red if loc or dest are selected
+      if (!selected.equals("-1") && n.getID().equals(selected)) {
+        gc.setFill(Color.GREEN);
+      }
+
+      // create the circle utilizing the algorithm
+      gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      // sets alpha to 1.0 and draw a black border around circle
+      gc.setGlobalAlpha(1.0);
+      gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      circle.getCenterX();
+      circle.getCenterY();
+    }
+  }
+
+  public void canvasClick(MouseEvent mouseEvent) {
+    double clickX = mouseEvent.getX();
+    double clickY = mouseEvent.getY();
+    System.out.println("CANVAS CLICKING");
+
+    String closestID = closestCircle(clickX, clickY);
+    // System.out.println(closestID); // for debugging
+
+    selected = closestID;
+
+    // clear canvas and redraw circles
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+    drawNodeCircles();
+  }
+
+  // helper that return nodeID of closest node to click
+  public String closestCircle(double x, double y) {
+    double currentDist = 1000000000;
+    String nodeID = "-1";
+
+    for (Node n : nodeList) {
+      Circle c = stringCircleHashtable.get(n.getID());
+      double cX = c.getCenterX();
+      double cY = c.getCenterY();
+
+      double dist = Math.pow(Math.abs(x - cX), 2.0) + Math.pow(Math.abs(y - cY), 2.0);
+      if (dist < currentDist) {
+        currentDist = dist;
+        nodeID = n.getID();
+      }
+    }
+
+    return nodeID;
+  }
 }

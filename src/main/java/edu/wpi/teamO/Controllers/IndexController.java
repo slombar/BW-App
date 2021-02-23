@@ -69,7 +69,6 @@ public class IndexController implements Initializable {
   public Canvas mapcanvas;
   public JFXButton saveBtn;
   public AnchorPane mapanchor;
-  // private ArrayList<Circle> circleList;
   private ObservableList<Node> nodeList = FXCollections.observableArrayList();
   private Hashtable<String, Circle> stringCircleHashtable;
   private GraphicsContext gc;
@@ -80,9 +79,7 @@ public class IndexController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    nodeList = FXCollections.observableArrayList();
     nodeList = DatabaseFunctionality.showNodes(nodeList);
-    // circleList = new ArrayList<>();
     stringCircleHashtable = new Hashtable<>();
 
     //////////////////////////////////// SCALING//////////////////////////////////
@@ -103,7 +100,6 @@ public class IndexController implements Initializable {
     gc = mapcanvas.getGraphicsContext2D();
 
     // draws circles on canvas
-
     drawNodeCircles();
     customizeButtons();
     sharePane.toFront();
