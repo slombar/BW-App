@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.IndexController">
+<AnchorPane fx:id="bigAnchor" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.IndexController">
 
    <children>
       <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -31,37 +31,38 @@
                    </AnchorPane>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" maxWidth="363.0" prefHeight="138.0" prefWidth="363.0">
-               <children>
-                  <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
-                  <HBox>
-                     <children>
-                         <JFXButton fx:id="locButton" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#locClick" prefWidth="180.0" text="Select Starting Location" textFill="#333ce1" />
-                        <JFXButton fx:id="destButton" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#destClick" prefHeight="31.0" prefWidth="180.0" text="Select Destination" textFill="#e13434">
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin></JFXButton>
-                     </children>
-                  </HBox>
-                  <Pane maxHeight="15.0" minHeight="15.0" />
-                  <JFXButton fx:id="pathfindingButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" />
-                  <Pane layoutX="10.0" layoutY="50.0" maxHeight="15.0" minHeight="15.0" />
-                  <JFXButton fx:id="resetButton" mnemonicParsing="false" onAction="#resetClick" text="Reset" textFill="BLACK" />
-               </children>
-            </VBox>
          </children>
       </VBox>
-      <Pane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+      <Pane layoutX="30.0" prefHeight="120.0" prefWidth="458.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
          <children>
-            <VBox alignment="BOTTOM_LEFT">
+            <HBox prefHeight="120.0" prefWidth="721.0">
                <children>
-                  <JFXButton fx:id="editButton" mnemonicParsing="false" onAction="#goToEditNodes" text="Edit Graph" />
-                  <Pane maxHeight="15.0" minHeight="15.0" />
-                  <JFXButton fx:id="securityButton" mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" />
-                  <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
-                  <JFXButton fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit Application" />
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="120.0" prefWidth="415.0">
+                     <children>
+                        <JFXButton fx:id="editButton" mnemonicParsing="false" onAction="#goToEditNodes" text="Edit Graph" />
+                        <Pane maxHeight="15.0" minHeight="15.0" />
+                        <JFXButton fx:id="securityButton" mnemonicParsing="false" onAction="#goToSecurityRequest" text="Request Security" />
+                        <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
+                        <JFXButton fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit Application" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxWidth="300.0">
+                     <children>
+                        <Pane layoutX="10.0" layoutY="35.0" maxHeight="15.0" minHeight="15.0" />
+                        <HBox>
+                           <children>
+                               <JFXButton fx:id="locButton" mnemonicParsing="false" onAction="#locClick" text="Select Starting Location" textFill="#333ce1" />
+                              <JFXButton fx:id="destButton" mnemonicParsing="false" onAction="#destClick" prefHeight="25.0" prefWidth="141.0" text="Select Destination" textFill="#e13434" />
+                           </children>
+                        </HBox>
+                        <Pane maxHeight="15.0" minHeight="15.0" />
+                        <JFXButton fx:id="pathfindingButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#pathfindingPress" text="Implement Pathfinding" />
+                        <Pane layoutX="10.0" layoutY="50.0" maxHeight="15.0" minHeight="15.0" />
+                        <JFXButton fx:id="resetButton" mnemonicParsing="false" onAction="#resetClick" text="Reset" textFill="BLACK" />
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </HBox>
          </children>
       </Pane>
 
