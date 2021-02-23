@@ -29,7 +29,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
-import lombok.SneakyThrows;
 
 public class IndexController implements Initializable {
   public MenuItem edgeEditorButton;
@@ -67,7 +66,6 @@ public class IndexController implements Initializable {
   private GraphicsContext gc;
   double cW = 10.0;
 
-  @SneakyThrows
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     nodeList = FXCollections.observableArrayList();
@@ -85,7 +83,7 @@ public class IndexController implements Initializable {
   }
 
   /** draws the circles on the canvas */
-  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) throws SQLException, IOException {
+  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
     double scaleX = 2989 / mapcanvas.getWidth();
@@ -126,7 +124,12 @@ public class IndexController implements Initializable {
       gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
 
       // Starting ToolTip click
-      ArrayList<String> descripA = DatabaseFunctionality.getInfo(n.getID());
+      ArrayList<String> descripA = null;
+      try {
+        descripA = DatabaseFunctionality.getInfo(n.getID());
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
       String description = descripA.get(0) + "\n" + descripA.get(1);
       Tooltip.install(circle, new Tooltip(description));
     }
@@ -252,7 +255,7 @@ public class IndexController implements Initializable {
    *
    * @param mouseEvent
    */
-  public void canvasClick(MouseEvent mouseEvent) throws SQLException, IOException {
+  public void canvasClick(MouseEvent mouseEvent) {
     double clickX = mouseEvent.getX();
     double clickY = mouseEvent.getY();
     System.out.println("CANVAS CLICKING");
@@ -298,7 +301,7 @@ public class IndexController implements Initializable {
     selectingLoc = false;
   }
 
-  public void resetClick(ActionEvent actionEvent) throws IOException, SQLException {
+  public void resetClick(ActionEvent actionEvent) {
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     loc = "-1";
     dest = "-1";

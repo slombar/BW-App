@@ -13,7 +13,7 @@ public class DatabaseFunctionality {
 
   // variables for db connection
   public static Connection connection;
-  public static String dbUrl = "jdbc:derby:projCDB";
+  public static String dbUrl = "jdbc:derby:Odb";
   public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 
   /**
