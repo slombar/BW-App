@@ -26,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
@@ -49,6 +50,7 @@ public class IndexController implements Initializable {
   public JFXButton destButton;
   public JFXButton resetButton;
   public JFXButton editButton;
+  public StackPane sharePane;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
   // now?
@@ -91,6 +93,7 @@ public class IndexController implements Initializable {
 
     drawNodeCircles();
     customizeButtons();
+    sharePane.toFront();
 
     System.out.println("Initalized");
   }
@@ -275,7 +278,7 @@ public class IndexController implements Initializable {
   }
 
   public void save(ActionEvent actionEvent) throws IOException {
-
+    sharePane.toBack();
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
 
     String home = System.getProperty("user.home");
