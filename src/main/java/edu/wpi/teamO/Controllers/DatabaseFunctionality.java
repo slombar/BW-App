@@ -602,21 +602,27 @@ public class DatabaseFunctionality {
    * @return ArrayList<String>
    * @throws SQLException
    */
-  public static ArrayList<String> getInfo(String id) throws SQLException {
+  public static ArrayList<String> getInfo(String id) {
     PreparedStatement pstmt = null;
-    pstmt = connection.prepareStatement("SELECT * FROM Description WHERE NODEID = '" + id + "'");
-    ResultSet rset = pstmt.executeQuery();
-    String title = rset.getString("title");
-    String toolText = rset.getString("toolText");
     ArrayList<String> list = new ArrayList<String>();
 
-    // Adds title and text description of node to a list
-    list.add(title);
-    list.add(toolText);
+    try {
+      pstmt = connection.prepareStatement("SELECT * FROM DESCRIPTION WHERE NODEID = '" + id + "'");
 
-    rset.close();
-    pstmt.close();
+      ResultSet rset = pstmt.executeQuery();
+      String title = rset.getString("title");
+      String toolText = rset.getString("toolText");
 
+      // Adds title and text description of node to a list
+      list.add(title);
+      list.add(toolText);
+
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
     return list;
   }
 }
