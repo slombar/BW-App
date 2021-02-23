@@ -607,7 +607,7 @@ public class DatabaseFunctionality {
     ArrayList<String> list = new ArrayList<String>();
 
     try {
-      pstmt = connection.prepareStatement("SELECT * FROM DESCRIPTION WHERE NODEID = '" + id + "'");
+      pstmt = connection.prepareStatement("SELECT * FROM Tools WHERE NODEID = '" + id + "'");
 
       ResultSet rset = pstmt.executeQuery();
       String title = rset.getString("title");

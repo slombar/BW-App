@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-  public static boolean fileUploading = true;
-
   public static void fileSave() {
 
     boolean connected = false;
@@ -35,14 +33,17 @@ public class Main {
   }
 
   // C:\Users\sadie\IdeaProjects\BW-App\src\main\resources\MapOEdges.csv
-  public static void main(String args[]) throws IOException {
+  public static void main(String args[]) {
     String node = "";
     String filePath = "path";
     boolean decision = true;
-    // cnnect
-    boolean b = DatabaseFunctionality.establishConnection();
+    // change if you want to upload a file (:
+    boolean fu = false;
 
-    if (b && fileUploading) {
+    // cnnect
+    boolean c = DatabaseFunctionality.establishConnection();
+
+    if (c && fu) {
 
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -73,7 +74,8 @@ public class Main {
       System.out.println("Data imported!");
     }
 
-    // Opp.launch(Opp.class, args);
+    Opp.launch(Opp.class, args);
+    // discnnt
     DatabaseFunctionality.shutDownDB();
   }
 }
