@@ -55,7 +55,6 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Node, String> nodeTypeCol;
   @FXML private TreeTableColumn<Node, String> longNameCol;
   @FXML private TreeTableColumn<Node, String> shortNameCol;
-  @FXML private TreeTableColumn<Node, String> updateNodeCol;
 
   @FXML private JFXTreeTableView<Edge> edgeTable;
   public static JFXTreeTableView<Edge> edgeTable2;
@@ -63,7 +62,6 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Edge, String> edgeIDCol;
   @FXML private TreeTableColumn<Edge, String> startCol;
   @FXML private TreeTableColumn<Edge, String> endCol;
-  @FXML private TreeTableColumn<Edge, String> updateEdgeCol;
   @FXML private ImageView mapimage;
   @FXML private Canvas mapcanvas;
   private GraphicsContext gc;
@@ -159,8 +157,6 @@ public class EditPageController implements Initializable {
     shortNameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("ShortName"));
     shortNameCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
-    updateNodeCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Update"));
-
     editableNodeCols();
   }
 
@@ -209,8 +205,6 @@ public class EditPageController implements Initializable {
 
     endCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("End"));
     endCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
-
-    updateEdgeCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Update"));
 
     editableEdgeCols();
   }
