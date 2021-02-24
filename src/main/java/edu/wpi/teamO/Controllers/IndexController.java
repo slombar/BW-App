@@ -49,6 +49,7 @@ public class IndexController implements Initializable {
   public MenuButton menu;
   public Label label;
   public JFXButton editButton;
+  @FXML private StackPane popupPane;
   @FXML private AnchorPane bigAnchor;
   public JFXButton locButton;
   public JFXButton destButton;
