@@ -122,6 +122,7 @@ public class IndexController implements Initializable {
 
   /** draws the circles on the canvas */
   public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
     double scaleX = 2989 / mapcanvas.getWidth();

@@ -836,6 +836,7 @@ public class EditPageController implements Initializable {
   public void refresh(ActionEvent actionEvent) {
     initNodeTable();
     initEdgeTable();
+    drawNodeCircles();
   }
 
   public void savePopup(ActionEvent actionEvent) {
@@ -1135,6 +1136,7 @@ public class EditPageController implements Initializable {
 
   /** draws the circles on the canvas */
   public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     // probably needs to re-get node list?
     nodeList = DatabaseFunctionality.showNodes(nodeList);
     stringCircleHashtable = new Hashtable<>();
