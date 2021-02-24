@@ -495,7 +495,7 @@ public class DatabaseFunctionality {
 
         String line =
             String.format(
-                "%s,%b,%b,%s,%s,%s,%s,%s,%s ",
+                "%s,%d,%d,%s,%s,%s,%s,%s,%s ",
                 nodeID,
                 xcoord,
                 ycoord,
