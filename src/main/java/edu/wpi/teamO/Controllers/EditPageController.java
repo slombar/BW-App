@@ -479,21 +479,19 @@ public class EditPageController implements Initializable {
 
       // Creating a list of labels to create the textfields
       ArrayList<String> addEdgeLabels =
-          new ArrayList<String>(Arrays.asList("Edge ID", "Start Node ID", "End Node ID"));
+          new ArrayList<String>(Arrays.asList("Start Node ID", "End Node ID"));
       ArrayList<JFXTextField> listOfFields = createFields(addEdgeLabels);
 
       // Creating the form with a VBox
-      addEdgeVBox
-          .getChildren()
-          .addAll(listOfFields.get(0), listOfFields.get(1), listOfFields.get(2), buttonBox);
+      addEdgeVBox.getChildren().addAll(listOfFields.get(0), listOfFields.get(1), buttonBox);
       addEdgePopup.setBody(addEdgeVBox);
 
       ArrayList<String> nodeIDColData = new ArrayList<>();
       for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
         nodeIDColData.add(nodeIDCol.getCellData(i));
       }
+      autoComplete(nodeIDColData, listOfFields.get(0));
       autoComplete(nodeIDColData, listOfFields.get(1));
-      autoComplete(nodeIDColData, listOfFields.get(2));
 
       // Bringing the popup screen to the front and disabling the background
       stackPane.toFront();
@@ -517,7 +515,6 @@ public class EditPageController implements Initializable {
           event -> {
             listOfFields.get(0).clear();
             listOfFields.get(1).clear();
-            listOfFields.get(2).clear();
           });
       // Submits addition to the database
       submitButton.setOnAction(
@@ -525,14 +522,15 @@ public class EditPageController implements Initializable {
             // If incomplete form, sends an error msg
             // Otherwise, sends to database and closes popup
             if (listOfFields.get(0).getText().isEmpty()
-                || listOfFields.get(1).getText().isEmpty()
-                || listOfFields.get(2).getText().isEmpty()) {
+                || listOfFields.get(1).getText().isEmpty()) {
               incompletePopup();
             } else {
-              DatabaseFunctionality.addEdge(
-                  listOfFields.get(0).getText(),
-                  listOfFields.get(1).getText(),
-                  listOfFields.get(2).getText());
+              String s = listOfFields.get(0).getText(); // start
+              String e = listOfFields.get(1).getText(); // end
+
+              String i = s + "_" + e; // id
+
+              DatabaseFunctionality.addEdge(i, s, e);
 
               //              System.out.println(listOfFields.get(0).getText());
               //              System.out.println(listOfFields.get(1).getText());
