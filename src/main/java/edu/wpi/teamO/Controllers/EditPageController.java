@@ -39,8 +39,8 @@ public class EditPageController implements Initializable {
   @FXML private JFXButton addEdgeButton;
   @FXML private JFXButton deleteEdgeButton;
 
-  @FXML private StackPane warningPane;
-  @FXML private StackPane stackPane;
+  @FXML private static StackPane warningPane;
+  @FXML private static StackPane stackPane;
   @FXML private Tab nodeTableTab;
   @FXML private Tab edgeTableTab;
 
@@ -607,7 +607,7 @@ public class EditPageController implements Initializable {
 
   /////////////////////////// Additional Helper Functions ///////////////////////////////////
   // Creates the textfieds for the popup forms, returns a list of textfields
-  private ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+  public static ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
     ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
     for (String label : labels) {
       JFXTextField text = new JFXTextField();
@@ -618,7 +618,7 @@ public class EditPageController implements Initializable {
   }
 
   // Creates a warning popup for an incomplete form
-  private void incompletePopup() {
+  public static void incompletePopup() {
     warningPane.toFront();
 
     // Creates the content for the popup
