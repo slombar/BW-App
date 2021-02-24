@@ -33,8 +33,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
-  public JFXButton refreshButton;
-  public Label selectedNodeLabel;
+  @FXML private JFXButton refreshButton;
+  @FXML private Label selectedNodeLabel;
+  @FXML private JFXButton editNodeButton;
+  @FXML private JFXButton editEdgeButton;
+  @FXML private JFXButton saveButton;
   @FXML private JFXButton loadEdge;
   @FXML private JFXButton loadNode;
   @FXML private JFXButton backButton;
@@ -115,12 +118,16 @@ public class EditPageController implements Initializable {
   private void customizeButtons() {
     // can also use lightgray
     backButton.setStyle("-fx-background-color: #c3d6e8");
-    addNodeButton.setStyle("-fx-background-color: #c3d6e8");
-    deleteNodeButton.setStyle("-fx-background-color: #c3d6e8");
-    addEdgeButton.setStyle("-fx-background-color: #c3d6e8");
-    deleteEdgeButton.setStyle("-fx-background-color: #c3d6e8");
+    addNodeButton.setStyle("-fx-background-color: #ffffff");
+    deleteNodeButton.setStyle("-fx-background-color: #ffffff");
+    editNodeButton.setStyle("-fx-background-color: #ffffff");
+    addEdgeButton.setStyle("-fx-background-color: #ffffff");
+    deleteEdgeButton.setStyle("-fx-background-color: #ffffff");
+    editEdgeButton.setStyle("-fx-background-color: #ffffff");
     loadNode.setStyle("-fx-background-color: #c3d6e8");
     loadEdge.setStyle("-fx-background-color: #c3d6e8");
+    refreshButton.setStyle("-fx-background-color: #c3d6e8");
+    saveButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
   ///////////////////////////// NODES TABLE //////////////////////////////

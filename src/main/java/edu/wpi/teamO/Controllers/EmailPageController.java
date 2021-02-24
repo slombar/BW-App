@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 
 public class EmailPageController implements Initializable {
 
+  @FXML private JFXButton textButton;
   @FXML private StackPane stackPane;
   @FXML private JFXTextField phoneNum;
   @FXML private ImageView QRView;
@@ -38,6 +39,9 @@ public class EmailPageController implements Initializable {
   public void initialize(URL url, ResourceBundle res) {
 
     mapView.setImage(screenShot);
+    backBtn.setStyle("-fx-background-color: #c3d6e8");
+    confirmBtn.setStyle("-fx-background-color: #c3d6e8");
+    textButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
   public static void setScreenShot(Image sc) {
