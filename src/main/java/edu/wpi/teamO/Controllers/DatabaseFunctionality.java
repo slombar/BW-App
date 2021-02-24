@@ -539,8 +539,6 @@ public class DatabaseFunctionality {
       e.printStackTrace();
     }
 
-
-
     // if the file is not empty
     if (scan.hasNext()) {
       // remove header line in beginning of file
@@ -558,7 +556,7 @@ public class DatabaseFunctionality {
         String shortName = "";
         String teamAssigned = "";
 
-        //delete current nodes
+        // delete current nodes
         PreparedStatement pstmt = null;
 
         try {
@@ -591,7 +589,7 @@ public class DatabaseFunctionality {
         String startNode = "";
         String endNode = "";
 
-        //delete current nodes
+        // delete current nodes
         PreparedStatement pstmt = null;
 
         try {
