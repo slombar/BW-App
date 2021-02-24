@@ -43,8 +43,8 @@ public class EditPageController implements Initializable {
   @FXML private JFXButton addEdgeButton;
   @FXML private JFXButton deleteEdgeButton;
 
-  @FXML private StackPane warningPane;
-  @FXML private StackPane stackPane;
+  @FXML private static StackPane warningPane;
+  @FXML private static StackPane stackPane;
   @FXML private Tab nodeTableTab;
   @FXML private Tab edgeTableTab;
 
@@ -617,7 +617,7 @@ public class EditPageController implements Initializable {
 
   /////////////////////////// Additional Helper Functions ///////////////////////////////////
   // Creates the textfieds for the popup forms, returns a list of textfields
-  private ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+  public static ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
     ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
     for (String label : labels) {
       JFXTextField text = new JFXTextField();
@@ -628,7 +628,7 @@ public class EditPageController implements Initializable {
   }
 
   // Creates a warning popup for an incomplete form
-  private void incompletePopup() {
+  public static void incompletePopup() {
     warningPane.toFront();
 
     // Creates the content for the popup
@@ -836,6 +836,7 @@ public class EditPageController implements Initializable {
   public void refresh(ActionEvent actionEvent) {
     initNodeTable();
     initEdgeTable();
+    drawNodeCircles();
   }
 
   public void savePopup(ActionEvent actionEvent) {
@@ -1135,6 +1136,7 @@ public class EditPageController implements Initializable {
 
   /** draws the circles on the canvas */
   public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     // probably needs to re-get node list?
     nodeList = DatabaseFunctionality.showNodes(nodeList);
     stringCircleHashtable = new Hashtable<>();
