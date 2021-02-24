@@ -34,7 +34,7 @@ public class EmailThreader extends Thread {
     properties.put("mail.smtp.auth", "true");
 
     String home = System.getProperty("user.home");
-    File outputFile = new File(home + "/Downloads/" + "mapImageThingy.png");
+    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
 
     Session session =
         Session.getInstance(

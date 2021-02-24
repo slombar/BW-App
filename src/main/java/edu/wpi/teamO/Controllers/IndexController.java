@@ -278,19 +278,23 @@ public class IndexController implements Initializable {
     }
   }
 
+  // private ImageView m;
+
   public void save(ActionEvent actionEvent) throws IOException {
     sharePane.toBack();
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
 
     String home = System.getProperty("user.home");
-    File outputFile = new File(home + "/Downloads/" + "mapImageThingy.png");
+    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
 
     WritableImage map = mapanchor.snapshot(new SnapshotParameters(), null);
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+    Image newimg = map;
+
+    EmailPageController.setScreenShot(newimg);
 
     // add the scene switch
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
-    // errors TODO: fix
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 

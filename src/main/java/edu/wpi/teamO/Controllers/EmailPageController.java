@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -31,16 +32,19 @@ public class EmailPageController implements Initializable {
   @FXML private JFXTextField email;
   @FXML private JFXButton confirmBtn;
   @FXML private ImageView mapView;
-
-  private String errorMsg = "";
+  @FXML private static Image screenShot;
 
   @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    String home = System.getProperty("user.home");
-    String outputFile = home + "/Downloads/" + "mapimg.png";
+  public void initialize(URL url, ResourceBundle res) {
 
-    mapView = new ImageView(outputFile);
+    mapView.setImage(screenShot);
   }
+
+  public static void setScreenShot(Image sc) {
+    screenShot = sc;
+  }
+
+  private String errorMsg = "";
 
   public void back(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
@@ -106,6 +110,8 @@ public class EmailPageController implements Initializable {
       String outputFile = home + "/Downloads/" + "mapimg.png";
 
       SharingFunctionality.sendEmailAttachment(emailString, outputFile);
+
+      mapView = new ImageView(outputFile);
 
       submissionPopup();
 
