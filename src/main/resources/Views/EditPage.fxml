@@ -99,9 +99,9 @@
                                             <children>
                                                 <JFXTreeTableView fx:id="edgeTable" layoutX="-14.0" layoutY="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                                     <columns>
-                                                        <TreeTableColumn fx:id="edgeIDCol" prefWidth="75.0" text="Node ID" />
-                                                        <TreeTableColumn fx:id="startCol" prefWidth="75.0" text="Start" />
-                                                        <TreeTableColumn fx:id="endCol" prefWidth="75.0" text="End" />
+                                                        <TreeTableColumn fx:id="edgeIDCol" prefWidth="170.0" text="Node ID" />
+                                                        <TreeTableColumn fx:id="startCol" prefWidth="92.0" text="Start" />
+                                                        <TreeTableColumn fx:id="endCol" minWidth="8.0" prefWidth="84.0" text="End" />
                                                     </columns></JFXTreeTableView>
                                                 <GridPane layoutX="14.0" layoutY="-31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                                     <columnConstraints>
