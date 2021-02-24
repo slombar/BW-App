@@ -1,6 +1,5 @@
 package edu.wpi.teamO.Controllers;
 
-import com.jfoenix.controls.JFXButton;
 import edu.wpi.teamO.Controllers.model.*;
 import java.io.*;
 import java.sql.*;
@@ -156,11 +155,13 @@ public class DatabaseFunctionality {
   }
 
   public static void deleteNode(String nodeID) {
+
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
     System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = connection.prepareStatement(query);
+
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -360,7 +361,7 @@ public class DatabaseFunctionality {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
 
-        edgeList.add(new Edge(ID, startNode, endNode, new JFXButton("update")));
+        edgeList.add(new Edge(ID, startNode, endNode));
       }
 
       rset.close();
@@ -398,17 +399,7 @@ public class DatabaseFunctionality {
         nodeType = rset.getString("nodeType");
         longName = rset.getString("longName");
         shortName = rset.getString("shortName");
-        nodeList.add(
-            new Node(
-                ID,
-                xcoord,
-                ycoord,
-                floor,
-                building,
-                nodeType,
-                longName,
-                shortName,
-                new JFXButton("update")));
+        nodeList.add(new Node(ID, xcoord, ycoord, floor, building, nodeType, longName, shortName));
       }
       rset.close();
       pstmt.close();
@@ -545,6 +536,7 @@ public class DatabaseFunctionality {
     try {
       scan = new Scanner(new File(url)).useDelimiter(d);
       System.out.println("File read! Importing data...");
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
@@ -565,6 +557,18 @@ public class DatabaseFunctionality {
         String longName = "";
         String shortName = "";
         String teamAssigned = "";
+
+        // delete current nodes
+        PreparedStatement pstmt = null;
+
+        try {
+          pstmt = connection.prepareStatement("DELETE FROM Nodes");
+
+          pstmt.execute();
+          pstmt.close();
+        } catch (SQLException throwables) {
+          throwables.printStackTrace();
+        }
 
         // while the file is not at its end
         while (scan.hasNext()) {
@@ -587,6 +591,19 @@ public class DatabaseFunctionality {
         String nodeID = "";
         String startNode = "";
         String endNode = "";
+
+        // delete current nodes
+        PreparedStatement pstmt = null;
+
+        try {
+          pstmt = connection.prepareStatement("DELETE FROM Edges");
+
+          pstmt.execute();
+          pstmt.close();
+
+        } catch (SQLException throwables) {
+          throwables.printStackTrace();
+        }
 
         while (scan.hasNext()) {
 

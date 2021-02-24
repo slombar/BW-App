@@ -71,7 +71,6 @@ public class IndexController implements Initializable {
   public Canvas mapcanvas;
   public JFXButton saveBtn;
   public AnchorPane mapanchor;
-  // private ArrayList<Circle> circleList;
   private ObservableList<Node> nodeList = FXCollections.observableArrayList();
   private Hashtable<String, Circle> stringCircleHashtable;
   private GraphicsContext gc;
@@ -82,9 +81,7 @@ public class IndexController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    nodeList = FXCollections.observableArrayList();
     nodeList = DatabaseFunctionality.showNodes(nodeList);
-    // circleList = new ArrayList<>();
     stringCircleHashtable = new Hashtable<>();
 
     //////////////////////////////////// SCALING//////////////////////////////////
@@ -105,7 +102,6 @@ public class IndexController implements Initializable {
     gc = mapcanvas.getGraphicsContext2D();
 
     // draws circles on canvas
-
     drawNodeCircles();
     customizeButtons();
     sharePane.toFront();
@@ -351,19 +347,23 @@ public class IndexController implements Initializable {
     }
   }
 
+  // private ImageView m;
+
   public void save(ActionEvent actionEvent) throws IOException {
     sharePane.toBack();
     GraphicsContext gc = mapcanvas.getGraphicsContext2D();
 
     String home = System.getProperty("user.home");
-    File outputFile = new File(home + "/Downloads/" + "mapImageThingy.png");
+    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
 
     WritableImage map = mapanchor.snapshot(new SnapshotParameters(), null);
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+    Image newimg = map;
+
+    EmailPageController.setScreenShot(newimg);
 
     // add the scene switch
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
-    // errors TODO: fix
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 

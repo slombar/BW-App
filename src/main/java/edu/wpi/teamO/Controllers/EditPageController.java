@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,10 +28,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class EditPageController implements Initializable {
   public JFXButton refreshButton;
+  public Label selectedNodeLabel;
   @FXML private JFXButton loadEdge;
   @FXML private JFXButton loadNode;
   @FXML private JFXButton backButton;
@@ -55,7 +59,6 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Node, String> nodeTypeCol;
   @FXML private TreeTableColumn<Node, String> longNameCol;
   @FXML private TreeTableColumn<Node, String> shortNameCol;
-  @FXML private TreeTableColumn<Node, String> updateNodeCol;
 
   @FXML private JFXTreeTableView<Edge> edgeTable;
   public static JFXTreeTableView<Edge> edgeTable2;
@@ -63,10 +66,14 @@ public class EditPageController implements Initializable {
   @FXML private TreeTableColumn<Edge, String> edgeIDCol;
   @FXML private TreeTableColumn<Edge, String> startCol;
   @FXML private TreeTableColumn<Edge, String> endCol;
-  @FXML private TreeTableColumn<Edge, String> updateEdgeCol;
+
+  // stuff for drawing things
   @FXML private ImageView mapimage;
   @FXML private Canvas mapcanvas;
   private GraphicsContext gc;
+  private Hashtable<String, Circle> stringCircleHashtable;
+  double cW = 10.0;
+  String selected = "-1";
 
   public static ObservableList<Node> nodeList;
   public static ObservableList<Edge> edgeList;
@@ -78,6 +85,9 @@ public class EditPageController implements Initializable {
     initNodeTable();
     initEdgeTable();
     customizeButtons();
+
+    // nodeList = DatabaseFunctionality.showNodes(nodeList);
+    // stringCircleHashtable = new Hashtable<>();
 
     //////////////////////////////////// SCALING//////////////////////////////////
 
@@ -95,6 +105,10 @@ public class EditPageController implements Initializable {
     /////////////////////////////////////////////////////////////////////
 
     gc = mapcanvas.getGraphicsContext2D();
+
+    // draws circles on canvas
+    drawNodeCircles();
+    customizeButtons();
   }
 
   // Customize
@@ -113,9 +127,9 @@ public class EditPageController implements Initializable {
   // Initializes the node table and ensures that its updated
   public void initNodeTable() {
     nodeTable.setShowRoot(false);
+    nodeTable2 = nodeTable;
     initNodeCols();
     loadNodeData();
-    nodeTable2 = nodeTable;
   }
 
   // Loads the node data from the database and puts it into tree table
@@ -159,8 +173,6 @@ public class EditPageController implements Initializable {
     shortNameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("ShortName"));
     shortNameCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
 
-    updateNodeCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Update"));
-
     editableNodeCols();
   }
 
@@ -178,8 +190,8 @@ public class EditPageController implements Initializable {
   ///////////////////////////// EDGES TABLE //////////////////////////////
   // Initializes the edge table and ensures that its updated
   public void initEdgeTable() {
-    edgeTable2 = edgeTable;
     edgeTable.setShowRoot(false);
+    edgeTable2 = edgeTable;
     initEdgeCols();
     loadEdgeData();
   }
@@ -209,8 +221,6 @@ public class EditPageController implements Initializable {
 
     endCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("End"));
     endCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
-
-    updateEdgeCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("Update"));
 
     editableEdgeCols();
   }
@@ -828,8 +838,6 @@ public class EditPageController implements Initializable {
     initEdgeTable();
   }
 
-  public void canvasClick(MouseEvent mouseEvent) {}
-
   public void savePopup(ActionEvent actionEvent) {
     // dialogContent has the conetnt of the popup
     JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -889,5 +897,328 @@ public class EditPageController implements Initializable {
           }
         });
     loadDialog.show();
+  }
+
+  public void editNodePopup(ActionEvent actionEvent) {
+    // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+
+      // addNodePopup has the content of the popup
+      // addNodeDialog creates the dialog popup
+      JFXDialogLayout editNodePopup = new JFXDialogLayout();
+      editNodePopup.setHeading(new Text("Edit a Node"));
+      VBox editNodeVBox = new VBox(12);
+
+      // Creating an HBox of buttons
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Commit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      // Creating a list of labels to create the textfields
+      ArrayList<String> editNodeLabels =
+          new ArrayList<String>(
+              Arrays.asList(
+                  "Node ID",
+                  "X Coordinate",
+                  "Y Coordinate",
+                  "Floor",
+                  "Building",
+                  "Node Type",
+                  "Long Name",
+                  "Short Name"));
+      ArrayList<JFXTextField> listOfFields = createFields(editNodeLabels);
+
+      // Creating the form with a VBox
+      editNodeVBox
+          .getChildren()
+          .addAll(
+              listOfFields.get(0),
+              listOfFields.get(1),
+              listOfFields.get(2),
+              listOfFields.get(3),
+              listOfFields.get(4),
+              listOfFields.get(5),
+              listOfFields.get(6),
+              listOfFields.get(7),
+              buttonBox);
+      editNodePopup.setBody(editNodeVBox);
+      // Getting column data to make textfield autocomplete
+      ArrayList<String> nodeIDColData = new ArrayList<>();
+      for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+        nodeIDColData.add(nodeIDCol.getCellData(i));
+      }
+      autoComplete(nodeIDColData, listOfFields.get(0));
+
+      // Bringing the popup screen to the front and disabling the background
+      stackPane.toFront();
+      JFXDialog editNodeDialog =
+          new JFXDialog(stackPane, editNodePopup, JFXDialog.DialogTransition.BOTTOM);
+      editNodeDialog.setOverlayClose(false);
+      nodeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
+
+      // Closing the popup
+      closeButton.setOnAction(
+          event -> {
+            editNodeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
+          });
+      // Clearing the form, keeps the popup open
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+            listOfFields.get(1).clear();
+            listOfFields.get(2).clear();
+            listOfFields.get(3).clear();
+            listOfFields.get(4).clear();
+            listOfFields.get(5).clear();
+            listOfFields.get(6).clear();
+            listOfFields.get(7).clear();
+          });
+      // Submits edit to the database
+      submitButton.setOnAction(
+          event -> {
+            // If incomplete form, sends an error msg
+            // Otherwise, sends to database and closes popup
+            if (listOfFields.get(0).getText().isEmpty()
+                || listOfFields.get(1).getText().isEmpty()
+                || listOfFields.get(2).getText().isEmpty()
+                || listOfFields.get(3).getText().isEmpty()
+                || listOfFields.get(4).getText().isEmpty()
+                || listOfFields.get(5).getText().isEmpty()
+                || listOfFields.get(6).getText().isEmpty()
+                || listOfFields.get(7).getText().isEmpty()) {
+              incompletePopup();
+            } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
+              nonexistantPopup();
+            } else {
+              DatabaseFunctionality.editNode(
+                  listOfFields.get(0).getText(),
+                  Integer.parseInt(listOfFields.get(1).getText()),
+                  Integer.parseInt(listOfFields.get(2).getText()),
+                  listOfFields.get(3).getText(),
+                  listOfFields.get(4).getText(),
+                  listOfFields.get(5).getText(),
+                  listOfFields.get(6).getText(),
+                  listOfFields.get(7).getText(),
+                  "O");
+
+              //              System.out.println(listOfFields.get(0).getText());
+              //              System.out.println(listOfFields.get(1).getText());
+              //              System.out.println(listOfFields.get(2).getText());
+              //              System.out.println(listOfFields.get(3).getText());
+              //              System.out.println(listOfFields.get(4).getText());
+              //              System.out.println(listOfFields.get(5).getText());
+              //              System.out.println(listOfFields.get(6).getText());
+              //              System.out.println(listOfFields.get(7).getText());
+              editNodeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
+          });
+      editNodeDialog.show();
+    }
+  }
+
+  public void editEdgePopup(
+      ActionEvent actionEvent) { // checking to make sure there are currently no other popups
+    if (!popUp) {
+      popUp = true;
+
+      // addEdgePopup has the content of the popup
+      // addEdgeDialog creates the dialog popup
+      JFXDialogLayout editEdgePopup = new JFXDialogLayout();
+      editEdgePopup.setHeading(new Text("Edit a Edge"));
+      VBox editEdgeVBox = new VBox(12);
+
+      // Creating an HBox of buttons
+      HBox buttonBox = new HBox(20);
+      JFXButton closeButton = new JFXButton("Close");
+      JFXButton clearButton = new JFXButton("Clear");
+      JFXButton submitButton = new JFXButton("Commit");
+      buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+      // Creating a list of labels to create the textfields
+      ArrayList<String> editEdgeLabels =
+          new ArrayList<String>(Arrays.asList("Edge ID", "Start Node ID", "End Node ID"));
+      ArrayList<JFXTextField> listOfFields = createFields(editEdgeLabels);
+
+      // Creating the form with a VBox
+      editEdgeVBox
+          .getChildren()
+          .addAll(listOfFields.get(0), listOfFields.get(1), listOfFields.get(2), buttonBox);
+      editEdgePopup.setBody(editEdgeVBox);
+
+      // Getting column data to make textfield autocomplete
+      ArrayList<String> EdgeIDColData = new ArrayList<>();
+      for (int i = 0; i < edgeTable.getExpandedItemCount(); i++) {
+        EdgeIDColData.add(edgeIDCol.getCellData(i));
+      }
+      autoComplete(EdgeIDColData, listOfFields.get(0));
+
+      ArrayList<String> nodeIDColData = new ArrayList<>();
+      for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+        nodeIDColData.add(nodeIDCol.getCellData(i));
+      }
+      autoComplete(nodeIDColData, listOfFields.get(1));
+      autoComplete(nodeIDColData, listOfFields.get(2));
+
+      //      ArrayList<String> endIDColData = new ArrayList<>();
+      //      for (int i = 0; i < edgeTable.getExpandedItemCount(); i++) {
+      //        endIDColData.add(endCol.getCellData(i));
+      //      }
+
+      // Bringing the popup screen to the front and disabling the background
+      stackPane.toFront();
+      JFXDialog editEdgeDialog =
+          new JFXDialog(stackPane, editEdgePopup, JFXDialog.DialogTransition.BOTTOM);
+      editEdgeDialog.setOverlayClose(false);
+      edgeTableTab.setDisable(true);
+      edgeTableTab.setDisable(true);
+
+      // Closing the popup
+      closeButton.setOnAction(
+          event -> {
+            editEdgeDialog.close();
+            stackPane.toBack();
+            popUp = false;
+            nodeTableTab.setDisable(false);
+            edgeTableTab.setDisable(false);
+          });
+      // Clearing the form, keeps the popup open
+      clearButton.setOnAction(
+          event -> {
+            listOfFields.get(0).clear();
+            listOfFields.get(1).clear();
+            listOfFields.get(2).clear();
+          });
+      // Submits edit to the database
+      submitButton.setOnAction(
+          event -> {
+            // If incomplete form, sends an error msg
+            // Otherwise, sends to database and closes popup
+            if (listOfFields.get(0).getText().isEmpty()
+                || listOfFields.get(1).getText().isEmpty()
+                || listOfFields.get(2).getText().isEmpty()) {
+              incompletePopup();
+            } else if (!EdgeIDColData.contains(listOfFields.get(0).getText())
+                || !nodeIDColData.contains(listOfFields.get(1).getText())
+                || !nodeIDColData.contains(listOfFields.get(2).getText())) {
+              nonexistantPopup();
+            } else {
+              DatabaseFunctionality.editEdge(
+                  listOfFields.get(0).getText(),
+                  listOfFields.get(1).getText(),
+                  listOfFields.get(2).getText());
+
+              editEdgeDialog.close();
+              stackPane.toBack();
+              popUp = false;
+              nodeTableTab.setDisable(false);
+              edgeTableTab.setDisable(false);
+            }
+          });
+      editEdgeDialog.show();
+    }
+  }
+
+  //////////////////////////////////// SHIT FOR DRAWING NODES ///////////////////////////////////
+  // TODO: make this it's own fucking class (to also be used in IndexController)
+
+  /** draws the circles on the canvas */
+  public void drawNodeCircles(/*ObservableList<Node> nodeList*/ ) {
+    // probably needs to re-get node list?
+    nodeList = DatabaseFunctionality.showNodes(nodeList);
+    stringCircleHashtable = new Hashtable<>();
+
+    // divide them by a scale factor (image is ~2937 pixels wide?) --
+    // would be imageWidth/canvasWidth and imageHeight/canvasHeight
+    double scaleX = 2989 / mapcanvas.getWidth();
+    double scaleY = 2457 / mapcanvas.getHeight();
+
+    // circle widths:
+    // double cW = 10.0;
+    // TODO: (x,y) should already adjust when scrolling, but probably should also change radius?
+
+    // for each node in the DB, add their circle to the map
+    for (Node n : nodeList) {
+      double difference = 0;
+      Circle circle = new Circle();
+      /*add functionality to make the route path
+      go left... go right?
+       */
+
+      double nodeX = Double.valueOf(n.getXCoord()) / scaleX;
+      double nodeY = Double.valueOf(n.getYCoord()) / scaleY;
+
+      circle.setCenterX(nodeX);
+      circle.setCenterY(nodeY);
+      circle.setRadius(cW / 2);
+      stringCircleHashtable.put(n.getID(), circle);
+
+      gc.setFill(Color.YELLOW); // default nodes are yellow
+      gc.setGlobalAlpha(.75); // will make things drawn slightly transparent (if we want to)
+      // DON'T DELETE -> JUST SET TO "1.0" IF NO TRANSPARENCY IS WANTED
+
+      // sets color to blue/red if loc or dest are selected
+      if (!selected.equals("-1") && n.getID().equals(selected)) {
+        gc.setFill(Color.GREEN);
+      }
+
+      // create the circle utilizing the algorithm
+      gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      // sets alpha to 1.0 and draw a black border around circle
+      gc.setGlobalAlpha(1.0);
+      gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      circle.getCenterX();
+      circle.getCenterY();
+    }
+  }
+
+  public void canvasClick(MouseEvent mouseEvent) {
+    double clickX = mouseEvent.getX();
+    double clickY = mouseEvent.getY();
+    System.out.println("CANVAS CLICKING");
+
+    String closestID = closestCircle(clickX, clickY);
+    // System.out.println(closestID); // for debugging
+
+    selected = closestID;
+
+    // clear canvas and redraw circles
+    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+    drawNodeCircles();
+
+    selectedNodeLabel.setText(closestID);
+  }
+
+  // helper that return nodeID of closest node to click
+  public String closestCircle(double x, double y) {
+    double currentDist = 1000000000;
+    String nodeID = "-1";
+
+    for (Node n : nodeList) {
+      Circle c = stringCircleHashtable.get(n.getID());
+      double cX = c.getCenterX();
+      double cY = c.getCenterY();
+
+      double dist = Math.pow(Math.abs(x - cX), 2.0) + Math.pow(Math.abs(y - cY), 2.0);
+      if (dist < currentDist) {
+        currentDist = dist;
+        nodeID = n.getID();
+      }
+    }
+
+    return nodeID;
   }
 }
