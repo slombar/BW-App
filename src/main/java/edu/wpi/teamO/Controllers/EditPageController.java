@@ -488,6 +488,13 @@ public class EditPageController implements Initializable {
           .addAll(listOfFields.get(0), listOfFields.get(1), listOfFields.get(2), buttonBox);
       addEdgePopup.setBody(addEdgeVBox);
 
+      ArrayList<String> nodeIDColData = new ArrayList<>();
+      for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+        nodeIDColData.add(nodeIDCol.getCellData(i));
+      }
+      autoComplete(nodeIDColData, listOfFields.get(1));
+      autoComplete(nodeIDColData, listOfFields.get(2));
+
       // Bringing the popup screen to the front and disabling the background
       stackPane.toFront();
       JFXDialog addEdgeDialog =
