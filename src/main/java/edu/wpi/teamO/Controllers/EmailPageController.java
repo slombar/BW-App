@@ -115,9 +115,9 @@ public class EmailPageController implements Initializable {
 
       SharingFunctionality.sendEmailAttachment(emailString, outputFile);
 
-      mapView = new ImageView(outputFile);
-
       submissionPopup();
+
+      mapView = new ImageView(outputFile);
 
     } else {
       errorMsg =
