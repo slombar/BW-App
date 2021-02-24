@@ -46,8 +46,8 @@ public class EditPageController implements Initializable {
   @FXML private JFXButton addEdgeButton;
   @FXML private JFXButton deleteEdgeButton;
 
-  @FXML private static StackPane warningPane;
-  @FXML private static StackPane stackPane;
+  @FXML private StackPane warningPane;
+  @FXML private StackPane stackPane;
   @FXML private Tab nodeTableTab;
   @FXML private Tab edgeTableTab;
 
@@ -635,7 +635,7 @@ public class EditPageController implements Initializable {
   }
 
   // Creates a warning popup for an incomplete form
-  public static void incompletePopup() {
+  public void incompletePopup() {
     warningPane.toFront();
 
     // Creates the content for the popup
