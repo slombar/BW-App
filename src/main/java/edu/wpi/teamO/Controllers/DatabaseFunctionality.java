@@ -155,11 +155,13 @@ public class DatabaseFunctionality {
   }
 
   public static void deleteNode(String nodeID) {
+
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
     System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = connection.prepareStatement(query);
+
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -539,8 +541,6 @@ public class DatabaseFunctionality {
       e.printStackTrace();
     }
 
-
-
     // if the file is not empty
     if (scan.hasNext()) {
       // remove header line in beginning of file
@@ -558,12 +558,13 @@ public class DatabaseFunctionality {
         String shortName = "";
         String teamAssigned = "";
 
-        //delete current nodes
+        // delete current nodes
         PreparedStatement pstmt = null;
 
         try {
-          pstmt = connection.prepareStatement("DELETE * FROM Nodes");
-          pstmt.executeQuery();
+          pstmt = connection.prepareStatement("DELETE FROM Nodes");
+
+          pstmt.execute();
           pstmt.close();
         } catch (SQLException throwables) {
           throwables.printStackTrace();
@@ -591,12 +592,13 @@ public class DatabaseFunctionality {
         String startNode = "";
         String endNode = "";
 
-        //delete current nodes
+        // delete current nodes
         PreparedStatement pstmt = null;
 
         try {
-          pstmt = connection.prepareStatement("DELETE * FROM Edges");
-          pstmt.executeQuery();
+          pstmt = connection.prepareStatement("DELETE FROM Edges");
+
+          pstmt.execute();
           pstmt.close();
 
         } catch (SQLException throwables) {

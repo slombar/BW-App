@@ -114,7 +114,6 @@ public class EditPageController implements Initializable {
     nodeTable2 = nodeTable;
     initNodeCols();
     loadNodeData();
-
   }
 
   // Loads the node data from the database and puts it into tree table

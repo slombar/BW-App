@@ -6,11 +6,14 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.teamO.Opp;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -18,7 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class EmailPageController {
+public class EmailPageController implements Initializable {
 
   @FXML private StackPane stackPane;
   @FXML private JFXTextField phoneNum;
@@ -30,6 +33,14 @@ public class EmailPageController {
   @FXML private ImageView mapView;
 
   private String errorMsg = "";
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    String home = System.getProperty("user.home");
+    String outputFile = home + "/Downloads/" + "mapimg.png";
+
+    mapView = new ImageView(outputFile);
+  }
 
   public void back(ActionEvent actionEvent) throws IOException {
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
@@ -74,7 +85,7 @@ public class EmailPageController {
     if (isValidNum(phoneString)) {
 
       String home = System.getProperty("user.home");
-      String outputFile = home + "/Downloads/" + "mapImageThingy.png";
+      String outputFile = home + "/Downloads/" + "mapimg.png";
 
       SharingFunctionality.sendSMS(phoneString, outputFile);
       submissionPopup();
@@ -92,7 +103,7 @@ public class EmailPageController {
 
     if (isValidEmail(emailString)) {
       String home = System.getProperty("user.home");
-      String outputFile = home + "/Downloads/" + "mapImageThingy.png";
+      String outputFile = home + "/Downloads/" + "mapimg.png";
 
       SharingFunctionality.sendEmailAttachment(emailString, outputFile);
 
