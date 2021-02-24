@@ -1,15 +1,13 @@
 package edu.wpi.teamO.Controllers;
 
-import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.*;
 import edu.wpi.teamO.Controllers.model.Node;
 import edu.wpi.teamO.GraphSystem.GraphSystem;
 import edu.wpi.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,9 +25,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 
 // TODO: make all these private
@@ -49,6 +50,7 @@ public class IndexController implements Initializable {
   public MenuButton menu;
   public Label label;
   public JFXButton editButton;
+  public StackPane stackPane;
   @FXML private AnchorPane bigAnchor;
   public JFXButton locButton;
   public JFXButton destButton;
@@ -263,10 +265,77 @@ public class IndexController implements Initializable {
   }
 
   public void goToSecurityRequest(ActionEvent actionEvent) throws IOException {
-    // add the scene switch
-    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/SecurityForm.fxml"));
-    Opp.getPrimaryStage().setFullScreen(false);
-    Opp.getPrimaryStage().getScene().setRoot(root);
+    // addNodePopup has the content of the popup
+    // addNodeDialog creates the dialog popup
+    JFXDialogLayout addNodePopup = new JFXDialogLayout();
+    addNodePopup.setHeading(new Text("Security Form"));
+    VBox addSecVBox = new VBox(12);
+
+    // Creating contents of form
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton clearButton = new JFXButton("Clear");
+    JFXButton submitButton = new JFXButton("Submit");
+    buttonBox.getChildren().addAll(closeButton, clearButton, submitButton);
+
+    JFXTextField locationText = new JFXTextField();
+    locationText.setPromptText("Where is security needed?");
+    JFXTextField threatText = new JFXTextField();
+    threatText.setPromptText("What type of threat?");
+    JFXTextArea additionalInfo = new JFXTextArea();
+    additionalInfo.setPromptText("Additional Important Information");
+    HBox sliderBox = new HBox(20);
+    Label sliderLabel = new Label("Urgency Level:");
+    JFXSlider slider = new JFXSlider();
+    slider.setMin(1);
+    slider.setValue(1);
+    slider.setMax(5);
+    slider.setMajorTickUnit(1);
+    slider.setMinorTickCount(0);
+    slider.setShowTickLabels(true);
+    slider.setShowTickMarks(true);
+    slider.setSnapToTicks(true);
+    slider.setBlockIncrement(1);
+    sliderBox.getChildren().addAll(sliderLabel, slider);
+    HBox checkboxBox = new HBox(20);
+    Label checkLabel = new Label("Armed Security?");
+    JFXCheckBox checkbox = new JFXCheckBox();
+    checkboxBox.getChildren().addAll(checkLabel, checkbox);
+
+    // Creating the form with a VBox
+    addSecVBox
+        .getChildren()
+        .addAll(locationText, threatText, additionalInfo, sliderBox, checkboxBox, buttonBox);
+    addNodePopup.setBody(addSecVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    stackPane.toFront();
+    JFXDialog addNodeDialog =
+        new JFXDialog(stackPane, addNodePopup, JFXDialog.DialogTransition.BOTTOM);
+    addNodeDialog.setOverlayClose(false);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          addNodeDialog.close();
+          stackPane.toBack();
+        });
+    // Clearing the form, keeps the popup open
+    clearButton.setOnAction(
+        event -> {
+          locationText.clear();
+          threatText.clear();
+          additionalInfo.clear();
+          slider.setValue(1);
+          checkbox.setSelected(false);
+        });
+    // Submits addition to the database
+    submitButton.setOnAction(
+        event -> {
+          addNodeDialog.close();
+          stackPane.toBack();
+        });
+    addNodeDialog.show();
   }
 
   public void goToEditNodes(ActionEvent actionEvent) throws IOException {
