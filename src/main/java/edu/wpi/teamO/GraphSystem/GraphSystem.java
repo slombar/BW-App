@@ -17,6 +17,10 @@ public class GraphSystem {
     graph = new Graph(); // maybe have Graph initialize based on CSV?
   }
 
+  public GraphSystem(boolean test) {
+    graph = new Graph(true);
+  }
+
   public void initializeGraph() {
     graph.initialize();
   }

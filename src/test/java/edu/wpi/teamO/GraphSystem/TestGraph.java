@@ -33,7 +33,7 @@ public class TestGraph {
     nodeIDs.add(n6.getNodeID());
     nodeIDs.add(n7.getNodeID());
 
-    testGraph = new Graph();
+    testGraph = new Graph(true);
     testGraph.addNode(n1);
     testGraph.addNode(n2);
     testGraph.addNode(n3);

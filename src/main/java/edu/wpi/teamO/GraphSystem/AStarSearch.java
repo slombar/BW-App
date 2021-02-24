@@ -26,6 +26,14 @@ class AStarSearch {
     frontier = new PriorityQueue<GraphNode>();
   }
 
+  AStarSearch(boolean test) {
+    graph = new Graph(test); // may not want/need to initialize graph here
+    graphSize = -1;
+    startID = "-1";
+    targetID = "-1";
+    frontier = new PriorityQueue<GraphNode>();
+  }
+
   // constructor
   AStarSearch(Graph g, String start, String target) {
     graph = g;

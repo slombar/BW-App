@@ -20,7 +20,7 @@ public class TestAStarSearch {
     n6 = new GraphNode("node6", 2, 4);
     n7 = new GraphNode("node7", 4, 4);
 
-    testGraph = new Graph();
+    testGraph = new Graph(true);
     testGraph.addNode(n1);
     testGraph.addNode(n2);
     testGraph.addNode(n3);
