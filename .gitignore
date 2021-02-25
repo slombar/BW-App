@@ -1,9 +1,6 @@
 derby.log
 *.lock
 lombok.config
-log.ctrl
-log1.dat
-logmirror.ctrl
 
 # Created by https://www.gitignore.io/api/java,macos,gradle,intellij+all
 # Edit at https://www.gitignore.io/?templates=java,macos,gradle,intellij+all
