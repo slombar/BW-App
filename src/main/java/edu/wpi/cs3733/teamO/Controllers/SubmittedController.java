@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import edu.wpi.cs3733.teamO.Opp;
-
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

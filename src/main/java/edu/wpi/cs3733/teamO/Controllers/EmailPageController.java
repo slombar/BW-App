@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Opp;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
