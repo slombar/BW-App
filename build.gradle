@@ -6,7 +6,7 @@ plugins {
     id "io.freefair.lombok" version "5.0.0-rc6"
     id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
-mainClassName = 'edu.wpi.teamO.Main'
+mainClassName = 'edu.wpi.cs3733.teamO.Main'
 
 repositories {
     mavenCentral()

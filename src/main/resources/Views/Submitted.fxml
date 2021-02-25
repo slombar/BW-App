@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="135.0" prefWidth="334.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamO.Controllers.SubmittedController">
+<AnchorPane prefHeight="135.0" prefWidth="334.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SubmittedController">
    <children>
       <Label layoutX="51.0" layoutY="28.0" text="Form Successfully Submitted!">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="backBtn" layoutX="106.0" layoutY="76.0" onAction="#back" prefHeight="45.0" prefWidth="123.0" ripplerFill="#7da0b9" text="Back to edu.wpi.teamO.Main Page" />
+      <JFXButton fx:id="backBtn" layoutX="106.0" layoutY="76.0" onAction="#back" prefHeight="45.0" prefWidth="123.0" ripplerFill="#7da0b9" text="Back to edu.wpi.cs3733.teamO.Main Page" />
    </children>
 </AnchorPane>
