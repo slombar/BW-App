@@ -3,6 +3,7 @@ package edu.wpi.teamO.Controllers;
 import com.jfoenix.controls.*;
 import edu.wpi.teamO.Controllers.model.Node;
 import edu.wpi.teamO.GraphSystem.GraphSystem;
+import edu.wpi.teamO.HelperClasses.PopupMaker;
 import edu.wpi.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
@@ -105,6 +106,9 @@ public class IndexController implements Initializable {
     drawNodeCircles();
     customizeButtons();
     sharePane.toFront();
+
+    //Sam has been using the following line for testing, if it is not commented, it is his fault, blame him for all errors in code from now on
+    //PopupMaker.incompletePopup(stackPane);
 
     System.out.println("Initalized");
   }
