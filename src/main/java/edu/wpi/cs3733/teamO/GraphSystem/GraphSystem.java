@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import edu.wpi.cs3733.teamO.Controllers.model.Node;
+
 import java.util.LinkedList;
 
 // main class of the 'edu.wpi.teamO.GraphSystem' subsystem
@@ -55,11 +57,11 @@ public class GraphSystem {
   public LinkedList<String> findPath(String startID, String targetID) {
     initializeGraph();
     aStarSearch = new AStarSearch(graph, startID, targetID);
-    LinkedList<GraphNode> route = aStarSearch.findRoute();
+    LinkedList<Node> route = aStarSearch.findRoute();
 
     LinkedList<String> routeIDs = new LinkedList<>();
-    for (GraphNode node : route) {
-      routeIDs.add(node.getNodeID());
+    for (Node node : route) {
+      routeIDs.add(node.getID());
     }
 
     return routeIDs;

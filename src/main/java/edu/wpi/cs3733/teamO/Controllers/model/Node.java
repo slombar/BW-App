@@ -2,18 +2,30 @@ package edu.wpi.cs3733.teamO.Controllers.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
-public class Node extends RecursiveTreeObject<Node> {
-  String ID, building, nodeType, longName, shortName, floor, xCoord, yCoord;
+import java.util.LinkedList;
 
-  public Node(
-      String ID,
-      String xCoord,
-      String yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName) {
+public class Node extends RecursiveTreeObject<Node> {
+  String ID, building, nodeType, longName, shortName, floor, team;
+  int xCoord, yCoord;
+
+  //added from GraphNode
+  private LinkedList<Node> neighbourList;
+  private double priority;
+  private boolean visited;
+
+  /**
+   * Constructor for Node
+   * @param ID
+   * @param xCoord
+   * @param yCoord
+   * @param floor
+   * @param building
+   * @param nodeType
+   * @param longName
+   * @param shortName
+   * @param team
+   */
+  public Node(String ID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName, String team) {
     this.ID = ID;
     this.building = building;
     this.nodeType = nodeType;
@@ -22,6 +34,17 @@ public class Node extends RecursiveTreeObject<Node> {
     this.floor = floor;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
+    this.team = team;
+    this.visited = false;
+    this.neighbourList = new LinkedList<>();
+  }
+
+  public Node(String nodeID, int x, int y){
+    this.ID = nodeID;
+    this.xCoord = x;
+    this.yCoord = y;
+    this.visited = false;
+    this.neighbourList = new LinkedList<>();
   }
 
   public Node() {
@@ -31,8 +54,49 @@ public class Node extends RecursiveTreeObject<Node> {
     this.longName = null;
     this.shortName = null;
     this.floor = null;
-    this.xCoord = null;
-    this.yCoord = null;
+    this.xCoord = 0;
+    this.yCoord = 0;
+  }
+
+  public int compareTo(Node node) {
+    return Double.compare(priority, node.getPriority());
+  }
+
+  public void addNeighbour(Node graphNode) {
+    this.neighbourList.add(graphNode);
+    graphNode.neighbourList.add(this);
+  }
+
+  public String getTeam() {
+    return team;
+  }
+
+  public void setTeam(String team) {
+    this.team = team;
+  }
+
+  public LinkedList<Node> getNeighbourList() {
+    return neighbourList;
+  }
+
+  public void setNeighbourList(LinkedList<Node> neighbourList) {
+    this.neighbourList = neighbourList;
+  }
+
+  public double getPriority() {
+    return priority;
+  }
+
+  public void setPriority(double priority) {
+    this.priority = priority;
+  }
+
+  public boolean isVisited() {
+    return visited;
+  }
+
+  public void setVisited(boolean visited) {
+    this.visited = visited;
   }
 
   public String getID() {
@@ -83,19 +147,19 @@ public class Node extends RecursiveTreeObject<Node> {
     this.floor = floor;
   }
 
-  public String getXCoord() {
+  public int getXCoord() {
     return xCoord;
   }
 
-  public void setXCoord(String xCoord) {
+  public void setXCoord(int xCoord) {
     this.xCoord = xCoord;
   }
 
-  public String getYCoord() {
+  public int getYCoord() {
     return yCoord;
   }
 
-  public void setYCoord(String yCoord) {
+  public void setYCoord(int yCoord) {
     this.yCoord = yCoord;
   }
 }

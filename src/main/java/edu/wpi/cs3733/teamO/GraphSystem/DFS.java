@@ -1,11 +1,12 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import edu.wpi.cs3733.teamO.Controllers.model.Node;
 import java.util.LinkedList;
 import java.util.Stack;
 
 class DFS {
 
-  private Stack<GraphNode> stack;
+  private Stack<Node> stack;
   private LinkedList<String> llVisited;
 
   // Constructor
@@ -15,34 +16,26 @@ class DFS {
   }
 
   // main method for depth-first search
-  void dfs(GraphNode g) {
-    /*for (GraphNode g : nodeList) {
-      if (!g.isVisited()) {
-        g.setVisited(true);
-        llVisited.add(g);
-        dfsStack(g);
-      }
-    }*/
+  void dfs(Node g) {
 
     g.setVisited(true);
-    llVisited.add(g.getNodeID());
+    llVisited.add(g.getID());
     dfsStack(g);
   }
 
   // Helper method for dfs method
-  void dfsStack(GraphNode rootNode) {
+  void dfsStack(Node rootNode) {
     this.stack.add(rootNode);
     rootNode.setVisited(true);
 
     while (!stack.isEmpty()) {
 
-      GraphNode actualNode = this.stack.pop();
-      // System.out.print(actualNode.getNodeID() + " "); // changed to Node.nodeID
+      Node actualNode = this.stack.pop();
 
-      for (GraphNode g : actualNode.getNeighbourList()) {
+      for (Node g : actualNode.getNeighbourList()) {
         if (!g.isVisited()) {
           g.setVisited(true);
-          llVisited.add(g.getNodeID());
+          llVisited.add(g.getID());
           this.stack.push(g);
         }
       }
