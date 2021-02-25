@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 class Graph {
 
   private int size;
-  private Hashtable<String, GraphNode> listOfNodes; // <NodeID, Node>
+  private Hashtable<String, Node> listOfNodes; // <NodeID, Node>
   // what is the purpose of this?
   private LinkedList<String> listOfNodeIDs;
 
@@ -36,7 +36,7 @@ class Graph {
     listOfNodes = new Hashtable<>();
 
     // then do this stuff:
-    GraphNode node;
+    Node node;
 
     // initialize a graph
     // new graph graph??
@@ -56,11 +56,11 @@ class Graph {
 
       // add to nodeIDs list?? idk what it is
 
-      int xcoord = Integer.parseInt(n.getXCoord());
-      int ycoord = Integer.parseInt(n.getYCoord());
+      int xcoord = n.getXCoord();
+      int ycoord = n.getYCoord();
 
       // creates a single node with the given entered parameters (above)
-      node = new GraphNode(nodeID, xcoord, ycoord);
+      node = new Node(nodeID, xcoord, ycoord);
 
       // ADDS THE NODE
       this.addNode(node);
@@ -88,11 +88,11 @@ class Graph {
     return listOfNodeIDs;
   }
 
-  void addNode(GraphNode node) {
+  void addNode(Node node) {
     // put node into listOfNodes with nodeID as the key
-    String key = node.getNodeID();
+    String key = node.getID();
     listOfNodes.put(key, node);
-    listOfNodeIDs.add(node.getNodeID()); // also add nodeID to listOfNodeIDs for easy access
+    listOfNodeIDs.add(node.getID()); // also add nodeID to listOfNodeIDs for easy access
 
     // increment size
     size++;
@@ -108,7 +108,7 @@ class Graph {
     }
   }
 
-  GraphNode getNode(String nodeID) {
+  Node getNode(String nodeID) {
     return listOfNodes.get(nodeID);
   }
 

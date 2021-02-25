@@ -1,6 +1,10 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
+import edu.wpi.teamO.Controllers.model.Node;
+import edu.wpi.teamO.GraphSystem.GraphSystem;
+import edu.wpi.teamO.HelperClasses.PopupMaker;
+import edu.wpi.teamO.Opp;
 import edu.wpi.cs3733.teamO.Controllers.model.Node;
 import edu.wpi.cs3733.teamO.GraphSystem.GraphSystem;
 import edu.wpi.cs3733.teamO.GraphSystem.Pathfinding;
@@ -105,6 +109,9 @@ public class IndexController implements Initializable {
     Pathfinding.drawNodeCircles();
     customizeButtons();
     sharePane.toFront();
+
+    //Sam has been using the following line for testing, if it is not commented, it is his fault, blame him for all errors in code from now on
+    //PopupMaker.incompletePopup(stackPane);
 
     System.out.println("Initalized");
   }

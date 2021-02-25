@@ -362,7 +362,8 @@ public class DatabaseFunctionality {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
 
-        edgeList.add(new Edge(ID, startNode, endNode));
+        //get length of edge and then change 0 to that
+        edgeList.add(new Edge(ID, startNode, endNode, 0));
       }
 
       rset.close();
@@ -382,25 +383,27 @@ public class DatabaseFunctionality {
       ResultSet rset = pstmt.executeQuery();
 
       String ID = "";
-      String xcoord = "";
-      String ycoord = "";
+      int xcoord = 0;
+      int ycoord = 0;
       String floor = "";
       String building = "";
       String nodeType = "";
       String longName = "";
       String shortName = "";
+      String team = "";
 
       // Process the results
       while (rset.next()) {
         ID = rset.getString("nodeID");
-        xcoord = String.valueOf(rset.getInt("xcoord"));
-        ycoord = String.valueOf(rset.getInt("ycoord"));
+        xcoord = rset.getInt("xcoord");
+        ycoord = rset.getInt("ycoord");
         floor = rset.getString("floor");
         building = rset.getString("building");
         nodeType = rset.getString("nodeType");
         longName = rset.getString("longName");
         shortName = rset.getString("shortName");
-        nodeList.add(new Node(ID, xcoord, ycoord, floor, building, nodeType, longName, shortName));
+        team = rset.getString("teamAssigned");
+        nodeList.add(new Node(ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team));
       }
       rset.close();
       pstmt.close();
