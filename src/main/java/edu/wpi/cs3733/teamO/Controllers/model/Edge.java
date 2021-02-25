@@ -4,17 +4,20 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 public class Edge extends RecursiveTreeObject<Edge> {
   String ID, start, end;
+  double length;
 
-  public Edge(String ID, String start, String end) {
+  public Edge(String ID, String start, String end, double length) {
     this.ID = ID;
     this.start = start;
     this.end = end;
+    this.length = length;
   }
 
   public Edge() {
     this.ID = null;
     this.start = null;
     this.end = null;
+    this.length = 0;
   }
 
   public String getID() {

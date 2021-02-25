@@ -362,7 +362,8 @@ public class DatabaseFunctionality {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
 
-        edgeList.add(new Edge(ID, startNode, endNode));
+        //get length of edge and then change 0 to that
+        edgeList.add(new Edge(ID, startNode, endNode, 0));
       }
 
       rset.close();
