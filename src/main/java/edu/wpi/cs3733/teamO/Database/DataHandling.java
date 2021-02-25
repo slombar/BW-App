@@ -1,13 +1,114 @@
 package edu.wpi.cs3733.teamO.Database;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class DataHandling {
+
+    /**
+     * imports data from csv (delimiter = ,|\n) and determines which database to add it to
+     *
+     * @param url, the url of the file on the computer
+     * @param node, whether or not this file is a node file or an edge file
+     */
+    public static void importExcelData(String url, boolean node) {
+        Scanner scan = null;
+        Pattern d = Pattern.compile(",|\r\n");
+
+        // try to open file
+        try {
+            scan = new Scanner(new File(url)).useDelimiter(d);
+            System.out.println("File read! Importing data...");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // if the file is not empty
+        if (scan.hasNext()) {
+            // remove header line in beginning of file
+            System.out.println("Removing header line: " + scan.nextLine());
+
+            if (node) {
+                // function variables for simplicity
+                String nodeID = "";
+                String xcoord = "";
+                String ycoord = "";
+                String floor = "";
+                String building = "";
+                String nodeType = "";
+                String longName = "";
+                String shortName = "";
+                String teamAssigned = "";
+
+                // delete current nodes
+                PreparedStatement pstmt = null;
+
+                try {
+                    pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Nodes");
+
+                    pstmt.execute();
+                    pstmt.close();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                // while the file is not at its end
+                while (scan.hasNext()) {
+                    nodeID = scan.next();
+                    xcoord = scan.next();
+                    ycoord = scan.next();
+                    floor = scan.next();
+                    building = scan.next();
+                    nodeType = scan.next();
+                    longName = scan.next();
+                    shortName = scan.next();
+                    teamAssigned = scan.next();
+
+                    NodesandEdges.addNode(
+                            nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned);
+                }
+                scan.close();
+
+            } else {
+                String nodeID = "";
+                String startNode = "";
+                String endNode = "";
+
+                // delete current nodes
+                PreparedStatement pstmt = null;
+
+                try {
+                    pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Edges");
+
+                    pstmt.execute();
+                    pstmt.close();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                while (scan.hasNext()) {
+
+                    nodeID = scan.next();
+                    startNode = scan.next();
+                    endNode = scan.next();
+
+                    System.out.println(
+                            "nodeID:" + nodeID + "\nstartNode:" + startNode + "\nendNode:" + endNode);
+
+                    NodesandEdges.addEdge(nodeID, startNode, endNode);
+                }
+            }
+        } else {
+            System.out.println("File is empty.");
+        }
+    }
+
     public static void save(String url, boolean node) {
         if (node) {
             saveNodes(url);
