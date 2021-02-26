@@ -4,30 +4,41 @@ import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 
+import java.util.Hashtable;
 import java.util.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 class Graph {
 
+  private static Hashtable<String, Circle> stringCircleHashtable;
   private int size; // not necessary?
   //private Hashtable<String, Node> listOfNodes; // <NodeID, Node>
   // what is the purpose of this?
   private LinkedList<String> listOfNodeIDs; // not necessary?
   private ObservableList<Node> listOfNodes;
   private ObservableList<Edge> listOfEdges;
-
   private static GraphicsContext gc;
+  private ImageView imgView;
 
-  // default constructor
-  Graph() {
+  /**
+   *
+   * @param gc - the graphics controller for the canvas
+   */
+  Graph(GraphicsContext gc) {
     /*listOfNodeIDs = new LinkedList<String>();
     size = 0;
     listOfNodes = new Hashtable<>();*/
-
-
+    listOfNodes = FXCollections.observableArrayList();
+    listOfNodes = NodesAndEdges.getAllNodes();
+    size = listOfNodes.size();
+    listOfEdges = FXCollections.observableArrayList();
+    listOfEdges = NodesAndEdges.getAllEdges();
+    this.gc = gc;
   }
 
   Graph(boolean test) {
@@ -37,11 +48,6 @@ class Graph {
   }
 
   public void initialize() {
-    listOfNodes = FXCollections.observableArrayList();
-    listOfNodes = NodesAndEdges.getAllNodes();
-    size = listOfNodes.size();
-    listOfEdges = FXCollections.observableArrayList();
-    listOfEdges = NodesAndEdges.getAllEdges();
 
     /*// first reset everything (as though creating new graph):
     listOfNodeIDs = new LinkedList<String>();
@@ -141,5 +147,50 @@ class Graph {
     }
 
     return node;
+  }
+
+  /**
+   * Creates the circle objects to be drawn on the canvas
+   */
+  public void createCircles(){
+
+    for (Node n : listOfNodes) {
+      Circle circle = new Circle();
+      circle.addEventHandler("click", /*TODO add the clicking function*/);
+
+      double nodeX = (double) n.getXCoord() / scaleX;
+      double nodeY = (double) n.getYCoord() / scaleY;
+
+      circle.setCenterX(nodeX);
+      circle.setCenterY(nodeY);
+      circle.setRadius(cW / 2);
+      stringCircleHashtable.put(n.getID(), circle);
+
+      gc.setFill(Color.YELLOW); // default nodes are yellow
+      gc.setGlobalAlpha(.75); // will make things drawn slightly transparent (if we want to)
+      // DON'T DELETE -> JUST SET TO "1.0" IF NO TRANSPARENCY IS WANTED
+
+      // sets color to blue/red if loc or dest are selected
+      if (!loc.equals("-1") && n.getID().equals(loc)) {
+        gc.setFill(Color.BLUE);
+      }
+      if (!dest.equals("-1") && n.getID().equals(dest)) {
+        gc.setFill(Color.RED);
+      }
+
+      // create the circle utilizing the algorithm
+      gc.fillOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      // sets alpha to 1.0 and draw a black border around circle
+      gc.setGlobalAlpha(1.0);
+      gc.strokeOval(circle.getCenterX() - cW / 2, circle.getCenterY() - cW / 2, cW, cW);
+
+      circle.getCenterX();
+      circle.getCenterY();
+    }
+  }
+
+  public static Hashtable<String, Circle> getStringCircleHashtable() {
+    return stringCircleHashtable;
   }
 }

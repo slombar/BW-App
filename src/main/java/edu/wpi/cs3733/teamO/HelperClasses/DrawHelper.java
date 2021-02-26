@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.Hashtable;
 import java.util.Set;
 
 public class DrawHelper {

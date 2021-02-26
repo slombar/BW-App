@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Pathfinding {
-  private static Hashtable<String, Circle> stringCircleHashtable;
+
 
   public double cw;
   public static String loc;
