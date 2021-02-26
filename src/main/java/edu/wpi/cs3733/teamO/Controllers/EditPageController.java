@@ -317,6 +317,7 @@ public class EditPageController implements Initializable {
                                     "Short Name"));
             ArrayList<JFXTextField> listOfFields = createFields(addNodeLabels);
 
+            ////dfgfijiudfsbc
             // Creating the form with a VBox
             addNodeVBox
                     .getChildren()
