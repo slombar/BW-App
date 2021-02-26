@@ -1,16 +1,20 @@
-package edu.wpi.cs3733.teamO.Controllers.model;
+package edu.wpi.cs3733.teamO.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class Node extends RecursiveTreeObject<Node> {
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
 
   // added from GraphNode
-  private LinkedList<Node> neighbourList;
+  private Set<Node> neighbourList;
   private double priority;
   private boolean visited;
+  private boolean visible;
 
   /**
    * Constructor for Node
@@ -45,26 +49,42 @@ public class Node extends RecursiveTreeObject<Node> {
     this.yCoord = yCoord;
     this.team = team;
     this.visited = false;
-    this.neighbourList = new LinkedList<>();
+    this.neighbourList = new HashSet<>();
+    this.visible = true;
   }
 
+  public Node(
+    String ID,
+    int xCoord,
+    int yCoord,
+    String floor,
+    String building,
+    String nodeType,
+    String longName,
+    String shortName,
+    String team,
+    boolean visible) {
+    this.ID = ID;
+    this.building = building;
+    this.nodeType = nodeType;
+    this.longName = longName;
+    this.shortName = shortName;
+    this.floor = floor;
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.team = team;
+    this.visited = false;
+    this.neighbourList = new HashSet<>();
+    this.visible = visible;
+  }
+
+  // for testing
   public Node(String nodeID, int x, int y) {
     this.ID = nodeID;
     this.xCoord = x;
     this.yCoord = y;
     this.visited = false;
-    this.neighbourList = new LinkedList<>();
-  }
-
-  public Node() {
-    this.ID = null;
-    this.building = null;
-    this.nodeType = null;
-    this.longName = null;
-    this.shortName = null;
-    this.floor = null;
-    this.xCoord = 0;
-    this.yCoord = 0;
+    this.neighbourList = new HashSet<>();
   }
 
   public int compareTo(Node node) {
@@ -73,7 +93,6 @@ public class Node extends RecursiveTreeObject<Node> {
 
   public void addNeighbour(Node graphNode) {
     this.neighbourList.add(graphNode);
-    graphNode.neighbourList.add(this);
   }
 
   public String getTeam() {
@@ -84,11 +103,11 @@ public class Node extends RecursiveTreeObject<Node> {
     this.team = team;
   }
 
-  public LinkedList<Node> getNeighbourList() {
+  public Set<Node> getNeighbourList() {
     return neighbourList;
   }
 
-  public void setNeighbourList(LinkedList<Node> neighbourList) {
+  public void setNeighbourList(Set<Node> neighbourList) {
     this.neighbourList = neighbourList;
   }
 

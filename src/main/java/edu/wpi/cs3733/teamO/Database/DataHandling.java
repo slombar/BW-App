@@ -69,7 +69,7 @@ public class DataHandling {
           shortName = scan.next();
           teamAssigned = scan.next();
 
-          NodesandEdges.addNode(
+          NodesAndEdges.addNode(
               nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned);
         }
         scan.close();
@@ -101,7 +101,7 @@ public class DataHandling {
           System.out.println(
               "nodeID:" + nodeID + "\nstartNode:" + startNode + "\nendNode:" + endNode);
 
-          NodesandEdges.addEdge(nodeID, startNode, endNode);
+          NodesAndEdges.addEdge(nodeID, startNode, endNode);
         }
       }
     } else {

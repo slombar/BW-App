@@ -1,10 +1,10 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
-import edu.wpi.cs3733.teamO.Controllers.model.Edge;
-import edu.wpi.cs3733.teamO.Controllers.model.Node;
+import edu.wpi.cs3733.teamO.model.Edge;
+import edu.wpi.cs3733.teamO.model.Node;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
-import edu.wpi.cs3733.teamO.Database.NodesandEdges;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
@@ -141,7 +141,7 @@ public class EditPageController implements Initializable {
   // Loads the node data from the database and puts it into tree table
   private void loadNodeData() {
     nodeList = FXCollections.observableArrayList();
-    nodeList = NodesandEdges.getAllNodes();
+    nodeList = NodesAndEdges.getAllNodes();
     ObservableList<TreeItem<Node>> nodeTreeList;
     nodeTreeList = FXCollections.observableArrayList();
 
@@ -205,7 +205,7 @@ public class EditPageController implements Initializable {
   // Loads the node data from the database and puts it into tree table
   private void loadEdgeData() {
     edgeList = FXCollections.observableArrayList();
-    NodesandEdges.getAllEdges();
+    NodesAndEdges.getAllEdges();
     ObservableList<TreeItem<Edge>> edgeTreeList;
     edgeTreeList = FXCollections.observableArrayList();
 
@@ -342,7 +342,7 @@ public class EditPageController implements Initializable {
                 || listOfFields.get(7).getText().isEmpty()) {
               incompletePopup();
             } else {
-              NodesandEdges.addNode(
+              NodesAndEdges.addNode(
                   listOfFields.get(0).getText(),
                   listOfFields.get(1).getText(),
                   listOfFields.get(2).getText(),
@@ -430,7 +430,7 @@ public class EditPageController implements Initializable {
             } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
               nonexistantPopup();
             } else {
-              NodesandEdges.deleteNode(listOfFields.get(0).getText());
+              NodesAndEdges.deleteNode(listOfFields.get(0).getText());
 
               //              System.out.println(listOfFields.get(0).getText());
               deleteNodeDialog.close();
@@ -522,7 +522,7 @@ public class EditPageController implements Initializable {
 
               String i = s + "_" + e; // id
 
-              NodesandEdges.addEdge(i, s, e);
+              NodesAndEdges.addEdge(i, s, e);
 
               //              System.out.println(listOfFields.get(0).getText());
               //              System.out.println(listOfFields.get(1).getText());
@@ -605,7 +605,7 @@ public class EditPageController implements Initializable {
             } else if (!edgeIDColData.contains(listOfFields.get(0).getText())) {
               nonexistantPopup();
             } else {
-              NodesandEdges.deleteEdge(listOfFields.get(0).getText());
+              NodesAndEdges.deleteEdge(listOfFields.get(0).getText());
 
               //              System.out.println(listOfFields.get(0).getText());
               deleteEdgeDialog.close();
@@ -1002,7 +1002,7 @@ public class EditPageController implements Initializable {
             } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
               nonexistantPopup();
             } else {
-              NodesandEdges.editNode(
+              NodesAndEdges.editNode(
                   listOfFields.get(0).getText(),
                   Integer.parseInt(listOfFields.get(1).getText()),
                   Integer.parseInt(listOfFields.get(2).getText()),
@@ -1118,7 +1118,7 @@ public class EditPageController implements Initializable {
                 || !nodeIDColData.contains(listOfFields.get(2).getText())) {
               nonexistantPopup();
             } else {
-              NodesandEdges.editEdge(
+              NodesAndEdges.editEdge(
                   listOfFields.get(0).getText(),
                   listOfFields.get(1).getText(),
                   listOfFields.get(2).getText());

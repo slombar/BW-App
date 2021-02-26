@@ -1,8 +1,9 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
-import edu.wpi.cs3733.teamO.Controllers.model.Node;
+import edu.wpi.cs3733.teamO.model.Node;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 class AStarSearch {
@@ -19,13 +20,13 @@ class AStarSearch {
   private LinkedList<Node> foundRoute; // most recent found root for this A* object
 
   // need default constructor (for subsystem design)
-  AStarSearch() {
+  /*AStarSearch() {
     graph = new Graph(); // may not want/need to initialize graph here
     graphSize = -1;
     startID = "-1";
     targetID = "-1";
     frontier = new PriorityQueue<Node>();
-  }
+  }*/
 
   AStarSearch(boolean test) {
     graph = new Graph(test); // may not want/need to initialize graph here
@@ -50,7 +51,7 @@ class AStarSearch {
 
   // actual search method
   // returns found route (in order) as LL<edu.wpi.teamO.GraphSystem.Node>
-  LinkedList<Node> findRoute() {
+  List<Node> findRoute() {
     // sets start node based on startID provided in constructor
     Node startNode = graph.getNode(startID);
 

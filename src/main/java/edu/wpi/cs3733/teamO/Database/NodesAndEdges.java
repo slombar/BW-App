@@ -1,14 +1,14 @@
 package edu.wpi.cs3733.teamO.Database;
 
-import edu.wpi.cs3733.teamO.Controllers.model.Edge;
-import edu.wpi.cs3733.teamO.Controllers.model.Node;
+import edu.wpi.cs3733.teamO.model.Edge;
+import edu.wpi.cs3733.teamO.model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class NodesandEdges {
+public class NodesAndEdges {
   /**
    * Adds the given data into a table row in the database
    *

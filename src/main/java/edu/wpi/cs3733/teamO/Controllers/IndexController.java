@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
-import edu.wpi.cs3733.teamO.Controllers.model.Node;
-import edu.wpi.cs3733.teamO.Database.NodesandEdges;
+import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.GraphSystem.GraphSystem;
 import edu.wpi.cs3733.teamO.GraphSystem.Pathfinding;
 import edu.wpi.cs3733.teamO.Opp;
@@ -82,7 +82,7 @@ public class IndexController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    nodeList = NodesandEdges.getAllNodes();
+    nodeList = NodesAndEdges.getAllNodes();
     stringCircleHashtable = new Hashtable<>();
 
     //////////////////////////////////// SCALING//////////////////////////////////

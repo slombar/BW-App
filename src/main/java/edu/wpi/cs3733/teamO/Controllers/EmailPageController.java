@@ -5,13 +5,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
