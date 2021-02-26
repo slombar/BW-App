@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
-import edu.wpi.cs3733.teamO.Controllers.DatabaseFunctionality;
 import edu.wpi.cs3733.teamO.Controllers.model.Edge;
 import edu.wpi.cs3733.teamO.Controllers.model.Node;
+import edu.wpi.cs3733.teamO.Database.NodesandEdges;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import javafx.collections.FXCollections;
@@ -43,10 +43,10 @@ class Graph {
 
     // get the nodes (and edges) from the database function
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
-    nodeList = DatabaseFunctionality.showNodes(nodeList);
+    nodeList = NodesandEdges.getAllNodes();
 
     ObservableList<Edge> edgeList = FXCollections.observableArrayList();
-    edgeList = DatabaseFunctionality.showEdges(edgeList);
+    edgeList = NodesandEdges.getAllEdges();
 
     // freakk inteilkijdh
     // initialize all the graph nodes

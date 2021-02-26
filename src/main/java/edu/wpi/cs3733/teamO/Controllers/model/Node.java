@@ -1,20 +1,20 @@
 package edu.wpi.cs3733.teamO.Controllers.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
 import java.util.LinkedList;
 
 public class Node extends RecursiveTreeObject<Node> {
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
 
-  //added from GraphNode
+  // added from GraphNode
   private LinkedList<Node> neighbourList;
   private double priority;
   private boolean visited;
 
   /**
    * Constructor for Node
+   *
    * @param ID
    * @param xCoord
    * @param yCoord
@@ -25,7 +25,16 @@ public class Node extends RecursiveTreeObject<Node> {
    * @param shortName
    * @param team
    */
-  public Node(String ID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName, String team) {
+  public Node(
+      String ID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      String longName,
+      String shortName,
+      String team) {
     this.ID = ID;
     this.building = building;
     this.nodeType = nodeType;
@@ -39,7 +48,7 @@ public class Node extends RecursiveTreeObject<Node> {
     this.neighbourList = new LinkedList<>();
   }
 
-  public Node(String nodeID, int x, int y){
+  public Node(String nodeID, int x, int y) {
     this.ID = nodeID;
     this.xCoord = x;
     this.yCoord = y;

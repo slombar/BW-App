@@ -7,6 +7,7 @@ import javafx.scene.text.Text;
 public class PopupMaker {
   /**
    * this is a test popup that says it is a test; used for testing
+   *
    * @param popupPane is the stack pane on which the popup needs to be made on
    */
   public static void testPopup(StackPane popupPane) {
@@ -27,6 +28,7 @@ public class PopupMaker {
 
   /**
    * Creates a warning popup for an incomplete form
+   *
    * @param popupPane is the stack pane on which the popup needs to be made on
    */
   public static void incompletePopup(StackPane popupPane) {
@@ -54,6 +56,7 @@ public class PopupMaker {
 
   /**
    * creates a popup to notify the user that a selected ID does not exist
+   *
    * @param popupPane is the stack pane on which the popup needs to be made on
    */
   public static void nonexistentPopup(StackPane popupPane) {
@@ -68,17 +71,15 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-            new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, false);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
     closeButton.setOnAction(
-            event -> {
-              warningDialog.close();
-              popupPane.toBack();
-            });
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
     warningDialog.show();
   }
-
-
 }

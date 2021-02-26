@@ -1,11 +1,8 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
-import edu.wpi.teamO.Controllers.model.Node;
-import edu.wpi.teamO.GraphSystem.GraphSystem;
-import edu.wpi.teamO.HelperClasses.PopupMaker;
-import edu.wpi.teamO.Opp;
 import edu.wpi.cs3733.teamO.Controllers.model.Node;
+import edu.wpi.cs3733.teamO.Database.NodesandEdges;
 import edu.wpi.cs3733.teamO.GraphSystem.GraphSystem;
 import edu.wpi.cs3733.teamO.GraphSystem.Pathfinding;
 import edu.wpi.cs3733.teamO.Opp;
@@ -39,26 +36,26 @@ import javax.imageio.ImageIO;
 
 // TODO: make all these private
 public class IndexController implements Initializable {
-  public MenuItem edgeEditorButton;
-  public MenuItem nodeEditorButton;
-  public JFXButton securityButton;
-  public MenuItem maintenanceButton;
-  public JFXButton exitButton;
-  public JFXButton pathfindingButton;
-  public MenuItem loc1Button;
-  public MenuItem loc2Button;
-  public MenuItem loc3Button;
-  public MenuItem dest1Button;
-  public MenuItem dest2Button;
-  public MenuItem dest3Button;
-  public MenuButton menu;
-  public Label label;
-  public JFXButton editButton;
-  public StackPane stackPane;
+  @FXML private MenuItem edgeEditorButton;
+  @FXML private MenuItem nodeEditorButton;
+  @FXML private JFXButton securityButton;
+  @FXML private MenuItem maintenanceButton;
+  @FXML private JFXButton exitButton;
+  @FXML private JFXButton pathfindingButton;
+  @FXML private MenuItem loc1Button;
+  @FXML private MenuItem loc2Button;
+  @FXML private MenuItem loc3Button;
+  @FXML private MenuItem dest1Button;
+  @FXML private MenuItem dest2Button;
+  @FXML private MenuItem dest3Button;
+  @FXML private MenuButton menu;
+  @FXML private Label label;
+  @FXML private JFXButton editButton;
+  @FXML private StackPane stackPane;
   @FXML private AnchorPane bigAnchor;
-  public JFXButton locButton;
-  public JFXButton destButton;
-  public JFXButton resetButton;
+  @FXML private JFXButton locButton;
+  @FXML private JFXButton destButton;
+  @FXML private JFXButton resetButton;
   @FXML private StackPane sharePane;
 
   // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
@@ -85,7 +82,7 @@ public class IndexController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    nodeList = DatabaseFunctionality.showNodes(nodeList);
+    nodeList = NodesandEdges.getAllNodes();
     stringCircleHashtable = new Hashtable<>();
 
     //////////////////////////////////// SCALING//////////////////////////////////
@@ -110,8 +107,9 @@ public class IndexController implements Initializable {
     customizeButtons();
     sharePane.toFront();
 
-    //Sam has been using the following line for testing, if it is not commented, it is his fault, blame him for all errors in code from now on
-    //PopupMaker.incompletePopup(stackPane);
+    // Sam has been using the following line for testing, if it is not commented, it is his fault,
+    // blame him for all errors in code from now on
+    // PopupMaker.incompletePopup(stackPane);
 
     System.out.println("Initalized");
   }

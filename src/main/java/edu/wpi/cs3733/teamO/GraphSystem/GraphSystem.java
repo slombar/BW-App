@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.Controllers.model.Node;
-
 import java.util.LinkedList;
 
 // main class of the 'edu.wpi.teamO.GraphSystem' subsystem

@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.Controllers.model.Node;
-
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -115,7 +114,6 @@ class AStarSearch {
   }
 
   /**
-   *
    * @param next
    * @return
    */
