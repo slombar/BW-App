@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.Controllers.model.Edge;
 import edu.wpi.cs3733.teamO.Controllers.model.Node;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.PreparedStatement;
@@ -223,10 +224,10 @@ public class NodesandEdges {
 
     /**
      * Previously showEdges()
-     * @param edgeList
      * @return
      */
-    public static ObservableList<Edge> getAllEdges(ObservableList<Edge> edgeList) {
+    public static ObservableList<Edge> getAllEdges() {
+        ObservableList<Edge> edgeList = FXCollections.observableArrayList();
         try {
             PreparedStatement pstmt = null;
             pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Edges");
@@ -258,10 +259,11 @@ public class NodesandEdges {
 
     /**
      * Previously showNodes()
-     * @param nodeList
      * @return
      */
-    public static ObservableList<Node> getAllNodes(ObservableList<Node> nodeList) {
+    public static ObservableList<Node> getAllNodes() {
+        ObservableList<Node> nodeList = FXCollections.observableArrayList();
+
         try {
             PreparedStatement pstmt = null;
             pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes");
