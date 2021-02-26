@@ -14,8 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 class Graph {
-
-  private static Hashtable<String, Circle> stringCircleHashtable;
+  private static Hashtable<Node, Circle> nodeCircleHashtable;
   private int size; // not necessary?
   //private Hashtable<String, Node> listOfNodes; // <NodeID, Node>
   // what is the purpose of this?
@@ -25,10 +24,7 @@ class Graph {
   private static GraphicsContext gc;
   private ImageView imgView;
 
-  /**
-   *
-   * @param gc - the graphics controller for the canvas
-   */
+
   Graph(GraphicsContext gc) {
     /*listOfNodeIDs = new LinkedList<String>();
     size = 0;
@@ -41,6 +37,10 @@ class Graph {
     this.gc = gc;
   }
 
+  /**
+   * this constructor is purely for testing purposes
+   * @param test dummy parameter
+   */
   Graph(boolean test) {
     listOfNodeIDs = new LinkedList<String>();
     size = 0;
@@ -75,8 +75,8 @@ class Graph {
 
       // add to nodeIDs list?? idk what it is
 
-      int xcoord = n.getXCoord();
-      int ycoord = n.getYCoord();
+      int xcoord = n.getX();
+      int ycoord = n.getY();
 
       // creates a single node with the given entered parameters (above)
       node = new Node(nodeID, xcoord, ycoord);
@@ -139,7 +139,7 @@ class Graph {
     Node node = null;
 
     for (Node n : listOfNodes) {
-      double dist = Math.pow(Math.abs(x - node.getXCoord()), 2.0) + Math.pow(Math.abs(y - node.getYCoord()), 2.0);
+      double dist = Math.pow(Math.abs(x - node.getX()), 2.0) + Math.pow(Math.abs(y - node.getY()), 2.0);
       if (dist < currentDist) {
         currentDist = dist;
         node = n;
@@ -158,13 +158,13 @@ class Graph {
       Circle circle = new Circle();
       circle.addEventHandler("click", /*TODO add the clicking function*/);
 
-      double nodeX = (double) n.getXCoord() / scaleX;
-      double nodeY = (double) n.getYCoord() / scaleY;
+      double nodeX = (double) n.getX() / scaleX;
+      double nodeY = (double) n.getY() / scaleY;
 
       circle.setCenterX(nodeX);
       circle.setCenterY(nodeY);
       circle.setRadius(cW / 2);
-      stringCircleHashtable.put(n.getID(), circle);
+      nodeCircleHashtable.put(n, circle);
 
       gc.setFill(Color.YELLOW); // default nodes are yellow
       gc.setGlobalAlpha(.75); // will make things drawn slightly transparent (if we want to)

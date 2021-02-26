@@ -6,7 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import java.util.Hashtable;
 import java.util.Set;
 
 public class DrawHelper {
@@ -38,8 +37,8 @@ public class DrawHelper {
       go left... go right?
        */
 
-      double nodeX = (double) n.getXCoord() / scaleX;
-      double nodeY = (double) n.getYCoord() / scaleY;
+      double nodeX = (double) n.getX() / scaleX;
+      double nodeY = (double) n.getY() / scaleY;
 
       circle.setCenterX(nodeX);
       circle.setCenterY(nodeY);

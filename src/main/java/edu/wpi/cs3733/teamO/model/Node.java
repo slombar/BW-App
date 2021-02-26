@@ -29,16 +29,8 @@ public class Node extends RecursiveTreeObject<Node> {
    * @param shortName
    * @param team
    */
-  public Node(
-      String ID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName,
-      String team) {
+  public Node(String ID, int xCoord, int yCoord, String floor, String building,
+              String nodeType, String longName, String shortName, String team) {
     this.ID = ID;
     this.building = building;
     this.nodeType = nodeType;
@@ -53,17 +45,8 @@ public class Node extends RecursiveTreeObject<Node> {
     this.visible = true;
   }
 
-  public Node(
-    String ID,
-    int xCoord,
-    int yCoord,
-    String floor,
-    String building,
-    String nodeType,
-    String longName,
-    String shortName,
-    String team,
-    boolean visible) {
+  public Node(String ID, int xCoord, int yCoord, String floor, String building,
+              String nodeType, String longName, String shortName, String team, boolean visible) {
     this.ID = ID;
     this.building = building;
     this.nodeType = nodeType;
@@ -175,19 +158,19 @@ public class Node extends RecursiveTreeObject<Node> {
     this.floor = floor;
   }
 
-  public int getXCoord() {
+  public int getX() {
     return xCoord;
   }
 
-  public void setXCoord(int xCoord) {
+  public void setX(int xCoord) {
     this.xCoord = xCoord;
   }
 
-  public int getYCoord() {
+  public int getY() {
     return yCoord;
   }
 
-  public void setYCoord(int yCoord) {
+  public void setY(int yCoord) {
     this.yCoord = yCoord;
   }
 }

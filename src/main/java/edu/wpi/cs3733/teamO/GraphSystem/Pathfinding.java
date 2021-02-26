@@ -27,7 +27,6 @@ public class Pathfinding {
       new Image("Brigham_and_Womens_Hospital_logo.png", 116, 100, true, true);
 
 
-
   public static void drawPath(LinkedList<String> path) {
     // want to just draw start and end nodes, then draw lines (will be arrows eventually)
     // TODO: should probably make a drawCircle(), singular, helper at some point

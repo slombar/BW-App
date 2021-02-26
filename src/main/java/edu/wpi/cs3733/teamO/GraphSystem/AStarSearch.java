@@ -125,10 +125,10 @@ class AStarSearch {
 
   // finds distance between two nodes (length/weight of edge)
   double dist(Node a, Node b) {
-    int x1 = a.getXCoord();
-    int x2 = b.getXCoord();
-    int y1 = a.getYCoord();
-    int y2 = b.getYCoord();
+    int x1 = a.getX();
+    int x2 = b.getX();
+    int y1 = a.getY();
+    int y2 = b.getY();
 
     // distance formula, sqrt((|x1-x2|)^2 + (|y1-y2|)^2),
     // probably can't use approximation (because calculating edge cost)
