@@ -45,7 +45,8 @@ public class Pathfinding {
   }
 
   // Problem is probably in the gc variable
-  public static void drawNodeCircles() {
+  public static void drawNodeCircles(GraphicsContext gc) {
+    mapcanvas = gc.getCanvas();
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     // divide them by a scale factor (image is ~2937 pixels wide?) --
     // would be imageWidth/canvasWidth and imageHeight/canvasHeight
@@ -64,8 +65,8 @@ public class Pathfinding {
       go left... go right?
        */
 
-      double nodeX = Double.valueOf(n.getXCoord()) / scaleX;
-      double nodeY = Double.valueOf(n.getYCoord()) / scaleY;
+      double nodeX = (double) n.getXCoord() / scaleX;
+      double nodeY = (double) n.getYCoord() / scaleY;
 
       circle.setCenterX(nodeX);
       circle.setCenterY(nodeY);

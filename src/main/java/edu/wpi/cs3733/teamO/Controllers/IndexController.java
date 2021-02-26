@@ -103,7 +103,7 @@ public class IndexController implements Initializable {
     gc = mapcanvas.getGraphicsContext2D();
 
     // draws circles on canvas
-    Pathfinding.drawNodeCircles();
+    Pathfinding.drawNodeCircles(gc);
     customizeButtons();
     sharePane.toFront();
 
@@ -267,7 +267,7 @@ public class IndexController implements Initializable {
 
     // clear canvas and redraw circles
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    Pathfinding.drawNodeCircles();
+    Pathfinding.drawNodeCircles(gc);
   }
 
   public void locClick(ActionEvent actionEvent) {
@@ -282,6 +282,6 @@ public class IndexController implements Initializable {
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     loc = "-1";
     dest = "-1";
-    Pathfinding.drawNodeCircles();
+    Pathfinding.drawNodeCircles(gc);
   }
 }

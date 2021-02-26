@@ -1,9 +1,10 @@
-package edu.wpi.cs3733.teamO.Controllers;
+package edu.wpi.cs3733.teamO.Sharing;
 
 import com.vonage.client.VonageClient;
 import com.vonage.client.sms.MessageStatus;
 import com.vonage.client.sms.SmsSubmissionResponse;
 import com.vonage.client.sms.messages.TextMessage;
+import edu.wpi.cs3733.teamO.Sharing.EmailThreader;
 
 public class SharingFunctionality {
 

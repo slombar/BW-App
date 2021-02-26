@@ -92,7 +92,7 @@
                      </font>
                   </JFXButton>
                </children>
-            </StackPane>
+            </VBox>
          </children>
       </Pane>
 

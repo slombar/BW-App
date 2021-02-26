@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.teamO.Controllers;
+package edu.wpi.cs3733.teamO.Sharing;
 
 import java.io.File;
 import java.util.Properties;
