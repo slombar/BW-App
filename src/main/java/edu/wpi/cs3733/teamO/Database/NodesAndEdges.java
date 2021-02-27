@@ -30,7 +30,8 @@ public class NodesAndEdges {
       String nodeType,
       String longName,
       String shortName,
-      String teamAssigned) {
+      String teamAssigned,
+      boolean visible) {
     String query =
         "INSERT INTO Nodes VALUES("
             + "'"
@@ -63,6 +64,10 @@ public class NodesAndEdges {
             + ", "
             + "'"
             + teamAssigned
+                + "'"
+                + ", "
+                + "'"
+                + visible
             + "'"
             + ")";
     System.out.println(query);
@@ -85,7 +90,7 @@ public class NodesAndEdges {
    * @param startNode
    * @param endNode
    */
-  public static void addEdge(String nodeID, String startNode, String endNode) {
+  public static void addEdge(String nodeID, String startNode, String endNode, double length) {
     String query =
         "INSERT INTO Edges VALUES("
             + "'"
@@ -98,6 +103,10 @@ public class NodesAndEdges {
             + ", "
             + "'"
             + endNode
+                + "'"
+                + ", "
+                + "'"
+                + length
             + "'"
             + ")";
     System.out.println("QUERY: " + query);
@@ -157,7 +166,8 @@ public class NodesAndEdges {
       String nodeType,
       String longName,
       String shortName,
-      String team) {
+      String team,
+      boolean visible) {
     String query =
         "UPDATE Nodes SET xcoord = "
             + x
@@ -175,6 +185,8 @@ public class NodesAndEdges {
             + shortName
             + "', teamAssigned = '"
             + team
+            +  "', visible = '"
+            + visible
             + "' WHERE nodeID = '"
             + nodeID
             + "'";
@@ -197,13 +209,15 @@ public class NodesAndEdges {
    *
    * @param nodeID
    */
-  public static void editEdge(String nodeID, String startNode, String endNode) {
+  public static void editEdge(String nodeID, String startNode, String endNode, double length) {
 
     String query =
         "UPDATE Edges SET startNode = '"
             + startNode
             + "', endNode = '"
             + endNode
+            + "', length = '"
+            + length
             + "' WHERE nodeID = '"
             + nodeID
             + "'";
