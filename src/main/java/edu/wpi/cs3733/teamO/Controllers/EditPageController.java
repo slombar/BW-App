@@ -133,6 +133,8 @@ public class EditPageController implements Initializable {
     saveButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
+  // TODO fix or get rid of it all
+
   ///////////////////////////// NODES TABLE //////////////////////////////
   // Initializes the node table and ensures that its updated
   public void initNodeTable() {
@@ -347,16 +349,16 @@ public class EditPageController implements Initializable {
               //              incompletePopup();
               PopupMaker.incompletePopup(warningPane);
             } else {
-              NodesAndEdges.addNode(
-                  listOfFields.get(0).getText(),
-                  listOfFields.get(1).getText(),
-                  listOfFields.get(2).getText(),
-                  listOfFields.get(3).getText(),
-                  listOfFields.get(4).getText(),
-                  listOfFields.get(5).getText(),
-                  listOfFields.get(6).getText(),
-                  listOfFields.get(7).getText(),
-                  "O");
+              //              NodesAndEdges.addNode(
+              //                  listOfFields.get(0).getText(),
+              //                  listOfFields.get(1).getText(),
+              //                  listOfFields.get(2).getText(),
+              //                  listOfFields.get(3).getText(),
+              //                  listOfFields.get(4).getText(),
+              //                  listOfFields.get(5).getText(),
+              //                  listOfFields.get(6).getText(),
+              //                  listOfFields.get(7).getText(),
+              //                  "O");
 
               addNodeDialog.close();
               stackPane.toBack();
@@ -530,7 +532,7 @@ public class EditPageController implements Initializable {
 
               String i = s + "_" + e; // id
 
-              NodesAndEdges.addEdge(i, s, e);
+              // NodesAndEdges.addEdge(i, s, e);
 
               //              System.out.println(listOfFields.get(0).getText());
               //              System.out.println(listOfFields.get(1).getText());
@@ -1017,16 +1019,16 @@ public class EditPageController implements Initializable {
               //              nonexistantPopup();
               PopupMaker.nonexistentPopup(warningPane);
             } else {
-              NodesAndEdges.editNode(
-                  listOfFields.get(0).getText(),
-                  Integer.parseInt(listOfFields.get(1).getText()),
-                  Integer.parseInt(listOfFields.get(2).getText()),
-                  listOfFields.get(3).getText(),
-                  listOfFields.get(4).getText(),
-                  listOfFields.get(5).getText(),
-                  listOfFields.get(6).getText(),
-                  listOfFields.get(7).getText(),
-                  "O");
+              //              NodesAndEdges.editNode(
+              //                  listOfFields.get(0).getText(),
+              //                  Integer.parseInt(listOfFields.get(1).getText()),
+              //                  Integer.parseInt(listOfFields.get(2).getText()),
+              //                  listOfFields.get(3).getText(),
+              //                  listOfFields.get(4).getText(),
+              //                  listOfFields.get(5).getText(),
+              //                  listOfFields.get(6).getText(),
+              //                  listOfFields.get(7).getText(),
+              //                  "O");
 
               //              System.out.println(listOfFields.get(0).getText());
               //              System.out.println(listOfFields.get(1).getText());
@@ -1135,10 +1137,10 @@ public class EditPageController implements Initializable {
               //              nonexistantPopup();
               PopupMaker.nonexistentPopup(warningPane);
             } else {
-              NodesAndEdges.editEdge(
-                  listOfFields.get(0).getText(),
-                  listOfFields.get(1).getText(),
-                  listOfFields.get(2).getText());
+              //              NodesAndEdges.editEdge(
+              //                  listOfFields.get(0).getText(),
+              //                  listOfFields.get(1).getText(),
+              //                  listOfFields.get(2).getText());
 
               editEdgeDialog.close();
               stackPane.toBack();
