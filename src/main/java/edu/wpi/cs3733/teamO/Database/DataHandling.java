@@ -72,7 +72,16 @@ public class DataHandling {
           visible = scan.nextBoolean();
 
           NodesAndEdges.addNode(
-              nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned, visible);
+              nodeID,
+              xcoord,
+              ycoord,
+              floor,
+              building,
+              nodeType,
+              longName,
+              shortName,
+              teamAssigned,
+              visible);
         }
         scan.close();
 
@@ -103,7 +112,14 @@ public class DataHandling {
           length = scan.nextDouble();
 
           System.out.println(
-              "nodeID:" + nodeID + "\nstartNode:" + startNode + "\nendNode:" + endNode + "\nlength:" + length);
+              "nodeID:"
+                  + nodeID
+                  + "\nstartNode:"
+                  + startNode
+                  + "\nendNode:"
+                  + endNode
+                  + "\nlength:"
+                  + length);
 
           NodesAndEdges.addEdge(nodeID, startNode, endNode, length);
         }
@@ -173,7 +189,7 @@ public class DataHandling {
                 longName,
                 shortName,
                 teamAssigned,
-                    visible);
+                visible);
 
         // writes "enter", so we more to the next line
         bw.newLine();
