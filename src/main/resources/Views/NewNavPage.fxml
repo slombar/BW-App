@@ -18,7 +18,7 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="919.0" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
    <top>
-      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-image: #cfe2f3;" BorderPane.alignment="CENTER">
+      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-color: #cfe2f3;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Brigham &amp; Womens Hospital">
                <font>
