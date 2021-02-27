@@ -34,11 +34,9 @@ public class DataHandling {
    * imports data from csv (delimiter = ,|\n) and determines which database to add it to
    *
    * @param node, whether or not this file is a node file or an edge file
-   * @param filepath
+   * @param url, the file will be grabbed when we open file explorer
    */
-  public static void importExcelData(String filepath, boolean node) {
-
-    String url = "";
+  public static void importExcelData(String url, boolean node) {
 
     // Open file chooser instead of asking for user input
 
