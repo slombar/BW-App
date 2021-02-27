@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXDrawersStack?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: DARKCYAN; -fx-background-image: ..\FaulknerCampus.png;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label text="Easy Doctor" />
-      <TextField promptText="Username" />
-      <TextField promptText="Password" />
-   </children>
-   <padding>
-      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-   </padding>
-</VBox>
+<BorderPane fx:id="border" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
+   <right>
+      <JFXDrawer BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <JFXButton />
+                  <JFXDrawersStack />
+               </children>
+            </VBox>
+         </children>
+      </JFXDrawer>
+   </right>
+   <top>
+      <JFXToggleButton text="Editing Mode" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="image" fitHeight="650.0" fitWidth="872.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../FaulknerCampus.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
