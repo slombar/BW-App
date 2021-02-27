@@ -126,9 +126,9 @@ class Graph {
     }
   }
 
-  /*Node getNode(String nodeID) {
+  Node getNode(String nodeID) {
     return listOfNodes.get(nodeID);
-  }*/
+  }
 
   int getSize() {
     return size;

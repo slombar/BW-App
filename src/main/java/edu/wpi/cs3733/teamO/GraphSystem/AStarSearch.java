@@ -1,17 +1,15 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+
+import java.util.*;
 
 class AStarSearch {
 
   private Graph graph;
   private int graphSize;
-  private String startID;
-  private String targetID;
+  private String startNode;
+  private String targetNode;
 
   private PriorityQueue<Node> frontier; // expanding frontier of search
   private Hashtable<String, String> cameFrom; // NodeID and the NodeID of the node to get to it
@@ -31,17 +29,17 @@ class AStarSearch {
   AStarSearch(boolean test) {
     graph = new Graph(test); // may not want/need to initialize graph here
     graphSize = -1;
-    startID = "-1";
-    targetID = "-1";
+    startNode = "-1";
+    targetNode = "-1";
     frontier = new PriorityQueue<Node>();
   }
 
   // constructor
-  AStarSearch(Graph g, String start, String target) {
+  AStarSearch(Graph g, String startID, String targetID) {
     graph = g;
     graphSize = graph.getSize();
-    startID = start;
-    targetID = target;
+    startNode = startID;
+    targetNode = targetID;
 
     frontier = new PriorityQueue<>();
     cameFrom = new Hashtable<>();
@@ -53,31 +51,28 @@ class AStarSearch {
   // returns found route (in order) as LL<edu.wpi.teamO.GraphSystem.Node>
   List<Node> findRoute() {
     // sets start node based on startID provided in constructor
-    Node startNode = graph.getNode(startID);
+    Node startNode = graph.getNode(this.startNode);
 
     // path, but in reverse order
     LinkedList<Node> path = new LinkedList<>();
 
     frontier.add(startNode);
-    cameFrom.put(startID, "-1"); // didn't come from anywhere at start
-    costSoFar.put(startID, 0.0); // didn't cost anything at start
+    cameFrom.put(this.startNode, "-1"); // didn't come from anywhere at start
+    costSoFar.put(this.startNode, 0.0); // didn't cost anything at start
 
     boolean foundPath = false;
 
     while (!frontier.isEmpty()) {
       Node current = frontier.poll(); // continues searching from next frontier node
 
-      if (current.getID().equals(targetID)) {
+      if (current.getID().equals(targetNode)) {
         foundPath = true;
         break;
       }
 
       // iterates through current nodes neighbours
-      int llsize = current.getNeighbourList().size();
-      for (int i = 0; i < llsize; i++) {
-        // gets next node in neighbours
+      for (Node next : current.getNeighbourList()) {
         // sets next's cost so far to current's cost so far + edge cost
-        Node next = current.getNeighbourList().get(i);
         double newCost = costSoFar.get(current.getID()) + dist(current, next);
 
         // if cost to next hasn't been calculated yet, or if the newCost is less
@@ -98,10 +93,10 @@ class AStarSearch {
       // backtrack to add to path:
       // start by adding target node, then iterate through cameFrom,
       // appending next node to the front of path
-      path.add(graph.getNode(targetID));
-      String cameFromID = targetID;
+      path.add(graph.getNode(targetNode));
+      String cameFromID = targetNode;
 
-      while (!cameFromID.equals(startID)) { // goes until it appends startNode
+      while (!cameFromID.equals(this.startNode)) { // goes until it appends startNode
         String nID = cameFrom.get(cameFromID);
         path.addFirst(graph.getNode(nID));
         cameFromID = nID;
@@ -120,7 +115,7 @@ class AStarSearch {
    */
   private double heuristic(Node next) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    return dist(next, graph.getNode(targetID));
+    return dist(next, graph.getNode(targetNode));
   }
 
   // finds distance between two nodes (length/weight of edge)
