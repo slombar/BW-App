@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.teamO.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 public class Node extends RecursiveTreeObject<Node> {
@@ -11,7 +9,7 @@ public class Node extends RecursiveTreeObject<Node> {
   int xCoord, yCoord;
 
   // added from GraphNode
-  private Set<Node> neighbourList;
+  private HashSet<Node> neighbourList;
   private double priority;
   private boolean visited;
   private boolean visible;
@@ -54,16 +52,16 @@ public class Node extends RecursiveTreeObject<Node> {
   }
 
   public Node(
-    String ID,
-    int xCoord,
-    int yCoord,
-    String floor,
-    String building,
-    String nodeType,
-    String longName,
-    String shortName,
-    String team,
-    boolean visible) {
+      String ID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      String longName,
+      String shortName,
+      String team,
+      boolean visible) {
     this.ID = ID;
     this.building = building;
     this.nodeType = nodeType;
@@ -76,6 +74,21 @@ public class Node extends RecursiveTreeObject<Node> {
     this.visited = false;
     this.neighbourList = new HashSet<>();
     this.visible = visible;
+  }
+
+  public Node() {
+    this.ID = null;
+    this.building = null;
+    this.nodeType = null;
+    this.longName = null;
+    this.shortName = null;
+    this.floor = null;
+    this.xCoord = 0;
+    this.yCoord = 0;
+    this.team = null;
+    this.visited = false;
+    this.neighbourList = new HashSet<>();
+    this.visible = true;
   }
 
   // for testing
@@ -107,7 +120,7 @@ public class Node extends RecursiveTreeObject<Node> {
     return neighbourList;
   }
 
-  public void setNeighbourList(Set<Node> neighbourList) {
+  public void setNeighbourList(HashSet<Node> neighbourList) {
     this.neighbourList = neighbourList;
   }
 
@@ -189,5 +202,13 @@ public class Node extends RecursiveTreeObject<Node> {
 
   public void setYCoord(int yCoord) {
     this.yCoord = yCoord;
+  }
+
+  public boolean isVisible() {
+    return visible;
+  }
+
+  public void setVisible(boolean visible) {
+    this.visible = visible;
   }
 }

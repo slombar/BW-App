@@ -49,7 +49,7 @@
                         <Image url="@../FaulknerCampus.png" />
                      </image>
                   </ImageView>
-                  <Canvas fx:id="mapcanvas" height="583.0" onMouseClicked="#canvasClick" width="728.0" />
+                  <Canvas fx:id="mapcanvas" height="583.0"  width="728.0" />
                         <PannablePane layoutX="27.0" layoutY="63.0" prefHeight="138.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                     </children>
                 </AnchorPane>

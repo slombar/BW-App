@@ -43,4 +43,12 @@ public class Edge extends RecursiveTreeObject<Edge> {
   public void setEnd(String end) {
     this.end = end;
   }
+
+  public double getLength() {
+    return length;
+  }
+
+  public void setLength(double length) {
+    this.length = length;
+  }
 }

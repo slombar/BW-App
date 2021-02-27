@@ -50,13 +50,13 @@
          <children>
             <VBox alignment="CENTER" prefHeight="120.0" prefWidth="415.0">
                <children>
-                   <JFXButton fx:id="locButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#locClick" prefHeight="45.0" prefWidth="240.0" text="Select Starting Location" textFill="#333ce1">
+                   <JFXButton fx:id="locButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"  prefHeight="45.0" prefWidth="240.0" text="Select Starting Location" textFill="#333ce1">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
                   <Pane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
-                  <JFXButton fx:id="destButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#destClick" prefHeight="45.0" prefWidth="240.0" text="Select Destination" textFill="#e13434">
+                  <JFXButton fx:id="destButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="240.0" text="Select Destination" textFill="#e13434">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -68,7 +68,7 @@
                      </font>
                   </JFXButton>
                   <Pane layoutX="10.0" layoutY="35.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
-                  <JFXButton fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetClick" prefHeight="45.0" prefWidth="240.0" text="Reset" textFill="BLACK">
+                  <JFXButton fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"  prefHeight="45.0" prefWidth="240.0" text="Reset" textFill="BLACK">
                      <font>
                         <Font size="20.0" />
                      </font>

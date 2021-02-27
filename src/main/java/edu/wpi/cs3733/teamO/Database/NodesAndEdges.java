@@ -222,45 +222,82 @@ public class NodesAndEdges {
   }
 
   /**
-   * Previously showEdges()
+   * Gets a specific node from the DB based on the given ID
    *
+   * @param id of the Node you want
    * @return
    */
-  public static ObservableList<Edge> getAllEdges() {
-    ObservableList<Edge> edgeList = FXCollections.observableArrayList();
+  public static Node getNode(String id) {
+    Node n = new Node();
+
     try {
       PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Edges");
+      pstmt =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
       ResultSet rset = pstmt.executeQuery();
 
-      String ID = "";
-      String startNode = "";
-      String endNode = "";
-
-      // Process the results
-      while (rset.next()) {
-        ID = rset.getString("nodeID");
-        startNode = rset.getString("startNode");
-        endNode = rset.getString("endNode");
-
-        // update to add edge length
-        edgeList.add(new Edge(ID, startNode, endNode, 0));
-      }
+      // add properties to the node
+      n.setID(rset.getString("nodeID"));
+      n.setBuilding(rset.getString("building"));
+      n.setFloor(rset.getString("floor"));
+      n.setShortName(rset.getString("shortName"));
+      n.setLongName(rset.getString("longName"));
+      n.setNodeType(rset.getString("nodeType"));
+      n.setXCoord(rset.getInt("xcoord"));
+      n.setYCoord(rset.getInt("ycoord"));
+      n.setTeam(rset.getString("teamAssigned"));
+      // TODO implement the visible column in db
+      // n.setVisible(rset.getBoolean("visible"));
 
       rset.close();
       pstmt.close();
 
-    } catch (SQLException e) {
-      System.out.println("Report Edge Information: Failed!");
-      e.printStackTrace();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
     }
-    return edgeList;
+
+    return n;
   }
 
   /**
-   * Previously showNodes()
+   * Retrieve an edge from the DB by sending the ID as a parameter
    *
+   * @param id of the node you want to snag from DB
    * @return
+   */
+  public static Edge getEdge(String id) {
+    Edge e = new Edge();
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
+      ResultSet rset = pstmt.executeQuery();
+
+      // add properties to the node
+      e.setID(rset.getString("nodeID"));
+      e.setStart(rset.getString("startNode"));
+      e.setID(rset.getString("endNode"));
+
+      /*TODO : implement the length column in db*/
+      // e.setLength(rset.getDouble("length"));
+
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return e;
+  }
+
+  /**
+   * Displays all the nodes from the database
+   *
+   * @return ObservableList<Node> type, filled with nodes
    */
   public static ObservableList<Node> getAllNodes() {
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
@@ -302,5 +339,41 @@ public class NodesAndEdges {
       e.printStackTrace();
     }
     return nodeList;
+  }
+
+  /**
+   * Returns all the edges from the database
+   *
+   * @return ObservableList<Edge> which contains all edges from DB
+   */
+  public static ObservableList<Edge> getAllEdges() {
+    ObservableList<Edge> edgeList = FXCollections.observableArrayList();
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Edges");
+      ResultSet rset = pstmt.executeQuery();
+
+      String ID = "";
+      String startNode = "";
+      String endNode = "";
+
+      // Process the results
+      while (rset.next()) {
+        ID = rset.getString("nodeID");
+        startNode = rset.getString("startNode");
+        endNode = rset.getString("endNode");
+
+        // update to add edge length
+        edgeList.add(new Edge(ID, startNode, endNode, 0));
+      }
+
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException e) {
+      System.out.println("Report Edge Information: Failed!");
+      e.printStackTrace();
+    }
+    return edgeList;
   }
 }

@@ -1,11 +1,11 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
-import edu.wpi.cs3733.teamO.model.Edge;
-import edu.wpi.cs3733.teamO.model.Node;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.model.Edge;
+import edu.wpi.cs3733.teamO.model.Node;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

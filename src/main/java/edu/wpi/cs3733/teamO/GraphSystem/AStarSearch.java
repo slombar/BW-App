@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -10,23 +11,15 @@ class AStarSearch {
 
   private Graph graph;
   private int graphSize;
-  private String startID;
-  private String targetID;
+  private static String startID;
+  private static String targetID;
 
-  private PriorityQueue<Node> frontier; // expanding frontier of search
-  private Hashtable<String, String> cameFrom; // NodeID and the NodeID of the node to get to it
-  private Hashtable<String, Double> costSoFar; // NodeID and that nodes current cost so far
+  private static PriorityQueue<Node> frontier; // expanding frontier of search
+  private static Hashtable<String, String>
+      cameFrom; // NodeID and the NodeID of the node to get to it
+  private static Hashtable<String, Double> costSoFar; // NodeID and that nodes current cost so far
 
   private LinkedList<Node> foundRoute; // most recent found root for this A* object
-
-  // need default constructor (for subsystem design)
-  /*AStarSearch() {
-    graph = new Graph(); // may not want/need to initialize graph here
-    graphSize = -1;
-    startID = "-1";
-    targetID = "-1";
-    frontier = new PriorityQueue<Node>();
-  }*/
 
   AStarSearch(boolean test) {
     graph = new Graph(test); // may not want/need to initialize graph here
@@ -51,12 +44,11 @@ class AStarSearch {
 
   // actual search method
   // returns found route (in order) as LL<edu.wpi.teamO.GraphSystem.Node>
-  List<Node> findRoute() {
+  static List<String> findRoute(Node startNode, Node endNode) {
     // sets start node based on startID provided in constructor
-    Node startNode = graph.getNode(startID);
 
     // path, but in reverse order
-    LinkedList<Node> path = new LinkedList<>();
+    LinkedList<String> path = new LinkedList<>();
 
     frontier.add(startNode);
     cameFrom.put(startID, "-1"); // didn't come from anywhere at start
@@ -77,7 +69,7 @@ class AStarSearch {
       for (int i = 0; i < llsize; i++) {
         // gets next node in neighbours
         // sets next's cost so far to current's cost so far + edge cost
-        Node next = current.getNeighbourList().get(i);
+        Node next = current.getNeighbourList().iterator().next();
         double newCost = costSoFar.get(current.getID()) + dist(current, next);
 
         // if cost to next hasn't been calculated yet, or if the newCost is less
@@ -98,19 +90,20 @@ class AStarSearch {
       // backtrack to add to path:
       // start by adding target node, then iterate through cameFrom,
       // appending next node to the front of path
-      path.add(graph.getNode(targetID));
+      path.add(startNode.getID());
       String cameFromID = targetID;
 
       while (!cameFromID.equals(startID)) { // goes until it appends startNode
         String nID = cameFrom.get(cameFromID);
-        path.addFirst(graph.getNode(nID));
+        path.addFirst(nID);
         cameFromID = nID;
       }
 
       // DUMMY RETURN:
       return path;
+
     } else {
-      return new LinkedList<Node>();
+      return null;
     }
   }
 
@@ -118,13 +111,13 @@ class AStarSearch {
    * @param next
    * @return
    */
-  private double heuristic(Node next) {
+  private static double heuristic(Node next) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    return dist(next, graph.getNode(targetID));
+    return dist(next, NodesAndEdges.getNode(targetID));
   }
 
   // finds distance between two nodes (length/weight of edge)
-  double dist(Node a, Node b) {
+  static double dist(Node a, Node b) {
     int x1 = a.getXCoord();
     int x2 = b.getXCoord();
     int y1 = a.getYCoord();
