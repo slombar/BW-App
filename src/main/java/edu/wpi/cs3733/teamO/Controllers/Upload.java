@@ -16,6 +16,7 @@ public class Upload {
   public void uploadNodes(ActionEvent actionEvent) {
     // run function to open file explorer
     String filepath = DataHandling.explorer(Opp.getPrimaryStage());
+    System.out.println("File path: " + filepath);
     // import data
     importExcelData(filepath, true);
   }
@@ -28,6 +29,7 @@ public class Upload {
   public void uploadEdges(ActionEvent actionEvent) {
     // run function to open file explorer
     String filepath = DataHandling.explorer(Opp.getPrimaryStage());
+    System.out.println("File path: " + filepath);
     // import data
     importExcelData(filepath, false);
   }
