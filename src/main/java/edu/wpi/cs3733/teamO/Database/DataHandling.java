@@ -1,21 +1,47 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import java.awt.*;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class DataHandling {
+
+  private Desktop desktop = Desktop.getDesktop();
+
+  /**
+   * Opens the explorer and sends back the chosen file path
+   *
+   * @param stage, the stage we are currently on
+   * @return
+   */
+  public static String explorer(Stage stage) {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Upload your file to the database.");
+    File file = fileChooser.showOpenDialog(stage);
+
+    String filePath = file.getAbsolutePath();
+
+    return filePath;
+  }
 
   /**
    * imports data from csv (delimiter = ,|\n) and determines which database to add it to
    *
-   * @param url, the url of the file on the computer
    * @param node, whether or not this file is a node file or an edge file
+   * @param filepath
    */
-  public static void importExcelData(String url, boolean node) {
+  public static void importExcelData(String filepath, boolean node) {
+
+    String url = "";
+
+    // Open file chooser instead of asking for user input
+
     Scanner scan = null;
     Pattern d = Pattern.compile(",|\r\n");
 

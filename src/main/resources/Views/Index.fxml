@@ -28,6 +28,7 @@
                                </image>
                            </ImageView>
                            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />
+                        <JFXButton layoutY="2.0" onAction="#uploadPress" text="Sadie Test Uploading (please don't delete)" />
                        </children>
                    </AnchorPane>
                </children>
@@ -50,7 +51,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="120.0" prefWidth="415.0">
                <children>
-                   <JFXButton fx:id="locButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"  prefHeight="45.0" prefWidth="240.0" text="Select Starting Location" textFill="#333ce1">
+                   <JFXButton fx:id="locButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="240.0" text="Select Starting Location" textFill="#333ce1">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -68,7 +69,7 @@
                      </font>
                   </JFXButton>
                   <Pane layoutX="10.0" layoutY="35.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="413.0" />
-                  <JFXButton fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"  prefHeight="45.0" prefWidth="240.0" text="Reset" textFill="BLACK">
+                  <JFXButton fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="240.0" text="Reset" textFill="BLACK">
                      <font>
                         <Font size="20.0" />
                      </font>
