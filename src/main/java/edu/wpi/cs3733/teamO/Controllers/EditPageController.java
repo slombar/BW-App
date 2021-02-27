@@ -83,6 +83,9 @@ public class EditPageController implements Initializable {
 
   private boolean popUp = false;
 
+  //**Note: Changes need to be made to this class to reflect refactoring for Database stuff
+  // Thanks in advance - Kyle
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     initNodeTable();
