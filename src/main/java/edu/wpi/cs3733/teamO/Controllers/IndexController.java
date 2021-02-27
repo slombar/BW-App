@@ -227,4 +227,19 @@ public class IndexController implements Initializable {
     System.out.println("CANVAS CLICKING");
     // TODO implement add
   }
+
+  /**
+   * test button to upload files to database using file explorer
+   *
+   * @param actionEvent
+   */
+  public void uploadPress(ActionEvent actionEvent) {
+    AnchorPane root = null;
+    try {
+      root = FXMLLoader.load(getClass().getResource("/Views/uploadFile.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
