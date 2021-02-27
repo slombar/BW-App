@@ -3,6 +3,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
@@ -343,7 +344,8 @@ public class EditPageController implements Initializable {
                 || listOfFields.get(5).getText().isEmpty()
                 || listOfFields.get(6).getText().isEmpty()
                 || listOfFields.get(7).getText().isEmpty()) {
-              incompletePopup();
+              //              incompletePopup();
+              PopupMaker.incompletePopup(warningPane);
             } else {
               NodesAndEdges.addNode(
                   listOfFields.get(0).getText(),
@@ -429,9 +431,11 @@ public class EditPageController implements Initializable {
             // If edge is not in database, send sn error msg
             // Otherwise, sends to database and closes popup
             if (listOfFields.get(0).getText().isEmpty()) {
-              incompletePopup();
+              //              incompletePopup();
+              PopupMaker.incompletePopup(warningPane);
             } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
-              nonexistantPopup();
+              //              nonexistantPopup();
+              PopupMaker.nonexistentPopup(warningPane);
             } else {
               NodesAndEdges.deleteNode(listOfFields.get(0).getText());
 
@@ -518,7 +522,8 @@ public class EditPageController implements Initializable {
             // Otherwise, sends to database and closes popup
             if (listOfFields.get(0).getText().isEmpty()
                 || listOfFields.get(1).getText().isEmpty()) {
-              incompletePopup();
+              //              incompletePopup();
+              PopupMaker.incompletePopup(warningPane);
             } else {
               String s = listOfFields.get(0).getText(); // start
               String e = listOfFields.get(1).getText(); // end
@@ -604,9 +609,11 @@ public class EditPageController implements Initializable {
             // If edge is not in database, send sn error msg
             // Otherwise, sends to database and closes popup
             if (listOfFields.get(0).getText().isEmpty()) {
-              incompletePopup();
+              //              incompletePopup();
+              PopupMaker.incompletePopup(warningPane);
             } else if (!edgeIDColData.contains(listOfFields.get(0).getText())) {
-              nonexistantPopup();
+              //              nonexistantPopup();
+              PopupMaker.nonexistentPopup(warningPane);
             } else {
               NodesAndEdges.deleteEdge(listOfFields.get(0).getText());
 
@@ -634,59 +641,59 @@ public class EditPageController implements Initializable {
     return listOfFields;
   }
 
-  // Creates a warning popup for an incomplete form
-  public void incompletePopup() {
-    warningPane.toFront();
-
-    // Creates the content for the popup
-    JFXDialogLayout warning = new JFXDialogLayout();
-    warning.setHeading(new Text("WARNING!"));
-    warning.setBody(new Text("Text fields cannot be left blank."));
-    JFXButton closeButton = new JFXButton("Close");
-    warning.setActions(closeButton);
-
-    // Creates the actual popup
-    JFXDialog warningDialog =
-        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
-    warningDialog.setOverlayClose(false);
-    stackPane.setDisable(true);
-
-    // Closes the popup
-    closeButton.setOnAction(
-        event -> {
-          warningDialog.close();
-          warningPane.toBack();
-          stackPane.setDisable(false);
-        });
-    warningDialog.show();
-  }
-
-  // Creates a warning popup for nonexistant nodes/edges
-  private void nonexistantPopup() {
-    warningPane.toFront();
-
-    // Creates the content for the popup
-    JFXDialogLayout warning = new JFXDialogLayout();
-    warning.setHeading(new Text("WARNING!"));
-    warning.setBody(new Text("The given ID does not exist in the database."));
-    JFXButton closeButton = new JFXButton("Close");
-    warning.setActions(closeButton);
-
-    // Creates the actual popup
-    JFXDialog warningDialog =
-        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
-    warningDialog.setOverlayClose(false);
-    stackPane.setDisable(true);
-
-    // Closes the popup
-    closeButton.setOnAction(
-        event -> {
-          warningDialog.close();
-          warningPane.toBack();
-          stackPane.setDisable(false);
-        });
-    warningDialog.show();
-  }
+  //  // Creates a warning popup for an incomplete form
+  //  public void incompletePopup() {
+  //    warningPane.toFront();
+  //
+  //    // Creates the content for the popup
+  //    JFXDialogLayout warning = new JFXDialogLayout();
+  //    warning.setHeading(new Text("WARNING!"));
+  //    warning.setBody(new Text("Text fields cannot be left blank."));
+  //    JFXButton closeButton = new JFXButton("Close");
+  //    warning.setActions(closeButton);
+  //
+  //    // Creates the actual popup
+  //    JFXDialog warningDialog =
+  //        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
+  //    warningDialog.setOverlayClose(false);
+  //    stackPane.setDisable(true);
+  //
+  //    // Closes the popup
+  //    closeButton.setOnAction(
+  //        event -> {
+  //          warningDialog.close();
+  //          warningPane.toBack();
+  //          stackPane.setDisable(false);
+  //        });
+  //    warningDialog.show();
+  //  }
+  //
+  //  // Creates a warning popup for nonexistant nodes/edges
+  //  private void nonexistantPopup() {
+  //    warningPane.toFront();
+  //
+  //    // Creates the content for the popup
+  //    JFXDialogLayout warning = new JFXDialogLayout();
+  //    warning.setHeading(new Text("WARNING!"));
+  //    warning.setBody(new Text("The given ID does not exist in the database."));
+  //    JFXButton closeButton = new JFXButton("Close");
+  //    warning.setActions(closeButton);
+  //
+  //    // Creates the actual popup
+  //    JFXDialog warningDialog =
+  //        new JFXDialog(warningPane, warning, JFXDialog.DialogTransition.BOTTOM);
+  //    warningDialog.setOverlayClose(false);
+  //    stackPane.setDisable(true);
+  //
+  //    // Closes the popup
+  //    closeButton.setOnAction(
+  //        event -> {
+  //          warningDialog.close();
+  //          warningPane.toBack();
+  //          stackPane.setDisable(false);
+  //        });
+  //    warningDialog.show();
+  //  }
 
   // Autocompletes textfields based on an ArrayList<String>
   private void autoComplete(ArrayList<String> list, JFXTextField textfield) {
@@ -771,7 +778,8 @@ public class EditPageController implements Initializable {
           // If edge is not in database, send sn error msg
           // Otherwise, sends to database and closes popup
           if (listOfFields.get(0).getText().isEmpty()) {
-            incompletePopup();
+            //            incompletePopup();
+            PopupMaker.incompletePopup(warningPane);
           } else {
             String filePath = listOfFields.get(0).getText();
             // true = is a node
@@ -828,7 +836,8 @@ public class EditPageController implements Initializable {
           // If edge is not in database, send sn error msg
           // Otherwise, sends to database and closes popup
           if (listOfFields.get(0).getText().isEmpty()) {
-            incompletePopup();
+            //            incompletePopup();
+            PopupMaker.incompletePopup(warningPane);
           } else {
             String filePath = listOfFields.get(0).getText();
             // false = is an edge
@@ -891,7 +900,8 @@ public class EditPageController implements Initializable {
           // If edge is not in database, send sn error msg
           // Otherwise, sends to database and closes popup
           if (listOfFields.get(0).getText().isEmpty() || listOfFields.get(1).getText().isEmpty()) {
-            incompletePopup();
+            //            incompletePopup();
+            PopupMaker.incompletePopup(warningPane);
           } else {
             String filePath = listOfFields.get(0).getText();
             char nodeOrEdge = listOfFields.get(1).getText().charAt(0);
@@ -1001,9 +1011,11 @@ public class EditPageController implements Initializable {
                 || listOfFields.get(5).getText().isEmpty()
                 || listOfFields.get(6).getText().isEmpty()
                 || listOfFields.get(7).getText().isEmpty()) {
-              incompletePopup();
+              //              incompletePopup();
+              PopupMaker.incompletePopup(warningPane);
             } else if (!nodeIDColData.contains(listOfFields.get(0).getText())) {
-              nonexistantPopup();
+              //              nonexistantPopup();
+              PopupMaker.nonexistentPopup(warningPane);
             } else {
               NodesAndEdges.editNode(
                   listOfFields.get(0).getText(),
@@ -1115,11 +1127,13 @@ public class EditPageController implements Initializable {
             if (listOfFields.get(0).getText().isEmpty()
                 || listOfFields.get(1).getText().isEmpty()
                 || listOfFields.get(2).getText().isEmpty()) {
-              incompletePopup();
+              //              incompletePopup();
+              PopupMaker.incompletePopup(warningPane);
             } else if (!EdgeIDColData.contains(listOfFields.get(0).getText())
                 || !nodeIDColData.contains(listOfFields.get(1).getText())
                 || !nodeIDColData.contains(listOfFields.get(2).getText())) {
-              nonexistantPopup();
+              //              nonexistantPopup();
+              PopupMaker.nonexistentPopup(warningPane);
             } else {
               NodesAndEdges.editEdge(
                   listOfFields.get(0).getText(),

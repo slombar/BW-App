@@ -11,14 +11,24 @@ public class AddComponents {
   public static VBox test2;
   public static HBox test3;
 
+  /**
+   * @param labels
+   * @return
+   */
   public static ArrayList<JFXTextField> createField(ArrayList<String> labels) {
     return test;
   }
 
+  /** @return */
   public static VBox addToVBox() {
     return test2;
   }
 
+  /**
+   * description of method
+   *
+   * @return
+   */
   public static HBox addToHBox() {
     return test3;
   }
