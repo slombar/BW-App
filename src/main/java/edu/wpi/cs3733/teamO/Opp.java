@@ -25,7 +25,7 @@ public class Opp extends Application {
     Opp.primaryStage = ps;
 
     try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/NewNavPage.fxml"));
+      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
       Scene scene = new Scene(root);
       ps.setScene(scene);
       ps.setFullScreen(true);
