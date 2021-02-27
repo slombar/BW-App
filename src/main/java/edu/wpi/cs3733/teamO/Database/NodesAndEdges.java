@@ -64,10 +64,10 @@ public class NodesAndEdges {
             + ", "
             + "'"
             + teamAssigned
-                + "'"
-                + ", "
-                + "'"
-                + visible
+            + "'"
+            + ", "
+            + "'"
+            + visible
             + "'"
             + ")";
     System.out.println(query);
@@ -103,10 +103,10 @@ public class NodesAndEdges {
             + ", "
             + "'"
             + endNode
-                + "'"
-                + ", "
-                + "'"
-                + length
+            + "'"
+            + ", "
+            + "'"
+            + length
             + "'"
             + ")";
     System.out.println("QUERY: " + query);
@@ -185,7 +185,7 @@ public class NodesAndEdges {
             + shortName
             + "', teamAssigned = '"
             + team
-            +  "', visible = '"
+            + "', visible = '"
             + visible
             + "' WHERE nodeID = '"
             + nodeID
