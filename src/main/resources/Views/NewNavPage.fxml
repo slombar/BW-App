@@ -3,52 +3,31 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDrawer?>
-<?import com.jfoenix.controls.JFXDrawersStack?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
-   <right>
-      <JFXDrawer BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="650.0" prefWidth="216.0">
-               <children>
-                  <JFXToggleButton fx:id="editToggle" onAction="#editMode" text="Editing Mode" />
-                  <JFXDrawersStack />
-               </children>
-            </VBox>
-         </children>
-      </JFXDrawer>
-   </right>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="campusMap" fitHeight="650.0" fitWidth="872.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../FaulknerCampus.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
-   </center>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="919.0" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
    <top>
-      <VBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-image: #cfe2f3ff;" BorderPane.alignment="CENTER">
+      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-image: #cfe2f3;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Brigham &amp; Womens Hospital">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Times New Roman" size="36.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="977.0">
+            <HBox alignment="CENTER" prefHeight="51.0" prefWidth="977.0">
                <children>
-                  <JFXButton onAction="#goToMain" text="Back">
+                  <JFXButton onAction="#goToMain" prefHeight="25.0" prefWidth="51.0" text="Back">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>
@@ -58,21 +37,22 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXComboBox>
-                  <JFXButton fx:id="startLocBtn" onAction="#startLocSlection" text="Start">
+                  <JFXButton fx:id="startLocBtn" onAction="#startLocSlection" prefHeight="25.0" prefWidth="51.0" text="Start">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="endLocBtn" onAction="#endLocSelection" text="End">
+                  <JFXButton fx:id="endLocBtn" onAction="#endLocSelection" prefHeight="25.0" prefWidth="45.0" text="End">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="pathfindBtn" onAction="#doPathfind" text="Pathfind">
+                  <JFXButton fx:id="pathfindBtn" onAction="#doPathfind" prefHeight="25.0" prefWidth="73.0" text="Pathfind">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXButton>
+                  <JFXToggleButton fx:id="editToggle" onAction="#editMode" prefHeight="45.0" prefWidth="148.0" text="Editing Mode" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
@@ -84,4 +64,27 @@
          </BorderPane.margin>
       </VBox>
    </top>
+   <left>
+      <JFXDrawer fx:id="drawerSM1" defaultDrawerSize="0.0" direction="RIGHT" miniDrawerSize="50.0" prefHeight="650.0" prefWidth="42.0" resizableOnDrag="true" resizeContent="true" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXHamburger fx:id="hamburgerMainBtn1" alignment="TOP_CENTER" onMouseClicked="#goToSideMenu" prefHeight="667.0" prefWidth="33.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </JFXHamburger>
+         </children>
+      </JFXDrawer>
+   </left>
+   <center>
+      <AnchorPane fx:id="anchorPane" prefHeight="667.0" prefWidth="960.0" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="667.0" fitWidth="819.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../FaulknerCampus.png" />
+               </image>
+            </ImageView>
+            <Canvas fx:id="canvas" height="667.0" onMouseClicked="#canvasClick" width="812.0" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
