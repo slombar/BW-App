@@ -4,7 +4,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Opp extends Application {
@@ -25,7 +25,7 @@ public class Opp extends Application {
     Opp.primaryStage = ps;
 
     try {
-      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/NewNavPage.fxml"));
       Scene scene = new Scene(root);
       ps.setScene(scene);
       ps.setFullScreen(true);

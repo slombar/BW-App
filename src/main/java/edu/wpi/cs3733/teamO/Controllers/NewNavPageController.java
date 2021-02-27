@@ -1,8 +1,13 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
-import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -12,29 +17,48 @@ import javafx.scene.layout.BorderPane;
 
 public class NewNavPageController implements Initializable {
 
-  @FXML private ImageView image;
-  @FXML private BorderPane border;
+  @FXML private BorderPane borderPane;
+  @FXML private JFXToggleButton editToggle;
+  @FXML private ImageView campusMap;
+  @FXML private JFXComboBox<String> floorSelectionBtn;
+  @FXML private JFXButton startLocBtn;
+  @FXML private JFXButton endLocBtn;
+  @FXML private JFXButton pathfindBtn;
+
+  ObservableList<String> listOfFloors =
+      FXCollections.observableArrayList("Ground", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    resize();
+    floorSelectionBtn.setItems(listOfFloors);
+    resizableWindow();
   }
 
-  public BorderPane resize() {
-    //    border.getStyleClass().add("bg-1");
-    border.setPadding(new Insets(5));
+  /**
+   * Create a resizable navigation map with editing features available for admin
+   *
+   * @return border pane
+   */
+  public BorderPane resizableWindow() {
+    borderPane.setPadding(new Insets(5));
 
-    //    Image map = new Image("FaulknerCampus.png", 1200, 1400, true, true);
-    //    ImageView image = new ImageView(map);
-    image.fitWidthProperty().bind(border.heightProperty().multiply(1.2));
-    image.fitHeightProperty().bind(border.heightProperty());
-    BorderPane.setAlignment(image, Pos.TOP_CENTER);
-    border.setCenter(image);
+    campusMap.fitWidthProperty().bind(borderPane.widthProperty());
+    campusMap.fitHeightProperty().bind(borderPane.heightProperty());
+    BorderPane.setAlignment(campusMap, Pos.TOP_CENTER);
+    borderPane.setCenter(campusMap);
 
-//    JFXDrawer drawerStack = new JFXDrawer();
-//    drawerStack.setPrefWidth(75);
-//    border.setRight(drawerStack);
-
-    return border;
+    return borderPane;
   }
+
+  public void editMode(ActionEvent actionEvent) {}
+
+  public void goToMain(ActionEvent actionEvent) {}
+
+  public void floorSelection(ActionEvent actionEvent) {}
+
+  public void startLocSlection(ActionEvent actionEvent) {}
+
+  public void endLocSelection(ActionEvent actionEvent) {}
+
+  public void doPathfind(ActionEvent actionEvent) {}
 }
