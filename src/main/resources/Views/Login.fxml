@@ -91,6 +91,7 @@
                         <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
                      </image>
                   </ImageView>
+                  <JFXButton layoutX="191.0" layoutY="48.0" onAction="#sadie" text="SADIE'S TEST BUTTON " />
                </children>
             </AnchorPane>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to the Navigation Kiosk" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">

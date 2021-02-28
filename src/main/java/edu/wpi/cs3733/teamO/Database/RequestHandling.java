@@ -23,11 +23,11 @@ public class RequestHandling {
             + "'"
             + requestedBy
             + "'"
-            + ", "
+            + ", '"
             + fulfilledBy
-            + ", "
+            + "', '"
             + dateRequested
-            + ", "
+            + "', "
             + "'"
             + dateNeeded
             + "'"
