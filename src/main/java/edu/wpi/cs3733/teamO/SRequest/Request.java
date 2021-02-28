@@ -8,9 +8,11 @@ import java.util.Date;
 public class Request {
   private String requestID;
   private Staff requestedBy;
+  public Staff fulfilled;
   private Date dateRequested;
   private Date dateNeeded;
   private String summary;
+  private String requestType;
   private String locationNodeID;
   private Node locationNode;
 
