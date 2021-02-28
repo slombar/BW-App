@@ -13,7 +13,9 @@ public class RequestPageController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {}
 
-  public void goToCheckReq(ActionEvent actionEvent) {}
+  public void goToCheckReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestStatus.fxml");
+  }
 
   /**
    * helper method that changes the scene to the form
