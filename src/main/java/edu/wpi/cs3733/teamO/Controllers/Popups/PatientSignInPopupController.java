@@ -21,7 +21,8 @@ public class PatientSignInPopupController {
   @FXML private JFXPasswordField pass;
 
   /**
-   *attempts to sign in to a patient account
+   * attempts to sign in to a patient account
+   *
    * @param actionEvent
    */
   public void signIn(ActionEvent actionEvent) {
@@ -56,6 +57,7 @@ public class PatientSignInPopupController {
 
   /**
    * goes to the create patient account page
+   *
    * @param actionEvent
    */
   public void createAccount(ActionEvent actionEvent) {

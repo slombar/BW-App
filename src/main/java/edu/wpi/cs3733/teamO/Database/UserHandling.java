@@ -121,7 +121,14 @@ public class UserHandling {
     String vu = "";
     String vp = "";
 
-    String query = "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "' AND = employee'" + true + "'" ;
+    String query =
+        "SELECT * FROM USERS WHERE username = '"
+            + username
+            + "' AND password = '"
+            + password
+            + "' AND = employee'"
+            + true
+            + "'";
 
     try {
       PreparedStatement pstmt = null;
