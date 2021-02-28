@@ -11,6 +11,7 @@ public class DatabaseConnection {
 
   /**
    * get the conecrtion
+   *
    * @return
    */
   public static Connection getConnection() {
