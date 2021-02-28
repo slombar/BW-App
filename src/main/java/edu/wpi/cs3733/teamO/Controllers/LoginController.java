@@ -1,19 +1,16 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
-import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.UserTypes.Staff;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -39,12 +36,7 @@ public class LoginController implements Initializable {
    * @param mouseEvent
    */
   public void goToLogin(MouseEvent mouseEvent) {
-    try {
-      GridPane root = FXMLLoader.load(getClass().getResource("/Views/PatientSignInPopup.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    SwitchScene.goToGridPane("/Views/PatientSignInPopup.fxml");
   }
 
   /**
@@ -53,12 +45,7 @@ public class LoginController implements Initializable {
    * @param actionEvent
    */
   public void goToMain(ActionEvent actionEvent) {
-    try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    SwitchScene.goToBorderPane("/Views/MainPage.fxml");
   }
 
   public void sadie(ActionEvent actionEvent) {
@@ -70,14 +57,14 @@ public class LoginController implements Initializable {
   }
 
   public void tempBTN(ActionEvent actionEvent) {
-    try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/StaffMainPage.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    SwitchScene.goToBorderPane("/Views/StaffMainPage.fxml");
   }
 
+  /**
+   * hovering over the large circles and its images will enlarge the circle
+   *
+   * @param mouseEvent
+   */
   public void hoverAdmin(MouseEvent mouseEvent) {
     adminBtn.setRadius(135);
   }

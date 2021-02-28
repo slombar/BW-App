@@ -45,6 +45,10 @@ public class Request extends RecursiveTreeObject<Request> {
     this.para3 = para3;
   }
 
+  public Request() {
+
+  }
+
   public String getRequestID() {
     return requestID;
   }

@@ -2,6 +2,10 @@ package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import edu.wpi.cs3733.teamO.UserTypes.Staff;
+import edu.wpi.cs3733.teamO.model.Edge;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,19 +51,7 @@ public class RequestHandling {
         para2 = rset.getString("para2");
         para3 = rset.getString("para3");
 
-        Request req =
-            new Request(
-                reqID,
-                requestedBy,
-                fulfilledBy,
-                dateRequested,
-                dateNeeded,
-                requestType,
-                location,
-                summary,
-                para1,
-                para2,
-                para3);
+        Request req = new Request(reqID, requestedBy, fulfilledBy, dateRequested, dateNeeded, requestType, location, summary, para1, para2, para3);
         requestList.add(req);
       }
 
@@ -73,6 +65,40 @@ public class RequestHandling {
     }
     return requestList;
   }
+
+  public Request getRequest(String reqID){
+    Request r = new Request();
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt =
+              DatabaseConnection.getConnection()
+                      .prepareStatement("SELECT * FROM Requests WHERE reqID = '" + reqID + "'");
+      ResultSet rset = pstmt.executeQuery();
+
+      // add properties to the node
+      r.setRequestID(reqID);
+      r.setRequestedBy(rset.getString("requestedBy"));
+      r.setFulfilledBy(rset.getString("fulfilledBy"));
+      r.setDateRequested(rset.getDate("dateRequested"));
+      r.setDateNeeded(rset.getDate("dateNeeded"));
+      r.setRequestType(rset.getString("requestType"));
+      r.setLocationNodeID(rset.getString("location"));
+      r.setSummary(rset.getString("summary"));
+      r.setPara1(rset.getString("para1"));
+      r.setPara2(rset.getString("para2"));
+      r.setPara3(rset.getString("para3"));
+
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return r;
+  }
+
 
   public static void addRequest(
       Staff requestedBy,
