@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,8 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private JFXDrawer drawer;
+  @FXML private JFXHamburger hamburger;
   @FXML private HBox hboxRef;
   @FXML private VBox vboxRef;
   @FXML private RowConstraints row0;
@@ -50,59 +53,28 @@ public class NewNavPageController implements Initializable {
     resizableWindow();
     canvas.toFront();
 
-    // Drawer Stuff
+    // Set drawer to SideMenu
+    try {
+      VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SideMenu.fxml"));
+      drawer.setSidePane(vbox);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
-    //    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/sideMenu.fxml"));
-    //    VBox box = null;
-    //    try {
-    //      box = loader.load();
-    //    } catch (IOException e) {
-    //      e.printStackTrace();
-    //    }
-    //    SideMenuController controller = loader.getController();
-    //    drawerSM.setSidePane(box);
-    //
-    //    HamburgerBackArrowBasicTransition transition =
-    //        new HamburgerBackArrowBasicTransition(hamburgerMainBtn);
-    //    transition.setRate(-1);
-    //    hamburgerMainBtn.addEventHandler(
-    //        MouseEvent.MOUSE_PRESSED,
-    //        (e) -> {
-    //          transition.setRate(transition.getRate() * -1);
-    //          transition.play();
-    //
-    //          if (drawerSM.isOpened()) {
-    //            drawerSM.close();
-    //          } else {
-    //            drawerSM.open();
-    //          }
-    //        });
+    // transition animation of Hamburger icon
+    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+
+    // click event - mouse click
+    hamburger.addEventHandler(
+        MouseEvent.MOUSE_PRESSED,
+        (e) -> {
+          transition.setRate(transition.getRate() * -1);
+          transition.play();
+
+          if (drawer.isOpened()) drawer.close(); // this will close slide pane
+          else drawer.open(); // this will open slide pane
+        });
   }
-
-  //  /**
-  //   * Create a resizable navigation map with editing features available for admin
-  //   *
-  //   * @return border pane
-  //   */
-  //  public BorderPane resizableWindow() {
-  //    borderPane.setPadding(new Insets(5));
-  //
-  //    // campusMap.fitWidthProperty().bind(borderPane.widthProperty());
-  //    // campusMap.fitHeightProperty().bind(borderPane.heightProperty());
-  //    anchorPane.prefWidthProperty().bind(borderPane.widthProperty());
-  //    anchorPane.prefHeightProperty().bind(borderPane.heightProperty());
-  //    imageView.fitWidthProperty().bind(borderPane.widthProperty());
-  //    imageView.fitHeightProperty().bind(borderPane.heightProperty());
-  //    canvas.widthProperty().bind(imageView.fitWidthProperty());
-  //    canvas.heightProperty().bind(imageView.fitHeightProperty());
-  //
-  //    BorderPane.setAlignment(imageView, Pos.TOP_CENTER);
-  //    borderPane.setCenter(imageView);
-  //    // borderPane.setTop(topMenu);
-  //    // topMenu.prefWidthProperty().bind(borderPane.widthProperty());
-  //
-  //    return borderPane;
-  //  }
 
   /**
    * Create a resizable navigation map with editing features available for admin
@@ -120,6 +92,7 @@ public class NewNavPageController implements Initializable {
     canvas.widthProperty().bind(imageView.fitWidthProperty());
 
     return gridPane;
+    // 350 / 1920
   }
 
   public void editMode(ActionEvent actionEvent) {}

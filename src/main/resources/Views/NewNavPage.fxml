@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
@@ -15,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="gridPane" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
+<GridPane fx:id="gridPane" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="10.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints fx:id="col1" percentWidth="80.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="10.0" />
   </columnConstraints>
@@ -26,7 +28,7 @@
     <RowConstraints fx:id="row1" maxHeight="-Infinity" minHeight="-Infinity" />
   </rowConstraints>
    <children>
-      <HBox fx:id="hboxRef" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <HBox fx:id="hboxRef" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <VBox fx:id="vboxRef" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.vgrow="ALWAYS" />
       <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <image>
@@ -34,12 +36,15 @@
          </image>
       </ImageView>
       <Canvas fx:id="canvas" height="402.0" onMouseClicked="#canvasClick" width="486.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-image: #cfe2f3;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
             <Label text="Brigham &amp; Womens Hospital">
                <font>
                   <Font name="Times New Roman" size="36.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="51.0" prefWidth="977.0">
                <children>
@@ -76,6 +81,7 @@
             </HBox>
          </children>
       </VBox>
-      <JFXButton minHeight="50.0" minWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="402.0" prefWidth="123.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+      <JFXHamburger fx:id="hamburger" />
    </children>
 </GridPane>
