@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
-import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Staff;
 import java.io.IOException;
@@ -14,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
@@ -35,8 +35,12 @@ public class LoginController implements Initializable {
    * @param mouseEvent
    */
   public void goToLogin(MouseEvent mouseEvent) {
-    loginPane.toFront();
-    PopupMaker.incompletePopup(loginPane);
+    try {
+      GridPane root = FXMLLoader.load(getClass().getResource("/Views/PatientSignInPopup.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
   }
 
   /**
