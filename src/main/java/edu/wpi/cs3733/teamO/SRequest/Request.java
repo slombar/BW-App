@@ -8,7 +8,7 @@ import java.util.Date;
 public class Request {
   private String requestID;
   private Staff requestedBy;
-  public Staff fulfilled;
+  public Staff fulfilledBy;
   private Date dateRequested;
   private Date dateNeeded;
   private String summary;
@@ -16,10 +16,12 @@ public class Request {
   private String locationNodeID;
   private Node locationNode;
 
-  public Request(String requestID, Staff requestedBy, Date dateRequested, Date dateNeeded, String summary, String locationNodeID){
+  public Request(String requestID, Staff requestedBy, Staff fulfilledBy, Date dateRequested, Date dateNeeded, String requestType, String summary, String locationNodeID){
     this.requestID = requestID;
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
+    this.requestType = requestType;
+    this.fulfilledBy = fulfilledBy;
     this. dateNeeded = dateNeeded;
     this.summary = summary;
     this.locationNodeID = locationNodeID;
