@@ -33,7 +33,7 @@
             <Image url="@../FaulknerCampus_Updated.png" />
          </image>
       </ImageView>
-      <Canvas fx:id="canvas" height="402.0" onMouseClicked="#canvasClick" width="486.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <Canvas fx:id="mapCanvas" height="402.0" onMouseClicked="#canvasClick" width="486.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
       <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-image: #cfe2f3;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
             <Label text="Brigham &amp; Womens Hospital">
@@ -76,6 +76,5 @@
             </HBox>
          </children>
       </VBox>
-      <JFXButton minHeight="50.0" minWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
    </children>
 </GridPane>

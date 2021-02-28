@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,18 +29,23 @@ public class NewNavPageController implements Initializable {
   @FXML private GridPane gridPane;
   @FXML private JFXDrawer drawerSM1;
   @FXML private JFXHamburger hamburgerMainBtn1;
-  @FXML private AnchorPane anchorPane;
-  @FXML private Canvas canvas;
   @FXML private VBox topMenu;
   @FXML private JFXDrawer drawerSM;
   @FXML private JFXHamburger hamburgerMainBtn;
   @FXML private BorderPane borderPane;
   @FXML private JFXToggleButton editToggle;
-  @FXML private ImageView imageView;
+
   @FXML private JFXComboBox<String> floorSelectionBtn;
   @FXML private JFXButton startLocBtn;
   @FXML private JFXButton endLocBtn;
   @FXML private JFXButton pathfindBtn;
+
+  @FXML private ImageView imageView;
+  @FXML private Canvas mapCanvas;
+  private GraphicsContext gc;
+  private String selectedFloor = "Campus";
+
+  private Graph graph;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -52,15 +58,26 @@ public class NewNavPageController implements Initializable {
   public static Image floor4Map = new Image("Faulkner4_Updated.png");
   public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
-  private Graph graph;
+  ///// Methods: /////
 
   public NewNavPageController() {}
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     floorSelectionBtn.setItems(listOfFloors);
+
     resizableWindow();
-    canvas.toFront();
+
+    mapCanvas.toFront();
+    gc = mapCanvas.getGraphicsContext2D();
+
+    graph = new Graph(gc);
+
+    // TODO: change to visible nodes if PATIENT/GUEST
+    graph.drawAllNodes("G");
+
+    // just for testing
+    System.out.println("NewNavPageController Initialized");
   }
 
   /**
@@ -75,8 +92,17 @@ public class NewNavPageController implements Initializable {
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
-    canvas.heightProperty().bind(imageView.fitHeightProperty());
-    canvas.widthProperty().bind(imageView.fitWidthProperty());
+    // just mapCanvas.layoutX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
+    // just mapCanvas.scaleX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
+    // just mapCanvas.translateX/YProperty.bind(imageView.x/yProperty()) DOES NOT WORK
+    // mapCanvas.translateXProperty().bind(imageView.translateXProperty());
+    // mapCanvas.translateYProperty().bind(imageView.translateYProperty());
+
+    // mapCanvas.layoutXProperty().bind(hboxRef.layoutXProperty().add(imageView.translateXProperty()));
+    // mapCanvas.layoutYProperty().bind(hboxRef.layoutYProperty().add(imageView.translateYProperty()));
+
+    mapCanvas.heightProperty().bind(imageView.fitHeightProperty());
+    mapCanvas.widthProperty().bind(imageView.fitWidthProperty());
 
     return gridPane;
   }
@@ -93,29 +119,40 @@ public class NewNavPageController implements Initializable {
   }
 
   public void floorSelection(ActionEvent actionEvent) {
-    String floorSelected = floorSelectionBtn.getValue();
+    selectedFloor = floorSelectionBtn.getValue();
+    String floor = "";
     // System.out.println(floorSelected);
 
-    switch (floorSelected) {
+    // switch case basically = if, else if, etc...
+    switch (selectedFloor) {
       case "Campus":
         imageView.setImage(campusMap);
+        floor = "G";
         break;
       case "Floor 1":
         imageView.setImage(floor1Map);
+        floor = "1";
         break;
       case "Floor 2":
         imageView.setImage(floor2Map);
+        floor = "2";
         break;
       case "Floor 3":
         imageView.setImage(floor3Map);
+        floor = "3";
         break;
       case "Floor 4":
         imageView.setImage(floor4Map);
+        floor = "4";
         break;
       case "Floor 5":
         imageView.setImage(floor5Map);
+        floor = "5";
         break;
     }
+
+    // TODO: only draw visible if patient/guest
+    graph.drawAllNodes(floor);
   }
 
   public void endLocSelection(ActionEvent actionEvent) {}
