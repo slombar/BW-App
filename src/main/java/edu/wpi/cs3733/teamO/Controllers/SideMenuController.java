@@ -16,7 +16,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class SideMenuController implements Initializable {
-  public JFXButton exitBtn;
+  @FXML private JFXButton notificationBtn;
+  @FXML private JFXButton checkInBtn;
+  @FXML private JFXButton appointmentsBtn;
+  @FXML private JFXButton loginBtn;
+  @FXML private JFXButton settingBtn;
+  @FXML private JFXButton exitBtn;
   @FXML private JFXHamburger hamburgerSideBtn;
   @FXML private VBox sideVBox;
 
@@ -30,6 +35,24 @@ public class SideMenuController implements Initializable {
   public void exit(ActionEvent actionEvent) {
     Platform.exit();
   }
+
+  public void mouseOn(MouseEvent mouseEvent) {
+    exitBtn.setUnderline(true);
+    exitBtn.setButtonType(JFXButton.ButtonType.RAISED);
+  }
+
+  public void mouseOff(MouseEvent mouseEvent) {
+    exitBtn.setUnderline(false);
+    exitBtn.setButtonType(JFXButton.ButtonType.FLAT);
+  }
+
+  public void toNotifications(ActionEvent actionEvent) {}
+
+  public void toCheckIn(ActionEvent actionEvent) {}
+
+  public void toAppointments(ActionEvent actionEvent) {}
+
+  public void toSettings(ActionEvent actionEvent) {}
 
   public void goToLogin(ActionEvent actionEvent) {
     try {
