@@ -1,17 +1,50 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 public class RequestPageController implements Initializable {
+  @FXML private JFXButton computerBtn;
+  @FXML private JFXButton floralBtn;
+  @FXML private JFXButton languageBtn;
+  @FXML private JFXButton laundryBtn;
+  @FXML private JFXButton giftBtn;
+  @FXML private JFXButton transportBtn;
+  @FXML private JFXButton maintenanceBtn;
+  @FXML private JFXButton medicineBtn;
+  @FXML private JFXButton laundryBtn2;
+  @FXML private JFXButton securityBtn;
+  @FXML private JFXButton sanitationBtn;
+  @FXML private JFXButton moreBtn;
+
   @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {}
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    hoverAllBtn();
+  }
+
+  public void hoverAllBtn() {
+    Effects.hoverEffect(computerBtn);
+    Effects.hoverEffect(floralBtn);
+    Effects.hoverEffect(languageBtn);
+    Effects.hoverEffect(laundryBtn);
+    Effects.hoverEffect(giftBtn);
+    Effects.hoverEffect(transportBtn);
+    Effects.hoverEffect(maintenanceBtn);
+    Effects.hoverEffect(medicineBtn);
+    Effects.hoverEffect(laundryBtn2);
+    Effects.hoverEffect(securityBtn);
+    Effects.hoverEffect(sanitationBtn);
+    Effects.hoverEffect(moreBtn);
+  }
 
   public void goToCheckReq(ActionEvent actionEvent) {
     goToRequestForm("/Views/RequestStatus.fxml");

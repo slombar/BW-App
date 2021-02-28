@@ -1,8 +1,10 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +20,10 @@ import javafx.scene.layout.VBox;
 
 public class StaffMainPageController implements Initializable {
 
+  @FXML private JFXButton navBtn;
+  @FXML private JFXButton requestBtn;
+  @FXML private JFXButton covidBtn;
+  @FXML private JFXButton parkingBtn;
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
 
@@ -44,6 +50,14 @@ public class StaffMainPageController implements Initializable {
           if (drawer.isOpened()) drawer.close(); // this will close slide pane
           else drawer.open(); // this will open slide pane
         });
+    hoverAllBtn();
+  }
+
+  public void hoverAllBtn() {
+    Effects.hoverEffect(navBtn);
+    Effects.hoverEffect(requestBtn);
+    Effects.hoverEffect(covidBtn);
+    Effects.hoverEffect(parkingBtn);
   }
 
   public void goToNav(ActionEvent actionEvent) {
