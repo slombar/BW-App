@@ -39,15 +39,15 @@ public class RegexBoi {
    * Username allowed of the dot (.), underscore (_), and hyphen (-). 3. The dot (.), underscore
    * (_), or hyphen (-) must not be the first or last character. 4. The dot (.), underscore (_), or
    * hyphen (-) does not appear consecutively, e.g., java..regex 5. The number of characters must be
-   * between 5 to 20.
+   * between 3 to 20.
    *
-   * @param credential the username or password to be checked if valid
+   * @param username the username to be checked if valid
    * @return true if input follows the given rules
    */
-  public static boolean checkUsernamePassword(String credential) {
+  public static boolean checkUsername(String username) {
     Pattern credentialPattern =
-        Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
-    Matcher credentialMatcher = credentialPattern.matcher(credential);
+        Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){1,18}[a-zA-Z0-9]$");
+    Matcher credentialMatcher = credentialPattern.matcher(username);
     return credentialMatcher.matches();
   }
 }
