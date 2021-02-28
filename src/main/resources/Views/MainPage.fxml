@@ -92,6 +92,9 @@
       <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" miniDrawerSize="0.0" prefHeight="637.0" prefWidth="350.0" BorderPane.alignment="CENTER" />
    </left>
    <top>
-      <JFXHamburger fx:id="hamburger" fillWidth="false" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" BorderPane.alignment="CENTER_LEFT" />
+      <JFXHamburger fx:id="hamburger" fillWidth="false" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" BorderPane.alignment="CENTER_LEFT">
+         <BorderPane.margin>
+            <Insets left="20.0" top="20.0" />
+         </BorderPane.margin></JFXHamburger>
    </top>
 </BorderPane>
