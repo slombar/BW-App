@@ -23,20 +23,31 @@ public class CreateAccountController {
   @FXML private StackPane popupPane;
 
   public void create(ActionEvent actionEvent) {
-    if (RegexBoi.checkUsername(user.getText()) && RegexBoi.checkEmail(email.getText())) {
+    if (RegexBoi.checkUsername(user.getText())) {
+      if (RegexBoi.checkEmail(email.getText())) {
 
-      UserHandling.createAccount(
-          user.getText(), pass.getText(), email.getText(), fName.getText(), lName.getText());
-      try {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
-        Opp.getPrimaryStage().getScene().setRoot(root);
-      } catch (IOException ex) {
-        ex.printStackTrace();
+        UserHandling.createAccount(
+            user.getText(), pass.getText(), email.getText(), fName.getText(), lName.getText());
+        try {
+          Parent root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+          Opp.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      } else {
+        PopupMaker.invalidEmail(popupPane);
       }
     } else {
       PopupMaker.invalidUsername(popupPane);
     }
   }
 
-  public void close(ActionEvent actionEvent) {}
+  public void close(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 }
