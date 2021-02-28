@@ -23,7 +23,7 @@ public class PatientSignInPopupController {
   public void signIn(ActionEvent actionEvent) {
     try {
       UserHandling.login(user.getText(), pass.getText());
-    }catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       PopupMaker.invalidLogin(popupPane);
     }

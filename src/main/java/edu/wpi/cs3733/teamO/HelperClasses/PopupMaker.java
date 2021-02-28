@@ -25,7 +25,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
     // Closes the popup
     closeButton.setOnAction(
@@ -53,7 +53,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
@@ -82,7 +82,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
@@ -117,7 +117,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
@@ -141,7 +141,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
