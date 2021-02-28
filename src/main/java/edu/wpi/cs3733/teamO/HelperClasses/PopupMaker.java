@@ -16,7 +16,8 @@ public class PopupMaker {
     testLayout.setBody(new Text("Test Body"));
     JFXButton closeButton = new JFXButton("Close");
     testLayout.setActions(closeButton); // sets it to be at bottom
-    JFXDialog testDialog = new JFXDialog(popupPane, testLayout, JFXDialog.DialogTransition.BOTTOM);
+    JFXDialog testDialog =
+        new JFXDialog(popupPane, testLayout, JFXDialog.DialogTransition.BOTTOM, true);
     closeButton.setOnAction(
         event -> {
           testDialog.close();
@@ -43,7 +44,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, false);
     warningDialog.setOverlayClose(false);
     // Closes the popup
     closeButton.setOnAction(
