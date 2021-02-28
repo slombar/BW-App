@@ -1,20 +1,12 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
 import com.jfoenix.controls.*;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class PopupMaker {
-
-  @FXML private JFXTextField patientUsername;
-  @FXML private JFXButton signInButton;
-  @FXML private JFXPasswordField patientPassword;
-  @FXML private JFXButton closeButton;
-
 
   // TODO: handle stopping multiple popups
 
@@ -75,12 +67,15 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * creates the popup for a patient to sign in
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void patientSignInPopup(StackPane popupPane) {
     popupPane.toFront();
     JFXDialogLayout signInLayout = new JFXDialogLayout();
-    signInLayout.setHeading(new Text("Sign In"));
-    String popupLayout = "/Views/SignInPopupLayout.fxml";
-
+    signInLayout.setStyle("-fx-background-color: #F2F2F2");
+    String popupLayout = "/Views/PatientSignInPopup.fxml";
     try {
       GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
       signInLayout.setBody(root);
@@ -88,10 +83,32 @@ public class PopupMaker {
       e.printStackTrace();
       System.out.println("Could not find resource " + popupLayout);
     }
-    JFXDialog patientSignInDialog = new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
+    JFXDialog patientSignInDialog =
+        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
+    patientSignInDialog.setOverlayClose(false);
+    patientSignInDialog.show();
+  }
+  /**
+   * creates the popup for an employee to sign in
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
+  public static void employeeSignInPopup(StackPane popupPane) {
+    popupPane.toFront();
+    JFXDialogLayout signInLayout = new JFXDialogLayout();
+    signInLayout.setStyle("-fx-background-color: #F2F2F2");
+    String popupLayout = "/Views/EmployeeSignInPopup.fxml";
+    //TODO make this file!
+    try{
+      GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
+      signInLayout.setBody(root);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Could not find resource " + popupLayout);
+    }
+    JFXDialog employeeSignInDialog =
+            new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
+    employeeSignInDialog.setOverlayClose(true);
+    employeeSignInDialog.show();
   }
 
-  public void createNewPatientAccount(ActionEvent actionEvent) {
-    //TODO work with db to get this going
-  }
 }

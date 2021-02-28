@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.HelperClasses.PopupMaker">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Popups.PatientSignInPopupController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -33,13 +33,13 @@
             <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="patientUsername" maxWidth="300.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <JFXButton fx:id="signInButton" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <JFXTextField fx:id="username" maxWidth="300.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font></JFXButton>
-      <JFXButton fx:id="closeButton" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-      <JFXPasswordField fx:id="patientPassword" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+      <JFXPasswordField fx:id="password" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Text fill="#000000cd" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.halignment="CENTER" GridPane.rowIndex="4">
          <font>
             <Font name="Calibri Bold" size="14.0" />
@@ -55,13 +55,10 @@
             <Insets top="10.0" />
          </GridPane.margin>
       </Text>
-      <Hyperlink onAction="#createNewPatientAccount" text="Create an account" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+      <Hyperlink onAction="#createAccount" text="Create an account" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </Hyperlink>
    </children>
-   <padding>
-      <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
-   </padding>
 </GridPane>

@@ -33,7 +33,7 @@ public class LoginController implements Initializable {
    */
   public void goToLogin(MouseEvent mouseEvent) {
     loginPane.toFront();
-    PopupMaker.incompletePopup(loginPane);
+    PopupMaker.patientSignInPopup(loginPane);
   }
 
   /**
