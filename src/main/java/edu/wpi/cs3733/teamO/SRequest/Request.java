@@ -1,30 +1,35 @@
 package edu.wpi.cs3733.teamO.SRequest;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.UserTypes.Staff;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.Date;
 
-public class Request {
+public class Request extends RecursiveTreeObject<Request> {
   private String requestID;
-  private Staff requestedBy;
-  public Staff fulfilledBy;
+  private String requestedBy;
+  public String fulfilledBy;
   private Date dateRequested;
   private Date dateNeeded;
   private String summary;
   private String requestType;
   private String locationNodeID;
   private Node locationNode;
+  private String para1;
+  private String para2;
+  private String para3;
+
 
   public Request(
       String requestID,
-      Staff requestedBy,
-      Staff fulfilledBy,
+      String requestedBy,
+      String fulfilledBy,
       Date dateRequested,
       Date dateNeeded,
       String requestType,
-      String summary,
-      String locationNodeID) {
+      String locationNodeID,
+      String summary, String para1, String para2, String para3) {
     this.requestID = requestID;
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
@@ -34,6 +39,9 @@ public class Request {
     this.summary = summary;
     this.locationNodeID = locationNodeID;
     this.locationNode = NodesAndEdges.getNode(locationNodeID);
+    this.para1 = para1;
+    this.para2 = para2;
+    this.para3 = para3;
   }
 
   public String getRequestID() {
@@ -44,11 +52,11 @@ public class Request {
     this.requestID = requestID;
   }
 
-  public Staff getRequestedBy() {
+  public String getRequestedBy() {
     return requestedBy;
   }
 
-  public void setRequestedBy(Staff requestedBy) {
+  public void setRequestedBy(String requestedBy) {
     this.requestedBy = requestedBy;
   }
 
@@ -90,5 +98,45 @@ public class Request {
 
   public void setLocationNode(Node locationNode) {
     this.locationNode = locationNode;
+  }
+
+  public String getFulfilledBy() {
+    return fulfilledBy;
+  }
+
+  public void setFulfilledBy(String fulfilledBy) {
+    this.fulfilledBy = fulfilledBy;
+  }
+
+  public String getRequestType() {
+    return requestType;
+  }
+
+  public void setRequestType(String requestType) {
+    this.requestType = requestType;
+  }
+
+  public String getPara1() {
+    return para1;
+  }
+
+  public void setPara1(String para1) {
+    this.para1 = para1;
+  }
+
+  public String getPara2() {
+    return para2;
+  }
+
+  public void setPara2(String para2) {
+    this.para2 = para2;
+  }
+
+  public String getPara3() {
+    return para3;
+  }
+
+  public void setPara3(String para3) {
+    this.para3 = para3;
   }
 }
