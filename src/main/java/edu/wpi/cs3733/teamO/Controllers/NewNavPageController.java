@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
@@ -51,6 +52,8 @@ public class NewNavPageController implements Initializable {
   public static Image floor4Map = new Image("Faulkner4_Updated.png");
   public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
+  private Graph graph;
+
   public NewNavPageController() {}
 
   @Override
@@ -58,60 +61,7 @@ public class NewNavPageController implements Initializable {
     floorSelectionBtn.setItems(listOfFloors);
     resizableWindow();
     canvas.toFront();
-
-    // Drawer Stuff
-
-    //    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/sideMenu.fxml"));
-    //    VBox box = null;
-    //    try {
-    //      box = loader.load();
-    //    } catch (IOException e) {
-    //      e.printStackTrace();
-    //    }
-    //    SideMenuController controller = loader.getController();
-    //    drawerSM.setSidePane(box);
-    //
-    //    HamburgerBackArrowBasicTransition transition =
-    //        new HamburgerBackArrowBasicTransition(hamburgerMainBtn);
-    //    transition.setRate(-1);
-    //    hamburgerMainBtn.addEventHandler(
-    //        MouseEvent.MOUSE_PRESSED,
-    //        (e) -> {
-    //          transition.setRate(transition.getRate() * -1);
-    //          transition.play();
-    //
-    //          if (drawerSM.isOpened()) {
-    //            drawerSM.close();
-    //          } else {
-    //            drawerSM.open();
-    //          }
-    //        });
   }
-
-  //  /**
-  //   * Create a resizable navigation map with editing features available for admin
-  //   *
-  //   * @return border pane
-  //   */
-  //  public BorderPane resizableWindow() {
-  //    borderPane.setPadding(new Insets(5));
-  //
-  //    // campusMap.fitWidthProperty().bind(borderPane.widthProperty());
-  //    // campusMap.fitHeightProperty().bind(borderPane.heightProperty());
-  //    anchorPane.prefWidthProperty().bind(borderPane.widthProperty());
-  //    anchorPane.prefHeightProperty().bind(borderPane.heightProperty());
-  //    imageView.fitWidthProperty().bind(borderPane.widthProperty());
-  //    imageView.fitHeightProperty().bind(borderPane.heightProperty());
-  //    canvas.widthProperty().bind(imageView.fitWidthProperty());
-  //    canvas.heightProperty().bind(imageView.fitHeightProperty());
-  //
-  //    BorderPane.setAlignment(imageView, Pos.TOP_CENTER);
-  //    borderPane.setCenter(imageView);
-  //    // borderPane.setTop(topMenu);
-  //    // topMenu.prefWidthProperty().bind(borderPane.widthProperty());
-  //
-  //    return borderPane;
-  //  }
 
   /**
    * Creates a resizable GridPane with map image, menu buttons, etc.
@@ -144,7 +94,6 @@ public class NewNavPageController implements Initializable {
 
   public void floorSelection(ActionEvent actionEvent) {
     String floorSelected = floorSelectionBtn.getValue();
-
     // System.out.println(floorSelected);
 
     switch (floorSelected) {
@@ -179,5 +128,5 @@ public class NewNavPageController implements Initializable {
     System.out.println("Click");
   }
 
-  public void startLocSlection(ActionEvent actionEvent) {}
+  public void startLocSelection(ActionEvent actionEvent) {}
 }

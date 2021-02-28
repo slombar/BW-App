@@ -9,26 +9,35 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Circle;
 
-class Graph {
+public class Graph {
 
   private int size; // not necessary?
   private LinkedList<String> listOfNodeIDs; // not necessary?
   private static ObservableList<Node> listOfNodes;
   private static ObservableList<Edge> listOfEdges;
-  private static GraphicsContext gc;
+  private GraphicsContext gc;
 
-  private
-
-  /** @param gc - the graphics controller for the canvas */
+  /**
+   * Creates a Graph from the database that will display on the provided GraphicsContext
+   * @param gc the GraphicsContext which the Graph will be displayed on
+   */
   Graph(GraphicsContext gc) {
+    // initialize nodes based on DB
     listOfNodes = FXCollections.observableArrayList();
     listOfNodes = NodesAndEdges.getAllNodes();
-    size = listOfNodes.size();
+
+    // initialize edges based on DB
     listOfEdges = FXCollections.observableArrayList();
     listOfEdges = NodesAndEdges.getAllEdges();
+
     this.gc = gc;
+    size = listOfNodes.size();
   }
 
+  /**
+   * Graph constructor purely for testing purposes
+   * @param test dummy parameter (can be true or false)
+   */
   Graph(boolean test) {
     listOfNodeIDs = new LinkedList<String>();
     size = 0;
