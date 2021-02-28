@@ -67,49 +67,58 @@ public class PopupMaker {
     warningDialog.show();
   }
 
-  /**
-   * creates the popup for a patient to sign in
-   *
-   * @param popupPane is the stack pane on which the popup needs to be made on
-   */
-  public static void patientSignInPopup(StackPane popupPane) {
+public static void invalidLogin(StackPane popupPane) {
     popupPane.toFront();
-    JFXDialogLayout signInLayout = new JFXDialogLayout();
-    signInLayout.setStyle("-fx-background-color: #F2F2F2");
-    String popupLayout = "/Views/PatientSignInPopup.fxml";
-    try {
-      GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
-      signInLayout.setBody(root);
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.out.println("Could not find resource " + popupLayout);
-    }
-    JFXDialog patientSignInDialog =
-        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER, true);
-    patientSignInDialog.setOverlayClose(false);
-    patientSignInDialog.show();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("WARNING!"));
+    warning.setBody(new Text("Incorrect Username or passowrd"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
   }
-  /**
-   * creates the popup for an employee to sign in
-   *
-   * @param popupPane is the stack pane on which the popup needs to be made on
-   */
-  public static void employeeSignInPopup(StackPane popupPane) {
+
+  public static void invalidUsername(StackPane popupPane) {
     popupPane.toFront();
-    JFXDialogLayout signInLayout = new JFXDialogLayout();
-    signInLayout.setStyle("-fx-background-color: #F2F2F2");
-    String popupLayout = "/Views/EmployeeSignInPopup.fxml";
-    // TODO make this file!
-    try {
-      GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
-      signInLayout.setBody(root);
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.out.println("Could not find resource " + popupLayout);
-    }
-    JFXDialog employeeSignInDialog =
-        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
-    employeeSignInDialog.setOverlayClose(true);
-    employeeSignInDialog.show();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Username"));
+    warning.setBody(new Text("1. Username consists of alphanumeric characters (a-zA-Z0-9), lowercase, or uppercase. 2.\n" +
+            "   * Username allowed of the dot (.), underscore (_), and hyphen (-). 3. The dot (.), underscore\n" +
+            "   * (_), or hyphen (-) must not be the first or last character. 4. The dot (.), underscore (_), or\n" +
+            "   * hyphen (-) does not appear consecutively, e.g., java..regex 5. The number of characters must be\n" +
+            "   * between 3 to 20."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+            new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+            event -> {
+              warningDialog.close();
+              popupPane.toBack();
+            });
+    warningDialog.show();
   }
+
+
+
 }
