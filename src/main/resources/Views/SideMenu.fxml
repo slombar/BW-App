@@ -61,7 +61,7 @@
             <Font size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton text="Exit Application">
+      <JFXButton fx:id="exitBtn" onAction="#exit" text="Exit Application">
          <font>
             <Font size="24.0" />
          </font>
