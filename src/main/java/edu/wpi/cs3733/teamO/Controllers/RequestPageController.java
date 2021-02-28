@@ -54,7 +54,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToGiftReq(ActionEvent actionEvent) {
-    goToRequestForm("/Views/RequestPage.fxml");
+    goToRequestForm("/Views/GiftDeliveryService.fxml");
   }
 
   public void goToTransportReq(ActionEvent actionEvent) {
