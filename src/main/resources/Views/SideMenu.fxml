@@ -40,33 +40,33 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <JFXButton text="Notifications">
+      <JFXButton fx:id="notificationBtn" onAction="#toNotifications" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="77.0" prefWidth="363.0" text="Notifications">
          <font>
             <Font size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton text="Check-In">
+      <JFXButton fx:id="checkInBtn" onAction="#toCheckIn" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="77.0" prefWidth="356.0" text="Check-In">
          <font>
             <Font size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton text="Appointments">
+      <JFXButton fx:id="appointmentsBtn" onAction="#toAppointments" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="77.0" prefWidth="389.0" text="Appointments">
          <font>
             <Font size="36.0" />
          </font>
       </JFXButton>
       <Pane />
-      <JFXButton text="Log Out">
+      <JFXButton fx:id="loginBtn" onAction="#toLogin" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="51.0" prefWidth="379.0" text="Log Out">
          <font>
             <Font size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="exitBtn" onAction="#exit" text="Exit Application">
+      <JFXButton fx:id="exitBtn" buttonType="FLAT" onAction="#exit" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="51.0" prefWidth="403.0" text="Exit Application">
          <font>
             <Font size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton text="Settings">
+      <JFXButton fx:id="settingBtn" onAction="#toSettings" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="51.0" prefWidth="421.0" text="Settings">
          <font>
             <Font size="24.0" />
          </font>
