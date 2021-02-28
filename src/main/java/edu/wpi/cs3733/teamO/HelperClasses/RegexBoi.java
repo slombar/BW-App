@@ -31,4 +31,23 @@ public class RegexBoi {
     Matcher phoneNumMatcher = phoneNumPattern.matcher(phoneNumInput);
     return phoneNumMatcher.matches();
   }
+
+  /**
+   * checks the validity of a user credential against the following rules:
+   *
+   * <p>1. Username consists of alphanumeric characters (a-zA-Z0-9), lowercase, or uppercase. 2.
+   * Username allowed of the dot (.), underscore (_), and hyphen (-). 3. The dot (.), underscore
+   * (_), or hyphen (-) must not be the first or last character. 4. The dot (.), underscore (_), or
+   * hyphen (-) does not appear consecutively, e.g., java..regex 5. The number of characters must be
+   * between 5 to 20.
+   *
+   * @param credential the username or password to be checked if valid
+   * @return true if input follows the given rules
+   */
+  public static boolean checkUsernamePassword(String credential) {
+    Pattern credentialPattern =
+        Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
+    Matcher credentialMatcher = credentialPattern.matcher(credential);
+    return credentialMatcher.matches();
+  }
 }
