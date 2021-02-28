@@ -22,7 +22,7 @@ public class UserHandling {
     String encodedPass = password;
 
     String query =
-        "INSERT INTO Users VALUES("
+        "INSERT INTO USERS VALUES("
             + "'"
             + username
             + "'"
@@ -39,7 +39,10 @@ public class UserHandling {
             + "', "
             + "'"
             + lName
-            + "'"
+            + "', "
+            + false
+            + ", "
+            + false
             + ")";
 
     System.out.println("CREATE ACCT QUERY: " + query);
@@ -66,7 +69,7 @@ public class UserHandling {
     setUsername(username);
 
     String query =
-        "SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "'";
+        "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "'";
 
     try {
       PreparedStatement pstmt = null;

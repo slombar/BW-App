@@ -8,19 +8,20 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class PatientSignInPopupController {
 
-  @FXML private JFXTextField username;
-  @FXML private JFXPasswordField password;
+  @FXML private JFXTextField user;
+  @FXML private JFXPasswordField pass;
 
   @FXML
   public void signIn(ActionEvent actionEvent) {
-    UserHandling.login(username.getText(), password.getText());
+    UserHandling.login(user.getText(), pass.getText());
 
     try {
-      GridPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
