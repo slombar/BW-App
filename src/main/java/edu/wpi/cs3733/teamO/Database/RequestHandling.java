@@ -2,14 +2,12 @@ package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import edu.wpi.cs3733.teamO.UserTypes.Staff;
-import edu.wpi.cs3733.teamO.model.Edge;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class RequestHandling {
 
@@ -49,7 +47,19 @@ public class RequestHandling {
         para2 = rset.getString("para2");
         para3 = rset.getString("para3");
 
-        Request req = new Request(reqID, requestedBy, fulfilledBy, dateRequested, dateNeeded, requestType, location, summary, para1, para2, para3);
+        Request req =
+            new Request(
+                reqID,
+                requestedBy,
+                fulfilledBy,
+                dateRequested,
+                dateNeeded,
+                requestType,
+                location,
+                summary,
+                para1,
+                para2,
+                para3);
         requestList.add(req);
       }
 
@@ -63,7 +73,6 @@ public class RequestHandling {
     }
     return requestList;
   }
-
 
   public static void addRequest(
       Staff requestedBy,
