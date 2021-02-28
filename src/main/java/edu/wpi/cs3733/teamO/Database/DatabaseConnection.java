@@ -9,6 +9,10 @@ public class DatabaseConnection {
   public static String dbUrl = "jdbc:derby:Odb";
   public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 
+  /**
+   * get the conecrtion
+   * @return
+   */
   public static Connection getConnection() {
     return connection;
   }
