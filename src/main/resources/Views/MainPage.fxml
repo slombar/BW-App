@@ -27,7 +27,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToNav" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="navBtn" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToNav" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -41,7 +41,7 @@
                         <Font name="Georgia Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToGifts" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Send a Gift" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="giftsBtn" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToGifts" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Send a Gift" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -55,7 +55,7 @@
                         <Font name="Georgia Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToCovid" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="COVID-19 Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="covidBtn" alignment="CENTER" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToCovid" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="COVID-19 Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -69,7 +69,7 @@
                         <Font name="Georgia Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToParking" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Parking" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="parkingBtn" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToParking" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Parking" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>

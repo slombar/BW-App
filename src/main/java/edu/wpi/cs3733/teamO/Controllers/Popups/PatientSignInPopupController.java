@@ -21,18 +21,25 @@ public class PatientSignInPopupController {
 
   @FXML
   public void signIn(ActionEvent actionEvent) {
-    try {
-      UserHandling.login(user.getText(), pass.getText());
-    } catch (Exception e) {
-      e.printStackTrace();
-      PopupMaker.invalidLogin(popupPane);
-    }
-
-    try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
+    String username = user.getText();
+    System.out.println(username);
+    String password = pass.getText();
+    System.out.println(password);
+    if (username.equals("") || password.equals("")) {
+      PopupMaker.incompletePopup(popupPane);
+    } else {
+      try {
+        UserHandling.login(username, password);
+        try {
+          BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+          Opp.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+        PopupMaker.invalidLogin(popupPane);
+      }
     }
   }
 

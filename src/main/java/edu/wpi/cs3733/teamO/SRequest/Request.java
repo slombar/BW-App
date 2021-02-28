@@ -2,7 +2,6 @@ package edu.wpi.cs3733.teamO.SRequest;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
-import edu.wpi.cs3733.teamO.UserTypes.Staff;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.Date;
 
@@ -20,7 +19,6 @@ public class Request extends RecursiveTreeObject<Request> {
   private String para2;
   private String para3;
 
-
   public Request(
       String requestID,
       String requestedBy,
@@ -29,7 +27,10 @@ public class Request extends RecursiveTreeObject<Request> {
       Date dateNeeded,
       String requestType,
       String locationNodeID,
-      String summary, String para1, String para2, String para3) {
+      String summary,
+      String para1,
+      String para2,
+      String para3) {
     this.requestID = requestID;
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
