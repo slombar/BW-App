@@ -15,7 +15,6 @@ public class PopupMaker {
   @FXML private JFXPasswordField patientPassword;
   @FXML private JFXButton closeButton;
 
-
   // TODO: handle stopping multiple popups
 
   /**
@@ -88,10 +87,11 @@ public class PopupMaker {
       e.printStackTrace();
       System.out.println("Could not find resource " + popupLayout);
     }
-    JFXDialog patientSignInDialog = new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
+    JFXDialog patientSignInDialog =
+        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
   }
 
   public void createNewPatientAccount(ActionEvent actionEvent) {
-    //TODO work with db to get this going
+    // TODO work with db to get this going
   }
 }

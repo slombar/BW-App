@@ -1,9 +1,12 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.UserTypes.Staff;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,5 +51,13 @@ public class LoginController implements Initializable {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public void sadie(ActionEvent actionEvent) {
+    String random = "dog";
+    Staff staff = new Staff();
+    Date date = new Date(2020, 10, 10);
+    RequestHandling.addRequest(
+        staff, staff, date, date, random, random, random, random, random, random);
   }
 }
