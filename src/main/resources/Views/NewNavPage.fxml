@@ -37,7 +37,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXComboBox>
-                  <JFXButton fx:id="startLocBtn" onAction="#startLocSlection" prefHeight="25.0" prefWidth="51.0" text="Start">
+                  <JFXButton fx:id="startLocBtn" onAction="#startlocslection" prefHeight="25.0" prefWidth="51.0" text="Start">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>

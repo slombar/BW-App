@@ -1,12 +1,15 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
+import edu.wpi.cs3733.teamO.Opp;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -99,11 +102,18 @@ public class NewNavPageController implements Initializable {
 
   public void editMode(ActionEvent actionEvent) {}
 
-  public void goToMain(ActionEvent actionEvent) {}
+  public void goToMain(ActionEvent actionEvent) {
+    try {
+      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 
   public void floorSelection(ActionEvent actionEvent) {}
 
-  public void startLocSlection(ActionEvent actionEvent) {}
+  public void startlocslection(ActionEvent actionEvent) {}
 
   public void endLocSelection(ActionEvent actionEvent) {}
 
