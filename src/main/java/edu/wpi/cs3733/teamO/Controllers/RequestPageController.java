@@ -30,8 +30,9 @@ public class RequestPageController implements Initializable {
   }
 
   /**
-   * below are all on action methods for the buttons on the request page
-   * it uses the goToRequest helper and then leads to the specific form
+   * below are all on action methods for the buttons on the request page it uses the goToRequest
+   * helper and then leads to the specific form
+   *
    * @param actionEvent
    */
   public void goToComputerReq(ActionEvent actionEvent) {
@@ -47,7 +48,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToLaundryReq(ActionEvent actionEvent) {
-    goToRequestForm("/Views/RequestPage.fxml");
+    goToRequestForm("/Views/LaundryRequest.fxml");
   }
 
   public void goToGiftReq(ActionEvent actionEvent) {
@@ -59,7 +60,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToMaintenance(ActionEvent actionEvent) {
-    goToRequestForm("/Views/RequestPage.fxml");
+    goToRequestForm("/Views/FacilitiesMaintenanceRequest.fxml");
   }
 
   public void goToMedicineReq(ActionEvent actionEvent) {

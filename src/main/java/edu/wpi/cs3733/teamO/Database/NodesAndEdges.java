@@ -246,7 +246,8 @@ public class NodesAndEdges {
     try {
       PreparedStatement pstmt = null;
       pstmt =
-          DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
       ResultSet rset = pstmt.executeQuery();
 
       // add properties to the node
