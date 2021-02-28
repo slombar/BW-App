@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.RequestPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="937.0" prefWidth="1604.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.RequestPageController">
    <top>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #cfe2f3ff;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="1791.0" style="-fx-background-color: #cfe2f3ff;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Service Requests" textAlignment="CENTER">
                <font>
@@ -30,8 +33,165 @@
                <VBox.margin>
                   <Insets bottom="25.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Georgia" size="22.0" />
+               </font>
             </JFXButton>
-            <JFXComboBox fx:id="requestCombo" onAction="#newRequest" promptText="Submit a Service Request" />
+            <GridPane alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="250.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="250.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="250.0" vgrow="NEVER" />
+              </rowConstraints>
+               <children>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToComputerReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Computer Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToComputerReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToFloralReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Floral Delivery" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToFloralReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToLanguageReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Language Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToLanguageReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToLaundryReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Laundry Service" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToLaundryReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToGiftReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Gift Delivery" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToGiftReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToTransportReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Internal Transport" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToTransportReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToMaintenance" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Maintenance" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToMaintenance" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToMedicineReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Medicine Delivery" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToMedicineReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToLaundryReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Laundry" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToLaundryReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToSecurityReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Security" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToSecurityReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToSanitationReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Sanitation Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToSanitationReq" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="More coming soon..." textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Georgia Bold" size="22.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="50.0" left="150.0" right="150.0" />
+               </VBox.margin>
+            </GridPane>
          </children>
       </VBox>
    </center>

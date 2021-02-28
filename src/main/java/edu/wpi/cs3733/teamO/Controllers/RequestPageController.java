@@ -1,51 +1,19 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
-import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 public class RequestPageController implements Initializable {
-  @FXML private JFXComboBox<String> requestCombo;
-
-  ObservableList<String> listOfRequests =
-      FXCollections.observableArrayList("Computer Service", "Laundry", "Maintenance", "Security");
-
   @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
-    requestCombo.setItems(listOfRequests);
-  }
+  public void initialize(URL url, ResourceBundle resourceBundle) {}
 
   public void goToCheckReq(ActionEvent actionEvent) {}
-
-  /**
-   * method that checks the selection in teh drop down, if selected, should lead to that specific
-   * form
-   *
-   * @param actionEvent
-   */
-  public void newRequest(ActionEvent actionEvent) {
-    if (requestCombo.getValue().equals("Computer Service")) {
-      goToRequestForm("/Views/ComputerServiceRequest.fxml");
-    }
-    //    else if (requestCombo.getValue().equals("Laundry")) {
-    //      goToRequestForm("/Views/ComputerServiceRequest.fxml");
-    //    }
-    //    else if (requestCombo.getValue().equals("Maintenance")) {
-    //      goToRequestForm("/Views/ComputerServiceRequest.fxml");
-    //    }
-    //    else if (requestCombo.getValue().equals("Security")) {
-    //      goToRequestForm("/Views/ComputerServiceRequest.fxml");
-    //    }
-  }
 
   /**
    * helper method that changes the scene to the form
@@ -59,5 +27,50 @@ public class RequestPageController implements Initializable {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+  }
+
+  /**
+   * below are all on action methods for teh buttons on teh request page
+   * it uses the goToRequest helper and then leads to the specific form
+   * @param actionEvent
+   */
+  public void goToComputerReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/ComputerServiceRequest.fxml");
+  }
+
+  public void goToFloralReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToLanguageReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToLaundryReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToGiftReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToTransportReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToMaintenance(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToMedicineReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToSecurityReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
+  }
+
+  public void goToSanitationReq(ActionEvent actionEvent) {
+    goToRequestForm("/Views/RequestPage.fxml");
   }
 }
