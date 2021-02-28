@@ -10,8 +10,8 @@ public class UserHandling {
   private static String username;
 
   /**
-   * Create new account and add info to the database
-   * password is encrypted through Encryptor from SAM
+   * Create new account and add info to the database password is encrypted through Encryptor from
+   * SAM
    *
    * @param username
    * @param password
