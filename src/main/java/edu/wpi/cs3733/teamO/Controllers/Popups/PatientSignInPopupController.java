@@ -6,6 +6,7 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,12 +20,14 @@ public class PatientSignInPopupController {
   @FXML private JFXTextField user;
   @FXML private JFXPasswordField pass;
 
-  @FXML
+  /**
+   *attempts to sign in to a patient account
+   * @param actionEvent
+   */
   public void signIn(ActionEvent actionEvent) {
     String username = user.getText();
-    System.out.println(username);
     String password = pass.getText();
-    System.out.println(password);
+
     if (username.equals("") || password.equals("")) {
       PopupMaker.incompletePopup(popupPane);
     } else {
@@ -36,8 +39,7 @@ public class PatientSignInPopupController {
         } catch (IOException ex) {
           ex.printStackTrace();
         }
-      } catch (Exception e) {
-        e.printStackTrace();
+      } catch (SQLException e) {
         PopupMaker.invalidLogin(popupPane);
       }
     }
@@ -52,6 +54,10 @@ public class PatientSignInPopupController {
     }
   }
 
+  /**
+   * goes to the create patient account page
+   * @param actionEvent
+   */
   public void createAccount(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/Views/CreateAccount.fxml"));

@@ -74,7 +74,7 @@ public class UserHandling {
    * @param p
    * @return null if login is bad, User with all info from DB if good
    */
-  public static void login(String u, String p) {
+  public static void login(String u, String p) throws SQLException {
     setUsername(username);
 
     String encodedPass = null;
@@ -101,9 +101,9 @@ public class UserHandling {
 
       pstmt.close();
 
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
+    } catch (SQLException throwable) {
       System.out.println("Login Credentials Wrong. Fail.");
+      throw throwable;
     }
   }
 
