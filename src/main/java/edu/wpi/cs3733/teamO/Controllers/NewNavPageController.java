@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -40,7 +41,11 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton pathfindBtn;
 
   ObservableList<String> listOfFloors =
-      FXCollections.observableArrayList("Ground", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+      FXCollections.observableArrayList(
+          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+
+  public static Image campusMap = new Image("FaulknerCampus.png");
+  public static Image floor2Map = new Image("Faulkner2_Updated.png");
 
   public NewNavPageController() {}
 
@@ -133,7 +138,17 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  public void floorSelection(ActionEvent actionEvent) {}
+  public void floorSelection(ActionEvent actionEvent) {
+    String floorSelected = floorSelectionBtn.getValue();
+
+    // System.out.println(floorSelected);
+
+    if (floorSelected.equals("Campus")) {
+      imageView.setImage(campusMap);
+    } else if (floorSelected.equals("Floor 2")) {
+      imageView.setImage(floor2Map);
+    }
+  }
 
   public void endLocSelection(ActionEvent actionEvent) {}
 
