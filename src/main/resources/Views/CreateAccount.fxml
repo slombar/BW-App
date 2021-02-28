@@ -51,9 +51,9 @@
             </JFXButton>
             <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
             <JFXPasswordField fx:id="password" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <JFXTextField fx:id="email" maxWidth="300.0" promptText="Username" text="Email" GridPane.rowIndex="3" />
-            <JFXTextField fx:id="fName" maxWidth="300.0" promptText="Username" text="First Name" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="lName" maxWidth="300.0" promptText="Username" text="Last Name" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="email" maxWidth="300.0" promptText="Email" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="fName" maxWidth="300.0" promptText="First Name" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="lName" maxWidth="300.0" promptText="Last Name" GridPane.rowIndex="2" />
             <GridPane>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
