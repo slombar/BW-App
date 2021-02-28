@@ -30,7 +30,7 @@ public class RequestPageController implements Initializable {
   }
 
   /**
-   * below are all on action methods for teh buttons on teh request page
+   * below are all on action methods for the buttons on the request page
    * it uses the goToRequest helper and then leads to the specific form
    * @param actionEvent
    */
