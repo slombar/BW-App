@@ -78,6 +78,7 @@
                   <Insets bottom="15.0" />
                </GridPane.margin>
             </Label>
+            <JFXButton onAction="#tempBTN" ripplerFill="WHITE" text="TEMPBTN: go to staff main page" textFill="#65eb27" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </center>
