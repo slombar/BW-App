@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
-import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class MainPageController implements Initializable {
@@ -51,6 +50,7 @@ public class MainPageController implements Initializable {
     hoverAllBtn();
   }
 
+  /** hovering over the button will make the buttons darker */
   public void hoverAllBtn() {
     Effects.hoverEffect(navBtn);
     Effects.hoverEffect(giftsBtn);
@@ -58,13 +58,13 @@ public class MainPageController implements Initializable {
     Effects.hoverEffect(parkingBtn);
   }
 
+  /**
+   * navigates to the pathfinding screen
+   *
+   * @param actionEvent
+   */
   public void goToNav(ActionEvent actionEvent) {
-    try {
-      GridPane root = FXMLLoader.load(getClass().getResource("/Views/NewNavPage.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    SwitchScene.goToGridPane("/Views/NewNavPage.fxml");
   }
 
   public void goToGifts(ActionEvent actionEvent) {}
