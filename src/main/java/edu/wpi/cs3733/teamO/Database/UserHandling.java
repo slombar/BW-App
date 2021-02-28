@@ -107,7 +107,7 @@ public class UserHandling {
     }
   }
 
-  public static void loginEmployee(String username, String password){
+  public static void loginEmployee(String username, String password) throws SQLException {
     setUsername(username);
 
     String encodedPass = null;
@@ -137,6 +137,7 @@ public class UserHandling {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
       System.out.println("Login Credentials Wrong. Fail.");
+      throw throwables;
     }
   }
 
