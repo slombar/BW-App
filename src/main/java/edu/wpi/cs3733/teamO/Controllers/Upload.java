@@ -33,4 +33,7 @@ public class Upload {
     // import data
     importExcelData(filepath, false);
   }
+
+    public void addRequest(ActionEvent actionEvent) {
+    }
 }
