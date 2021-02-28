@@ -1,18 +1,12 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
-import edu.wpi.cs3733.teamO.model.Node;
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
-import edu.wpi.cs3733.teamO.GraphSystem.GraphSystem;
-import edu.wpi.cs3733.teamO.GraphSystem.Pathfinding;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +24,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 
@@ -58,32 +51,16 @@ public class IndexController implements Initializable {
   @FXML private JFXButton resetButton;
   @FXML private StackPane sharePane;
 
-  // @FXML private Button edgeEditorButton; are these suposed to look like this or what they are
-  // now?
-
-  String loc = "-1";
-  String dest = "-1";
-  boolean selectingLoc = true;
-  // Graph testGraph;
-  // these variables show which of the three locations/destinations respectively is currently being
-  // tracked
   public ImageView mapimage;
-  // the campus image is 2989 x 2457
   public Canvas mapcanvas;
   public JFXButton saveBtn;
   public AnchorPane mapanchor;
-  private ObservableList<Node> nodeList = FXCollections.observableArrayList();
-  private Hashtable<String, Circle> stringCircleHashtable;
-  private GraphicsContext gc;
-  double cW = 10.0;
 
   public static final Image bwLogo =
       new Image("Brigham_and_Womens_Hospital_logo.png", 116, 100, true, true);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    nodeList = NodesAndEdges.getAllNodes();
-    stringCircleHashtable = new Hashtable<>();
 
     //////////////////////////////////// SCALING//////////////////////////////////
 
@@ -100,10 +77,7 @@ public class IndexController implements Initializable {
 
     /////////////////////////////////////////////////////////////////////
 
-    gc = mapcanvas.getGraphicsContext2D();
-
     // draws circles on canvas
-    Pathfinding.drawNodeCircles(gc);
     customizeButtons();
     sharePane.toFront();
 
@@ -128,13 +102,8 @@ public class IndexController implements Initializable {
   }
 
   public void pathfindingPress(ActionEvent actionEvent) {
-    // make new graph system and get the path
-    GraphSystem gs = new GraphSystem();
-    LinkedList<String> pathSTRING = gs.findPath(loc, dest);
+    // TODO: implement this
 
-    // then clear canvas and draw given path
-    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    Pathfinding.drawPath(pathSTRING);
   }
 
   private static final double arrowLength = 6;
@@ -256,32 +225,21 @@ public class IndexController implements Initializable {
     double clickX = mouseEvent.getX();
     double clickY = mouseEvent.getY();
     System.out.println("CANVAS CLICKING");
-    String closestID = Pathfinding.closestCircle(clickX, clickY);
-    // System.out.println(closestID); // for debugging
+    // TODO implement add
+  }
 
-    if (selectingLoc) {
-      loc = closestID;
-    } else {
-      dest = closestID;
+  /**
+   * test button to upload files to database using file explorer
+   *
+   * @param actionEvent
+   */
+  public void uploadPress(ActionEvent actionEvent) {
+    AnchorPane root = null;
+    try {
+      root = FXMLLoader.load(getClass().getResource("/Views/uploadFile.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
-    // clear canvas and redraw circles
-    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    Pathfinding.drawNodeCircles(gc);
-  }
-
-  public void locClick(ActionEvent actionEvent) {
-    selectingLoc = true;
-  }
-
-  public void destClick(ActionEvent actionEvent) {
-    selectingLoc = false;
-  }
-
-  public void resetClick(ActionEvent actionEvent) {
-    gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    loc = "-1";
-    dest = "-1";
-    Pathfinding.drawNodeCircles(gc);
   }
 }

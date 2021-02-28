@@ -1,21 +1,45 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import java.awt.*;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class DataHandling {
+
+  private Desktop desktop = Desktop.getDesktop();
+
+  /**
+   * Opens the explorer and sends back the chosen file path
+   *
+   * @param stage, the stage we are currently on
+   * @return
+   */
+  public static String explorer(Stage stage) {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Upload your file to the database.");
+    File file = fileChooser.showOpenDialog(stage);
+
+    String filePath = file.getAbsolutePath();
+
+    return filePath;
+  }
 
   /**
    * imports data from csv (delimiter = ,|\n) and determines which database to add it to
    *
-   * @param url, the url of the file on the computer
    * @param node, whether or not this file is a node file or an edge file
+   * @param url, the file will be grabbed when we open file explorer
    */
   public static void importExcelData(String url, boolean node) {
+
+    // Open file chooser instead of asking for user input
+
     Scanner scan = null;
     Pattern d = Pattern.compile(",|\r\n");
 
@@ -44,6 +68,7 @@ public class DataHandling {
         String longName = "";
         String shortName = "";
         String teamAssigned = "";
+        boolean visible = false;
 
         // delete current nodes
         PreparedStatement pstmt = null;
@@ -68,9 +93,19 @@ public class DataHandling {
           longName = scan.next();
           shortName = scan.next();
           teamAssigned = scan.next();
+          visible = scan.nextBoolean();
 
           NodesAndEdges.addNode(
-              nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned);
+              nodeID,
+              xcoord,
+              ycoord,
+              floor,
+              building,
+              nodeType,
+              longName,
+              shortName,
+              teamAssigned,
+              visible);
         }
         scan.close();
 
@@ -78,6 +113,7 @@ public class DataHandling {
         String nodeID = "";
         String startNode = "";
         String endNode = "";
+        double length = 0;
 
         // delete current nodes
         PreparedStatement pstmt = null;
@@ -97,11 +133,19 @@ public class DataHandling {
           nodeID = scan.next();
           startNode = scan.next();
           endNode = scan.next();
+          length = scan.nextDouble();
 
           System.out.println(
-              "nodeID:" + nodeID + "\nstartNode:" + startNode + "\nendNode:" + endNode);
+              "nodeID:"
+                  + nodeID
+                  + "\nstartNode:"
+                  + startNode
+                  + "\nendNode:"
+                  + endNode
+                  + "\nlength:"
+                  + length);
 
-          NodesAndEdges.addEdge(nodeID, startNode, endNode);
+          NodesAndEdges.addEdge(nodeID, startNode, endNode, length);
         }
       }
     } else {
@@ -128,6 +172,7 @@ public class DataHandling {
     String longName = "";
     String shortName = "";
     String teamAssigned = "";
+    boolean visible = false;
 
     // Process the results
 
@@ -154,10 +199,11 @@ public class DataHandling {
         longName = rset.getString("longName");
         shortName = rset.getString("shortName");
         teamAssigned = rset.getString("teamAssigned");
+        visible = rset.getBoolean("visible");
 
         String line =
             String.format(
-                "%s,%d,%d,%s,%s,%s,%s,%s,%s ",
+                "%s,%d,%d,%s,%s,%s,%s,%s,%s,%b ",
                 nodeID,
                 xcoord,
                 ycoord,
@@ -166,7 +212,8 @@ public class DataHandling {
                 nodeType,
                 longName,
                 shortName,
-                teamAssigned);
+                teamAssigned,
+                visible);
 
         // writes "enter", so we more to the next line
         bw.newLine();
@@ -189,6 +236,7 @@ public class DataHandling {
     String ID = "";
     String startNode = "";
     String endNode = "";
+    double length = 0;
 
     // Process the results
 
@@ -204,7 +252,8 @@ public class DataHandling {
         ID = rset.getString("nodeid");
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
-        String line = String.format("%s,%s,%s ", ID, startNode, endNode);
+        length = rset.getDouble("length");
+        String line = String.format("%s,%s,%s,%d ", ID, startNode, endNode, length);
         bw.newLine();
         bw.write(line);
       }

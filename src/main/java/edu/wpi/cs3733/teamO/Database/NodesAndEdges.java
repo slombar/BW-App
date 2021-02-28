@@ -30,7 +30,8 @@ public class NodesAndEdges {
       String nodeType,
       String longName,
       String shortName,
-      String teamAssigned) {
+      String teamAssigned,
+      boolean visible) {
     String query =
         "INSERT INTO Nodes VALUES("
             + "'"
@@ -64,6 +65,10 @@ public class NodesAndEdges {
             + "'"
             + teamAssigned
             + "'"
+            + ", "
+            + "'"
+            + visible
+            + "'"
             + ")";
     System.out.println(query);
 
@@ -85,7 +90,7 @@ public class NodesAndEdges {
    * @param startNode
    * @param endNode
    */
-  public static void addEdge(String nodeID, String startNode, String endNode) {
+  public static void addEdge(String nodeID, String startNode, String endNode, double length) {
     String query =
         "INSERT INTO Edges VALUES("
             + "'"
@@ -98,12 +103,14 @@ public class NodesAndEdges {
             + ", "
             + "'"
             + endNode
-            + "'"
+            + "', "
+            + length
             + ")";
     System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -135,6 +142,7 @@ public class NodesAndEdges {
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -157,7 +165,8 @@ public class NodesAndEdges {
       String nodeType,
       String longName,
       String shortName,
-      String team) {
+      String team,
+      boolean visible) {
     String query =
         "UPDATE Nodes SET xcoord = "
             + x
@@ -175,6 +184,8 @@ public class NodesAndEdges {
             + shortName
             + "', teamAssigned = '"
             + team
+            + "', visible = '"
+            + visible
             + "' WHERE nodeID = '"
             + nodeID
             + "'";
@@ -197,13 +208,15 @@ public class NodesAndEdges {
    *
    * @param nodeID
    */
-  public static void editEdge(String nodeID, String startNode, String endNode) {
+  public static void editEdge(String nodeID, String startNode, String endNode, double length) {
 
     String query =
         "UPDATE Edges SET startNode = '"
             + startNode
             + "', endNode = '"
             + endNode
+            + "', length = '"
+            + length
             + "' WHERE nodeID = '"
             + nodeID
             + "'";
@@ -222,54 +235,91 @@ public class NodesAndEdges {
   }
 
   /**
-   * Previously showEdges()
+   * Gets a specific node from the DB based on the given ID
    *
+   * @param id of the Node you want
    * @return
    */
-  public static ObservableList<Edge> getAllEdges() {
-    ObservableList<Edge> edgeList = FXCollections.observableArrayList();
+  public static Node getNode(String id) {
+    Node n = new Node();
+
     try {
       PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Edges");
+      pstmt =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
       ResultSet rset = pstmt.executeQuery();
 
-      String ID = "";
-      String startNode = "";
-      String endNode = "";
-
-      // Process the results
-      while (rset.next()) {
-        ID = rset.getString("nodeID");
-        startNode = rset.getString("startNode");
-        endNode = rset.getString("endNode");
-
-        // update to add edge length
-        edgeList.add(new Edge(ID, startNode, endNode, 0));
-      }
+      // add properties to the node
+      n.setID(rset.getString("nodeID"));
+      n.setBuilding(rset.getString("building"));
+      n.setFloor(rset.getString("floor"));
+      n.setShortName(rset.getString("shortName"));
+      n.setLongName(rset.getString("longName"));
+      n.setNodeType(rset.getString("nodeType"));
+      n.setXCoord(rset.getInt("xcoord"));
+      n.setYCoord(rset.getInt("ycoord"));
+      n.setTeam(rset.getString("teamAssigned"));
+      n.setVisible(rset.getBoolean("visible"));
 
       rset.close();
       pstmt.close();
 
-    } catch (SQLException e) {
-      System.out.println("Report Edge Information: Failed!");
-      e.printStackTrace();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
     }
-    return edgeList;
+
+    return n;
   }
 
   /**
-   * Previously showNodes()
+   * Retrieve an edge from the DB by sending the ID as a parameter
    *
+   * @param id of the node you want to snag from DB
    * @return
+   */
+  public static Edge getEdge(String id) {
+    Edge e = new Edge();
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
+      ResultSet rset = pstmt.executeQuery();
+
+      // add properties to the node
+      e.setID(rset.getString("nodeID"));
+      e.setStart(rset.getString("startNode"));
+      e.setID(rset.getString("endNode"));
+      e.setLength(rset.getDouble("length"));
+
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return e;
+  }
+
+  /**
+   * Displays all the nodes from the database
+   *
+   * @return ObservableList<Node> type, filled with nodes
    */
   public static ObservableList<Node> getAllNodes() {
     ObservableList<Node> nodeList = FXCollections.observableArrayList();
 
     try {
+      // statments to grab all node values from db
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes");
+      // returns results from DB
       ResultSet rset = pstmt.executeQuery();
 
+      // temp variables
       String ID = "";
       int xcoord = 0;
       int ycoord = 0;
@@ -279,9 +329,10 @@ public class NodesAndEdges {
       String longName = "";
       String shortName = "";
       String team = "";
+      boolean visible = false;
 
-      // Process the results
       while (rset.next()) {
+        // add data from result set of query to observable list for processing
         ID = rset.getString("nodeID");
         xcoord = rset.getInt("xcoord");
         ycoord = rset.getInt("ycoord");
@@ -291,9 +342,13 @@ public class NodesAndEdges {
         longName = rset.getString("longName");
         shortName = rset.getString("shortName");
         team = rset.getString("teamAssigned");
+        visible = rset.getBoolean("visible");
+        // add to observable list
         nodeList.add(
-            new Node(ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team));
+            new Node(
+                ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team, visible));
       }
+      // must close to get proper info from db
       rset.close();
       pstmt.close();
 
@@ -302,5 +357,46 @@ public class NodesAndEdges {
       e.printStackTrace();
     }
     return nodeList;
+  }
+
+  /**
+   * Returns all the edges from the database
+   *
+   * @return ObservableList<Edge> which contains all edges from DB
+   */
+  public static ObservableList<Edge> getAllEdges() {
+    ObservableList<Edge> edgeList = FXCollections.observableArrayList();
+    try {
+      // database statement to grab values
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Edges");
+      // returns the results from query
+      ResultSet rset = pstmt.executeQuery();
+
+      // temp variables for assignment
+      String ID = "";
+      String startNode = "";
+      String endNode = "";
+      double length = 0;
+
+      // grab everything from the result set and add to observable list for processing
+      while (rset.next()) {
+        ID = rset.getString("nodeID");
+        startNode = rset.getString("startNode");
+        endNode = rset.getString("endNode");
+        length = rset.getDouble("length");
+
+        edgeList.add(new Edge(ID, startNode, endNode, length));
+      }
+
+      // must close these for update to occur
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException e) {
+      System.out.println("Report Edge Information: Failed!");
+      e.printStackTrace();
+    }
+    return edgeList;
   }
 }

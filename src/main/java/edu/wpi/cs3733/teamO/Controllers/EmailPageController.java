@@ -1,16 +1,12 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSpinner;
-import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,41 +53,12 @@ public class EmailPageController implements Initializable {
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
-  public static boolean isValidEmail(String email) {
-    String emailRegex =
-        "^[a-zA-Z0-9_+&*-]+(?:\\."
-            + "[a-zA-Z0-9_+&*-]+)*@"
-            + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
-            + "A-Z]{2,7}$";
-
-    Pattern pat = Pattern.compile(emailRegex);
-    if (email == null) return false;
-    return pat.matcher(email).matches();
-  }
-
-  public static boolean isValidNum(String s) {
-    // The given argument to compile() method
-    // is regular expression. With the help of
-    // regular expression we can validate mobile
-    // number.
-    // 1) Begins with 0 or 91
-    // 2) Then contains 7 or 8 or 9.
-    // 3) Then contains 9 digits
-    Pattern p = Pattern.compile("(0/91)?[7-9][0-9]{9}");
-
-    // Pattern class contains matcher() method
-    // to find matching between given number
-    // and regular expression
-    Matcher m = p.matcher(s);
-    return (m.find() && m.group().equals(s));
-  }
-
   public void sendText(ActionEvent actionEvent) throws IOException {
 
     String phoneString = phoneNum.getText();
     System.out.println(phoneString);
 
-    if (isValidNum(phoneString)) {
+    if (RegexBoi.checkPhoneNum(phoneString)) {
 
       String home = System.getProperty("user.home");
       String outputFile = home + "/Downloads/" + "mapimg.png";
@@ -110,7 +77,7 @@ public class EmailPageController implements Initializable {
     String emailString = email.getText();
     System.out.println(emailString);
 
-    if (isValidEmail(emailString)) {
+    if (RegexBoi.checkEmail(emailString)) {
       String home = System.getProperty("user.home");
       String outputFile = home + "/Downloads/" + "mapimg.png";
 
