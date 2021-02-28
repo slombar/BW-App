@@ -1,14 +1,17 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import lombok.SneakyThrows;
 
 public class UserHandling {
 
   private static String username;
 
   /**
-   * Create new account and add info to the database
+   * Create new account and add info to the database password is encrypted through Encryptor from
+   * SAM
    *
    * @param username
    * @param password
@@ -16,10 +19,11 @@ public class UserHandling {
    * @param fName
    * @param lName
    */
+  @SneakyThrows
   public static void createAccount(
       String username, String password, String email, String fName, String lName) {
-    // TODO encode the password in iteration 3 (no time!)
-    String encodedPass = password;
+
+    String encodedPass = Encrypter.encryptPassword(password);
 
     String query =
         "INSERT INTO USERS VALUES("
@@ -65,8 +69,12 @@ public class UserHandling {
    * @param password
    * @return null if login is bad, User with all info from DB if good
    */
+  @SneakyThrows
   public static void login(String username, String password) {
     setUsername(username);
+
+    String encodedPass = Encrypter.encryptPassword(password);
+    password = encodedPass;
 
     String query =
         "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "'";
