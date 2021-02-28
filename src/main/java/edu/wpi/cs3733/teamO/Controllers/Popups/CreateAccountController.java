@@ -10,15 +10,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 
-public class PatientSignInPopupController {
+public class CreateAccountController {
 
   @FXML private JFXTextField username;
   @FXML private JFXPasswordField password;
+  @FXML private JFXTextField email;
+  @FXML private JFXTextField fName;
+  @FXML private JFXTextField lName;
 
-  @FXML
-  public void signIn(ActionEvent actionEvent) {
-    UserHandling.login(username.getText(), password.getText());
-
+  public void create(ActionEvent actionEvent) {
+    UserHandling.createAccount(
+        username.getText(), password.getText(), email.getText(), fName.getText(), lName.getText());
     try {
       GridPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
@@ -27,16 +29,5 @@ public class PatientSignInPopupController {
     }
   }
 
-  public void close(ActionEvent actionEvent) {
-    System.out.println("EASY");
-  }
-
-  public void createAccount(ActionEvent actionEvent) {
-    try {
-      GridPane root = FXMLLoader.load(getClass().getResource("/Views/CreateAccount.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
+  public void close(ActionEvent actionEvent) {}
 }
