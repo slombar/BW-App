@@ -11,6 +11,7 @@ public class SwitchScene {
 
   /**
    * switches teh scene to a scene made on a border pane
+   *
    * @param path to desired FXML file
    */
   public static void goToBorderPane(String path) {
@@ -24,6 +25,7 @@ public class SwitchScene {
 
   /**
    * switches teh scene to a scene made on a grid pane
+   *
    * @param path to desired FXML file
    */
   public static void goToGridPane(String path) {
@@ -37,6 +39,7 @@ public class SwitchScene {
 
   /**
    * switches teh scene to a scene made on a anchor pane
+   *
    * @param path to desired FXML file
    */
   public static void goToAnchorPane(String path) {
