@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
-import edu.wpi.cs3733.teamO.Opp;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -12,8 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -138,8 +135,6 @@ public class NewNavPageController implements Initializable {
 
   public void floorSelection(ActionEvent actionEvent) {}
 
-  public void startlocslection(ActionEvent actionEvent) {}
-
   public void endLocSelection(ActionEvent actionEvent) {}
 
   public void doPathfind(ActionEvent actionEvent) {}
@@ -149,4 +144,6 @@ public class NewNavPageController implements Initializable {
   public void canvasClick(MouseEvent mouseEvent) {
     System.out.println("Click");
   }
+
+  public void startLocSlection(ActionEvent actionEvent) {}
 }
