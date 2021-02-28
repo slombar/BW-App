@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -71,7 +70,6 @@ public class UserHandling {
    * @param password
    * @return null if login is bad, User with all info from DB if good
    */
-
   public static void login(String username, String password) {
     setUsername(username);
 
