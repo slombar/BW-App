@@ -1,13 +1,11 @@
 package edu.wpi.cs3733.teamO.Database;
 
-import edu.wpi.cs3733.teamO.UserTypes.User;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserHandling {
 
-  private String username;
+  private static String username;
 
   /**
    * Create new account and add info to the database
@@ -18,13 +16,13 @@ public class UserHandling {
    * @param fName
    * @param lName
    */
-  public void createAccount(
+  public static void createAccount(
       String username, String password, String email, String fName, String lName) {
     // TODO encode the password in iteration 3 (no time!)
     String encodedPass = password;
 
     String query =
-        "INSERT INTO Edges VALUES("
+        "INSERT INTO USERS VALUES("
             + "'"
             + username
             + "'"
@@ -41,7 +39,10 @@ public class UserHandling {
             + "', "
             + "'"
             + lName
-            + "'"
+            + "', "
+            + false
+            + ", "
+            + false
             + ")";
 
     System.out.println("CREATE ACCT QUERY: " + query);
@@ -64,39 +65,30 @@ public class UserHandling {
    * @param password
    * @return null if login is bad, User with all info from DB if good
    */
-  public User login(String username, String password) {
-    this.username = username;
-    User p = new User();
+  public static void login(String username, String password) {
+    setUsername(username);
 
     String query =
-        "SELECT * FROM Users WHERE username = '" + username + "' AND password = " + password;
+        "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "'";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-      ResultSet rset = pstmt.executeQuery();
-
-      // Add props to user
-      p.setUsername(rset.getString("username"));
-      p.setPassword(rset.getString("password"));
-      p.setEmail(rset.getString("email"));
-      p.setFirstName(rset.getString("fName"));
-      p.setLastName(rset.getString("lName"));
-
-      rset.close();
+      pstmt.execute();
       pstmt.close();
 
-      return p;
-
     } catch (SQLException throwables) {
-      throwables.printStackTrace();
       System.out.println("Login Credentials Wrong. Fail.");
-      return null;
+      throwables.printStackTrace();
     }
   }
 
   /** @return */
-  public String getUsername() {
+  public static String getUsername() {
     return username;
+  }
+
+  public static void setUsername(String u) {
+    username = u;
   }
 }

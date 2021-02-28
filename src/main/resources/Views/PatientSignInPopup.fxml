@@ -45,14 +45,14 @@
                   <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
                </image>
             </ImageView>
-            <JFXTextField fx:id="username1" maxWidth="300.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="user" maxWidth="300.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="Calibri Bold" size="14.0" />
                </font>
             </JFXButton>
             <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-            <JFXPasswordField fx:id="password1" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <JFXPasswordField fx:id="pass" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Text fill="#000000cd" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font name="Calibri Bold" size="14.0" />
