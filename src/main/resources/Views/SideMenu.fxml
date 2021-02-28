@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
@@ -10,15 +9,10 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuController">
+<VBox fx:id="sideVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuController">
    <children>
-      <HBox prefHeight="92.0" prefWidth="350.0" style="-fx-background-color: #f2f2f2;">
+      <HBox prefHeight="92.0" prefWidth="349.0" style="-fx-background-color: #f2f2f2;">
          <children>
-            <Circle fill="#cfe2f3" radius="27.0" stroke="BLACK" strokeType="INSIDE">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Circle>
             <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="156.0">
                <children>
                   <Label text="Name">
@@ -33,11 +27,18 @@
                   </Label>
                </children>
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets left="25.0" />
                </HBox.margin>
             </VBox>
-            <JFXHamburger fx:id="hamburgerSideBtn" onMouseClicked="#goToMainMenu" prefHeight="92.0" prefWidth="110.0" />
+            <Circle fill="#cfe2f3" radius="27.0" stroke="BLACK" strokeType="INSIDE">
+               <HBox.margin>
+                  <Insets left="90.0" top="20.0" />
+               </HBox.margin>
+            </Circle>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </HBox>
       <JFXButton text="Notifications">
          <font>
@@ -54,7 +55,7 @@
             <Font size="36.0" />
          </font>
       </JFXButton>
-      <Pane prefHeight="319.0" prefWidth="350.0" />
+      <Pane />
       <JFXButton text="Log Out">
          <font>
             <Font size="24.0" />
