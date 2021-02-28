@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -60,7 +61,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToComputerReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToComputerReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/computerServiceIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -71,7 +75,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToFloralReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToFloralReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/floralIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -82,7 +89,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToLanguageReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToLanguageReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/translateIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -93,7 +103,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToLaundryReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToLaundryReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/laundryIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -104,7 +117,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToGiftReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToGiftReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/giftDeliveryIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -115,7 +131,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToTransportReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToTransportReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/transportIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -126,7 +145,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToMaintenance" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToMaintenance" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/maintenanceIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -137,7 +159,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToMedicineReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToMedicineReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/medicineIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -148,7 +173,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToLaundryReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToLaundryReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/laundryIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -159,7 +187,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToSecurityReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToSecurityReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/securityIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -170,7 +201,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToSanitationReq" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToSanitationReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/sanitationIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
@@ -181,7 +215,10 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="125.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
+                           <image>
+                              <Image url="@../Icons/diningIconWhite.png" />
+                           </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Georgia Bold" size="22.0" />
