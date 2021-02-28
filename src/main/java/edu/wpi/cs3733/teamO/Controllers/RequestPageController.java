@@ -60,7 +60,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToMaintenance(ActionEvent actionEvent) {
-    goToRequestForm("/Views/ComputerServiceRequest.fxml");
+    goToRequestForm("/Views/FacilitiesMaintenanceRequest.fxml");
   }
 
   public void goToMedicineReq(ActionEvent actionEvent) {
