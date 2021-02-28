@@ -69,6 +69,7 @@ public class PopupMaker {
 
   /**
    * creates the popup for a patient to sign in
+   *
    * @param popupPane is the stack pane on which the popup needs to be made on
    */
   public static void patientSignInPopup(StackPane popupPane) {
@@ -84,12 +85,13 @@ public class PopupMaker {
       System.out.println("Could not find resource " + popupLayout);
     }
     JFXDialog patientSignInDialog =
-        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
+        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER, true);
     patientSignInDialog.setOverlayClose(false);
     patientSignInDialog.show();
   }
   /**
    * creates the popup for an employee to sign in
+   *
    * @param popupPane is the stack pane on which the popup needs to be made on
    */
   public static void employeeSignInPopup(StackPane popupPane) {
@@ -97,8 +99,8 @@ public class PopupMaker {
     JFXDialogLayout signInLayout = new JFXDialogLayout();
     signInLayout.setStyle("-fx-background-color: #F2F2F2");
     String popupLayout = "/Views/EmployeeSignInPopup.fxml";
-    //TODO make this file!
-    try{
+    // TODO make this file!
+    try {
       GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
       signInLayout.setBody(root);
     } catch (Exception e) {
@@ -106,9 +108,8 @@ public class PopupMaker {
       System.out.println("Could not find resource " + popupLayout);
     }
     JFXDialog employeeSignInDialog =
-            new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
+        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
     employeeSignInDialog.setOverlayClose(true);
     employeeSignInDialog.show();
   }
-
 }
