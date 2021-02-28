@@ -27,26 +27,29 @@ public class RequestPageController implements Initializable {
   public void goToCheckReq(ActionEvent actionEvent) {}
 
   /**
-   * method that checks the selection in teh drop down, if selected, should lead to that specific form
+   * method that checks the selection in teh drop down, if selected, should lead to that specific
+   * form
+   *
    * @param actionEvent
    */
   public void newRequest(ActionEvent actionEvent) {
     if (requestCombo.getValue().equals("Computer Service")) {
       goToRequestForm("/Views/ComputerServiceRequest.fxml");
     }
-//    else if (requestCombo.getValue().equals("Laundry")) {
-//      goToRequestForm("/Views/ComputerServiceRequest.fxml");
-//    }
-//    else if (requestCombo.getValue().equals("Maintenance")) {
-//      goToRequestForm("/Views/ComputerServiceRequest.fxml");
-//    }
-//    else if (requestCombo.getValue().equals("Security")) {
-//      goToRequestForm("/Views/ComputerServiceRequest.fxml");
-//    }
+    //    else if (requestCombo.getValue().equals("Laundry")) {
+    //      goToRequestForm("/Views/ComputerServiceRequest.fxml");
+    //    }
+    //    else if (requestCombo.getValue().equals("Maintenance")) {
+    //      goToRequestForm("/Views/ComputerServiceRequest.fxml");
+    //    }
+    //    else if (requestCombo.getValue().equals("Security")) {
+    //      goToRequestForm("/Views/ComputerServiceRequest.fxml");
+    //    }
   }
 
   /**
    * helper method that changes the scene to the form
+   *
    * @param path is the path of the desired fxml
    */
   private void goToRequestForm(String path) {
