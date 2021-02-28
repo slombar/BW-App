@@ -25,7 +25,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
     // Closes the popup
     closeButton.setOnAction(
@@ -53,7 +53,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
@@ -65,19 +65,24 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify that the login failed due to the username or password being incorrect
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void invalidLogin(StackPane popupPane) {
     popupPane.toFront();
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
-    warning.setHeading(new Text("WARNING!"));
+    warning.setHeading(new Text("Login Failed"));
     warning.setBody(new Text("Incorrect Username or passowrd"));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
@@ -89,6 +94,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user of invalid username or email and why this may be
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void invalidUsername(StackPane popupPane) {
     popupPane.toFront();
 
@@ -97,17 +107,41 @@ public class PopupMaker {
     warning.setHeading(new Text("Invalid Username"));
     warning.setBody(
         new Text(
-            "1. Username consists of alphanumeric characters (a-zA-Z0-9), lowercase, or uppercase. 2.\n"
-                + "   * Username allowed of the dot (.), underscore (_), and hyphen (-). 3. The dot (.), underscore\n"
-                + "   * (_), or hyphen (-) must not be the first or last character. 4. The dot (.), underscore (_), or\n"
-                + "   * hyphen (-) does not appear consecutively, e.g., java..regex 5. The number of characters must be\n"
-                + "   * between 3 to 20."));
+            "1. Username consists of only alphanumeric characters\n"
+                + "2. Username is allowed to use dot (.), underscore (_), and hyphen (-)\n"
+                + "3. The dot (.), underscore(_), or hyphen (-) may not be the first or last character\n"
+                + "4. The dot (.), underscore(_), or hyphen (-) may not be consecutive\n"
+                + "5. Username must be between 3 and 20 characters\n"));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
+  public static void invalidEmail(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Username"));
+    warning.setBody(new Text("Please ensure that email is typed correctly"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
