@@ -8,21 +8,21 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.GridPane;
+import javafx.scene.Parent;
 
 public class CreateAccountController {
 
-  @FXML private JFXTextField username;
-  @FXML private JFXPasswordField password;
+  @FXML private JFXTextField user;
+  @FXML private JFXPasswordField pass;
   @FXML private JFXTextField email;
   @FXML private JFXTextField fName;
   @FXML private JFXTextField lName;
 
   public void create(ActionEvent actionEvent) {
     UserHandling.createAccount(
-        username.getText(), password.getText(), email.getText(), fName.getText(), lName.getText());
+        user.getText(), pass.getText(), email.getText(), fName.getText(), lName.getText());
     try {
-      GridPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();

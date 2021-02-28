@@ -16,9 +16,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
 
+  @FXML private Circle staffBtn;
+  @FXML private Circle patientBtn;
+  @FXML private Circle adminBtn;
   @FXML private BorderPane borderPane;
   @FXML private StackPane loginPane;
 
@@ -72,5 +76,29 @@ public class LoginController implements Initializable {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public void hoverAdmin(MouseEvent mouseEvent) {
+    adminBtn.setRadius(135);
+  }
+
+  public void hoverStaff(MouseEvent mouseEvent) {
+    staffBtn.setRadius(135);
+  }
+
+  public void hoverPatient(MouseEvent mouseEvent) {
+    patientBtn.setRadius(135);
+  }
+
+  public void unhoverAdmin(MouseEvent mouseEvent) {
+    adminBtn.setRadius(125);
+  }
+
+  public void unhoverStaff(MouseEvent mouseEvent) {
+    staffBtn.setRadius(125);
+  }
+
+  public void unhoverPatient(MouseEvent mouseEvent) {
+    patientBtn.setRadius(125);
   }
 }

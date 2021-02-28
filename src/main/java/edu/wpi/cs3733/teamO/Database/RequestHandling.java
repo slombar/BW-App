@@ -19,7 +19,7 @@ public class RequestHandling {
       String customParameter2,
       String customParameter3) {
     String query =
-        "INSERT INTO ServiceRequests VALUES("
+        "INSERT INTO REQUESTS VALUES("
             + "'"
             + requestedBy
             + "'"
