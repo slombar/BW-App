@@ -1,31 +1,22 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
 import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class PopupMaker {
-  /**
-   * this is a test popup that says it is a test; used for testing
-   *
-   * @param popupPane is the stack pane on which the popup needs to be made on
-   */
-  public static void testPopup(StackPane popupPane) {
-    JFXDialogLayout testLayout = new JFXDialogLayout();
-    testLayout.setHeading(new Text("Test Heading"));
-    testLayout.setBody(new Text("Test Body"));
-    JFXButton closeButton = new JFXButton("Close");
-    testLayout.setActions(closeButton); // sets it to be at bottom
-    JFXDialog testDialog =
-        new JFXDialog(popupPane, testLayout, JFXDialog.DialogTransition.BOTTOM, true);
-    closeButton.setOnAction(
-        event -> {
-          testDialog.close();
-          popupPane.toBack();
-        });
-    popupPane.toFront();
-    testDialog.show();
-  }
+
+  @FXML private JFXTextField patientUsername;
+  @FXML private JFXButton signInButton;
+  @FXML private JFXPasswordField patientPassword;
+  @FXML private JFXButton closeButton;
+
+
+  // TODO: handle stopping multiple popups
 
   /**
    * Creates a warning popup for an incomplete form
@@ -44,7 +35,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
     warningDialog.setOverlayClose(false);
     // Closes the popup
     closeButton.setOnAction(
@@ -72,7 +63,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
     warningDialog.setOverlayClose(false);
 
     // Closes the popup
@@ -82,5 +73,25 @@ public class PopupMaker {
           popupPane.toBack();
         });
     warningDialog.show();
+  }
+
+  public static void patientSignInPopup(StackPane popupPane) {
+    popupPane.toFront();
+    JFXDialogLayout signInLayout = new JFXDialogLayout();
+    signInLayout.setHeading(new Text("Sign In"));
+    String popupLayout = "/Views/SignInPopupLayout.fxml";
+
+    try {
+      GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
+      signInLayout.setBody(root);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Could not find resource " + popupLayout);
+    }
+    JFXDialog patientSignInDialog = new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
+  }
+
+  public void createNewPatientAccount(ActionEvent actionEvent) {
+    //TODO work with db to get this going
   }
 }
