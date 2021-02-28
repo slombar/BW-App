@@ -1,17 +1,18 @@
 package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import lombok.SneakyThrows;
 
 public class UserHandling {
 
   private static String username;
 
   /**
-   * Create new account and add info to the database
-   * password is encrypted through Encryptor from SAM
+   * Create new account and add info to the database password is encrypted through Encryptor from
+   * SAM
    *
    * @param username
    * @param password
@@ -19,11 +20,15 @@ public class UserHandling {
    * @param fName
    * @param lName
    */
-  @SneakyThrows
   public static void createAccount(
       String username, String password, String email, String fName, String lName) {
 
-    String encodedPass = Encrypter.encryptPassword(password);
+    String encodedPass = null;
+    try {
+      encodedPass = Encrypter.encryptPassword(password);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
 
     String query =
         "INSERT INTO USERS VALUES("
@@ -65,33 +70,76 @@ public class UserHandling {
   /**
    * Logs in the user utilizing DB
    *
-   * @param username
-   * @param password
+   * @param u
+   * @param p
    * @return null if login is bad, User with all info from DB if good
    */
-  @SneakyThrows
-  public static void login(String username, String password) {
+  public static void login(String u, String p) {
     setUsername(username);
 
-    String encodedPass = Encrypter.encryptPassword(password);
-    password = encodedPass;
+    String encodedPass = null;
+    try {
+      encodedPass = Encrypter.encryptPassword(p);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+    p = encodedPass;
 
-    String query =
-        "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "'";
+    String vu = "";
+    String vp = "";
+
+    String query = "SELECT * FROM USERS WHERE username = '" + u + "' AND password = '" + p + "'";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-      pstmt.execute();
+
+      ResultSet res = pstmt.executeQuery();
+
+      vu = res.getString("username");
+      vp = res.getString("password");
+
       pstmt.close();
 
     } catch (SQLException throwables) {
-      System.out.println("Login Credentials Wrong. Fail.");
       throwables.printStackTrace();
+      System.out.println("Login Credentials Wrong. Fail.");
     }
   }
 
-  /** @return */
+  public static void loginEmployee(String username, String password){
+    setUsername(username);
+
+    String encodedPass = null;
+    try {
+      encodedPass = Encrypter.encryptPassword(password);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+    password = encodedPass;
+
+    String vu = "";
+    String vp = "";
+
+    String query = "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "' AND = employee'" + true + "'" ;
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+      ResultSet res = pstmt.executeQuery();
+
+      vu = res.getString("username");
+      vp = res.getString("password");
+
+      pstmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      System.out.println("Login Credentials Wrong. Fail.");
+    }
+  }
+
   public static String getUsername() {
     return username;
   }

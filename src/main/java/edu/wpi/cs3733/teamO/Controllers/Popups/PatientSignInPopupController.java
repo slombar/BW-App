@@ -3,38 +3,58 @@ package edu.wpi.cs3733.teamO.Controllers.Popups;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 public class PatientSignInPopupController {
 
+  @FXML private StackPane popupPane;
   @FXML private JFXTextField user;
   @FXML private JFXPasswordField pass;
 
   @FXML
   public void signIn(ActionEvent actionEvent) {
-    UserHandling.login(user.getText(), pass.getText());
+    String username = user.getText();
+    System.out.println(username);
+    String password = pass.getText();
+    System.out.println(password);
+    if (username.equals("") || password.equals("")) {
+      PopupMaker.incompletePopup(popupPane);
+    } else {
+      try {
+        UserHandling.login(username, password);
+        try {
+          BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+          Opp.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+        PopupMaker.invalidLogin(popupPane);
+      }
+    }
+  }
 
+  public void close(ActionEvent actionEvent) {
     try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
     }
   }
 
-  public void close(ActionEvent actionEvent) {
-    System.out.println("EASY");
-  }
-
   public void createAccount(ActionEvent actionEvent) {
     try {
-      GridPane root = FXMLLoader.load(getClass().getResource("/Views/CreateAccount.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/Views/CreateAccount.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
