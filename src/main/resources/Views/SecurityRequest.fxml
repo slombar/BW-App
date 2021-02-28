@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ComputerServiceController">
+   <top>
+      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text=" Security Request" textFill="WHITE">
+               <font>
+                  <Font name="Georgia Bold" size="55.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="100.0" top="100.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox prefHeight="148.0" prefWidth="605.0" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Location" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font></JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Date" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXDatePicker defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Summary" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextArea prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                  </JFXTextArea>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="100.0" text="Threat" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="100.0" text="Urgency" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXSlider blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" prefWidth="250.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="155.0" text="Armed Security" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXCheckBox checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="195.0" text=" " textFill="WHITE" unCheckedColor="WHITE" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXButton style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="100.0" left="100.0" right="100.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
