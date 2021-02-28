@@ -60,4 +60,13 @@ public class LoginController implements Initializable {
     RequestHandling.addRequest(
         staff, staff, date, date, random, random, random, random, random, random);
   }
+
+  public void tempBTN(ActionEvent actionEvent) {
+    try {
+      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/StaffMainPage.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 }

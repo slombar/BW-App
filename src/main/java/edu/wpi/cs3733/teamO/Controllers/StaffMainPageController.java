@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -58,5 +59,12 @@ public class StaffMainPageController implements Initializable {
 
   public void goToParking(ActionEvent actionEvent) {}
 
-  public void goToRequest(ActionEvent actionEvent) {}
+  public void goToRequest(ActionEvent actionEvent) {
+    try {
+      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/RequestPage.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 }
