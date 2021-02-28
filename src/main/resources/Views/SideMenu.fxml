@@ -56,7 +56,7 @@
          </font>
       </JFXButton>
       <Pane />
-      <JFXButton text="Log Out">
+      <JFXButton fx:id="logout" onAction="#goToLogin" text="Log Out">
          <font>
             <Font size="24.0" />
          </font>

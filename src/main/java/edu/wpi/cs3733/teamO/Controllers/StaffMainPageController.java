@@ -3,11 +3,10 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import edu.wpi.cs3733.teamO.Opp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,19 +46,17 @@ public class StaffMainPageController implements Initializable {
   }
 
   public void goToNav(ActionEvent actionEvent) {
-      try {
-          GridPane root = FXMLLoader.load(getClass().getResource("/Views/NewNavPage.fxml"));
-          Opp.getPrimaryStage().getScene().setRoot(root);
-      } catch (IOException ex) {
-          ex.printStackTrace();
-      }
+    try {
+      GridPane root = FXMLLoader.load(getClass().getResource("/Views/NewNavPage.fxml"));
+      Opp.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
   }
 
   public void goToCovid(ActionEvent actionEvent) {}
 
   public void goToParking(ActionEvent actionEvent) {}
 
-    public void goToRequest(ActionEvent actionEvent) {
-
-    }
+  public void goToRequest(ActionEvent actionEvent) {}
 }
