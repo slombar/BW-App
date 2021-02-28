@@ -46,7 +46,7 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </GridPane.margin>
                             <graphic>
-                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
+                                <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#goToRequest" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
                                     <image>
                                         <Image url="@../Icons/requestIconWhite.png" />
                                     </image></ImageView>

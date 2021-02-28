@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
 import com.jfoenix.controls.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
@@ -68,48 +66,60 @@ public class PopupMaker {
   }
 
   /**
-   * creates the popup for a patient to sign in
+   * Creates a popup to notify that the login failed due to the username or password being incorrect
    *
    * @param popupPane is the stack pane on which the popup needs to be made on
    */
-  public static void patientSignInPopup(StackPane popupPane) {
+  public static void invalidLogin(StackPane popupPane) {
     popupPane.toFront();
-    JFXDialogLayout signInLayout = new JFXDialogLayout();
-    signInLayout.setStyle("-fx-background-color: #F2F2F2");
-    String popupLayout = "/Views/PatientSignInPopup.fxml";
-    try {
-      GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
-      signInLayout.setBody(root);
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.out.println("Could not find resource " + popupLayout);
-    }
-    JFXDialog patientSignInDialog =
-        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER, true);
-    patientSignInDialog.setOverlayClose(false);
-    patientSignInDialog.show();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Login Failed"));
+    warning.setBody(new Text("Incorrect Username or passowrd"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
   }
-  /**
-   * creates the popup for an employee to sign in
-   *
-   * @param popupPane is the stack pane on which the popup needs to be made on
-   */
-  public static void employeeSignInPopup(StackPane popupPane) {
+
+  public static void invalidUsername(StackPane popupPane) {
     popupPane.toFront();
-    JFXDialogLayout signInLayout = new JFXDialogLayout();
-    signInLayout.setStyle("-fx-background-color: #F2F2F2");
-    String popupLayout = "/Views/EmployeeSignInPopup.fxml";
-    // TODO make this file!
-    try {
-      GridPane root = FXMLLoader.load(PopupMaker.class.getResource(popupLayout));
-      signInLayout.setBody(root);
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.out.println("Could not find resource " + popupLayout);
-    }
-    JFXDialog employeeSignInDialog =
-        new JFXDialog(popupPane, signInLayout, JFXDialog.DialogTransition.CENTER);
-    employeeSignInDialog.setOverlayClose(true);
-    employeeSignInDialog.show();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Username or Email"));
+    warning.setBody(new Text("1. Username consists of only alphanumeric characters\n" +
+            "2. Username is allowed to use dot (.), underscore (_), and hyphen (-)\n" +
+            "3. The dot (.), underscore(_), or hyphen (-) may not be the first or last character\n" +
+            "4. The dot (.), underscore(_), or hyphen (-) may not be consecutive\n" +
+            "5. Username must be between 3 and 20 characters\n" +
+            "\nCheck that email is typed correctly"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.BOTTOM, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
   }
 }
