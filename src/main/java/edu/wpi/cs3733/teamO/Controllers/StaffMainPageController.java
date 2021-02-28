@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -75,7 +76,7 @@ public class StaffMainPageController implements Initializable {
 
   public void goToRequest(ActionEvent actionEvent) {
     try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/RequestPage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/Views/RequestPage.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();

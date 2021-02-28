@@ -6,6 +6,8 @@ import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import edu.wpi.cs3733.teamO.SRequest.DisplayRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,7 +73,10 @@ public class RequestPageController implements Initializable {
    * @param actionEvent
    */
   public void goToComputerReq(ActionEvent actionEvent) {
+
     goToRequestForm("/Views/ComputerServiceRequest.fxml");
+    RequestDisplayController.setType("COMP");
+    RequestDisplayController.displayList();
   }
 
   public void goToFloralReq(ActionEvent actionEvent) {
