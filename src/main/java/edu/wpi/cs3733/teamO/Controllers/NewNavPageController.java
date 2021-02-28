@@ -44,8 +44,12 @@ public class NewNavPageController implements Initializable {
       FXCollections.observableArrayList(
           "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
 
-  public static Image campusMap = new Image("FaulknerCampus.png");
+  public static Image campusMap = new Image("FaulknerCampus_Updated.png");
+  public static Image floor1Map = new Image("Faulkner1_Updated.png");
   public static Image floor2Map = new Image("Faulkner2_Updated.png");
+  public static Image floor3Map = new Image("Faulkner3_Updated.png");
+  public static Image floor4Map = new Image("Faulkner4_Updated.png");
+  public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
   public NewNavPageController() {}
 
@@ -110,9 +114,9 @@ public class NewNavPageController implements Initializable {
   //  }
 
   /**
-   * Create a resizable navigation map with editing features available for admin
+   * Creates a resizable GridPane with map image, menu buttons, etc.
    *
-   * @return grid pane
+   * @return GridPane
    */
   public GridPane resizableWindow() {
     imageView.setPreserveRatio(true);
@@ -143,10 +147,25 @@ public class NewNavPageController implements Initializable {
 
     // System.out.println(floorSelected);
 
-    if (floorSelected.equals("Campus")) {
-      imageView.setImage(campusMap);
-    } else if (floorSelected.equals("Floor 2")) {
-      imageView.setImage(floor2Map);
+    switch (floorSelected) {
+      case "Campus":
+        imageView.setImage(campusMap);
+        break;
+      case "Floor 1":
+        imageView.setImage(floor1Map);
+        break;
+      case "Floor 2":
+        imageView.setImage(floor2Map);
+        break;
+      case "Floor 3":
+        imageView.setImage(floor3Map);
+        break;
+      case "Floor 4":
+        imageView.setImage(floor4Map);
+        break;
+      case "Floor 5":
+        imageView.setImage(floor5Map);
+        break;
     }
   }
 
