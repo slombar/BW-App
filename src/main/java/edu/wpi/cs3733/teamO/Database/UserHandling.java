@@ -107,6 +107,39 @@ public class UserHandling {
     }
   }
 
+  public static void loginEmployee(String username, String password){
+    setUsername(username);
+
+    String encodedPass = null;
+    try {
+      encodedPass = Encrypter.encryptPassword(password);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+    password = encodedPass;
+
+    String vu = "";
+    String vp = "";
+
+    String query = "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "' AND = employee'" + true + "'" ;
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+      ResultSet res = pstmt.executeQuery();
+
+      vu = res.getString("username");
+      vp = res.getString("password");
+
+      pstmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      System.out.println("Login Credentials Wrong. Fail.");
+    }
+  }
+
   public static String getUsername() {
     return username;
   }
