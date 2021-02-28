@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
+
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import lombok.SneakyThrows;
@@ -69,11 +71,16 @@ public class UserHandling {
    * @param password
    * @return null if login is bad, User with all info from DB if good
    */
-  @SneakyThrows
+
   public static void login(String username, String password) {
     setUsername(username);
 
-    String encodedPass = Encrypter.encryptPassword(password);
+    String encodedPass = null;
+    try {
+      encodedPass = Encrypter.encryptPassword(password);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
     password = encodedPass;
 
     String query =
