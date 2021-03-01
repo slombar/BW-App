@@ -182,6 +182,15 @@ public class NewNavPageController implements Initializable {
     }
   }
 
+  public void autocompleteEditMap() {
+    //    nodelist
+    //    ArrayList<String> nodeIDColData = new ArrayList<>();
+    //    for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+    //      nodeIDColData.add(nodeIDCol.getCellData(i));
+    //    }
+    //    autoComplete(nodeIDColData, listOfFields.get(0));
+  }
+
   public void goToMain(ActionEvent actionEvent) {
     try {
       BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));

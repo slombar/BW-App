@@ -36,7 +36,7 @@ public class PatientSignInPopupController {
     } else {
       try {
         UserHandling.login(username, password);
-        SwitchScene.goToParent("/Views/MainPage.fxml");
+        SwitchScene.goToParent("/Views/CovidSurvey.fxml");
       } catch (SQLException e) {
         PopupMaker.invalidLogin(popupPane);
       }
