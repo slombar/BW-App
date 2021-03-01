@@ -85,11 +85,6 @@
    <top>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369ff;" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <JFXButton layoutX="191.0" layoutY="48.0" onAction="#sadie" text="SADIE'S TEST BUTTON " />
-               </children>
-            </AnchorPane>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
                   <ImageView fitHeight="120.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
