@@ -39,6 +39,10 @@ public class LoginController implements Initializable {
     SwitchScene.goToGridPane("/Views/PatientSignInPopup.fxml");
   }
 
+  public void goToStaffLogin(MouseEvent mouseEvent) {
+    SwitchScene.goToGridPane("/Views/StaffSignInPopup.fxml");
+  }
+
   /**
    * when the log in as guest button is pressed, the apllication goes directly to the main page
    *
@@ -53,7 +57,7 @@ public class LoginController implements Initializable {
     Staff staff = new Staff();
     Date date = new Date(2020, 10, 10);
     RequestHandling.addRequest(
-        staff, staff, date, date, random, random, random, random, random, random);
+        random, random, date, date, random, random, random, random, random, random);
   }
 
   public void tempBTN(ActionEvent actionEvent) {

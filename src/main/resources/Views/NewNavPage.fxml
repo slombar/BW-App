@@ -40,7 +40,7 @@
          <children>
             <Label text="Brigham &amp; Womens Hospital">
                <font>
-                  <Font name="Times New Roman" size="36.0" />
+                  <Font name="Leelawadee UI Bold" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets top="10.0" />

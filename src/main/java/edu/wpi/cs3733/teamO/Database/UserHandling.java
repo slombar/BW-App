@@ -32,23 +32,16 @@ public class UserHandling {
 
     String query =
         "INSERT INTO USERS VALUES("
-            + "'"
             + username
-            + "'"
             + ", "
-            + "'"
             + encodedPass
-            + "'"
             + ", "
-            + "'"
             + email
-            + "', "
-            + "'"
+            + ", "
             + fName
-            + "', "
-            + "'"
+            + ", "
             + lName
-            + "', "
+            + ", "
             + false
             + ", "
             + false
@@ -74,7 +67,7 @@ public class UserHandling {
    * @param p
    * @return null if login is bad, User with all info from DB if good
    */
-  public static void login(String u, String p) {
+  public static void login(String u, String p) throws SQLException {
     setUsername(username);
 
     String encodedPass = null;
@@ -88,7 +81,7 @@ public class UserHandling {
     String vu = "";
     String vp = "";
 
-    String query = "SELECT * FROM USERS WHERE username = '" + u + "' AND password = '" + p + "'";
+    String query = "SELECT * FROM USERS WHERE username = " + u + " AND password = " + p;
 
     try {
       PreparedStatement pstmt = null;
@@ -101,13 +94,13 @@ public class UserHandling {
 
       pstmt.close();
 
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
+    } catch (SQLException throwable) {
       System.out.println("Login Credentials Wrong. Fail.");
+      throw throwable;
     }
   }
 
-  public static void loginEmployee(String username, String password){
+  public static void loginEmployee(String username, String password) throws SQLException {
     setUsername(username);
 
     String encodedPass = null;
@@ -121,7 +114,13 @@ public class UserHandling {
     String vu = "";
     String vp = "";
 
-    String query = "SELECT * FROM USERS WHERE username = '" + username + "' AND password = '" + password + "' AND = employee'" + true + "'" ;
+    String query =
+        "SELECT * FROM USERS WHERE username = "
+            + username
+            + " AND password = "
+            + password
+            + " AND = employee"
+            + true;
 
     try {
       PreparedStatement pstmt = null;
@@ -137,6 +136,7 @@ public class UserHandling {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
       System.out.println("Login Credentials Wrong. Fail.");
+      throw throwables;
     }
   }
 

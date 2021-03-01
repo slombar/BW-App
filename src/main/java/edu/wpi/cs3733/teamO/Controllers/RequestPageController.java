@@ -81,7 +81,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToTransportReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/RequestPage.fxml");
+    SwitchScene.goToBorderPane("/Views/InternalTransportForm.fxml");
   }
 
   public void goToMaintenance(ActionEvent actionEvent) {
@@ -89,11 +89,11 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToMedicineReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/RequestPage.fxml");
+    SwitchScene.goToBorderPane("/Views/MedicineDeliveryService.fxml");
   }
 
   public void goToSecurityReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/RequestPage.fxml");
+    SwitchScene.goToBorderPane("/Views/LaundryRequest.fxml");
   }
 
   public void goToSanitationReq(ActionEvent actionEvent) {

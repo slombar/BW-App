@@ -14,14 +14,13 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-public class PatientSignInPopupController {
-
+public class StaffSignInPopupController {
   @FXML private StackPane popupPane;
   @FXML private JFXTextField user;
   @FXML private JFXPasswordField pass;
 
   /**
-   * attempts to sign in to a patient account
+   * attempts to sign in to an admin or employee account
    *
    * @param actionEvent
    */
@@ -33,7 +32,7 @@ public class PatientSignInPopupController {
       PopupMaker.incompletePopup(popupPane);
     } else {
       try {
-        UserHandling.login(username, password);
+        UserHandling.loginEmployee(username, password);
         try {
           BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
           Opp.getPrimaryStage().getScene().setRoot(root);
@@ -49,20 +48,6 @@ public class PatientSignInPopupController {
   public void close(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
-
-  /**
-   * goes to the create patient account page
-   *
-   * @param actionEvent
-   */
-  public void createAccount(ActionEvent actionEvent) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/Views/CreateAccount.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
