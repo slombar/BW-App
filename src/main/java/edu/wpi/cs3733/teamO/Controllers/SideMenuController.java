@@ -12,8 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class SideMenuController implements Initializable {
+  @FXML private VBox sideVBox;
   @FXML private JFXButton logout;
   @FXML private JFXButton notificationBtn;
   @FXML private JFXButton checkInBtn;
