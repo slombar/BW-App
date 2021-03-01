@@ -3,6 +3,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.Opp;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -92,6 +93,11 @@ public class NewNavPageController implements Initializable {
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
+    //    System.out.println(imageView.getFitHeight());
+    //    System.out.println(
+    //        Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
+    //    System.out.println(imageView.imageProperty().get().getHeight());
+
     // just mapCanvas.layoutX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
     // just mapCanvas.scaleX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
     // just mapCanvas.translateX/YProperty.bind(imageView.x/yProperty()) DOES NOT WORK
@@ -102,10 +108,18 @@ public class NewNavPageController implements Initializable {
     // mapCanvas.layoutXProperty().bind(hboxRef.layoutXProperty().add(imageView.translateXProperty()));
     // mapCanvas.layoutYProperty().bind(hboxRef.layoutYProperty().add(imageView.translateYProperty()));
 
-    mapCanvas
-        .heightProperty()
-        .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
-    mapCanvas.widthProperty().bind(hboxRef.widthProperty());
+    //    mapCanvas
+    //        .heightProperty()
+    //
+    // .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
+    //    mapCanvas.widthProperty().bind(hboxRef.widthProperty());
+
+    //    mapCanvas.heightProperty().bind(imageView.imageProperty().get().heightProperty());
+    //    mapCanvas.widthProperty().bind(imageView.imageProperty().getValue().widthProperty());
+    //    mapCanvas.setWidth(imageView.imageProperty().getValue().getWidth());
+    //    mapCanvas.heightProperty().bind(imageView.getBoundsInParent().getHeight());
+    mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
+    mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
 
     // mapCanvas.heightProperty().bind(imageView.fitHeightProperty());
     // mapCanvas.widthProperty().bind(imageView.fitWidthProperty());
@@ -134,26 +148,32 @@ public class NewNavPageController implements Initializable {
       case "Campus":
         imageView.setImage(campusMap);
         floor = "G";
+        resizableWindow();
         break;
       case "Floor 1":
         imageView.setImage(floor1Map);
         floor = "1";
+        resizableWindow();
         break;
       case "Floor 2":
         imageView.setImage(floor2Map);
         floor = "2";
+        resizableWindow();
         break;
       case "Floor 3":
         imageView.setImage(floor3Map);
         floor = "3";
+        resizableWindow();
         break;
       case "Floor 4":
         imageView.setImage(floor4Map);
         floor = "4";
+        resizableWindow();
         break;
       case "Floor 5":
         imageView.setImage(floor5Map);
         floor = "5";
+        resizableWindow();
         break;
     }
 
