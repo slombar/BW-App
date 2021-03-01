@@ -51,42 +51,42 @@ public class RequestHandling {
         para3 = rset.getString("para3");
 
         Request req =
-            new Request(
-                reqID,
-                requestedBy,
-                fulfilledBy,
-                dateRequested,
-                dateNeeded,
-                requestType,
-                location,
-                summary,
-                para1,
-                para2,
-                para3);
+                new Request(
+                        reqID,
+                        requestedBy,
+                        fulfilledBy,
+                        dateRequested,
+                        dateNeeded,
+                        requestType,
+                        location,
+                        summary,
+                        para1,
+                        para2,
+                        para3);
 
         System.out.println(
-            "Retrieved this from Services: "
-                + reqID
-                + ", "
-                + requestedBy
-                + ", "
-                + fulfilledBy
-                + ", "
-                + dateRequested.toString()
-                + ", "
-                + dateNeeded.toString()
-                + ", "
-                + requestType
-                + ", "
-                + location
-                + ", "
-                + summary
-                + ", "
-                + para1
-                + ", "
-                + para2
-                + ", "
-                + para3);
+                "Retrieved this from Services: "
+                        + reqID
+                        + ", "
+                        + requestedBy
+                        + ", "
+                        + fulfilledBy
+                        + ", "
+                        + dateRequested.toString()
+                        + ", "
+                        + dateNeeded.toString()
+                        + ", "
+                        + requestType
+                        + ", "
+                        + location
+                        + ", "
+                        + summary
+                        + ", "
+                        + para1
+                        + ", "
+                        + para2
+                        + ", "
+                        + para3);
 
         requestList.add(req);
       }
@@ -107,8 +107,8 @@ public class RequestHandling {
     try {
       PreparedStatement pstmt = null;
       pstmt =
-          DatabaseConnection.getConnection()
-              .prepareStatement("SELECT * FROM Requests WHERE reqID = '" + reqID + "'");
+              DatabaseConnection.getConnection()
+                      .prepareStatement("SELECT * FROM Requests WHERE reqID = '" + reqID + "'");
       ResultSet rset = pstmt.executeQuery();
 
       // add properties to the node
@@ -147,14 +147,14 @@ public class RequestHandling {
    * @param customParameter3
    */
   public static void addRequest(
-      String requestedBy,
-      Date dateNeeded,
-      String requestType,
-      String locationNodeID,
-      String summary,
-      String customParameter1,
-      String customParameter2,
-      String customParameter3) {
+          String requestedBy,
+          Date dateNeeded,
+          String requestType,
+          String locationNodeID,
+          String summary,
+          String customParameter1,
+          String customParameter2,
+          String customParameter3) {
 
     // get current date
     long millis = System.currentTimeMillis();
@@ -163,26 +163,26 @@ public class RequestHandling {
     String employeeAssigned = "none";
 
     String query =
-        "INSERT INTO REQUESTS (requestedBy, dateRequested, dateNeeded, REQTYPE, LOCATION, SUMMARY, PARA1, PARA2, PARA3) "
-            + "VALUES( '"
-            + requestedBy
-            + "', '"
-            + dateRequested
-            + "', '"
-            + dateNeeded
-            + "', '"
-            + requestType
-            + "', '"
-            + locationNodeID
-            + "', '"
-            + summary
-            + "', '"
-            + customParameter1
-            + "', '"
-            + customParameter2
-            + "', '"
-            + customParameter3
-            + "')";
+            "INSERT INTO REQUESTS (requestedBy, dateRequested, dateNeeded, REQTYPE, LOCATION, SUMMARY, PARA1, PARA2, PARA3) "
+                    + "VALUES( '"
+                    + requestedBy
+                    + "', '"
+                    + dateRequested
+                    + "', '"
+                    + dateNeeded
+                    + "', '"
+                    + requestType
+                    + "', '"
+                    + locationNodeID
+                    + "', '"
+                    + summary
+                    + "', '"
+                    + customParameter1
+                    + "', '"
+                    + customParameter2
+                    + "', '"
+                    + customParameter3
+                    + "')";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -208,42 +208,42 @@ public class RequestHandling {
   }
 
   public static void editRequest(
-      int requestID,
-      Staff requestedBy,
-      Staff fulfilledBy,
-      Date dateRequested,
-      Date dateNeeded,
-      String requestType,
-      String locationNodeID,
-      String summary,
-      String customParameter1,
-      String customParameter2,
-      String customParameter3) {
+          int requestID,
+          Staff requestedBy,
+          Staff fulfilledBy,
+          Date dateRequested,
+          Date dateNeeded,
+          String requestType,
+          String locationNodeID,
+          String summary,
+          String customParameter1,
+          String customParameter2,
+          String customParameter3) {
     String query =
-        "UPDATE REQUESTS SET "
-            + "requestedBy = '"
-            + requestedBy
-            + "', fulfilledBy = '"
-            + fulfilledBy
-            + "', dateRequested = '"
-            + dateRequested
-            + "', dateNeeded = '"
-            + dateNeeded
-            + "', requestType = '"
-            + requestType
-            + "', locationNodeID = '"
-            + locationNodeID
-            + "', summary = '"
-            + summary
-            + "', customParameter1 = '"
-            + customParameter1
-            + "', customParameter2 = '"
-            + customParameter2
-            + "', customParameter3 = '"
-            + customParameter3
-            + "'WHERE requestID ='"
-            + requestID
-            + "'";
+            "UPDATE REQUESTS SET "
+                    + "requestedBy = '"
+                    + requestedBy
+                    + "', fulfilledBy = '"
+                    + fulfilledBy
+                    + "', dateRequested = '"
+                    + dateRequested
+                    + "', dateNeeded = '"
+                    + dateNeeded
+                    + "', requestType = '"
+                    + requestType
+                    + "', locationNodeID = '"
+                    + locationNodeID
+                    + "', summary = '"
+                    + summary
+                    + "', customParameter1 = '"
+                    + customParameter1
+                    + "', customParameter2 = '"
+                    + customParameter2
+                    + "', customParameter3 = '"
+                    + customParameter3
+                    + "'WHERE requestID ='"
+                    + requestID
+                    + "'";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
