@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -12,23 +14,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="937.0" prefWidth="1604.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="937.0" prefWidth="1604.0" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController">
    <top>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="1791.0" style="-fx-background-color: #cfe2f3ff;" BorderPane.alignment="CENTER">
          <children>
+            <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="1571.0">
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin>
+            </JFXHamburger>
             <Label text="Service Requests" textAlignment="CENTER">
                <font>
                   <Font name="Leelawadee UI Bold" size="55.0" />
                </font>
             </Label>
          </children>
-         <padding>
-            <Insets top="50.0" />
-         </padding>
       </VBox>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #cfe2f3ff;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #cfe2f3ff;" translateX="-175.0" BorderPane.alignment="CENTER">
          <children>
             <JFXButton onAction="#goToCheckReq" text="Check Service Request Status">
                <VBox.margin>
@@ -282,4 +286,7 @@
          </children>
       </VBox>
    </center>
+   <left>
+      <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" miniDrawerSize="0.0" prefHeight="637.0" prefWidth="350.0" style="-fx-background-color: #cfe2f3;" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>

@@ -31,7 +31,7 @@ public class StaffMainPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // Set drawer to SideMenu
     try {
-      VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SideMenu.fxml"));
+      VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SideMenuStaff.fxml"));
       drawer.setSidePane(vbox);
     } catch (IOException e) {
       e.printStackTrace();
