@@ -80,6 +80,7 @@ public class NewNavPageController implements Initializable {
     graph.drawAllNodes("G");
 
     // just for testing
+
     System.out.println("NewNavPageController Initialized");
   }
 
@@ -94,16 +95,34 @@ public class NewNavPageController implements Initializable {
         .fitHeightProperty()
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
+    // mapCanvas.heightProperty().bind(imageView.fitHeightProperty());
+    // mapCanvas.widthProperty().bind(imageView.fitWidthProperty());
 
-    resizeCanvas();
+    // resizeCanvas();
 
     return gridPane;
   }
 
   /** Resizes Canvas to be the current size of the Image */
   public void resizeCanvas() {
+    mapCanvas.heightProperty().setValue(1000);
+    mapCanvas.widthProperty().setValue(1000);
+
     mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
     mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
+
+    /*//////////////////// FOR TESTING: ////////////////////
+    gc.setStroke(Color.RED);
+    gc.setLineWidth(3.0);
+
+    gc.strokeOval(0, 0, 5, 5);
+    gc.strokeOval(0, mapCanvas.getHeight(), 5, 5);
+    gc.strokeOval(mapCanvas.getWidth(), 0, 5, 5);
+    gc.strokeOval(mapCanvas.getWidth(), mapCanvas.getHeight(), 5, 5);
+
+    gc.strokeRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+    gc.strokeLine(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+    gc.strokeLine(0, mapCanvas.getHeight(), mapCanvas.getWidth(), 0);*/
   }
 
   public void editMode(ActionEvent actionEvent) {}
@@ -167,6 +186,6 @@ public class NewNavPageController implements Initializable {
 
   public void startLocSelection(ActionEvent actionEvent) {
     resizeCanvas();
-    graph.drawAllNodes("G");
+    graph.drawAllNodes(selectedFloor);
   }
 }
