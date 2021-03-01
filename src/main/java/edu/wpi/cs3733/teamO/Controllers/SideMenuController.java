@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class SideMenuController implements Initializable {
+  @FXML private JFXButton navBtn;
+  @FXML private JFXButton mainMenuBtn;
   @FXML private VBox sideVBox;
   @FXML private JFXButton logout;
   @FXML private JFXButton notificationBtn;
@@ -49,6 +52,14 @@ public class SideMenuController implements Initializable {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public void toMain(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/MainPage.fxml");
+  }
+
+  public void toNav(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
   public void mouseOnNot(MouseEvent mouseEvent) {
@@ -109,5 +120,25 @@ public class SideMenuController implements Initializable {
   public void mouseOffSet(MouseEvent mouseEvent) {
     settingBtn.setUnderline(false);
     settingBtn.setButtonType(JFXButton.ButtonType.FLAT);
+  }
+
+  public void mouseOnMain(MouseEvent mouseEvent) {
+    mainMenuBtn.setUnderline(true);
+    mainMenuBtn.setButtonType(JFXButton.ButtonType.RAISED);
+  }
+
+  public void mouseOffMain(MouseEvent mouseEvent) {
+    mainMenuBtn.setUnderline(false);
+    mainMenuBtn.setButtonType(JFXButton.ButtonType.FLAT);
+  }
+
+  public void mouseOnNav(MouseEvent mouseEvent) {
+    navBtn.setUnderline(true);
+    navBtn.setButtonType(JFXButton.ButtonType.RAISED);
+  }
+
+  public void mouseOffNav(MouseEvent mouseEvent) {
+    navBtn.setUnderline(false);
+    navBtn.setButtonType(JFXButton.ButtonType.FLAT);
   }
 }
