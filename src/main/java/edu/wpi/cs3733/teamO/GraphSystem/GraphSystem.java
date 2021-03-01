@@ -4,6 +4,8 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+
 import javafx.collections.ObservableList;
 
 // main class of the 'edu.wpi.teamO.GraphSystem' subsystem
@@ -13,8 +15,12 @@ public class GraphSystem {
   Graph graph;
   AStarSearch aStarSearch;
   DFS dfs;
+  BFS bfs;
 
-  LinkedList<String> unreachableNodes; // nodeIDs of unreachable nodes via DFS
+  LinkedList<String> unreachableNodesforDFS; // nodeIDs of unreachable nodes via DFS
+  LinkedList<String> unreachableNodesforBFS; // nodeIDs of unreachable nodes via BFS
+  boolean hasUnreachableforDFS = false; // initial
+  boolean hasUnreachableforBFS = false; // initial
 
   // constructor
   public GraphSystem() {
@@ -29,38 +35,98 @@ public class GraphSystem {
     graph.initialize();
   }
 
-  public boolean hasUnreachableNodes() {
+
+  // DFS
+  public boolean hasUnreachableNodesDFS() {
     initializeGraph(); // first, initialize map (bc CSV updated)
     dfs = new DFS(); // next, instantiate new DFS
 
-    ObservableList<Node> listOfNodes = NodesAndEdges.getAllNodes();
+    ObservableList<Node> listOfNodesforDFS = NodesAndEdges.getAllNodes();
     // run DFS:
-    dfs.dfs(NodesAndEdges.getNode(listOfNodes.get(0).getID()));
+    dfs.dfs(NodesAndEdges.getNode(listOfNodesforDFS.get(0).getID()));
     // get list of visited nodes:
     LinkedList<String> visitedNodes = dfs.getLLVisited();
 
-    boolean hasUnreachable = false;
-    unreachableNodes = new LinkedList<>();
+    unreachableNodesforDFS = new LinkedList<>();
 
-    for (Node n : listOfNodes) {
+    for (Node n : listOfNodesforDFS) {
       if (!visitedNodes.contains(n)) {
-        unreachableNodes.add(n.getID());
-        hasUnreachable = true;
+        unreachableNodesforDFS.add(n.getID());
+        hasUnreachableforDFS = true;
       }
     }
 
-    return hasUnreachable;
+    return hasUnreachableforDFS;
   }
 
-  public LinkedList<String> unreachableNodes() {
-    return unreachableNodes;
+  //BFS
+  public boolean hasUnreachableNodesBFS() {
+    initializeGraph(); // first, initialize map (bc CSV updated)
+    bfs = new BFS(); // next, instantiate new DFS
+
+    ObservableList<Node> listOfNodesforBFS = NodesAndEdges.getAllNodes();
+    // run BFS:
+    bfs.bfs(NodesAndEdges.getNode(listOfNodesforBFS.get(0).getID()));
+    // get list of visited nodes:
+    Queue<Node> visitedNodes = bfs.getqueue();
+
+    unreachableNodesforBFS = new LinkedList<>();
+
+    for (Node n : listOfNodesforBFS) {
+      if (!visitedNodes.contains(n)) {
+        unreachableNodesforBFS.add(n.getID());
+        hasUnreachableforBFS = true;
+      }
+    }
+
+    return hasUnreachableforBFS;
   }
 
-  public LinkedList<String> findPath(String startID, String targetID) {
+  public LinkedList<String> unreachableNodesforDFS() {
+    return unreachableNodesforDFS;
+  }
+  public LinkedList<String> unreachableNodesforBFS() {
+    return unreachableNodesforBFS;
+  }
+
+  //A star
+  public LinkedList<String> findPathforAStar(String startID, String targetID) {
     initializeGraph();
     aStarSearch = new AStarSearch(graph, startID, targetID);
     List<String> route =
         AStarSearch.findRoute(NodesAndEdges.getNode(startID), NodesAndEdges.getNode(targetID));
+
+    LinkedList<String> routeIDs = new LinkedList<>();
+    for (String node : route) {
+
+      routeIDs.add(NodesAndEdges.getNode(node).getID());
+    }
+
+    return routeIDs;
+  }
+
+  //DFS: still working on it.
+  public LinkedList<String> findPathforDFS(String startID, String targetID) {
+    initializeGraph();
+    aStarSearch = new AStarSearch(graph, startID, targetID);
+    List<String> route =
+            AStarSearch.findRoute(NodesAndEdges.getNode(startID), NodesAndEdges.getNode(targetID));
+
+    LinkedList<String> routeIDs = new LinkedList<>();
+    for (String node : route) {
+
+      routeIDs.add(NodesAndEdges.getNode(node).getID());
+    }
+
+    return routeIDs;
+  }
+
+  //BFS: still working on it.
+  public LinkedList<String> findPathforBFS(String startID, String targetID) {
+    initializeGraph();
+    aStarSearch = new AStarSearch(graph, startID, targetID);
+    List<String> route =
+            AStarSearch.findRoute(NodesAndEdges.getNode(startID), NodesAndEdges.getNode(targetID));
 
     LinkedList<String> routeIDs = new LinkedList<>();
     for (String node : route) {

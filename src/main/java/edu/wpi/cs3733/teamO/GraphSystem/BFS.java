@@ -35,6 +35,10 @@ public class BFS {
     }
   }
 
+  Queue<Node> getqueue() {
+    return queue;
+  }
+
   // simple testing of bfs algorithm
   public static void main(String[] args) {
     Node n1 = new Node("1", 2, 3);
