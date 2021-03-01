@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Set;
 
-public class Node extends RecursiveTreeObject<Node> {
+public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> {
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
 
