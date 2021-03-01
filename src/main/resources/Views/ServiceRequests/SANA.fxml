@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SANAController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.SANAController">
    <top>
       <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
          <children>
@@ -112,7 +112,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXButton style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
+                  <JFXButton onAction="#back" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -120,7 +120,7 @@
                         <Insets left="50.0" right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
+                  <JFXButton onAction="#clear" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -128,7 +128,7 @@
                         <Insets left="50.0" right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
+                  <JFXButton onAction="#submit" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
