@@ -15,7 +15,7 @@
    <top>
       <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text=" Internal TransportRequest" textFill="WHITE">
+            <Label text=" Internal Transport Request" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="55.0" />
                </font>

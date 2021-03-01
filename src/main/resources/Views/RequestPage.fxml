@@ -224,6 +224,56 @@
                         <Font name="Georgia Bold" size="22.0" />
                      </font>
                   </JFXButton>
+                  <Label rotate="270.0" text="Kyle L." textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Ryan D." textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Selina S." textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Cindy T." textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Sadie L." textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Luke H." textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Ke Z." textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Nathan D." textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Sam P." textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label rotate="270.0" text="Din U." textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
                <VBox.margin>
                   <Insets bottom="50.0" left="150.0" right="150.0" />
