@@ -66,11 +66,13 @@ public class NewNavPageController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     floorSelectionBtn.setItems(listOfFloors);
-
-    resizableWindow();
+    floorSelectionBtn.setValue("Campus");
 
     mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
+
+    imageView.setImage(campusMap);
+    resizableWindow();
 
     graph = new Graph(gc);
 
@@ -79,15 +81,6 @@ public class NewNavPageController implements Initializable {
 
     // just for testing
     System.out.println("NewNavPageController Initialized");
-  }
-
-  public GridPane resizableMap() {
-    imageView.setPreserveRatio(true);
-    imageView
-        .fitHeightProperty()
-        .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
-    imageView.fitWidthProperty().bind(hboxRef.widthProperty());
-    return gridPane;
   }
 
   /**
@@ -102,10 +95,15 @@ public class NewNavPageController implements Initializable {
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
-    mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
-    mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
+    resizeCanvas();
 
     return gridPane;
+  }
+
+  /** Resizes Canvas to be the current size of the Image */
+  public void resizeCanvas() {
+    mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
+    mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
   }
 
   public void editMode(ActionEvent actionEvent) {}
@@ -120,7 +118,6 @@ public class NewNavPageController implements Initializable {
   }
 
   public void floorSelection(ActionEvent actionEvent) {
-    mapCanvas.toFront();
     selectedFloor = floorSelectionBtn.getValue();
     String floor = "";
     // System.out.println(floorSelected);
@@ -130,35 +127,30 @@ public class NewNavPageController implements Initializable {
       case "Campus":
         imageView.setImage(campusMap);
         floor = "G";
-        resizableWindow();
         break;
       case "Floor 1":
         imageView.setImage(floor1Map);
         floor = "1";
-        resizableWindow();
         break;
       case "Floor 2":
         imageView.setImage(floor2Map);
         floor = "2";
-        resizableWindow();
         break;
       case "Floor 3":
         imageView.setImage(floor3Map);
         floor = "3";
-        resizableWindow();
         break;
       case "Floor 4":
         imageView.setImage(floor4Map);
         floor = "4";
-        resizableWindow();
         break;
       case "Floor 5":
         imageView.setImage(floor5Map);
         floor = "5";
-        resizableWindow();
         break;
     }
 
+    resizeCanvas();
     // TODO: only draw visible if patient/guest
     graph.drawAllNodes(floor);
   }
@@ -173,5 +165,8 @@ public class NewNavPageController implements Initializable {
     System.out.println("Click");
   }
 
-  public void startLocSelection(ActionEvent actionEvent) {}
+  public void startLocSelection(ActionEvent actionEvent) {
+    resizeCanvas();
+    graph.drawAllNodes("G");
+  }
 }
