@@ -5,14 +5,11 @@ import javafx.event.ActionEvent;
 
 public class SANAController {
 
+  public void back(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ServiceRequests/MainPage.fxml");
+  }
 
-    public void back(ActionEvent actionEvent) {
-        SwitchScene.goToParent("/Views/ServiceRequests/MainPage.fxml");
-    }
+  public void clear(ActionEvent actionEvent) {}
 
-    public void clear(ActionEvent actionEvent) {
-    }
-
-    public void submit(ActionEvent actionEvent) {
-    }
+  public void submit(ActionEvent actionEvent) {}
 }

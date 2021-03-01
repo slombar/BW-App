@@ -4,20 +4,27 @@ import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
 
@@ -31,6 +38,10 @@ public class EmailPageController implements Initializable {
   @FXML private JFXButton confirmBtn;
   @FXML private ImageView mapView;
   @FXML private static Image screenShot;
+  @FXML private StackPane sharePane;    // this thing might fuck up our code :))
+
+  public Canvas mapcanvas;
+  public AnchorPane mapanchor;
 
   @Override
   public void initialize(URL url, ResourceBundle res) {
@@ -71,6 +82,24 @@ public class EmailPageController implements Initializable {
       System.out.print(errorMsg);
       invalidPopup();
     }
+  }
+
+  public void save(ActionEvent actionEvent) throws IOException {
+    sharePane.toBack();
+    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
+
+    String home = System.getProperty("user.home");
+    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
+
+    WritableImage map = mapanchor.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+    Image newimg = map;
+
+    EmailPageController.setScreenShot(newimg);
+
+    // add the scene switch
+    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
+    Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
   public void sendEmail(ActionEvent actionEvent) throws IOException {
