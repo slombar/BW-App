@@ -37,12 +37,12 @@ public class SharingFunctionality {
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     Message message =
         Message.creator(
-                new com.twilio.type.PhoneNumber(sendingTo), //replace with cindy's number if testing
+                new com.twilio.type.PhoneNumber(
+                    sendingTo), // replace with cindy's number if testing
                 new com.twilio.type.PhoneNumber("+16173560972"),
                 "This is the ship that made the Kessel Run in fourteen parsecs?")
             .setMediaUrl(Arrays.asList(URI.create("https://i.imgur.com/7KpyjV4.mp4")))
             .create();
-
 
     // file:/C:/users/cindy/Downloads/mapimg.png
 
