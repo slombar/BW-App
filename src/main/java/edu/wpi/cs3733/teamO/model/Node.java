@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Set;
 
 public class Node extends RecursiveTreeObject<Node> {
@@ -10,6 +11,8 @@ public class Node extends RecursiveTreeObject<Node> {
 
   // added from GraphNode
   private HashSet<Node> neighbourList;
+  // TODO: have each neighbour stored with it's Edge
+  private Hashtable<Node, Edge> nodeEdgeHashtable;
   private double priority;
   private boolean visited;
   private boolean visible;
@@ -47,7 +50,8 @@ public class Node extends RecursiveTreeObject<Node> {
     this.yCoord = yCoord;
     this.team = team;
     this.visited = false;
-    this.neighbourList = new HashSet<>();
+    this.neighbourList = new HashSet<Node>();
+    this.nodeEdgeHashtable = new Hashtable<>();
     this.visible = true;
   }
 
@@ -74,6 +78,7 @@ public class Node extends RecursiveTreeObject<Node> {
     this.visited = false;
     this.neighbourList = new HashSet<>();
     this.visible = visible;
+    this.nodeEdgeHashtable = new Hashtable<>();
   }
 
   public Node() {
@@ -89,6 +94,7 @@ public class Node extends RecursiveTreeObject<Node> {
     this.visited = false;
     this.neighbourList = new HashSet<>();
     this.visible = true;
+    this.nodeEdgeHashtable = new Hashtable<>();
   }
 
   // for testing
@@ -104,8 +110,9 @@ public class Node extends RecursiveTreeObject<Node> {
     return Double.compare(priority, node.getPriority());
   }
 
-  public void addNeighbour(Node graphNode) {
+  public void addNeighbour(Node graphNode, Edge edge) {
     this.neighbourList.add(graphNode);
+    this.nodeEdgeHashtable.put(graphNode, edge);
   }
 
   public String getTeam() {
