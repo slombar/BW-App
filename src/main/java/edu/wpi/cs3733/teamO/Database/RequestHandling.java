@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 
 public class RequestHandling {
 
+  // TODO: add function to set employee assigned
+
   public static ObservableList<Request> getRequests() {
     ObservableList<Request> requestList = FXCollections.observableArrayList();
     try {
@@ -132,10 +134,20 @@ public class RequestHandling {
     return r;
   }
 
+  /**
+   * Add request to DB
+   *
+   * @param requestedBy
+   * @param dateNeeded
+   * @param requestType
+   * @param locationNodeID
+   * @param summary
+   * @param customParameter1
+   * @param customParameter2
+   * @param customParameter3
+   */
   public static void addRequest(
       String requestedBy,
-      String fulfilledBy,
-      Date dateRequested,
       Date dateNeeded,
       String requestType,
       String locationNodeID,
@@ -143,44 +155,34 @@ public class RequestHandling {
       String customParameter1,
       String customParameter2,
       String customParameter3) {
+
+    // get current date
+    long millis = System.currentTimeMillis();
+    Date dateRequested = new java.sql.Date(millis);
+
+    String employeeAssigned = "none";
+
     String query =
-        "INSERT INTO REQUESTS VALUES("
-            + "'"
+        "INSERT INTO REQUESTS (requestedBy, dateRequested, dateNeeded, REQTYPE, LOCATION, SUMMARY, PARA1, PARA2, PARA3) "
+            + "VALUES( '"
             + requestedBy
-            + "'"
-            + ", '"
-            + fulfilledBy
             + "', '"
             + dateRequested
-            + "', "
-            + "'"
+            + "', '"
             + dateNeeded
-            + "'"
-            + ", "
-            + "'"
+            + "', '"
             + requestType
-            + "'"
-            + ", "
-            + "'"
+            + "', '"
             + locationNodeID
-            + "'"
-            + ", "
-            + "'"
+            + "', '"
             + summary
-            + "'"
-            + ", "
-            + "'"
+            + "', '"
             + customParameter1
-            + "'"
-            + ", "
-            + "'"
+            + "', '"
             + customParameter2
-            + "'"
-            + ", "
-            + "'"
+            + "', '"
             + customParameter3
-            + "'"
-            + ")";
+            + "')";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -193,7 +195,7 @@ public class RequestHandling {
   }
 
   public static void deleteRequest(int requestID) {
-    String query = "DELETE FROM ServiceRequests WHERE requestID =" + requestID;
+    String query = "DELETE FROM REQUESTS WHERE requestID =" + requestID;
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -218,29 +220,30 @@ public class RequestHandling {
       String customParameter2,
       String customParameter3) {
     String query =
-        "UPDATE ServiceRequests SET "
-            + "requestedBy = "
+        "UPDATE REQUESTS SET "
+            + "requestedBy = '"
             + requestedBy
-            + "fulfilledBy = "
+            + "', fulfilledBy = '"
             + fulfilledBy
-            + ", dateRequested = "
+            + "', dateRequested = '"
             + dateRequested
-            + ", dateNeeded = "
+            + "', dateNeeded = '"
             + dateNeeded
-            + ", requestType = "
+            + "', requestType = '"
             + requestType
-            + ", locationNodeID = "
+            + "', locationNodeID = '"
             + locationNodeID
-            + ", summary = "
+            + "', summary = '"
             + summary
-            + ", customParameter1 = "
+            + "', customParameter1 = '"
             + customParameter1
-            + ", customParameter2 = "
+            + "', customParameter2 = '"
             + customParameter2
-            + ", customParameter3 = "
+            + "', customParameter3 = '"
             + customParameter3
-            + "WHERE requestID ="
-            + requestID;
+            + "'WHERE requestID ='"
+            + requestID
+            + "'";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
