@@ -87,22 +87,31 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
-                     <image>
-                        <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
-                     </image>
-                  </ImageView>
                   <JFXButton layoutX="191.0" layoutY="48.0" onAction="#sadie" text="SADIE'S TEST BUTTON " />
                </children>
             </AnchorPane>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="849.0" text="WELCOME TO THE NAVIGATION KIOSK!" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="45.0" />
-               </font>
-               <padding>
-                  <Insets bottom="30.0" />
-               </padding>
-            </Label>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <ImageView fitHeight="120.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../bh_bwh_pms_293.png" />
+                     </image>
+                     <BorderPane.margin>
+                        <Insets bottom="30.0" />
+                     </BorderPane.margin>
+                  </ImageView>
+               </top>
+               <center>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="849.0" text="WELCOME TO THE NAVIGATION KIOSK!" textFill="#bbdfff" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="45.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                  </Label>
+               </center>
+            </BorderPane>
          </children>
       </VBox>
    </top>

@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.teamO.Sharing;
 
-import edu.wpi.cs3733.teamO.Database.UserHandling;
-
 import java.io.File;
 import java.util.Properties;
 import javax.activation.DataHandler;
