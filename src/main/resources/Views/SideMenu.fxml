@@ -41,34 +41,34 @@
       </HBox>
       <JFXButton fx:id="notificationBtn" alignment="BOTTOM_LEFT" onAction="#toNotifications" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="77.0" prefWidth="509.0" text="Notifications">
          <font>
-            <Font size="36.0" />
+            <Font name="Leelawadee UI" size="36.0" />
          </font>
       </JFXButton>
       <JFXButton fx:id="checkInBtn" alignment="BOTTOM_LEFT" onAction="#toCheckIn" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="77.0" prefWidth="497.0" text="Check-In">
          <font>
-            <Font size="36.0" />
+            <Font name="Leelawadee UI" size="36.0" />
          </font>
       </JFXButton>
       <JFXButton fx:id="appointmentsBtn" alignment="BOTTOM_LEFT" onAction="#toAppointments" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="77.0" prefWidth="446.0" text="Appointments">
          <font>
-            <Font size="36.0" />
+            <Font name="Leelawadee UI" size="36.0" />
          </font>
       </JFXButton>
       <VBox alignment="BOTTOM_LEFT" prefHeight="594.0" prefWidth="350.0">
          <children>
             <JFXButton fx:id="logout" alignment="BOTTOM_LEFT" onAction="#goToLogin" prefHeight="51.0" prefWidth="145.0" text="Log Out">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Leelawadee UI" size="24.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="exitBtn" alignment="BOTTOM_LEFT" buttonType="FLAT" onAction="#exit" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="51.0" prefWidth="415.0" text="Exit Application">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Leelawadee UI" size="24.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="settingBtn" alignment="BOTTOM_LEFT" onAction="#toSettings" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="51.0" prefWidth="366.0" text="Settings">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Leelawadee UI" size="24.0" />
                </font>
             </JFXButton>
          </children>

@@ -47,24 +47,33 @@
                   <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
                </image>
             </ImageView>
-            <JFXTextField fx:id="user" maxWidth="300.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="user" maxWidth="300.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Leelawadee UI" size="15.0" />
+               </font></JFXTextField>
             <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
-                  <Font name="Calibri Bold" size="14.0" />
+                  <Font name="Leelawadee UI Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-            <JFXPasswordField fx:id="pass" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Leelawadee UI" size="15.0" />
+               </font></JFXButton>
+            <JFXPasswordField fx:id="pass" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Leelawadee UI" size="15.0" />
+               </font></JFXPasswordField>
             <Text fill="#000000cd" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <font>
-                  <Font name="Calibri Bold" size="14.0" />
+                  <Font name="Leelawadee UI Bold" size="14.0" />
                </font>
             </Text>
             <Line endX="35.0" startX="-90.0" stroke="#000000cc" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <Line endX="35.0" layoutX="126.0" layoutY="325.0" startX="-90.0" stroke="#000000cc" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New to Brigham And Women's Hospital?" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Leelawadee UI" size="14.0" />
                </font>
                <GridPane.margin>
                   <Insets top="10.0" />
@@ -72,7 +81,7 @@
             </Text>
             <Hyperlink onAction="#createAccount" text="Create an account" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Calibri" size="14.0" />
+                  <Font name="Leelawadee UI" size="14.0" />
                </font>
             </Hyperlink>
             <GridPane>

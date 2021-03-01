@@ -21,7 +21,7 @@ public class UserHandling {
    * @param lName
    */
   public static void createAccount(
-          String username, String password, String email, String fName, String lName) {
+      String username, String password, String email, String fName, String lName) {
 
     String encodedPass = null;
     try {
@@ -31,21 +31,21 @@ public class UserHandling {
     }
 
     String query =
-            "INSERT INTO USERS VALUES("
-                    + username
-                    + ", "
-                    + encodedPass
-                    + ", "
-                    + email
-                    + ", "
-                    + fName
-                    + ", "
-                    + lName
-                    + ", "
-                    + false
-                    + ", "
-                    + false
-                    + ")";
+        "INSERT INTO USERS VALUES("
+            + username
+            + ", "
+            + encodedPass
+            + ", "
+            + email
+            + ", "
+            + fName
+            + ", "
+            + lName
+            + ", "
+            + false
+            + ", "
+            + false
+            + ")";
 
     System.out.println("CREATE ACCT QUERY: " + query);
     try {
@@ -115,12 +115,12 @@ public class UserHandling {
     String vp = "";
 
     String query =
-            "SELECT * FROM USERS WHERE username = "
-                    + username
-                    + " AND password = "
-                    + password
-                    + " AND = employee"
-                    + true;
+        "SELECT * FROM USERS WHERE username = "
+            + username
+            + " AND password = "
+            + password
+            + " AND = employee"
+            + true;
 
     try {
       PreparedStatement pstmt = null;
