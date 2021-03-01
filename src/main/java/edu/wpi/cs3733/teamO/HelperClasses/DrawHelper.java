@@ -58,6 +58,7 @@ public class DrawHelper {
 
   /**
    * Draws a single line with an arrowhead halfway from point a to point b
+   *
    * @param gc the GraphicsContext on which the arrow will be drawn
    * @param ax x-coordinate of point a
    * @param ay y-coordinate of point a
@@ -97,5 +98,4 @@ public class DrawHelper {
     }
     gc.strokeLine(ax, ay, bx, by);
   }
-
 }

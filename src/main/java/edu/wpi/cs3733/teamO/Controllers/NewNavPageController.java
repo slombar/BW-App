@@ -3,12 +3,11 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.model.Node;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import edu.wpi.cs3733.teamO.model.Node;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -102,7 +101,7 @@ public class NewNavPageController implements Initializable {
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
-    //resizeCanvas();
+    // resizeCanvas();
 
     return gridPane;
   }
@@ -166,19 +165,16 @@ public class NewNavPageController implements Initializable {
 
   public void endLocSelection(ActionEvent actionEvent) {}
 
-  public void doPathfind(ActionEvent actionEvent) {
-
-  }
+  public void doPathfind(ActionEvent actionEvent) {}
 
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
   public void canvasClick(MouseEvent mouseEvent) {
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
-    if(selectingStart) {
+    if (selectingStart) {
       startNode = clickedNode;
-    }
-    else {
+    } else {
       endNode = clickedNode;
     }
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
@@ -66,6 +65,8 @@ public class Graph {
     listOfEdges = FXCollections.observableArrayList();
     listOfEdges = NodesAndEdges.getAllEdges();
 
+    // TODO: initialize graph properly (link nodes)
+
     nodeCircleHashtable = new Hashtable<>();
     this.gc = gc;
     createCircles();
@@ -87,14 +88,18 @@ public class Graph {
 
   /**
    * Adds each Node to the other's list of neighbouring Nodes
+   *
    * @param node1 first node
    * @param node2 second node
    */
-  void link(Node node1, Node node2) {
+  void link(Node node1, Node node2, Edge edge) {
+    // TODO: calculate edge distance
+    // TODO:   --> if stairs, dist = 1.0, if elevator, dist = 0.0
+
     // check if both exist
     if (listOfNodes.contains(node1) && listOfNodes.contains(node2)) {
-      node1.addNeighbour(node2);
-      node2.addNeighbour(node1);
+      node1.addNeighbour(node2, edge);
+      node2.addNeighbour(node1, edge);
     }
   }
 
@@ -104,6 +109,7 @@ public class Graph {
 
   /**
    * Returns the Node closest to the given (x,y) on the given floor
+   *
    * @param floor floor currently displaying when clicked
    * @param x x-coordinate of the ClickEvent
    * @param y y-coordinate of the ClickEvent
@@ -115,10 +121,10 @@ public class Graph {
     Node node = null;
 
     for (Node n : listOfNodes) {
-      if(n.getFloor().equals(floor)) {
+      if (n.getFloor().equals(floor)) {
         double dist =
-          Math.pow(Math.abs(x - node.getXCoord()), 2.0)
-            + Math.pow(Math.abs(y - node.getYCoord()), 2.0);
+            Math.pow(Math.abs(x - node.getXCoord()), 2.0)
+                + Math.pow(Math.abs(y - node.getYCoord()), 2.0);
         if (dist < currentDist) {
           currentDist = dist;
           node = n;
@@ -131,7 +137,8 @@ public class Graph {
   }
 
   /**
-   * Creates a properly-scaled Circle for every Node in the database and adds it to nodeCircleHashtable with it's corresponding Node as the key
+   * Creates a properly-scaled Circle for every Node in the database and adds it to
+   * nodeCircleHashtable with it's corresponding Node as the key
    */
   public void createCircles() {
 
@@ -173,7 +180,8 @@ public class Graph {
       }
 
       Circle circle = new Circle();
-      // set radius to be percentage of canvas height, and bind circle's x/y to the canvas width/height * percent
+      // set radius to be percentage of canvas height, and bind circle's x/y to the canvas
+      // width/height * percent
       circle.radiusProperty().bind(gc.getCanvas().heightProperty().multiply(0.01));
       circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
       circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
@@ -200,19 +208,17 @@ public class Graph {
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes);
   }
 
-  public LinkedList<String> findPath(String startID, String targetID) {
+  public List<Node> findPath(Node startNode, Node targetNode) {
     // TODO: change to accommodate Admin choice of A*, DFS, or BFS
 
-    aStarSearch = new AStarSearch(this, startID, targetID);
-    List<String> route =
-      AStarSearch.findRoute(NodesAndEdges.getNode(startID), NodesAndEdges.getNode(targetID));
+    aStarSearch = new AStarSearch(this, startNode, targetNode);
+    List<Node> route = AStarSearch.findRoute();
 
-    LinkedList<String> routeIDs = new LinkedList<>();
-    for (String node : route) {
+    //    LinkedList<Node> routeNodes = new LinkedList<>();
+    //    for (Node node : route) {
+    //      routeNodes.add(node);
+    //    }
 
-      routeIDs.add(NodesAndEdges.getNode(node).getID());
-    }
-
-    return routeIDs;
+    return route;
   }
 }
