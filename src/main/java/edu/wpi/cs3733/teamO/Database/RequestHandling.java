@@ -108,8 +108,8 @@ public class RequestHandling {
   }
 
   public static void addRequest(
-      Staff requestedBy,
-      Staff fulfilledBy,
+      String requestedBy,
+      String fulfilledBy,
       Date dateRequested,
       Date dateNeeded,
       String requestType,
