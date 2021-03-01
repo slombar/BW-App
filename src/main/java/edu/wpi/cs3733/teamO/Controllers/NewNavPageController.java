@@ -67,9 +67,9 @@ public class NewNavPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     floorSelectionBtn.setItems(listOfFloors);
 
-    resizableMap();
+    resizableWindow();
 
-    mapCanvas.toBack();
+    mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
 
     graph = new Graph(gc);
@@ -104,6 +104,7 @@ public class NewNavPageController implements Initializable {
 
     mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
     mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
+
     return gridPane;
   }
 
