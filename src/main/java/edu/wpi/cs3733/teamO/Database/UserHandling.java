@@ -9,7 +9,6 @@ import java.sql.SQLException;
 public class UserHandling {
 
   private static String username;
-  private static String fName;
 
   /**
    * Create new account and add info to the database password is encrypted through Encryptor from
@@ -22,7 +21,8 @@ public class UserHandling {
    * @param lName
    */
   public static void createAccount(
-      String username, String password, String email, String fName, String lName) {
+      String username, String password, String email, String fName, String lName)
+      throws SQLException {
 
     String encodedPass = null;
     try {
@@ -32,32 +32,32 @@ public class UserHandling {
     }
 
     String query =
-        "INSERT INTO USERS VALUES("
+        "INSERT INTO USERS VALUES('"
             + username
-            + ", "
+            + "', '"
             + encodedPass
-            + ", "
+            + "', '"
             + email
-            + ", "
+            + "', '"
             + fName
-            + ", "
+            + "', '"
             + lName
-            + ", "
+            + "', "
             + false
             + ", "
             + false
             + ")";
 
     System.out.println("CREATE ACCT QUERY: " + query);
-    try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
 
+    PreparedStatement preparedStmt = null;
+    try {
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
       preparedStmt.execute();
       preparedStmt.close();
-
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+      throw new SQLException();
     }
   }
 
@@ -71,35 +71,42 @@ public class UserHandling {
   public static void login(String u, String p) throws SQLException {
     setUsername(u);
 
-    String encodedPass = null;
+    String encodedPass = "";
     try {
       encodedPass = Encrypter.encryptPassword(p);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
+
     p = encodedPass;
 
     String vu = "";
     String vp = "";
 
-    String query = "SELECT * FROM USERS WHERE username = '" + u + "' AND password = '" + p + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = '" + u + "' AND PASSWORD = '" + p + "'";
 
     PreparedStatement pstmt = null;
-    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+    try {
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet res = pstmt.executeQuery();
+      res.next();
 
-    ResultSet res = pstmt.executeQuery();
+      vu = res.getString("USERNAME");
+      vp = res.getString("PASSWORD");
 
-    vu = res.getString("username");
-    vp = res.getString("password");
+      res.close();
+      pstmt.close();
 
-    res.close();
-    pstmt.close();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      throw new SQLException();
+    }
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
     setUsername(username);
 
-    String encodedPass = null;
+    String encodedPass = "";
     try {
       encodedPass = Encrypter.encryptPassword(p);
     } catch (NoSuchAlgorithmException e) {
@@ -111,37 +118,35 @@ public class UserHandling {
     String vp = "";
 
     String query =
-        "SELECT * FROM USERS WHERE username = '"
+        "SELECT * FROM USERS WHERE USERNAME = '"
             + u
-            + "' AND password = '"
+            + "' AND PASSWORD = '"
             + p
-            + "' AND employee = "
+            + "' AND EMPLOYEE = "
             + true;
 
-    PreparedStatement pstmt = null;
-    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-    ResultSet res = pstmt.executeQuery();
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet res = pstmt.executeQuery();
+      res.next();
 
-    vu = res.getString("username");
-    vp = res.getString("password");
+      vu = res.getString("USERNAME");
+      vp = res.getString("PASSWORD");
 
-    res.close();
-    pstmt.close();
+      res.close();
+      pstmt.close();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      throw new SQLException();
+    }
   }
 
   public static String getUsername() {
     return username;
   }
 
-  public static String getFirstName() {
-    return fName;
-  }
-
   public static void setUsername(String u) {
     username = u;
-  }
-
-  public static void setFirstName(String f) {
-    fName = f;
   }
 }
