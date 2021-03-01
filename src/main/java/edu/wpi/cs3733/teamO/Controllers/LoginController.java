@@ -48,8 +48,8 @@ public class LoginController implements Initializable {
    *
    * @param actionEvent
    */
-  public void goToMain(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/MainPage.fxml");
+  public void guestSignIn(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
   public void sadie(ActionEvent actionEvent) {

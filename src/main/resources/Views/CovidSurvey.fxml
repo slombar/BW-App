@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #3a5369;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Popups.CovidSurveyController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <StackPane fx:id="popupPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </StackPane>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="202.0" minHeight="-Infinity" percentHeight="30.0" prefHeight="170.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="106.0" minHeight="-Infinity" percentHeight="20.0" prefHeight="106.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="84.33334350585938" minHeight="-Infinity" percentHeight="20.0" prefHeight="84.33334350585938" vgrow="SOMETIMES" />
+            <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="104.33331298828125" minHeight="10.0" percentHeight="10.0" prefHeight="103.66668701171875" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Text layoutX="40.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In the last 14 days, have you had close contact with someone with COVID-19?" wrappingWidth="517.001953125" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Leelawadee UI" size="20.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Are you experiencing any " wrappingWidth="229.001953125">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </Text>
+                  <Hyperlink onAction="#covidSymptoms" text="symptoms of COVID-19?">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="-4.0" />
+                     </padding>
+                  </Hyperlink>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <JFXRadioButton text="Yes" translateY="-13.0">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="diagnosed" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton style="-jfx-selected-color: red;" text="No" toggleGroup="$diagnosed" translateY="-13.0">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </JFXRadioButton>
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In the last 14 days, have you been diagnosed with COVID-19?" wrappingWidth="519.001953125" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Leelawadee UI" size="20.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER_LEFT" layoutX="558.0" layoutY="213.0" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <JFXRadioButton text="Yes" translateY="-13.0">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="contact" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton style="-jfx-selected-color: red;" text="No" toggleGroup="$contact" translateY="-13.0">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </JFXRadioButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="558.0" layoutY="316.0" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <JFXRadioButton text="Yes" translateY="-13.0">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="symptoms" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton style="-jfx-selected-color: red;" text="No" toggleGroup="$symptoms" translateY="-13.0">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </JFXRadioButton>
+               </children>
+            </HBox>
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#goToLoginMenu" text="Back" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Leelawadee" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="BOTTOM_LEFT" layoutX="40.0" layoutY="697.0" onAction="#submitCovidForm" ripplerFill="#1aff00" text="Submit" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Leelawadee" size="16.0" />
+               </font>
+            </JFXButton>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+               <children>
+                  <ImageView fitHeight="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#0d33a6" strokeType="OUTSIDE" strokeWidth="0.0" text="COVID-19 Survey" wrappingWidth="292.001953125">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="35.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </GridPane>
+   </children>
+   <padding>
+      <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+   </padding>
+</GridPane>

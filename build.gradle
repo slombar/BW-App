@@ -42,6 +42,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+    // https://mvnrepository.com/artifact/com.twilio.sdk/twilio
+    runtimeOnly group: 'com.twilio.sdk', name: 'twilio', version: '8.8.0'
+
     implementation group: "com.twilio.sdk", name: "twilio", version: "8.8.0"
     // THIS IS NECESSARY FOR THE TESTS TO WORK PROPERLY:
     testCompile(

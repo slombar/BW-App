@@ -26,7 +26,7 @@ public class PopupMaker {
     // Creates the actual popup
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
+
     // Closes the popup
     closeButton.setOnAction(
         event -> {
@@ -54,7 +54,6 @@ public class PopupMaker {
     // Creates the actual popup
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -76,14 +75,13 @@ public class PopupMaker {
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
     warning.setHeading(new Text("Login Failed"));
-    warning.setBody(new Text("Incorrect Username or passowrd"));
+    warning.setBody(new Text("Incorrect Username or Password"));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
     // Creates the actual popup
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -108,9 +106,9 @@ public class PopupMaker {
     warning.setBody(
         new Text(
             "1. Username consists of only alphanumeric characters\n"
-                + "2. Username is allowed to use dot (.), underscore (_), and hyphen (-)\n"
-                + "3. The dot (.), underscore(_), or hyphen (-) may not be the first or last character\n"
-                + "4. The dot (.), underscore(_), or hyphen (-) may not be consecutive\n"
+                + "2. Username is allowed to use (.), (_), and (-)\n"
+                + "3. The (.), (_), or (-) may not be the first or last character\n"
+                + "4. The (.), (_), or (-) may not be consecutive\n"
                 + "5. Username must be between 3 and 20 characters\n"));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
@@ -118,7 +116,6 @@ public class PopupMaker {
     // Creates the actual popup
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -151,5 +148,41 @@ public class PopupMaker {
           popupPane.toBack();
         });
     warningDialog.show();
+  }
+
+  public static void covidSymptoms(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout symptoms = new JFXDialogLayout();
+    symptoms.setHeading(new Text("Invalid Username"));
+    symptoms.setBody(
+        new Text(
+            "Fever or chills\n"
+                + "Cough\n"
+                + "Shortness of breath or difficulty breathing\n"
+                + "Fatigue\n"
+                + "Muscle or body aches\n"
+                + "Headache\n"
+                + "New loss of taste or smell\n"
+                + "Sore throat\n"
+                + "Congestion or runny nose\n"
+                + "Nausea or vomiting\n"
+                + "Diarrhea\n"
+                + "\nThis list does not include all possible symptoms\n"));
+    JFXButton closeButton = new JFXButton("Close");
+    symptoms.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog symptomsDialog =
+        new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, true);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          symptomsDialog.close();
+          popupPane.toBack();
+        });
+    symptomsDialog.show();
   }
 }
