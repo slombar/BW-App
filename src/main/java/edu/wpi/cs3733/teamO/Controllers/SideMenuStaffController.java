@@ -15,7 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class SideMenuController implements Initializable {
+public class SideMenuStaffController implements Initializable {
+  public JFXButton reqBtn;
   @FXML private JFXButton navBtn;
   @FXML private JFXButton mainMenuBtn;
   @FXML private VBox sideVBox;
@@ -26,7 +27,7 @@ public class SideMenuController implements Initializable {
   @FXML private JFXButton settingBtn;
   @FXML private JFXButton exitBtn;
 
-  public SideMenuController() {}
+  public SideMenuStaffController() {}
 
   public void goToMainMenu(MouseEvent mouseEvent) {}
 
@@ -55,11 +56,15 @@ public class SideMenuController implements Initializable {
   }
 
   public void toMain(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    SwitchScene.goToParent("/Views/StaffMainPage.fxml");
   }
 
   public void toNav(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
+  }
+
+  public void toReq(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
   }
 
   public void mouseOnNot(MouseEvent mouseEvent) {
@@ -140,5 +145,15 @@ public class SideMenuController implements Initializable {
   public void mouseOffNav(MouseEvent mouseEvent) {
     navBtn.setUnderline(false);
     navBtn.setButtonType(JFXButton.ButtonType.FLAT);
+  }
+
+  public void mouseOnReq(MouseEvent mouseEvent) {
+    reqBtn.setUnderline(true);
+    reqBtn.setButtonType(JFXButton.ButtonType.RAISED);
+  }
+
+  public void mouseOffReq(MouseEvent mouseEvent) {
+    reqBtn.setUnderline(false);
+    reqBtn.setButtonType(JFXButton.ButtonType.FLAT);
   }
 }

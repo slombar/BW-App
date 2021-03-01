@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="sideVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuController">
+<VBox fx:id="sideVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuStaffController">
    <children>
       <HBox prefHeight="92.0" prefWidth="349.0" style="-fx-background-color: #f2f2f2;">
          <children>
@@ -60,6 +60,18 @@
             <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
                <image>
                   <Image url="@../Icons/simpleNavIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="reqBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toReq" onMouseEntered="#mouseOnReq" onMouseExited="#mouseOffReq" prefHeight="77.0" prefWidth="509.0" text="Service Request">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/formIconBlack.png" />
                </image>
             </ImageView>
          </graphic>

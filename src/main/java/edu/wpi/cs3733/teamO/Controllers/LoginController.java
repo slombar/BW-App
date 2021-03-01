@@ -19,6 +19,7 @@ public class LoginController implements Initializable {
   @FXML private Circle adminBtn;
   @FXML private BorderPane borderPane;
   @FXML private StackPane loginPane;
+  public static boolean isStaff = false;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,10 +34,12 @@ public class LoginController implements Initializable {
    * @param mouseEvent
    */
   public void goToLogin(MouseEvent mouseEvent) {
+    isStaff = false;
     SwitchScene.goToGridPane("/Views/PatientSignInPopup.fxml");
   }
 
   public void goToStaffLogin(MouseEvent mouseEvent) {
+    isStaff = true;
     SwitchScene.goToGridPane("/Views/StaffSignInPopup.fxml");
   }
 
@@ -46,10 +49,12 @@ public class LoginController implements Initializable {
    * @param actionEvent
    */
   public void guestSignIn(ActionEvent actionEvent) {
+    isStaff = false;
     SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
   public void tempBTN(ActionEvent actionEvent) {
+    isStaff = true;
     SwitchScene.goToBorderPane("/Views/StaffMainPage.fxml");
   }
 
