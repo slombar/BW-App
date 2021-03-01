@@ -7,6 +7,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import edu.wpi.cs3733.teamO.model.Node;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,8 +47,12 @@ public class NewNavPageController implements Initializable {
   @FXML private Canvas mapCanvas;
   private GraphicsContext gc;
   private String selectedFloor = "Campus";
+  private String sFloor = "G";
 
   private Graph graph;
+  boolean selectingStart = true;
+  Node startNode = null;
+  Node endNode = null;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -95,10 +101,8 @@ public class NewNavPageController implements Initializable {
         .fitHeightProperty()
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
-    // mapCanvas.heightProperty().bind(imageView.fitHeightProperty());
-    // mapCanvas.widthProperty().bind(imageView.fitWidthProperty());
 
-    // resizeCanvas();
+    //resizeCanvas();
 
     return gridPane;
   }
@@ -110,19 +114,6 @@ public class NewNavPageController implements Initializable {
 
     mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
     mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
-
-    /*//////////////////// FOR TESTING: ////////////////////
-    gc.setStroke(Color.RED);
-    gc.setLineWidth(3.0);
-
-    gc.strokeOval(0, 0, 5, 5);
-    gc.strokeOval(0, mapCanvas.getHeight(), 5, 5);
-    gc.strokeOval(mapCanvas.getWidth(), 0, 5, 5);
-    gc.strokeOval(mapCanvas.getWidth(), mapCanvas.getHeight(), 5, 5);
-
-    gc.strokeRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
-    gc.strokeLine(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
-    gc.strokeLine(0, mapCanvas.getHeight(), mapCanvas.getWidth(), 0);*/
   }
 
   public void editMode(ActionEvent actionEvent) {}
@@ -138,49 +129,59 @@ public class NewNavPageController implements Initializable {
 
   public void floorSelection(ActionEvent actionEvent) {
     selectedFloor = floorSelectionBtn.getValue();
-    String floor = "";
     // System.out.println(floorSelected);
 
     // switch case basically = if, else if, etc...
     switch (selectedFloor) {
       case "Campus":
         imageView.setImage(campusMap);
-        floor = "G";
+        sFloor = "G";
         break;
       case "Floor 1":
         imageView.setImage(floor1Map);
-        floor = "1";
+        sFloor = "1";
         break;
       case "Floor 2":
         imageView.setImage(floor2Map);
-        floor = "2";
+        sFloor = "2";
         break;
       case "Floor 3":
         imageView.setImage(floor3Map);
-        floor = "3";
+        sFloor = "3";
         break;
       case "Floor 4":
         imageView.setImage(floor4Map);
-        floor = "4";
+        sFloor = "4";
         break;
       case "Floor 5":
         imageView.setImage(floor5Map);
-        floor = "5";
+        sFloor = "5";
         break;
     }
 
     resizeCanvas();
     // TODO: only draw visible if patient/guest
-    graph.drawAllNodes(floor);
+    graph.drawAllNodes(sFloor);
   }
 
   public void endLocSelection(ActionEvent actionEvent) {}
 
-  public void doPathfind(ActionEvent actionEvent) {}
+  public void doPathfind(ActionEvent actionEvent) {
+
+  }
 
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
   public void canvasClick(MouseEvent mouseEvent) {
+    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
+
+    if(selectingStart) {
+      startNode = clickedNode;
+    }
+    else {
+      endNode = clickedNode;
+    }
+
     System.out.println("Click");
   }
 

@@ -56,7 +56,15 @@ public class DrawHelper {
     gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);
   }
 
-  public static void drawMidArrow(double ax, double ay, double bx, double by) {
+  /**
+   * Draws a single line with an arrowhead halfway from point a to point b
+   * @param gc the GraphicsContext on which the arrow will be drawn
+   * @param ax x-coordinate of point a
+   * @param ay y-coordinate of point a
+   * @param bx x-coordinate of point b
+   * @param by y-coordinate of point b
+   */
+  public static void drawMidArrow(GraphicsContext gc, double ax, double ay, double bx, double by) {
     double arrowLength = 6;
     final double arrowWidth = 4;
     final double minArrowDistSq = 108;
@@ -84,9 +92,10 @@ public class DrawHelper {
       double arrow2startX = (cx + dx + oy);
       double arrow2startY = (cy + dy - ox);
 
-      // gc.strokeLine(arrow1startX, arrow1startY, cx, cy);
-      // gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
+      gc.strokeLine(arrow1startX, arrow1startY, cx, cy);
+      gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
     }
-    // gc.strokeLine(ax, ay, bx, by);
+    gc.strokeLine(ax, ay, bx, by);
   }
+
 }

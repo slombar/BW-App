@@ -16,20 +16,7 @@ public class GraphSystem {
 
   LinkedList<String> unreachableNodes; // nodeIDs of unreachable nodes via DFS
 
-  // constructor
-  public GraphSystem() {
-    this.graph = new Graph(); // maybe have Graph initialize based on CSV?
-  }
-
-  public GraphSystem(boolean test) {
-    graph = new Graph(true);
-  }
-
-  public void initializeGraph() {
-    graph.initialize();
-  }
-
-  public boolean hasUnreachableNodes() {
+  /*public boolean hasUnreachableNodes() {
     initializeGraph(); // first, initialize map (bc CSV updated)
     dfs = new DFS(); // next, instantiate new DFS
 
@@ -50,24 +37,11 @@ public class GraphSystem {
     }
 
     return hasUnreachable;
-  }
+  }*/
 
-  public LinkedList<String> unreachableNodes() {
+  /*public LinkedList<String> unreachableNodes() {
     return unreachableNodes;
-  }
+  }*/
 
-  public LinkedList<String> findPath(String startID, String targetID) {
-    initializeGraph();
-    aStarSearch = new AStarSearch(graph, startID, targetID);
-    List<String> route =
-        AStarSearch.findRoute(NodesAndEdges.getNode(startID), NodesAndEdges.getNode(targetID));
 
-    LinkedList<String> routeIDs = new LinkedList<>();
-    for (String node : route) {
-
-      routeIDs.add(NodesAndEdges.getNode(node).getID());
-    }
-
-    return routeIDs;
-  }
 }

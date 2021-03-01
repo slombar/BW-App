@@ -7,6 +7,8 @@ import edu.wpi.cs3733.teamO.model.Node;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +22,7 @@ public class Graph {
   private static ObservableList<Node> listOfNodes;
   private static ObservableList<Edge> listOfEdges;
   private Hashtable<Node, Circle> nodeCircleHashtable;
+  private AStarSearch aStarSearch;
 
   // GC/Canvas-related attributes:
   private GraphicsContext gc;
@@ -79,11 +82,14 @@ public class Graph {
     // listOfNodes = new Hashtable<>();
   }
 
-  public Graph() {}
-
+  // probably unnecessary at this point
   public void initialize() {}
 
-  // adds a bi-directional edge to the nodes corresponding to both ID's
+  /**
+   * Adds each Node to the other's list of neighbouring Nodes
+   * @param node1 first node
+   * @param node2 second node
+   */
   void link(Node node1, Node node2) {
     // check if both exist
     if (listOfNodes.contains(node1) && listOfNodes.contains(node2)) {
@@ -96,17 +102,27 @@ public class Graph {
     return size;
   }
 
-  public static Node closestNode(double x, double y) throws NullPointerException {
+  /**
+   * Returns the Node closest to the given (x,y) on the given floor
+   * @param floor floor currently displaying when clicked
+   * @param x x-coordinate of the ClickEvent
+   * @param y y-coordinate of the ClickEvent
+   * @return Node closest to the ClickEvent
+   * @throws NullPointerException
+   */
+  public static Node closestNode(String floor, double x, double y) throws NullPointerException {
     double currentDist = 1000000000;
     Node node = null;
 
     for (Node n : listOfNodes) {
-      double dist =
+      if(n.getFloor().equals(floor)) {
+        double dist =
           Math.pow(Math.abs(x - node.getXCoord()), 2.0)
-              + Math.pow(Math.abs(y - node.getYCoord()), 2.0);
-      if (dist < currentDist) {
-        currentDist = dist;
-        node = n;
+            + Math.pow(Math.abs(y - node.getYCoord()), 2.0);
+        if (dist < currentDist) {
+          currentDist = dist;
+          node = n;
+        }
       }
     }
 
@@ -114,16 +130,20 @@ public class Graph {
     return node;
   }
 
-  /** */
+  /**
+   * Creates a properly-scaled Circle for every Node in the database and adds it to nodeCircleHashtable with it's corresponding Node as the key
+   */
   public void createCircles() {
 
     for (Node n : listOfNodes) {
+      // get node's x and y (and floor)
       double nX = n.getXCoord();
       double nY = n.getYCoord();
       double nXperc = 0.0;
       double nYperc = 0.0;
       String nFloor = n.getFloor();
 
+      // set nX/Yperc to be the node's x/y as a percentage of the image's x/y
       // switch case basically = if, else if, etc...
       switch (nFloor) {
         case "G":
@@ -153,6 +173,7 @@ public class Graph {
       }
 
       Circle circle = new Circle();
+      // set radius to be percentage of canvas height, and bind circle's x/y to the canvas width/height * percent
       circle.radiusProperty().bind(gc.getCanvas().heightProperty().multiply(0.01));
       circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
       circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
@@ -177,5 +198,21 @@ public class Graph {
     }
 
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes);
+  }
+
+  public LinkedList<String> findPath(String startID, String targetID) {
+    // TODO: change to accommodate Admin choice of A*, DFS, or BFS
+
+    aStarSearch = new AStarSearch(this, startID, targetID);
+    List<String> route =
+      AStarSearch.findRoute(NodesAndEdges.getNode(startID), NodesAndEdges.getNode(targetID));
+
+    LinkedList<String> routeIDs = new LinkedList<>();
+    for (String node : route) {
+
+      routeIDs.add(NodesAndEdges.getNode(node).getID());
+    }
+
+    return routeIDs;
   }
 }

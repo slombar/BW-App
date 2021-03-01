@@ -11,30 +11,30 @@ class AStarSearch {
 
   private Graph graph;
   private int graphSize;
-  private static String startID;
-  private static String targetID;
+  private static Node startNode;
+  private static Node targetNode;
 
   private static PriorityQueue<Node> frontier; // expanding frontier of search
-  private static Hashtable<String, String>
+  private static Hashtable<Node, String>
       cameFrom; // NodeID and the NodeID of the node to get to it
-  private static Hashtable<String, Double> costSoFar; // NodeID and that nodes current cost so far
+  private static Hashtable<Node, Double> costSoFar; // NodeID and that nodes current cost so far
 
   private LinkedList<Node> foundRoute; // most recent found root for this A* object
 
-  AStarSearch(boolean test) {
+  /*AStarSearch(boolean test) {
     graph = new Graph(test); // may not want/need to initialize graph here
     graphSize = -1;
     startID = "-1";
     targetID = "-1";
     frontier = new PriorityQueue<Node>();
-  }
+  }*/
 
   // constructor
-  AStarSearch(Graph g, String start, String target) {
+  AStarSearch(Graph g, Node start, Node target) {
     graph = g;
     graphSize = graph.getSize();
-    startID = start;
-    targetID = target;
+    startNode = start;
+    targetNode = target;
 
     frontier = new PriorityQueue<>();
     cameFrom = new Hashtable<>();
@@ -42,13 +42,80 @@ class AStarSearch {
     foundRoute = new LinkedList<>();
   }
 
-  // actual search method
-  // returns found route (in order) as LL<edu.wpi.teamO.GraphSystem.Node>
-  static List<String> findRoute(Node startNode, Node endNode) {
+  /**
+   * OLD METHOD - returns route from startNode to endNode as a LL of NodeIDs
+   * @param startNode starting Node
+   * @param endNode destination Node
+   * @return LinkedList of NodeIDs
+   */
+  static List<String> findRouteOLD(Node startNode, Node endNode) {
     // sets start node based on startID provided in constructor
 
     // path, but in reverse order
     LinkedList<String> path = new LinkedList<>();
+
+    frontier.add(startNode);
+    cameFrom.put(startID, "-1"); // didn't come from anywhere at start
+    costSoFar.put(startID, 0.0); // didn't cost anything at start
+
+    boolean foundPath = false;
+
+    while (!frontier.isEmpty()) {
+      Node current = frontier.poll(); // continues searching from next frontier node
+
+      if (current.getID().equals(targetID)) {
+        foundPath = true;
+        break;
+      }
+
+      // iterates through current nodes neighbours
+      int llsize = current.getNeighbourList().size();
+      for (int i = 0; i < llsize; i++) {
+        // gets next node in neighbours
+        // sets next's cost so far to current's cost so far + edge cost
+        Node next = current.getNeighbourList().iterator().next();
+        double newCost = costSoFar.get(current.getID()) + dist(current, next);
+
+        // if cost to next hasn't been calculated yet, or if the newCost is less
+        //    than the previously calc'ed cost, replace with newCost
+        if (costSoFar.get(next.getID()) == null || newCost < costSoFar.get(next.getID())) {
+          costSoFar.put(next.getID(), newCost);
+
+          // calculates priority (cost from start + distance to target --> lower is better)
+          double priority = newCost + heuristic(next);
+          next.setPriority(priority);
+          frontier.add(next);
+          cameFrom.put(next.getID(), current.getID()); // next came from current
+        }
+      }
+    }
+
+    if (foundPath) {
+      // backtrack to add to path:
+      // start by adding target node, then iterate through cameFrom,
+      // appending next node to the front of path
+      path.add(startNode.getID());
+      String cameFromID = targetID;
+
+      while (!cameFromID.equals(startID)) { // goes until it appends startNode
+        String nID = cameFrom.get(cameFromID);
+        path.addFirst(nID);
+        cameFromID = nID;
+      }
+
+      // DUMMY RETURN:
+      return path;
+
+    } else {
+      return null;
+    }
+  }
+
+  static List<Node> findRoute(Node startNode, Node endNode) {
+    // sets start node based on startID provided in constructor
+
+    // path, but in reverse order
+    LinkedList<Node> path = new LinkedList<>();
 
     frontier.add(startNode);
     cameFrom.put(startID, "-1"); // didn't come from anywhere at start
