@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 class AStarSearch {
 
@@ -115,7 +112,7 @@ class AStarSearch {
     LinkedList<Node> path = new LinkedList<>();
 
     frontier.add(startNode);
-    cameFrom.put(startNode, null); // didn't come from anywhere at start
+    cameFrom.put(startNode, new Node()); // didn't come from anywhere at start
     costSoFar.put(startNode, 0.0); // didn't cost anything at start
 
     boolean foundPath = false;
@@ -130,10 +127,15 @@ class AStarSearch {
 
       // iterates through current nodes neighbours
       int llsize = current.getNeighbourList().size();
-      for (int i = 0; i < llsize; i++) {
+
+      Set<Node> nList = current.getNeighbourList();
+
+      Iterator<Node> iterator = nList.iterator();
+
+      while (iterator.hasNext()) {
         // gets next node in neighbours
         // sets next's cost so far to current's cost so far + edge cost
-        Node next = current.getNeighbourList().iterator().next();
+        Node next = iterator.next();
         // TODO: change dist to get Edge length
         double newCost = costSoFar.get(current) + dist(current, next);
 
@@ -179,7 +181,9 @@ class AStarSearch {
    */
   private static double heuristic(Node next) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    return dist(next, targetNode);
+    // return dist(next, targetNode);
+    return 0.0;
+    // TODO: have this return an actual heuristic
   }
 
   // TODO: needs to take floors into account
