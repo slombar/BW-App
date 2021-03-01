@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="gridPane" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
@@ -92,13 +93,21 @@
             </Label>
             <JFXToggleButton fx:id="editToggle" onAction="#editMode" prefHeight="60.0" prefWidth="183.0" text="Editing Mode">
                <VBox.margin>
-                  <Insets bottom="20.0" />
+                  <Insets />
                </VBox.margin>
             </JFXToggleButton>
+            <Line endX="113.29289245605469" startX="-100.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Line>
             <Label text="Selected Node">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
                <children>
@@ -236,7 +245,7 @@
                   </JFXTextField>
                </children>
             </HBox>
-            <JFXButton prefWidth="280.0" text="Make Changes to DB">
+            <JFXButton prefWidth="280.0" text="Make Changes to Node">
                <font>
                   <Font name="Leelawadee UI Bold" size="15.0" />
                </font>
@@ -245,6 +254,102 @@
                </VBox.margin>
             </JFXButton>
             <JFXButton prefHeight="31.0" prefWidth="280.0" text="Select &amp; Create New Node">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton prefHeight="31.0" prefWidth="280.0" text="Select &amp; Delete Node">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </JFXButton>
+            <Line endX="113.29289245605469" startX="-100.0">
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
+            </Line>
+            <Label text="Edge">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+               <children>
+                  <Label prefWidth="120.0" text="Edge ID:">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Edge ID">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+               <children>
+                  <Label prefWidth="120.0" text="Start Node:">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Start Node">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+               <children>
+                  <Label prefWidth="120.0" text="End Node:">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="End Node">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <JFXButton prefWidth="280.0" text="Make Changes to Edge">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton prefHeight="31.0" prefWidth="280.0" text="Create New Edge">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton prefHeight="31.0" prefWidth="280.0" text="Delete Edge">
                <font>
                   <Font name="Leelawadee UI Bold" size="15.0" />
                </font>
