@@ -56,8 +56,7 @@ public class RequestPageController implements Initializable {
    */
   public void goToComputerReq(ActionEvent actionEvent) {
     RequestDisplayController.setType("COMP");
-    RequestDisplayController.displayList();
-    SwitchScene.goToBorderPane("/Views/ComputerServiceRequest.fxml");
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToFloralReq(ActionEvent actionEvent) {

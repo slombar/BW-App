@@ -9,14 +9,18 @@ public class DisplayRequest {
   private static ObservableList<Request> reqList = RequestHandling.getAllRequests();
 
   public static ObservableList<Request> getSpecificReqList(String typeOfRequest) {
-
+    reqList = RequestHandling.getAllRequests();
     ObservableList<Request> specList = FXCollections.observableArrayList();
 
-    for (Request r : reqList) {
+    if (reqList.size() > 0) {
+      for (Request req : reqList) {
 
-      if (r.getRequestType().equals(typeOfRequest)) {
-        reqList.add(r);
+        if (req.getRequestType().equals(typeOfRequest)) {
+          reqList.add(req);
+        }
       }
+    } else {
+      System.out.println("Nothing in list");
     }
 
     return specList;
