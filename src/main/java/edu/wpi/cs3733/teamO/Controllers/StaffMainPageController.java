@@ -73,7 +73,8 @@ public class StaffMainPageController implements Initializable {
 
   public void goToRequest(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/Views/ServiceRequests/RequestPage.fxml"));
+      Parent root =
+          FXMLLoader.load(getClass().getResource("/Views/ServiceRequests/RequestPage.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
