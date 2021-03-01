@@ -67,9 +67,9 @@ public class NewNavPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     floorSelectionBtn.setItems(listOfFloors);
 
-    resizableWindow();
+    resizableMap();
 
-    mapCanvas.toFront();
+    mapCanvas.toBack();
     gc = mapCanvas.getGraphicsContext2D();
 
     graph = new Graph(gc);
@@ -79,6 +79,15 @@ public class NewNavPageController implements Initializable {
 
     // just for testing
     System.out.println("NewNavPageController Initialized");
+  }
+
+  public GridPane resizableMap() {
+    imageView.setPreserveRatio(true);
+    imageView
+        .fitHeightProperty()
+        .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
+    imageView.fitWidthProperty().bind(hboxRef.widthProperty());
+    return gridPane;
   }
 
   /**
@@ -93,37 +102,8 @@ public class NewNavPageController implements Initializable {
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
-    //    System.out.println(imageView.getFitHeight());
-    //    System.out.println(
-    //        Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
-    //    System.out.println(imageView.imageProperty().get().getHeight());
-
-    // just mapCanvas.layoutX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
-    // just mapCanvas.scaleX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
-    // just mapCanvas.translateX/YProperty.bind(imageView.x/yProperty()) DOES NOT WORK
-
-    // mapCanvas.translateXProperty().bind(imageView.translateXProperty());
-    // mapCanvas.translateYProperty().bind(imageView.translateYProperty());
-
-    // mapCanvas.layoutXProperty().bind(hboxRef.layoutXProperty().add(imageView.translateXProperty()));
-    // mapCanvas.layoutYProperty().bind(hboxRef.layoutYProperty().add(imageView.translateYProperty()));
-
-    //    mapCanvas
-    //        .heightProperty()
-    //
-    // .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
-    //    mapCanvas.widthProperty().bind(hboxRef.widthProperty());
-
-    //    mapCanvas.heightProperty().bind(imageView.imageProperty().get().heightProperty());
-    //    mapCanvas.widthProperty().bind(imageView.imageProperty().getValue().widthProperty());
-    //    mapCanvas.setWidth(imageView.imageProperty().getValue().getWidth());
-    //    mapCanvas.heightProperty().bind(imageView.getBoundsInParent().getHeight());
     mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
     mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
-
-    // mapCanvas.heightProperty().bind(imageView.fitHeightProperty());
-    // mapCanvas.widthProperty().bind(imageView.fitWidthProperty());
-
     return gridPane;
   }
 
@@ -139,6 +119,7 @@ public class NewNavPageController implements Initializable {
   }
 
   public void floorSelection(ActionEvent actionEvent) {
+    mapCanvas.toFront();
     selectedFloor = floorSelectionBtn.getValue();
     String floor = "";
     // System.out.println(floorSelected);
