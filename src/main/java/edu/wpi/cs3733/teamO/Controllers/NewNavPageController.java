@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
-import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.awt.*;
@@ -195,8 +194,10 @@ public class NewNavPageController implements Initializable {
     for (int i = 0; i < path.size() - 1; i++) {
       Node nodeA = path.get(i);
       Node nodeB = path.get(i + 1);
-      DrawHelper.drawMidArrow(
-          gc, nodeA.getXCoord(), nodeA.getYCoord(), nodeB.getXCoord(), nodeB.getYCoord());
+
+      graph.drawMidArrow(nodeA, nodeB);
+      // DrawHelper.drawMidArrow(
+      //   gc, nodeA.getXCoord(), nodeA.getYCoord(), nodeB.getXCoord(), nodeB.getYCoord());
     }
   }
 

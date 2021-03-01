@@ -228,4 +228,11 @@ public class Graph {
 
     return route;
   }
+
+  public void drawMidArrow(Node nodeA, Node nodeB) {
+    Circle circleA = nodeCircleHashtable.get(nodeA);
+    Circle circleB = nodeCircleHashtable.get(nodeB);
+
+    DrawHelper.drawMidArrow(gc, circleA, circleB);
+  }
 }

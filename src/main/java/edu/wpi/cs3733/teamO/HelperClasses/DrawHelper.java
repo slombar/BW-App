@@ -54,7 +54,7 @@ public class DrawHelper {
       gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
     }
 
-    //////////////////// FOR TESTING: ////////////////////
+    /*//////////////////// FOR TESTING: ////////////////////
     gc.setStroke(Color.RED);
     gc.setLineWidth(3.0);
 
@@ -65,22 +65,25 @@ public class DrawHelper {
 
     gc.strokeRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     gc.strokeLine(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);
+    gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);*/
   }
 
   /**
    * Draws a single line with an arrowhead halfway from point a to point b
    *
-   * @param gc the GraphicsContext on which the arrow will be drawn
-   * @param ax x-coordinate of point a
-   * @param ay y-coordinate of point a
-   * @param bx x-coordinate of point b
-   * @param by y-coordinate of point b
+   * @param gc
+   * @param circleA
+   * @param circleB
    */
-  public static void drawMidArrow(GraphicsContext gc, double ax, double ay, double bx, double by) {
+  public static void drawMidArrow(GraphicsContext gc, Circle circleA, Circle circleB) {
     double arrowLength = 6;
     final double arrowWidth = 4;
     final double minArrowDistSq = 108;
+
+    double ax = circleA.getCenterX();
+    double ay = circleA.getCenterY();
+    double bx = circleB.getCenterX();
+    double by = circleB.getCenterY();
 
     double distSq = Math.pow(Math.abs(ax - bx), 2.0) + Math.pow(Math.abs(ay - by), 2.0);
 
