@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
@@ -66,6 +68,12 @@ public class PatientSignInPopupController {
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
+    }
+  }
+
+  public void checkEnter(KeyEvent keyEvent) {
+    if (keyEvent.getCode() == KeyCode.ENTER) {
+      signIn(new ActionEvent());
     }
   }
 }

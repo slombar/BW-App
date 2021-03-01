@@ -42,10 +42,14 @@
                   <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
                </image>
             </ImageView>
-            <JFXTextField fx:id="user" maxWidth="300.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <JFXTextField fx:id="user" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Leelawadee UI" size="15.0" />
                </font></JFXTextField>
+            <JFXPasswordField fx:id="pass" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Leelawadee UI" size="15.0" />
+               </font></JFXPasswordField>
             <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="Leelawadee UI Bold" size="14.0" />
@@ -55,10 +59,6 @@
                <font>
                   <Font name="Leelawadee UI" size="15.0" />
                </font></JFXButton>
-            <JFXPasswordField fx:id="pass" maxWidth="300.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Leelawadee UI" size="15.0" />
-               </font></JFXPasswordField>
          </children>
          <padding>
             <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />

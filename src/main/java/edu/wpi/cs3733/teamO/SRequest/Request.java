@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.teamO.SRequest;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
-import edu.wpi.cs3733.teamO.model.Node;
 import java.util.Date;
 
 public class Request extends RecursiveTreeObject<Request> {
@@ -14,7 +12,6 @@ public class Request extends RecursiveTreeObject<Request> {
   private String summary;
   private String requestType;
   private String locationNodeID;
-  private Node locationNode;
   private String para1;
   private String para2;
   private String para3;
@@ -39,7 +36,6 @@ public class Request extends RecursiveTreeObject<Request> {
     this.dateNeeded = dateNeeded;
     this.summary = summary;
     this.locationNodeID = locationNodeID;
-    this.locationNode = NodesAndEdges.getNode(locationNodeID);
     this.para1 = para1;
     this.para2 = para2;
     this.para3 = para3;
@@ -93,14 +89,6 @@ public class Request extends RecursiveTreeObject<Request> {
 
   public void setLocationNodeID(String locationNodeID) {
     this.locationNodeID = locationNodeID;
-  }
-
-  public Node getLocationNode() {
-    return locationNode;
-  }
-
-  public void setLocationNode(Node locationNode) {
-    this.locationNode = locationNode;
   }
 
   public String getFulfilledBy() {

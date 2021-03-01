@@ -84,54 +84,49 @@ public class UserHandling {
 
     String query = "SELECT * FROM USERS WHERE username = '" + u + "' AND password = '" + p + "'";
 
-    try {
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
 
-      ResultSet res = pstmt.executeQuery();
+    ResultSet res = pstmt.executeQuery();
 
-      pstmt.close();
+    vu = res.getString("username");
+    vp = res.getString("password");
 
-    } catch (SQLException throwable) {
-      System.out.println("Login Credentials Wrong. Fail.");
-      throw throwable;
-    }
+    res.close();
+    pstmt.close();
   }
 
-  public static void loginEmployee(String username, String password) throws SQLException {
+  public static void loginEmployee(String u, String p) throws SQLException {
     setUsername(username);
 
     String encodedPass = null;
     try {
-      encodedPass = Encrypter.encryptPassword(password);
+      encodedPass = Encrypter.encryptPassword(p);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
-    password = encodedPass;
+    p = encodedPass;
 
     String vu = "";
     String vp = "";
 
     String query =
         "SELECT * FROM USERS WHERE username = '"
-            + username
+            + u
             + "' AND password = '"
-            + password
+            + p
             + "' AND employee = "
             + true;
 
-    try {
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-      ResultSet res = pstmt.executeQuery();
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+    ResultSet res = pstmt.executeQuery();
 
-      pstmt.close();
+    vu = res.getString("username");
+    vp = res.getString("password");
 
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-      System.out.println("Login Credentials Wrong. Fail.");
-      throw throwables;
-    }
+    res.close();
+    pstmt.close();
   }
 
   public static String getUsername() {
