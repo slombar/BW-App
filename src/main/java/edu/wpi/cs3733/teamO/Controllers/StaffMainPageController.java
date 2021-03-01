@@ -39,6 +39,7 @@ public class StaffMainPageController implements Initializable {
 
     // transition animation of Hamburger icon
     HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+    transition.setRate(-1);
 
     // click event - mouse click
     hamburger.addEventHandler(
@@ -46,9 +47,11 @@ public class StaffMainPageController implements Initializable {
         (e) -> {
           transition.setRate(transition.getRate() * -1);
           transition.play();
-
-          if (drawer.isOpened()) drawer.close(); // this will close slide pane
-          else drawer.open(); // this will open slide pane
+          if (drawer.isOpened()) {
+            drawer.close(); // this will close slide pane
+          } else {
+            drawer.open(); // this will open slide pane
+          }
         });
     hoverAllBtn();
   }
