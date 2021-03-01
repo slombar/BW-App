@@ -96,35 +96,35 @@ public class ReqController implements Initializable {
   }
 
   public void addNewRequest(ActionEvent actionEvent) {
-    if (typeOfRequest == "COMP") {
+    if (typeOfRequest.equals("COMP")) {
       SwitchScene.goToParent("/Views/ServiceRequests/ComputerServiceRequest.fxml");
     }
-    if (typeOfRequest == "GIFT") {
+    if (typeOfRequest.equals("GIFT")) {
       SwitchScene.goToParent("/Views/ServiceRequests/GiftDeliveryService.fxml");
     }
-    if (typeOfRequest == "TRANS") {
+    if (typeOfRequest.equals("TRANS")) {
       SwitchScene.goToParent("/Views/ServiceRequests/InternalTransportForm.fxml");
     }
-    if (typeOfRequest == "LAUN") {
+    if (typeOfRequest.equals("LAUN")) {
       SwitchScene.goToParent("/Views/ServiceRequests/LaundryRequest.fxml");
     }
-    if (typeOfRequest == "MEDI") {
+    if (typeOfRequest.equals("MEDI")) {
       SwitchScene.goToParent("/Views/ServiceRequests/MedicineDeliveryService.fxml");
     }
-    if (typeOfRequest == "SECU") {
+    if (typeOfRequest.equals("SECU")) {
       SwitchScene.goToParent("/Views/ServiceRequests/SecurityRequest.fxml");
     }
-    if (typeOfRequest == "MAIT") {
+    if (typeOfRequest.equals("MAIT")) {
       SwitchScene.goToParent("/Views/ServiceRequests/FacilitiesMaintenanceRequest.fxml");
     }
-    /*TODO: add SERVICE REQS WHEN THEY COME IN*/
-    if (typeOfRequest == "LANG") {
-      // SwitchScene.goToParent("/Views/NAME.fxml");
+    if (typeOfRequest.equals("LANG")) {
+      SwitchScene.goToParent("/Views/ServiceRequests/InterpreterForm.fxml");
     }
-    if (typeOfRequest == "SANA") {
-      // SwitchScene.goToParent("/Views/NAME.fxml");
+    if (typeOfRequest.equals("SANA")) {
+      SwitchScene.goToParent("/Views/ServiceRequests/SANA.fxml");
     }
-    if (typeOfRequest == "FLOR") {
+    /*TODO: add kyle's component*/
+    if (typeOfRequest.equals("FLOR")) {
       // SwitchScene.goToParent("/Views/NAME.fxml");
     }
   }
