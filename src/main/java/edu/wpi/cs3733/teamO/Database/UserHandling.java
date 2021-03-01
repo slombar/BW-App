@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class UserHandling {
 
   private static String username;
+  private static String fName;
 
   /**
    * Create new account and add info to the database password is encrypted through Encryptor from
@@ -137,7 +138,15 @@ public class UserHandling {
     return username;
   }
 
+  public static String getFirstName() {
+    return fName;
+  }
+
   public static void setUsername(String u) {
     username = u;
+  }
+
+  public static void setFirstName(String f) {
+    fName = f;
   }
 }
