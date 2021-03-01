@@ -48,6 +48,7 @@ public class NewNavPageController implements Initializable {
   private GraphicsContext gc;
   private String selectedFloor = "Campus";
   private String sFloor = "G";
+  private String sideMenuUrl;
 
   private Graph graph;
   boolean selectingStart = true;
@@ -82,9 +83,12 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
+    if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
+    else sideMenuUrl = "/Views/SideMenu.fxml";
+
     // Set drawer to SideMenu
     try {
-      VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SideMenu.fxml"));
+      VBox vbox = FXMLLoader.load(getClass().getResource(sideMenuUrl));
       drawer.setSidePane(vbox);
     } catch (IOException e) {
       e.printStackTrace();
