@@ -19,7 +19,11 @@ public class DrawHelper {
    * @param nodeList the list of Nodes whose Circles should be drawn
    */
   public static void drawNodeCircles(
-      GraphicsContext gc, Hashtable<Node, Circle> ncTable, ArrayList<Node> nodeList) {
+      GraphicsContext gc,
+      Hashtable<Node, Circle> ncTable,
+      ArrayList<Node> nodeList,
+      Node startNode,
+      Node endNode) {
 
     Canvas mapcanvas = gc.getCanvas();
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
@@ -27,16 +31,24 @@ public class DrawHelper {
     Circle tempCir = new Circle();
 
     // TODO: figure out the color situation (eg. changing when selected)
-    gc.setGlobalAlpha(0.9);
-    gc.setFill(Color.YELLOW);
-    gc.setStroke(Color.BLACK);
-    gc.setLineWidth(1.0);
+
     // for each node in the DB, add their circle to the map
     for (Node n : nodeList) {
+      gc.setGlobalAlpha(0.9);
+      gc.setFill(Color.YELLOW);
+      gc.setStroke(Color.BLACK);
+      gc.setLineWidth(1.0);
+
       tempCir = ncTable.get(n);
       double tempCirX = tempCir.getCenterX() - tempCir.getRadius();
       double tempCirY = tempCir.getCenterY() - tempCir.getRadius();
       double diameter = 2 * tempCir.getRadius();
+
+      if (n.equals(startNode)) {
+        gc.setFill(Color.BLUE);
+      } else if (n.equals(endNode)) {
+        gc.setFill(Color.RED);
+      }
 
       gc.fillOval(tempCirX, tempCirY, diameter, diameter);
       gc.strokeOval(tempCirX, tempCirY, diameter, diameter);

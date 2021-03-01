@@ -6,7 +6,6 @@ import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.LinkedList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,10 +16,10 @@ import javafx.scene.shape.Circle;
 public class Graph {
 
   private int size; // not necessary?
-  private LinkedList<String> listOfNodeIDs; // not necessary?
   private static ObservableList<Node> listOfNodes;
   private static ObservableList<Edge> listOfEdges;
-  private Hashtable<Node, Circle> nodeCircleHashtable;
+  private static Hashtable<String, Node> stringNodeHashtable;
+  private static Hashtable<Node, Circle> nodeCircleHashtable;
   private AStarSearch aStarSearch;
 
   // GC/Canvas-related attributes:
@@ -59,13 +58,23 @@ public class Graph {
     // initialize nodes based on DB
     listOfNodes = FXCollections.observableArrayList();
     listOfNodes = NodesAndEdges.getAllNodes();
+    stringNodeHashtable = new Hashtable<>();
+    for (Node n : listOfNodes) {
+      stringNodeHashtable.put(n.getID(), n);
+    }
+
     size = listOfNodes.size();
 
     // initialize edges based on DB
     listOfEdges = FXCollections.observableArrayList();
     listOfEdges = NodesAndEdges.getAllEdges();
 
-    // TODO: initialize graph properly (link nodes)
+    for (Edge e : listOfEdges) {
+      Node nodeA = stringNodeHashtable.get(e.getStart());
+      Node nodeB = stringNodeHashtable.get(e.getEnd());
+
+      link(nodeA, nodeB, e);
+    }
 
     nodeCircleHashtable = new Hashtable<>();
     this.gc = gc;
@@ -77,14 +86,11 @@ public class Graph {
    *
    * @param test dummy parameter (can be true or false)
    */
-  Graph(boolean test) {
+  /*Graph(boolean test) {
     listOfNodeIDs = new LinkedList<String>();
     size = 0;
     // listOfNodes = new Hashtable<>();
-  }
-
-  // probably unnecessary at this point
-  public void initialize() {}
+  }*/
 
   /**
    * Adds each Node to the other's list of neighbouring Nodes
@@ -122,9 +128,10 @@ public class Graph {
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) {
+        Circle tempCircle = nodeCircleHashtable.get(n);
         double dist =
-            Math.pow(Math.abs(x - node.getXCoord()), 2.0)
-                + Math.pow(Math.abs(y - node.getYCoord()), 2.0);
+            Math.pow(Math.abs(x - tempCircle.getCenterX()), 2.0)
+                + Math.pow(Math.abs(y - tempCircle.getCenterY()), 2.0);
         if (dist < currentDist) {
           currentDist = dist;
           node = n;
@@ -198,14 +205,14 @@ public class Graph {
    *
    * @param floor G, 1, 2, 3, 4, or 5
    */
-  public void drawAllNodes(String floor) {
+  public void drawAllNodes(String floor, Node startNode, Node endNode) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
     }
 
-    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes);
+    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
   }
 
   public List<Node> findPath(Node startNode, Node targetNode) {

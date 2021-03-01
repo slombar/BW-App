@@ -3,11 +3,13 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,7 +96,7 @@ public class NewNavPageController implements Initializable {
       e.printStackTrace();
     }
     // TODO: change to visible nodes if PATIENT/GUEST
-    graph.drawAllNodes("G");
+    graph.drawAllNodes("G", startNode, endNode);
 
     // just for testing
 
@@ -188,12 +190,19 @@ public class NewNavPageController implements Initializable {
 
     resizeCanvas();
     // TODO: only draw visible if patient/guest
-    graph.drawAllNodes(sFloor);
+    graph.drawAllNodes(sFloor, startNode, endNode);
   }
 
-  public void endLocSelection(ActionEvent actionEvent) {}
+  public void doPathfind(ActionEvent actionEvent) {
+    List<Node> path = graph.findPath(startNode, endNode);
 
-  public void doPathfind(ActionEvent actionEvent) {}
+    for (int i = 0; i < path.size() - 1; i++) {
+      Node nodeA = path.get(i);
+      Node nodeB = path.get(i + 1);
+      DrawHelper.drawMidArrow(
+          gc, nodeA.getXCoord(), nodeA.getYCoord(), nodeB.getXCoord(), nodeB.getYCoord());
+    }
+  }
 
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
@@ -206,11 +215,16 @@ public class NewNavPageController implements Initializable {
       endNode = clickedNode;
     }
 
+    graph.drawAllNodes(sFloor, startNode, endNode);
     System.out.println("Click");
   }
 
+  // TODO: set start/end to different colors
   public void startLocSelection(ActionEvent actionEvent) {
-    resizeCanvas();
-    graph.drawAllNodes(selectedFloor);
+    selectingStart = true;
+  }
+
+  public void endLocSelection(ActionEvent actionEvent) {
+    selectingStart = false;
   }
 }
