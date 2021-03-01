@@ -115,7 +115,7 @@ class AStarSearch {
     LinkedList<Node> path = new LinkedList<>();
 
     frontier.add(startNode);
-    cameFrom.put(startNode, null); // didn't come from anywhere at start
+    cameFrom.put(startNode, new Node()); // didn't come from anywhere at start
     costSoFar.put(startNode, 0.0); // didn't cost anything at start
 
     boolean foundPath = false;
@@ -179,7 +179,9 @@ class AStarSearch {
    */
   private static double heuristic(Node next) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    return dist(next, targetNode);
+    // return dist(next, targetNode);
+    return 0.0;
+    // TODO: have this return an actual heuristic
   }
 
   // TODO: needs to take floors into account
