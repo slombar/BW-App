@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="bigAnchor" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.IndexController">
+<AnchorPane fx:id="bigAnchor" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Archive.IndexController">
 
    <children>
       <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -24,7 +24,7 @@
                        <children>
                            <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                <image>
-                                   <Image url="@../FaulknerCampus.png" />
+                                   <Image url="@../../FaulknerCampus.png" />
                                </image>
                            </ImageView>
                            <Canvas fx:id="mapcanvas" height="583.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#canvasClick" width="728.0" />

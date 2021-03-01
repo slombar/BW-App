@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.teamO.Controllers;
+package edu.wpi.cs3733.teamO.Controllers.Archive;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
@@ -730,7 +730,7 @@ public class EditPageController implements Initializable {
    * @throws IOException
    */
   public void goToIndex(ActionEvent actionEvent) throws IOException {
-    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Archive/Index.fxml"));
     Opp.getPrimaryStage().setFullScreen(true);
     Opp.getPrimaryStage().getScene().setRoot(root);
   }

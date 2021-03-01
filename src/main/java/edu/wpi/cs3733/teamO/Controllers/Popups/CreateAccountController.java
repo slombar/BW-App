@@ -7,6 +7,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class CreateAccountController {
   @FXML private JFXTextField lName;
   @FXML private StackPane popupPane;
 
-  public void create(ActionEvent actionEvent) {
+  public void create(ActionEvent actionEvent) throws SQLException {
     if (RegexBoi.checkUsername(user.getText())) {
       if (RegexBoi.checkEmail(email.getText())) {
 
@@ -53,7 +54,7 @@ public class CreateAccountController {
     }
   }
 
-  public void checkEnter(KeyEvent keyEvent) {
+  public void checkEnter(KeyEvent keyEvent) throws SQLException {
     if (keyEvent.getCode() == KeyCode.ENTER) {
       create(new ActionEvent());
     }

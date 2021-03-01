@@ -36,6 +36,7 @@ public class MainPageController implements Initializable {
 
     // transition animation of Hamburger icon
     HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+    transition.setRate(-1);
 
     // click event - mouse click
     hamburger.addEventHandler(

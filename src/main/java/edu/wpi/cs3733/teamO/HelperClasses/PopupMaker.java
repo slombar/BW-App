@@ -75,7 +75,7 @@ public class PopupMaker {
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
     warning.setHeading(new Text("Login Failed"));
-    warning.setBody(new Text("Incorrect Username or passowrd"));
+    warning.setBody(new Text("Incorrect Username or Password"));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 

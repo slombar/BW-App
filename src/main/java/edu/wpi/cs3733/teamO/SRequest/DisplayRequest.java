@@ -6,21 +6,19 @@ import javafx.collections.ObservableList;
 
 public class DisplayRequest {
 
-  private static ObservableList<Request> reqList = RequestHandling.getAllRequests();
+  private static ObservableList<Request> reqList;
 
   public static ObservableList<Request> getSpecificReqList(String typeOfRequest) {
-    reqList = RequestHandling.getAllRequests();
+    reqList = RequestHandling.getRequests();
     ObservableList<Request> specList = FXCollections.observableArrayList();
 
-    if (reqList.size() > 0) {
-      for (Request req : reqList) {
+    for (int x = 0; x < reqList.size(); x++) {
 
-        if (req.getRequestType().equals(typeOfRequest)) {
-          reqList.add(req);
-        }
+      if (reqList.get(x).getRequestType().equals(typeOfRequest)) {
+        specList.add(reqList.get(x));
+
+        System.out.println(reqList.get(x).getRequestID());
       }
-    } else {
-      System.out.println("Nothing in list");
     }
 
     return specList;

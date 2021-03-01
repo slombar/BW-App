@@ -23,9 +23,9 @@ public class CovidSurveyController {
 
   public void submitCovidForm(ActionEvent actionEvent) {
 
-//        Toggle diag = diagnosed.getSelectedToggle();
-//        System.out.println(diag.getUserData());
-        // TODO
-        SwitchScene.goToParent("/Views/MainPage.fxml");
+    //        Toggle diag = diagnosed.getSelectedToggle();
+    //        System.out.println(diag.getUserData());
+    // TODO
+    SwitchScene.goToParent("/Views/MainPage.fxml");
   }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ComputerServiceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.FacilitiesMaintenanceController">
    <top>
-      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="301.0" prefWidth="805.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Medicine delivery request" textFill="WHITE">
+            <Label minHeight="-Infinity" prefHeight="150.0" prefWidth="879.0" text="Facilites Maintenance Request" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Georgia Bold" size="55.0" />
                </font>
@@ -46,22 +46,9 @@
                      </font></JFXTextField>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <Label prefWidth="100.0" text="Date" textFill="WHITE">
-                     <font>
-                        <Font name="Georgia" size="22.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXDatePicker defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" />
-               </children>
-            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="100.0" text="Medicine " textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="100.0" text="Type" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -69,28 +56,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField prefWidth="250.0" promptText="Type of Medicine" style="-fx-background-color: #ffffff;">
-                     <font>
-                        <Font name="Georgia" size="18.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="100.0" text="Dose" textFill="WHITE">
-                     <font>
-                        <Font name="Georgia" size="22.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefWidth="250.0" promptText="Dose in Milligrams" style="-fx-background-color: #ffffff;">
-                     <font>
-                        <Font name="Georgia" size="18.0" />
-                     </font>
-                  </JFXTextField>
+                  <JFXComboBox fx:id="comboBox" prefWidth="250.0" promptText="Type of Maintenance" style="-fx-background-color: #ffffff;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -110,9 +76,9 @@
                   </JFXTextArea>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="218.0" text="Prescription needed" textFill="WHITE">
+                  <Label prefWidth="100.0" text="Date" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -120,7 +86,24 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXCheckBox checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="133.0" text=" " textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXDatePicker defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Personnel" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextArea prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" text="Personnel Requested (if any)" wrapText="true">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                  </JFXTextArea>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

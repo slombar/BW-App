@@ -1,6 +1,7 @@
-package edu.wpi.cs3733.teamO.Controllers;
+package edu.wpi.cs3733.teamO.Controllers.Archive;
 
 import com.jfoenix.controls.*;
+import edu.wpi.cs3733.teamO.Controllers.EmailPageController;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
@@ -194,7 +195,7 @@ public class IndexController implements Initializable {
   public void goToEditNodes(ActionEvent actionEvent) throws IOException {
     // add the scene switch
     try {
-      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EditPage.fxml"));
+      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Archive/EditPage.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
