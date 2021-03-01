@@ -33,10 +33,8 @@ public class NewNavPageController implements Initializable {
   @FXML private ColumnConstraints col1;
   @FXML private GridPane gridPane;
   @FXML private JFXDrawer drawerSM1;
-  @FXML private JFXHamburger hamburgerMainBtn1;
   @FXML private VBox topMenu;
   @FXML private JFXDrawer drawerSM;
-  @FXML private JFXHamburger hamburgerMainBtn;
   @FXML private BorderPane borderPane;
   @FXML private JFXToggleButton editToggle;
 
@@ -97,7 +95,6 @@ public class NewNavPageController implements Initializable {
     // just for testing
 
     System.out.println("NewNavPageController Initialized");
-  }
 
     // transition animation of Hamburger icon
     HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
