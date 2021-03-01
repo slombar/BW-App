@@ -37,7 +37,7 @@ public class PatientSignInPopupController {
       try {
         UserHandling.login(username, password);
         try {
-          BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+          BorderPane root = FXMLLoader.load(getClass().getResource("/Views/CovidSurvey.fxml"));
           Opp.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
           ex.printStackTrace();

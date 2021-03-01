@@ -149,4 +149,40 @@ public class PopupMaker {
         });
     warningDialog.show();
   }
+
+  public static void covidSymptoms(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout symptoms = new JFXDialogLayout();
+    symptoms.setHeading(new Text("Invalid Username"));
+    symptoms.setBody(
+        new Text(
+            "Fever or chills\n"
+                + "Cough\n"
+                + "Shortness of breath or difficulty breathing\n"
+                + "Fatigue\n"
+                + "Muscle or body aches\n"
+                + "Headache\n"
+                + "New loss of taste or smell\n"
+                + "Sore throat\n"
+                + "Congestion or runny nose\n"
+                + "Nausea or vomiting\n"
+                + "Diarrhea\n"
+                + "\nThis list does not include all possible symptoms\n"));
+    JFXButton closeButton = new JFXButton("Close");
+    symptoms.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog symptomsDialog =
+        new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, true);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          symptomsDialog.close();
+          popupPane.toBack();
+        });
+    symptomsDialog.show();
+  }
 }

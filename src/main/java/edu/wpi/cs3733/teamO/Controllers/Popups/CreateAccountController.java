@@ -31,7 +31,7 @@ public class CreateAccountController {
         UserHandling.createAccount(
             user.getText(), pass.getText(), email.getText(), fName.getText(), lName.getText());
         try {
-          Parent root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
+          Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
           Opp.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
           ex.printStackTrace();
