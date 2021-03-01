@@ -1,40 +1,35 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.model.Node;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 class AStarSearch {
 
   private Graph graph;
   private int graphSize;
-  private static String startID;
-  private static String targetID;
+  private static Node startNode;
+  private static Node targetNode;
 
   private static PriorityQueue<Node> frontier; // expanding frontier of search
-  private static Hashtable<String, String>
-      cameFrom; // NodeID and the NodeID of the node to get to it
-  private static Hashtable<String, Double> costSoFar; // NodeID and that nodes current cost so far
+  private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
+  private static Hashtable<Node, Double> costSoFar; // NodeID and that nodes current cost so far
 
   private LinkedList<Node> foundRoute; // most recent found root for this A* object
 
-  AStarSearch(boolean test) {
+  /*AStarSearch(boolean test) {
     graph = new Graph(test); // may not want/need to initialize graph here
     graphSize = -1;
     startID = "-1";
     targetID = "-1";
     frontier = new PriorityQueue<Node>();
-  }
+  }*/
 
   // constructor
-  AStarSearch(Graph g, String start, String target) {
+  AStarSearch(Graph g, Node start, Node target) {
     graph = g;
     graphSize = graph.getSize();
-    startID = start;
-    targetID = target;
+    startNode = start;
+    targetNode = target;
 
     frontier = new PriorityQueue<>();
     cameFrom = new Hashtable<>();
@@ -42,17 +37,20 @@ class AStarSearch {
     foundRoute = new LinkedList<>();
   }
 
-  // actual search method
-  // returns found route (in order) as LL<edu.wpi.teamO.GraphSystem.Node>
-  static List<String> findRoute(Node startNode, Node endNode) {
+  /**
+   * OLD METHOD - returns route from startNode to endNode as a LL of NodeIDs
+   *
+   * @return LinkedList of Nodes
+   */
+  /*static List<String> findRouteOLD(Node startNode, Node endNode) {
     // sets start node based on startID provided in constructor
 
     // path, but in reverse order
     LinkedList<String> path = new LinkedList<>();
 
     frontier.add(startNode);
-    cameFrom.put(startID, "-1"); // didn't come from anywhere at start
-    costSoFar.put(startID, 0.0); // didn't cost anything at start
+    cameFrom.put(startNode, "-1"); // didn't come from anywhere at start
+    costSoFar.put(targetNode, 0.0); // didn't cost anything at start
 
     boolean foundPath = false;
 
@@ -105,6 +103,76 @@ class AStarSearch {
     } else {
       return null;
     }
+  }*/
+
+  static List<Node> findRoute() {
+    // sets start node based on startID provided in constructor
+
+    // path, but in reverse order
+    LinkedList<Node> path = new LinkedList<>();
+
+    frontier.add(startNode);
+    cameFrom.put(startNode, new Node()); // didn't come from anywhere at start
+    costSoFar.put(startNode, 0.0); // didn't cost anything at start
+
+    boolean foundPath = false;
+
+    while (!frontier.isEmpty()) {
+      Node current = frontier.poll(); // continues searching from next frontier node
+
+      if (current.equals(targetNode)) {
+        foundPath = true;
+        break;
+      }
+
+      // iterates through current nodes neighbours
+      int llsize = current.getNeighbourList().size();
+
+      Set<Node> nList = current.getNeighbourList();
+
+      Iterator<Node> iterator = nList.iterator();
+
+      while (iterator.hasNext()) {
+        // gets next node in neighbours
+        // sets next's cost so far to current's cost so far + edge cost
+        Node next = iterator.next();
+        // TODO: change dist to get Edge length
+        double newCost = costSoFar.get(current) + dist(current, next);
+
+        // if cost to next hasn't been calculated yet, or if the newCost is less
+        //    than the previously calc'ed cost, replace with newCost
+        if (costSoFar.get(next) == null || newCost < costSoFar.get(next)) {
+          costSoFar.put(next, newCost);
+
+          // calculates priority (cost from start + distance to target --> lower is better)
+          // TODO: change heuristic to take into account floor diff
+          double priority = newCost + heuristic(next);
+          next.setPriority(priority);
+          frontier.add(next);
+          cameFrom.put(next, current); // next came from current
+        }
+      }
+    }
+
+    if (foundPath) {
+      // backtrack to add to path:
+      // start by adding target node, then iterate through cameFrom,
+      // appending next node to the front of path
+      path.add(targetNode);
+      Node cameFromNode = targetNode;
+
+      while (!cameFromNode.equals(startNode)) { // goes until it appends startNode
+        Node n = cameFrom.get(cameFromNode);
+        path.addFirst(n);
+        cameFromNode = n;
+      }
+
+      return path;
+
+    } else {
+      // TODO: throw PathNotFoundException or something
+      return null;
+    }
   }
 
   /**
@@ -113,9 +181,12 @@ class AStarSearch {
    */
   private static double heuristic(Node next) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    return dist(next, NodesAndEdges.getNode(targetID));
+    // return dist(next, targetNode);
+    return 0.0;
+    // TODO: have this return an actual heuristic
   }
 
+  // TODO: needs to take floors into account
   // finds distance between two nodes (length/weight of edge)
   static double dist(Node a, Node b) {
     int x1 = a.getXCoord();

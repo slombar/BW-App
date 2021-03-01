@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="sideVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuStaffController">
+   <children>
+      <HBox prefHeight="92.0" prefWidth="349.0" style="-fx-background-color: #f2f2f2;">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="156.0">
+               <children>
+                  <Label text="Name">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label text="Patient/Guest">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+            </VBox>
+            <ImageView fitHeight="58.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" translateX="90.0" translateY="15.0">
+               <image>
+                  <Image url="@../Icons/userIconColor.png" />
+               </image>
+            </ImageView>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <JFXButton fx:id="mainMenuBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toMain" onMouseEntered="#mouseOnMain" onMouseExited="#mouseOffMain" prefHeight="77.0" prefWidth="509.0" text="Main Menu">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/HomeIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="navBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toNav" onMouseEntered="#mouseOnNav" onMouseExited="#mouseOffNav" prefHeight="77.0" prefWidth="509.0" text="Navigation">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/simpleNavIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="reqBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toReq" onMouseEntered="#mouseOnReq" onMouseExited="#mouseOffReq" prefHeight="77.0" prefWidth="509.0" text="Service Request">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/formIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="notificationBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toNotifications" onMouseEntered="#mouseOnNot" onMouseExited="#mouseOffNot" prefHeight="77.0" prefWidth="509.0" text="Notifications">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/NotificationIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="checkInBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toCheckIn" onMouseEntered="#mouseOnCheck" onMouseExited="#mouseOffCheck" prefHeight="77.0" prefWidth="497.0" text="Check-In">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="48.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/checkIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="appointmentsBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toAppointments" onMouseEntered="#mouseOnApp" onMouseExited="#mouseOffApp" prefHeight="77.0" prefWidth="446.0" text="Appointments">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/calendarIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="400.0" prefWidth="350.0">
+         <children>
+            <JFXButton fx:id="logout" alignment="BOTTOM_LEFT" onAction="#goToLogin" onMouseEntered="#mouseOnLog" onMouseExited="#mouseOffLog" prefHeight="51.0" prefWidth="145.0" text="Log Out">
+               <font>
+                  <Font name="Leelawadee UI" size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="exitBtn" alignment="BOTTOM_LEFT" buttonType="FLAT" onAction="#exit" onMouseEntered="#mouseOnExit" onMouseExited="#mouseOffExit" prefHeight="51.0" prefWidth="415.0" text="Exit Application">
+               <font>
+                  <Font name="Leelawadee UI" size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="settingBtn" alignment="BOTTOM_LEFT" onAction="#toSettings" onMouseEntered="#mouseOnSet" onMouseExited="#mouseOffSet" prefHeight="51.0" prefWidth="366.0" text="Settings">
+               <font>
+                  <Font name="Leelawadee UI" size="24.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+   </children>
+</VBox>

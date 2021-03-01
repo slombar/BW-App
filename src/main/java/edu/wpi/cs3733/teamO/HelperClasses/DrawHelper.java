@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
 import edu.wpi.cs3733.teamO.model.Node;
-import java.util.HashMap;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -11,36 +11,79 @@ import javafx.scene.shape.Circle;
 // class that SOLEY draws shit
 public class DrawHelper {
 
-  private static GraphicsContext gc;
-
+  /**
+   * Draws every Circle from the given Hashtable corresponding to each Node in the ArrayList
+   *
+   * @param gc the GraphicsContext on which the Circles will be drawn
+   * @param ncTable the Hashtable in which the Circles are stored
+   * @param nodeList the list of Nodes whose Circles should be drawn
+   */
   public static void drawNodeCircles(
-      Canvas mapcanvas, HashMap<Node, Circle> cmap, ObservableList<Node> nodeList) {
-    gc = mapcanvas.getGraphicsContext2D();
-    double diameter = 10;
-    int x = 0;
-    int y = 0;
+      GraphicsContext gc,
+      Hashtable<Node, Circle> ncTable,
+      ArrayList<Node> nodeList,
+      Node startNode,
+      Node endNode) {
+
+    Canvas mapcanvas = gc.getCanvas();
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    double scaleX = 2989 / mapcanvas.getWidth();
-    double scaleY = 2457 / mapcanvas.getHeight();
+
     Circle tempCir = new Circle();
 
-    // circle widths:
-    // double cW = 10.0;
-    // TODO: (x,y) should already adjust when scrolling, but probably should also change radius
+    // TODO: figure out the color situation (eg. changing when selected)
 
     // for each node in the DB, add their circle to the map
     for (Node n : nodeList) {
-      tempCir = cmap.get(n);
+      gc.setGlobalAlpha(0.9);
+      gc.setFill(Color.YELLOW);
+      gc.setStroke(Color.BLACK);
+      gc.setLineWidth(1.0);
 
-      gc.fillOval(tempCir.getCenterX(), tempCir.getCenterY(), diameter, diameter);
-      gc.setFill(Color.PAPAYAWHIP);
+      tempCir = ncTable.get(n);
+      double tempCirX = tempCir.getCenterX() - tempCir.getRadius();
+      double tempCirY = tempCir.getCenterY() - tempCir.getRadius();
+      double diameter = 2 * tempCir.getRadius();
+
+      if (n.equals(startNode)) {
+        gc.setFill(Color.BLUE);
+      } else if (n.equals(endNode)) {
+        gc.setFill(Color.RED);
+      }
+
+      gc.fillOval(tempCirX, tempCirY, diameter, diameter);
+      gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
     }
+
+    /*//////////////////// FOR TESTING: ////////////////////
+    gc.setStroke(Color.RED);
+    gc.setLineWidth(3.0);
+
+    gc.strokeOval(0, 0, 5, 5);
+    gc.strokeOval(0, mapcanvas.getHeight(), 5, 5);
+    gc.strokeOval(mapcanvas.getWidth(), 0, 5, 5);
+    gc.strokeOval(mapcanvas.getWidth(), mapcanvas.getHeight(), 5, 5);
+
+    gc.strokeRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+    gc.strokeLine(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+    gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);*/
   }
 
-  public static void drawMidArrow(double ax, double ay, double bx, double by) {
+  /**
+   * Draws a single line with an arrowhead halfway from point a to point b
+   *
+   * @param gc
+   * @param circleA
+   * @param circleB
+   */
+  public static void drawMidArrow(GraphicsContext gc, Circle circleA, Circle circleB) {
     double arrowLength = 6;
     final double arrowWidth = 4;
     final double minArrowDistSq = 108;
+
+    double ax = circleA.getCenterX();
+    double ay = circleA.getCenterY();
+    double bx = circleB.getCenterX();
+    double by = circleB.getCenterY();
 
     double distSq = Math.pow(Math.abs(ax - bx), 2.0) + Math.pow(Math.abs(ay - by), 2.0);
 
