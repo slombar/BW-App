@@ -3,9 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <VBox fx:id="sideVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuController">
@@ -29,30 +30,75 @@
                   <Insets left="25.0" />
                </HBox.margin>
             </VBox>
-            <Circle fill="#cfe2f3" radius="27.0" stroke="BLACK" strokeType="INSIDE">
-               <HBox.margin>
-                  <Insets left="90.0" top="20.0" />
-               </HBox.margin>
-            </Circle>
+            <ImageView fitHeight="58.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" translateX="90.0" translateY="15.0">
+               <image>
+                  <Image url="@../Icons/userIconColor.png" />
+               </image>
+            </ImageView>
          </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </HBox>
-      <JFXButton fx:id="notificationBtn" alignment="BOTTOM_LEFT" onAction="#toNotifications" onMouseEntered="#mouseOnNot" onMouseExited="#mouseOffNot" prefHeight="77.0" prefWidth="509.0" text="Notifications">
+      <JFXButton fx:id="mainMenuBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toMain" onMouseEntered="#mouseOnMain" onMouseExited="#mouseOffMain" prefHeight="77.0" prefWidth="509.0" text="Main Menu">
          <font>
-            <Font name="Leelawadee UI" size="36.0" />
+            <Font name="Leelawadee UI" size="30.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/HomeIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <JFXButton fx:id="checkInBtn" alignment="BOTTOM_LEFT" onAction="#toCheckIn" onMouseEntered="#mouseOnCheck" onMouseExited="#mouseOffCheck" prefHeight="77.0" prefWidth="497.0" text="Check-In">
+      <JFXButton fx:id="navBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toNav" onMouseEntered="#mouseOnNav" onMouseExited="#mouseOffNav" prefHeight="77.0" prefWidth="509.0" text="Navigation">
          <font>
-            <Font name="Leelawadee UI" size="36.0" />
+            <Font name="Leelawadee UI" size="30.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/simpleNavIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <JFXButton fx:id="appointmentsBtn" alignment="BOTTOM_LEFT" onAction="#toAppointments" onMouseEntered="#mouseOnApp" onMouseExited="#mouseOffApp" prefHeight="77.0" prefWidth="446.0" text="Appointments">
+      <JFXButton fx:id="notificationBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toNotifications" onMouseEntered="#mouseOnNot" onMouseExited="#mouseOffNot" prefHeight="77.0" prefWidth="509.0" text="Notifications">
          <font>
-            <Font name="Leelawadee UI" size="36.0" />
+            <Font name="Leelawadee UI" size="30.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/NotificationIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="checkInBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toCheckIn" onMouseEntered="#mouseOnCheck" onMouseExited="#mouseOffCheck" prefHeight="77.0" prefWidth="497.0" text="Check-In">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="48.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Icons/checkIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="appointmentsBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toAppointments" onMouseEntered="#mouseOnApp" onMouseExited="#mouseOffApp" prefHeight="77.0" prefWidth="446.0" text="Appointments">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/calendarIconBlack.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <VBox alignment="BOTTOM_LEFT" prefHeight="594.0" prefWidth="350.0">
          <children>
