@@ -6,20 +6,19 @@ import javafx.collections.ObservableList;
 
 public class DisplayRequest {
 
-    private static ObservableList<Request> reqList = RequestHandling.getAllRequests();
+  private static ObservableList<Request> reqList = RequestHandling.getAllRequests();
 
-    public static ObservableList<Request> getSpecificReqList(String typeOfRequest) {
+  public static ObservableList<Request> getSpecificReqList(String typeOfRequest) {
 
-        ObservableList<Request> specList = FXCollections.observableArrayList();
+    ObservableList<Request> specList = FXCollections.observableArrayList();
 
-        for (Request r : reqList) {
+    for (Request r : reqList) {
 
-            if(r.getRequestType().equals(typeOfRequest)){
-                reqList.add(r);
-            }
-        }
-
-        return specList;
+      if (r.getRequestType().equals(typeOfRequest)) {
+        reqList.add(r);
+      }
     }
 
+    return specList;
+  }
 }

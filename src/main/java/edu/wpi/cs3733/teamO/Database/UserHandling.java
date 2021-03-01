@@ -68,7 +68,7 @@ public class UserHandling {
    * @return null if login is bad, User with all info from DB if good
    */
   public static void login(String u, String p) throws SQLException {
-    setUsername(username);
+    setUsername(u);
 
     String encodedPass = null;
     try {
@@ -81,16 +81,13 @@ public class UserHandling {
     String vu = "";
     String vp = "";
 
-    String query = "SELECT * FROM USERS WHERE username = " + u + " AND password = " + p;
+    String query = "SELECT * FROM USERS WHERE username = '" + u + "' AND password = '" + p + "'";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
 
       ResultSet res = pstmt.executeQuery();
-
-      vu = res.getString("username");
-      vp = res.getString("password");
 
       pstmt.close();
 
@@ -115,21 +112,17 @@ public class UserHandling {
     String vp = "";
 
     String query =
-        "SELECT * FROM USERS WHERE username = "
+        "SELECT * FROM USERS WHERE username = '"
             + username
-            + " AND password = "
+            + "' AND password = '"
             + password
-            + " AND = employee"
+            + "' AND employee = "
             + true;
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-
       ResultSet res = pstmt.executeQuery();
-
-      vu = res.getString("username");
-      vp = res.getString("password");
 
       pstmt.close();
 

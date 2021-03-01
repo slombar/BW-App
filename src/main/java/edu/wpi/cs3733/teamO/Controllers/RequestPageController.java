@@ -5,8 +5,6 @@ import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import edu.wpi.cs3733.teamO.SRequest.DisplayRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,8 +55,6 @@ public class RequestPageController implements Initializable {
    * @param actionEvent
    */
   public void goToComputerReq(ActionEvent actionEvent) {
-
-    goToRequestForm("/Views/ComputerServiceRequest.fxml");
     RequestDisplayController.setType("COMP");
     RequestDisplayController.displayList();
     SwitchScene.goToBorderPane("/Views/ComputerServiceRequest.fxml");
