@@ -23,8 +23,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
-
 public class NewNavPageController implements Initializable {
 
   // edit map components
@@ -106,7 +104,7 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
-   //TODO add the functionality  UserHandling.getUsername() instead of isstaff
+    // TODO add the functionality  UserHandling.getUsername() instead of isstaff
 
     if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
     else sideMenuUrl = "/Views/SideMenu.fxml";

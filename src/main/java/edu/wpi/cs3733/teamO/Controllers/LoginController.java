@@ -12,12 +12,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 
-import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
-
 public class LoginController implements Initializable {
 
-    public static boolean isStaff;
-    @FXML private Circle staffBtn;
+  public static boolean isStaff;
+  @FXML private Circle staffBtn;
   @FXML private Circle patientBtn;
   @FXML private Circle adminBtn;
   @FXML private BorderPane borderPane;
