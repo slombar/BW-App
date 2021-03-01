@@ -16,12 +16,12 @@
                <children>
                   <Label text="Name">
                      <font>
-                        <Font name="Times New Roman" size="36.0" />
+                        <Font name="Leelawadee UI Bold" size="36.0" />
                      </font>
                   </Label>
                   <Label text="Patient/Guest">
                      <font>
-                        <Font name="Times New Roman" size="24.0" />
+                        <Font name="Leelawadee UI Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
