@@ -43,7 +43,6 @@ public class SharingFunctionality {
             .setMediaUrl(Arrays.asList(URI.create("https://i.imgur.com/7KpyjV4.mp4")))
             .create();
 
-
     // file:/C:/users/cindy/Downloads/mapimg.png
 
     System.out.println(message.getSid());
