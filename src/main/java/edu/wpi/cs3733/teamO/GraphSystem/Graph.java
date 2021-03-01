@@ -154,8 +154,8 @@ public class Graph {
 
       Circle circle = new Circle();
       circle.radiusProperty().bind(gc.getCanvas().heightProperty().multiply(0.01));
-      circle.centerXProperty().bind(gc.getCanvas().heightProperty().multiply(nXperc));
-      circle.centerYProperty().bind(gc.getCanvas().widthProperty().multiply(nYperc));
+      circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
+      circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
       /*TODO implement the clicking function for the circles
       circle.addEventHandler("click", clickCircle);*/

@@ -95,14 +95,20 @@ public class NewNavPageController implements Initializable {
     // just mapCanvas.layoutX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
     // just mapCanvas.scaleX/YProperty().bind(imageView.x/yProperty()) DOES NOT WORK
     // just mapCanvas.translateX/YProperty.bind(imageView.x/yProperty()) DOES NOT WORK
+
     // mapCanvas.translateXProperty().bind(imageView.translateXProperty());
     // mapCanvas.translateYProperty().bind(imageView.translateYProperty());
 
     // mapCanvas.layoutXProperty().bind(hboxRef.layoutXProperty().add(imageView.translateXProperty()));
     // mapCanvas.layoutYProperty().bind(hboxRef.layoutYProperty().add(imageView.translateYProperty()));
 
-    mapCanvas.heightProperty().bind(imageView.fitHeightProperty());
-    mapCanvas.widthProperty().bind(imageView.fitWidthProperty());
+    mapCanvas
+        .heightProperty()
+        .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
+    mapCanvas.widthProperty().bind(hboxRef.widthProperty());
+
+    // mapCanvas.heightProperty().bind(imageView.fitHeightProperty());
+    // mapCanvas.widthProperty().bind(imageView.fitWidthProperty());
 
     return gridPane;
   }
