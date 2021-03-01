@@ -1,0 +1,131 @@
+package edu.wpi.cs3733.teamO.Controllers;
+
+import static edu.wpi.cs3733.teamO.Controllers.RequestPageController.getReqType;
+
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.SRequest.DisplayRequest;
+import edu.wpi.cs3733.teamO.SRequest.Request;
+import java.net.URL;
+import java.util.Date;
+import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class ReqController implements Initializable {
+
+  @FXML private VBox reqBox;
+  private static ObservableList<Request> reqList;
+  private static String typeOfRequest;
+
+  /** Display a single request from the request list */
+  public void displayOneRequest(Request r) {
+    Stage s = null;
+    Scene scene = null;
+    s = Opp.getPrimaryStage();
+    scene = s.getScene();
+
+    String reqID = r.getRequestID();
+    String requestedBy = r.getRequestedBy();
+    String fulfilledBy = r.getFulfilledBy();
+    Date dateNeeded = r.getDateNeeded();
+    Date dateRequested = r.getDateRequested();
+    String location = r.getLocationNodeID();
+    String par1 = r.getPara1();
+    String par2 = r.getPara2();
+    String par3 = r.getPara3();
+
+    HBox addBox = new HBox();
+
+    Label id = new Label(reqID);
+    Label reqBy = new Label(requestedBy);
+    Label filledBy = new Label(fulfilledBy);
+    Label dReq = new Label(dateRequested.toString());
+    Label dNeed = new Label(dateNeeded.toString());
+    Label loc = new Label(location);
+    Label p1 = new Label(par1);
+    Label p2 = new Label(par2);
+    Label p3 = new Label(par3);
+
+    boolean check = false;
+
+    id.getStyleClass().add("label");
+    reqBy.getStyleClass().add("label");
+    filledBy.getStyleClass().add("label");
+    dReq.getStyleClass().add("label");
+    dNeed.getStyleClass().add("label");
+    loc.getStyleClass().add("label");
+    p1.getStyleClass().add("label");
+    p2.getStyleClass().add("label");
+    p3.getStyleClass().add("label");
+
+    addBox.getChildren().add(id);
+    addBox.getChildren().add(reqBy);
+    addBox.getChildren().add(filledBy);
+    addBox.getChildren().add(dReq);
+    addBox.getChildren().add(dNeed);
+    addBox.getChildren().add(loc);
+    addBox.getChildren().add(p1);
+    addBox.getChildren().add(p2);
+    addBox.getChildren().add(p3);
+
+    check = reqBox.getChildren().add(addBox);
+    System.out.println("Addbox check: " + check);
+  }
+
+  public void displayList(ObservableList<Request> requests) {
+
+    for (Request r : requests) {
+      displayOneRequest(r);
+    }
+  }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    typeOfRequest = getReqType();
+    System.out.println("RequestType: " + typeOfRequest);
+    reqList = DisplayRequest.getSpecificReqList(typeOfRequest);
+    displayList(reqList);
+  }
+
+  public void addNewRequest(ActionEvent actionEvent) {
+    if (typeOfRequest == "COMP") {
+      SwitchScene.goToParent("/Views/ComputerServiceRequest.fxml");
+    }
+    if (typeOfRequest == "GIFT") {
+      SwitchScene.goToParent("/Views/GiftDeliveryService.fxml");
+    }
+    if (typeOfRequest == "TRANS") {
+      SwitchScene.goToParent("/Views/InternalTransportForm.fxml");
+    }
+    if (typeOfRequest == "LAUN") {
+      SwitchScene.goToParent("/Views/LaundryRequest.fxml");
+    }
+    if (typeOfRequest == "MEDI") {
+      SwitchScene.goToParent("/Views/MedicineDeliveryService.fxml");
+    }
+    if (typeOfRequest == "SECU") {
+      SwitchScene.goToParent("/Views/SecurityRequest.fxml");
+    }
+    if (typeOfRequest == "MAIT") {
+      SwitchScene.goToParent("/Views/FacilitiesMaintenanceRequest.fxml");
+    }
+    /*TODO: add SERVICE REQS WHEN THEY COME IN*/
+    if (typeOfRequest == "LANG") {
+      // SwitchScene.goToParent("/Views/NAME.fxml");
+    }
+    if (typeOfRequest == "SANA") {
+      // SwitchScene.goToParent("/Views/NAME.fxml");
+    }
+    if (typeOfRequest == "FLOR") {
+      // SwitchScene.goToParent("/Views/NAME.fxml");
+    }
+  }
+}

@@ -22,6 +22,11 @@ public class RequestPageController implements Initializable {
   @FXML private JFXButton securityBtn;
   @FXML private JFXButton sanitationBtn;
   @FXML private JFXButton moreBtn;
+  public static String reqType;
+
+  public static String getReqType() {
+    return reqType;
+  }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,43 +60,52 @@ public class RequestPageController implements Initializable {
    * @param actionEvent
    */
   public void goToComputerReq(ActionEvent actionEvent) {
-    RequestDisplayController.setType("COMP");
+    reqType = "COMP";
     SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToFloralReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/RequestPage.fxml");
+    reqType = "FLOR";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToLanguageReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/RequestPage.fxml");
+    reqType = "LANG";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToLaundryReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/LaundryRequest.fxml");
+    reqType = "LAUN";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToGiftReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/GiftDeliveryService.fxml");
+    reqType = "GIFT";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToTransportReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/InternalTransportForm.fxml");
+    reqType = "TRANS";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToMaintenance(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/FacilitiesMaintenanceRequest.fxml");
+    reqType = "MAIT";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToMedicineReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/MedicineDeliveryService.fxml");
+    reqType = "MEDI";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToSecurityReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/LaundryRequest.fxml");
+    reqType = "SECU";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 
   public void goToSanitationReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/RequestPage.fxml");
+    reqType = "SANA";
+    SwitchScene.goToParent("/Views/RequestList.fxml");
   }
 }

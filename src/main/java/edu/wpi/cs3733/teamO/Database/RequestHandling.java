@@ -11,12 +11,13 @@ import javafx.collections.ObservableList;
 
 public class RequestHandling {
 
-  public static ObservableList<Request> getAllRequests() {
+  public static ObservableList<Request> getRequests() {
     ObservableList<Request> requestList = FXCollections.observableArrayList();
     try {
+      String query = "SELECT * FROM Requests";
       // database statement to grab values
       PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Requests");
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
       // returns the results from query
       ResultSet rset = pstmt.executeQuery();
 
@@ -40,7 +41,7 @@ public class RequestHandling {
         fulfilledBy = rset.getString("fulfilledBy");
         dateRequested = rset.getDate("dateRequested");
         dateNeeded = rset.getDate("dateNeeded");
-        requestType = rset.getString("requestType");
+        requestType = rset.getString("reqtype");
         location = rset.getString("location");
         summary = rset.getString("summary");
         para1 = rset.getString("para1");
@@ -60,6 +61,31 @@ public class RequestHandling {
                 para1,
                 para2,
                 para3);
+
+        System.out.println(
+            "Retrieved this from Services: "
+                + reqID
+                + ", "
+                + requestedBy
+                + ", "
+                + fulfilledBy
+                + ", "
+                + dateRequested.toString()
+                + ", "
+                + dateNeeded.toString()
+                + ", "
+                + requestType
+                + ", "
+                + location
+                + ", "
+                + summary
+                + ", "
+                + para1
+                + ", "
+                + para2
+                + ", "
+                + para3);
+
         requestList.add(req);
       }
 
@@ -68,7 +94,6 @@ public class RequestHandling {
       pstmt.close();
 
     } catch (SQLException e) {
-      System.out.println("Report Edge Information: Failed!");
       e.printStackTrace();
     }
     return requestList;
