@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.teamO.Controllers;
+package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Opp;
@@ -31,14 +31,14 @@ public class SecFormController {
    */
   @FXML
   public void goToHomePage(ActionEvent actionEvent) throws IOException {
-    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Archive/Index.fxml"));
     Opp.getPrimaryStage().setFullScreen(true);
     Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
   public void submitForm(ActionEvent actionEvent) throws IOException {
     if (submissionPopup()) {
-      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Archive/Index.fxml"));
       Opp.getPrimaryStage().setFullScreen(true);
       Opp.getPrimaryStage().getScene().setRoot(root);
     }
@@ -97,7 +97,7 @@ public class SecFormController {
             stackPane.toBack();
             AnchorPane root = null;
             try {
-              root = FXMLLoader.load(getClass().getResource("/Views/Index.fxml"));
+              root = FXMLLoader.load(getClass().getResource("/Views/Archive/Index.fxml"));
             } catch (IOException e) {
               e.printStackTrace();
             }

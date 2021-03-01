@@ -70,11 +70,11 @@ public class StaffMainPageController implements Initializable {
 
   public void goToRequest(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/Views/RequestPage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/Views/ServiceRequests/RequestPage.fxml"));
       Opp.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
     }
-    SwitchScene.goToBorderPane("/Views/RequestPage.fxml");
+    SwitchScene.goToBorderPane("/Views/ServiceRequests/RequestPage.fxml");
   }
 }

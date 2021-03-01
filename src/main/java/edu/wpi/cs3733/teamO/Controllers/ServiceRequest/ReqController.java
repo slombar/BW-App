@@ -1,6 +1,6 @@
-package edu.wpi.cs3733.teamO.Controllers;
+package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
-import static edu.wpi.cs3733.teamO.Controllers.RequestPageController.getReqType;
+import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
@@ -97,25 +97,25 @@ public class ReqController implements Initializable {
 
   public void addNewRequest(ActionEvent actionEvent) {
     if (typeOfRequest == "COMP") {
-      SwitchScene.goToParent("/Views/ComputerServiceRequest.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/ComputerServiceRequest.fxml");
     }
     if (typeOfRequest == "GIFT") {
-      SwitchScene.goToParent("/Views/GiftDeliveryService.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/GiftDeliveryService.fxml");
     }
     if (typeOfRequest == "TRANS") {
-      SwitchScene.goToParent("/Views/InternalTransportForm.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/InternalTransportForm.fxml");
     }
     if (typeOfRequest == "LAUN") {
-      SwitchScene.goToParent("/Views/LaundryRequest.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/LaundryRequest.fxml");
     }
     if (typeOfRequest == "MEDI") {
-      SwitchScene.goToParent("/Views/MedicineDeliveryService.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/MedicineDeliveryService.fxml");
     }
     if (typeOfRequest == "SECU") {
-      SwitchScene.goToParent("/Views/SecurityRequest.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/SecurityRequest.fxml");
     }
     if (typeOfRequest == "MAIT") {
-      SwitchScene.goToParent("/Views/FacilitiesMaintenanceRequest.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/FacilitiesMaintenanceRequest.fxml");
     }
     /*TODO: add SERVICE REQS WHEN THEY COME IN*/
     if (typeOfRequest == "LANG") {

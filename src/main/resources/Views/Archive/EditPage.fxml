@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.EditPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Archive.EditPageController">
     <children>
       <HBox alignment="TOP_RIGHT" layoutX="582.0" layoutY="-20.0" prefHeight="30.0" prefWidth="564.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
@@ -46,7 +46,7 @@
                     <children>
                   <ImageView fx:id="mapimage" fitHeight="605.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../FaulknerCampus.png" />
+                        <Image url="@../../FaulknerCampus.png" />
                      </image>
                   </ImageView>
                   <Canvas fx:id="mapcanvas" height="583.0"  width="728.0" />

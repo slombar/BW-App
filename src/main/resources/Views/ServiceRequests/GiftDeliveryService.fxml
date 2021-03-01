@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -13,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ComputerServiceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.ComputerServiceController">
    <top>
       <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text=" Security Request" textFill="WHITE">
+            <Label text="Gift Delivery Service " textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="55.0" />
                </font>
@@ -33,7 +32,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                <children>
-                  <Label prefWidth="100.0" text="Location" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="176.0" text="Recipient" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -41,15 +40,16 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                  <JFXTextField prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Recipient Name">
                      <font>
                         <Font name="Georgia" size="18.0" />
-                     </font></JFXTextField>
+                     </font>
+                  </JFXTextField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                <children>
-                  <Label prefWidth="100.0" text="Date" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="175.0" text="Date           " textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -62,7 +62,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefWidth="100.0" text="Summary" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="172.0" text="Destination" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -70,7 +70,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextArea prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
+                  <JFXTextArea prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" text="Destination for the Gift" wrapText="true">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -79,7 +79,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="100.0" text="Threat" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="171.0" text="Gift Type" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -87,7 +87,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;">
+                  <JFXTextField prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Type of Gift">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -96,7 +96,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="100.0" text="Urgency" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="172.0" text="Gift Details" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -104,12 +104,16 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXSlider blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" prefWidth="250.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                  <JFXTextField prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Gift Information">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                  </JFXTextField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="155.0" text="Armed Security" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="174.0" text="Courier Company" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="22.0" />
                      </font>
@@ -117,7 +121,24 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXCheckBox checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="195.0" text=" " textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXTextField prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Enter the company name">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="244.0" text="Require Signature?" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXCheckBox checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="182.0" text=" " textFill="WHITE" unCheckedColor="WHITE" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
