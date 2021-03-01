@@ -2,7 +2,10 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.model.Node;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -29,29 +34,55 @@ public class NewNavPageController implements Initializable {
   @FXML private GridPane gridPane;
   @FXML private JFXDrawer drawerSM1;
   @FXML private JFXHamburger hamburgerMainBtn1;
-  @FXML private AnchorPane anchorPane;
-  @FXML private Canvas canvas;
   @FXML private VBox topMenu;
   @FXML private JFXDrawer drawerSM;
   @FXML private JFXHamburger hamburgerMainBtn;
   @FXML private BorderPane borderPane;
   @FXML private JFXToggleButton editToggle;
-  @FXML private ImageView imageView;
+
   @FXML private JFXComboBox<String> floorSelectionBtn;
   @FXML private JFXButton startLocBtn;
   @FXML private JFXButton endLocBtn;
   @FXML private JFXButton pathfindBtn;
 
+  @FXML private ImageView imageView;
+  @FXML private Canvas mapCanvas;
+  private GraphicsContext gc;
+  private String selectedFloor = "Campus";
+  private String sFloor = "G";
+
+  private Graph graph;
+  boolean selectingStart = true;
+  Node startNode = null;
+  Node endNode = null;
+
   ObservableList<String> listOfFloors =
-      FXCollections.observableArrayList("Ground", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+      FXCollections.observableArrayList(
+          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+
+  public static Image campusMap = new Image("FaulknerCampus_Updated.png");
+  public static Image floor1Map = new Image("Faulkner1_Updated.png");
+  public static Image floor2Map = new Image("Faulkner2_Updated.png");
+  public static Image floor3Map = new Image("Faulkner3_Updated.png");
+  public static Image floor4Map = new Image("Faulkner4_Updated.png");
+  public static Image floor5Map = new Image("Faulkner5_Updated.png");
+
+  ///// Methods: /////
 
   public NewNavPageController() {}
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     floorSelectionBtn.setItems(listOfFloors);
+    floorSelectionBtn.setValue("Campus");
+
+    mapCanvas.toFront();
+    gc = mapCanvas.getGraphicsContext2D();
+
+    imageView.setImage(campusMap);
     resizableWindow();
-    canvas.toFront();
+
+    graph = new Graph(gc);
 
     // Set drawer to SideMenu
     try {
@@ -60,6 +91,13 @@ public class NewNavPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    // TODO: change to visible nodes if PATIENT/GUEST
+    graph.drawAllNodes("G");
+
+    // just for testing
+
+    System.out.println("NewNavPageController Initialized");
+  }
 
     // transition animation of Hamburger icon
     HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
@@ -78,9 +116,9 @@ public class NewNavPageController implements Initializable {
   }
 
   /**
-   * Create a resizable navigation map with editing features available for admin
+   * Creates a resizable GridPane with map image, menu buttons, etc.
    *
-   * @return grid pane
+   * @return GridPane
    */
   public GridPane resizableWindow() {
     imageView.setPreserveRatio(true);
@@ -89,11 +127,19 @@ public class NewNavPageController implements Initializable {
         .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
-    canvas.heightProperty().bind(imageView.fitHeightProperty());
-    canvas.widthProperty().bind(imageView.fitWidthProperty());
+    // resizeCanvas();
 
     return gridPane;
     // 350 / 1920
+  }
+
+  /** Resizes Canvas to be the current size of the Image */
+  public void resizeCanvas() {
+    mapCanvas.heightProperty().setValue(1000);
+    mapCanvas.widthProperty().setValue(1000);
+
+    mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
+    mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
   }
 
   public void editMode(ActionEvent actionEvent) {}
@@ -107,7 +153,42 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  public void floorSelection(ActionEvent actionEvent) {}
+  public void floorSelection(ActionEvent actionEvent) {
+    selectedFloor = floorSelectionBtn.getValue();
+    // System.out.println(floorSelected);
+
+    // switch case basically = if, else if, etc...
+    switch (selectedFloor) {
+      case "Campus":
+        imageView.setImage(campusMap);
+        sFloor = "G";
+        break;
+      case "Floor 1":
+        imageView.setImage(floor1Map);
+        sFloor = "1";
+        break;
+      case "Floor 2":
+        imageView.setImage(floor2Map);
+        sFloor = "2";
+        break;
+      case "Floor 3":
+        imageView.setImage(floor3Map);
+        sFloor = "3";
+        break;
+      case "Floor 4":
+        imageView.setImage(floor4Map);
+        sFloor = "4";
+        break;
+      case "Floor 5":
+        imageView.setImage(floor5Map);
+        sFloor = "5";
+        break;
+    }
+
+    resizeCanvas();
+    // TODO: only draw visible if patient/guest
+    graph.drawAllNodes(sFloor);
+  }
 
   public void endLocSelection(ActionEvent actionEvent) {}
 
@@ -116,8 +197,19 @@ public class NewNavPageController implements Initializable {
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
   public void canvasClick(MouseEvent mouseEvent) {
+    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
+
+    if (selectingStart) {
+      startNode = clickedNode;
+    } else {
+      endNode = clickedNode;
+    }
+
     System.out.println("Click");
   }
 
-  public void startLocSlection(ActionEvent actionEvent) {}
+  public void startLocSelection(ActionEvent actionEvent) {
+    resizeCanvas();
+    graph.drawAllNodes(selectedFloor);
+  }
 }
