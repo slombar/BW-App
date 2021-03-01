@@ -38,7 +38,7 @@
          </image>
       </ImageView>
       <Canvas fx:id="mapCanvas" height="955.0" onMouseClicked="#canvasClick" width="1160.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-image: #cfe2f3;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
             <Label text="Brigham &amp; Womens Hospital">
                <font>
