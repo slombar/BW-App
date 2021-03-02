@@ -208,8 +208,8 @@ public class RequestHandling {
 
   public static void editRequest(
       int requestID,
-      Staff requestedBy,
-      Staff fulfilledBy,
+      String requestedBy,
+      String fulfilledBy,
       Date dateRequested,
       Date dateNeeded,
       String requestType,
