@@ -5,11 +5,9 @@ import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageControl
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,8 +24,8 @@ public class LAUNController implements Initializable {
   @FXML private JFXCheckBox field2;
   private String loadSize = "";
 
-  private ObservableList<String> listOfSizes = FXCollections.observableArrayList(
-      "XS", "S", "M", "L", "XL");
+  private ObservableList<String> listOfSizes =
+      FXCollections.observableArrayList("XS", "S", "M", "L", "XL");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -57,7 +55,6 @@ public class LAUNController implements Initializable {
     String f2 = field2.getText();
     String f3 = sizeComboBox.getSelectionModel().selectedItemProperty().toString();
 
-
     System.out.println(
         "Adding this to DB: "
             + requestedBy
@@ -77,5 +74,4 @@ public class LAUNController implements Initializable {
   public void comboBoxAction(ActionEvent actionEvent) {
     loadSize = (String) sizeComboBox.getValue();
   }
-
 }
