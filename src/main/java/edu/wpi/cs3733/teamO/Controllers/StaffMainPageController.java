@@ -36,11 +36,10 @@ public class StaffMainPageController implements Initializable {
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
+      sideMenuUrl = "/Views/SideMenuStaff.fxml";
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
-      } else {
-        sideMenuUrl = "/Views/SideMenuStaff.fxml";
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";

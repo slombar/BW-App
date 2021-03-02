@@ -159,8 +159,6 @@ public class RequestHandling {
     long millis = System.currentTimeMillis();
     Date dateRequested = new java.sql.Date(millis);
 
-    String employeeAssigned = "none";
-
     String query =
         "INSERT INTO REQUESTS (requestedBy, dateRequested, dateNeeded, REQTYPE, LOCATION, SUMMARY, PARA1, PARA2, PARA3) "
             + "VALUES( '"

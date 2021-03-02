@@ -288,7 +288,7 @@ public class UserHandling {
       ResultSet res = pstmt.executeQuery();
       res.next();
 
-      b = res.getBoolean("admin");
+      b = res.getBoolean("employee");
       System.out.println("Employee check : " + b);
 
       res.close();
@@ -302,7 +302,10 @@ public class UserHandling {
 
   public static void assignEmployee(String reqID, String employee) {
     String query =
-        "UPDATE Requests SET requestedBy = '" + employee + "', WHERE requestID = '" + reqID + "'";
+        "UPDATE Requests SET fulfilledBy = '"
+            + employee
+            + "' WHERE requestID = "
+            + Integer.parseInt(reqID);
     PreparedStatement preparedStmt = null;
 
     try {
