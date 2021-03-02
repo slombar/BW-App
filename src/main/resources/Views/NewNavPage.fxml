@@ -32,7 +32,7 @@
   </rowConstraints>
    <children>
       <HBox fx:id="hboxRef" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #cfe2f3;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <VBox fx:id="vboxRef" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #cfe2f3;" GridPane.columnIndex="2" GridPane.vgrow="ALWAYS">
+      <VBox fx:id="vboxRef" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="2" GridPane.vgrow="ALWAYS">
          <children>
             <JFXButton fx:id="share" alignment="CENTER" contentDisplay="CENTER" onAction="#toSharePage" prefHeight="66.0" prefWidth="143.0" style="-fx-background-color: #f2f2f2;" text="Share" translateX="50.0" translateY="25.0">
                <font>
@@ -63,32 +63,47 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="51.0" prefWidth="977.0">
                <children>
-                  <JFXButton onAction="#goToMain" prefWidth="51.0" text="Back" textFill="WHITE">
+                  <JFXButton onAction="#goToMain" prefHeight="41.0" prefWidth="75.0" text="Back" textFill="WHITE">
                      <HBox.margin>
-                        <Insets right="40.0" />
+                        <Insets right="25.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
                   </JFXButton>
-                  <JFXComboBox fx:id="floorSelectionBtn" focusColor="WHITE" onAction="#floorSelection" prefWidth="156.0" promptText="Floor" unFocusColor="WHITE">
+                  <JFXComboBox fx:id="floorSelectionBtn" focusColor="#1a0dd3" onAction="#floorSelection" prefWidth="156.0" promptText="Floor" style="-fx-background-color: white;" unFocusColor="#2d2840">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXComboBox>
-                  <JFXButton fx:id="startLocBtn" onAction="#startLocSelection" prefWidth="55.0" text="Start" textFill="WHITE">
+                  <JFXButton fx:id="startLocBtn" onAction="#startLocSelection" prefHeight="54.0" prefWidth="79.0" text="Start" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
                   </JFXButton>
                   <JFXButton fx:id="endLocBtn" onAction="#endLocSelection" prefWidth="55.0" text="End" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
                   </JFXButton>
-                  <JFXButton fx:id="pathfindBtn" onAction="#doPathfind" prefWidth="80.0" text="Pathfind" textFill="WHITE">
+                  <JFXButton fx:id="pathfindBtn" onAction="#doPathfind" prefHeight="70.0" prefWidth="95.0" text="Pathfind" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
                   </JFXButton>
-                  <JFXButton fx:id="clearBtn1" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearSelection" prefWidth="60.0" text="Clear" textFill="WHITE" />
+                  <JFXButton fx:id="clearBtn1" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearSelection" prefHeight="40.0" prefWidth="76.0" text="Clear" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font></JFXButton>
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
