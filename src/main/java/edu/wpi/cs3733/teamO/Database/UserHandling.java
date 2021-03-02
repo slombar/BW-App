@@ -16,12 +16,28 @@ public class UserHandling {
 
   private static String username;
 
+  public static void deleteUser(String uname) {
+
+    String query = "DELETE FROM USERS WHERE username = '" + uname + "'";
+
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+      preparedStmt.execute();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
   public static ObservableList<User> getUsers(){
 
     ObservableList<User> userList = FXCollections.observableArrayList();
 
     try {
-      String query = "SELECT * FROM Requests";
+      String query = "SELECT * FROM Users";
       // database statement to grab values
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -29,57 +45,26 @@ public class UserHandling {
       ResultSet rset = pstmt.executeQuery();
 
       // temp variables for assignment
-      String reqID = "";
-      String requestedBy = "";
-      String fulfilledBy = "";
-      Date dateRequested = new Date();
-      Date dateNeeded = new Date();
-      String requestType = "";
-      String location = "";
-      String summary = "";
-      String para1 = "";
-      String para2 = "";
-      String para3 = "";
+      String uname = "";
+      String pword = "";
+      String email = "";
+      String fName = "";
+      String lName = "";
+      boolean employee = false;
+      boolean admin = false;
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
-        reqID = rset.getString("requestID");
-        requestedBy = rset.getString("requestedBy");
-        fulfilledBy = rset.getString("fulfilledBy");
-        dateRequested = rset.getDate("dateRequested");
-        dateNeeded = rset.getDate("dateNeeded");
-        requestType = rset.getString("reqtype");
-        location = rset.getString("location");
-        summary = rset.getString("summary");
-        para1 = rset.getString("para1");
-        para2 = rset.getString("para2");
-        para3 = rset.getString("para3");
+        uname = rset.getString("USERNAME");
+        pword = rset.getString("PASSWORD");
+        email = rset.getString("EMAIL");
+        fName = rset.getString("fName");
+        lName = rset.getString("lName");
+        employee = rset.getBoolean("EMPLOYEE");
+        admin = rset.getBoolean("ADMIN");
 
-        User user = new User();
 
-        System.out.println(
-                "Retrieved this from Services: "
-                        + reqID
-                        + ", "
-                        + requestedBy
-                        + ", "
-                        + fulfilledBy
-                        + ", "
-                        + dateRequested.toString()
-                        + ", "
-                        + dateNeeded.toString()
-                        + ", "
-                        + requestType
-                        + ", "
-                        + location
-                        + ", "
-                        + summary
-                        + ", "
-                        + para1
-                        + ", "
-                        + para2
-                        + ", "
-                        + para3);
+        User user = new User(uname, pword, email, fName, lName, employee, admin);
 
         userList.add(user);
       }
