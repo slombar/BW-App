@@ -2,6 +2,8 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.DataHandling;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -26,10 +28,15 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
-  public JFXButton uploadCSVBtn;
-  public JFXButton saveCSVBtn;
-  @FXML private JFXButton clearBtn1;
   // edit map components
+  @FXML private JFXButton uploadCSVBtn;
+  @FXML private JFXButton saveCSVBtn;
+  @FXML private JFXButton saveEBtn;
+  @FXML private JFXButton saveNBtn;
+  @FXML private JFXButton uploadEBtn;
+  @FXML private JFXButton uploadNBtn;
+  @FXML private JFXButton share;
+  @FXML private JFXButton clearBtn1;
   @FXML private VBox editVBox;
   @FXML private JFXTextField nodeID;
   @FXML private JFXTextField xCoord;
@@ -81,6 +88,7 @@ public class NewNavPageController implements Initializable {
   Node startNode = null;
   Node endNode = null;
   private boolean displayingRoute = false;
+  boolean navigating = true;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -109,10 +117,12 @@ public class NewNavPageController implements Initializable {
     resizableWindow();
 
     graph = new Graph(gc);
+    editToggle.setVisible(false);
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
       if (UserHandling.getAdmin()) {
+        editToggle.setVisible(true);
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
       } else {
@@ -129,8 +139,13 @@ public class NewNavPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
     // TODO: change to visible nodes if PATIENT/GUEST
-    graph.drawAllNodes("G", startNode, endNode);
+    if (navigating) {
+      graph.drawVisibleNodes("G", startNode, endNode);
+    } else {
+      graph.drawAllNodes("G", startNode, endNode);
+    }
 
     // just for testing
 
@@ -254,12 +269,17 @@ public class NewNavPageController implements Initializable {
     if (displayingRoute) {
       graph.drawCurrentPath(sFloor, startNode, endNode);
     } else {
-      graph.drawAllNodes(sFloor, startNode, endNode);
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
     }
   }
 
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
+      graph.resetPath();
       graph.findPath(startNode, endNode);
       graph.drawCurrentPath(sFloor, startNode, endNode);
       displayingRoute = true;
@@ -276,6 +296,19 @@ public class NewNavPageController implements Initializable {
     if (addNodeMode) {
       xCoord.setText(String.valueOf(mouseEvent.getX()));
       yCoord.setText(String.valueOf(mouseEvent.getY()));
+
+      NodesAndEdges.addNode(
+          nodeID.getText(),
+          xCoord.getText(),
+          yCoord.getText(),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          true);
+
       nodeID.clear();
       floor.clear();
       building.clear();
@@ -292,9 +325,13 @@ public class NewNavPageController implements Initializable {
         endNode = clickedNode;
       }
 
-      graph.drawAllNodes(sFloor, startNode, endNode);
-      System.out.println("Click");
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
     }
+    System.out.println("Click");
   }
 
   // TODO: set start/end to different colors
@@ -315,7 +352,13 @@ public class NewNavPageController implements Initializable {
     startNode = null;
     endNode = null;
     displayingRoute = false;
-    graph.drawAllNodes(sFloor, startNode, endNode);
+    graph.resetPath();
+    resizeCanvas();
+    if (navigating) {
+      graph.drawVisibleNodes(sFloor, startNode, endNode);
+    } else {
+      graph.drawAllNodes(sFloor, startNode, endNode);
+    }
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
@@ -326,16 +369,56 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editEdge(ActionEvent actionEvent) {
-    //    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText());
+    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
   }
 
-  public void addEdge(ActionEvent actionEvent) {}
+  public void addEdge(ActionEvent actionEvent) {
+    NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
+  }
 
-  public void deleteEdge(ActionEvent actionEvent) {}
+  public void deleteEdge(ActionEvent actionEvent) {
+    NodesAndEdges.deleteEdge(edgeID.getText());
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
+  }
 
-  public void editNode(ActionEvent actionEvent) {}
+  public void editNode(ActionEvent actionEvent) {
+    NodesAndEdges.editNode(
+        nodeID.getText(),
+        Integer.parseInt(xCoord.getText()),
+        Integer.parseInt(yCoord.getText()),
+        floor.getText(),
+        building.getText(),
+        nodeType.getText(),
+        longName.getText(),
+        shortName.getText(),
+        "O",
+        true);
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
+  }
 
-  public void uploadCSV(ActionEvent actionEvent) {}
+  public void uploadN(ActionEvent actionEvent) {
+    DataHandling.importExcelData(true);
+  }
 
-  public void saveCSV(ActionEvent actionEvent) {}
+  public void uploadE(ActionEvent actionEvent) {
+    DataHandling.importExcelData(false);
+  }
+
+  public void saveN(ActionEvent actionEvent) {
+    DataHandling.save(true);
+  }
+
+  public void saveE(ActionEvent actionEvent) {
+    DataHandling.save(false);
+  }
 }
