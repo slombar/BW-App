@@ -214,7 +214,7 @@ public class UserHandling {
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
-    //setFirstName(fName);
+    // setFirstName(fName);
     setLoginStatus(true);
     setUsername(u);
 
@@ -312,7 +312,9 @@ public class UserHandling {
     return isLoggedIn;
   }
 
-  public static void setLoginStatus(Boolean b) { isLoggedIn = b; }
+  public static void setLoginStatus(Boolean b) {
+    isLoggedIn = b;
+  }
 
   public static String getFirstName() {
     return fName;
