@@ -363,12 +363,17 @@ public class Graph {
 
   public void drawAllEdges(String floor) {
     for (Edge e : listOfEdges) {
-      Node nodeA = NodesAndEdges.getNode(e.getStart());
-      Node nodeB = NodesAndEdges.getNode(e.getEnd());
-      Circle circleA = nodeCircleHashtable.get(nodeA);
-      Circle circleB = nodeCircleHashtable.get(nodeB);
+      // Node nodeA = stringNodeHashtable.get(e.getStart());
+      // Node nodeB = stringNodeHashtable.get(e.getEnd());
+      String nodeAid = e.getStart();
+      String nodeBid = e.getEnd();
+      Node nodeA = NodesAndEdges.getNode(nodeAid);
+      Node nodeB = NodesAndEdges.getNode(nodeBid);
 
       if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
+        Circle circleA = nodeCircleHashtable.get(nodeA);
+        Circle circleB = nodeCircleHashtable.get(nodeB);
+
         DrawHelper.drawEdge(gc, circleA, circleB);
       }
     }
