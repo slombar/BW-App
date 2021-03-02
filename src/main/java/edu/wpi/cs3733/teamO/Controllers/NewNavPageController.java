@@ -132,6 +132,7 @@ public class NewNavPageController implements Initializable {
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
+        editToggle.setVisible(true);
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";
@@ -220,8 +221,8 @@ public class NewNavPageController implements Initializable {
 
   public void autocompleteEditMap(Node clickedNode) {
     nodeID.setText(clickedNode.getID());
-    xCoord.setText(String.valueOf(clickedNode.getXCoord()));
-    yCoord.setText(String.valueOf(clickedNode.getYCoord()));
+    xCoord.setText(Integer.toString(clickedNode.getXCoord()));
+    yCoord.setText(Integer.toString(clickedNode.getYCoord()));
     floor.setText(clickedNode.getFloor());
     building.setText(clickedNode.getBuilding());
     nodeType.setText(clickedNode.getNodeType());
@@ -416,28 +417,29 @@ public class NewNavPageController implements Initializable {
       nodeType.clear();
       longName.clear();
       shortName.clear();
-
       addNodeDB = false;
+
+    } else {
+      NodesAndEdges.editNode(
+          nodeID.getText(),
+          Integer.parseInt(xCoord.getText()),
+          Integer.parseInt(yCoord.getText()),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          true);
+      nodeID.clear();
+      xCoord.clear();
+      yCoord.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
     }
-    NodesAndEdges.editNode(
-        nodeID.getText(),
-        Integer.parseInt(xCoord.getText()),
-        Integer.parseInt(yCoord.getText()),
-        floor.getText(),
-        building.getText(),
-        nodeType.getText(),
-        longName.getText(),
-        shortName.getText(),
-        "O",
-        true);
-    nodeID.clear();
-    xCoord.clear();
-    yCoord.clear();
-    floor.clear();
-    building.clear();
-    nodeType.clear();
-    longName.clear();
-    shortName.clear();
   }
 
   public void uploadN(ActionEvent actionEvent) {
