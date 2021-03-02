@@ -9,7 +9,37 @@ public class User {
   public String username;
   public String email;
   public String password;
+  public boolean admin;
+  public boolean employee;
   @FXML private JFXButton guestButton;
+
+  /**
+   * Constructor for user
+   *
+   * @param uname
+   * @param pass
+   * @param email
+   * @param fName
+   * @param lName
+   * @param employee
+   * @param admin
+   */
+  public User(
+      String uname,
+      String pass,
+      String email,
+      String fName,
+      String lName,
+      boolean employee,
+      boolean admin) {
+    this.username = uname;
+    this.password = pass;
+    this.email = email;
+    this.firstName = fName;
+    this.lastName = lName;
+    this.admin = admin;
+    this.employee = employee;
+  }
 
   public String getFirstName() {
     return firstName;
@@ -49,6 +79,22 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
+  }
+
+  public boolean isEmployee() {
+    return employee;
+  }
+
+  public void setEmployee(boolean employee) {
+    this.employee = employee;
   }
 
   public JFXButton getGuestButton() {

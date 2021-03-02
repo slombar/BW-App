@@ -71,7 +71,7 @@ public class SideMenuAdminController implements Initializable {
   }
 
   public void manageEmployees(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
   public void mouseOnNot(MouseEvent mouseEvent) {

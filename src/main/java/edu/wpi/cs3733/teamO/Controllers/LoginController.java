@@ -14,7 +14,6 @@ import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
 
-  public static boolean isStaff;
   @FXML private Circle staffBtn;
   @FXML private Circle patientBtn;
   @FXML private Circle adminBtn;
@@ -34,12 +33,10 @@ public class LoginController implements Initializable {
    * @param mouseEvent
    */
   public void goToLogin(MouseEvent mouseEvent) {
-    isStaff = false;
     SwitchScene.goToGridPane("/Views/PatientSignInPopup.fxml");
   }
 
   public void goToStaffLogin(MouseEvent mouseEvent) {
-    isStaff = true;
     SwitchScene.goToGridPane("/Views/StaffSignInPopup.fxml");
   }
 
@@ -49,12 +46,10 @@ public class LoginController implements Initializable {
    * @param actionEvent
    */
   public void guestSignIn(ActionEvent actionEvent) {
-    isStaff = false;
     SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
   public void tempBTN(ActionEvent actionEvent) {
-    isStaff = true;
     SwitchScene.goToBorderPane("/Views/StaffMainPage.fxml");
   }
 
