@@ -40,9 +40,9 @@
                </font>
             </JFXButton>
          </children></VBox>
-      <GridPane fx:id="innerGrid" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <GridPane fx:id="innerGrid" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" />
+            <StackPane fx:id="stackPane" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" />
             <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <image>
                   <Image url="@../FaulknerCampus_Updated.png" />
