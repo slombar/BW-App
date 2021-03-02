@@ -185,7 +185,7 @@ public class ReqController implements Initializable {
     if (typeOfRequest.equals("SANA")) {
       SwitchScene.goToParent("/Views/ServiceRequests/SANA.fxml");
     }
-    /*TODO: add kyle's component*/
+
     if (typeOfRequest.equals("FLOR")) {
       SwitchScene.goToParent("/Views/ServiceRequests/FloralDeliveryRequest.fxml");
     }
