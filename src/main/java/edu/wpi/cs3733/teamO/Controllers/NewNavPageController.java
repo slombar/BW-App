@@ -62,6 +62,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
   private boolean addNodeMode;
+  private boolean addNodeDB;
 
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -131,6 +132,7 @@ public class NewNavPageController implements Initializable {
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
+        editToggle.setVisible(true);
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";
@@ -176,6 +178,7 @@ public class NewNavPageController implements Initializable {
       editVBox.setVisible(true);
     }
     addNodeMode = false;
+    addNodeDB = false;
     // autocompletes the node Id for start and end
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
@@ -218,8 +221,8 @@ public class NewNavPageController implements Initializable {
 
   public void autocompleteEditMap(Node clickedNode) {
     nodeID.setText(clickedNode.getID());
-    xCoord.setText(String.valueOf(clickedNode.getXCoord()));
-    yCoord.setText(String.valueOf(clickedNode.getYCoord()));
+    xCoord.setText(Integer.toString(clickedNode.getXCoord()));
+    yCoord.setText(Integer.toString(clickedNode.getYCoord()));
     floor.setText(clickedNode.getFloor());
     building.setText(clickedNode.getBuilding());
     nodeType.setText(clickedNode.getNodeType());
@@ -298,27 +301,12 @@ public class NewNavPageController implements Initializable {
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
     if (addNodeMode) {
-      xCoord.setText(String.valueOf(mouseEvent.getX()));
-      yCoord.setText(String.valueOf(mouseEvent.getY()));
+      Node n = new Node();
+      n.setXCoord((int) mouseEvent.getX());
+      n.setYCoord((int) mouseEvent.getY());
 
-      NodesAndEdges.addNode(
-          nodeID.getText(),
-          xCoord.getText(),
-          yCoord.getText(),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          true);
+      autocompleteEditMap(n);
 
-      nodeID.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
       addNodeMode = false;
     } else if (editToggle.isSelected()) {
       autocompleteEditMap(clickedNode);
@@ -353,14 +341,101 @@ public class NewNavPageController implements Initializable {
     // sharePane.toBack();
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
 
+    mapCanvas.getGraphicsContext2D();
     String home = System.getProperty("user.home");
-    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
+    File outputFile1 = new File(home + "/Downloads/" + "mapimg1.png");
+    File outputFile2 = new File(home + "/Downloads/" + "mapimg2.png");
+    File outputFile3 = new File(home + "/Downloads/" + "mapimg3.png");
+    File outputFile4 = new File(home + "/Downloads/" + "mapimg4.png");
+    File outputFile5 = new File(home + "/Downloads/" + "mapimg5.png");
+    File outputFile6 = new File(home + "/Downloads/" + "mapimg6.png");
 
-    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
-    Image newimg = map;
+    imageView.setImage(campusMap);
+    sFloor = "G";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map1 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map1, null), "png", outputFile1);
+    imageView.setImage(floor1Map);
+    sFloor = "1";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map2 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map2, null), "png", outputFile2);
+    imageView.setImage(floor2Map);
+    sFloor = "2";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map3 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map3, null), "png", outputFile3);
+    imageView.setImage(floor3Map);
+    sFloor = "3";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map4 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map4, null), "png", outputFile4);
+    imageView.setImage(floor4Map);
+    sFloor = "4";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map5 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map5, null), "png", outputFile5);
+    imageView.setImage(floor5Map);
+    sFloor = "5";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map6 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map6, null), "png", outputFile6);
 
-    EmailPageController.setScreenShot(newimg);
+    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
 
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
@@ -383,6 +458,7 @@ public class NewNavPageController implements Initializable {
 
   public void addNode(ActionEvent actionEvent) {
     addNodeMode = true;
+    addNodeDB = true;
   }
 
   public void editEdge(ActionEvent actionEvent) {
@@ -407,20 +483,50 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editNode(ActionEvent actionEvent) {
-    NodesAndEdges.editNode(
-        nodeID.getText(),
-        Integer.parseInt(xCoord.getText()),
-        Integer.parseInt(yCoord.getText()),
-        floor.getText(),
-        building.getText(),
-        nodeType.getText(),
-        longName.getText(),
-        shortName.getText(),
-        "O",
-        true);
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    if (addNodeDB) {
+      NodesAndEdges.addNode(
+          nodeID.getText(),
+          xCoord.getText(),
+          yCoord.getText(),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          true);
+
+      nodeID.clear();
+      xCoord.clear();
+      yCoord.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+      addNodeDB = false;
+
+    } else {
+      NodesAndEdges.editNode(
+          nodeID.getText(),
+          Integer.parseInt(xCoord.getText()),
+          Integer.parseInt(yCoord.getText()),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          true);
+      nodeID.clear();
+      xCoord.clear();
+      yCoord.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+    }
   }
 
   public void uploadN(ActionEvent actionEvent) {
