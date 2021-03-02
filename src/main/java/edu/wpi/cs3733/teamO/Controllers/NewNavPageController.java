@@ -110,10 +110,12 @@ public class NewNavPageController implements Initializable {
     resizableWindow();
 
     graph = new Graph(gc);
+    editToggle.setVisible(false);
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
       if (UserHandling.getAdmin()) {
+        editToggle.setVisible(true);
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
       } else {
