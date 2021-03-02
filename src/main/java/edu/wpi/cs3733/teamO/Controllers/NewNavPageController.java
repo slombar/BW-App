@@ -468,16 +468,20 @@ public class NewNavPageController implements Initializable {
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
   public void deleteNode(ActionEvent actionEvent) {
-    NodesAndEdges.deleteNode(nodeID.getText());
-    nodeID.clear();
-    xCoord.clear();
-    yCoord.clear();
-    floor.clear();
-    building.clear();
-    nodeType.clear();
-    longName.clear();
-    shortName.clear();
-    setVisibility.setSelected(false);
+    if (nodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      NodesAndEdges.deleteNode(nodeID.getText());
+      nodeID.clear();
+      xCoord.clear();
+      yCoord.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+      setVisibility.setSelected(false);
+    }
   }
 
   public void addNode(ActionEvent actionEvent) {
@@ -486,24 +490,38 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editEdge(ActionEvent actionEvent) {
-    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    if (edgeID.getText().isEmpty()
+        || startNodeID.getText().isEmpty()
+        || endNodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
+      edgeID.clear();
+      startNodeID.clear();
+      endNodeID.clear();
+    }
   }
 
   public void addEdge(ActionEvent actionEvent) {
-    NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
+      edgeID.clear();
+      startNodeID.clear();
+      endNodeID.clear();
+    }
   }
 
   public void deleteEdge(ActionEvent actionEvent) {
-    NodesAndEdges.deleteEdge(edgeID.getText());
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    if (edgeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      NodesAndEdges.deleteEdge(edgeID.getText());
+      edgeID.clear();
+      startNodeID.clear();
+      endNodeID.clear();
+    }
   }
 
   public void editNode(ActionEvent actionEvent) {
