@@ -99,27 +99,27 @@ public class EmailThreader extends Thread {
       String filename6 = fileToBeSent6; // file to be sent, map image
       DataSource source1 = new FileDataSource(filename1);
       messageBodyPart1.setDataHandler(new DataHandler(source1));
-      messageBodyPart1.setFileName("yourMapRoute1.png");
+      messageBodyPart1.setFileName("GroundRoute.png");
       multipart.addBodyPart(messageBodyPart1);
       DataSource source2 = new FileDataSource(filename2);
       messageBodyPart2.setDataHandler(new DataHandler(source2));
-      messageBodyPart2.setFileName("yourMapRoute2.png");
+      messageBodyPart2.setFileName("Floor1Route.png");
       multipart.addBodyPart(messageBodyPart2);
       DataSource source3 = new FileDataSource(filename3);
       messageBodyPart3.setDataHandler(new DataHandler(source3));
-      messageBodyPart3.setFileName("yourMapRoute3.png");
+      messageBodyPart3.setFileName("Floor2Route.png");
       multipart.addBodyPart(messageBodyPart3);
       DataSource source4 = new FileDataSource(filename4);
       messageBodyPart4.setDataHandler(new DataHandler(source4));
-      messageBodyPart4.setFileName("yourMapRoute4.png");
+      messageBodyPart4.setFileName("Floor3Route.png");
       multipart.addBodyPart(messageBodyPart4);
       DataSource source5 = new FileDataSource(filename5);
       messageBodyPart5.setDataHandler(new DataHandler(source5));
-      messageBodyPart5.setFileName("yourMapRoute5.png");
+      messageBodyPart5.setFileName("Floor4Route.png");
       multipart.addBodyPart(messageBodyPart5);
       DataSource source6 = new FileDataSource(filename6);
       messageBodyPart6.setDataHandler(new DataHandler(source6));
-      messageBodyPart6.setFileName("yourMapRoute6.png");
+      messageBodyPart6.setFileName("Floor5Route.png");
       multipart.addBodyPart(messageBodyPart6);
 
       // Send the complete message parts

@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -41,6 +42,7 @@
          </children></VBox>
       <GridPane fx:id="innerGrid" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
+            <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" />
             <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <image>
                   <Image url="@../FaulknerCampus_Updated.png" />

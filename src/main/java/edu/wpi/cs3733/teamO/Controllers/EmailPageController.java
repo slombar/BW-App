@@ -208,13 +208,7 @@ public class EmailPageController implements Initializable {
         event -> {
           submissionDialog.close();
           stackPane.toBack();
-          AnchorPane root = null;
-          try {
-            root = FXMLLoader.load(getClass().getResource("/Views/Archive/Index.fxml"));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-          Opp.getPrimaryStage().getScene().setRoot(root);
+          SwitchScene.goToParent("/Views/NewNavPage.fxml");
         });
     submissionDialog.show();
   }
