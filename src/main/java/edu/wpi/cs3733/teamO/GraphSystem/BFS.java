@@ -1,12 +1,13 @@
-/*package edu.wpi.cs3733.teamO.GraphSystem;
+package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
-public class BFS {
+public class BFS implements AlgorithmStrategy{
 
-  private Queue<Node> queue;
+  private static Queue<Node> queue;
   private LinkedList<String> visited;
 
   BFS() {
@@ -15,10 +16,15 @@ public class BFS {
   }
 
   // main method for breadth-first search
-  void bfs(Node n) {
+  public static LinkedList<Node> findRoute(Graph graph,Node n, Node end) {
+
+    LinkedList<Node> path = new LinkedList<>();
+
     // mark root node as visited
     n.setVisited(true);
     queue.add(n);
+    // adding root node to the path
+    path.add(n);
 
     while (queue.size() != 0) {
 
@@ -30,10 +36,16 @@ public class BFS {
         if (!g.isVisited()) {
           g.setVisited(true);
           queue.add(g);
+          // adding current node to the path
+          path.add(n);
+          if (n.equals(end)) return path;
         }
       }
     }
+    return new LinkedList<Node>(); // in case if bfs couldn't find any path to the given node
   }
+
+
 
   // simple testing of bfs algorithm
   public static void main(String[] args) {
@@ -42,15 +54,16 @@ public class BFS {
     Node n2 = new Node("2", 4, 3);
     Node n3 = new Node("3", 4, 5);
 
-    n0.addNeighbour(n2);
+    /*
+    n0.addNeighbour(n2,n0);
     n0.addNeighbour(n1);
     n2.addNeighbour(n0);
     n2.addNeighbour(n3);
     n1.addNeighbour(n2);
+     */
 
     // output should be 2 0 3 1
     BFS bfs = new BFS();
-    bfs.bfs(n2);
+    //bfs.bfs(n2);
   }
 }
-*/

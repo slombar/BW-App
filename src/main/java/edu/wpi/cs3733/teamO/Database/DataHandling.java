@@ -155,7 +155,7 @@ public class DataHandling {
                   + "\nlength:"
                   + length);
 
-          NodesAndEdges.addEdge(nodeID, startNode, endNode, length);
+          NodesAndEdges.addEdge(startNode, endNode, length);
         }
       }
     } else {

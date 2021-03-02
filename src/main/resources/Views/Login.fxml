@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -92,7 +91,7 @@
                         <Image url="@../bh_bwh_pms_293.png" />
                      </image>
                      <BorderPane.margin>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="30.0" top="69.0" />
                      </BorderPane.margin>
                   </ImageView>
                </top>

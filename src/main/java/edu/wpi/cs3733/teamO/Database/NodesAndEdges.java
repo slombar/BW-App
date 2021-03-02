@@ -90,7 +90,8 @@ public class NodesAndEdges {
    * @param startNode
    * @param endNode
    */
-  public static void addEdge(String nodeID, String startNode, String endNode, double length) {
+  public static void addEdge(String startNode, String endNode, double length) {
+    String nodeID = startNode + "_" + endNode;
     String query =
         "INSERT INTO Edges VALUES("
             + "'"

@@ -3,6 +3,8 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.io.IOException;
@@ -76,8 +78,8 @@ public class NewNavPageController implements Initializable {
   private boolean displayingRoute = false;
 
   ObservableList<String> listOfFloors =
-      FXCollections.observableArrayList(
-          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+          FXCollections.observableArrayList(
+                  "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
 
   public static Image campusMap = new Image("FaulknerCampus_Updated.png");
   public static Image floor1Map = new Image("Faulkner1_Updated.png");
@@ -128,20 +130,21 @@ public class NewNavPageController implements Initializable {
 
     // click event - mouse click
     hamburger.addEventHandler(
-        MouseEvent.MOUSE_PRESSED,
-        (e) -> {
-          transition.setRate(transition.getRate() * -1);
-          transition.play();
+            MouseEvent.MOUSE_PRESSED,
+            (e) -> {
+              transition.setRate(transition.getRate() * -1);
+              transition.play();
 
-          if (drawer.isOpened()) drawer.close(); // this will close slide pane
-          else drawer.open(); // this will open slide pane
-        });
+              if (drawer.isOpened()) drawer.close(); // this will close slide pane
+              else drawer.open(); // this will open slide pane
+            });
 
     if (!editToggle.isSelected()) {
       editVBox.setVisible(false);
     } else {
       editVBox.setVisible(true);
     }
+    autocompleteEditMap();
   }
 
   /**
@@ -152,8 +155,8 @@ public class NewNavPageController implements Initializable {
   public GridPane resizableWindow() {
     imageView.setPreserveRatio(true);
     imageView
-        .fitHeightProperty()
-        .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
+            .fitHeightProperty()
+            .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
     // resizeCanvas();
@@ -180,12 +183,14 @@ public class NewNavPageController implements Initializable {
   }
 
   public void autocompleteEditMap() {
-    //    nodelist
-    //    ArrayList<String> nodeIDColData = new ArrayList<>();
-    //    for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
-    //      nodeIDColData.add(nodeIDCol.getCellData(i));
-    //    }
-    //    autoComplete(nodeIDColData, listOfFields.get(0));
+//    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), nodeID);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("xCoord"), xCoord);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("yCoord"), yCoord);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("floor"), floor);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("building"), building);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeType"), nodeType);
+//    Autocomplete.autoComplete(Autocomplete.autoNodeData("longName"), longName);
+//    Autocomplete.autoComplete(Autocomplete.autoNodeData("shortName"), shortName);
   }
 
   public void goToMain(ActionEvent actionEvent) {
@@ -237,7 +242,7 @@ public class NewNavPageController implements Initializable {
       graph.drawAllNodes(sFloor, startNode, endNode);
     }
   }
-
+  /*
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       graph.findPath(startNode, endNode);
@@ -246,19 +251,32 @@ public class NewNavPageController implements Initializable {
     // TODO: else -> throw exception? or make popup or something? idk
   }
 
+   */
+
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
   public void canvasClick(MouseEvent mouseEvent) {
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
-    if (selectingStart) {
-      startNode = clickedNode;
+    if (editToggle.isSelected()) {
+      nodeID.setText(clickedNode.getID());
+      xCoord.setText(String.valueOf(clickedNode.getXCoord()));
+      yCoord.setText(String.valueOf(clickedNode.getYCoord()));
+      floor.setText(clickedNode.getFloor());
+      building.setText(clickedNode.getBuilding());
+      nodeType.setText(clickedNode.getNodeType());
+      longName.setText(clickedNode.getLongName());
+      shortName.setText(clickedNode.getShortName());
     } else {
-      endNode = clickedNode;
-    }
+      if (selectingStart) {
+        startNode = clickedNode;
+      } else {
+        endNode = clickedNode;
+      }
 
-    graph.drawAllNodes(sFloor, startNode, endNode);
-    System.out.println("Click");
+      graph.drawAllNodes(sFloor, startNode, endNode);
+      System.out.println("Click");
+    }
   }
 
   public void startLocSelection(ActionEvent actionEvent) {
@@ -268,6 +286,10 @@ public class NewNavPageController implements Initializable {
   public void endLocSelection(ActionEvent actionEvent) {
     selectingStart = false;
   }
+
+    public void toSharePage(ActionEvent actionEvent) {
+      SwitchScene.goToParent("/Views/EmailPage.fxml");
+    }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
 }
