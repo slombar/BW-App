@@ -105,17 +105,21 @@ public class DataHandling {
           teamAssigned = scan.next();
           visible = true;
 
-          NodesAndEdges.addNode(
-              nodeID,
-              xcoord,
-              ycoord,
-              floor,
-              building,
-              nodeType,
-              longName,
-              shortName,
-              teamAssigned,
-              visible);
+          try {
+            NodesAndEdges.addNode(
+                nodeID,
+                xcoord,
+                ycoord,
+                floor,
+                building,
+                nodeType,
+                longName,
+                shortName,
+                teamAssigned,
+                visible);
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
         }
         scan.close();
 
@@ -144,7 +148,11 @@ public class DataHandling {
           endNode = scan.next();
           length = 0;
 
-          NodesAndEdges.addNewEdge(startNode, endNode);
+          try {
+            NodesAndEdges.addNewEdge(startNode, endNode);
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
         }
       }
     } else {

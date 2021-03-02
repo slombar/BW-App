@@ -43,7 +43,14 @@ public class SharingFunctionality {
     }
   }
 
-  public static void sendSMSTwillio(String sendingTo, String linkToFile) {
+  public static void sendSMSTwillio(
+      String sendingTo,
+      String linkToFile1,
+      String linkToFile2,
+      String linkToFile3,
+      String linkToFile4,
+      String linkToFile5,
+      String linkToFile6) {
     String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
     String AUTH_TOKEN = "98a818e03c58110dc0fbc752695d9e40";
 
@@ -54,7 +61,14 @@ public class SharingFunctionality {
                     sendingTo), // replace with cindy's number if testing
                 new com.twilio.type.PhoneNumber("+16173560972"),
                 "This is the ship that made the Kessel Run in fourteen parsecs?")
-            .setMediaUrl(Arrays.asList(URI.create(linkToFile)))
+            .setMediaUrl(
+                Arrays.asList(
+                    URI.create(linkToFile1),
+                    URI.create(linkToFile2),
+                    URI.create(linkToFile3),
+                    URI.create(linkToFile4),
+                    URI.create(linkToFile5),
+                    URI.create(linkToFile6)))
             .create();
 
     // file:/C:/users/cindy/Downloads/mapimg.png

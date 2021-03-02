@@ -7,6 +7,7 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Edge;
@@ -29,12 +30,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private StackPane nodeWarningPane;
   @FXML private JFXCheckBox setVisibility;
   // edit map components
   @FXML private GridPane innerGrid;
@@ -441,36 +444,62 @@ public class NewNavPageController implements Initializable {
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
     if (addNodeDBMode) {
-      NodesAndEdges.addNode(
-          nodeID.getText(),
-          xCoord.getText(),
-          yCoord.getText(),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          setVisibility.isSelected());
+      if ((nodeID.getText() == null)
+          || (xCoord.getText() == null)
+          || (yCoord.getText() == null)
+          || (floor.getText() == null)
+          || (building.getText() == null)
+          || (nodeType.getText() == null)
+          || (longName.getText() == null)
+          || (shortName.getText() == null)) {
+        PopupMaker.incompletePopup(nodeWarningPane);
+      } else {
+        try {
+          NodesAndEdges.addNode(
+              nodeID.getText(),
+              xCoord.getText(),
+              yCoord.getText(),
+              floor.getText(),
+              building.getText(),
+              nodeType.getText(),
+              longName.getText(),
+              shortName.getText(),
+              "O",
+              setVisibility.isSelected());
+          Node n =
+              new Node(
+                  nodeID.getText(),
+                  Integer.parseInt(xCoord.getText()),
+                  Integer.parseInt(yCoord.getText()),
+                  floor.getText(),
+                  building.getText(),
+                  nodeType.getText(),
+                  longName.getText(),
+                  shortName.getText(),
+                  "O",
+                  setVisibility.isSelected());
 
-      addNodeDBMode = false;
+          graph.addNode(n);
+        } catch (SQLException throwables) {
+          PopupMaker.nodeAlreadyExists(nodeWarningPane);
+        }
 
+        addNodeDBMode = false;
+      }
+      // editing node part
     } else {
-      NodesAndEdges.editNode(
-          nodeID.getText(),
-          Integer.parseInt(xCoord.getText()),
-          Integer.parseInt(yCoord.getText()),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          setVisibility.isSelected());
-    }
-
-    Node n =
-        new Node(
+      if (nodeID.getText().isEmpty()
+          || xCoord.getText().isEmpty()
+          || yCoord.getText().isEmpty()
+          || floor.getText().isEmpty()
+          || building.getText().isEmpty()
+          || nodeType.getText().isEmpty()
+          || longName.getText().isEmpty()
+          || shortName.getText().isEmpty()) {
+        PopupMaker.incompletePopup(nodeWarningPane);
+      }
+      try {
+        NodesAndEdges.editNode(
             nodeID.getText(),
             Integer.parseInt(xCoord.getText()),
             Integer.parseInt(yCoord.getText()),
@@ -481,8 +510,24 @@ public class NewNavPageController implements Initializable {
             shortName.getText(),
             "O",
             setVisibility.isSelected());
+        Node n =
+            new Node(
+                nodeID.getText(),
+                Integer.parseInt(xCoord.getText()),
+                Integer.parseInt(yCoord.getText()),
+                floor.getText(),
+                building.getText(),
+                nodeType.getText(),
+                longName.getText(),
+                shortName.getText(),
+                "O",
+                setVisibility.isSelected());
 
-    graph.addNode(n);
+        graph.addNode(n);
+      } catch (SQLException throwables) {
+        PopupMaker.nodeDoesntExist(nodeWarningPane);
+      }
+    }
 
     nodeID.clear();
     xCoord.clear();
@@ -492,50 +537,71 @@ public class NewNavPageController implements Initializable {
     nodeType.clear();
     longName.clear();
     shortName.clear();
+    setVisibility.setSelected(false);
 
     selectingEditNode = true;
     draw();
   }
 
   public void deleteNode(ActionEvent actionEvent) {
-    NodesAndEdges.deleteNode(nodeID.getText());
-    graph.deleteNode(nodeID.getText());
 
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    if (nodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      try {
+        NodesAndEdges.deleteNode(nodeID.getText());
+      } catch (SQLException throwables) {
+        PopupMaker.nodeDoesntExist(nodeWarningPane);
+      }
+      graph.deleteNode(nodeID.getText());
+      nodeID.clear();
+      xCoord.clear();
+      yCoord.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+      setVisibility.setSelected(false);
+    }
     draw();
   }
 
   public void addEdge(ActionEvent actionEvent) {
-    NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
-    String eID = startNodeID.getText() + "_" + endNodeID.getText();
-    Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
+    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      try {
+        NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
+        String eID = startNodeID.getText() + "_" + endNodeID.getText();
+        Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
+        graph.addEdge(e);
+      } catch (SQLException throwables) {
+        PopupMaker.edgeAlreadyExists(nodeWarningPane);
+      }
 
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+      edgeID.clear();
+      startNodeID.clear();
+      endNodeID.clear();
+    }
     draw();
   }
 
-  // TODO: remove this? only add/delete edges
-  public void editEdge(ActionEvent actionEvent) {
-    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
-    // TODO: edit Edge in Graph
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
-    draw();
-  }
+  public void deleteEdge(ActionEvent actionEvent) throws SQLException{
 
-  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
-    NodesAndEdges.deleteEdge(edgeID.getText());
-
-    graph.deleteEdge(edgeID.getText());
-
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      try {
+        NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
+        graph.deleteEdge(edgeID.getText());
+      } catch (SQLException throwables) {
+        PopupMaker.edgeDoesntExists(nodeWarningPane);
+      }
+      edgeID.clear();
+      startNodeID.clear();
+      endNodeID.clear();
+    }
     draw();
   }
 
@@ -593,5 +659,13 @@ public class NewNavPageController implements Initializable {
         graph.drawAllEdges(sFloor);
       }
     }
+  }
+
+  public void updateEdgeID(KeyEvent actionEvent) {
+    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
+  }
+
+  public void updateEdgeIDMouse(MouseEvent mouseEvent) {
+    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
   }
 }

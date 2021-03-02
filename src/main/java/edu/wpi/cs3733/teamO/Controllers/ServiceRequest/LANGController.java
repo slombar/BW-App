@@ -1,12 +1,12 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
-import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.sql.Date;
 import javafx.event.ActionEvent;
@@ -32,8 +32,8 @@ public class LANGController {
   }
 
   public void submit(ActionEvent actionEvent) {
-    // send values to DB TODO implement proper username
-    String requestedBy = getUsername();
+    // send values to DB
+    String requestedBy = UserHandling.getUsername();
     java.sql.Date dateN = Date.valueOf(dateNeeded.getValue());
     String requestType = getReqType();
     String loc = locationF.getText();

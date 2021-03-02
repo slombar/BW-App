@@ -8,6 +8,7 @@ import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -131,8 +132,6 @@ public class EditPageController implements Initializable {
     refreshButton.setStyle("-fx-background-color: #c3d6e8");
     saveButton.setStyle("-fx-background-color: #c3d6e8");
   }
-
-  // TODO fix or get rid of it all
 
   ///////////////////////////// NODES TABLE //////////////////////////////
   // Initializes the node table and ensures that its updated
@@ -438,7 +437,11 @@ public class EditPageController implements Initializable {
               //              nonexistantPopup();
               PopupMaker.nonexistentPopup(warningPane);
             } else {
-              NodesAndEdges.deleteNode(listOfFields.get(0).getText());
+              try {
+                NodesAndEdges.deleteNode(listOfFields.get(0).getText());
+              } catch (SQLException throwables) {
+                throwables.printStackTrace();
+              }
 
               //              System.out.println(listOfFields.get(0).getText());
               deleteNodeDialog.close();
@@ -616,7 +619,11 @@ public class EditPageController implements Initializable {
               //              nonexistantPopup();
               PopupMaker.nonexistentPopup(warningPane);
             } else {
-              NodesAndEdges.deleteEdge(listOfFields.get(0).getText());
+              try {
+                NodesAndEdges.deleteEdge(listOfFields.get(0).getText());
+              } catch (SQLException throwables) {
+                throwables.printStackTrace();
+              }
 
               //              System.out.println(listOfFields.get(0).getText());
               deleteEdgeDialog.close();
