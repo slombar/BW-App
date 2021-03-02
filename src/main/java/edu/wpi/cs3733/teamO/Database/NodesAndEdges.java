@@ -5,6 +5,7 @@ import edu.wpi.cs3733.teamO.model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -66,11 +67,8 @@ public class NodesAndEdges {
             + teamAssigned
             + "'"
             + ", "
-            + "'"
             + visible
-            + "'"
             + ")";
-    System.out.println(query);
 
     try {
       PreparedStatement preparedStmt = null;
@@ -106,7 +104,6 @@ public class NodesAndEdges {
             + "', "
             + 0
             + ")";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -142,7 +139,6 @@ public class NodesAndEdges {
             + "', "
             + length
             + ")";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -155,10 +151,40 @@ public class NodesAndEdges {
     }
   }
 
-  public static void deleteNode(String nodeID) {
+  /**
+   * Deletes all corresponding edges from the given node
+   *
+   * @param nodeID, the node that you want to delete all edges from
+   * @return
+   */
+  public static void deleteAllEdges(String nodeID) {
 
+    ArrayList<String> edgesList = new ArrayList<>();
+    String query =
+        "SELECT * FROM Edges WHERE startNode = '" + nodeID + "' OR endNode ='" + nodeID + "'";
+
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet rset = preparedStmt.executeQuery();
+
+      while (rset.next()) {
+        edgesList.add(rset.getString("nodeID"));
+      }
+
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    for (String edgeID : edgesList) {
+      deleteEdge(edgeID);
+    }
+  }
+
+  public static void deleteNode(String nodeID) {
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -169,12 +195,14 @@ public class NodesAndEdges {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+
+    // delete all corresponding edges
+    deleteAllEdges(nodeID);
   }
 
   /** @param nodeID */
   public static void deleteEdge(String nodeID) {
     String query = "DELETE FROM Edges WHERE nodeID = '" + nodeID + "'";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -220,9 +248,9 @@ public class NodesAndEdges {
             + shortName
             + "', teamAssigned = '"
             + team
-            + "', visible = '"
+            + "', visible = "
             + visible
-            + "' WHERE nodeID = '"
+            + " WHERE nodeID = '"
             + nodeID
             + "'";
     PreparedStatement preparedStmt = null;
@@ -251,9 +279,9 @@ public class NodesAndEdges {
             + startNode
             + "', endNode = '"
             + endNode
-            + "', length = '"
+            + "', length = "
             + length
-            + "' WHERE nodeID = '"
+            + " WHERE nodeID = '"
             + nodeID
             + "'";
     PreparedStatement preparedStmt = null;
@@ -286,17 +314,19 @@ public class NodesAndEdges {
               .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
       ResultSet rset = pstmt.executeQuery();
 
-      // add properties to the node
-      n.setID(rset.getString("nodeID"));
-      n.setBuilding(rset.getString("building"));
-      n.setFloor(rset.getString("floor"));
-      n.setShortName(rset.getString("shortName"));
-      n.setLongName(rset.getString("longName"));
-      n.setNodeType(rset.getString("nodeType"));
-      n.setXCoord(rset.getInt("xcoord"));
-      n.setYCoord(rset.getInt("ycoord"));
-      n.setTeam(rset.getString("teamAssigned"));
-      n.setVisible(rset.getBoolean("visible"));
+      while (rset.next()) {
+        // add properties to the node
+        n.setID(rset.getString("NODEID"));
+        n.setBuilding(rset.getString("BUILDING"));
+        n.setFloor(rset.getString("FLOOR"));
+        n.setShortName(rset.getString("SHORTNAME"));
+        n.setLongName(rset.getString("LONGNAME"));
+        n.setNodeType(rset.getString("NODETYPE"));
+        n.setXCoord(rset.getInt("XCOORD"));
+        n.setYCoord(rset.getInt("YCOORD"));
+        n.setTeam(rset.getString("TEAMASSIGNED"));
+        n.setVisible(rset.getBoolean("VISIBLE"));
+      }
 
       rset.close();
       pstmt.close();
@@ -325,10 +355,10 @@ public class NodesAndEdges {
       ResultSet rset = pstmt.executeQuery();
 
       // add properties to the node
-      e.setID(rset.getString("nodeID"));
-      e.setStart(rset.getString("startNode"));
-      e.setID(rset.getString("endNode"));
-      e.setLength(rset.getDouble("length"));
+      e.setID(rset.getString("NODEID"));
+      e.setStart(rset.getString("STARTNODE"));
+      e.setID(rset.getString("ENDNODE"));
+      e.setLength(rset.getDouble("LENGTH"));
 
       rset.close();
       pstmt.close();
@@ -367,29 +397,31 @@ public class NodesAndEdges {
       String team = "";
       boolean visible = false;
 
+      Node n = new Node();
+
       while (rset.next()) {
         // add data from result set of query to observable list for processing
-        ID = rset.getString("nodeID");
-        xcoord = rset.getInt("xcoord");
-        ycoord = rset.getInt("ycoord");
-        floor = rset.getString("floor");
-        building = rset.getString("building");
-        nodeType = rset.getString("nodeType");
-        longName = rset.getString("longName");
-        shortName = rset.getString("shortName");
-        team = rset.getString("teamAssigned");
-        visible = rset.getBoolean("visible");
+        ID = rset.getString("NODEID");
+        xcoord = rset.getInt("XCOORD");
+        ycoord = rset.getInt("YCOORD");
+        floor = rset.getString("FLOOR");
+        building = rset.getString("BUILDING");
+        nodeType = rset.getString("NODETYPE");
+        longName = rset.getString("LONGNAME");
+        shortName = rset.getString("SHORTNAME");
+        team = rset.getString("TEAMASSIGNED");
+        visible = rset.getBoolean("VISIBLE");
         // add to observable list
-        nodeList.add(
+        n =
             new Node(
-                ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team, visible));
+                ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team, visible);
+        nodeList.add(n);
       }
       // must close to get proper info from db
       rset.close();
       pstmt.close();
 
     } catch (SQLException e) {
-      System.out.println("Report Node Information: Failed!");
       e.printStackTrace();
     }
     return nodeList;
@@ -415,14 +447,20 @@ public class NodesAndEdges {
       String endNode = "";
       double length = 0;
 
+      Edge e = new Edge();
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
-        ID = rset.getString("nodeID");
-        startNode = rset.getString("startNode");
-        endNode = rset.getString("endNode");
-        length = rset.getDouble("length");
+        ID = rset.getString("NODEID");
+        startNode = rset.getString("STARTNODE");
+        endNode = rset.getString("ENDNODE");
+        length = rset.getDouble("LENGTH");
 
-        edgeList.add(new Edge(ID, startNode, endNode, length));
+        e = new Edge(ID, startNode, endNode, length);
+
+        e.setID(ID);
+        e.setStart(startNode);
+
+        edgeList.add(e);
       }
 
       // must close these for update to occur
@@ -430,7 +468,6 @@ public class NodesAndEdges {
       pstmt.close();
 
     } catch (SQLException e) {
-      System.out.println("Report Edge Information: Failed!");
       e.printStackTrace();
     }
     return edgeList;

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
@@ -9,28 +10,40 @@ import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
-  public JFXButton uploadCSVBtn;
-  public JFXButton saveCSVBtn;
-  @FXML private JFXButton clearBtn1;
+  @FXML private JFXCheckBox setVisibility;
   // edit map components
+  @FXML private GridPane innerGrid;
+  @FXML private JFXButton uploadCSVBtn;
+  @FXML private JFXButton saveCSVBtn;
+  @FXML private JFXButton saveEBtn;
+  @FXML private JFXButton saveNBtn;
+  @FXML private JFXButton uploadEBtn;
+  @FXML private JFXButton uploadNBtn;
+  @FXML private JFXButton share;
+  @FXML private JFXButton clearBtn1;
   @FXML private VBox editVBox;
   @FXML private JFXTextField nodeID;
   @FXML private JFXTextField xCoord;
@@ -49,7 +62,9 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton editEdgeBtn;
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
+  @FXML private JFXToggleButton showEdgesToggle;
   private boolean addNodeMode;
+  private boolean addNodeDB;
 
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -82,6 +97,7 @@ public class NewNavPageController implements Initializable {
   Node startNode = null;
   Node endNode = null;
   private boolean displayingRoute = false;
+  boolean navigating = true;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -114,12 +130,11 @@ public class NewNavPageController implements Initializable {
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
+      sideMenuUrl = "/Views/SideMenuStaff.fxml";
       if (UserHandling.getAdmin()) {
-        editToggle.setVisible(true);
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
-      } else {
-        sideMenuUrl = "/Views/SideMenuStaff.fxml";
+        editToggle.setVisible(true);
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";
@@ -132,8 +147,14 @@ public class NewNavPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
     // TODO: change to visible nodes if PATIENT/GUEST
-    graph.drawAllNodes("G", startNode, endNode);
+    if (navigating) {
+      graph.drawVisibleNodes("G", startNode, endNode);
+    } else {
+      graph.drawAllNodes("G", startNode, endNode);
+      if (showEdgesToggle.isSelected()) graph.drawAllEdges("G");
+    }
 
     // just for testing
 
@@ -160,6 +181,7 @@ public class NewNavPageController implements Initializable {
       editVBox.setVisible(true);
     }
     addNodeMode = false;
+    addNodeDB = false;
     // autocompletes the node Id for start and end
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
@@ -202,8 +224,8 @@ public class NewNavPageController implements Initializable {
 
   public void autocompleteEditMap(Node clickedNode) {
     nodeID.setText(clickedNode.getID());
-    xCoord.setText(String.valueOf(clickedNode.getXCoord()));
-    yCoord.setText(String.valueOf(clickedNode.getYCoord()));
+    xCoord.setText(Integer.toString(clickedNode.getXCoord()));
+    yCoord.setText(Integer.toString(clickedNode.getYCoord()));
     floor.setText(clickedNode.getFloor());
     building.setText(clickedNode.getBuilding());
     nodeType.setText(clickedNode.getNodeType());
@@ -257,7 +279,12 @@ public class NewNavPageController implements Initializable {
     if (displayingRoute) {
       graph.drawCurrentPath(sFloor, startNode, endNode);
     } else {
-      graph.drawAllNodes(sFloor, startNode, endNode);
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
     }
   }
 
@@ -278,27 +305,12 @@ public class NewNavPageController implements Initializable {
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
     if (addNodeMode) {
-      xCoord.setText(String.valueOf(mouseEvent.getX()));
-      yCoord.setText(String.valueOf(mouseEvent.getY()));
+      Node n = new Node();
+      n.setXCoord((int) mouseEvent.getX());
+      n.setYCoord((int) mouseEvent.getY());
 
-      NodesAndEdges.addNode(
-          nodeID.getText(),
-          xCoord.getText(),
-          yCoord.getText(),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          true);
+      autocompleteEditMap(n);
 
-      nodeID.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
       addNodeMode = false;
     } else if (editToggle.isSelected()) {
       autocompleteEditMap(clickedNode);
@@ -309,9 +321,14 @@ public class NewNavPageController implements Initializable {
         endNode = clickedNode;
       }
 
-      graph.drawAllNodes(sFloor, startNode, endNode);
-      System.out.println("Click");
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
     }
+    System.out.println("Click");
   }
 
   // TODO: set start/end to different colors
@@ -324,7 +341,112 @@ public class NewNavPageController implements Initializable {
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
-  public void toSharePage(ActionEvent actionEvent) {
+  public void toSharePage(ActionEvent actionEvent) throws IOException {
+
+    // sharePane.toBack();
+    GraphicsContext gc = mapCanvas.getGraphicsContext2D();
+
+    mapCanvas.getGraphicsContext2D();
+    String home = System.getProperty("user.home");
+    File outputFile1 = new File(home + "/Downloads/" + "mapimg1.png");
+    File outputFile2 = new File(home + "/Downloads/" + "mapimg2.png");
+    File outputFile3 = new File(home + "/Downloads/" + "mapimg3.png");
+    File outputFile4 = new File(home + "/Downloads/" + "mapimg4.png");
+    File outputFile5 = new File(home + "/Downloads/" + "mapimg5.png");
+    File outputFile6 = new File(home + "/Downloads/" + "mapimg6.png");
+
+    imageView.setImage(campusMap);
+    sFloor = "G";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
+    }
+    WritableImage map1 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map1, null), "png", outputFile1);
+    imageView.setImage(floor1Map);
+    sFloor = "1";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
+    }
+    WritableImage map2 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map2, null), "png", outputFile2);
+    imageView.setImage(floor2Map);
+    sFloor = "2";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map3 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map3, null), "png", outputFile3);
+    imageView.setImage(floor3Map);
+    sFloor = "3";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
+    }
+    WritableImage map4 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map4, null), "png", outputFile4);
+    imageView.setImage(floor4Map);
+    sFloor = "4";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
+    }
+    WritableImage map5 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map5, null), "png", outputFile5);
+    imageView.setImage(floor5Map);
+    sFloor = "5";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
+    }
+    WritableImage map6 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map6, null), "png", outputFile6);
+
+    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
+
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
@@ -334,7 +456,12 @@ public class NewNavPageController implements Initializable {
     displayingRoute = false;
     graph.resetPath();
     resizeCanvas();
-    graph.drawAllNodes(sFloor, startNode, endNode);
+    if (navigating) {
+      graph.drawVisibleNodes(sFloor, startNode, endNode);
+    } else {
+      graph.drawAllNodes(sFloor, startNode, endNode);
+      if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+    }
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
@@ -342,6 +469,7 @@ public class NewNavPageController implements Initializable {
 
   public void addNode(ActionEvent actionEvent) {
     addNodeMode = true;
+    addNodeDB = true;
   }
 
   public void editEdge(ActionEvent actionEvent) {
@@ -366,23 +494,65 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editNode(ActionEvent actionEvent) {
-    NodesAndEdges.editNode(
-        nodeID.getText(),
-        Integer.parseInt(xCoord.getText()),
-        Integer.parseInt(yCoord.getText()),
-        floor.getText(),
-        building.getText(),
-        nodeType.getText(),
-        longName.getText(),
-        shortName.getText(),
-        "O",
-        true);
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    // TODO: i think this is where we would need to parse the text fields to validate them
+    if (addNodeDB) {
+      NodesAndEdges.addNode(
+          nodeID.getText(),
+          xCoord.getText(),
+          yCoord.getText(),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          setVisibility.isSelected());
+
+      addNodeDB = false;
+
+    } else {
+      NodesAndEdges.editNode(
+          nodeID.getText(),
+          Integer.parseInt(xCoord.getText()),
+          Integer.parseInt(yCoord.getText()),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          setVisibility.isSelected());
+    }
+
+    nodeID.clear();
+    xCoord.clear();
+    yCoord.clear();
+    floor.clear();
+    building.clear();
+    nodeType.clear();
+    longName.clear();
+    shortName.clear();
   }
 
-  public void uploadCSV(ActionEvent actionEvent) {}
+  public void uploadN(ActionEvent actionEvent) {
+    DataHandling.importExcelData(true);
+  }
 
-  public void saveCSV(ActionEvent actionEvent) {}
+  public void uploadE(ActionEvent actionEvent) {
+    DataHandling.importExcelData(false);
+  }
+
+  public void saveN(ActionEvent actionEvent) {
+    DataHandling.save(true);
+  }
+
+  public void saveE(ActionEvent actionEvent) {
+    DataHandling.save(false);
+  }
+
+  public void showEdgesOnAction(ActionEvent actionEvent) {
+    if (showEdgesToggle.isSelected()) {
+      graph.drawAllEdges(sFloor);
+    }
+  }
 }

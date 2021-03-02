@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Controllers.Archive;
 
 import com.jfoenix.controls.*;
-import edu.wpi.cs3733.teamO.Controllers.EmailPageController;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
@@ -215,7 +214,7 @@ public class IndexController implements Initializable {
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
     Image newimg = map;
 
-    EmailPageController.setScreenShot(newimg);
+    // EmailPageController.setScreenShot(newimg);
 
     // add the scene switch
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));

@@ -1,8 +1,12 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +18,7 @@ import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
 
+  @FXML private JFXButton exitBtn;
   @FXML private Circle staffBtn;
   @FXML private Circle patientBtn;
   @FXML private Circle adminBtn;
@@ -46,7 +51,13 @@ public class LoginController implements Initializable {
    * @param actionEvent
    */
   public void guestSignIn(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
+    try {
+      UserHandling.login("guest", "guest");
+      SwitchScene.goToParent("/Views/CovidSurvey.fxml");
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      System.out.println("Did you delete the guest account????????? >:( ");
+    }
   }
 
   public void tempBTN(ActionEvent actionEvent) {
@@ -80,5 +91,9 @@ public class LoginController implements Initializable {
 
   public void unhoverPatient(MouseEvent mouseEvent) {
     patientBtn.setRadius(125);
+  }
+
+  public void exit(ActionEvent actionEvent) {
+    Platform.exit();
   }
 }

@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import static edu.wpi.cs3733.teamO.Database.NodesAndEdges.getNode;
+
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.model.Edge;
@@ -18,7 +20,7 @@ import javafx.scene.shape.Circle;
 
 public class Graph {
 
-  private int size; // not necessary?
+  private int size; // necessary
   private static ObservableList<Node> listOfNodes;
   private static ObservableList<Edge> listOfEdges;
   private static Hashtable<String, Node> stringNodeHashtable;
@@ -28,9 +30,6 @@ public class Graph {
 
   // GC/Canvas-related attributes:
   private GraphicsContext gc;
-  private double circlePercentRadius;
-  private double scaleX;
-  private double scaleY;
 
   // TODO: put these as public static final somewhere?
   private final Image campusMap = new Image("FaulknerCampus_Updated.png");
@@ -62,6 +61,7 @@ public class Graph {
     // initialize nodes based on DB
     listOfNodes = FXCollections.observableArrayList();
     listOfNodes = NodesAndEdges.getAllNodes();
+
     stringNodeHashtable = new Hashtable<>();
     for (Node n : listOfNodes) {
       stringNodeHashtable.put(n.getID(), n);
@@ -195,7 +195,7 @@ public class Graph {
       Circle circle = new Circle();
       // set radius to be percentage of canvas height, and bind circle's x/y to the canvas
       // width/height * percent
-      circle.radiusProperty().bind(gc.getCanvas().heightProperty().multiply(0.0075));
+      circle.radiusProperty().bind(gc.getCanvas().widthProperty().multiply(0.00625));
       circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
       circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
@@ -204,6 +204,110 @@ public class Graph {
 
       nodeCircleHashtable.put(n, circle);
     }
+  }
+
+  public void addNode(Node n) {
+    // add circle
+    // add node to graph
+    String nodeID = n.getID();
+    Circle c = new Circle();
+
+    // get node's x and y (and floor)
+    double nX = n.getXCoord();
+    double nY = n.getYCoord();
+    double nXperc = 0.0;
+    double nYperc = 0.0;
+    String nFloor = n.getFloor();
+
+    // set nX/Yperc to be the node's x/y as a percentage of the image's x/y
+    // switch case basically = if, else if, etc...
+    switch (nFloor) {
+      case "G":
+        nXperc = nX / widthG;
+        nYperc = nY / heightG;
+        break;
+      case "1":
+        nXperc = nX / width1;
+        nYperc = nY / height1;
+        break;
+      case "2":
+        nXperc = nX / width2;
+        nYperc = nY / height2;
+        break;
+      case "3":
+        nXperc = nX / width3;
+        nYperc = nY / height3;
+        break;
+      case "4":
+        nXperc = nX / width4;
+        nYperc = nY / height4;
+        break;
+      case "5":
+        nXperc = nX / width5;
+        nYperc = nY / height5;
+        break;
+    }
+
+    // copied from above, should workerino
+    c.radiusProperty().bind(gc.getCanvas().widthProperty().multiply(0.00625));
+    c.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
+    c.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
+
+    // rewrites the hash
+    stringNodeHashtable.put(nodeID, n);
+    nodeCircleHashtable.put(n, c);
+  }
+
+  public void addEdge(Edge e) {
+    Node node1 = getNode(e.getStart());
+    Node node2 = getNode(e.getEnd());
+    // add edge to graph
+    link(node1, node2, e);
+
+    listOfEdges.add(e);
+  }
+
+  public void deleteNode(Node n) {
+    // delete from graph
+    nodeCircleHashtable.remove(n);
+    // remove from the string hashtable
+    stringNodeHashtable.remove(n.getID());
+    // removes all edges
+    // for each neighbor of the given deleting node
+    for (Node node : n.getNeighbourList()) {
+      // remove the neighbor from the list
+      n.getNeighbourList().remove(node);
+
+      // check edgelist to see if the variable Node "node" is equal
+      // to the start node or end node of any edge in the list
+      for (Edge e : listOfEdges) {
+        if (e.getStart().equals(node.getID()) || e.getEnd().equals(node.getID())) {
+          listOfEdges.remove(e);
+        }
+      }
+    }
+    listOfNodes.remove(n);
+  }
+
+  public void deleteEdge(Edge e) {
+    // delete edge from graph
+    // go into neighbor list, unlink the startnode and endnode of the edge
+
+    // retrieve start and end nodes
+    String sNode = e.getStart();
+    String eNode = e.getEnd();
+
+    // get the proper
+    Node node1 = stringNodeHashtable.get(sNode);
+    Node node2 = stringNodeHashtable.get(eNode);
+
+    node1.getNeighbourList().remove(node2);
+    // TODO also remove from the hashtable of neighbors
+    node2.getNeighbourList().remove(node1);
+    // TODO also remove from the hashtable of neighbors
+
+    // remove edge from list
+    listOfEdges.remove(e);
   }
 
   /**
@@ -216,6 +320,18 @@ public class Graph {
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
+    }
+
+    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
+  }
+
+  public void drawVisibleNodes(String floor, Node startNode, Node endNode) {
+    ArrayList<Node> floorNodes = new ArrayList<>();
+
+    for (Node n : listOfNodes) {
+      if (n.isVisible() && n.getFloor().equals(floor)) {
+        floorNodes.add(n);
+      }
     }
 
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
@@ -236,6 +352,24 @@ public class Graph {
         Circle circleB = nodeCircleHashtable.get(nodeB);
 
         DrawHelper.drawMidArrow(gc, circleA, circleB);
+      }
+    }
+  }
+
+  public void drawAllEdges(String floor) {
+    for (Edge e : listOfEdges) {
+      String nodeAid = e.getStart();
+      String nodeBid = e.getEnd();
+      Node nodeA = stringNodeHashtable.get(e.getStart());
+      Node nodeB = stringNodeHashtable.get(e.getEnd());
+      // Node nodeA = NodesAndEdges.getNode(nodeAid);
+      // Node nodeB = NodesAndEdges.getNode(nodeBid);
+
+      if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
+        Circle circleA = nodeCircleHashtable.get(nodeA);
+        Circle circleB = nodeCircleHashtable.get(nodeB);
+
+        DrawHelper.drawEdge(gc, circleA, circleB);
       }
     }
   }

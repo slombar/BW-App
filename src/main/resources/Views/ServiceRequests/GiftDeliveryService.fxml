@@ -40,7 +40,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="field1" prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Recipient Name">
+                  <JFXTextField fx:id="field1" prefHeight="33.0" prefWidth="250.0" promptText="Recipient Name" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -70,7 +70,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextArea fx:id="summary" prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" text="Gift Information" wrapText="true">
+                  <JFXTextArea fx:id="summary" prefWidth="250.0" promptText="Gift Information" style="-fx-background-color: #ffffff;" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -87,7 +87,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="field2" prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Type of Gift">
+                  <JFXTextField fx:id="field2" prefHeight="33.0" prefWidth="250.0" promptText="Type of Gift" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -104,7 +104,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="locationF" prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Destination for the Gift">
+                  <JFXTextField fx:id="locationF" prefHeight="33.0" prefWidth="250.0" promptText="Destination for the Gift" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -126,7 +126,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                <children>
-                  <JFXButton fx:id="back" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
+                  <JFXButton onAction="#back" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -134,7 +134,7 @@
                         <Insets left="50.0" right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="clear" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
+                  <JFXButton onAction="#clear" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -142,7 +142,7 @@
                         <Insets left="50.0" right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="submit" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
+                  <JFXButton onAction="#submit" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
