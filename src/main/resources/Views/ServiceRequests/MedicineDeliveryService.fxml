@@ -40,7 +40,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                  <JFXTextField fx:id="locationF" focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font></JFXTextField>
@@ -56,7 +56,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXDatePicker defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
+                  <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -69,7 +69,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField prefWidth="250.0" promptText="Type of Medicine" style="-fx-background-color: #ffffff;">
+                  <JFXTextField fx:id="field1" prefWidth="250.0" promptText="Type of Medicine" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -86,7 +86,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField prefWidth="250.0" promptText="Dose in Milligrams" style="-fx-background-color: #ffffff;">
+                  <JFXTextField fx:id="field2" prefWidth="250.0" promptText="Dose in Milligrams" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -103,7 +103,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextArea prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
+                  <JFXTextArea fx:id="summary" prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -120,7 +120,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXCheckBox checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="133.0" text=" " textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXCheckBox fx:id="field3" checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="133.0" text=" " textFill="WHITE" unCheckedColor="WHITE" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
