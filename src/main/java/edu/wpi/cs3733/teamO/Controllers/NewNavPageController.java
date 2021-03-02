@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -327,7 +326,7 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editEdge(ActionEvent actionEvent) {
-//    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText());
+    //    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText());
   }
 
   public void addEdge(ActionEvent actionEvent) {}
