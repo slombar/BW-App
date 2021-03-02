@@ -256,6 +256,7 @@ public class Graph {
     // rewrites the hash
     stringNodeHashtable.put(nodeID, n);
     nodeCircleHashtable.put(n, c);
+    DrawHelper.drawSingleNode(gc, c, Color.BLUE);
   }
 
   public void addEdge(Edge e) {

@@ -342,9 +342,7 @@ public class NewNavPageController implements Initializable {
       if (selectingEditNode) {
         autocompleteEditMap(clickedNode);
       } else if (addNodeMode) {
-        Node n = new Node();
-        n.setXCoord((int) mouseEvent.getX());
-        n.setYCoord((int) mouseEvent.getY());
+        Node n = getRealXY(sFloor, mouseEvent);
 
         autocompleteEditMap(n);
       }
@@ -353,13 +351,49 @@ public class NewNavPageController implements Initializable {
     draw();
 
     if (addNodeMode) {
-      // TODO: draw circle
-
       addNodeMode = false;
       selectingEditNode = false; // (still)
     }
 
     System.out.println("mapCanvas click");
+  }
+
+  private Node getRealXY(String floor, MouseEvent mouseEvent) {
+    Node n = new Node();
+    double imgX = 0;
+    double imgY = 0;
+    switch (floor) {
+      case "G":
+        imgX = campusMap.getWidth();
+        imgY = campusMap.getHeight();
+        break;
+      case "1":
+        imgX = floor1Map.getWidth();
+        imgY = floor1Map.getHeight();
+        break;
+      case "2":
+        imgX = floor2Map.getWidth();
+        imgY = floor2Map.getHeight();
+        break;
+      case "3":
+        imgX = floor3Map.getWidth();
+        imgY = floor3Map.getHeight();
+        break;
+      case "4":
+        imgX = floor4Map.getWidth();
+        imgY = floor4Map.getHeight();
+        break;
+      case "5":
+        imgX = floor5Map.getWidth();
+        imgY = floor5Map.getHeight();
+        break;
+    }
+
+    double nPercX = mouseEvent.getX() / imgX;
+    double nPercY = mouseEvent.getY() / imgY;
+    n.setXCoord((int) (nPercX * imgX));
+    n.setYCoord((int) (nPercY * imgY));
+    return n;
   }
 
   public void startLocSelection(ActionEvent actionEvent) {
@@ -440,7 +474,6 @@ public class NewNavPageController implements Initializable {
     addingEdgeBD = false;
   }
 
-  // TODO: make sure nodes take the checkbox value for VISIBLE
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
     if (addNodeDBMode) {
