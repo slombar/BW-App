@@ -39,7 +39,7 @@ public class TRANController {
     String loc = locationF.getText();
     String sum = summary.getText();
     String f1 = field1.getText();
-    String f2 = field2.getText();
+    String f2 = null;
     String f3 = null;
 
     System.out.println(

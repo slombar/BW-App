@@ -145,7 +145,6 @@ public class Graph {
       }
     }
 
-
     // TODO: nodeCircleHashtable.get(n).actionEvent();
     return node;
   }
@@ -254,7 +253,7 @@ public class Graph {
     c.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
     c.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
-    //rewrites the hash
+    // rewrites the hash
     stringNodeHashtable.put(nodeID, n);
     nodeCircleHashtable.put(n, c);
   }
@@ -269,9 +268,9 @@ public class Graph {
   }
 
   public void deleteNode(Node n) {
-    //delete from graph
+    // delete from graph
     nodeCircleHashtable.remove(n);
-    //remove from the string hashtable
+    // remove from the string hashtable
     stringNodeHashtable.remove(n.getID());
     // removes all edges
     // for each neighbor of the given deleting node
@@ -282,7 +281,7 @@ public class Graph {
       // check edgelist to see if the variable Node "node" is equal
       // to the start node or end node of any edge in the list
       for (Edge e : listOfEdges) {
-        if (e.getStart().equals(node.getID())|| e.getEnd().equals(node.getID())) {
+        if (e.getStart().equals(node.getID()) || e.getEnd().equals(node.getID())) {
           listOfEdges.remove(e);
         }
       }
@@ -294,19 +293,18 @@ public class Graph {
     // delete edge from graph
     // go into neighbor list, unlink the startnode and endnode of the edge
 
-    //retrieve start and end nodes
+    // retrieve start and end nodes
     String sNode = e.getStart();
     String eNode = e.getEnd();
 
-    //get the proper
+    // get the proper
     Node node1 = stringNodeHashtable.get(sNode);
     Node node2 = stringNodeHashtable.get(eNode);
 
     node1.getNeighbourList().remove(node2);
-    //TODO also remove from the hashtable of neighbors
+    // TODO also remove from the hashtable of neighbors
     node2.getNeighbourList().remove(node1);
-    //TODO also remove from the hashtable of neighbors
-
+    // TODO also remove from the hashtable of neighbors
 
     // remove edge from list
     listOfEdges.remove(e);

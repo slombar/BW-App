@@ -2,10 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.sql.Date;
@@ -19,9 +16,10 @@ public class LAUNController {
   @FXML private JFXTextArea summary;
   @FXML private JFXTextField field1;
   @FXML private JFXCheckBox field2;
+  @FXML private JFXComboBox sizeComboBox;
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 
   public void clear(ActionEvent actionEvent) {
@@ -41,7 +39,7 @@ public class LAUNController {
     String sum = summary.getText();
     String f1 = field1.getText();
     String f2 = field2.getText();
-    String f3 = null;
+    String f3 = sizeComboBox.getSelectionModel().selectedItemProperty().toString();
 
     System.out.println(
         "Adding this to DB: "
