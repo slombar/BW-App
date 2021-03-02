@@ -77,10 +77,17 @@
                   <Insets bottom="15.0" />
                </GridPane.margin>
             </Label>
-            <JFXButton fx:id="exitBtn" alignment="CENTER_RIGHT" contentDisplay="BOTTOM" onAction="#exit" text="Exit Application" textFill="WHITE" translateX="100.0" underline="true" GridPane.rowIndex="3">
+            <JFXButton fx:id="exitBtn" alignment="CENTER_RIGHT" contentDisplay="BOTTOM" onAction="#exit" prefHeight="178.0" prefWidth="166.0" text=" " textFill="WHITE" translateX="100.0" GridPane.rowIndex="3">
                <font>
                   <Font name="Leelawadee UI" size="32.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/powerIconWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
          </children>
       </GridPane>
