@@ -260,6 +260,7 @@ public class NewNavPageController implements Initializable {
 
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
+      graph.resetPath();
       graph.findPath(startNode, endNode);
       graph.drawCurrentPath(sFloor, startNode, endNode);
       displayingRoute = true;
@@ -315,6 +316,8 @@ public class NewNavPageController implements Initializable {
     startNode = null;
     endNode = null;
     displayingRoute = false;
+    graph.resetPath();
+    resizeCanvas();
     graph.drawAllNodes(sFloor, startNode, endNode);
   }
 
