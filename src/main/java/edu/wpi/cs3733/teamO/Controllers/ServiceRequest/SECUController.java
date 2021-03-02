@@ -52,5 +52,7 @@ public class SECUController {
             + f3);
 
     RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
+
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 }

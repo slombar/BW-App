@@ -10,25 +10,31 @@ import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
   // edit map components
+  @FXML private GridPane innerGrid;
   @FXML private JFXButton uploadCSVBtn;
   @FXML private JFXButton saveCSVBtn;
   @FXML private JFXButton saveEBtn;
@@ -121,12 +127,10 @@ public class NewNavPageController implements Initializable {
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
+      sideMenuUrl = "/Views/SideMenuStaff.fxml";
       if (UserHandling.getAdmin()) {
-        editToggle.setVisible(true);
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
-      } else {
-        sideMenuUrl = "/Views/SideMenuStaff.fxml";
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";
@@ -344,7 +348,20 @@ public class NewNavPageController implements Initializable {
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
-  public void toSharePage(ActionEvent actionEvent) {
+  public void toSharePage(ActionEvent actionEvent) throws IOException {
+
+    // sharePane.toBack();
+    GraphicsContext gc = mapCanvas.getGraphicsContext2D();
+
+    String home = System.getProperty("user.home");
+    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
+
+    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+    Image newimg = map;
+
+    EmailPageController.setScreenShot(newimg);
+
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
