@@ -6,7 +6,6 @@ import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -75,6 +74,7 @@ public class NewNavPageController implements Initializable {
   boolean selectingStart = true;
   Node startNode = null;
   Node endNode = null;
+  private boolean displayingRoute = false;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -235,23 +235,20 @@ public class NewNavPageController implements Initializable {
 
     resizeCanvas();
     // TODO: only draw visible if patient/guest
-    graph.drawAllNodes(sFloor, startNode, endNode);
-  }
-  /*
-  public void doPathfind(ActionEvent actionEvent) {
-    List<Node> path = graph.findPath(startNode, endNode);
-
-    for (int i = 0; i < path.size() - 1; i++) {
-      Node nodeA = path.get(i);
-      Node nodeB = path.get(i + 1);
-
-      graph.drawMidArrow(nodeA, nodeB);
-      // DrawHelper.drawMidArrow(
-      //   gc, nodeA.getXCoord(), nodeA.getYCoord(), nodeB.getXCoord(), nodeB.getYCoord());
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      graph.drawAllNodes(sFloor, startNode, endNode);
     }
   }
 
-   */
+  public void doPathfind(ActionEvent actionEvent) {
+    if (startNode != null && endNode != null) {
+      graph.findPath(startNode, endNode);
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    }
+    // TODO: else -> throw exception? or make popup or something? idk
+  }
 
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
@@ -279,7 +276,6 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  // TODO: set start/end to different colors
   public void startLocSelection(ActionEvent actionEvent) {
     selectingStart = true;
   }
@@ -291,4 +287,6 @@ public class NewNavPageController implements Initializable {
   public void toSharePage(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
+
+  // TODO: reset button??? (needs to set startNode and endNode to null)
 }

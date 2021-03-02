@@ -7,8 +7,6 @@ class AStarSearch implements AlgorithmStrategy {
 
   private Graph graph;
   private int graphSize;
-  private static Node startNode;
-  private static Node targetNode;
 
   private static PriorityQueue<Node> frontier; // expanding frontier of search
   private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
@@ -25,11 +23,9 @@ class AStarSearch implements AlgorithmStrategy {
   }*/
 
   // constructor
-  AStarSearch(Graph g, Node start, Node target) {
+  AStarSearch(Graph g) {
     graph = g;
     graphSize = graph.getSize();
-    startNode = start;
-    targetNode = target;
 
     frontier = new PriorityQueue<>();
     cameFrom = new Hashtable<>();
@@ -105,7 +101,7 @@ class AStarSearch implements AlgorithmStrategy {
     }
   }*/
 
-  public static List<Node> findRoute() {
+  List<Node> findRoute(Node startNode, Node targetNode) {
     // sets start node based on startID provided in constructor
 
     // path, but in reverse order
