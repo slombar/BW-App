@@ -82,6 +82,7 @@ public class NewNavPageController implements Initializable {
   Node startNode = null;
   Node endNode = null;
   private boolean displayingRoute = false;
+  boolean navigating = true;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -132,8 +133,13 @@ public class NewNavPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
     // TODO: change to visible nodes if PATIENT/GUEST
-    graph.drawAllNodes("G", startNode, endNode);
+    if (navigating) {
+      graph.drawVisibleNodes("G", startNode, endNode);
+    } else {
+      graph.drawAllNodes("G", startNode, endNode);
+    }
 
     // just for testing
 
@@ -257,7 +263,11 @@ public class NewNavPageController implements Initializable {
     if (displayingRoute) {
       graph.drawCurrentPath(sFloor, startNode, endNode);
     } else {
-      graph.drawAllNodes(sFloor, startNode, endNode);
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
     }
   }
 
@@ -309,9 +319,13 @@ public class NewNavPageController implements Initializable {
         endNode = clickedNode;
       }
 
-      graph.drawAllNodes(sFloor, startNode, endNode);
-      System.out.println("Click");
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
     }
+    System.out.println("Click");
   }
 
   // TODO: set start/end to different colors
@@ -334,7 +348,11 @@ public class NewNavPageController implements Initializable {
     displayingRoute = false;
     graph.resetPath();
     resizeCanvas();
-    graph.drawAllNodes(sFloor, startNode, endNode);
+    if (navigating) {
+      graph.drawVisibleNodes(sFloor, startNode, endNode);
+    } else {
+      graph.drawAllNodes(sFloor, startNode, endNode);
+    }
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)

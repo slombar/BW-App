@@ -195,7 +195,7 @@ public class Graph {
       Circle circle = new Circle();
       // set radius to be percentage of canvas height, and bind circle's x/y to the canvas
       // width/height * percent
-      circle.radiusProperty().bind(gc.getCanvas().heightProperty().multiply(0.0075));
+      circle.radiusProperty().bind(gc.getCanvas().widthProperty().multiply(0.00625));
       circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
       circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
@@ -216,6 +216,18 @@ public class Graph {
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
+    }
+
+    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
+  }
+
+  public void drawVisibleNodes(String floor, Node startNode, Node endNode) {
+    ArrayList<Node> floorNodes = new ArrayList<>();
+
+    for (Node n : listOfNodes) {
+      if (n.isVisible() && n.getFloor().equals(floor)) {
+        floorNodes.add(n);
+      }
     }
 
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
