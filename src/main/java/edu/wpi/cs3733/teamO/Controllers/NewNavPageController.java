@@ -509,17 +509,17 @@ public class NewNavPageController implements Initializable {
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
 
-    if (nodeID.getText().isEmpty()
-        || xCoord.getText().isEmpty()
-        || yCoord.getText().isEmpty()
-        || floor.getText().isEmpty()
-        || building.getText().isEmpty()
-        || nodeType.getText().isEmpty()
-        || longName.getText().isEmpty()
-        || shortName.getText().isEmpty()) {
-      PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
-      if (addNodeDB) {
+    if (addNodeDB) {
+      if ((nodeID.getText() == null)
+          || (xCoord.getText() == null)
+          || (yCoord.getText() == null)
+          || (floor.getText() == null)
+          || (building.getText() == null)
+          || (nodeType.getText() == null)
+          || (longName.getText() == null)
+          || (shortName.getText() == null)) {
+        PopupMaker.incompletePopup(nodeWarningPane);
+      } else {
 
         NodesAndEdges.addNode(
             nodeID.getText(),
@@ -534,19 +534,29 @@ public class NewNavPageController implements Initializable {
             setVisibility.isSelected());
 
         addNodeDB = false;
-      } else {
-        NodesAndEdges.editNode(
-            nodeID.getText(),
-            Integer.parseInt(xCoord.getText()),
-            Integer.parseInt(yCoord.getText()),
-            floor.getText(),
-            building.getText(),
-            nodeType.getText(),
-            longName.getText(),
-            shortName.getText(),
-            "O",
-            setVisibility.isSelected());
       }
+    } else {
+      if (nodeID.getText().isEmpty()
+          || xCoord.getText().isEmpty()
+          || yCoord.getText().isEmpty()
+          || floor.getText().isEmpty()
+          || building.getText().isEmpty()
+          || nodeType.getText().isEmpty()
+          || longName.getText().isEmpty()
+          || shortName.getText().isEmpty()) {
+        PopupMaker.incompletePopup(nodeWarningPane);
+      }
+      NodesAndEdges.editNode(
+          nodeID.getText(),
+          Integer.parseInt(xCoord.getText()),
+          Integer.parseInt(yCoord.getText()),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          setVisibility.isSelected());
     }
 
     nodeID.clear();
