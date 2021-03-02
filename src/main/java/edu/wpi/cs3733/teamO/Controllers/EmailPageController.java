@@ -3,18 +3,15 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -58,7 +55,8 @@ public class EmailPageController implements Initializable {
     textButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
-  public static void setScreenShot(Image sc1, Image sc2, Image sc3, Image sc4, Image sc5, Image sc6) {
+  public static void setScreenShot(
+      Image sc1, Image sc2, Image sc3, Image sc4, Image sc5, Image sc6) {
     screenShot1 = sc1;
     screenShot2 = sc2;
     screenShot3 = sc3;
@@ -105,16 +103,23 @@ public class EmailPageController implements Initializable {
       String outputFile5 = home + "/Downloads/" + "mapimg5.png";
       String outputFile6 = home + "/Downloads/" + "mapimg6.png";
 
-      SharingFunctionality.sendEmailAttachment(emailString, outputFile1, outputFile2, outputFile3, outputFile4, outputFile5, outputFile6);
+      SharingFunctionality.sendEmailAttachment(
+          emailString,
+          outputFile1,
+          outputFile2,
+          outputFile3,
+          outputFile4,
+          outputFile5,
+          outputFile6);
 
       submissionPopup();
 
-//      mapView0 = new ImageView(outputFile1);
-//      mapView1 = new ImageView(outputFile2);
-//      mapView2 = new ImageView(outputFile3);
-//      mapView3 = new ImageView(outputFile4);
-//      mapView4 = new ImageView(outputFile5);
-//      mapView5 = new ImageView(outputFile6);
+      //      mapView0 = new ImageView(outputFile1);
+      //      mapView1 = new ImageView(outputFile2);
+      //      mapView2 = new ImageView(outputFile3);
+      //      mapView3 = new ImageView(outputFile4);
+      //      mapView4 = new ImageView(outputFile5);
+      //      mapView5 = new ImageView(outputFile6);
 
     } else {
       errorMsg =

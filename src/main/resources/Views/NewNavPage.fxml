@@ -50,6 +50,12 @@
             </ImageView>
             <Canvas fx:id="mapCanvas" height="955.0" onMouseClicked="#canvasClick" width="1160.0" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
          </children>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
       </GridPane>
       <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
@@ -306,7 +312,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXToggleButton alignment="CENTER_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" prefHeight="30.0" text="Show all edges" translateX="-25.0">
+                  <JFXToggleButton fx:id="showEdgesToggle" alignment="CENTER_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" onAction="#showEdgesOnAction" prefHeight="30.0" text="Show all edges" translateX="-25.0">
                      <VBox.margin>
                         <Insets left="15.0" />
                      </VBox.margin>

@@ -186,53 +186,53 @@ public class PopupMaker {
     symptomsDialog.show();
   }
 
-    public static void covidRisk(StackPane popupPane) {
-        popupPane.toFront();
+  public static void covidRisk(StackPane popupPane) {
+    popupPane.toFront();
 
-        // Creates the content for the popup
-        JFXDialogLayout symptoms = new JFXDialogLayout();
-        symptoms.setHeading(new Text("High Risk of COVID-19!"));
-        symptoms.setBody(
-                new Text(
-                        "You are at high risk of spreading COVID-19!\n"
-                                + "\nPlease seek medical help and do not enter the hospital\n"));
-        JFXButton closeButton = new JFXButton("Close");
-        symptoms.setActions(closeButton);
+    // Creates the content for the popup
+    JFXDialogLayout symptoms = new JFXDialogLayout();
+    symptoms.setHeading(new Text("High Risk of COVID-19!"));
+    symptoms.setBody(
+        new Text(
+            "You are at high risk of spreading COVID-19!\n"
+                + "\nPlease seek medical help and do not enter the hospital\n"));
+    JFXButton closeButton = new JFXButton("Close");
+    symptoms.setActions(closeButton);
 
-        // Creates the actual popup
-        JFXDialog warningDialog =
-                new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, true);
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, true);
 
-        // Closes the popup
-        closeButton.setOnAction(
-                event -> {
-                    warningDialog.close();
-                    popupPane.toBack();
-                });
-        warningDialog.show();
-    }
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
 
-    public static void invalidPathfind(StackPane popupPane) {
-        popupPane.toFront();
+  public static void invalidPathfind(StackPane popupPane) {
+    popupPane.toFront();
 
-        // Creates the content for the popup
-        JFXDialogLayout warning = new JFXDialogLayout();
-        warning.setHeading(new Text("Invalid Pathfinding"));
-        warning.setBody(new Text("Please select starting and ending destination"));
-        JFXButton closeButton = new JFXButton("Close");
-        warning.setActions(closeButton);
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Pathfinding"));
+    warning.setBody(new Text("Please select starting and ending destination"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
 
-        // Creates the actual popup
-        JFXDialog warningDialog =
-                new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-        warningDialog.setOverlayClose(false);
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+    warningDialog.setOverlayClose(false);
 
-        // Closes the popup
-        closeButton.setOnAction(
-                event -> {
-                    warningDialog.close();
-                    popupPane.toBack();
-                });
-        warningDialog.show();
-    }
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
 }

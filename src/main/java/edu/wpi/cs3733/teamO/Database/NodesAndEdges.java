@@ -2,13 +2,10 @@ package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
-
-import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -155,22 +152,24 @@ public class NodesAndEdges {
   }
 
   /**
-   *Deletes all corresponding edges from the given node
+   * Deletes all corresponding edges from the given node
+   *
    * @param nodeID, the node that you want to delete all edges from
    * @return
    */
-  public static void deleteAllEdges(String nodeID){
+  public static void deleteAllEdges(String nodeID) {
 
     ArrayList<String> edgesList = new ArrayList<>();
-    String query = "SELECT * FROM Edges WHERE startNode = '" + nodeID + "' OR endNode ='" + nodeID +"'";
+    String query =
+        "SELECT * FROM Edges WHERE startNode = '" + nodeID + "' OR endNode ='" + nodeID + "'";
 
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
       ResultSet rset = preparedStmt.executeQuery();
 
-      while(rset.next()){
-          edgesList.add(rset.getString("nodeID"));
+      while (rset.next()) {
+        edgesList.add(rset.getString("nodeID"));
       }
 
       preparedStmt.close();
@@ -179,13 +178,12 @@ public class NodesAndEdges {
       throwables.printStackTrace();
     }
 
-    for (String edgeID: edgesList) {
+    for (String edgeID : edgesList) {
       deleteEdge(edgeID);
     }
   }
 
   public static void deleteNode(String nodeID) {
-
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
     try {
       PreparedStatement preparedStmt = null;
@@ -198,7 +196,7 @@ public class NodesAndEdges {
       throwables.printStackTrace();
     }
 
-    //delete all corresponding edges
+    // delete all corresponding edges
     deleteAllEdges(nodeID);
   }
 
@@ -316,17 +314,19 @@ public class NodesAndEdges {
               .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
       ResultSet rset = pstmt.executeQuery();
 
-      // add properties to the node
-      n.setID(rset.getString("NODEID"));
-      n.setBuilding(rset.getString("BUILDING"));
-      n.setFloor(rset.getString("FLOOR"));
-      n.setShortName(rset.getString("SHORTNAME"));
-      n.setLongName(rset.getString("LONGNAME"));
-      n.setNodeType(rset.getString("NODETYPE"));
-      n.setXCoord(rset.getInt("XCOORD"));
-      n.setYCoord(rset.getInt("YCOORD"));
-      n.setTeam(rset.getString("TEAMASSIGNED"));
-      n.setVisible(rset.getBoolean("VISIBLE"));
+      while (rset.next()) {
+        // add properties to the node
+        n.setID(rset.getString("NODEID"));
+        n.setBuilding(rset.getString("BUILDING"));
+        n.setFloor(rset.getString("FLOOR"));
+        n.setShortName(rset.getString("SHORTNAME"));
+        n.setLongName(rset.getString("LONGNAME"));
+        n.setNodeType(rset.getString("NODETYPE"));
+        n.setXCoord(rset.getInt("XCOORD"));
+        n.setYCoord(rset.getInt("YCOORD"));
+        n.setTeam(rset.getString("TEAMASSIGNED"));
+        n.setVisible(rset.getBoolean("VISIBLE"));
+      }
 
       rset.close();
       pstmt.close();

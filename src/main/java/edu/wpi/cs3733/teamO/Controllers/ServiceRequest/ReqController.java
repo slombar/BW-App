@@ -57,7 +57,7 @@ public class ReqController implements Initializable {
     HBox addBox = new HBox();
 
     // Sets the writing style for requests displayed
-    //TODO: Set the font color to be white; currently doesn't set the color
+    // TODO: Set the font color to be white; currently doesn't set the color
     addBox.setStyle("-fx-font-size: 18px; -fx-font-family:  Leelawadee UI; -fx-text-fill: white");
 
     Label id = new Label(reqID);
