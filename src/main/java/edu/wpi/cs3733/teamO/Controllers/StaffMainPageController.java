@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.RequestHandling;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
@@ -26,9 +28,14 @@ public class StaffMainPageController implements Initializable {
   @FXML private JFXButton parkingBtn;
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
+  private String sideMenuUrl;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    if (LoginController.isStaff){
+      sideMenuUrl = "/Views/SideMenuStaff.fxml";
+    } else sideMenuUrl = "/Views/SideMenu.fxml";
+
     // Set drawer to SideMenu
     try {
       VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SideMenuStaff.fxml"));

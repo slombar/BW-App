@@ -3,8 +3,6 @@ package edu.wpi.cs3733.teamO.Sharing;
 import com.google.api.client.util.Base64;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
-import jdk.nashorn.internal.parser.Token;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;

@@ -59,4 +59,3 @@ public class BFS {
     bfs.bfs(n2);
   }
 }
-
