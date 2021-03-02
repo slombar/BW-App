@@ -81,7 +81,7 @@ public class EmailPageController implements Initializable {
       String home = System.getProperty("user.home");
       String outputFile = home + "/Downloads/" + "mapimg.png";
 
-      SharingFunctionality.sendSMS(phoneString, outputFile);
+      SharingFunctionality.sendSMSTwillio(phoneString, outputFile);
       submissionPopup();
 
     } else {
