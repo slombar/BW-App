@@ -61,6 +61,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton editEdgeBtn;
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
+  @FXML private JFXToggleButton showEdgesToggle;
   private boolean addNodeMode;
   private boolean addNodeDB;
 
@@ -151,6 +152,7 @@ public class NewNavPageController implements Initializable {
       graph.drawVisibleNodes("G", startNode, endNode);
     } else {
       graph.drawAllNodes("G", startNode, endNode);
+      if (showEdgesToggle.isSelected()) graph.drawAllEdges("G");
     }
 
     // just for testing
@@ -280,6 +282,7 @@ public class NewNavPageController implements Initializable {
         graph.drawVisibleNodes(sFloor, startNode, endNode);
       } else {
         graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
       }
     }
   }
@@ -321,6 +324,7 @@ public class NewNavPageController implements Initializable {
         graph.drawVisibleNodes(sFloor, startNode, endNode);
       } else {
         graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
       }
     }
     System.out.println("Click");
@@ -360,6 +364,7 @@ public class NewNavPageController implements Initializable {
         graph.drawVisibleNodes(sFloor, startNode, endNode);
       } else {
         graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
       }
     }
     WritableImage map1 = innerGrid.snapshot(new SnapshotParameters(), null);
@@ -374,6 +379,7 @@ public class NewNavPageController implements Initializable {
         graph.drawVisibleNodes(sFloor, startNode, endNode);
       } else {
         graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
       }
     }
     WritableImage map2 = innerGrid.snapshot(new SnapshotParameters(), null);
@@ -402,6 +408,7 @@ public class NewNavPageController implements Initializable {
         graph.drawVisibleNodes(sFloor, startNode, endNode);
       } else {
         graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
       }
     }
     WritableImage map4 = innerGrid.snapshot(new SnapshotParameters(), null);
@@ -416,6 +423,7 @@ public class NewNavPageController implements Initializable {
         graph.drawVisibleNodes(sFloor, startNode, endNode);
       } else {
         graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
       }
     }
     WritableImage map5 = innerGrid.snapshot(new SnapshotParameters(), null);
@@ -430,6 +438,7 @@ public class NewNavPageController implements Initializable {
         graph.drawVisibleNodes(sFloor, startNode, endNode);
       } else {
         graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
       }
     }
     WritableImage map6 = innerGrid.snapshot(new SnapshotParameters(), null);
@@ -450,6 +459,7 @@ public class NewNavPageController implements Initializable {
       graph.drawVisibleNodes(sFloor, startNode, endNode);
     } else {
       graph.drawAllNodes(sFloor, startNode, endNode);
+      if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
     }
   }
 
@@ -543,5 +553,11 @@ public class NewNavPageController implements Initializable {
 
   public void saveE(ActionEvent actionEvent) {
     DataHandling.save(false);
+  }
+
+  public void showEdgesOnAction(ActionEvent actionEvent) {
+    if (showEdgesToggle.isSelected()) {
+      graph.drawAllEdges(sFloor);
+    }
   }
 }

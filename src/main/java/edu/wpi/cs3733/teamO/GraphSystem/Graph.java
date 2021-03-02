@@ -252,6 +252,19 @@ public class Graph {
     }
   }
 
+  public void drawAllEdges(String floor) {
+    for (Edge e : listOfEdges) {
+      Node nodeA = NodesAndEdges.getNode(e.getStart());
+      Node nodeB = NodesAndEdges.getNode(e.getEnd());
+      Circle circleA = nodeCircleHashtable.get(nodeA);
+      Circle circleB = nodeCircleHashtable.get(nodeB);
+
+      if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
+        DrawHelper.drawEdge(gc, circleA, circleB);
+      }
+    }
+  }
+
   /**
    * Draws the current path stored by this Graph
    *

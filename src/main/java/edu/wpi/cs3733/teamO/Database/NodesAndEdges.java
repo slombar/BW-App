@@ -154,7 +154,6 @@ public class NodesAndEdges {
   }
 
   public static void deleteNode(String nodeID) {
-
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
     System.out.println("QUERY: " + query);
     try {

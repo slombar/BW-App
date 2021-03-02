@@ -21,7 +21,14 @@ public class EmailThreader extends Thread {
   private final String fileToBeSent5;
   private final String fileToBeSent6;
 
-  public EmailThreader(String sendingTo, String fileToBeSent1, String fileToBeSent2, String fileToBeSent3, String fileToBeSent4, String fileToBeSent5, String fileToBeSent6) {
+  public EmailThreader(
+      String sendingTo,
+      String fileToBeSent1,
+      String fileToBeSent2,
+      String fileToBeSent3,
+      String fileToBeSent4,
+      String fileToBeSent5,
+      String fileToBeSent6) {
     this.sendingTo = sendingTo;
     this.fileToBeSent1 = fileToBeSent1;
     this.fileToBeSent2 = fileToBeSent2;
