@@ -414,7 +414,9 @@ public class NodesAndEdges {
         team = rset.getString("TEAMASSIGNED");
         visible = rset.getBoolean("VISIBLE");
         // add to observable list
-        n = new Node(ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team, visible);
+        n =
+            new Node(
+                ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team, visible);
         nodeList.add(n);
       }
       // must close to get proper info from db
@@ -447,7 +449,7 @@ public class NodesAndEdges {
       String endNode = "";
       double length = 0;
 
-      Edge e = new Edge ();
+      Edge e = new Edge();
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
         ID = rset.getString("NODEID");
