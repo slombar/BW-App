@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -260,6 +261,7 @@ public class NewNavPageController implements Initializable {
 
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
+      graph.resetPath();
       graph.findPath(startNode, endNode);
       graph.drawCurrentPath(sFloor, startNode, endNode);
       displayingRoute = true;
@@ -276,6 +278,19 @@ public class NewNavPageController implements Initializable {
     if (addNodeMode) {
       xCoord.setText(String.valueOf(mouseEvent.getX()));
       yCoord.setText(String.valueOf(mouseEvent.getY()));
+
+      NodesAndEdges.addNode(nodeID.getText(),
+              xCoord.getText(),
+              yCoord.getText(),
+              floor.getText(),
+              building.getText(),
+              nodeType.getText(),
+              longName.getText(),
+              shortName.getText(),
+              "O",
+              true
+      );
+
       nodeID.clear();
       floor.clear();
       building.clear();
@@ -315,6 +330,8 @@ public class NewNavPageController implements Initializable {
     startNode = null;
     endNode = null;
     displayingRoute = false;
+    graph.resetPath();
+    resizeCanvas();
     graph.drawAllNodes(sFloor, startNode, endNode);
   }
 
@@ -326,14 +343,42 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editEdge(ActionEvent actionEvent) {
-    //    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText());
+    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(),0);
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
   }
 
-  public void addEdge(ActionEvent actionEvent) {}
+  public void addEdge(ActionEvent actionEvent) {
+    NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
+  }
 
-  public void deleteEdge(ActionEvent actionEvent) {}
+  public void deleteEdge(ActionEvent actionEvent) {
+    NodesAndEdges.deleteEdge(edgeID.getText());
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
+  }
 
-  public void editNode(ActionEvent actionEvent) {}
+  public void editNode(ActionEvent actionEvent) {
+    NodesAndEdges.editNode(nodeID.getText(),
+            Integer.parseInt(xCoord.getText()),
+            Integer.parseInt(yCoord.getText()),
+            floor.getText(),
+            building.getText(),
+            nodeType.getText(),
+            longName.getText(),
+            shortName.getText(),
+            "O",
+            true
+            );
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
+  }
 
   public void uploadCSV(ActionEvent actionEvent) {}
 

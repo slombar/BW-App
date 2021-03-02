@@ -12,7 +12,7 @@ class AStarSearch implements AlgorithmStrategy {
   private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
   private static Hashtable<Node, Double> costSoFar; // NodeID and that nodes current cost so far
 
-  private LinkedList<Node> foundRoute; // most recent found root for this A* object
+  // private LinkedList<Node> foundRoute; // most recent found root for this A* object
 
   /*AStarSearch(boolean test) {
     graph = new Graph(test); // may not want/need to initialize graph here
@@ -27,10 +27,10 @@ class AStarSearch implements AlgorithmStrategy {
     graph = g;
     graphSize = graph.getSize();
 
-    frontier = new PriorityQueue<>();
-    cameFrom = new Hashtable<>();
-    costSoFar = new Hashtable<>();
-    foundRoute = new LinkedList<>();
+    //    frontier = new PriorityQueue<>();
+    //    cameFrom = new Hashtable<>();
+    //    costSoFar = new Hashtable<>();
+    //    foundRoute = new LinkedList<>();
   }
 
   /**
@@ -102,7 +102,9 @@ class AStarSearch implements AlgorithmStrategy {
   }*/
 
   List<Node> findRoute(Node startNode, Node targetNode) {
-    // sets start node based on startID provided in constructor
+    frontier = new PriorityQueue<>();
+    cameFrom = new Hashtable<>();
+    costSoFar = new Hashtable<>();
 
     // path, but in reverse order
     LinkedList<Node> path = new LinkedList<>();
