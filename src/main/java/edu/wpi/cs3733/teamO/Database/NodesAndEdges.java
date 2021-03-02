@@ -85,26 +85,27 @@ public class NodesAndEdges {
 
   /**
    * adds a new edge
+   *
    * @param startNode
    * @param endNode
    */
   public static void addNewEdge(String startNode, String endNode) {
     String nodeID = startNode + "_" + endNode;
     String query =
-            "INSERT INTO Edges VALUES("
-                    + "'"
-                    + nodeID
-                    + "'"
-                    + ", "
-                    + "'"
-                    + startNode
-                    + "'"
-                    + ", "
-                    + "'"
-                    + endNode
-                    + "', "
-                    + 0
-                    + ")";
+        "INSERT INTO Edges VALUES("
+            + "'"
+            + nodeID
+            + "'"
+            + ", "
+            + "'"
+            + startNode
+            + "'"
+            + ", "
+            + "'"
+            + endNode
+            + "', "
+            + 0
+            + ")";
     System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;

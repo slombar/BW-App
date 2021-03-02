@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
@@ -156,6 +157,9 @@ public class NewNavPageController implements Initializable {
       editVBox.setVisible(true);
     }
     addNodeMode = false;
+    // autocompletes the node Id for start and end
+    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
+    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
   }
 
   /**
@@ -321,7 +325,9 @@ public class NewNavPageController implements Initializable {
     addNodeMode = true;
   }
 
-  public void editEdge(ActionEvent actionEvent) {}
+  public void editEdge(ActionEvent actionEvent) {
+    //    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText());
+  }
 
   public void addEdge(ActionEvent actionEvent) {}
 
@@ -332,13 +338,4 @@ public class NewNavPageController implements Initializable {
   public void uploadCSV(ActionEvent actionEvent) {}
 
   public void saveCSV(ActionEvent actionEvent) {}
-
-  //  public ArrayList<Double> addNodeClick(MouseEvent mouseEvent) {
-  //    ArrayList<Double> mouseCoord = new ArrayList<>();
-  //    double mouseX = mouseEvent.getX();
-  //    double mouseY = mouseEvent.getY();
-  //    mouseCoord.set(0, mouseX);
-  //    mouseCoord.set(1, mouseY);
-  //    return mouseCoord;
-  //  }
 }
