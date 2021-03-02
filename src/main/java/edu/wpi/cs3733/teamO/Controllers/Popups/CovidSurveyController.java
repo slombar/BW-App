@@ -30,7 +30,10 @@ public class CovidSurveyController {
 
   public void submitCovidForm(ActionEvent actionEvent) {
 
-    if(No1.isSelected()||yes1.isSelected() && No2.isSelected()||yes2.isSelected() && No3.isSelected()||yes3.isSelected()) {
+    if (No1.isSelected()
+        || yes1.isSelected() && No2.isSelected()
+        || yes2.isSelected() && No3.isSelected()
+        || yes3.isSelected()) {
       if (No1.isSelected() && No2.isSelected() && No3.isSelected()) {
         SwitchScene.goToParent("/Views/MainPage.fxml");
       } else {
