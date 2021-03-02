@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.SRequest.DisplayRequest;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.net.URL;
@@ -13,11 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class ReqController implements Initializable {
 
@@ -27,10 +24,6 @@ public class ReqController implements Initializable {
 
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
-    Stage s = null;
-    Scene scene = null;
-    s = Opp.getPrimaryStage();
-    scene = s.getScene();
 
     String reqID = r.getRequestID();
     String requestedBy = r.getRequestedBy();
@@ -44,6 +37,8 @@ public class ReqController implements Initializable {
 
     HBox addBox = new HBox();
 
+    addBox.setSpacing(10);
+
     Label id = new Label(reqID);
     Label reqBy = new Label(requestedBy);
     Label filledBy = new Label(fulfilledBy);
@@ -53,18 +48,6 @@ public class ReqController implements Initializable {
     Label p1 = new Label(par1);
     Label p2 = new Label(par2);
     Label p3 = new Label(par3);
-
-    boolean check = false;
-
-    id.getStyleClass().add("label");
-    reqBy.getStyleClass().add("label");
-    filledBy.getStyleClass().add("label");
-    dReq.getStyleClass().add("label");
-    dNeed.getStyleClass().add("label");
-    loc.getStyleClass().add("label");
-    p1.getStyleClass().add("label");
-    p2.getStyleClass().add("label");
-    p3.getStyleClass().add("label");
 
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
@@ -76,8 +59,7 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(p2);
     addBox.getChildren().add(p3);
 
-    check = reqBox.getChildren().add(addBox);
-    System.out.println("Addbox check: " + check);
+    reqBox.getChildren().add(addBox);
   }
 
   public void displayList(ObservableList<Request> requests) {
