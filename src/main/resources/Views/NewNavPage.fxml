@@ -324,6 +324,7 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </JFXButton>
+                  <StackPane fx:id="nodeWarningPane" prefHeight="150.0" prefWidth="200.0" />
                   <Label text="Edge">
                      <font>
                         <Font name="System Bold" size="15.0" />

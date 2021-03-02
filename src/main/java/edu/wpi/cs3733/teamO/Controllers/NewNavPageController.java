@@ -7,6 +7,7 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
@@ -33,6 +34,7 @@ import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private StackPane nodeWarningPane;
   @FXML private JFXCheckBox setVisibility;
   // edit map components
   @FXML private GridPane innerGrid;
@@ -495,6 +497,17 @@ public class NewNavPageController implements Initializable {
 
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
+    if (!nodeID.getText().isEmpty()
+        && !xCoord.getText().isEmpty()
+        && !yCoord.getText().isEmpty()
+        && !floor.getText().isEmpty()
+        && !building.getText().isEmpty()
+        && !nodeType.getText().isEmpty()
+        && !longName.getText().isEmpty()
+        && !shortName.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    }
+
     if (addNodeDB) {
       NodesAndEdges.addNode(
           nodeID.getText(),
