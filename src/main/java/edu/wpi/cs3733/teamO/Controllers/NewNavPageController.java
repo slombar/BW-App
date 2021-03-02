@@ -444,35 +444,34 @@ public class NewNavPageController implements Initializable {
     // TODO: i think this is where we would need to parse the text fields to validate them
     if (addNodeDBMode) {
       if ((nodeID.getText() == null)
-              || (xCoord.getText() == null)
-              || (yCoord.getText() == null)
-              || (floor.getText() == null)
-              || (building.getText() == null)
-              || (nodeType.getText() == null)
-              || (longName.getText() == null)
-              || (shortName.getText() == null)) {
+          || (xCoord.getText() == null)
+          || (yCoord.getText() == null)
+          || (floor.getText() == null)
+          || (building.getText() == null)
+          || (nodeType.getText() == null)
+          || (longName.getText() == null)
+          || (shortName.getText() == null)) {
         PopupMaker.incompletePopup(nodeWarningPane);
       } else {
         try {
           NodesAndEdges.addNode(
-                  nodeID.getText(),
-                  xCoord.getText(),
-                  yCoord.getText(),
-                  floor.getText(),
-                  building.getText(),
-                  nodeType.getText(),
-                  longName.getText(),
-                  shortName.getText(),
-                  "O",
-                  setVisibility.isSelected());
+              nodeID.getText(),
+              xCoord.getText(),
+              yCoord.getText(),
+              floor.getText(),
+              building.getText(),
+              nodeType.getText(),
+              longName.getText(),
+              shortName.getText(),
+              "O",
+              setVisibility.isSelected());
         } catch (SQLException throwables) {
-          //TODO: change the non existent to already existent
+          // TODO: change the non existent to already existent
           PopupMaker.nonexistentPopup(nodeWarningPane);
         }
 
-
-      addNodeDBMode = false;
-    }
+        addNodeDBMode = false;
+      }
     } else {
       if (nodeID.getText().isEmpty()
           || xCoord.getText().isEmpty()
@@ -562,18 +561,18 @@ public class NewNavPageController implements Initializable {
   }
 
   // TODO: remove this? only add/delete edges
-//  public void editEdge(ActionEvent actionEvent) {
-//    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
-//    // TODO: edit Edge in Graph
-//    edgeID.clear();
-//    startNodeID.clear();
-//    endNodeID.clear();
-//    draw();
-//  }
+  //  public void editEdge(ActionEvent actionEvent) {
+  //    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
+  //    // TODO: edit Edge in Graph
+  //    edgeID.clear();
+  //    startNodeID.clear();
+  //    endNodeID.clear();
+  //    draw();
+  //  }
 
   public void deleteEdge(ActionEvent actionEvent) {
 
-    if (startNodeID.getText().isEmpty() ||endNodeID.getText().isEmpty()) {
+    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
       NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
@@ -639,5 +638,9 @@ public class NewNavPageController implements Initializable {
         graph.drawAllEdges(sFloor);
       }
     }
+  }
+
+  public void updateEdgeID(ActionEvent actionEvent) {
+    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
   }
 }
