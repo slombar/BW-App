@@ -129,12 +129,10 @@ public class NewNavPageController implements Initializable {
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
+      sideMenuUrl = "/Views/SideMenuStaff.fxml";
       if (UserHandling.getAdmin()) {
-        editToggle.setVisible(true);
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         System.out.println("ADMIN");
-      } else {
-        sideMenuUrl = "/Views/SideMenuStaff.fxml";
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";

@@ -8,9 +8,11 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,81 +23,88 @@ import javafx.scene.layout.VBox;
 
 public class StaffMainPageController implements Initializable {
 
-  @FXML private JFXButton navBtn;
-  @FXML private JFXButton requestBtn;
-  @FXML private JFXButton covidBtn;
-  @FXML private JFXButton parkingBtn;
-  @FXML private JFXDrawer drawer;
-  @FXML private JFXHamburger hamburger;
-  private String sideMenuUrl;
+    @FXML
+    private JFXButton navBtn;
+    @FXML
+    private JFXButton requestBtn;
+    @FXML
+    private JFXButton covidBtn;
+    @FXML
+    private JFXButton parkingBtn;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private JFXHamburger hamburger;
+    private String sideMenuUrl;
 
-  @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
-    System.out.println("Employee " + UserHandling.getEmployee());
-    System.out.println("Admin " + UserHandling.getAdmin());
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Employee " + UserHandling.getEmployee());
+        System.out.println("Admin " + UserHandling.getAdmin());
 
-    if (UserHandling.getEmployee()) {
-      System.out.println("EMPLOYEE");
-      if (UserHandling.getAdmin()) {
-        sideMenuUrl = "/Views/SideMenuAdmin.fxml";
-        System.out.println("ADMIN");
-      } else {
-        sideMenuUrl = "/Views/SideMenuStaff.fxml";
-      }
-    } else {
-      sideMenuUrl = "/Views/SideMenu.fxml";
+        if (UserHandling.getEmployee()) {
+            System.out.println("EMPLOYEE");
+            sideMenuUrl = "/Views/SideMenuStaff.fxml";
+            if (UserHandling.getAdmin()) {
+                sideMenuUrl = "/Views/SideMenuAdmin.fxml";
+                System.out.println("ADMIN");
+            }
+        } else {
+            sideMenuUrl = "/Views/SideMenu.fxml";
+        }
+
+        // Set drawer to SideMenu
+        try {
+            VBox vbox = FXMLLoader.load(getClass().getResource(sideMenuUrl));
+            drawer.setSidePane(vbox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // transition animation of Hamburger icon
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+
+        // click event - mouse click
+        hamburger.addEventHandler(
+                MouseEvent.MOUSE_PRESSED,
+                (e) -> {
+                    transition.setRate(transition.getRate() * -1);
+                    transition.play();
+                    if (drawer.isOpened()) {
+                        drawer.close(); // this will close slide pane
+                    } else {
+                        drawer.open(); // this will open slide pane
+                    }
+                });
+        hoverAllBtn();
     }
 
-    // Set drawer to SideMenu
-    try {
-      VBox vbox = FXMLLoader.load(getClass().getResource(sideMenuUrl));
-      drawer.setSidePane(vbox);
-    } catch (IOException e) {
-      e.printStackTrace();
+    public void hoverAllBtn() {
+        Effects.hoverEffect(navBtn);
+        Effects.hoverEffect(requestBtn);
+        Effects.hoverEffect(covidBtn);
+        Effects.hoverEffect(parkingBtn);
     }
 
-    // transition animation of Hamburger icon
-    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-    transition.setRate(-1);
-
-    // click event - mouse click
-    hamburger.addEventHandler(
-        MouseEvent.MOUSE_PRESSED,
-        (e) -> {
-          transition.setRate(transition.getRate() * -1);
-          transition.play();
-          if (drawer.isOpened()) {
-            drawer.close(); // this will close slide pane
-          } else {
-            drawer.open(); // this will open slide pane
-          }
-        });
-    hoverAllBtn();
-  }
-
-  public void hoverAllBtn() {
-    Effects.hoverEffect(navBtn);
-    Effects.hoverEffect(requestBtn);
-    Effects.hoverEffect(covidBtn);
-    Effects.hoverEffect(parkingBtn);
-  }
-
-  public void goToNav(ActionEvent actionEvent) {
-    SwitchScene.goToGridPane("/Views/NewNavPage.fxml");
-  }
-
-  public void goToCovid(ActionEvent actionEvent) {}
-
-  public void goToParking(ActionEvent actionEvent) {}
-
-  public void goToRequest(ActionEvent actionEvent) {
-    try {
-      Parent root =
-          FXMLLoader.load(getClass().getResource("/Views/ServiceRequests/RequestPage.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
+    public void goToNav(ActionEvent actionEvent) {
+        SwitchScene.goToGridPane("/Views/NewNavPage.fxml");
     }
-    SwitchScene.goToBorderPane("/Views/ServiceRequests/RequestPage.fxml");
-  }
+
+    public void goToCovid(ActionEvent actionEvent) {
+    }
+
+    public void goToParking(ActionEvent actionEvent) {
+    }
+
+    public void goToRequest(ActionEvent actionEvent) {
+        try {
+            Parent root =
+                    FXMLLoader.load(getClass().getResource("/Views/ServiceRequests/RequestPage.fxml"));
+            Opp.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        SwitchScene.goToBorderPane("/Views/ServiceRequests/RequestPage.fxml");
+    }
 }

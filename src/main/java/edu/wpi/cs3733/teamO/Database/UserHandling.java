@@ -288,7 +288,7 @@ public class UserHandling {
       ResultSet res = pstmt.executeQuery();
       res.next();
 
-      b = res.getBoolean("admin");
+      b = res.getBoolean("employee");
       System.out.println("Employee check : " + b);
 
       res.close();

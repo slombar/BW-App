@@ -1,7 +1,9 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,8 +47,14 @@ public class LoginController implements Initializable {
    *
    * @param actionEvent
    */
-  public void guestSignIn(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
+  public void guestSignIn(ActionEvent actionEvent){
+    try {
+      UserHandling.login("guest","guest");
+      SwitchScene.goToParent("/Views/CovidSurvey.fxml");
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      System.out.println("Did you delete the guest account????????? >:( ");
+    }
   }
 
   public void tempBTN(ActionEvent actionEvent) {
