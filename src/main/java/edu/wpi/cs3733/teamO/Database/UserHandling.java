@@ -61,6 +61,47 @@ public class UserHandling {
     }
   }
 
+  public static void createEmployee(
+          String username, String password, String email, String fName, String lName, boolean admin)
+          throws SQLException {
+
+    String encodedPass = null;
+    try {
+      encodedPass = Encrypter.encryptPassword(password);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+
+    String query =
+            "INSERT INTO USERS VALUES('"
+                    + username
+                    + "', '"
+                    + encodedPass
+                    + "', '"
+                    + email
+                    + "', '"
+                    + fName
+                    + "', '"
+                    + lName
+                    + "', "
+                    + true
+                    + ", "
+                    + admin
+                    + ")";
+
+    System.out.println("CREATE ACCT QUERY: " + query);
+
+    PreparedStatement preparedStmt = null;
+    try {
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.execute();
+      preparedStmt.close();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      throw new SQLException();
+    }
+  }
+
   /**
    * Logs in the user utilizing DB
    *
@@ -104,7 +145,7 @@ public class UserHandling {
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
-    setUsername(username);
+    setUsername(u);
 
     String encodedPass = "";
     try {
@@ -142,12 +183,10 @@ public class UserHandling {
     }
   }
 
-  public static boolean getAdmin(){
+  public static boolean getAdmin() {
     boolean b = false;
 
-    String query =
-            "SELECT * FROM USERS WHERE USERNAME = '"
-                    + getUsername() + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = '" + username + "'";
 
     try {
       PreparedStatement pstmt = null;
@@ -155,7 +194,8 @@ public class UserHandling {
       ResultSet res = pstmt.executeQuery();
       res.next();
 
-      b = res.getBoolean("ADMIN");
+      b = res.getBoolean("admin");
+      System.out.println("Admin check : " + b);
 
       res.close();
       pstmt.close();
@@ -166,12 +206,10 @@ public class UserHandling {
     return b;
   }
 
-  public static boolean getEmployee(){
+  public static boolean getEmployee() {
     boolean b = false;
 
-    String query =
-            "SELECT * FROM USERS WHERE USERNAME = '"
-                    + getUsername() + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = '" + username + "'";
 
     try {
       PreparedStatement pstmt = null;
@@ -179,7 +217,8 @@ public class UserHandling {
       ResultSet res = pstmt.executeQuery();
       res.next();
 
-      b = res.getBoolean("EMPLOYEE");
+      b = res.getBoolean("admin");
+      System.out.println("Employee check : " + b);
 
       res.close();
       pstmt.close();
@@ -188,7 +227,6 @@ public class UserHandling {
     }
 
     return b;
-
   }
 
   public static String getUsername() {
