@@ -31,11 +31,20 @@ public class StaffMainPageController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    System.out.println("Employee " + UserHandling.getEmployee());
+    System.out.println("Admin " + UserHandling.getAdmin());
+
     if (UserHandling.getEmployee()) {
+      System.out.println("EMPLOYEE");
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
-      } else sideMenuUrl = "/Views/SideMenuStaff.fxml";
-    } else sideMenuUrl = "/Views/SideMenu.fxml";
+        System.out.println("ADMIN");
+      } else {
+        sideMenuUrl = "/Views/SideMenuStaff.fxml";
+      }
+    } else {
+      sideMenuUrl = "/Views/SideMenu.fxml";
+    }
 
     // Set drawer to SideMenu
     try {
