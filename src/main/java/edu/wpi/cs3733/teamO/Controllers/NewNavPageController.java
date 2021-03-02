@@ -5,10 +5,8 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,8 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-
-import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
 
 public class NewNavPageController implements Initializable {
 
@@ -77,6 +73,7 @@ public class NewNavPageController implements Initializable {
   boolean selectingStart = true;
   Node startNode = null;
   Node endNode = null;
+  private boolean displayingRoute = false;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -106,7 +103,7 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
-   //TODO add the functionality  UserHandling.getUsername() instead of isstaff
+    // TODO add the functionality  UserHandling.getUsername() instead of isstaff
 
     if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
     else sideMenuUrl = "/Views/SideMenu.fxml";
@@ -234,20 +231,19 @@ public class NewNavPageController implements Initializable {
 
     resizeCanvas();
     // TODO: only draw visible if patient/guest
-    graph.drawAllNodes(sFloor, startNode, endNode);
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      graph.drawAllNodes(sFloor, startNode, endNode);
+    }
   }
 
   public void doPathfind(ActionEvent actionEvent) {
-    List<Node> path = graph.findPath(startNode, endNode);
-
-    for (int i = 0; i < path.size() - 1; i++) {
-      Node nodeA = path.get(i);
-      Node nodeB = path.get(i + 1);
-
-      graph.drawMidArrow(nodeA, nodeB);
-      // DrawHelper.drawMidArrow(
-      //   gc, nodeA.getXCoord(), nodeA.getYCoord(), nodeB.getXCoord(), nodeB.getYCoord());
+    if (startNode != null && endNode != null) {
+      graph.findPath(startNode, endNode);
+      graph.drawCurrentPath(sFloor, startNode, endNode);
     }
+    // TODO: else -> throw exception? or make popup or something? idk
   }
 
   public void goToSideMenu(MouseEvent mouseEvent) {}
@@ -265,7 +261,6 @@ public class NewNavPageController implements Initializable {
     System.out.println("Click");
   }
 
-  // TODO: set start/end to different colors
   public void startLocSelection(ActionEvent actionEvent) {
     selectingStart = true;
   }
@@ -273,4 +268,6 @@ public class NewNavPageController implements Initializable {
   public void endLocSelection(ActionEvent actionEvent) {
     selectingStart = false;
   }
+
+  // TODO: reset button??? (needs to set startNode and endNode to null)
 }
