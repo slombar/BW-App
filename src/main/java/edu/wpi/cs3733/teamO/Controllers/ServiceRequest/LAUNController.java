@@ -26,12 +26,12 @@ public class LAUNController implements Initializable {
   @FXML private JFXCheckBox field2;
   private String loadSize = "";
 
-  ObservableList<String> listOfSizes = FXCollections.observableArrayList(
+  private ObservableList<String> listOfSizes = FXCollections.observableArrayList(
       "XS", "S", "M", "L", "XL");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
+    sizeComboBox.setItems(listOfSizes);
   }
 
   public void back(ActionEvent actionEvent) {
