@@ -785,7 +785,7 @@ public class EditPageController implements Initializable {
           } else {
             String filePath = listOfFields.get(0).getText();
             // true = is a node
-            DataHandling.importExcelData(true);
+            //DataHandling.importExcelData(true);
             loadDialog.close();
             stackPane.toBack();
           }
@@ -843,7 +843,7 @@ public class EditPageController implements Initializable {
           } else {
             String filePath = listOfFields.get(0).getText();
             // false = is an edge
-            DataHandling.importExcelData(false);
+            //DataHandling.importExcelData(false);
             loadDialog.close();
             stackPane.toBack();
           }
@@ -910,7 +910,7 @@ public class EditPageController implements Initializable {
             boolean node = (nodeOrEdge == 'n');
 
             // true = is a node
-            DataHandling.save(node);
+            //DataHandling.save(node);
             loadDialog.close();
             stackPane.toBack();
           }
