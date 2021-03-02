@@ -41,7 +41,6 @@ public class Autocomplete {
 
   public static ArrayList<String> autoNodeData(String nodeProperty) {
     ObservableList<Node> nodeList;
-    //    nodeList = FXCollections.observableArrayList();
     nodeList = NodesAndEdges.getAllNodes();
 
     ArrayList<String> data = new ArrayList<>();

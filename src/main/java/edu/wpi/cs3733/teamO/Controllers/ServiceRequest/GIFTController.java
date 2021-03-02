@@ -9,6 +9,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+
 import java.sql.Date;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
@@ -20,7 +21,7 @@ public class GIFTController {
     @FXML private JFXTextField locationF;
     @FXML private JFXTextField field1;
     @FXML private JFXTextField field2;
-    @FXML private JFXTextField field3;
+    @FXML private JFXCheckBox field3;
 
     public void back(ActionEvent actionEvent) {
         SwitchScene.goToParent("/Views/MainPage.fxml");
@@ -32,7 +33,7 @@ public class GIFTController {
         summary.clear();
         field1.clear();
         field2.clear();
-        field3.clear();
+        field3.setSelected(false);
     }
 
     public void submit(ActionEvent actionEvent) {

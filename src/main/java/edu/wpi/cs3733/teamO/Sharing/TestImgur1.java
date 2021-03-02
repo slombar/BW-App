@@ -1,11 +1,11 @@
 package edu.wpi.cs3733.teamO.Sharing;
 
 import com.google.api.client.util.Base64;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
 
 public class TestImgur1 {
 
@@ -45,54 +45,28 @@ public class TestImgur1 {
   }
 
   public static void main(String[] args) throws Exception {
-
-    String IMGUR_POST_URL = "https://api.imgur.com/3/upload.xml";
-    String IMGUR_AUTHORIZE_URL = "https://api.imgur.com/3/account/bwolive3733";
-    String IMGUR_CLIENT_ID = "546c25a59c58ad7";
-    String IMGUR_CLIENT_SECRET = "ac0681fb73723d536f748647a96b7aa5c4120338";
-    String IMGUR_USERNAME = "bwolive3733";
-
     String home = System.getProperty("user.home");
     String file = home + "/Downloads/" + "mapimg.png";
 
-    // String stringToReverse = URLEncoder.encode(IMGUR_CLIENT_SECRET, "UTF-8");
-
-    /*
-    URL url = new URL(IMGUR_AUTHORIZE_URL);
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-    connection.setRequestMethod("GET");
-    connection.setRequestProperty("Authorization", "Client-ID " + IMGUR_CLIENT_ID);
-
-
-      URL urlupload = new URL(IMGUR_POST_URL);
-      HttpURLConnection conne = (HttpURLConnection) urlupload.openConnection();
-      conne.setRequestMethod("POST");
-      conne.setRequestProperty("Authorization", "Bearer 5eeae49394cd929e299785c8805bd168fc675280");
-      System.out.println(conne.getHeaderField(1));
-    */
-
-    File f = new File("/C:/Users/Dimas/Pictures/amongus.png");
+    File f = new File("/C:/Users/Cindy/Downloads/mapimg.png");
     String encodstring = encodeFileToBase64Binary(f);
 
     Unirest.setTimeouts(0, 0);
     HttpResponse<String> response =
         Unirest.post("https://api.imgur.com/3/upload")
-            .header("Authorization", "Bearer 5eeae49394cd929e299785c8805bd168fc675280")
-            .field("image", new File("C:/Users/Dimas/Downloads/Screenshot_2 (3).png"))
+            .header("Authorization", "Bearer 98aa9173f1f8f842e3e412945de0886797ba7b87")
+            .field("image", new File("C:/Users/Cindy/Downloads/mapimg.png"))
             .asString();
 
     String res = response.getBody();
 
     System.out.println(response.getBody());
 
-    /*
-    BufferedReader bin = null;
-    bin = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-    // below will print out bin
-    String line;
-    while ((line = bin.readLine()) != null) System.out.println(line);
-    bin.close();
-     */
+    /* testing string
+    String b =
+        "{\"status\":200,\"success\":true,\"data\":{\"id\":\"ImYycv8\",\"deletehash\":\"626l0igShHmm0bE\",\"account_id\":146010003,\"account_url\":\"bwolive3733\",\"ad_type\":null,\"ad_url\":null,\"title\":null,\"description\":null,\"name\":\"\",\"type\":\"image/png\",\"width\":1288,\"height\":1059,\"size\":209967,\"views\":0,\"section\":null,\"vote\":null,\"bandwidth\":0,\"animated\":false,\"favorite\":false,\"in_gallery\":false,\"in_most_viral\":false,\"has_sound\":false,\"is_ad\":false,\"nsfw\":null,\"link\":\"https://i.imgur.com/ImYycv8.png\",\"tags\":[],\"datetime\":1614654552,\"mp4\":\"\",\"hls\":\"\"}}";
+    String a = b.substring(b.indexOf("https"));
+    System.out.print(a.substring(0, a.indexOf("png") + 3));
+    */
   }
 }

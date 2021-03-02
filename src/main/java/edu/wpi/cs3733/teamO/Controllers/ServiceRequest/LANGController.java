@@ -19,7 +19,7 @@ public class LANGController {
     @FXML private JFXTextField locationF;
     @FXML private JFXTextArea summary;
     @FXML private JFXTextField field1;
-    @FXML private JFXCheckBox field2;
+    @FXML private JFXTextField field2;
 
     public void back(ActionEvent actionEvent) {
         SwitchScene.goToParent("/Views/MainPage.fxml");
@@ -30,7 +30,7 @@ public class LANGController {
         dateNeeded.getEditor().clear();
         summary.clear();
         field1.clear();
-        field2.setSelected(false);
+        field2.clear();
     }
 
     public void submit(ActionEvent actionEvent) {
