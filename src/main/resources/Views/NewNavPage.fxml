@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -41,6 +42,7 @@
          </children></VBox>
       <GridPane fx:id="innerGrid" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
+            <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" />
             <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <image>
                   <Image url="@../FaulknerCampus_Updated.png" />
@@ -55,9 +57,9 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
-      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
-            <Label text="Brigham &amp; Womens Hospital">
+            <Label text="Brigham &amp; Womens Hospital" textFill="WHITE">
                <font>
                   <Font name="Leelawadee UI Bold" size="36.0" />
                </font>
@@ -67,32 +69,32 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="51.0" prefWidth="977.0">
                <children>
-                  <JFXButton onAction="#goToMain" prefWidth="51.0" text="Back">
+                  <JFXButton onAction="#goToMain" prefWidth="51.0" text="Back" textFill="WHITE">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXComboBox fx:id="floorSelectionBtn" onAction="#floorSelection" prefWidth="156.0" promptText="Floor">
+                  <JFXComboBox fx:id="floorSelectionBtn" focusColor="WHITE" onAction="#floorSelection" prefWidth="156.0" promptText="Floor" unFocusColor="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXComboBox>
-                  <JFXButton fx:id="startLocBtn" onAction="#startLocSelection" prefWidth="55.0" text="Start">
+                  <JFXButton fx:id="startLocBtn" onAction="#startLocSelection" prefWidth="55.0" text="Start" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="endLocBtn" onAction="#endLocSelection" prefWidth="55.0" text="End">
+                  <JFXButton fx:id="endLocBtn" onAction="#endLocSelection" prefWidth="55.0" text="End" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="pathfindBtn" onAction="#doPathfind" prefWidth="80.0" text="Pathfind">
+                  <JFXButton fx:id="pathfindBtn" onAction="#doPathfind" prefWidth="80.0" text="Pathfind" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="clearBtn1" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearSelection" prefWidth="60.0" text="Clear" />
+                  <JFXButton fx:id="clearBtn1" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearSelection" prefWidth="60.0" text="Clear" textFill="WHITE" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
@@ -101,7 +103,7 @@
          </children>
       </VBox>
       <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="402.0" prefWidth="123.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
-      <JFXHamburger fx:id="hamburger" />
+      <JFXHamburger fx:id="hamburger" style="-fx-background-color: #3a5369;" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
             <JFXToggleButton fx:id="editToggle" contentDisplay="RIGHT" onAction="#editMode" prefHeight="38.0" prefWidth="200.0" text="Edit Map">
