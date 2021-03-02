@@ -14,6 +14,7 @@ import edu.wpi.cs3733.teamO.model.Node;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -527,8 +528,9 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
-  public void deleteEdge(ActionEvent actionEvent) {
+  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
     NodesAndEdges.deleteEdge(edgeID.getText());
+
     graph.deleteEdge(edgeID.getText());
 
     edgeID.clear();
