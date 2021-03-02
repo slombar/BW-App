@@ -142,6 +142,55 @@ public class UserHandling {
     }
   }
 
+  public static boolean getAdmin(){
+    boolean b = false;
+
+    String query =
+            "SELECT * FROM USERS WHERE USERNAME = '"
+                    + getUsername() + "'";
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet res = pstmt.executeQuery();
+      res.next();
+
+      b = res.getBoolean("ADMIN");
+
+      res.close();
+      pstmt.close();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return b;
+  }
+
+  public static boolean getEmployee(){
+    boolean b = false;
+
+    String query =
+            "SELECT * FROM USERS WHERE USERNAME = '"
+                    + getUsername() + "'";
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet res = pstmt.executeQuery();
+      res.next();
+
+      b = res.getBoolean("EMPLOYEE");
+
+      res.close();
+      pstmt.close();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return b;
+
+  }
+
   public static String getUsername() {
     return username;
   }
