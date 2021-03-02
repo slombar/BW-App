@@ -321,11 +321,9 @@ public class NewNavPageController implements Initializable {
 
   public void editNode(ActionEvent actionEvent) {}
 
-  public void uploadCSV(ActionEvent actionEvent) {
-  }
+  public void uploadCSV(ActionEvent actionEvent) {}
 
-  public void saveCSV(ActionEvent actionEvent) {
-  }
+  public void saveCSV(ActionEvent actionEvent) {}
 
   //  public ArrayList<Double> addNodeClick(MouseEvent mouseEvent) {
   //    ArrayList<Double> mouseCoord = new ArrayList<>();

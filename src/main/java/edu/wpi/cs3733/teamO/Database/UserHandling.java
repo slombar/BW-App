@@ -1,16 +1,13 @@
 package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
-import edu.wpi.cs3733.teamO.SRequest.Request;
 import edu.wpi.cs3733.teamO.UserTypes.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class UserHandling {
 
@@ -32,7 +29,7 @@ public class UserHandling {
     }
   }
 
-  public static ObservableList<User> getUsers(){
+  public static ObservableList<User> getUsers() {
 
     ObservableList<User> userList = FXCollections.observableArrayList();
 
@@ -63,7 +60,6 @@ public class UserHandling {
         employee = rset.getBoolean("EMPLOYEE");
         admin = rset.getBoolean("ADMIN");
 
-
         User user = new User(uname, pword, email, fName, lName, employee, admin);
 
         userList.add(user);
@@ -77,9 +73,7 @@ public class UserHandling {
       e.printStackTrace();
     }
 
-
     return userList;
-
   }
 
   /**
