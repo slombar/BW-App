@@ -32,7 +32,8 @@ public class NodesAndEdges {
       String longName,
       String shortName,
       String teamAssigned,
-      boolean visible) {
+      boolean visible)
+      throws SQLException {
     String query =
         "INSERT INTO Nodes VALUES("
             + "'"
@@ -78,6 +79,7 @@ public class NodesAndEdges {
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+      throw throwables;
     }
   }
 
