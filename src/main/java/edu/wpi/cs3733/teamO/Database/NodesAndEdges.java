@@ -79,6 +79,8 @@ public class NodesAndEdges {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+
+
   }
 
   /**

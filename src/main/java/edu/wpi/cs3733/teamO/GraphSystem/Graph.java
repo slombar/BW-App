@@ -20,7 +20,7 @@ import javafx.scene.shape.Circle;
 
 public class Graph {
 
-  private int size; // not necessary?
+  private int size; // necessary
   private static ObservableList<Node> listOfNodes;
   private static ObservableList<Edge> listOfEdges;
   private static Hashtable<String, Node> stringNodeHashtable;
@@ -30,9 +30,6 @@ public class Graph {
 
   // GC/Canvas-related attributes:
   private GraphicsContext gc;
-  private double circlePercentRadius;
-  private double scaleX;
-  private double scaleY;
 
   // TODO: put these as public static final somewhere?
   private final Image campusMap = new Image("FaulknerCampus_Updated.png");
@@ -257,6 +254,7 @@ public class Graph {
     c.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
     c.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
+    //rewrites the hash
     stringNodeHashtable.put(nodeID, n);
     nodeCircleHashtable.put(n, c);
   }
@@ -271,9 +269,10 @@ public class Graph {
   }
 
   public void deleteNode(Node n) {
-    // delete node circle
-    // delete node from graph
-    nodeCircleHashtable.remove(n.getID());
+    //delete from graph
+    nodeCircleHashtable.remove(n);
+    //remove from the string hashtable
+    stringNodeHashtable.remove(n.getID());
     // removes all edges
     // for each neighbor of the given deleting node
     for (Node node : n.getNeighbourList()) {
@@ -283,36 +282,34 @@ public class Graph {
       // check edgelist to see if the variable Node "node" is equal
       // to the start node or end node of any edge in the list
       for (Edge e : listOfEdges) {
-        if (e.getStart() == node.getID() || e.getEnd() == node.getID()) {
+        if (e.getStart().equals(node.getID())|| e.getEnd().equals(node.getID())) {
           listOfEdges.remove(e);
         }
       }
     }
+    listOfNodes.remove(n);
   }
 
   public void deleteEdge(Edge e) {
     // delete edge from graph
-
     // go into neighbor list, unlink the startnode and endnode of the edge
 
+    //retrieve start and end nodes
     String sNode = e.getStart();
     String eNode = e.getEnd();
 
-    stringNodeHashtable.get(sNode);
-    stringNodeHashtable.get(eNode);
+    //get the proper
+    Node node1 = stringNodeHashtable.get(sNode);
+    Node node2 = stringNodeHashtable.get(eNode);
+
+    node1.getNeighbourList().remove(node2);
+    //TODO also remove from the hashtable of neighbors
+    node2.getNeighbourList().remove(node1);
+    //TODO also remove from the hashtable of neighbors
+
 
     // remove edge from list
     listOfEdges.remove(e);
-  }
-
-  public void editNode(Node n) {
-    // change values of corresponding circle
-    // change node to be newly edited in graph
-
-  }
-
-  public void editEdge(Edge e) {
-    // change edge properties in graph
   }
 
   /**
