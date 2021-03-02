@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
+import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -32,8 +33,7 @@ public class TRANController {
   }
 
   public void submit(ActionEvent actionEvent) {
-    // send values to DB TODO implement proper username
-    String requestedBy = "user"; // getUsername();
+    String requestedBy = getUsername();
     java.sql.Date dateN = Date.valueOf(dateNeeded.getValue());
     String requestType = getReqType();
     String loc = locationF.getText();

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
+import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
@@ -16,6 +17,7 @@ public class SECUController {
   @FXML private JFXTextArea summary;
   @FXML private JFXTextField field1;
   @FXML private JFXSlider field2;
+  @FXML private JFXCheckBox field3;
 
   public void back(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/MainPage.fxml");
@@ -30,8 +32,8 @@ public class SECUController {
   }
 
   public void submit(ActionEvent actionEvent) {
-    // send values to DB TODO implement proper username
-    String requestedBy = "user"; // getUsername();
+
+    String requestedBy = getUsername();
     java.sql.Date dateN = Date.valueOf(dateNeeded.getValue());
     String requestType = getReqType();
     String loc = locationF.getText();

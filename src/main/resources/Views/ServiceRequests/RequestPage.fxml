@@ -34,14 +34,6 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #cfe2f3ff;" translateX="-175.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton onAction="#goToCheckReq" text="Check Service Request Status">
-               <VBox.margin>
-                  <Insets bottom="25.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Leelawadee UI Bold" size="22.0" />
-               </font>
-            </JFXButton>
             <GridPane alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
