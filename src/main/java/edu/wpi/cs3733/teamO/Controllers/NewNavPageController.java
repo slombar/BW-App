@@ -14,6 +14,7 @@ import edu.wpi.cs3733.teamO.model.Node;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -187,6 +188,7 @@ public class NewNavPageController implements Initializable {
     // autocompletes the node Id for start and end
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
+
   }
 
   /**
@@ -514,10 +516,10 @@ public class NewNavPageController implements Initializable {
   }
 
   public void deleteEdge(ActionEvent actionEvent) {
-    if (edgeID.getText().isEmpty()) {
+    if (startNodeID.getText().isEmpty() ||endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
-      NodesAndEdges.deleteEdge(edgeID.getText());
+      NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
       edgeID.clear();
       startNodeID.clear();
       endNodeID.clear();
@@ -539,17 +541,22 @@ public class NewNavPageController implements Initializable {
         PopupMaker.incompletePopup(nodeWarningPane);
       } else {
 
-        NodesAndEdges.addNode(
-            nodeID.getText(),
-            xCoord.getText(),
-            yCoord.getText(),
-            floor.getText(),
-            building.getText(),
-            nodeType.getText(),
-            longName.getText(),
-            shortName.getText(),
-            "O",
-            setVisibility.isSelected());
+        try {
+          NodesAndEdges.addNode(
+              nodeID.getText(),
+              xCoord.getText(),
+              yCoord.getText(),
+              floor.getText(),
+              building.getText(),
+              nodeType.getText(),
+              longName.getText(),
+              shortName.getText(),
+              "O",
+              setVisibility.isSelected());
+        } catch (SQLException throwables) {
+          //TODO: change the non existent to already existent
+          PopupMaker.nonexistentPopup(nodeWarningPane);
+        }
 
         addNodeDB = false;
       }

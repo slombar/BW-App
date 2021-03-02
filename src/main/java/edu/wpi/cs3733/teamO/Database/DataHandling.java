@@ -105,17 +105,21 @@ public class DataHandling {
           teamAssigned = scan.next();
           visible = true;
 
-          NodesAndEdges.addNode(
-              nodeID,
-              xcoord,
-              ycoord,
-              floor,
-              building,
-              nodeType,
-              longName,
-              shortName,
-              teamAssigned,
-              visible);
+          try {
+            NodesAndEdges.addNode(
+                nodeID,
+                xcoord,
+                ycoord,
+                floor,
+                building,
+                nodeType,
+                longName,
+                shortName,
+                teamAssigned,
+                visible);
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
         }
         scan.close();
 
