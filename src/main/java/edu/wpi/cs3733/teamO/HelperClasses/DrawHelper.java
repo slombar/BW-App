@@ -134,7 +134,7 @@ public class DrawHelper {
   }
 
   /**
-   * Draws the given Circle in the given color
+   * Draws the given Circle in the given color WITHOUT CLEARING CANVAS FIRST
    *
    * @param gc GraphicsContext on which to draw
    * @param circle circle (node) being drawn

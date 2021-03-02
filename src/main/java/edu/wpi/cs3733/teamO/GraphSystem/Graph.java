@@ -267,7 +267,8 @@ public class Graph {
     listOfEdges.add(e);
   }
 
-  public void deleteNode(Node n) {
+  public void deleteNode(String nodeID) {
+    Node n = stringNodeHashtable.get(nodeID);
     // delete from graph
     nodeCircleHashtable.remove(n);
     // remove from the string hashtable
@@ -280,16 +281,14 @@ public class Graph {
 
       // check edgelist to see if the variable Node "node" is equal
       // to the start node or end node of any edge in the list
-      for (Edge e : listOfEdges) {
-        if (e.getStart().equals(node.getID()) || e.getEnd().equals(node.getID())) {
-          listOfEdges.remove(e);
-        }
-      }
+      listOfEdges.removeIf(
+          e -> e.getStart().equals(node.getID()) || e.getEnd().equals(node.getID()));
     }
     listOfNodes.remove(n);
   }
 
-  public void deleteEdge(Edge e) {
+  public void deleteEdge(String eID) {
+    Edge e = NodesAndEdges.getEdge(eID);
     // delete edge from graph
     // go into neighbor list, unlink the startnode and endnode of the edge
 
@@ -315,14 +314,17 @@ public class Graph {
    *
    * @param floor G, 1, 2, 3, 4, or 5
    */
-  public void drawAllNodes(String floor, Node startNode, Node endNode) {
+  public void drawAllNodes(String floor, Node selectedNode) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
     }
 
-    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
+    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, null, null);
+    if (selectedNode != null) {
+      DrawHelper.drawSingleNode(gc, nodeCircleHashtable.get(selectedNode), Color.BLUE);
+    }
   }
 
   public void drawVisibleNodes(String floor, Node startNode, Node endNode) {
@@ -358,18 +360,19 @@ public class Graph {
 
   public void drawAllEdges(String floor) {
     for (Edge e : listOfEdges) {
-      String nodeAid = e.getStart();
-      String nodeBid = e.getEnd();
-      Node nodeA = stringNodeHashtable.get(e.getStart());
-      Node nodeB = stringNodeHashtable.get(e.getEnd());
-      // Node nodeA = NodesAndEdges.getNode(nodeAid);
-      // Node nodeB = NodesAndEdges.getNode(nodeBid);
+      try {
+        Node nodeA = stringNodeHashtable.get(e.getStart());
+        Node nodeB = stringNodeHashtable.get(e.getEnd());
 
-      if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
-        Circle circleA = nodeCircleHashtable.get(nodeA);
-        Circle circleB = nodeCircleHashtable.get(nodeB);
+        if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
+          Circle circleA = nodeCircleHashtable.get(nodeA);
+          Circle circleB = nodeCircleHashtable.get(nodeB);
 
-        DrawHelper.drawEdge(gc, circleA, circleB);
+          DrawHelper.drawEdge(gc, circleA, circleB);
+        }
+      } catch (NullPointerException ignored) {
+        // TODO: use this catch block to filter out bad/extraneous data
+        // for now it just ignores them and draws the edges that do actually exist
       }
     }
   }

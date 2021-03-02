@@ -8,6 +8,7 @@ import java.util.Set;
 public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> {
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
+  private boolean visible;
 
   // added from GraphNode
   private HashSet<Node> neighbourList;
@@ -15,7 +16,6 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
   private Hashtable<Node, Edge> nodeEdgeHashtable;
   private double priority;
   private boolean visited;
-  private boolean visible;
 
   /**
    * Constructor for Node
