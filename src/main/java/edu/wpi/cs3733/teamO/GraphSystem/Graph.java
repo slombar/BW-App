@@ -217,9 +217,9 @@ public class Graph {
 
   public List<Node> findPath(Node startNode, Node targetNode, AlgorithmStrategy ag) {
     // TODO: change to accommodate Admin choice of A*, DFS, or BFS
-    //aStarSearch = new AStarSearch(this, startNode, targetNode);
-    //List<Node> route = AStarSearch.findRoute();
-    List<Node> route = AlgorithmStrategy.findRoute(this,startNode,targetNode);
+    // aStarSearch = new AStarSearch(this, startNode, targetNode);
+    // List<Node> route = AStarSearch.findRoute();
+    List<Node> route = AlgorithmStrategy.findRoute(this, startNode, targetNode);
     //    LinkedList<Node> routeNodes = new LinkedList<>();
     //    for (Node node : route) {
     //      routeNodes.add(node);

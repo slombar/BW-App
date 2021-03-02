@@ -15,7 +15,7 @@
          <children>
             <Label text="Computer Service Request" textFill="WHITE">
                <font>
-                  <Font name="Georgia Bold" size="55.0" />
+                  <Font name="Leelawadee UI Bold" size="55.0" />
                </font>
             </Label>
          </children>
@@ -28,15 +28,15 @@
                <children>
                   <Label prefWidth="100.0" text="Name" textFill="WHITE">
                      <font>
-                        <Font name="Georgia" size="22.0" />
+                        <Font name="Leelawadee UI" size="22.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Name of Requester" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Name of Requester" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
                      <font>
-                        <Font name="Georgia" size="18.0" />
+                        <Font name="Leelawadee UI" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -48,22 +48,22 @@
                <children>
                   <Label prefWidth="100.0" text="Date" textFill="WHITE">
                      <font>
-                        <Font name="Georgia" size="22.0" />
+                        <Font name="Leelawadee UI" size="22.0" />
                      </font>
                   </Label>
-                  <JFXDatePicker defaultColor="#0000009a" prefWidth="250.0" promptText="Date of Request" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" />
+                  <JFXDatePicker defaultColor="#0000009a" prefWidth="250.0" promptText="Date of Request" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label prefWidth="100.0" text="Location" textFill="WHITE">
                      <font>
-                        <Font name="Georgia" size="22.0" />
+                        <Font name="Leelawadee UI" size="22.0" />
                      </font>
                   </Label>
-                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
                      <font>
-                        <Font name="Georgia" size="18.0" />
+                        <Font name="Leelawadee UI" size="18.0" />
                      </font></JFXTextField>
                </children>
             </HBox>

@@ -62,8 +62,8 @@ public class UserHandling {
   }
 
   public static void createEmployee(
-          String username, String password, String email, String fName, String lName, boolean admin)
-          throws SQLException {
+      String username, String password, String email, String fName, String lName, boolean admin)
+      throws SQLException {
 
     String encodedPass = null;
     try {
@@ -73,21 +73,21 @@ public class UserHandling {
     }
 
     String query =
-            "INSERT INTO USERS VALUES('"
-                    + username
-                    + "', '"
-                    + encodedPass
-                    + "', '"
-                    + email
-                    + "', '"
-                    + fName
-                    + "', '"
-                    + lName
-                    + "', "
-                    + true
-                    + ", "
-                    + admin
-                    + ")";
+        "INSERT INTO USERS VALUES('"
+            + username
+            + "', '"
+            + encodedPass
+            + "', '"
+            + email
+            + "', '"
+            + fName
+            + "', '"
+            + lName
+            + "', "
+            + true
+            + ", "
+            + admin
+            + ")";
 
     System.out.println("CREATE ACCT QUERY: " + query);
 
