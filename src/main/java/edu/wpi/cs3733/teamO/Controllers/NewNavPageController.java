@@ -10,7 +10,6 @@ import edu.wpi.cs3733.teamO.model.Node;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

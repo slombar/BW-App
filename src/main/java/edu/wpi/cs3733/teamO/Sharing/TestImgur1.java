@@ -71,14 +71,16 @@ public class TestImgur1 {
       System.out.println(conne.getHeaderField(1));
     */
 
-    File f = new File("/C:/Users/Dimas/Pictures/amongus.png");
+    File f =
+        new File(
+            "C:\\Users\\Samuel\\IdeaProjects\\BW-App\\src\\main\\resources\\Faulkner3_Updated.png");
     String encodstring = encodeFileToBase64Binary(f);
 
     Unirest.setTimeouts(0, 0);
     HttpResponse<String> response =
         Unirest.post("https://api.imgur.com/3/upload")
             .header("Authorization", "Bearer 5eeae49394cd929e299785c8805bd168fc675280")
-            .field("file", new File("C:/Users/Dimas/Downloads/Screenshot_2 (3).png"))
+            .field("image", f)
             .asString();
 
     System.out.println(response.getBody());
