@@ -3,7 +3,7 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.*;
 
-class AStarSearch {
+class AStarSearch implements AlgorithmStrategy{
 
   private Graph graph;
   private int graphSize;
@@ -105,7 +105,7 @@ class AStarSearch {
     }
   }*/
 
-  static List<Node> findRoute() {
+  public static List<Node> findRoute() {
     // sets start node based on startID provided in constructor
 
     // path, but in reverse order

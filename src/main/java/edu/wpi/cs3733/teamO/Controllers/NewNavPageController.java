@@ -238,7 +238,7 @@ public class NewNavPageController implements Initializable {
     // TODO: only draw visible if patient/guest
     graph.drawAllNodes(sFloor, startNode, endNode);
   }
-
+  /*
   public void doPathfind(ActionEvent actionEvent) {
     List<Node> path = graph.findPath(startNode, endNode);
 
@@ -251,6 +251,8 @@ public class NewNavPageController implements Initializable {
       //   gc, nodeA.getXCoord(), nodeA.getYCoord(), nodeB.getXCoord(), nodeB.getYCoord());
     }
   }
+
+   */
 
   public void goToSideMenu(MouseEvent mouseEvent) {}
 

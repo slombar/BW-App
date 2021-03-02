@@ -6,8 +6,8 @@ import java.util.Stack;
 
 class DFS {
 
-  private Stack<Node> stack;
-  private LinkedList<String> llVisited;
+  private static Stack<Node> stack;
+  private static LinkedList<String> llVisited;
 
   // Constructor
   DFS() {
@@ -16,7 +16,7 @@ class DFS {
   }
 
   // main method for depth-first search
-  LinkedList<Node> dfs(Node g, Node end) {
+  public static LinkedList<Node> findRoute(Node g, Node end) {
 
     if (g.equals(end)) new LinkedList<Node>();
     g.setVisited(true);
@@ -26,20 +26,20 @@ class DFS {
   }
 
   // Helper method for dfs method
-  LinkedList<Node> dfsStack(Node rootNode, Node end) {
-    this.stack.add(rootNode);
+  static LinkedList<Node> dfsStack(Node rootNode, Node end) {
+    stack.add(rootNode);
     rootNode.setVisited(true);
     LinkedList<Node> path = new LinkedList<>();
 
     while (!stack.isEmpty()) {
 
-      Node actualNode = this.stack.pop();
+      Node actualNode = stack.pop();
 
       for (Node g : actualNode.getNeighbourList()) {
         if (!g.isVisited()) {
           g.setVisited(true);
           llVisited.add(g.getID());
-          this.stack.push(g);
+          stack.push(g);
           path.add(g);
           if(g.equals(end)) return path;
         }

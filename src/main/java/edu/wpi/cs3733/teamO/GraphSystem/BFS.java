@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BFS {
+public class BFS implements AlgorithmStrategy{
 
-  private Queue<Node> queue;
+  private static Queue<Node> queue;
   private LinkedList<String> visited;
 
   BFS() {
@@ -16,7 +16,7 @@ public class BFS {
   }
 
   // main method for breadth-first search
-  LinkedList<Node> bfs(Node n, Node end) {
+  public static LinkedList<Node> findRoute(Graph graph,Node n, Node end) {
 
     LinkedList<Node> path = new LinkedList<>();
 
