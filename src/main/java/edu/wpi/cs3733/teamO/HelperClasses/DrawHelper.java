@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 // class that SOLEY draws shit
@@ -29,8 +30,6 @@ public class DrawHelper {
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
 
     Circle tempCir = new Circle();
-
-    // TODO: figure out the color situation (eg. changing when selected)
 
     // for each node in the DB, add their circle to the map
     for (Node n : nodeList) {
@@ -112,5 +111,26 @@ public class DrawHelper {
       gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
     }
     gc.strokeLine(ax, ay, bx, by);
+  }
+
+  /**
+   * Draws the given Circle in the given color
+   *
+   * @param gc GraphicsContext on which to draw
+   * @param circle circle (node) being drawn
+   * @param paint Color.COLOR being drawn
+   */
+  public static void drawSingleNode(GraphicsContext gc, Circle circle, Paint paint) {
+    gc.setGlobalAlpha(0.9);
+    gc.setFill(paint);
+    gc.setStroke(Color.BLACK);
+    gc.setLineWidth(1.0);
+
+    double tempCirX = circle.getCenterX() - circle.getRadius();
+    double tempCirY = circle.getCenterY() - circle.getRadius();
+    double diameter = 2 * circle.getRadius();
+
+    gc.fillOval(tempCirX, tempCirY, diameter, diameter);
+    gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
   }
 }

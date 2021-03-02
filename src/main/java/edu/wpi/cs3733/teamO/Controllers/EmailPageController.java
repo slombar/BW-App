@@ -39,7 +39,7 @@ public class EmailPageController implements Initializable {
   @FXML private JFXButton confirmBtn;
   @FXML private ImageView mapView;
   @FXML private static Image screenShot;
-  @FXML private StackPane sharePane;    // this thing might fuck up our code :))
+  @FXML private StackPane sharePane; // this thing might fuck up our code :))
 
   public Canvas mapcanvas;
   public AnchorPane mapanchor;

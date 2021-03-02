@@ -2,10 +2,9 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-public class BFS implements AlgorithmStrategy{
+public class BFS implements AlgorithmStrategy {
 
   private static Queue<Node> queue;
   private LinkedList<String> visited;
@@ -16,7 +15,7 @@ public class BFS implements AlgorithmStrategy{
   }
 
   // main method for breadth-first search
-  public static LinkedList<Node> findRoute(Graph graph,Node n, Node end) {
+  public static LinkedList<Node> findRoute(Graph graph, Node n, Node end) {
 
     LinkedList<Node> path = new LinkedList<>();
 
@@ -45,8 +44,6 @@ public class BFS implements AlgorithmStrategy{
     return new LinkedList<Node>(); // in case if bfs couldn't find any path to the given node
   }
 
-
-
   // simple testing of bfs algorithm
   public static void main(String[] args) {
     Node n1 = new Node("1", 2, 3);
@@ -64,6 +61,6 @@ public class BFS implements AlgorithmStrategy{
 
     // output should be 2 0 3 1
     BFS bfs = new BFS();
-    //bfs.bfs(n2);
+    // bfs.bfs(n2);
   }
 }

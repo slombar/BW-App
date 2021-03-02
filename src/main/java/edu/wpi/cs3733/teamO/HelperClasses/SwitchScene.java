@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 public class SwitchScene {
 
   /**
-   * switches teh scene to a scene made on a border pane
+   * switches the scene to a scene made on a border pane
    *
    * @param path to desired FXML file
    */
@@ -25,7 +25,7 @@ public class SwitchScene {
   }
 
   /**
-   * switches teh scene to a scene made on a border pane
+   * switches the scene to a scene made on a border pane
    *
    * @param path to desired FXML file
    */
@@ -39,7 +39,7 @@ public class SwitchScene {
   }
 
   /**
-   * switches teh scene to a scene made on a grid pane
+   * switches the scene to a scene made on a grid pane
    *
    * @param path to desired FXML file
    */
@@ -53,7 +53,7 @@ public class SwitchScene {
   }
 
   /**
-   * switches teh scene to a scene made on a anchor pane
+   * switches the scene to a scene made on a anchor pane
    *
    * @param path to desired FXML file
    */
