@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Sharing;
 
 import edu.wpi.cs3733.teamO.Database.UserHandling;
-
 import java.io.File;
 import java.util.Properties;
 import javax.activation.DataHandler;
@@ -65,9 +64,11 @@ public class EmailThreader extends Thread {
       // Check if user is employee/admin/patient or guest
 
       if (UserHandling.getLoginStatus())
-        messageBodyPart.setText("Hello " + UserHandling.getFirstName() + "! Below is the image of your pathfinding route.");
-      else
-        messageBodyPart.setText("Hello! Below is the image of your pathfinding route.");
+        messageBodyPart.setText(
+            "Hello "
+                + UserHandling.getFirstName()
+                + "! Below is the image of your pathfinding route.");
+      else messageBodyPart.setText("Hello! Below is the image of your pathfinding route.");
 
       // Create a multipart message + set text message part
       Multipart multipart = new MimeMultipart();

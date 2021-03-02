@@ -33,15 +33,25 @@ public class DrawHelper {
 
     // for each node in the DB, add their circle to the map
     for (Node n : nodeList) {
-      gc.setGlobalAlpha(0.9);
+      gc.setGlobalAlpha(1.0);
       gc.setFill(Color.YELLOW);
       gc.setStroke(Color.BLACK);
-      gc.setLineWidth(1.0);
+      gc.setLineWidth(2.0);
 
       tempCir = ncTable.get(n);
       double tempCirX = tempCir.getCenterX() - tempCir.getRadius();
       double tempCirY = tempCir.getCenterY() - tempCir.getRadius();
       double diameter = 2 * tempCir.getRadius();
+
+      if (n.getNodeType().equals("STAI")) {
+        gc.setFill(Color.GREEN);
+      } else if (n.getNodeType().equals("ELEV")) {
+        gc.setFill(Color.PURPLE);
+      }
+
+      if (n.getNodeType().equals("EXIT")) {
+        gc.setFill(Color.ORANGE);
+      }
 
       if (n.equals(startNode)) {
         gc.setFill(Color.BLUE);
@@ -77,7 +87,8 @@ public class DrawHelper {
   public static void drawMidArrow(GraphicsContext gc, Circle circleA, Circle circleB) {
     double arrowLength = 6;
     final double arrowWidth = 4;
-    final double minArrowDistSq = 108;
+    final double minArrowDistSq = 180;
+    // ^ do the dist you wanted squared (probably want 5*(arrowLength^2))
 
     double ax = circleA.getCenterX();
     double ay = circleA.getCenterY();
@@ -107,8 +118,11 @@ public class DrawHelper {
       double arrow2startX = (cx + dx + oy);
       double arrow2startY = (cy + dy - ox);
 
+      gc.setLineWidth(3.0);
       gc.strokeLine(arrow1startX, arrow1startY, cx, cy);
       gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
+    } else {
+      boolean dummy = true;
     }
     gc.strokeLine(ax, ay, bx, by);
   }
@@ -121,10 +135,10 @@ public class DrawHelper {
    * @param paint Color.COLOR being drawn
    */
   public static void drawSingleNode(GraphicsContext gc, Circle circle, Paint paint) {
-    gc.setGlobalAlpha(0.9);
+    gc.setGlobalAlpha(1.0);
     gc.setFill(paint);
     gc.setStroke(Color.BLACK);
-    gc.setLineWidth(1.0);
+    gc.setLineWidth(2.0);
 
     double tempCirX = circle.getCenterX() - circle.getRadius();
     double tempCirY = circle.getCenterY() - circle.getRadius();

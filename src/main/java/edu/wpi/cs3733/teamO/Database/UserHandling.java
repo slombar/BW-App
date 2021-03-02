@@ -214,7 +214,7 @@ public class UserHandling {
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
-    //setFirstName(fName);
+    // setFirstName(fName);
     setLoginStatus(true);
     setUsername(u);
 
@@ -300,6 +300,24 @@ public class UserHandling {
     return b;
   }
 
+  public static void assignEmployee(String reqID, String employee) {
+    String query =
+        "UPDATE Requests SET requestedBy = '" + employee + "', WHERE requestID = '" + reqID + "'";
+    PreparedStatement preparedStmt = null;
+
+    try {
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      return;
+    }
+    System.out.println(
+        "Request with ID: " + reqID + "has been assigned employee: " + employee + ".");
+  }
+
   public static String getUsername() {
     return username;
   }
@@ -312,7 +330,9 @@ public class UserHandling {
     return isLoggedIn;
   }
 
-  public static void setLoginStatus(Boolean b) { isLoggedIn = b; }
+  public static void setLoginStatus(Boolean b) {
+    isLoggedIn = b;
+  }
 
   public static String getFirstName() {
     return fName;
