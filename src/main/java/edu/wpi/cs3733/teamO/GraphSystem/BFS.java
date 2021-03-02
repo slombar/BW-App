@@ -1,4 +1,4 @@
-/*package edu.wpi.cs3733.teamO.GraphSystem;
+package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.LinkedList;
@@ -42,15 +42,17 @@ public class BFS {
     Node n2 = new Node("2", 4, 3);
     Node n3 = new Node("3", 4, 5);
 
-    n0.addNeighbour(n2);
+    /*
+    n0.addNeighbour(n2,n0);
     n0.addNeighbour(n1);
     n2.addNeighbour(n0);
     n2.addNeighbour(n3);
     n1.addNeighbour(n2);
+     */
 
     // output should be 2 0 3 1
     BFS bfs = new BFS();
     bfs.bfs(n2);
   }
 }
-*/
+
