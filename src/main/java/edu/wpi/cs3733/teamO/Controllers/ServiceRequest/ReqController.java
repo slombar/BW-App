@@ -108,7 +108,7 @@ public class ReqController implements Initializable {
     displayList(reqList);
 
     assignButton.setDisable(!UserHandling.getAdmin());
-    assignButton.setVisible(!UserHandling.getAdmin());
+    assignButton.setVisible(UserHandling.getAdmin());
   }
 
   public void addNewRequest(ActionEvent actionEvent) {
