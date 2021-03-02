@@ -72,7 +72,6 @@ public class NodesAndEdges {
             + ", "
             + visible
             + ")";
-    System.out.println(query);
 
     try {
       PreparedStatement preparedStmt = null;
@@ -108,7 +107,6 @@ public class NodesAndEdges {
             + "', "
             + 0
             + ")";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -144,7 +142,6 @@ public class NodesAndEdges {
             + "', "
             + length
             + ")";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -189,7 +186,6 @@ public class NodesAndEdges {
 
   public static void deleteNode(String nodeID) {
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -208,7 +204,6 @@ public class NodesAndEdges {
   /** @param nodeID */
   public static void deleteEdge(String nodeID) {
     String query = "DELETE FROM Edges WHERE nodeID = '" + nodeID + "'";
-    System.out.println("QUERY: " + query);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -321,16 +316,16 @@ public class NodesAndEdges {
       ResultSet rset = pstmt.executeQuery();
 
       // add properties to the node
-      n.setID(rset.getString("nodeID"));
-      n.setBuilding(rset.getString("building"));
-      n.setFloor(rset.getString("floor"));
-      n.setShortName(rset.getString("shortName"));
-      n.setLongName(rset.getString("longName"));
-      n.setNodeType(rset.getString("nodeType"));
-      n.setXCoord(rset.getInt("xcoord"));
-      n.setYCoord(rset.getInt("ycoord"));
-      n.setTeam(rset.getString("teamAssigned"));
-      n.setVisible(rset.getBoolean("visible"));
+      n.setID(rset.getString("NODEID"));
+      n.setBuilding(rset.getString("BUILDING"));
+      n.setFloor(rset.getString("FLOOR"));
+      n.setShortName(rset.getString("SHORTNAME"));
+      n.setLongName(rset.getString("LONGNAME"));
+      n.setNodeType(rset.getString("NODETYPE"));
+      n.setXCoord(rset.getInt("XCOORD"));
+      n.setYCoord(rset.getInt("YCOORD"));
+      n.setTeam(rset.getString("TEAMASSIGNED"));
+      n.setVisible(rset.getBoolean("VISIBLE"));
 
       rset.close();
       pstmt.close();
@@ -359,10 +354,10 @@ public class NodesAndEdges {
       ResultSet rset = pstmt.executeQuery();
 
       // add properties to the node
-      e.setID(rset.getString("nodeID"));
-      e.setStart(rset.getString("startNode"));
-      e.setID(rset.getString("endNode"));
-      e.setLength(rset.getDouble("length"));
+      e.setID(rset.getString("NODEID"));
+      e.setStart(rset.getString("STARTNODE"));
+      e.setID(rset.getString("ENDNODE"));
+      e.setLength(rset.getDouble("LENGTH"));
 
       rset.close();
       pstmt.close();
@@ -403,16 +398,16 @@ public class NodesAndEdges {
 
       while (rset.next()) {
         // add data from result set of query to observable list for processing
-        ID = rset.getString("nodeID");
-        xcoord = rset.getInt("xcoord");
-        ycoord = rset.getInt("ycoord");
-        floor = rset.getString("floor");
-        building = rset.getString("building");
-        nodeType = rset.getString("nodeType");
-        longName = rset.getString("longName");
-        shortName = rset.getString("shortName");
-        team = rset.getString("teamAssigned");
-        visible = rset.getBoolean("visible");
+        ID = rset.getString("NODEID");
+        xcoord = rset.getInt("XCOORD");
+        ycoord = rset.getInt("YCOORD");
+        floor = rset.getString("FLOOR");
+        building = rset.getString("BUILDING");
+        nodeType = rset.getString("NODETYPE");
+        longName = rset.getString("LONGNAME");
+        shortName = rset.getString("SHORTNAME");
+        team = rset.getString("TEAMASSIGNED");
+        visible = rset.getBoolean("VISIBLE");
         // add to observable list
         nodeList.add(
             new Node(
@@ -423,7 +418,6 @@ public class NodesAndEdges {
       pstmt.close();
 
     } catch (SQLException e) {
-      System.out.println("Report Node Information: Failed!");
       e.printStackTrace();
     }
     return nodeList;
