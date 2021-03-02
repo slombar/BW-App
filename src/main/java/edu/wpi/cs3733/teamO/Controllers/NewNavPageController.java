@@ -278,27 +278,21 @@ public class NewNavPageController implements Initializable {
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
     if (addNodeMode) {
-      xCoord.setText(String.valueOf(mouseEvent.getX()));
-      yCoord.setText(String.valueOf(mouseEvent.getY()));
+      //      xCoord.setText(String.valueOf(mouseEvent.getX()));
+      //      yCoord.setText(String.valueOf(mouseEvent.getY()));
 
-      NodesAndEdges.addNode(
-          nodeID.getText(),
-          xCoord.getText(),
-          yCoord.getText(),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          true);
+      Node n = new Node();
+      n.setXCoord((int) mouseEvent.getX());
+      n.setYCoord((int) mouseEvent.getY());
 
-      nodeID.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
+      autocompleteEditMap(n);
+
+      //      nodeID.clear();
+      //      floor.clear();
+      //      building.clear();
+      //      nodeType.clear();
+      //      longName.clear();
+      //      shortName.clear();
       addNodeMode = false;
     } else if (editToggle.isSelected()) {
       autocompleteEditMap(clickedNode);
