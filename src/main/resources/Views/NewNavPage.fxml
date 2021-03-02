@@ -82,7 +82,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="clearBtn1" onAction="#clearSelection" prefHeight="25.0" prefWidth="45.0" text="Clear" />
+                  <JFXButton fx:id="clearBtn1" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearSelection" prefHeight="25.0" prefWidth="46.0" text="Clear" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
