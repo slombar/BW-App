@@ -84,6 +84,41 @@ public class NodesAndEdges {
   }
 
   /**
+   * adds a new edge
+   * @param startNode
+   * @param endNode
+   */
+  public static void addNewEdge(String startNode, String endNode) {
+    String nodeID = startNode + "_" + endNode;
+    String query =
+            "INSERT INTO Edges VALUES("
+                    + "'"
+                    + nodeID
+                    + "'"
+                    + ", "
+                    + "'"
+                    + startNode
+                    + "'"
+                    + ", "
+                    + "'"
+                    + endNode
+                    + "', "
+                    + 0
+                    + ")";
+    System.out.println("QUERY: " + query);
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+      preparedStmt.execute();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  /**
    * Adds a row to the edges table
    *
    * @param startNode
