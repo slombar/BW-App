@@ -24,6 +24,8 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
+  public JFXButton uploadCSVBtn;
+  public JFXButton saveCSVBtn;
   @FXML private JFXButton clearBtn1;
   // edit map components
   @FXML private VBox editVBox;
@@ -44,6 +46,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton editEdgeBtn;
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
+  private boolean addNodeMode;
 
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -144,7 +147,7 @@ public class NewNavPageController implements Initializable {
     } else {
       editVBox.setVisible(true);
     }
-    autocompleteEditMap();
+    addNodeMode = false;
   }
 
   /**
@@ -182,15 +185,15 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  public void autocompleteEditMap() {
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), nodeID);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("xCoord"), xCoord);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("yCoord"), yCoord);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("floor"), floor);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("building"), building);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeType"), nodeType);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("longName"), longName);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("shortName"), shortName);
+  public void autocompleteEditMap(Node clickedNode) {
+    nodeID.setText(clickedNode.getID());
+    xCoord.setText(String.valueOf(clickedNode.getXCoord()));
+    yCoord.setText(String.valueOf(clickedNode.getYCoord()));
+    floor.setText(clickedNode.getFloor());
+    building.setText(clickedNode.getBuilding());
+    nodeType.setText(clickedNode.getNodeType());
+    longName.setText(clickedNode.getLongName());
+    shortName.setText(clickedNode.getShortName());
   }
 
   public void goToMain(ActionEvent actionEvent) {
@@ -258,15 +261,18 @@ public class NewNavPageController implements Initializable {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
-    if (editToggle.isSelected()) {
-      nodeID.setText(clickedNode.getID());
-      xCoord.setText(String.valueOf(clickedNode.getXCoord()));
-      yCoord.setText(String.valueOf(clickedNode.getYCoord()));
-      floor.setText(clickedNode.getFloor());
-      building.setText(clickedNode.getBuilding());
-      nodeType.setText(clickedNode.getNodeType());
-      longName.setText(clickedNode.getLongName());
-      shortName.setText(clickedNode.getShortName());
+    if (addNodeMode) {
+      xCoord.setText(String.valueOf(mouseEvent.getX()));
+      yCoord.setText(String.valueOf(mouseEvent.getY()));
+      nodeID.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+      addNodeMode = false;
+    } else if (editToggle.isSelected()) {
+      autocompleteEditMap(clickedNode);
     } else {
       if (selectingStart) {
         startNode = clickedNode;
@@ -279,6 +285,7 @@ public class NewNavPageController implements Initializable {
     }
   }
 
+  // TODO: set start/end to different colors
   public void startLocSelection(ActionEvent actionEvent) {
     selectingStart = true;
   }
@@ -287,6 +294,7 @@ public class NewNavPageController implements Initializable {
     selectingStart = false;
   }
 
+  // TODO: reset button??? (needs to set startNode and endNode to null)
   public void toSharePage(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
@@ -299,4 +307,32 @@ public class NewNavPageController implements Initializable {
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
+  public void deleteNode(ActionEvent actionEvent) {}
+
+  public void addNode(ActionEvent actionEvent) {
+    addNodeMode = true;
+  }
+
+  public void editEdge(ActionEvent actionEvent) {}
+
+  public void addEdge(ActionEvent actionEvent) {}
+
+  public void deleteEdge(ActionEvent actionEvent) {}
+
+  public void editNode(ActionEvent actionEvent) {}
+
+  public void uploadCSV(ActionEvent actionEvent) {
+  }
+
+  public void saveCSV(ActionEvent actionEvent) {
+  }
+
+  //  public ArrayList<Double> addNodeClick(MouseEvent mouseEvent) {
+  //    ArrayList<Double> mouseCoord = new ArrayList<>();
+  //    double mouseX = mouseEvent.getX();
+  //    double mouseY = mouseEvent.getY();
+  //    mouseCoord.set(0, mouseX);
+  //    mouseCoord.set(1, mouseY);
+  //    return mouseCoord;
+  //  }
 }

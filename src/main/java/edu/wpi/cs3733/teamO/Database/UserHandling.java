@@ -1,14 +1,101 @@
 package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
+import edu.wpi.cs3733.teamO.SRequest.Request;
+import edu.wpi.cs3733.teamO.UserTypes.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class UserHandling {
 
   private static String username;
+
+  public static ObservableList<User> getUsers(){
+
+    ObservableList<User> userList = FXCollections.observableArrayList();
+
+    try {
+      String query = "SELECT * FROM Requests";
+      // database statement to grab values
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      // returns the results from query
+      ResultSet rset = pstmt.executeQuery();
+
+      // temp variables for assignment
+      String reqID = "";
+      String requestedBy = "";
+      String fulfilledBy = "";
+      Date dateRequested = new Date();
+      Date dateNeeded = new Date();
+      String requestType = "";
+      String location = "";
+      String summary = "";
+      String para1 = "";
+      String para2 = "";
+      String para3 = "";
+
+      // grab everything from the result set and add to observable list for processing
+      while (rset.next()) {
+        reqID = rset.getString("requestID");
+        requestedBy = rset.getString("requestedBy");
+        fulfilledBy = rset.getString("fulfilledBy");
+        dateRequested = rset.getDate("dateRequested");
+        dateNeeded = rset.getDate("dateNeeded");
+        requestType = rset.getString("reqtype");
+        location = rset.getString("location");
+        summary = rset.getString("summary");
+        para1 = rset.getString("para1");
+        para2 = rset.getString("para2");
+        para3 = rset.getString("para3");
+
+        User user = new User();
+
+        System.out.println(
+                "Retrieved this from Services: "
+                        + reqID
+                        + ", "
+                        + requestedBy
+                        + ", "
+                        + fulfilledBy
+                        + ", "
+                        + dateRequested.toString()
+                        + ", "
+                        + dateNeeded.toString()
+                        + ", "
+                        + requestType
+                        + ", "
+                        + location
+                        + ", "
+                        + summary
+                        + ", "
+                        + para1
+                        + ", "
+                        + para2
+                        + ", "
+                        + para3);
+
+        userList.add(user);
+      }
+
+      // must close these for update to occur
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+
+    return userList;
+
+  }
 
   /**
    * Create new account and add info to the database password is encrypted through Encryptor from
