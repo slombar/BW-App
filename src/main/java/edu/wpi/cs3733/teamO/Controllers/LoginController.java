@@ -18,6 +18,7 @@ import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
 
+  @FXML private JFXButton loginDodge;
   @FXML private JFXButton exitBtn;
   @FXML private Circle staffBtn;
   @FXML private Circle patientBtn;
@@ -58,10 +59,6 @@ public class LoginController implements Initializable {
       throwables.printStackTrace();
       System.out.println("Did you delete the guest account????????? >:( ");
     }
-  }
-
-  public void tempBTN(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/StaffMainPage.fxml");
   }
 
   /**

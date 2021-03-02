@@ -10,6 +10,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.io.File;
 import java.io.IOException;
@@ -66,8 +67,6 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
   @FXML private JFXToggleButton showEdgesToggle;
-  private boolean addNodeMode;
-  private boolean addNodeDB;
 
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -96,11 +95,9 @@ public class NewNavPageController implements Initializable {
   private String sideMenuUrl;
 
   private Graph graph;
-  boolean selectingStart = true;
   Node startNode = null;
   Node endNode = null;
-  private boolean displayingRoute = false;
-  boolean navigating = true;
+  Node selectedNode = null;
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
@@ -113,7 +110,45 @@ public class NewNavPageController implements Initializable {
   public static Image floor4Map = new Image("Faulkner4_Updated.png");
   public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
+  // booleans:
+
+  private boolean editing = false;
+
+  // navigating bools:
+  private boolean selectingStart = false;
+  private boolean selectingEnd = false;
+  private boolean displayingRoute = false;
+
+  private void setNavFalse() {
+    selectingStart = false;
+    selectingEnd = false;
+    displayingRoute = false;
+    startNode = null;
+    endNode = null;
+  }
+
+  // editing bools:
+  private boolean selectingEditNode = false;
+  private boolean addNodeMode = false;
+  private boolean addNodeDBMode = false;
+  private boolean addingEdgeBD = false;
+  // private boolean addingEdgeN1 = false;
+  // private boolean addingEdgeN2 = false;
+
+  private boolean showingEdges = false;
+
+  private void setEditFalse() {
+    selectingEditNode = false;
+    addNodeMode = false;
+    addNodeDBMode = false;
+    addingEdgeBD = false;
+    showingEdges = false;
+    selectedNode = null;
+  }
+
+  ////////////////////
   ///// Methods: /////
+  ////////////////////
 
   public NewNavPageController() {}
 
@@ -151,13 +186,8 @@ public class NewNavPageController implements Initializable {
       e.printStackTrace();
     }
 
-    // TODO: change to visible nodes if PATIENT/GUEST
-    if (navigating) {
-      graph.drawVisibleNodes("G", startNode, endNode);
-    } else {
-      graph.drawAllNodes("G", startNode, endNode);
-      if (showEdgesToggle.isSelected()) graph.drawAllEdges("G");
-    }
+    // draws appropriately accordingly to combination of booleans
+    draw(1);
 
     // just for testing
 
@@ -178,17 +208,11 @@ public class NewNavPageController implements Initializable {
           else drawer.open(); // this will open slide pane
         });
 
-    if (!editToggle.isSelected()) {
-      editVBox.setVisible(false);
-    } else {
-      editVBox.setVisible(true);
-    }
-    addNodeMode = false;
-    addNodeDB = false;
+    editVBox.setVisible(editToggle.isSelected());
+
     // autocompletes the node Id for start and end
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
-
   }
 
   /**
@@ -219,11 +243,17 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editMode(ActionEvent actionEvent) {
-    if (!editToggle.isSelected()) {
-      editVBox.setVisible(false);
+    editing = editToggle.isSelected();
+    editVBox.setVisible(editing);
+
+    if (editing) {
+      setNavFalse();
+      selectingEditNode = true;
     } else {
-      editVBox.setVisible(true);
+      setEditFalse();
     }
+
+    draw();
   }
 
   public void autocompleteEditMap(Node clickedNode) {
@@ -279,287 +309,170 @@ public class NewNavPageController implements Initializable {
     }
 
     resizeCanvas();
-    // TODO: only draw visible if patient/guest
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
+    draw();
   }
 
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       graph.resetPath();
       graph.findPath(startNode, endNode);
-      graph.drawCurrentPath(sFloor, startNode, endNode);
       displayingRoute = true;
+      selectingStart = false;
+      selectingEnd = false;
     }
     // TODO: else -> throw exception? or make popup or something? idk
+    draw();
   }
-
-  public void goToSideMenu(MouseEvent mouseEvent) {}
 
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
-    if (addNodeMode) {
-      Node n = new Node();
-      n.setXCoord((int) mouseEvent.getX());
-      n.setYCoord((int) mouseEvent.getY());
-
-      autocompleteEditMap(n);
-
-      addNodeMode = false;
-    } else if (editToggle.isSelected()) {
-      autocompleteEditMap(clickedNode);
-    } else {
+    // if navigating
+    if (!editing) {
       if (selectingStart) {
         startNode = clickedNode;
-      } else {
+      } else if (selectingEnd) {
         endNode = clickedNode;
       }
+    }
+    // if editing
+    else {
+      if (selectingEditNode) {
+        autocompleteEditMap(clickedNode);
+      } else if (addNodeMode) {
+        Node n = new Node();
+        n.setXCoord((int) mouseEvent.getX());
+        n.setYCoord((int) mouseEvent.getY());
 
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+        autocompleteEditMap(n);
       }
     }
-    System.out.println("Click");
+
+    draw();
+
+    if (addNodeMode) {
+      // TODO: draw circle
+
+      addNodeMode = false;
+      selectingEditNode = false; // (still)
+    }
+
+    System.out.println("mapCanvas click");
   }
 
-  // TODO: set start/end to different colors
   public void startLocSelection(ActionEvent actionEvent) {
     selectingStart = true;
+    selectingEnd = false;
   }
 
   public void endLocSelection(ActionEvent actionEvent) {
     selectingStart = false;
+    selectingEnd = true;
   }
 
-  // TODO: reset button??? (needs to set startNode and endNode to null)
+  /**
+   * creates an output file
+   *
+   * @param fileName
+   * @return file
+   */
+  public File createOutputFile(String fileName) {
+    String home = System.getProperty("user.home");
+    File outputFile = new File(home + "/Downloads/" + fileName);
+    return outputFile;
+  }
+
+  /**
+   * grabs an image from a floor and gives it an output file
+   *
+   * @param image
+   * @param floor
+   * @param outputFile
+   * @return WritableImage
+   * @throws IOException
+   */
+  public WritableImage grabImage(Image image, String floor, File outputFile) throws IOException {
+
+    imageView.setImage(image);
+    sFloor = floor;
+    resizeCanvas();
+    draw();
+    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+    return map;
+  }
+
+  /**
+   * takes pictures of every floor to email and navigates to email page
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
   public void toSharePage(ActionEvent actionEvent) throws IOException {
 
-    // sharePane.toBack();
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
-
     mapCanvas.getGraphicsContext2D();
-    String home = System.getProperty("user.home");
-    File outputFile1 = new File(home + "/Downloads/" + "mapimg1.png");
-    File outputFile2 = new File(home + "/Downloads/" + "mapimg2.png");
-    File outputFile3 = new File(home + "/Downloads/" + "mapimg3.png");
-    File outputFile4 = new File(home + "/Downloads/" + "mapimg4.png");
-    File outputFile5 = new File(home + "/Downloads/" + "mapimg5.png");
-    File outputFile6 = new File(home + "/Downloads/" + "mapimg6.png");
-
-    imageView.setImage(campusMap);
-    sFloor = "G";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map1 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map1, null), "png", outputFile1);
-    imageView.setImage(floor1Map);
-    sFloor = "1";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map2 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map2, null), "png", outputFile2);
-    imageView.setImage(floor2Map);
-    sFloor = "2";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-      }
-    }
-    WritableImage map3 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map3, null), "png", outputFile3);
-    imageView.setImage(floor3Map);
-    sFloor = "3";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map4 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map4, null), "png", outputFile4);
-    imageView.setImage(floor4Map);
-    sFloor = "4";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map5 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map5, null), "png", outputFile5);
-    imageView.setImage(floor5Map);
-    sFloor = "5";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (navigating) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map6 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map6, null), "png", outputFile6);
-
+    WritableImage map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
+    WritableImage map2 = grabImage(floor1Map, "1", createOutputFile("mapimg2.png"));
+    WritableImage map3 = grabImage(floor2Map, "2", createOutputFile("mapimg3.png"));
+    WritableImage map4 = grabImage(floor3Map, "3", createOutputFile("mapimg4.png"));
+    WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
+    WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
     EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
-
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
   public void clearSelection(ActionEvent actionEvent) {
-    startNode = null;
-    endNode = null;
-    displayingRoute = false;
-    graph.resetPath();
-    resizeCanvas();
-    if (navigating) {
-      graph.drawVisibleNodes(sFloor, startNode, endNode);
-    } else {
-      graph.drawAllNodes(sFloor, startNode, endNode);
-      if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-    }
-  }
+    setNavFalse();
 
-  // TODO: reset button??? (needs to set startNode and endNode to null)
-  public void deleteNode(ActionEvent actionEvent) {
-    if (nodeID.getText().isEmpty()) {
-      PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
-      NodesAndEdges.deleteNode(nodeID.getText());
-      nodeID.clear();
-      xCoord.clear();
-      yCoord.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
-      setVisibility.setSelected(false);
-    }
+    graph.resetPath();
+
+    resizeCanvas();
+    draw();
   }
 
   public void addNode(ActionEvent actionEvent) {
     addNodeMode = true;
-    addNodeDB = true;
+    addNodeDBMode = true;
+    selectingEditNode = false;
+    addingEdgeBD = false;
   }
 
-  public void editEdge(ActionEvent actionEvent) {
-    if (edgeID.getText().isEmpty()
-        || startNodeID.getText().isEmpty()
-        || endNodeID.getText().isEmpty()) {
-      PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
-      NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
-      edgeID.clear();
-      startNodeID.clear();
-      endNodeID.clear();
-    }
-  }
-
-  public void addEdge(ActionEvent actionEvent) {
-    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
-      PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
-      NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
-      edgeID.clear();
-      startNodeID.clear();
-      endNodeID.clear();
-    }
-  }
-
-  public void deleteEdge(ActionEvent actionEvent) {
-    if (startNodeID.getText().isEmpty() ||endNodeID.getText().isEmpty()) {
-      PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
-      NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
-      edgeID.clear();
-      startNodeID.clear();
-      endNodeID.clear();
-    }
-  }
-
+  // TODO: make sure nodes take the checkbox value for VISIBLE
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
-
-    if (addNodeDB) {
+    if (addNodeDBMode) {
       if ((nodeID.getText() == null)
-          || (xCoord.getText() == null)
-          || (yCoord.getText() == null)
-          || (floor.getText() == null)
-          || (building.getText() == null)
-          || (nodeType.getText() == null)
-          || (longName.getText() == null)
-          || (shortName.getText() == null)) {
+              || (xCoord.getText() == null)
+              || (yCoord.getText() == null)
+              || (floor.getText() == null)
+              || (building.getText() == null)
+              || (nodeType.getText() == null)
+              || (longName.getText() == null)
+              || (shortName.getText() == null)) {
         PopupMaker.incompletePopup(nodeWarningPane);
       } else {
-
         try {
           NodesAndEdges.addNode(
-              nodeID.getText(),
-              xCoord.getText(),
-              yCoord.getText(),
-              floor.getText(),
-              building.getText(),
-              nodeType.getText(),
-              longName.getText(),
-              shortName.getText(),
-              "O",
-              setVisibility.isSelected());
+                  nodeID.getText(),
+                  xCoord.getText(),
+                  yCoord.getText(),
+                  floor.getText(),
+                  building.getText(),
+                  nodeType.getText(),
+                  longName.getText(),
+                  shortName.getText(),
+                  "O",
+                  setVisibility.isSelected());
         } catch (SQLException throwables) {
           //TODO: change the non existent to already existent
           PopupMaker.nonexistentPopup(nodeWarningPane);
         }
 
-        addNodeDB = false;
-      }
+
+      addNodeDBMode = false;
+    }
     } else {
       if (nodeID.getText().isEmpty()
           || xCoord.getText().isEmpty()
@@ -584,6 +497,21 @@ public class NewNavPageController implements Initializable {
           setVisibility.isSelected());
     }
 
+    Node n =
+        new Node(
+            nodeID.getText(),
+            Integer.parseInt(xCoord.getText()),
+            Integer.parseInt(yCoord.getText()),
+            floor.getText(),
+            building.getText(),
+            nodeType.getText(),
+            longName.getText(),
+            shortName.getText(),
+            "O",
+            setVisibility.isSelected());
+
+    graph.addNode(n);
+
     nodeID.clear();
     xCoord.clear();
     yCoord.clear();
@@ -593,14 +521,78 @@ public class NewNavPageController implements Initializable {
     longName.clear();
     shortName.clear();
     setVisibility.setSelected(false);
+
+    selectingEditNode = true;
+    draw();
+  }
+
+  public void deleteNode(ActionEvent actionEvent) {
+
+    if (nodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      NodesAndEdges.deleteNode(nodeID.getText());
+      graph.deleteNode(nodeID.getText());
+      nodeID.clear();
+      xCoord.clear();
+      yCoord.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+      setVisibility.setSelected(false);
+    }
+    draw();
+  }
+
+  public void addEdge(ActionEvent actionEvent) {
+    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
+      String eID = startNodeID.getText() + "_" + endNodeID.getText();
+      Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
+
+      edgeID.clear();
+      startNodeID.clear();
+      endNodeID.clear();
+    }
+    draw();
+  }
+
+  // TODO: remove this? only add/delete edges
+//  public void editEdge(ActionEvent actionEvent) {
+//    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
+//    // TODO: edit Edge in Graph
+//    edgeID.clear();
+//    startNodeID.clear();
+//    endNodeID.clear();
+//    draw();
+//  }
+
+  public void deleteEdge(ActionEvent actionEvent) {
+
+    if (startNodeID.getText().isEmpty() ||endNodeID.getText().isEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    } else {
+      NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
+      graph.deleteEdge(edgeID.getText());
+      edgeID.clear();
+      startNodeID.clear();
+      endNodeID.clear();
+    }
+    draw();
   }
 
   public void uploadN(ActionEvent actionEvent) {
     DataHandling.importExcelData(true);
+    // TODO: re-initialize Graph after uploading excel file?
   }
 
   public void uploadE(ActionEvent actionEvent) {
     DataHandling.importExcelData(false);
+    // TODO: re-initialize Graph after uploading excel file?
   }
 
   public void saveN(ActionEvent actionEvent) {
@@ -612,8 +604,40 @@ public class NewNavPageController implements Initializable {
   }
 
   public void showEdgesOnAction(ActionEvent actionEvent) {
-    if (showEdgesToggle.isSelected()) {
-      graph.drawAllEdges(sFloor);
+    if (editing) {
+      showingEdges = showEdgesToggle.isSelected();
+    }
+    draw();
+  }
+
+  private void draw() {
+    resizeCanvas();
+
+    // i know these can be simplified but i don't care -- this is more organized
+    if (!editing && !displayingRoute) {
+      graph.drawVisibleNodes(sFloor, startNode, endNode);
+    } else if (!editing && displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else if (editing) {
+      graph.drawAllNodes(sFloor, selectedNode);
+      if (showingEdges) {
+        graph.drawAllEdges(sFloor);
+      }
+    }
+  }
+
+  // ignore this -- BUT DON'T DELETE IT!!!!!!!!!!!!!!
+  private void draw(int i) {
+    // i know these can be simplified but i don't care -- this is more organized
+    if (!editing && !displayingRoute) {
+      graph.drawVisibleNodes(sFloor, startNode, endNode);
+    } else if (!editing && displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else if (editing) {
+      graph.drawAllNodes(sFloor, selectedNode);
+      if (showingEdges) {
+        graph.drawAllEdges(sFloor);
+      }
     }
   }
 }
