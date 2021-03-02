@@ -142,12 +142,10 @@ public class UserHandling {
     }
   }
 
-  public static boolean getAdmin(){
+  public static boolean getAdmin() {
     boolean b = false;
 
-    String query =
-            "SELECT * FROM USERS WHERE USERNAME = '"
-                    + getUsername() + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = '" + getUsername() + "'";
 
     try {
       PreparedStatement pstmt = null;
@@ -166,12 +164,10 @@ public class UserHandling {
     return b;
   }
 
-  public static boolean getEmployee(){
+  public static boolean getEmployee() {
     boolean b = false;
 
-    String query =
-            "SELECT * FROM USERS WHERE USERNAME = '"
-                    + getUsername() + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = '" + getUsername() + "'";
 
     try {
       PreparedStatement pstmt = null;
@@ -188,7 +184,6 @@ public class UserHandling {
     }
 
     return b;
-
   }
 
   public static String getUsername() {

@@ -2,8 +2,8 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
-import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.awt.*;
@@ -78,8 +78,8 @@ public class NewNavPageController implements Initializable {
   Node endNode = null;
 
   ObservableList<String> listOfFloors =
-          FXCollections.observableArrayList(
-                  "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+      FXCollections.observableArrayList(
+          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
 
   public static Image campusMap = new Image("FaulknerCampus_Updated.png");
   public static Image floor1Map = new Image("Faulkner1_Updated.png");
@@ -105,10 +105,11 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
-    // TODO add the functionality  UserHandling.getUsername() instead of isstaff
-
-    if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
-    else sideMenuUrl = "/Views/SideMenu.fxml";
+    if (UserHandling.getEmployee()) {
+      if (UserHandling.getAdmin()) {
+        sideMenuUrl = "/Views/SideMenuAdmin.fxml";
+      } else sideMenuUrl = "/Views/SideMenuStaff.fxml";
+    } else sideMenuUrl = "/Views/SideMenu.fxml";
 
     // Set drawer to SideMenu
     try {
@@ -130,14 +131,14 @@ public class NewNavPageController implements Initializable {
 
     // click event - mouse click
     hamburger.addEventHandler(
-            MouseEvent.MOUSE_PRESSED,
-            (e) -> {
-              transition.setRate(transition.getRate() * -1);
-              transition.play();
+        MouseEvent.MOUSE_PRESSED,
+        (e) -> {
+          transition.setRate(transition.getRate() * -1);
+          transition.play();
 
-              if (drawer.isOpened()) drawer.close(); // this will close slide pane
-              else drawer.open(); // this will open slide pane
-            });
+          if (drawer.isOpened()) drawer.close(); // this will close slide pane
+          else drawer.open(); // this will open slide pane
+        });
 
     if (!editToggle.isSelected()) {
       editVBox.setVisible(false);
@@ -155,8 +156,8 @@ public class NewNavPageController implements Initializable {
   public GridPane resizableWindow() {
     imageView.setPreserveRatio(true);
     imageView
-            .fitHeightProperty()
-            .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
+        .fitHeightProperty()
+        .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
     // resizeCanvas();
@@ -183,14 +184,14 @@ public class NewNavPageController implements Initializable {
   }
 
   public void autocompleteEditMap() {
-//    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), nodeID);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), nodeID);
     //    Autocomplete.autoComplete(Autocomplete.autoNodeData("xCoord"), xCoord);
     //    Autocomplete.autoComplete(Autocomplete.autoNodeData("yCoord"), yCoord);
     //    Autocomplete.autoComplete(Autocomplete.autoNodeData("floor"), floor);
     //    Autocomplete.autoComplete(Autocomplete.autoNodeData("building"), building);
     //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeType"), nodeType);
-//    Autocomplete.autoComplete(Autocomplete.autoNodeData("longName"), longName);
-//    Autocomplete.autoComplete(Autocomplete.autoNodeData("shortName"), shortName);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("longName"), longName);
+    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("shortName"), shortName);
   }
 
   public void goToMain(ActionEvent actionEvent) {
