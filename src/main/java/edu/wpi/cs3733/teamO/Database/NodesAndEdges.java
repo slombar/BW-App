@@ -2,9 +2,13 @@ package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
+
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -153,6 +157,36 @@ public class NodesAndEdges {
     }
   }
 
+  /**
+   *Deletes all corresponding edges from the given node
+   * @param nodeID, the node that you want to delete all edges from
+   * @return
+   */
+  public static void deleteAllEdges(String nodeID){
+
+    ArrayList<String> edgesList = new ArrayList<>();
+    String query = "SELECT * FROM Edges WHERE startNode = '" + nodeID + "' OR endNode ='" + nodeID +"'";
+
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet rset = preparedStmt.executeQuery();
+
+      while(rset.next()){
+          edgesList.add(rset.getString("nodeID"));
+      }
+
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    for (String edgeID: edgesList) {
+      deleteEdge(edgeID);
+    }
+  }
+
   public static void deleteNode(String nodeID) {
 
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
@@ -167,6 +201,9 @@ public class NodesAndEdges {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+
+    //delete all corresponding edges
+    deleteAllEdges(nodeID);
   }
 
   /** @param nodeID */
@@ -415,10 +452,10 @@ public class NodesAndEdges {
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
-        ID = rset.getString("nodeID");
-        startNode = rset.getString("startNode");
-        endNode = rset.getString("endNode");
-        length = rset.getDouble("length");
+        ID = rset.getString("NODEID");
+        startNode = rset.getString("STARTNODE");
+        endNode = rset.getString("ENDNODE");
+        length = rset.getDouble("LENGTH");
 
         edgeList.add(new Edge(ID, startNode, endNode, length));
       }
@@ -428,7 +465,6 @@ public class NodesAndEdges {
       pstmt.close();
 
     } catch (SQLException e) {
-      System.out.println("Report Edge Information: Failed!");
       e.printStackTrace();
     }
     return edgeList;
