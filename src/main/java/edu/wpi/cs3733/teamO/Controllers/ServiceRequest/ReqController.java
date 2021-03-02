@@ -14,14 +14,17 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.SRequest.DisplayRequest;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -65,6 +68,21 @@ public class ReqController implements Initializable {
     Label p1 = new Label(par1);
     Label p2 = new Label(par2);
     Label p3 = new Label(par3);
+    Button markDone = new Button();
+
+    markDone.setOnAction(
+        new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent e) {
+            // mark the thing as done
+            try {
+              RequestHandling.setStatus(reqID, "Complete");
+            } catch (SQLException throwables) {
+              // TODO @sam add input scrubbing / verification?
+              throwables.printStackTrace();
+            }
+          }
+        });
 
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
@@ -86,9 +104,38 @@ public class ReqController implements Initializable {
       counter++;
     }
 
+    try {
+      if (RequestHandling.getStatus(reqID).equals("Not Assigned")) {
+        addBox.setStyle("-fx-border-color:  red;");
+
+      } else if (RequestHandling.getStatus(reqID).equals("Assigned")) {
+        addBox.setStyle("-fx-border-color:  yellow;");
+
+      } else {
+        addBox.setStyle("-fx-border-color:  green;");
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      // TODO @sam need to add input scrubbing /verification?
+    }
+
     for (int x = 0; x < counter; x++) {
+
+      // set text to be white
       addBox.getChildren().get(x).setStyle("-fx-text-fill:  #FFFFFF; -fx-min-width:  100;");
     }
+
+    // add button to each request that lets you mark as completed
+    // the action event for the button will do 1 of 3 things
+    // check status. if status is 'Not Assigned', then
+    // change background color to red
+    // if status is 'Assigned' then change background color to yellow
+    // if status is 'Complete' then change background color to green
+    // Once there is an employee assigned, it will be yellow (for in progress) and update status in
+    // DB
+    //
+    // TODO add button that deletes, add button that allows admin to edit (extra, but cool) (SADIE)
+    // addBox.getChildren().add();
 
     reqBox.getChildren().add(addBox);
   }
@@ -139,7 +186,7 @@ public class ReqController implements Initializable {
     if (typeOfRequest.equals("SANA")) {
       SwitchScene.goToParent("/Views/ServiceRequests/SANA.fxml");
     }
-    /*TODO: add kyle's component*/
+
     if (typeOfRequest.equals("FLOR")) {
       SwitchScene.goToParent("/Views/ServiceRequests/FloralDeliveryRequest.fxml");
     }

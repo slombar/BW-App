@@ -499,13 +499,27 @@ public class NewNavPageController implements Initializable {
               shortName.getText(),
               "O",
               setVisibility.isSelected());
+          Node n =
+              new Node(
+                  nodeID.getText(),
+                  Integer.parseInt(xCoord.getText()),
+                  Integer.parseInt(yCoord.getText()),
+                  floor.getText(),
+                  building.getText(),
+                  nodeType.getText(),
+                  longName.getText(),
+                  shortName.getText(),
+                  "O",
+                  setVisibility.isSelected());
+
+          graph.addNode(n);
         } catch (SQLException throwables) {
-          // TODO: change the non existent to already existent
-          PopupMaker.nonexistentPopup(nodeWarningPane);
+          PopupMaker.nodeAlreadyExists(nodeWarningPane);
         }
 
         addNodeDBMode = false;
       }
+      // editing node part
     } else {
       if (nodeID.getText().isEmpty()
           || xCoord.getText().isEmpty()
@@ -517,21 +531,8 @@ public class NewNavPageController implements Initializable {
           || shortName.getText().isEmpty()) {
         PopupMaker.incompletePopup(nodeWarningPane);
       }
-      NodesAndEdges.editNode(
-          nodeID.getText(),
-          Integer.parseInt(xCoord.getText()),
-          Integer.parseInt(yCoord.getText()),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          setVisibility.isSelected());
-    }
-
-    Node n =
-        new Node(
+      try {
+        NodesAndEdges.editNode(
             nodeID.getText(),
             Integer.parseInt(xCoord.getText()),
             Integer.parseInt(yCoord.getText()),
@@ -542,8 +543,24 @@ public class NewNavPageController implements Initializable {
             shortName.getText(),
             "O",
             setVisibility.isSelected());
+        Node n =
+            new Node(
+                nodeID.getText(),
+                Integer.parseInt(xCoord.getText()),
+                Integer.parseInt(yCoord.getText()),
+                floor.getText(),
+                building.getText(),
+                nodeType.getText(),
+                longName.getText(),
+                shortName.getText(),
+                "O",
+                setVisibility.isSelected());
 
-    graph.addNode(n);
+        graph.addNode(n);
+      } catch (SQLException throwables) {
+        PopupMaker.nodeDoesntExist(nodeWarningPane);
+      }
+    }
 
     nodeID.clear();
     xCoord.clear();
@@ -564,7 +581,11 @@ public class NewNavPageController implements Initializable {
     if (nodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
-      NodesAndEdges.deleteNode(nodeID.getText());
+      try {
+        NodesAndEdges.deleteNode(nodeID.getText());
+      } catch (SQLException throwables) {
+        PopupMaker.nodeDoesntExist(nodeWarningPane);
+      }
       graph.deleteNode(nodeID.getText());
       nodeID.clear();
       xCoord.clear();
@@ -583,9 +604,14 @@ public class NewNavPageController implements Initializable {
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
-      NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
-      String eID = startNodeID.getText() + "_" + endNodeID.getText();
-      Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
+      try {
+        NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
+        String eID = startNodeID.getText() + "_" + endNodeID.getText();
+        Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
+        graph.addEdge(e);
+      } catch (SQLException throwables) {
+        PopupMaker.edgeAlreadyExists(nodeWarningPane);
+      }
 
       edgeID.clear();
       startNodeID.clear();
@@ -594,23 +620,17 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
-  // TODO: remove this? only add/delete edges
-  //  public void editEdge(ActionEvent actionEvent) {
-  //    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
-  //    // TODO: edit Edge in Graph
-  //    edgeID.clear();
-  //    startNodeID.clear();
-  //    endNodeID.clear();
-  //    draw();
-  //  }
-
-  public void deleteEdge(ActionEvent actionEvent) {
+  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
 
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
-      NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
-      graph.deleteEdge(edgeID.getText());
+      try {
+        NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
+        graph.deleteEdge(edgeID.getText());
+      } catch (SQLException throwables) {
+        PopupMaker.edgeDoesntExists(nodeWarningPane);
+      }
       edgeID.clear();
       startNodeID.clear();
       endNodeID.clear();

@@ -86,7 +86,7 @@
                                     <Insets left="15.0" />
                                  </HBox.margin>
                               </JFXTextField>
-                              <JFXButton fx:id="textButton" disable="true" minWidth="-Infinity" onAction="#sendText" prefWidth="116.0" text="Text it to me!">
+                              <JFXButton fx:id="textButton" minWidth="-Infinity" onAction="#sendText" prefWidth="116.0" text="Text it to me!">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

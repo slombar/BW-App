@@ -6,6 +6,7 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ public class Graph {
   private static ObservableList<Node> listOfNodes;
   private static ObservableList<Edge> listOfEdges;
   private static Hashtable<String, Node> stringNodeHashtable;
+  private static Hashtable<String, Edge> stringEdgeHashtable;
   private static Hashtable<Node, Circle> nodeCircleHashtable;
   private AStarSearch aStarSearch;
   List<Node> path;
@@ -73,7 +75,10 @@ public class Graph {
     listOfEdges = FXCollections.observableArrayList();
     listOfEdges = NodesAndEdges.getAllEdges();
 
+    stringEdgeHashtable = new Hashtable<>();
+
     for (Edge e : listOfEdges) {
+      stringEdgeHashtable.put(e.getID(), e);
       Node nodeA = stringNodeHashtable.get(e.getStart());
       Node nodeB = stringNodeHashtable.get(e.getEnd());
 
@@ -288,7 +293,7 @@ public class Graph {
     listOfNodes.remove(n);
   }
 
-  public void deleteEdge(String eID) {
+  public void deleteEdge(String eID) throws SQLException {
     Edge e = NodesAndEdges.getEdge(eID);
     // delete edge from graph
     // go into neighbor list, unlink the startnode and endnode of the edge

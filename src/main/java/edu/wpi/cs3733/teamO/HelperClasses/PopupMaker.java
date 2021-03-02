@@ -234,14 +234,85 @@ public class PopupMaker {
     warningDialog.show();
   }
 
-  public static void invalidNodeOrEdge(StackPane popupPane) {
+  public static void nodeAlreadyExists(StackPane popupPane) {
     popupPane.toFront();
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
-    warning.setHeading(new Text("Invalid Node or Edge"));
-    warning.setBody(
-        new Text("The Node or Edge is either incorrect or already exists in the database"));
+    warning.setHeading(new Text("Invalid Node"));
+    warning.setBody(new Text("The given node ID already exists"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
+  public static void nodeDoesntExist(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Node"));
+    warning.setBody(new Text("The given node ID does not exist and cannot be edited"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
+  public static void edgeAlreadyExists(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Edge"));
+    warning.setBody(new Text("The given edge already exists"));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+    warningDialog.setOverlayClose(false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
+  public static void edgeDoesntExists(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Edge"));
+    warning.setBody(new Text("The given edge does not exist"));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 

@@ -100,6 +100,49 @@ public class RequestHandling {
     return requestList;
   }
 
+  /**
+   * get the status of the current request
+   *
+   * @param reqID the id of the request you need the status of
+   * @return
+   */
+  public static String getStatus(String reqID) throws SQLException {
+
+    String status = "";
+
+    PreparedStatement pstmt = null;
+
+    pstmt =
+        DatabaseConnection.getConnection()
+            .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = '" + reqID + "'");
+
+    ResultSet rset = pstmt.executeQuery();
+    rset.next();
+
+    status = rset.getString("STATUS");
+
+    rset.close();
+    pstmt.close();
+
+    return status;
+  }
+
+  /**
+   * set the status of the current request
+   *
+   * @param reqID
+   */
+  public static void setStatus(String reqID, String status) throws SQLException {
+    String query =
+        "UPDATE REQUESTS SET STATUS = '" + status + "' WHERE REQUESTID = '" + reqID + "'";
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    pstmt.executeUpdate();
+    pstmt.close();
+  }
+
   public Request getRequest(String reqID) {
     Request r = new Request();
 

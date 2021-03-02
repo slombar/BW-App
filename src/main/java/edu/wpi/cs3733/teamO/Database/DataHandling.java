@@ -148,7 +148,11 @@ public class DataHandling {
           endNode = scan.next();
           length = 0;
 
-          NodesAndEdges.addNewEdge(startNode, endNode);
+          try {
+            NodesAndEdges.addNewEdge(startNode, endNode);
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
         }
       }
     } else {

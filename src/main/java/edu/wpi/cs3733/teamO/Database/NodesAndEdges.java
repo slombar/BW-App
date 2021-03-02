@@ -89,7 +89,7 @@ public class NodesAndEdges {
    * @param startNode
    * @param endNode
    */
-  public static void addNewEdge(String startNode, String endNode) {
+  public static void addNewEdge(String startNode, String endNode) throws SQLException {
     String nodeID = startNode + "_" + endNode;
     String query =
         "INSERT INTO Edges VALUES("
@@ -115,6 +115,7 @@ public class NodesAndEdges {
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+      throw throwables;
     }
   }
 
@@ -124,8 +125,20 @@ public class NodesAndEdges {
    * @param startNode
    * @param endNode
    */
-  public static void addEdge(String startNode, String endNode, double length) {
+  public static void addEdge(String startNode, String endNode, double length) throws SQLException {
     String nodeID = startNode + "_" + endNode;
+    String nodeID2 = endNode + "_" + startNode;
+
+    try {
+      getEdge(nodeID);
+      getEdge(nodeID2);
+      System.out.println("Edge already exists in database. Try again stinky.");
+      throw new SQLException();
+
+    } catch (SQLException throwables) {
+      System.out.println("Adding edge because there are no current edges with this ID");
+    }
+
     String query =
         "INSERT INTO Edges VALUES("
             + "'"
@@ -150,6 +163,7 @@ public class NodesAndEdges {
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+      throw throwables;
     }
   }
 
@@ -181,11 +195,15 @@ public class NodesAndEdges {
     }
 
     for (String edgeID : edgesList) {
-      deleteEdge(edgeID);
+      try {
+        deleteEdge(edgeID);
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
     }
   }
 
-  public static void deleteNode(String nodeID) {
+  public static void deleteNode(String nodeID) throws SQLException {
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
     try {
       PreparedStatement preparedStmt = null;
@@ -196,6 +214,7 @@ public class NodesAndEdges {
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+      throw throwables;
     }
 
     // delete all corresponding edges
@@ -203,8 +222,10 @@ public class NodesAndEdges {
   }
 
   /** @param nodeID */
-  public static void deleteEdge(String nodeID) {
+  public static void deleteEdge(String nodeID) throws SQLException {
     String query = "DELETE FROM Edges WHERE nodeID = '" + nodeID + "'";
+    // get the edge to throw error if it doesn't exist.
+    getEdge(nodeID);
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -214,6 +235,7 @@ public class NodesAndEdges {
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+      throw throwables;
     }
   }
 
@@ -232,7 +254,8 @@ public class NodesAndEdges {
       String longName,
       String shortName,
       String team,
-      boolean visible) {
+      boolean visible)
+      throws SQLException {
     String query =
         "UPDATE Nodes SET xcoord = "
             + x
@@ -264,7 +287,7 @@ public class NodesAndEdges {
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
-      return;
+      throw throwables;
     }
     System.out.println("Node with ID: " + nodeID + "has been changed.");
   }
@@ -346,28 +369,23 @@ public class NodesAndEdges {
    * @param id of the node you want to snag from DB
    * @return
    */
-  public static Edge getEdge(String id) {
+  public static Edge getEdge(String id) throws SQLException {
     Edge e = new Edge();
 
-    try {
-      PreparedStatement pstmt = null;
-      pstmt =
-          DatabaseConnection.getConnection()
-              .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
-      ResultSet rset = pstmt.executeQuery();
+    PreparedStatement pstmt = null;
+    pstmt =
+        DatabaseConnection.getConnection()
+            .prepareStatement("SELECT * FROM Edges WHERE nodeID = '" + id + "'");
+    ResultSet rset = pstmt.executeQuery();
 
-      // add properties to the node
-      e.setID(rset.getString("NODEID"));
-      e.setStart(rset.getString("STARTNODE"));
-      e.setID(rset.getString("ENDNODE"));
-      e.setLength(rset.getDouble("LENGTH"));
+    // add properties to the node
+    e.setID(rset.getString("NODEID"));
+    e.setStart(rset.getString("STARTNODE"));
+    e.setID(rset.getString("ENDNODE"));
+    e.setLength(rset.getDouble("LENGTH"));
 
-      rset.close();
-      pstmt.close();
-
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
+    rset.close();
+    pstmt.close();
 
     return e;
   }
