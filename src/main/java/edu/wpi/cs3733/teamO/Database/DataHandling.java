@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import edu.wpi.cs3733.teamO.Opp;
 import java.awt.*;
 import java.io.*;
 import java.sql.PreparedStatement;
@@ -7,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
-import edu.wpi.cs3733.teamO.Opp;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
