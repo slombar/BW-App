@@ -1,22 +1,20 @@
 package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
-import edu.wpi.cs3733.teamO.SRequest.Request;
 import edu.wpi.cs3733.teamO.UserTypes.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class UserHandling {
 
   private static String username;
 
-  public static ObservableList<User> getUsers(){
+  public static ObservableList<User> getUsers() {
 
     ObservableList<User> userList = FXCollections.observableArrayList();
 
@@ -58,28 +56,28 @@ public class UserHandling {
         User user = new User();
 
         System.out.println(
-                "Retrieved this from Services: "
-                        + reqID
-                        + ", "
-                        + requestedBy
-                        + ", "
-                        + fulfilledBy
-                        + ", "
-                        + dateRequested.toString()
-                        + ", "
-                        + dateNeeded.toString()
-                        + ", "
-                        + requestType
-                        + ", "
-                        + location
-                        + ", "
-                        + summary
-                        + ", "
-                        + para1
-                        + ", "
-                        + para2
-                        + ", "
-                        + para3);
+            "Retrieved this from Services: "
+                + reqID
+                + ", "
+                + requestedBy
+                + ", "
+                + fulfilledBy
+                + ", "
+                + dateRequested.toString()
+                + ", "
+                + dateNeeded.toString()
+                + ", "
+                + requestType
+                + ", "
+                + location
+                + ", "
+                + summary
+                + ", "
+                + para1
+                + ", "
+                + para2
+                + ", "
+                + para3);
 
         userList.add(user);
       }
@@ -92,9 +90,7 @@ public class UserHandling {
       e.printStackTrace();
     }
 
-
     return userList;
-
   }
 
   /**
