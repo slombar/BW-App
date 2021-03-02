@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 public class UserHandling {
 
   private static String username;
+  private static Boolean isLoggedIn;
+  private static String fName;
 
   public static void deleteUser(String uname) {
 
@@ -176,6 +178,7 @@ public class UserHandling {
    * @return null if login is bad, User with all info from DB if good
    */
   public static void login(String u, String p) throws SQLException {
+    setLoginStatus(true);
     setUsername(u);
 
     String encodedPass = "";
@@ -211,6 +214,8 @@ public class UserHandling {
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
+    // setFirstName(fName);
+    setLoginStatus(true);
     setUsername(u);
 
     String encodedPass = "";
@@ -295,11 +300,48 @@ public class UserHandling {
     return b;
   }
 
+  public static void assignEmployee(String reqID, String employee){
+    String query =
+            "UPDATE Requests SET requestedBy = '"
+                    + employee
+                    + "', WHERE requestID = '"
+                    + reqID
+                    + "'";
+    PreparedStatement preparedStmt = null;
+
+    try {
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      return;
+    }
+    System.out.println("Request with ID: " + reqID + "has been assigned employee: " + employee + ".");
+  }
+
   public static String getUsername() {
     return username;
   }
 
   public static void setUsername(String u) {
     username = u;
+  }
+
+  public static Boolean getLoginStatus() {
+    return isLoggedIn;
+  }
+
+  public static void setLoginStatus(Boolean b) {
+    isLoggedIn = b;
+  }
+
+  public static String getFirstName() {
+    return fName;
+  }
+
+  public static void setFirstName(String f) {
+    fName = f;
   }
 }
