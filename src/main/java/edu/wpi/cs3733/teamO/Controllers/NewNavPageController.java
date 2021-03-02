@@ -24,6 +24,7 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private JFXButton clearBtn1;
   // edit map components
   @FXML private VBox editVBox;
   @FXML private JFXTextField nodeID;
@@ -246,6 +247,7 @@ public class NewNavPageController implements Initializable {
     if (startNode != null && endNode != null) {
       graph.findPath(startNode, endNode);
       graph.drawCurrentPath(sFloor, startNode, endNode);
+      displayingRoute = true;
     }
     // TODO: else -> throw exception? or make popup or something? idk
   }
@@ -253,6 +255,7 @@ public class NewNavPageController implements Initializable {
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
   public void canvasClick(MouseEvent mouseEvent) {
+    // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
     if (editToggle.isSelected()) {
@@ -286,6 +289,13 @@ public class NewNavPageController implements Initializable {
 
   public void toSharePage(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/EmailPage.fxml");
+  }
+
+  public void clearSelection(ActionEvent actionEvent) {
+    startNode = null;
+    endNode = null;
+    displayingRoute = false;
+    graph.drawAllNodes(sFloor, startNode, endNode);
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
