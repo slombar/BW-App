@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.io.File;
@@ -59,9 +60,7 @@ public class EmailPageController implements Initializable {
   private String errorMsg = "";
 
   public void back(ActionEvent actionEvent) throws IOException {
-    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/Archive/Index.fxml"));
-    Opp.getPrimaryStage().setFullScreen(true);
-    Opp.getPrimaryStage().getScene().setRoot(root);
+    SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
   public void sendText(ActionEvent actionEvent) throws IOException {
