@@ -33,7 +33,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER">
                            <children>
-                              <JFXTextField fx:id="email" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="175.0" promptText="Example@mail.com" unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="email" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="175.0" promptText="example@mail.com" unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -53,7 +53,7 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER">
                            <children>
-                              <JFXTextField fx:id="phoneNum" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="32.0" prefWidth="175.0" promptText="Coming Soon..." unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="phoneNum" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="32.0" prefWidth="175.0" promptText="+1 123 456 7890" unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
