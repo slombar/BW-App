@@ -66,9 +66,7 @@ public class NodesAndEdges {
             + teamAssigned
             + "'"
             + ", "
-            + "'"
             + visible
-            + "'"
             + ")";
     System.out.println(query);
 
@@ -220,9 +218,9 @@ public class NodesAndEdges {
             + shortName
             + "', teamAssigned = '"
             + team
-            + "', visible = '"
+            + "', visible = "
             + visible
-            + "' WHERE nodeID = '"
+            + " WHERE nodeID = '"
             + nodeID
             + "'";
     PreparedStatement preparedStmt = null;
@@ -251,9 +249,9 @@ public class NodesAndEdges {
             + startNode
             + "', endNode = '"
             + endNode
-            + "', length = '"
+            + "', length = "
             + length
-            + "' WHERE nodeID = '"
+            + " WHERE nodeID = '"
             + nodeID
             + "'";
     PreparedStatement preparedStmt = null;
