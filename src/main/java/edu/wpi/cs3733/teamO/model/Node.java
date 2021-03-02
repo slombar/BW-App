@@ -218,4 +218,6 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
   public void setVisible(boolean visible) {
     this.visible = visible;
   }
+
+  public void addNeighbour(Node n2) {}
 }
