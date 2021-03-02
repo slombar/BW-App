@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -110,10 +111,17 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
-    // TODO add the functionality  UserHandling.getUsername() instead of isstaff
-
-    if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
-    else sideMenuUrl = "/Views/SideMenu.fxml";
+    if (UserHandling.getEmployee()) {
+      System.out.println("EMPLOYEE");
+      if (UserHandling.getAdmin()) {
+        sideMenuUrl = "/Views/SideMenuAdmin.fxml";
+        System.out.println("ADMIN");
+      } else {
+        sideMenuUrl = "/Views/SideMenuStaff.fxml";
+      }
+    } else {
+      sideMenuUrl = "/Views/SideMenu.fxml";
+    }
 
     // Set drawer to SideMenu
     try {
