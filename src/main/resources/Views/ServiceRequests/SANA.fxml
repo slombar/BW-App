@@ -40,10 +40,11 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                  <JFXTextField fx:id="locationF" prefWidth="250.0" promptText="Radiology" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Georgia" size="18.0" />
-                     </font></JFXTextField>
+                     </font>
+                  </JFXTextField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
@@ -56,7 +57,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXDatePicker defaultColor="#0000009a" prefWidth="250.0" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" />
+                  <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefWidth="250.0" style="-fx-font-size: 18px; -fx-font-family: Georgia; -fx-background-color: #ffffff;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -69,7 +70,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextArea prefWidth="250.0" promptText="Blood spill, massive" style="-fx-background-color: #ffffff;" wrapText="true">
+                  <JFXTextArea fx:id="summary" prefWidth="250.0" promptText="Blood spill, massive" style="-fx-background-color: #ffffff;" wrapText="true">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -86,7 +87,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField prefWidth="250.0" promptText="Use gentle cleaner..." style="-fx-background-color: #ffffff;">
+                  <JFXTextField fx:id="field1" prefWidth="250.0" promptText="Use gentle cleaner..." style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -103,7 +104,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXCheckBox alignment="CENTER" checkedColor="#3a5369" contentDisplay="GRAPHIC_ONLY" prefWidth="250.0" unCheckedColor="WHITE">
+                  <JFXCheckBox fx:id="field2" alignment="CENTER" checkedColor="#3a5369" contentDisplay="GRAPHIC_ONLY" prefWidth="250.0" unCheckedColor="WHITE">
                      <font>
                         <Font size="22.0" />
                      </font>

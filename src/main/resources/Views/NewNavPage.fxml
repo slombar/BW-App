@@ -38,7 +38,7 @@
          </image>
       </ImageView>
       <Canvas fx:id="mapCanvas" height="955.0" onMouseClicked="#canvasClick" width="1160.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-image: #cfe2f3;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
             <Label text="Brigham &amp; Womens Hospital">
                <font>
@@ -90,280 +90,290 @@
                <font>
                   <Font name="Leelawadee UI Bold" size="21.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
             </Label>
             <JFXToggleButton fx:id="editToggle" onAction="#editMode" prefHeight="60.0" prefWidth="183.0" text="Editing Mode">
                <VBox.margin>
-                  <Insets />
+                  <Insets left="15.0" />
                </VBox.margin>
             </JFXToggleButton>
-            <Line endX="113.29289245605469" startX="-100.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Line>
-            <Label text="Selected Node">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+            <VBox fx:id="editVBox" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label prefWidth="120.0" text="Node ID:">
+                  <Line endX="113.29289245605469" startX="-100.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Line>
+                  <Label text="Selected Node">
                      <font>
-                        <Font name="Leelawadee UI" size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                   </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Node ID">
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Node ID:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="nodeID" prefHeight="31.0" prefWidth="132.0" promptText="Node ID">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="137.0" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="X-coordinate:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="X-coordinate" fx:id="xCoord">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Y-coordinate:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="yCoord" prefHeight="31.0" prefWidth="132.0" promptText="Y-coordinate">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Floor:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="floor" prefHeight="31.0" prefWidth="132.0" promptText="Floor">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Building:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="building" prefHeight="31.0" prefWidth="132.0" promptText="Building">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Node Type:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="nodeType" prefHeight="31.0" prefWidth="132.0" promptText="Node Type">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Long Name:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="longName" prefHeight="31.0" prefWidth="132.0" promptText="Long Name">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Short Name:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="shortName" prefHeight="31.0" prefWidth="132.0" promptText="Short Name">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="editNodeBtn" prefWidth="280.0" text="Make Changes to Node">
                      <font>
-                        <Font name="Leelawadee UI" size="15.0" />
+                        <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="137.0" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="X-coordinate:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="delNodeBtn" prefHeight="31.0" prefWidth="280.0" text="Select &amp; Delete Node">
                      <font>
-                        <Font name="Leelawadee UI" size="15.0" />
+                        <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <Line endX="113.29289245605469" startX="-100.0" />
+                  <JFXButton fx:id="addNodeBtn" prefHeight="31.0" prefWidth="280.0" text="Click &amp; Create New Node">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <Line endX="113.29289245605469" startX="-100.0">
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                  </Line>
+                  <Label text="Edge">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                   </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="X-coordinate">
+                  <JFXToggleButton text="Show all edges">
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </JFXToggleButton>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Edge ID:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="edgeID" prefHeight="31.0" prefWidth="132.0" promptText="Edge ID">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="Start Node:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="startNodeID" prefHeight="31.0" prefWidth="132.0" promptText="Start Node">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefWidth="120.0" text="End Node:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="endNodeID" prefHeight="31.0" prefWidth="132.0" promptText="End Node">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="editEdgeBtn" prefWidth="280.0" text="Make Changes to Edge">
                      <font>
-                        <Font name="Leelawadee UI" size="15.0" />
+                        <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
-                  </JFXTextField>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="addEdgeBtn" prefHeight="31.0" prefWidth="280.0" text="Create New Edge">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="delEdgeBtn" prefHeight="31.0" prefWidth="280.0" text="Delete Edge">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
                </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Y-coordinate:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Y-coordinate">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Floor:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Floor">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Building:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Building">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Node Type:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Node Type">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Long Name:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Long Name">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Short Name:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Short Name">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <JFXButton prefWidth="280.0" text="Make Changes to Node">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton prefHeight="31.0" prefWidth="280.0" text="Select &amp; Create New Node">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton prefHeight="31.0" prefWidth="280.0" text="Select &amp; Delete Node">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </JFXButton>
-            <Line endX="113.29289245605469" startX="-100.0">
-               <VBox.margin>
-                  <Insets top="8.0" />
-               </VBox.margin>
-            </Line>
-            <Label text="Edge">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Edge ID:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Edge ID">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="Start Node:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="Start Node">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-               <children>
-                  <Label prefWidth="120.0" text="End Node:">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField prefHeight="31.0" prefWidth="132.0" promptText="End Node">
-                     <font>
-                        <Font name="Leelawadee UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <JFXButton prefWidth="280.0" text="Make Changes to Edge">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton prefHeight="31.0" prefWidth="280.0" text="Create New Edge">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton prefHeight="31.0" prefWidth="280.0" text="Delete Edge">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </JFXButton>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </VBox>
          </children>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
       </VBox>
    </children>
 </GridPane>

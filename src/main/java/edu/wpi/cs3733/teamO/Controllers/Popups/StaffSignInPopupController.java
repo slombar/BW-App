@@ -35,7 +35,7 @@ public class StaffSignInPopupController {
     } else {
       try {
         UserHandling.loginEmployee(username, password);
-        SwitchScene.goToParent("/Views/MainPage.fxml");
+        SwitchScene.goToParent("/Views/StaffMainPage.fxml");
       } catch (SQLException e) {
         PopupMaker.invalidLogin(popupPane);
       }

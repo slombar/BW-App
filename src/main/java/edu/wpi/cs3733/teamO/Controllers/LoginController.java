@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
-import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.UserTypes.Staff;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,12 +14,12 @@ import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
 
+  public static boolean isStaff;
   @FXML private Circle staffBtn;
   @FXML private Circle patientBtn;
   @FXML private Circle adminBtn;
   @FXML private BorderPane borderPane;
   @FXML private StackPane loginPane;
-  public static boolean isStaff = false;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,14 +51,6 @@ public class LoginController implements Initializable {
   public void guestSignIn(ActionEvent actionEvent) {
     isStaff = false;
     SwitchScene.goToParent("/Views/CovidSurvey.fxml");
-  }
-
-  public void sadie(ActionEvent actionEvent) {
-    String random = "dog";
-    Staff staff = new Staff();
-    Date date = new Date(2020, 10, 10);
-    RequestHandling.addRequest(
-        random, random, date, date, random, random, random, random, random, random);
   }
 
   public void tempBTN(ActionEvent actionEvent) {

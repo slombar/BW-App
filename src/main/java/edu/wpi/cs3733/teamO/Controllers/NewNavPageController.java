@@ -25,6 +25,26 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
+  // edit map components
+  @FXML private VBox editVBox;
+  @FXML private JFXTextField nodeID;
+  @FXML private JFXTextField xCoord;
+  @FXML private JFXTextField yCoord;
+  @FXML private JFXTextField floor;
+  @FXML private JFXTextField building;
+  @FXML private JFXTextField nodeType;
+  @FXML private JFXTextField longName;
+  @FXML private JFXTextField shortName;
+  @FXML private JFXButton editNodeBtn;
+  @FXML private JFXButton addNodeBtn;
+  @FXML private JFXButton delNodeBtn;
+  @FXML private JFXTextField edgeID;
+  @FXML private JFXTextField startNodeID;
+  @FXML private JFXTextField endNodeID;
+  @FXML private JFXButton editEdgeBtn;
+  @FXML private JFXButton addEdgeBtn;
+  @FXML private JFXButton delEdgeBtn;
+
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
   @FXML private HBox hboxRef;
@@ -84,6 +104,8 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
+    // TODO add the functionality  UserHandling.getUsername() instead of isstaff
+
     if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
     else sideMenuUrl = "/Views/SideMenu.fxml";
 
@@ -115,6 +137,12 @@ public class NewNavPageController implements Initializable {
           if (drawer.isOpened()) drawer.close(); // this will close slide pane
           else drawer.open(); // this will open slide pane
         });
+
+    if (!editToggle.isSelected()) {
+      editVBox.setVisible(false);
+    } else {
+      editVBox.setVisible(true);
+    }
   }
 
   /**
@@ -144,7 +172,22 @@ public class NewNavPageController implements Initializable {
     mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
   }
 
-  public void editMode(ActionEvent actionEvent) {}
+  public void editMode(ActionEvent actionEvent) {
+    if (!editToggle.isSelected()) {
+      editVBox.setVisible(false);
+    } else {
+      editVBox.setVisible(true);
+    }
+  }
+
+  public void autocompleteEditMap() {
+    //    nodelist
+    //    ArrayList<String> nodeIDColData = new ArrayList<>();
+    //    for (int i = 0; i < nodeTable.getExpandedItemCount(); i++) {
+    //      nodeIDColData.add(nodeIDCol.getCellData(i));
+    //    }
+    //    autoComplete(nodeIDColData, listOfFields.get(0));
+  }
 
   public void goToMain(ActionEvent actionEvent) {
     try {
