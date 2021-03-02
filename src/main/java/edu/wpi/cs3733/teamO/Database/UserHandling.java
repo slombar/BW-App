@@ -104,7 +104,7 @@ public class UserHandling {
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
-    setUsername(username);
+    setUsername(u);
 
     String encodedPass = "";
     try {
@@ -145,13 +145,16 @@ public class UserHandling {
   public static boolean getAdmin() {
     boolean b = false;
 
-    String query = "SELECT ADMIN FROM USERS WHERE USERNAME = '" + getUsername() + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = '" + username + "'";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
       ResultSet res = pstmt.executeQuery();
-      b = Boolean.parseBoolean(res.toString());
+      res.next();
+
+      b = res.getBoolean("admin");
+      System.out.println("Admin check : " + b);
 
       res.close();
       pstmt.close();
@@ -165,13 +168,16 @@ public class UserHandling {
   public static boolean getEmployee() {
     boolean b = false;
 
-    String query = "SELECT EMPLOYEE FROM USERS WHERE USERNAME = '" + getUsername() + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = '" + username + "'";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
       ResultSet res = pstmt.executeQuery();
-      b = Boolean.parseBoolean(res.toString());
+      res.next();
+
+      b = res.getBoolean("admin");
+      System.out.println("Employee check : " + b);
 
       res.close();
       pstmt.close();
