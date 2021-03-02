@@ -41,7 +41,7 @@ public class SharingFunctionality {
                     sendingTo), // replace with cindy's number if testing
                 new com.twilio.type.PhoneNumber("+16173560972"),
                 "This is the ship that made the Kessel Run in fourteen parsecs?")
-            .setMediaUrl(Arrays.asList(URI.create("https://i.imgur.com/7KpyjV4.mp4")))
+            .setMediaUrl(Arrays.asList(URI.create(linkToFile)))
             .create();
 
     // file:/C:/users/cindy/Downloads/mapimg.png
@@ -55,10 +55,8 @@ public class SharingFunctionality {
     emailThreader.start();
   }
 
-  /* for testing purposes, change sendingTo param to cindy's number
+  // for testing purposes, change sendingTo param to cindy's number
   public static void main(String[] args) {
-    sendSMSTwillio("hi", "bye");
+    sendSMSTwillio("16176061459", "https://i.imgur.com/ImYycv8.png");
   }
-  */
-
 }

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 public class UserHandling {
 
   private static String username;
+  private static Boolean isLoggedIn;
+  private static String fName;
 
   /**
    * Create new account and add info to the database password is encrypted through Encryptor from
@@ -110,6 +112,7 @@ public class UserHandling {
    * @return null if login is bad, User with all info from DB if good
    */
   public static void login(String u, String p) throws SQLException {
+    setLoginStatus(true);
     setUsername(u);
 
     String encodedPass = "";
@@ -145,6 +148,8 @@ public class UserHandling {
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
+    //setFirstName(fName);
+    setLoginStatus(true);
     setUsername(u);
 
     String encodedPass = "";
@@ -235,5 +240,19 @@ public class UserHandling {
 
   public static void setUsername(String u) {
     username = u;
+  }
+
+  public static Boolean getLoginStatus() {
+    return isLoggedIn;
+  }
+
+  public static void setLoginStatus(Boolean b) { isLoggedIn = b; }
+
+  public static String getFirstName() {
+    return fName;
+  }
+
+  public static void setFirstName(String f) {
+    fName = f;
   }
 }
