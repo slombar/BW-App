@@ -102,7 +102,7 @@ public class ReqController implements Initializable {
     if (typeOfRequest.equals("GIFT")) {
       SwitchScene.goToParent("/Views/ServiceRequests/GiftDeliveryService.fxml");
     }
-    if (typeOfRequest.equals("TRANS")) {
+    if (typeOfRequest.equals("TRAN")) {
       SwitchScene.goToParent("/Views/ServiceRequests/InternalTransportForm.fxml");
     }
     if (typeOfRequest.equals("LAUN")) {

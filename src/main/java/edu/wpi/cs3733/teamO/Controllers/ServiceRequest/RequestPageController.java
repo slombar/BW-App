@@ -118,7 +118,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToTransportReq(ActionEvent actionEvent) {
-    reqType = "TRANS";
+    reqType = "TRAN";
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 
