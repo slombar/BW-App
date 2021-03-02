@@ -1,14 +1,86 @@
 package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
+import edu.wpi.cs3733.teamO.SRequest.Request;
+import edu.wpi.cs3733.teamO.UserTypes.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class UserHandling {
 
   private static String username;
+
+  public static void deleteUser(String uname) {
+
+    String query = "DELETE FROM USERS WHERE username = '" + uname + "'";
+
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+      preparedStmt.execute();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  public static ObservableList<User> getUsers(){
+
+    ObservableList<User> userList = FXCollections.observableArrayList();
+
+    try {
+      String query = "SELECT * FROM Users";
+      // database statement to grab values
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      // returns the results from query
+      ResultSet rset = pstmt.executeQuery();
+
+      // temp variables for assignment
+      String uname = "";
+      String pword = "";
+      String email = "";
+      String fName = "";
+      String lName = "";
+      boolean employee = false;
+      boolean admin = false;
+
+      // grab everything from the result set and add to observable list for processing
+      while (rset.next()) {
+        uname = rset.getString("USERNAME");
+        pword = rset.getString("PASSWORD");
+        email = rset.getString("EMAIL");
+        fName = rset.getString("fName");
+        lName = rset.getString("lName");
+        employee = rset.getBoolean("EMPLOYEE");
+        admin = rset.getBoolean("ADMIN");
+
+
+        User user = new User(uname, pword, email, fName, lName, employee, admin);
+
+        userList.add(user);
+      }
+
+      // must close these for update to occur
+      rset.close();
+      pstmt.close();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+
+    return userList;
+
+  }
 
   /**
    * Create new account and add info to the database password is encrypted through Encryptor from

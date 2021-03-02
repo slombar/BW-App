@@ -6,11 +6,14 @@ import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Graph {
@@ -21,6 +24,7 @@ public class Graph {
   private static Hashtable<String, Node> stringNodeHashtable;
   private static Hashtable<Node, Circle> nodeCircleHashtable;
   private AStarSearch aStarSearch;
+  List<Node> path;
 
   // GC/Canvas-related attributes:
   private GraphicsContext gc;
@@ -79,6 +83,8 @@ public class Graph {
     nodeCircleHashtable = new Hashtable<>();
     this.gc = gc;
     createCircles();
+
+    aStarSearch = new AStarSearch(this);
   }
 
   /**
@@ -215,23 +221,55 @@ public class Graph {
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
   }
 
-  public List<Node> findPath(Node startNode, Node targetNode, AlgorithmStrategy ag) {
-    // TODO: change to accommodate Admin choice of A*, DFS, or BFS
-    // aStarSearch = new AStarSearch(this, startNode, targetNode);
-    // List<Node> route = AStarSearch.findRoute();
-    List<Node> route = AlgorithmStrategy.findRoute(this, startNode, targetNode);
-    //    LinkedList<Node> routeNodes = new LinkedList<>();
-    //    for (Node node : route) {
-    //      routeNodes.add(node);
-    //    }
+  /**
+   * Draws all the arrows for the most recently calculated path that are on the given floor
+   *
+   * @param floor floor to draw on
+   */
+  private void drawMidArrows(String floor) {
+    for (int i = 0; i < path.size() - 1; i++) {
+      Node nodeA = path.get(i);
+      Node nodeB = path.get(i + 1);
 
-    return route;
+      if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
+        Circle circleA = nodeCircleHashtable.get(nodeA);
+        Circle circleB = nodeCircleHashtable.get(nodeB);
+
+        DrawHelper.drawMidArrow(gc, circleA, circleB);
+      }
+    }
   }
 
-  public void drawMidArrow(Node nodeA, Node nodeB) {
-    Circle circleA = nodeCircleHashtable.get(nodeA);
-    Circle circleB = nodeCircleHashtable.get(nodeB);
+  /**
+   * Draws the current path stored by this Graph
+   *
+   * @param floor selected floor
+   * @param startNode start Node of path
+   * @param endNode end Node of path
+   */
+  public void drawCurrentPath(String floor, Node startNode, Node endNode) {
+    Canvas canvas = gc.getCanvas();
+    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-    DrawHelper.drawMidArrow(gc, circleA, circleB);
+    if (startNode.getFloor().equals(floor)) {
+      Circle c = nodeCircleHashtable.get(startNode);
+      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
+    }
+    if (endNode.getFloor().equals(floor)) {
+      Circle c = nodeCircleHashtable.get(endNode);
+      DrawHelper.drawSingleNode(gc, c, Color.RED);
+    }
+
+    drawMidArrows(floor);
+  }
+
+  public void findPath(Node startNode, Node targetNode) {
+    // TODO: change to accommodate Admin choice of A*, DFS, or BFS
+
+    path = aStarSearch.findRoute(startNode, targetNode);
+  }
+
+  public void resetPath() {
+    path = new LinkedList<>();
   }
 }

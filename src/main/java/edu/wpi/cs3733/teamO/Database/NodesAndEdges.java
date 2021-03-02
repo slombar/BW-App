@@ -86,7 +86,6 @@ public class NodesAndEdges {
   /**
    * Adds a row to the edges table
    *
-   * @param nodeID
    * @param startNode
    * @param endNode
    */
