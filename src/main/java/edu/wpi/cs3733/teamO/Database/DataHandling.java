@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import edu.wpi.cs3733.teamO.Opp;
 import java.awt.*;
 import java.io.*;
 import java.sql.PreparedStatement;
@@ -7,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
-import edu.wpi.cs3733.teamO.Opp;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -48,10 +47,9 @@ public class DataHandling {
    * @param node, whether or not this file is a node file or an edge file
    */
   public static void importExcelData(boolean node) {
-
+    String url = explorer(Opp.getPrimaryStage());
     // Open file chooser instead of asking for user input
 
-    String url = explorer(Opp.getPrimaryStage());
     Scanner scan = null;
     Pattern d = Pattern.compile(",|\r\n");
 
@@ -105,6 +103,7 @@ public class DataHandling {
           longName = scan.next();
           shortName = scan.next();
           teamAssigned = scan.next();
+          visible = true;
 
           NodesAndEdges.addNode(
               nodeID,
@@ -116,7 +115,7 @@ public class DataHandling {
               longName,
               shortName,
               teamAssigned,
-              true);
+              visible);
         }
         scan.close();
 
@@ -140,23 +139,12 @@ public class DataHandling {
         }
 
         while (scan.hasNext()) {
-
-          nodeID = scan.next();
+          scan.next();
           startNode = scan.next();
           endNode = scan.next();
-          length = scan.nextDouble();
+          length = 0;
 
-          System.out.println(
-              "nodeID:"
-                  + nodeID
-                  + "\nstartNode:"
-                  + startNode
-                  + "\nendNode:"
-                  + endNode
-                  + "\nlength:"
-                  + length);
-
-          NodesAndEdges.addEdge(startNode, endNode, length);
+          NodesAndEdges.addNewEdge(startNode, endNode);
         }
       }
     } else {
@@ -194,11 +182,6 @@ public class DataHandling {
       pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes");
       ResultSet rset = pstmt.executeQuery();
 
-      // Obtain csv file for nodes from user
-
-      // String url = "C:\\Users\\Kyle Lopez\\Desktop\\SoftEng -
-      // Code\\Project-BWApp\\MapONodes.csv";
-
       BufferedWriter bw;
       bw = new BufferedWriter(new FileWriter(url));
       while (rset.next()) {
@@ -224,8 +207,7 @@ public class DataHandling {
                 nodeType,
                 longName,
                 shortName,
-                teamAssigned,
-                visible);
+                teamAssigned);
 
         // writes "enter", so we more to the next line
         bw.newLine();
@@ -265,7 +247,7 @@ public class DataHandling {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
         length = rset.getDouble("length");
-        String line = String.format("%s,%s,%s,%d ", ID, startNode, endNode, length);
+        String line = String.format("%s,%s,%s,%d ", ID, startNode, endNode);
         bw.newLine();
         bw.write(line);
       }
