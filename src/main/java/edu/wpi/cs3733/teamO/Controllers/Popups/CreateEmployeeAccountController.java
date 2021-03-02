@@ -1,10 +1,12 @@
 package edu.wpi.cs3733.teamO.Controllers.Popups;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,8 +18,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 
-public class CreateAccountController {
+public class CreateEmployeeAccountController {
 
+  @FXML private JFXCheckBox adminCheck;
   @FXML private JFXTextField user;
   @FXML private JFXPasswordField pass;
   @FXML private JFXTextField email;
@@ -30,8 +33,13 @@ public class CreateAccountController {
       if (RegexBoi.checkEmail(email.getText())) {
 
         try {
-          UserHandling.createAccount(
-              user.getText(), pass.getText(), email.getText(), fName.getText(), lName.getText());
+          UserHandling.createEmployee(
+              user.getText(),
+              pass.getText(),
+              email.getText(),
+              fName.getText(),
+              lName.getText(),
+              adminCheck.isSelected());
         } catch (SQLException throwables) {
           PopupMaker.incompletePopup(popupPane);
           throwables.printStackTrace();
@@ -50,18 +58,13 @@ public class CreateAccountController {
     }
   }
 
-  public void close(ActionEvent actionEvent) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
-
   public void checkEnter(KeyEvent keyEvent) throws SQLException {
     if (keyEvent.getCode() == KeyCode.ENTER) {
       create(new ActionEvent());
     }
+  }
+
+  public void goToManageEmployee(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 }

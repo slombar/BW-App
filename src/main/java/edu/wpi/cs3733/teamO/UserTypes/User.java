@@ -15,6 +15,7 @@ public class User {
 
   /**
    * Constructor for user
+   *
    * @param uname
    * @param pass
    * @param email
@@ -23,7 +24,14 @@ public class User {
    * @param employee
    * @param admin
    */
-  public User(String uname, String pass, String email, String fName, String lName, boolean employee, boolean admin ){
+  public User(
+      String uname,
+      String pass,
+      String email,
+      String fName,
+      String lName,
+      boolean employee,
+      boolean admin) {
     this.username = uname;
     this.password = pass;
     this.email = email;
