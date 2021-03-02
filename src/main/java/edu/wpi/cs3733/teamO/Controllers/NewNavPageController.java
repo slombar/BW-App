@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
-import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.awt.*;
@@ -45,6 +44,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton editEdgeBtn;
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
+  private boolean addNodeMode;
 
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -78,8 +78,8 @@ public class NewNavPageController implements Initializable {
   Node endNode = null;
 
   ObservableList<String> listOfFloors =
-          FXCollections.observableArrayList(
-                  "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+      FXCollections.observableArrayList(
+          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
 
   public static Image campusMap = new Image("FaulknerCampus_Updated.png");
   public static Image floor1Map = new Image("Faulkner1_Updated.png");
@@ -130,21 +130,21 @@ public class NewNavPageController implements Initializable {
 
     // click event - mouse click
     hamburger.addEventHandler(
-            MouseEvent.MOUSE_PRESSED,
-            (e) -> {
-              transition.setRate(transition.getRate() * -1);
-              transition.play();
+        MouseEvent.MOUSE_PRESSED,
+        (e) -> {
+          transition.setRate(transition.getRate() * -1);
+          transition.play();
 
-              if (drawer.isOpened()) drawer.close(); // this will close slide pane
-              else drawer.open(); // this will open slide pane
-            });
+          if (drawer.isOpened()) drawer.close(); // this will close slide pane
+          else drawer.open(); // this will open slide pane
+        });
 
     if (!editToggle.isSelected()) {
       editVBox.setVisible(false);
     } else {
       editVBox.setVisible(true);
     }
-    autocompleteEditMap();
+    addNodeMode = false;
   }
 
   /**
@@ -155,8 +155,8 @@ public class NewNavPageController implements Initializable {
   public GridPane resizableWindow() {
     imageView.setPreserveRatio(true);
     imageView
-            .fitHeightProperty()
-            .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
+        .fitHeightProperty()
+        .bind(Opp.getPrimaryStage().getScene().heightProperty().subtract(vboxRef.heightProperty()));
     imageView.fitWidthProperty().bind(hboxRef.widthProperty());
 
     // resizeCanvas();
@@ -182,15 +182,15 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  public void autocompleteEditMap() {
-//    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), nodeID);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("xCoord"), xCoord);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("yCoord"), yCoord);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("floor"), floor);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("building"), building);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeType"), nodeType);
-//    Autocomplete.autoComplete(Autocomplete.autoNodeData("longName"), longName);
-//    Autocomplete.autoComplete(Autocomplete.autoNodeData("shortName"), shortName);
+  public void autocompleteEditMap(Node clickedNode) {
+    nodeID.setText(clickedNode.getID());
+    xCoord.setText(String.valueOf(clickedNode.getXCoord()));
+    yCoord.setText(String.valueOf(clickedNode.getYCoord()));
+    floor.setText(clickedNode.getFloor());
+    building.setText(clickedNode.getBuilding());
+    nodeType.setText(clickedNode.getNodeType());
+    longName.setText(clickedNode.getLongName());
+    shortName.setText(clickedNode.getShortName());
   }
 
   public void goToMain(ActionEvent actionEvent) {
@@ -257,15 +257,18 @@ public class NewNavPageController implements Initializable {
   public void canvasClick(MouseEvent mouseEvent) {
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
-    if (editToggle.isSelected()) {
-      nodeID.setText(clickedNode.getID());
-      xCoord.setText(String.valueOf(clickedNode.getXCoord()));
-      yCoord.setText(String.valueOf(clickedNode.getYCoord()));
-      floor.setText(clickedNode.getFloor());
-      building.setText(clickedNode.getBuilding());
-      nodeType.setText(clickedNode.getNodeType());
-      longName.setText(clickedNode.getLongName());
-      shortName.setText(clickedNode.getShortName());
+    if (addNodeMode) {
+      xCoord.setText(String.valueOf(mouseEvent.getX()));
+      yCoord.setText(String.valueOf(mouseEvent.getY()));
+      nodeID.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+      addNodeMode = false;
+    } else if (editToggle.isSelected()) {
+      autocompleteEditMap(clickedNode);
     } else {
       if (selectingStart) {
         startNode = clickedNode;
@@ -286,4 +289,27 @@ public class NewNavPageController implements Initializable {
   public void endLocSelection(ActionEvent actionEvent) {
     selectingStart = false;
   }
+
+  public void deleteNode(ActionEvent actionEvent) {}
+
+  public void addNode(ActionEvent actionEvent) {
+    addNodeMode = true;
+  }
+
+  public void editEdge(ActionEvent actionEvent) {}
+
+  public void addEdge(ActionEvent actionEvent) {}
+
+  public void deleteEdge(ActionEvent actionEvent) {}
+
+  public void editNode(ActionEvent actionEvent) {}
+
+  //  public ArrayList<Double> addNodeClick(MouseEvent mouseEvent) {
+  //    ArrayList<Double> mouseCoord = new ArrayList<>();
+  //    double mouseX = mouseEvent.getX();
+  //    double mouseY = mouseEvent.getY();
+  //    mouseCoord.set(0, mouseX);
+  //    mouseCoord.set(1, mouseY);
+  //    return mouseCoord;
+  //  }
 }
