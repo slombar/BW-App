@@ -105,7 +105,7 @@
                   </JFXTextField>
                </children>
             </HBox>
-            <HBox fx:id="summary" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label prefWidth="100.0" text="Summary" textFill="WHITE">
                      <font>

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.ComputerServiceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.GIFTController">
    <top>
       <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
          <children>
@@ -62,7 +62,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="172.0" text="Location" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="172.0" text="Summary" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="22.0" />
                      </font>
@@ -70,7 +70,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextArea fx:id="locationF" prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" text="Destination for the Gift" wrapText="true">
+                  <JFXTextArea fx:id="summary" prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" text="Gift Information" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -96,7 +96,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="172.0" text="Summary" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="172.0" text="Location" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="22.0" />
                      </font>
@@ -104,7 +104,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="summary" prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Gift Information">
+                  <JFXTextField fx:id="locationF" prefHeight="33.0" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="Destination for the Gift">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
