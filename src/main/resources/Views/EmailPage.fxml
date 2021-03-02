@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="639.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.EmailPageController">
+<AnchorPane prefHeight="639.0" prefWidth="1022.0" style="-fx-background-color: #3a5369;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.EmailPageController">
    <children>
       <SplitPane dividerPositions="0.55" prefHeight="160.0" prefWidth="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="578.0" prefWidth="547.0" style="-fx-background-color: #cfe2f3;">
                <children>
                   <ImageView fx:id="mapView0" fitHeight="152.0" fitWidth="153.0" layoutX="109.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="425.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="394.0" AnchorPane.topAnchor="0.0">
                      <viewport>
@@ -54,16 +54,16 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="300.0">
                <children>
                   <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="-10.0" prefHeight="577.0" prefWidth="459.0" style="-fx-background-color: #cfe2f3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox alignment="TOP_CENTER">
                            <children>
-                              <JFXTextField fx:id="email" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="175.0" promptText="example@mail.com" unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="email" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="31.0" prefWidth="312.0" promptText="example@mail.com" unFocusColor="#0d0d0d" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets bottom="15.0" />
+                                    <Insets bottom="15.0" left="15.0" />
                                  </HBox.margin>
                               </JFXTextField>
                               <JFXButton fx:id="confirmBtn" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" onAction="#sendEmail" prefWidth="116.0" text="Email it to me!">
@@ -82,6 +82,9 @@
                                  <font>
                                     <Font size="15.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
                               </JFXTextField>
                               <JFXButton fx:id="textButton" disable="true" minWidth="-Infinity" onAction="#sendText" prefWidth="116.0" text="Text it to me!">
                                  <font>
@@ -97,9 +100,9 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="30.0" prefWidth="80.0" text="Back" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <JFXButton fx:id="backBtn" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="52.0" prefWidth="135.0" text="Back" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="-1.0">
          <font>
-            <Font size="15.0" />
+            <Font size="27.0" />
          </font>
       </JFXButton>
       <JFXSpinner fx:id="spinner" visible="false" AnchorPane.bottomAnchor="280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="280.0" />

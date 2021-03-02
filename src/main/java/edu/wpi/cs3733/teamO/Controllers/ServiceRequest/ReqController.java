@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -29,6 +30,7 @@ import javafx.scene.text.Text;
 
 public class ReqController implements Initializable {
 
+  @FXML private JFXButton assignButton;
   @FXML private VBox reqBox;
   @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
@@ -37,6 +39,7 @@ public class ReqController implements Initializable {
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
 
+    int counter = 6;
     String reqID = r.getRequestID();
     String requestedBy = r.getRequestedBy();
     String fulfilledBy = r.getFulfilledBy();
@@ -51,8 +54,7 @@ public class ReqController implements Initializable {
     addBox.setSpacing(10);
 
     // Sets the writing style for requests displayed
-    // TODO: Set the font color to be white; currently doesn't set the color
-    // addBox.setStyle("font-size: 18px;, font-family:  Leelawadee UI;, color: white");
+    addBox.setStyle("-fx-font-size: 14pt; -fx-font-family:  Leelawadee UI;");
 
     Label id = new Label(reqID);
     Label reqBy = new Label(requestedBy);
@@ -70,9 +72,23 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(dReq);
     addBox.getChildren().add(dNeed);
     addBox.getChildren().add(loc);
-    addBox.getChildren().add(p1);
-    addBox.getChildren().add(p2);
-    addBox.getChildren().add(p3);
+
+    if (!par1.equals(null) && !par1.equals("null")) {
+      addBox.getChildren().add(p1);
+      counter++;
+    }
+    if (!par2.equals(null) && !par2.equals("null")) {
+      addBox.getChildren().add(p2);
+      counter++;
+    }
+    if (!par3.equals(null) && !par3.equals("null")) {
+      addBox.getChildren().add(p3);
+      counter++;
+    }
+
+    for (int x = 0; x < counter; x++) {
+      addBox.getChildren().get(x).setStyle("-fx-text-fill:  #FFFFFF; -fx-min-width:  100;");
+    }
 
     reqBox.getChildren().add(addBox);
   }
@@ -90,6 +106,9 @@ public class ReqController implements Initializable {
     System.out.println("RequestType: " + typeOfRequest);
     reqList = DisplayRequest.getSpecificReqList(typeOfRequest);
     displayList(reqList);
+
+    assignButton.setDisable(!UserHandling.getAdmin());
+    assignButton.setVisible(UserHandling.getAdmin());
   }
 
   public void addNewRequest(ActionEvent actionEvent) {
@@ -185,5 +204,55 @@ public class ReqController implements Initializable {
 
   public void back(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+  }
+
+  public void delete(ActionEvent actionEvent) {
+    JFXDialogLayout assignStaffLayout = new JFXDialogLayout();
+    assignStaffLayout.setHeading(new Text("Delete Service Request"));
+    VBox assignStaffVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton submitButton = new JFXButton("Delete");
+    buttonBox.getChildren().addAll(closeButton, submitButton);
+
+    // Creating a list of labels to create the textfields
+    ArrayList<String> assignStaffLabels = new ArrayList<String>(Arrays.asList("Request ID"));
+    ArrayList<JFXTextField> listOfFields = createFields(assignStaffLabels);
+
+    // Creating the form with a VBox
+    assignStaffVBox.getChildren().addAll(listOfFields.get(0), buttonBox);
+    assignStaffLayout.setBody(assignStaffVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    popUpPane.toFront();
+    JFXDialog dialog =
+        new JFXDialog(popUpPane, assignStaffLayout, JFXDialog.DialogTransition.BOTTOM);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          dialog.close();
+          popUpPane.toBack();
+        });
+
+    // Submits edit to the database
+    submitButton.setOnAction(
+        event -> {
+          // If incomplete form, sends an error msg
+          // Otherwise, sends to database and closes popup
+          if (listOfFields.get(0).getText().isEmpty()) {
+            //           incompletePopup();
+            PopupMaker.incompletePopup(popUpPane);
+          } else {
+            RequestHandling.deleteRequest(Integer.parseInt(listOfFields.get(0).getText()));
+
+            dialog.close();
+            popUpPane.toBack();
+            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+          }
+        });
+    dialog.show();
   }
 }

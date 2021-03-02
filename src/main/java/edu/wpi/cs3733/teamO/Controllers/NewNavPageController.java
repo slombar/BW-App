@@ -28,6 +28,7 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private JFXCheckBox setVisibility;
   // edit map components
   @FXML private GridPane innerGrid;
   @FXML private JFXButton uploadCSVBtn;
@@ -314,8 +315,6 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
-  public void goToSideMenu(MouseEvent mouseEvent) {}
-
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
@@ -363,115 +362,63 @@ public class NewNavPageController implements Initializable {
     selectingEnd = true;
   }
 
-  // TODO: this method is disgusting and i hate it
-  // commenting it out purely for testing purposes
-  public void toSharePage(ActionEvent actionEvent) throws IOException {
-    /*
-    // sharePane.toBack();
-    GraphicsContext gc = mapCanvas.getGraphicsContext2D();
-
-    mapCanvas.getGraphicsContext2D();
+  /**
+   * creates an output file
+   * @param fileName
+   * @return file
+   */
+  public File createOutputFile(String fileName){
     String home = System.getProperty("user.home");
-    File outputFile1 = new File(home + "/Downloads/" + "mapimg1.png");
-    File outputFile2 = new File(home + "/Downloads/" + "mapimg2.png");
-    File outputFile3 = new File(home + "/Downloads/" + "mapimg3.png");
-    File outputFile4 = new File(home + "/Downloads/" + "mapimg4.png");
-    File outputFile5 = new File(home + "/Downloads/" + "mapimg5.png");
-    File outputFile6 = new File(home + "/Downloads/" + "mapimg6.png");
+    File outputFile = new File(home + "/Downloads/" + fileName);
+    return outputFile;
+  }
 
-    imageView.setImage(campusMap);
-    sFloor = "G";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (!editing) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map1 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map1, null), "png", outputFile1);
-    imageView.setImage(floor1Map);
-    sFloor = "1";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (!editing) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map2 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map2, null), "png", outputFile2);
-    imageView.setImage(floor2Map);
-    sFloor = "2";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (!editing) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-      }
-    }
-    WritableImage map3 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map3, null), "png", outputFile3);
-    imageView.setImage(floor3Map);
-    sFloor = "3";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (!editing) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map4 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map4, null), "png", outputFile4);
-    imageView.setImage(floor4Map);
-    sFloor = "4";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (!editing) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map5 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map5, null), "png", outputFile5);
-    imageView.setImage(floor5Map);
-    sFloor = "5";
-    resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (!editing) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
-    WritableImage map6 = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map6, null), "png", outputFile6);
+  /**
+   * grabs an image from a floor and gives it an output file
+   * @param image
+   * @param floor
+   * @param outputFile
+   * @return WritableImage
+   * @throws IOException
+   */
+  public WritableImage grabImage(Image image, String floor, File outputFile) throws IOException {
 
+    imageView.setImage(image);
+    sFloor = floor;
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (!editing) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
+      }
+    }
+    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+    return map;
+
+  }
+
+  /**
+   * takes pictures of every floor to email and navigates to email page
+   * @param actionEvent
+   * @throws IOException
+   */
+  public void toSharePage(ActionEvent actionEvent) throws IOException {
+
+    GraphicsContext gc = mapCanvas.getGraphicsContext2D();
+    mapCanvas.getGraphicsContext2D();
+    WritableImage map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
+    WritableImage map2 = grabImage(floor1Map, "1", createOutputFile("mapimg2.png"));
+    WritableImage map3 = grabImage(floor2Map, "2", createOutputFile("mapimg3.png"));
+    WritableImage map4 = grabImage(floor3Map, "3", createOutputFile("mapimg4.png"));
+    WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
+    WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
     EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
-
-    SwitchScene.goToParent("/Views/EmailPage.fxml");*/
+    SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
   public void clearSelection(ActionEvent actionEvent) {
@@ -504,7 +451,7 @@ public class NewNavPageController implements Initializable {
           longName.getText(),
           shortName.getText(),
           "O",
-          true);
+          setVisibility.isSelected());
 
       addNodeDBMode = false;
 
@@ -519,7 +466,7 @@ public class NewNavPageController implements Initializable {
           longName.getText(),
           shortName.getText(),
           "O",
-          true);
+          setVisibility.isSelected());
     }
 
     Node n =
@@ -533,7 +480,7 @@ public class NewNavPageController implements Initializable {
             longName.getText(),
             shortName.getText(),
             "O",
-            true);
+          setVisibility.isSelected());
 
     graph.addNode(n);
 
