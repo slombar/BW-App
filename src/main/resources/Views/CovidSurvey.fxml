@@ -78,7 +78,7 @@
                         <ToggleGroup fx:id="diagnosed" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton text="No" toggleGroup="$diagnosed" translateY="-13.0">
+                  <JFXRadioButton fx:id="No1" text="No" toggleGroup="$diagnosed" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -101,7 +101,7 @@
                         <ToggleGroup fx:id="contact" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton text="No" toggleGroup="$contact" translateY="-13.0">
+                  <JFXRadioButton fx:id="No2" text="No" toggleGroup="$contact" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -118,7 +118,7 @@
                         <ToggleGroup fx:id="symptoms" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton text="No" toggleGroup="$symptoms" translateY="-13.0">
+                  <JFXRadioButton fx:id="No3" text="No" toggleGroup="$symptoms" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>

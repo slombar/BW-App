@@ -9,6 +9,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 
 public class CovidSurveyController {
+  @FXML private JFXRadioButton No2;
+  @FXML private JFXRadioButton No3;
+  @FXML private JFXRadioButton No1;
   @FXML private JFXRadioButton yes1;
   @FXML private JFXRadioButton yes2;
   @FXML private JFXRadioButton yes3;
@@ -27,10 +30,14 @@ public class CovidSurveyController {
 
   public void submitCovidForm(ActionEvent actionEvent) {
 
-    if (yes1.isSelected() || yes2.isSelected() || yes3.isSelected()) {
-      PopupMaker.covidRisk(popupPane);
+    if(No1.isSelected()||yes1.isSelected() && No2.isSelected()||yes2.isSelected() && No3.isSelected()||yes3.isSelected()) {
+      if (No1.isSelected() && No2.isSelected() && No3.isSelected()) {
+        SwitchScene.goToParent("/Views/MainPage.fxml");
+      } else {
+        PopupMaker.covidRisk(popupPane);
+      }
     } else {
-      SwitchScene.goToParent("/Views/MainPage.fxml");
+      PopupMaker.incompletePopup(popupPane);
     }
   }
 }

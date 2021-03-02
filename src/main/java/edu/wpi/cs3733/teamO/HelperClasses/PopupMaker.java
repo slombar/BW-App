@@ -19,7 +19,7 @@ public class PopupMaker {
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
     warning.setHeading(new Text("WARNING!"));
-    warning.setBody(new Text("Text fields cannot be left blank."));
+    warning.setBody(new Text("Fields cannot be left blank."));
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
