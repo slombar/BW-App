@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Controllers.Archive;
 
 import com.jfoenix.controls.*;
-import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Opp;
@@ -785,7 +784,7 @@ public class EditPageController implements Initializable {
           } else {
             String filePath = listOfFields.get(0).getText();
             // true = is a node
-            DataHandling.importExcelData(filePath, true);
+            // DataHandling.importExcelData(true);
             loadDialog.close();
             stackPane.toBack();
           }
@@ -843,7 +842,7 @@ public class EditPageController implements Initializable {
           } else {
             String filePath = listOfFields.get(0).getText();
             // false = is an edge
-            DataHandling.importExcelData(filePath, false);
+            // DataHandling.importExcelData(false);
             loadDialog.close();
             stackPane.toBack();
           }
@@ -910,7 +909,7 @@ public class EditPageController implements Initializable {
             boolean node = (nodeOrEdge == 'n');
 
             // true = is a node
-            DataHandling.save(filePath, node);
+            // DataHandling.save(node);
             loadDialog.close();
             stackPane.toBack();
           }
