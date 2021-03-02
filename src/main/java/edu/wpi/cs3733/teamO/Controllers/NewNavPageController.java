@@ -3,6 +3,8 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.awt.*;
@@ -238,7 +240,7 @@ public class NewNavPageController implements Initializable {
     // TODO: only draw visible if patient/guest
     graph.drawAllNodes(sFloor, startNode, endNode);
   }
-
+  /*
   public void doPathfind(ActionEvent actionEvent) {
     List<Node> path = graph.findPath(startNode, endNode);
 
@@ -251,6 +253,8 @@ public class NewNavPageController implements Initializable {
       //   gc, nodeA.getXCoord(), nodeA.getYCoord(), nodeB.getXCoord(), nodeB.getYCoord());
     }
   }
+
+   */
 
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
@@ -289,6 +293,10 @@ public class NewNavPageController implements Initializable {
   public void endLocSelection(ActionEvent actionEvent) {
     selectingStart = false;
   }
+
+    public void toSharePage(ActionEvent actionEvent) {
+      SwitchScene.goToParent("/Views/EmailPage.fxml");
+    }
 
   public void deleteNode(ActionEvent actionEvent) {}
 
