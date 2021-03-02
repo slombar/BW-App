@@ -21,7 +21,7 @@ public class COMPController {
   @FXML private JFXCheckBox field2;
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 
   public void clear(ActionEvent actionEvent) {
@@ -40,7 +40,7 @@ public class COMPController {
     String loc = locationF.getText();
     String sum = summary.getText();
     String f1 = field1.getText();
-    String f2 = field2.getText();
+    String f2 = null;
     String f3 = null;
 
     System.out.println(

@@ -35,7 +35,7 @@ public class LAUNController implements Initializable {
   }
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 
   public void clear(ActionEvent actionEvent) {
@@ -55,7 +55,8 @@ public class LAUNController implements Initializable {
     String sum = summary.getText();
     String f1 = field1.getText();
     String f2 = field2.getText();
-    String f3 = loadSize;
+    String f3 = sizeComboBox.getSelectionModel().selectedItemProperty().toString();
+
 
     System.out.println(
         "Adding this to DB: "

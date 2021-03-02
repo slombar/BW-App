@@ -19,7 +19,7 @@ public class MAITController {
   @FXML private JFXTextArea field2;
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 
   public void clear(ActionEvent actionEvent) {
@@ -37,7 +37,7 @@ public class MAITController {
     String requestType = getReqType();
     String loc = locationF.getText();
     String sum = summary.getText();
-    String f1 = field1.getText();
+    String f1 = null;
     String f2 = field2.getText();
     String f3 = null;
 
