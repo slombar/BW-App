@@ -77,7 +77,6 @@
                   <Insets bottom="15.0" />
                </GridPane.margin>
             </Label>
-            <JFXButton onAction="#tempBTN" ripplerFill="WHITE" text="TEMPBTN: go to staff main page" textFill="#65eb27" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXButton fx:id="exitBtn" alignment="CENTER_RIGHT" contentDisplay="BOTTOM" onAction="#exit" text="Exit Application" textFill="WHITE" translateX="100.0" underline="true" GridPane.rowIndex="3">
                <font>
                   <Font name="Leelawadee UI" size="32.0" />

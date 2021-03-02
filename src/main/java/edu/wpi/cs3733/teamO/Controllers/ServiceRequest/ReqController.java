@@ -30,7 +30,7 @@ import javafx.scene.text.Text;
 
 public class ReqController implements Initializable {
 
-  public JFXButton assignButton;
+  @FXML private JFXButton assignButton;
   @FXML private VBox reqBox;
   @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
