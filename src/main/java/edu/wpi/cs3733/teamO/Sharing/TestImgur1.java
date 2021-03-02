@@ -1,11 +1,11 @@
 package edu.wpi.cs3733.teamO.Sharing;
 
 import com.google.api.client.util.Base64;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
 
 public class TestImgur1 {
 

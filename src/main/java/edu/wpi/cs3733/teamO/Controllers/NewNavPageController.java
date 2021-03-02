@@ -279,17 +279,17 @@ public class NewNavPageController implements Initializable {
       xCoord.setText(String.valueOf(mouseEvent.getX()));
       yCoord.setText(String.valueOf(mouseEvent.getY()));
 
-      NodesAndEdges.addNode(nodeID.getText(),
-              xCoord.getText(),
-              yCoord.getText(),
-              floor.getText(),
-              building.getText(),
-              nodeType.getText(),
-              longName.getText(),
-              shortName.getText(),
-              "O",
-              true
-      );
+      NodesAndEdges.addNode(
+          nodeID.getText(),
+          xCoord.getText(),
+          yCoord.getText(),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          true);
 
       nodeID.clear();
       floor.clear();
@@ -343,7 +343,7 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editEdge(ActionEvent actionEvent) {
-    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(),0);
+    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText(), 0);
     edgeID.clear();
     startNodeID.clear();
     endNodeID.clear();
@@ -364,17 +364,17 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editNode(ActionEvent actionEvent) {
-    NodesAndEdges.editNode(nodeID.getText(),
-            Integer.parseInt(xCoord.getText()),
-            Integer.parseInt(yCoord.getText()),
-            floor.getText(),
-            building.getText(),
-            nodeType.getText(),
-            longName.getText(),
-            shortName.getText(),
-            "O",
-            true
-            );
+    NodesAndEdges.editNode(
+        nodeID.getText(),
+        Integer.parseInt(xCoord.getText()),
+        Integer.parseInt(yCoord.getText()),
+        floor.getText(),
+        building.getText(),
+        nodeType.getText(),
+        longName.getText(),
+        shortName.getText(),
+        "O",
+        true);
     edgeID.clear();
     startNodeID.clear();
     endNodeID.clear();
