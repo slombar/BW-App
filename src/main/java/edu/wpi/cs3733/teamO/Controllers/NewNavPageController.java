@@ -7,24 +7,30 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
@@ -364,10 +370,11 @@ public class NewNavPageController implements Initializable {
 
   /**
    * creates an output file
+   *
    * @param fileName
    * @return file
    */
-  public File createOutputFile(String fileName){
+  public File createOutputFile(String fileName) {
     String home = System.getProperty("user.home");
     File outputFile = new File(home + "/Downloads/" + fileName);
     return outputFile;
@@ -375,6 +382,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * grabs an image from a floor and gives it an output file
+   *
    * @param image
    * @param floor
    * @param outputFile
@@ -386,24 +394,15 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(image);
     sFloor = floor;
     resizeCanvas();
-    if (displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else {
-      if (!editing) {
-        graph.drawVisibleNodes(sFloor, startNode, endNode);
-      } else {
-        graph.drawAllNodes(sFloor, startNode, endNode);
-        if (showEdgesToggle.isSelected()) graph.drawAllEdges(sFloor);
-      }
-    }
+    draw();
     WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
     return map;
-
   }
 
   /**
    * takes pictures of every floor to email and navigates to email page
+   *
    * @param actionEvent
    * @throws IOException
    */
@@ -480,7 +479,7 @@ public class NewNavPageController implements Initializable {
             longName.getText(),
             shortName.getText(),
             "O",
-          setVisibility.isSelected());
+            setVisibility.isSelected());
 
     graph.addNode(n);
 
