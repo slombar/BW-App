@@ -195,7 +195,7 @@ public class Graph {
       Circle circle = new Circle();
       // set radius to be percentage of canvas height, and bind circle's x/y to the canvas
       // width/height * percent
-      circle.radiusProperty().bind(gc.getCanvas().heightProperty().multiply(0.01));
+      circle.radiusProperty().bind(gc.getCanvas().heightProperty().multiply(0.0075));
       circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
       circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
@@ -251,6 +251,23 @@ public class Graph {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+    for (Node n : path) {
+      if (n.getFloor().equals(floor) && n.getNodeType().equals("STAI")) {
+        Circle c = nodeCircleHashtable.get(n);
+        DrawHelper.drawSingleNode(gc, c, Color.GREEN);
+      } else if (n.getFloor().equals(floor) && n.getNodeType().equals("ELEV")) {
+        Circle c = nodeCircleHashtable.get(n);
+        DrawHelper.drawSingleNode(gc, c, Color.PURPLE);
+      }
+
+      if (n.getFloor().equals(floor) && n.getNodeType().equals("EXIT")) {
+        Circle c = nodeCircleHashtable.get(n);
+        DrawHelper.drawSingleNode(gc, c, Color.ORANGE);
+      }
+    }
+
+    drawMidArrows(floor);
+
     if (startNode.getFloor().equals(floor)) {
       Circle c = nodeCircleHashtable.get(startNode);
       DrawHelper.drawSingleNode(gc, c, Color.BLUE);
@@ -259,8 +276,6 @@ public class Graph {
       Circle c = nodeCircleHashtable.get(endNode);
       DrawHelper.drawSingleNode(gc, c, Color.RED);
     }
-
-    drawMidArrows(floor);
   }
 
   public void findPath(Node startNode, Node targetNode) {
