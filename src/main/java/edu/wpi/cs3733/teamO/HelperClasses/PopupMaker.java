@@ -6,7 +6,6 @@ import javafx.scene.text.Text;
 
 public class PopupMaker {
 
-  // TODO: handle stopping multiple popups
 
   /**
    * Creates a warning popup for an incomplete form
@@ -235,4 +234,28 @@ public class PopupMaker {
         });
     warningDialog.show();
   }
+
+    public static void invalidNodeOrEdge(StackPane popupPane) {
+        popupPane.toFront();
+
+        // Creates the content for the popup
+        JFXDialogLayout warning = new JFXDialogLayout();
+        warning.setHeading(new Text("Invalid Node or Edge"));
+        warning.setBody(new Text("The Node or Edge is either incorrect or already exists in the database"));
+        JFXButton closeButton = new JFXButton("Close");
+        warning.setActions(closeButton);
+
+        // Creates the actual popup
+        JFXDialog warningDialog =
+                new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+        warningDialog.setOverlayClose(false);
+
+        // Closes the popup
+        closeButton.setOnAction(
+                event -> {
+                    warningDialog.close();
+                    popupPane.toBack();
+                });
+        warningDialog.show();
+    }
 }

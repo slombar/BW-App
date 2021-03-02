@@ -27,7 +27,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 
-// TODO: make all these private
 public class IndexController implements Initializable {
   @FXML private MenuItem edgeEditorButton;
   @FXML private MenuItem nodeEditorButton;
@@ -102,7 +101,6 @@ public class IndexController implements Initializable {
   }
 
   public void pathfindingPress(ActionEvent actionEvent) {
-    // TODO: implement this
 
   }
 
@@ -225,7 +223,6 @@ public class IndexController implements Initializable {
     double clickX = mouseEvent.getX();
     double clickY = mouseEvent.getY();
     System.out.println("CANVAS CLICKING");
-    // TODO implement add
   }
 
   /**
