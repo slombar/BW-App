@@ -1,11 +1,8 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 
 public class SubmittedController {
   /**

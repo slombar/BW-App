@@ -30,6 +30,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javax.imageio.ImageIO;
@@ -640,7 +641,11 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  public void updateEdgeID(ActionEvent actionEvent) {
+  public void updateEdgeID(KeyEvent actionEvent) {
+    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
+  }
+
+  public void updateEdgeIDMouse(MouseEvent mouseEvent) {
     edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
   }
 }

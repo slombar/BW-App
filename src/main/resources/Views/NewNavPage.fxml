@@ -341,7 +341,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0" />
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
                      <children>
-                        <Label prefWidth="120.0" text="Edge ID:">
+                        <Label onMouseReleased="#updateEdgeIDMouse" prefWidth="120.0" text="Edge ID:">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
@@ -349,7 +349,7 @@
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField fx:id="edgeID" prefHeight="31.0" prefWidth="132.0">
+                        <JFXTextField fx:id="edgeID" editable="false" onMouseReleased="#updateEdgeIDMouse" prefHeight="31.0" prefWidth="132.0">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
@@ -366,7 +366,7 @@
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField fx:id="startNodeID" onAction="#updateEdgeID" onKeyReleased="#updateEdgeID" prefHeight="31.0" prefWidth="132.0">
+                        <JFXTextField fx:id="startNodeID" onKeyReleased="#updateEdgeID" onMouseReleased="#updateEdgeIDMouse" prefHeight="31.0" prefWidth="132.0">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
@@ -383,7 +383,7 @@
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField fx:id="endNodeID" onAction="#updateEdgeID" onKeyReleased="#updateEdgeID" prefHeight="31.0" prefWidth="132.0">
+                        <JFXTextField fx:id="endNodeID" onKeyReleased="#updateEdgeID" onMouseReleased="#updateEdgeIDMouse" prefHeight="31.0" prefWidth="132.0">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>

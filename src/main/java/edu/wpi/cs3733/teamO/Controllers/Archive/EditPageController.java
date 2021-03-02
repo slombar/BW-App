@@ -132,7 +132,6 @@ public class EditPageController implements Initializable {
     saveButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
-
   ///////////////////////////// NODES TABLE //////////////////////////////
   // Initializes the node table and ensures that its updated
   public void initNodeTable() {

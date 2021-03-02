@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
-import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDatePicker;

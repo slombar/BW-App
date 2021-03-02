@@ -100,9 +100,7 @@ public class IndexController implements Initializable {
     saveBtn.setStyle("-fx-background-color: #ffffff");
   }
 
-  public void pathfindingPress(ActionEvent actionEvent) {
-
-  }
+  public void pathfindingPress(ActionEvent actionEvent) {}
 
   private static final double arrowLength = 6;
   private static final double arrowWidth = 4;
