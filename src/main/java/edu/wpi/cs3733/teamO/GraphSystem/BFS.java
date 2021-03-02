@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class BFS {
@@ -15,10 +16,15 @@ public class BFS {
   }
 
   // main method for breadth-first search
-  void bfs(Node n) {
+  LinkedList<Node> bfs(Node n, Node end) {
+
+    LinkedList<Node> path = new LinkedList<>();
+
     // mark root node as visited
     n.setVisited(true);
     queue.add(n);
+    // adding root node to the path
+    path.add(n);
 
     while (queue.size() != 0) {
 
@@ -30,10 +36,16 @@ public class BFS {
         if (!g.isVisited()) {
           g.setVisited(true);
           queue.add(g);
+          // adding current node to the path
+          path.add(n);
+          if (n.equals(end)) return path;
         }
       }
     }
+    return new LinkedList<Node>(); // in case if bfs couldn't find any path to the given node
   }
+
+
 
   // simple testing of bfs algorithm
   public static void main(String[] args) {
@@ -52,7 +64,6 @@ public class BFS {
 
     // output should be 2 0 3 1
     BFS bfs = new BFS();
-    bfs.bfs(n2);
+    //bfs.bfs(n2);
   }
 }
-
