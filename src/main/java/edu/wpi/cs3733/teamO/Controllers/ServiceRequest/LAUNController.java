@@ -12,7 +12,7 @@ import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class SANAController {
+public class LAUNController {
 
   @FXML private JFXDatePicker dateNeeded;
   @FXML private JFXTextField locationF;

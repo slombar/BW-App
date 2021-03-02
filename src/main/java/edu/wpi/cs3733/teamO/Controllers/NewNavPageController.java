@@ -2,7 +2,9 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
@@ -24,6 +26,9 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
+  public JFXButton uploadCSVBtn;
+  public JFXButton saveCSVBtn;
+  @FXML private JFXButton clearBtn1;
   // edit map components
   @FXML private VBox editVBox;
   @FXML private JFXTextField nodeID;
@@ -43,6 +48,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton editEdgeBtn;
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
+  private boolean addNodeMode;
 
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -104,10 +110,17 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
-    // TODO add the functionality  UserHandling.getUsername() instead of isstaff
-
-    if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
-    else sideMenuUrl = "/Views/SideMenu.fxml";
+    if (UserHandling.getEmployee()) {
+      System.out.println("EMPLOYEE");
+      if (UserHandling.getAdmin()) {
+        sideMenuUrl = "/Views/SideMenuAdmin.fxml";
+        System.out.println("ADMIN");
+      } else {
+        sideMenuUrl = "/Views/SideMenuStaff.fxml";
+      }
+    } else {
+      sideMenuUrl = "/Views/SideMenu.fxml";
+    }
 
     // Set drawer to SideMenu
     try {
@@ -143,7 +156,10 @@ public class NewNavPageController implements Initializable {
     } else {
       editVBox.setVisible(true);
     }
-    autocompleteEditMap();
+    addNodeMode = false;
+    // autocompletes the node Id for start and end
+    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
+    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
   }
 
   /**
@@ -181,15 +197,15 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  public void autocompleteEditMap() {
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), nodeID);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("xCoord"), xCoord);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("yCoord"), yCoord);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("floor"), floor);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("building"), building);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeType"), nodeType);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("longName"), longName);
-    //    Autocomplete.autoComplete(Autocomplete.autoNodeData("shortName"), shortName);
+  public void autocompleteEditMap(Node clickedNode) {
+    nodeID.setText(clickedNode.getID());
+    xCoord.setText(String.valueOf(clickedNode.getXCoord()));
+    yCoord.setText(String.valueOf(clickedNode.getYCoord()));
+    floor.setText(clickedNode.getFloor());
+    building.setText(clickedNode.getBuilding());
+    nodeType.setText(clickedNode.getNodeType());
+    longName.setText(clickedNode.getLongName());
+    shortName.setText(clickedNode.getShortName());
   }
 
   public void goToMain(ActionEvent actionEvent) {
@@ -246,6 +262,7 @@ public class NewNavPageController implements Initializable {
     if (startNode != null && endNode != null) {
       graph.findPath(startNode, endNode);
       graph.drawCurrentPath(sFloor, startNode, endNode);
+      displayingRoute = true;
     }
     // TODO: else -> throw exception? or make popup or something? idk
   }
@@ -253,17 +270,21 @@ public class NewNavPageController implements Initializable {
   public void goToSideMenu(MouseEvent mouseEvent) {}
 
   public void canvasClick(MouseEvent mouseEvent) {
+    // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
-    if (editToggle.isSelected()) {
-      nodeID.setText(clickedNode.getID());
-      xCoord.setText(String.valueOf(clickedNode.getXCoord()));
-      yCoord.setText(String.valueOf(clickedNode.getYCoord()));
-      floor.setText(clickedNode.getFloor());
-      building.setText(clickedNode.getBuilding());
-      nodeType.setText(clickedNode.getNodeType());
-      longName.setText(clickedNode.getLongName());
-      shortName.setText(clickedNode.getShortName());
+    if (addNodeMode) {
+      xCoord.setText(String.valueOf(mouseEvent.getX()));
+      yCoord.setText(String.valueOf(mouseEvent.getY()));
+      nodeID.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+      addNodeMode = false;
+    } else if (editToggle.isSelected()) {
+      autocompleteEditMap(clickedNode);
     } else {
       if (selectingStart) {
         startNode = clickedNode;
@@ -276,6 +297,7 @@ public class NewNavPageController implements Initializable {
     }
   }
 
+  // TODO: set start/end to different colors
   public void startLocSelection(ActionEvent actionEvent) {
     selectingStart = true;
   }
@@ -284,9 +306,36 @@ public class NewNavPageController implements Initializable {
     selectingStart = false;
   }
 
+  // TODO: reset button??? (needs to set startNode and endNode to null)
   public void toSharePage(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
+  public void clearSelection(ActionEvent actionEvent) {
+    startNode = null;
+    endNode = null;
+    displayingRoute = false;
+    graph.drawAllNodes(sFloor, startNode, endNode);
+  }
+
   // TODO: reset button??? (needs to set startNode and endNode to null)
+  public void deleteNode(ActionEvent actionEvent) {}
+
+  public void addNode(ActionEvent actionEvent) {
+    addNodeMode = true;
+  }
+
+  public void editEdge(ActionEvent actionEvent) {
+    //    NodesAndEdges.editEdge(edgeID.getText(), startNodeID.getText(), endNodeID.getText());
+  }
+
+  public void addEdge(ActionEvent actionEvent) {}
+
+  public void deleteEdge(ActionEvent actionEvent) {}
+
+  public void editNode(ActionEvent actionEvent) {}
+
+  public void uploadCSV(ActionEvent actionEvent) {}
+
+  public void saveCSV(ActionEvent actionEvent) {}
 }
