@@ -467,7 +467,18 @@ public class NewNavPageController implements Initializable {
   }
 
   // TODO: reset button??? (needs to set startNode and endNode to null)
-  public void deleteNode(ActionEvent actionEvent) {}
+  public void deleteNode(ActionEvent actionEvent) {
+    NodesAndEdges.deleteNode(nodeID.getText());
+    nodeID.clear();
+    xCoord.clear();
+    yCoord.clear();
+    floor.clear();
+    building.clear();
+    nodeType.clear();
+    longName.clear();
+    shortName.clear();
+    setVisibility.setSelected(false);
+  }
 
   public void addNode(ActionEvent actionEvent) {
     addNodeMode = true;
@@ -497,44 +508,45 @@ public class NewNavPageController implements Initializable {
 
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
-    if (!nodeID.getText().isEmpty()
-        && !xCoord.getText().isEmpty()
-        && !yCoord.getText().isEmpty()
-        && !floor.getText().isEmpty()
-        && !building.getText().isEmpty()
-        && !nodeType.getText().isEmpty()
-        && !longName.getText().isEmpty()
-        && !shortName.getText().isEmpty()) {
+
+    if (nodeID.getText().isEmpty()
+        || xCoord.getText().isEmpty()
+        || yCoord.getText().isEmpty()
+        || floor.getText().isEmpty()
+        || building.getText().isEmpty()
+        || nodeType.getText().isEmpty()
+        || longName.getText().isEmpty()
+        || shortName.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
-    }
-
-    if (addNodeDB) {
-      NodesAndEdges.addNode(
-          nodeID.getText(),
-          xCoord.getText(),
-          yCoord.getText(),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          setVisibility.isSelected());
-
-      addNodeDB = false;
-
     } else {
-      NodesAndEdges.editNode(
-          nodeID.getText(),
-          Integer.parseInt(xCoord.getText()),
-          Integer.parseInt(yCoord.getText()),
-          floor.getText(),
-          building.getText(),
-          nodeType.getText(),
-          longName.getText(),
-          shortName.getText(),
-          "O",
-          setVisibility.isSelected());
+      if (addNodeDB) {
+
+        NodesAndEdges.addNode(
+            nodeID.getText(),
+            xCoord.getText(),
+            yCoord.getText(),
+            floor.getText(),
+            building.getText(),
+            nodeType.getText(),
+            longName.getText(),
+            shortName.getText(),
+            "O",
+            setVisibility.isSelected());
+
+        addNodeDB = false;
+      } else {
+        NodesAndEdges.editNode(
+            nodeID.getText(),
+            Integer.parseInt(xCoord.getText()),
+            Integer.parseInt(yCoord.getText()),
+            floor.getText(),
+            building.getText(),
+            nodeType.getText(),
+            longName.getText(),
+            shortName.getText(),
+            "O",
+            setVisibility.isSelected());
+      }
     }
 
     nodeID.clear();
@@ -545,6 +557,7 @@ public class NewNavPageController implements Initializable {
     nodeType.clear();
     longName.clear();
     shortName.clear();
+    setVisibility.setSelected(false);
   }
 
   public void uploadN(ActionEvent actionEvent) {

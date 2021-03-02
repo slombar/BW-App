@@ -43,6 +43,7 @@
          </children></VBox>
       <GridPane fx:id="innerGrid" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
+            <StackPane fx:id="nodeWarningPane" prefHeight="27.0" prefWidth="248.0" />
             <StackPane fx:id="stackPane" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" />
             <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <image>
@@ -324,7 +325,6 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <StackPane fx:id="nodeWarningPane" prefHeight="150.0" prefWidth="200.0" />
                   <Label text="Edge">
                      <font>
                         <Font name="System Bold" size="15.0" />
