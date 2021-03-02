@@ -47,9 +47,9 @@ public class LoginController implements Initializable {
    *
    * @param actionEvent
    */
-  public void guestSignIn(ActionEvent actionEvent){
+  public void guestSignIn(ActionEvent actionEvent) {
     try {
-      UserHandling.login("guest","guest");
+      UserHandling.login("guest", "guest");
       SwitchScene.goToParent("/Views/CovidSurvey.fxml");
     } catch (SQLException throwables) {
       throwables.printStackTrace();

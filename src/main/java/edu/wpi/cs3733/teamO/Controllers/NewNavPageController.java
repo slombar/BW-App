@@ -10,7 +10,6 @@ import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Node;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +29,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
@@ -352,7 +350,7 @@ public class NewNavPageController implements Initializable {
   // TODO: reset button??? (needs to set startNode and endNode to null)
   public void toSharePage(ActionEvent actionEvent) throws IOException {
 
-    //sharePane.toBack();
+    // sharePane.toBack();
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
 
     String home = System.getProperty("user.home");
