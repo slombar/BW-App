@@ -45,7 +45,7 @@
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton onAction="#assignStaff" style="-fx-background-color: #3A5369;" text="Assign Staff" textFill="WHITE">
+                  <JFXButton fx:id="assignButton" onAction="#assignStaff" style="-fx-background-color: #3A5369;" text="Assign Staff" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
