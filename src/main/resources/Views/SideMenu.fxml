@@ -40,67 +40,67 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <JFXButton fx:id="mainMenuBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toMain" onMouseEntered="#mouseOnMain" onMouseExited="#mouseOffMain" prefHeight="77.0" prefWidth="509.0" text="Main Menu">
+      <JFXButton fx:id="mainMenuBtn" alignment="BOTTOM_LEFT" onAction="#toMain" onMouseEntered="#mouseOnMain" onMouseExited="#mouseOffMain" prefHeight="77.0" prefWidth="509.0" text="Main Menu" translateX="10.0">
          <font>
             <Font name="Leelawadee UI" size="30.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
                   <Image url="@../Icons/HomeIconBlack.png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="navBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toNav" onMouseEntered="#mouseOnNav" onMouseExited="#mouseOffNav" prefHeight="77.0" prefWidth="509.0" text="Navigation">
+      <JFXButton fx:id="navBtn" alignment="BOTTOM_LEFT" onAction="#toNav" onMouseEntered="#mouseOnNav" onMouseExited="#mouseOffNav" prefHeight="77.0" prefWidth="509.0" text="Navigation" translateX="10.0">
          <font>
             <Font name="Leelawadee UI" size="30.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
                   <Image url="@../Icons/simpleNavIconBlack.png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="notificationBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toNotifications" onMouseEntered="#mouseOnNot" onMouseExited="#mouseOffNot" prefHeight="77.0" prefWidth="509.0" text="Notifications">
+      <JFXButton fx:id="notificationBtn" alignment="BOTTOM_LEFT" onAction="#toNotifications" onMouseEntered="#mouseOnNot" onMouseExited="#mouseOffNot" prefHeight="77.0" prefWidth="509.0" text="Notifications" translateX="10.0">
          <font>
             <Font name="Leelawadee UI" size="30.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
                   <Image url="@../Icons/NotificationIconBlack.png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="checkInBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toCheckIn" onMouseEntered="#mouseOnCheck" onMouseExited="#mouseOffCheck" prefHeight="77.0" prefWidth="497.0" text="Check-In">
+      <JFXButton fx:id="checkInBtn" alignment="BOTTOM_LEFT" onAction="#toCheckIn" onMouseEntered="#mouseOnCheck" onMouseExited="#mouseOffCheck" prefHeight="77.0" prefWidth="497.0" text="Check-In" translateX="10.0">
          <font>
             <Font name="Leelawadee UI" size="30.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="48.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+            <ImageView fitHeight="48.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
                   <Image url="@../Icons/checkIconBlack.png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="appointmentsBtn" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" onAction="#toAppointments" onMouseEntered="#mouseOnApp" onMouseExited="#mouseOffApp" prefHeight="77.0" prefWidth="446.0" text="Appointments">
+      <JFXButton fx:id="appointmentsBtn" alignment="BOTTOM_LEFT" onAction="#toAppointments" onMouseEntered="#mouseOnApp" onMouseExited="#mouseOffApp" prefHeight="77.0" prefWidth="446.0" text="Appointments" translateX="10.0">
          <font>
             <Font name="Leelawadee UI" size="30.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="47.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="47.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
                   <Image url="@../Icons/calendarIconBlack.png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="400.0" prefWidth="350.0">
+      <VBox alignment="BOTTOM_LEFT" prefHeight="548.0" prefWidth="350.0">
          <children>
             <JFXButton fx:id="logout" alignment="BOTTOM_LEFT" onAction="#goToLogin" onMouseEntered="#mouseOnLog" onMouseExited="#mouseOffLog" prefHeight="51.0" prefWidth="145.0" text="Log Out">
                <font>
