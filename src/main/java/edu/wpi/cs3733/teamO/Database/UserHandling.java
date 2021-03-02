@@ -104,7 +104,7 @@ public class UserHandling {
   }
 
   public static void loginEmployee(String u, String p) throws SQLException {
-    setUsername(username);
+    setUsername(u);
 
     String encodedPass = "";
     try {
