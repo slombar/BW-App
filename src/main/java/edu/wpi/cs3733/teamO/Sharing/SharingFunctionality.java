@@ -50,8 +50,8 @@ public class SharingFunctionality {
   }
 
   // check email threader for previous code
-  public static void sendEmailAttachment(String sendingTo, String fileToBeSent) {
-    EmailThreader emailThreader = new EmailThreader(sendingTo, fileToBeSent);
+  public static void sendEmailAttachment(String sendingTo, String fileToBeSent1, String fileToBeSent2, String fileToBeSent3, String fileToBeSent4, String fileToBeSent5, String fileToBeSent6) {
+    EmailThreader emailThreader = new EmailThreader(sendingTo, fileToBeSent1, fileToBeSent2, fileToBeSent3, fileToBeSent4, fileToBeSent5, fileToBeSent6);
     emailThreader.start();
   }
 

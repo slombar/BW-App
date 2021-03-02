@@ -70,7 +70,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <JFXRadioButton text="Yes" translateY="-13.0">
+                  <JFXRadioButton fx:id="yes1" style="-jfx-selected-color: red;" text="Yes" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -78,7 +78,7 @@
                         <ToggleGroup fx:id="diagnosed" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton style="-jfx-selected-color: red;" text="No" toggleGroup="$diagnosed" translateY="-13.0">
+                  <JFXRadioButton fx:id="No1" text="No" toggleGroup="$diagnosed" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -93,7 +93,7 @@
             </Text>
             <HBox alignment="CENTER_LEFT" layoutX="558.0" layoutY="213.0" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <JFXRadioButton text="Yes" translateY="-13.0">
+                  <JFXRadioButton fx:id="yes2" style="-jfx-selected-color: red;" text="Yes" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -101,7 +101,7 @@
                         <ToggleGroup fx:id="contact" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton style="-jfx-selected-color: red;" text="No" toggleGroup="$contact" translateY="-13.0">
+                  <JFXRadioButton fx:id="No2" text="No" toggleGroup="$contact" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -110,7 +110,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="558.0" layoutY="316.0" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <JFXRadioButton text="Yes" translateY="-13.0">
+                  <JFXRadioButton fx:id="yes3" style="-jfx-selected-color: red;" text="Yes" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -118,7 +118,7 @@
                         <ToggleGroup fx:id="symptoms" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton style="-jfx-selected-color: red;" text="No" toggleGroup="$symptoms" translateY="-13.0">
+                  <JFXRadioButton fx:id="No3" text="No" toggleGroup="$symptoms" translateY="-13.0">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
