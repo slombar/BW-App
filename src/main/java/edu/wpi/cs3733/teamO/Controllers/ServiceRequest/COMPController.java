@@ -24,7 +24,7 @@ public class COMPController {
         }
 
         public void clear(ActionEvent actionEvent) {
-            // location.clear();
+            locationF.clear();
             dateNeeded.getEditor().clear();
             summary.clear();
             field1.clear();
