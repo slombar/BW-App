@@ -289,10 +289,6 @@ public class NewNavPageController implements Initializable {
     selectingStart = false;
   }
 
-  public void toSharePage(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/EmailPage.fxml");
-  }
-
   // TODO: reset button??? (needs to set startNode and endNode to null)
   public void toSharePage(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/EmailPage.fxml");
