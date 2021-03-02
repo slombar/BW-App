@@ -104,6 +104,8 @@ public class NewNavPageController implements Initializable {
 
     graph = new Graph(gc);
 
+    // TODO add the functionality  UserHandling.getUsername() instead of isstaff
+
     if (LoginController.isStaff) sideMenuUrl = "/Views/SideMenuStaff.fxml";
     else sideMenuUrl = "/Views/SideMenu.fxml";
 

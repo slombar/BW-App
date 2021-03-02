@@ -44,15 +44,15 @@ public class SANAController {
     String f3 = null;
 
     System.out.println(
-            "Adding this to DB: "
-                    + requestedBy
-                    + dateN.toString()
-                    + requestType
-                    + loc
-                    + sum
-                    + f1
-                    + f2
-                    + f3);
+        "Adding this to DB: "
+            + requestedBy
+            + dateN.toString()
+            + requestType
+            + loc
+            + sum
+            + f1
+            + f2
+            + f3);
 
     RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
   }
