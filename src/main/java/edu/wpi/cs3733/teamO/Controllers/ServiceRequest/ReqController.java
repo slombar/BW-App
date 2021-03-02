@@ -1,36 +1,41 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
+import static edu.wpi.cs3733.teamO.Controllers.Archive.EditPageController.createFields;
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.SRequest.DisplayRequest;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 public class ReqController implements Initializable {
 
   @FXML private VBox reqBox;
+  @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
   private static String typeOfRequest;
 
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
-    Stage s = null;
-    Scene scene = null;
-    s = Opp.getPrimaryStage();
-    scene = s.getScene();
 
     String reqID = r.getRequestID();
     String requestedBy = r.getRequestedBy();
@@ -44,6 +49,8 @@ public class ReqController implements Initializable {
 
     HBox addBox = new HBox();
 
+    addBox.setSpacing(10);
+
     Label id = new Label(reqID);
     Label reqBy = new Label(requestedBy);
     Label filledBy = new Label(fulfilledBy);
@@ -53,18 +60,6 @@ public class ReqController implements Initializable {
     Label p1 = new Label(par1);
     Label p2 = new Label(par2);
     Label p3 = new Label(par3);
-
-    boolean check = false;
-
-    id.getStyleClass().add("label");
-    reqBy.getStyleClass().add("label");
-    filledBy.getStyleClass().add("label");
-    dReq.getStyleClass().add("label");
-    dNeed.getStyleClass().add("label");
-    loc.getStyleClass().add("label");
-    p1.getStyleClass().add("label");
-    p2.getStyleClass().add("label");
-    p3.getStyleClass().add("label");
 
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
@@ -76,8 +71,7 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(p2);
     addBox.getChildren().add(p3);
 
-    check = reqBox.getChildren().add(addBox);
-    System.out.println("Addbox check: " + check);
+    reqBox.getChildren().add(addBox);
   }
 
   public void displayList(ObservableList<Request> requests) {
@@ -125,7 +119,64 @@ public class ReqController implements Initializable {
     }
     /*TODO: add kyle's component*/
     if (typeOfRequest.equals("FLOR")) {
-      // SwitchScene.goToParent("/Views/NAME.fxml");
+      SwitchScene.goToParent("/Views/ServiceRequests/FloralDeliveryRequest.fxml");
     }
+  }
+
+  public void assignStaff(ActionEvent actionEvent) {
+
+    // addEdgePopup has the content of the popup
+    // addEdgeDialog creates the dialog popup
+
+    System.out.println("Running!");
+    JFXDialogLayout assignStaffLayout = new JFXDialogLayout();
+    assignStaffLayout.setHeading(new Text("Assign Staff to Service Request"));
+    VBox assignStaffVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton submitButton = new JFXButton("Assign");
+    buttonBox.getChildren().addAll(closeButton, submitButton);
+
+    // Creating a list of labels to create the textfields
+    ArrayList<String> assignStaffLabels =
+        new ArrayList<String>(Arrays.asList("Request ID", "Employee Name"));
+    ArrayList<JFXTextField> listOfFields = createFields(assignStaffLabels);
+
+    // Creating the form with a VBox
+    assignStaffVBox.getChildren().addAll(listOfFields.get(0), listOfFields.get(1), buttonBox);
+    assignStaffLayout.setBody(assignStaffVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    popUpPane.toFront();
+    JFXDialog assignStaffDialog =
+        new JFXDialog(popUpPane, assignStaffLayout, JFXDialog.DialogTransition.BOTTOM);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          assignStaffDialog.close();
+          popUpPane.toBack();
+        });
+
+    // Submits edit to the database
+    submitButton.setOnAction(
+        event -> {
+          // If incomplete form, sends an error msg
+          // Otherwise, sends to database and closes popup
+          if (listOfFields.get(0).getText().isEmpty() || listOfFields.get(1).getText().isEmpty()) {
+            //              incompletePopup();
+            PopupMaker.incompletePopup(popUpPane);
+          } else {
+            UserHandling.assignEmployee(
+                listOfFields.get(0).getText(), listOfFields.get(1).getText());
+
+            assignStaffDialog.close();
+            popUpPane.toBack();
+            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+          }
+        });
+    assignStaffDialog.show();
   }
 }
