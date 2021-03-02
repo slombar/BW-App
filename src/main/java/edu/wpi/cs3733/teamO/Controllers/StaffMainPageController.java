@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
@@ -26,12 +27,28 @@ public class StaffMainPageController implements Initializable {
   @FXML private JFXButton parkingBtn;
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
+  private String sideMenuUrl;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    System.out.println("Employee " + UserHandling.getEmployee());
+    System.out.println("Admin " + UserHandling.getAdmin());
+
+    if (UserHandling.getEmployee()) {
+      System.out.println("EMPLOYEE");
+      if (UserHandling.getAdmin()) {
+        sideMenuUrl = "/Views/SideMenuAdmin.fxml";
+        System.out.println("ADMIN");
+      } else {
+        sideMenuUrl = "/Views/SideMenuStaff.fxml";
+      }
+    } else {
+      sideMenuUrl = "/Views/SideMenu.fxml";
+    }
+
     // Set drawer to SideMenu
     try {
-      VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SideMenuStaff.fxml"));
+      VBox vbox = FXMLLoader.load(getClass().getResource(sideMenuUrl));
       drawer.setSidePane(vbox);
     } catch (IOException e) {
       e.printStackTrace();
