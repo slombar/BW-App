@@ -79,9 +79,21 @@ public class EmailPageController implements Initializable {
     if (RegexBoi.checkPhoneNum(phoneString)) {
 
       String home = System.getProperty("user.home");
-      String outputFile = home + "/Downloads/" + "mapimg.png";
+      String outputFile1 = home + "/Downloads/" + "mapimg1.png";
+      String outputFile2 = home + "/Downloads/" + "mapimg2.png";
+      String outputFile3 = home + "/Downloads/" + "mapimg3.png";
+      String outputFile4 = home + "/Downloads/" + "mapimg4.png";
+      String outputFile5 = home + "/Downloads/" + "mapimg5.png";
+      String outputFile6 = home + "/Downloads/" + "mapimg6.png";
 
-      SharingFunctionality.sendSMSTwillio(phoneString, outputFile);
+      SharingFunctionality.sendSMSTwillio(
+          phoneString,
+          outputFile1,
+          outputFile2,
+          outputFile3,
+          outputFile4,
+          outputFile5,
+          outputFile6);
       submissionPopup();
 
     } else {
