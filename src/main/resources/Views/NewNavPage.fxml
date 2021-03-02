@@ -39,12 +39,22 @@
                </font>
             </JFXButton>
          </children></VBox>
-      <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-         <image>
-            <Image url="@../FaulknerCampus_Updated.png" />
-         </image>
-      </ImageView>
-      <Canvas fx:id="mapCanvas" height="955.0" onMouseClicked="#canvasClick" width="1160.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <GridPane fx:id="innerGrid" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@../FaulknerCampus_Updated.png" />
+               </image>
+            </ImageView>
+            <Canvas fx:id="mapCanvas" height="955.0" onMouseClicked="#canvasClick" width="1160.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+         </children>
+      </GridPane>
       <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
             <Label text="Brigham &amp; Womens Hospital">

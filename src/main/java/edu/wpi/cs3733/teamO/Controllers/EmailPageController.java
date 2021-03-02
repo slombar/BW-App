@@ -39,10 +39,7 @@ public class EmailPageController implements Initializable {
   @FXML private JFXButton confirmBtn;
   @FXML private ImageView mapView;
   @FXML private static Image screenShot;
-  @FXML private StackPane sharePane; // this thing might fuck up our code :))
-
-  public Canvas mapcanvas;
-  public AnchorPane mapanchor;
+  @FXML private StackPane sharePane; // this thing might fuck up our code :))=
 
   @Override
   public void initialize(URL url, ResourceBundle res) {
@@ -81,24 +78,6 @@ public class EmailPageController implements Initializable {
       System.out.print(errorMsg);
       invalidPopup();
     }
-  }
-
-  public void save(ActionEvent actionEvent) throws IOException {
-    sharePane.toBack();
-    GraphicsContext gc = mapcanvas.getGraphicsContext2D();
-
-    String home = System.getProperty("user.home");
-    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
-
-    WritableImage map = mapanchor.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
-    Image newimg = map;
-
-    EmailPageController.setScreenShot(newimg);
-
-    // add the scene switch
-    AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));
-    Opp.getPrimaryStage().getScene().setRoot(root);
   }
 
   public void sendEmail(ActionEvent actionEvent) throws IOException {
