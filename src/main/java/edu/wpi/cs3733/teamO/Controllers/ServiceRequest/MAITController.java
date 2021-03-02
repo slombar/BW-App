@@ -2,7 +2,6 @@ package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -17,18 +16,18 @@ public class MAITController {
   @FXML private JFXTextField locationF;
   @FXML private JFXTextArea summary;
   @FXML private JFXTextField field1;
-  @FXML private JFXCheckBox field2;
+  @FXML private JFXTextArea field2;
 
   public void back(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/MainPage.fxml");
   }
 
   public void clear(ActionEvent actionEvent) {
-    // location.clear();
+    locationF.clear();
     dateNeeded.getEditor().clear();
     summary.clear();
     field1.clear();
-    field2.setSelected(false);
+    field2.clear();
   }
 
   public void submit(ActionEvent actionEvent) {
