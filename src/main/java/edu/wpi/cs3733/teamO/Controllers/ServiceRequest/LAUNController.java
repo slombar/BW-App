@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
+import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
@@ -45,15 +46,14 @@ public class LAUNController implements Initializable {
   }
 
   public void submit(ActionEvent actionEvent) {
-    // send values to DB TODO implement proper username
-    String requestedBy = "user"; // getUsername();
+    String requestedBy = getUsername();
     java.sql.Date dateN = Date.valueOf(dateNeeded.getValue());
     String requestType = getReqType();
     String loc = locationF.getText();
     String sum = summary.getText();
     String f1 = field1.getText();
     String f2 = field2.getText();
-    String f3 = sizeComboBox.getSelectionModel().selectedItemProperty().toString();
+    String f3 = loadSize;
 
     System.out.println(
         "Adding this to DB: "
