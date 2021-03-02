@@ -33,6 +33,7 @@ import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private JFXCheckBox setVisibility;
   // edit map components
   @FXML private GridPane innerGrid;
   @FXML private JFXButton uploadCSVBtn;
@@ -493,6 +494,7 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editNode(ActionEvent actionEvent) {
+    // TODO: i think this is where we would need to parse the text fields to validate them
     if (addNodeDB) {
       NodesAndEdges.addNode(
           nodeID.getText(),
@@ -504,16 +506,8 @@ public class NewNavPageController implements Initializable {
           longName.getText(),
           shortName.getText(),
           "O",
-          true);
+          setVisibility.isSelected());
 
-      nodeID.clear();
-      xCoord.clear();
-      yCoord.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
       addNodeDB = false;
 
     } else {
@@ -527,16 +521,17 @@ public class NewNavPageController implements Initializable {
           longName.getText(),
           shortName.getText(),
           "O",
-          true);
-      nodeID.clear();
-      xCoord.clear();
-      yCoord.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
+          setVisibility.isSelected());
     }
+
+    nodeID.clear();
+    xCoord.clear();
+    yCoord.clear();
+    floor.clear();
+    building.clear();
+    nodeType.clear();
+    longName.clear();
+    shortName.clear();
   }
 
   public void uploadN(ActionEvent actionEvent) {

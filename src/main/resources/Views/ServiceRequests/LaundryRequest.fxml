@@ -104,7 +104,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXComboBox fx:id="sizeComboBox" prefWidth="250.0" style="-fx-background-color: #ffffff;" />
+                  <JFXComboBox fx:id="sizeComboBox" onAction="#comboBoxAction" prefWidth="250.0" style="-fx-background-color: #ffffff;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -20,19 +22,44 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
+                <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Name of Request Goes Here" GridPane.columnIndex="1">
+                <Label text="Outstanding Requests" GridPane.columnIndex="1">
                     <font>
-                        <Font name="Georgia Bold" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="22.0" />
                     </font>
                 </Label>
-                <VBox id="requestBox" fx:id="reqBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #7E94BF;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <JFXButton onAction="#addNewRequest" text="Add New Request" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <JFXButton layoutX="80.0" layoutY="331.0" onAction="#assignStaff" text="Assign Staff" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                <VBox id="requestBox" fx:id="reqBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <JFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#back" style="-fx-background-color: #3A5369;" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                  </JFXButton>
+                      <JFXButton onAction="#addNewRequest" style="-fx-background-color: #3A5369;" text="Add New Request" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton onAction="#assignStaff" style="-fx-background-color: #3A5369;" text="Assign Staff" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton onAction="#delete" style="-fx-background-color: #3A5369;" text="Delete" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </HBox>
             </children>
         </GridPane>
     </children>
