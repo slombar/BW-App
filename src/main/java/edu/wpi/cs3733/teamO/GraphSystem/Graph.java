@@ -6,7 +6,6 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;

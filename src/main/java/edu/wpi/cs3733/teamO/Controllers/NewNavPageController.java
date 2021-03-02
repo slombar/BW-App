@@ -587,7 +587,7 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
-  public void deleteEdge(ActionEvent actionEvent) throws SQLException{
+  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
 
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);

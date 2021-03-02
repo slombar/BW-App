@@ -127,6 +127,18 @@ public class NodesAndEdges {
    */
   public static void addEdge(String startNode, String endNode, double length) throws SQLException {
     String nodeID = startNode + "_" + endNode;
+    String nodeID2 = endNode + "_" + startNode;
+
+    try {
+      getEdge(nodeID);
+      getEdge(nodeID2);
+      System.out.println("Edge already exists in database. Try again stinky.");
+      throw new SQLException();
+
+    } catch (SQLException throwables) {
+      System.out.println("Adding edge because there are no current edges with this ID");
+    }
+
     String query =
         "INSERT INTO Edges VALUES("
             + "'"

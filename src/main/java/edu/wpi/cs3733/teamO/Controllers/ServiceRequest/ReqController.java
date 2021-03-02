@@ -70,17 +70,19 @@ public class ReqController implements Initializable {
     Label p3 = new Label(par3);
     Button markDone = new Button();
 
-    markDone.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent e) {
-        //mark the thing as done
-        try {
-          RequestHandling.setStatus(reqID, "Complete");
-        } catch (SQLException throwables) {
-          //TODO @sam add input scrubbing / verification?
-          throwables.printStackTrace();
-        }
-      }
-    });
+    markDone.setOnAction(
+        new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent e) {
+            // mark the thing as done
+            try {
+              RequestHandling.setStatus(reqID, "Complete");
+            } catch (SQLException throwables) {
+              // TODO @sam add input scrubbing / verification?
+              throwables.printStackTrace();
+            }
+          }
+        });
 
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
@@ -88,7 +90,6 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(dReq);
     addBox.getChildren().add(dNeed);
     addBox.getChildren().add(loc);
-
 
     if (!par1.equals(null) && !par1.equals("null")) {
       addBox.getChildren().add(p1);
@@ -104,37 +105,37 @@ public class ReqController implements Initializable {
     }
 
     try {
-      if(RequestHandling.getStatus(reqID).equals("Not Assigned")){
+      if (RequestHandling.getStatus(reqID).equals("Not Assigned")) {
         addBox.setStyle("-fx-border-color:  red;");
 
-      }else if(RequestHandling.getStatus(reqID).equals("Assigned")){
+      } else if (RequestHandling.getStatus(reqID).equals("Assigned")) {
         addBox.setStyle("-fx-border-color:  yellow;");
 
-      }else {
+      } else {
         addBox.setStyle("-fx-border-color:  green;");
       }
     } catch (SQLException throwables) {
       throwables.printStackTrace();
-      //TODO @sam need to add input scrubbing /verification?
+      // TODO @sam need to add input scrubbing /verification?
     }
 
     for (int x = 0; x < counter; x++) {
 
-      //set text to be white
+      // set text to be white
       addBox.getChildren().get(x).setStyle("-fx-text-fill:  #FFFFFF; -fx-min-width:  100;");
-
     }
 
-    //add button to each request that lets you mark as completed
-    //the action event for the button will do 1 of 3 things
-    //check status. if status is 'Not Assigned', then
-            //change background color to red
-    //if status is 'Assigned' then change background color to yellow
-    //if status is 'Complete' then change background color to green
-    //Once there is an employee assigned, it will be yellow (for in progress) and update status in DB
+    // add button to each request that lets you mark as completed
+    // the action event for the button will do 1 of 3 things
+    // check status. if status is 'Not Assigned', then
+    // change background color to red
+    // if status is 'Assigned' then change background color to yellow
+    // if status is 'Complete' then change background color to green
+    // Once there is an employee assigned, it will be yellow (for in progress) and update status in
+    // DB
     //
-    //TODO add button that deletes, add button that allows admin to edit (extra, but cool) (SADIE)
-    //addBox.getChildren().add();
+    // TODO add button that deletes, add button that allows admin to edit (extra, but cool) (SADIE)
+    // addBox.getChildren().add();
 
     reqBox.getChildren().add(addBox);
   }
