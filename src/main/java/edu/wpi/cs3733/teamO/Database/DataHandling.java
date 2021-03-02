@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import edu.wpi.cs3733.teamO.Opp;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -44,12 +46,12 @@ public class DataHandling {
    * imports data from csv (delimiter = ,|\n) and determines which database to add it to
    *
    * @param node, whether or not this file is a node file or an edge file
-   * @param url, the file will be grabbed when we open file explorer
    */
-  public static void importExcelData(String url, boolean node) {
+  public static void importExcelData(boolean node) {
 
     // Open file chooser instead of asking for user input
 
+    String url = explorer(Opp.getPrimaryStage());
     Scanner scan = null;
     Pattern d = Pattern.compile(",|\r\n");
 
@@ -103,7 +105,6 @@ public class DataHandling {
           longName = scan.next();
           shortName = scan.next();
           teamAssigned = scan.next();
-          visible = scan.nextBoolean();
 
           NodesAndEdges.addNode(
               nodeID,
@@ -115,7 +116,7 @@ public class DataHandling {
               longName,
               shortName,
               teamAssigned,
-              visible);
+              true);
         }
         scan.close();
 
@@ -163,7 +164,8 @@ public class DataHandling {
     }
   }
 
-  public static void save(String url, boolean node) {
+  public static void save(boolean node) {
+    String url = explorer(Opp.getPrimaryStage());
     if (node) {
       saveNodes(url);
     } else {

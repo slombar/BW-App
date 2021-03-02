@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
@@ -27,10 +28,15 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
-  public JFXButton uploadCSVBtn;
-  public JFXButton saveCSVBtn;
-  @FXML private JFXButton clearBtn1;
   // edit map components
+  @FXML private JFXButton uploadCSVBtn;
+  @FXML private JFXButton saveCSVBtn;
+  @FXML private JFXButton saveEBtn;
+  @FXML private JFXButton saveNBtn;
+  @FXML private JFXButton uploadEBtn;
+  @FXML private JFXButton uploadNBtn;
+  @FXML private JFXButton share;
+  @FXML private JFXButton clearBtn1;
   @FXML private VBox editVBox;
   @FXML private JFXTextField nodeID;
   @FXML private JFXTextField xCoord;
@@ -380,7 +386,19 @@ public class NewNavPageController implements Initializable {
     endNodeID.clear();
   }
 
-  public void uploadCSV(ActionEvent actionEvent) {}
+  public void uploadN(ActionEvent actionEvent) {
+    DataHandling.importExcelData(true);
+  }
 
-  public void saveCSV(ActionEvent actionEvent) {}
+  public void uploadE(ActionEvent actionEvent) {
+    DataHandling.importExcelData(false);
+  }
+
+  public void saveN(ActionEvent actionEvent) {
+    DataHandling.save(true);
+  }
+
+  public void saveE(ActionEvent actionEvent) {
+    DataHandling.save(false);
+  }
 }
