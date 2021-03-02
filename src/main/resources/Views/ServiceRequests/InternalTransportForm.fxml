@@ -52,7 +52,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="field1" focusColor="BLACK" prefWidth="250.0" promptText="Current Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                  <JFXTextField fx:id="locationF" focusColor="BLACK" prefWidth="250.0" promptText="Current Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font></JFXTextField>
@@ -68,7 +68,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="locationF" prefWidth="250.0" promptText="New Location" style="-fx-background-color: #ffffff;">
+                  <JFXTextField fx:id="field1" prefWidth="250.0" promptText="New Location" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
