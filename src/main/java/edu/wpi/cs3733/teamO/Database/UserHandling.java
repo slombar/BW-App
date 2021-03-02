@@ -145,15 +145,13 @@ public class UserHandling {
   public static boolean getAdmin() {
     boolean b = false;
 
-    String query = "SELECT * FROM USERS WHERE USERNAME = '" + getUsername() + "'";
+    String query = "SELECT ADMIN FROM USERS WHERE USERNAME = '" + getUsername() + "'";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
       ResultSet res = pstmt.executeQuery();
-      res.next();
-
-      b = res.getBoolean("ADMIN");
+      b = Boolean.parseBoolean(res.toString());
 
       res.close();
       pstmt.close();
@@ -167,15 +165,13 @@ public class UserHandling {
   public static boolean getEmployee() {
     boolean b = false;
 
-    String query = "SELECT * FROM USERS WHERE USERNAME = '" + getUsername() + "'";
+    String query = "SELECT EMPLOYEE FROM USERS WHERE USERNAME = '" + getUsername() + "'";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
       ResultSet res = pstmt.executeQuery();
-      res.next();
-
-      b = res.getBoolean("EMPLOYEE");
+      b = Boolean.parseBoolean(res.toString());
 
       res.close();
       pstmt.close();
