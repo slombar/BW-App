@@ -93,18 +93,13 @@
       <JFXHamburger fx:id="hamburger" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <Label text="Edit Map">
+            <JFXToggleButton fx:id="editToggle" contentDisplay="RIGHT" onAction="#editMode" prefHeight="38.0" prefWidth="200.0" text="Edit Map">
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
                <font>
-                  <Font name="Leelawadee UI Bold" size="21.0" />
+                  <Font name="Leelawadee UI Bold" size="22.0" />
                </font>
-               <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin>
-            </Label>
-            <JFXToggleButton fx:id="editToggle" onAction="#editMode" prefHeight="60.0" prefWidth="183.0" text="Editing Mode">
-               <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin>
             </JFXToggleButton>
             <VBox fx:id="editVBox" prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -257,7 +252,7 @@
                         </JFXTextField>
                      </children>
                   </HBox>
-                  <JFXButton fx:id="editNodeBtn" onAction="#editNode" prefWidth="280.0" text="Make Changes to Node">
+                  <JFXButton fx:id="editNodeBtn" onAction="#editNode" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Make Changes to Node">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
@@ -265,7 +260,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="delNodeBtn" onAction="#deleteNode" prefHeight="31.0" prefWidth="280.0" text="Select &amp; Delete Node">
+                  <JFXButton fx:id="delNodeBtn" onAction="#deleteNode" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Select &amp; Delete Node">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
@@ -273,20 +268,14 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <Line endX="113.29289245605469" startX="-100.0" />
-                  <JFXButton fx:id="addNodeBtn" onAction="#addNode" prefHeight="31.0" prefWidth="280.0" text="Click &amp; Create New Node">
+                  <JFXButton fx:id="addNodeBtn" onAction="#addNode" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Click &amp; Create New Node">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="8.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <Line endX="113.29289245605469" startX="-100.0">
-                     <VBox.margin>
-                        <Insets top="8.0" />
-                     </VBox.margin>
-                  </Line>
                   <Label text="Edge">
                      <font>
                         <Font name="System Bold" size="15.0" />
@@ -295,7 +284,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXToggleButton text="Show all edges">
+                  <JFXToggleButton alignment="CENTER_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" prefHeight="30.0" text="Show all edges" translateX="-25.0">
                      <VBox.margin>
                         <Insets left="15.0" />
                      </VBox.margin>
@@ -351,7 +340,7 @@
                         </JFXTextField>
                      </children>
                   </HBox>
-                  <JFXButton fx:id="editEdgeBtn" onAction="#editEdge" prefWidth="280.0" text="Make Changes to Edge">
+                  <JFXButton fx:id="editEdgeBtn" onAction="#editEdge" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Make Changes to Edge">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
@@ -359,7 +348,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="addEdgeBtn" onAction="#addEdge" prefHeight="31.0" prefWidth="280.0" text="Create New Edge">
+                  <JFXButton fx:id="addEdgeBtn" onAction="#addEdge" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Create New Edge">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
@@ -367,7 +356,28 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="delEdgeBtn" onAction="#deleteEdge" prefHeight="31.0" prefWidth="280.0" text="Delete Edge">
+                  <JFXButton fx:id="delEdgeBtn" onAction="#deleteEdge" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Delete Edge">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <Line endX="113.29289245605469" startX="-100.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Line>
+                  <JFXButton fx:id="uploadCSVBtn" onAction="#uploadCSV" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Upload CSV">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="saveCSVBtn" onAction="#saveCSV" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Save to CSV">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
@@ -377,7 +387,7 @@
                   </JFXButton>
                </children>
                <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" />
                </padding>
             </VBox>
          </children>

@@ -24,6 +24,8 @@ import javafx.scene.layout.*;
 
 public class NewNavPageController implements Initializable {
 
+  public JFXButton uploadCSVBtn;
+  public JFXButton saveCSVBtn;
   // edit map components
   @FXML private VBox editVBox;
   @FXML private JFXTextField nodeID;
@@ -307,6 +309,12 @@ public class NewNavPageController implements Initializable {
   public void deleteEdge(ActionEvent actionEvent) {}
 
   public void editNode(ActionEvent actionEvent) {}
+
+  public void uploadCSV(ActionEvent actionEvent) {
+  }
+
+  public void saveCSV(ActionEvent actionEvent) {
+  }
 
   //  public ArrayList<Double> addNodeClick(MouseEvent mouseEvent) {
   //    ArrayList<Double> mouseCoord = new ArrayList<>();
