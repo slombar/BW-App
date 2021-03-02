@@ -29,6 +29,12 @@ import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
 
+  @FXML private ImageView mapView5;
+  @FXML private ImageView mapView3;
+  @FXML private ImageView mapView2;
+  @FXML private ImageView mapView1;
+  @FXML private ImageView mapView0;
+  @FXML private ImageView mapView4;
   @FXML private JFXButton textButton;
   @FXML private StackPane stackPane;
   @FXML private JFXTextField phoneNum;
@@ -37,21 +43,35 @@ public class EmailPageController implements Initializable {
   @FXML private JFXSpinner spinner;
   @FXML private JFXTextField email;
   @FXML private JFXButton confirmBtn;
-  @FXML private ImageView mapView;
-  @FXML private static Image screenShot;
+  @FXML private static Image screenShot1;
+  @FXML private static Image screenShot2;
+  @FXML private static Image screenShot3;
+  @FXML private static Image screenShot4;
+  @FXML private static Image screenShot5;
+  @FXML private static Image screenShot6;
   @FXML private StackPane sharePane; // this thing might fuck up our code :))=
 
   @Override
   public void initialize(URL url, ResourceBundle res) {
 
-    mapView.setImage(screenShot);
+    mapView0.setImage(screenShot1);
+    mapView1.setImage(screenShot2);
+    mapView2.setImage(screenShot3);
+    mapView3.setImage(screenShot4);
+    mapView4.setImage(screenShot5);
+    mapView5.setImage(screenShot6);
     backBtn.setStyle("-fx-background-color: #c3d6e8");
     confirmBtn.setStyle("-fx-background-color: #c3d6e8");
     textButton.setStyle("-fx-background-color: #c3d6e8");
   }
 
-  public static void setScreenShot(Image sc) {
-    screenShot = sc;
+  public static void setScreenShot(Image sc1, Image sc2, Image sc3, Image sc4, Image sc5, Image sc6) {
+    screenShot1 = sc1;
+    screenShot2 = sc2;
+    screenShot3 = sc3;
+    screenShot4 = sc4;
+    screenShot5 = sc5;
+    screenShot6 = sc6;
   }
 
   private String errorMsg = "";
@@ -81,18 +101,27 @@ public class EmailPageController implements Initializable {
   }
 
   public void sendEmail(ActionEvent actionEvent) throws IOException {
-    String emailString = email.getText();
-    System.out.println(emailString);
 
+    String emailString = email.getText();
     if (RegexBoi.checkEmail(emailString)) {
       String home = System.getProperty("user.home");
-      String outputFile = home + "/Downloads/" + "mapimg.png";
+      String outputFile1 = home + "/Downloads/" + "mapimg1.png";
+      String outputFile2 = home + "/Downloads/" + "mapimg2.png";
+      String outputFile3 = home + "/Downloads/" + "mapimg3.png";
+      String outputFile4 = home + "/Downloads/" + "mapimg4.png";
+      String outputFile5 = home + "/Downloads/" + "mapimg5.png";
+      String outputFile6 = home + "/Downloads/" + "mapimg6.png";
 
-      SharingFunctionality.sendEmailAttachment(emailString, outputFile);
+      SharingFunctionality.sendEmailAttachment(emailString, outputFile1, outputFile2, outputFile3, outputFile4, outputFile5, outputFile6);
 
       submissionPopup();
 
-      mapView = new ImageView(outputFile);
+//      mapView0 = new ImageView(outputFile1);
+//      mapView1 = new ImageView(outputFile2);
+//      mapView2 = new ImageView(outputFile3);
+//      mapView3 = new ImageView(outputFile4);
+//      mapView4 = new ImageView(outputFile5);
+//      mapView5 = new ImageView(outputFile6);
 
     } else {
       errorMsg =

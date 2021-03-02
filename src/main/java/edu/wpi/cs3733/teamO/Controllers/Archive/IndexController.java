@@ -215,7 +215,7 @@ public class IndexController implements Initializable {
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
     Image newimg = map;
 
-    EmailPageController.setScreenShot(newimg);
+    //EmailPageController.setScreenShot(newimg);
 
     // add the scene switch
     AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/EmailPage.fxml"));

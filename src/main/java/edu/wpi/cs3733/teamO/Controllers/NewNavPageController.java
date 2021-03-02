@@ -352,17 +352,101 @@ public class NewNavPageController implements Initializable {
   // TODO: reset button??? (needs to set startNode and endNode to null)
   public void toSharePage(ActionEvent actionEvent) throws IOException {
 
-    //sharePane.toBack();
-    GraphicsContext gc = mapCanvas.getGraphicsContext2D();
-
+    mapCanvas.getGraphicsContext2D();
     String home = System.getProperty("user.home");
-    File outputFile = new File(home + "/Downloads/" + "mapimg.png");
+    File outputFile1 = new File(home + "/Downloads/" + "mapimg1.png");
+    File outputFile2 = new File(home + "/Downloads/" + "mapimg2.png");
+    File outputFile3 = new File(home + "/Downloads/" + "mapimg3.png");
+    File outputFile4 = new File(home + "/Downloads/" + "mapimg4.png");
+    File outputFile5 = new File(home + "/Downloads/" + "mapimg5.png");
+    File outputFile6 = new File(home + "/Downloads/" + "mapimg6.png");
 
-    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
-    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
-    Image newimg = map;
+    imageView.setImage(campusMap);
+    sFloor = "G";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map1 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map1, null), "png", outputFile1);
+    imageView.setImage(floor1Map);
+    sFloor = "1";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map2 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map2, null), "png", outputFile2);
+    imageView.setImage(floor2Map);
+    sFloor = "2";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map3 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map3, null), "png", outputFile3);
+    imageView.setImage(floor3Map);
+    sFloor = "3";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map4 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map4, null), "png", outputFile4);
+    imageView.setImage(floor4Map);
+    sFloor = "4";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map5 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map5, null), "png", outputFile5);
+    imageView.setImage(floor5Map);
+    sFloor = "5";
+    resizeCanvas();
+    if (displayingRoute) {
+      graph.drawCurrentPath(sFloor, startNode, endNode);
+    } else {
+      if (navigating) {
+        graph.drawVisibleNodes(sFloor, startNode, endNode);
+      } else {
+        graph.drawAllNodes(sFloor, startNode, endNode);
+      }
+    }
+    WritableImage map6 = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map6, null), "png", outputFile6);
 
-    EmailPageController.setScreenShot(newimg);
+    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
 
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
