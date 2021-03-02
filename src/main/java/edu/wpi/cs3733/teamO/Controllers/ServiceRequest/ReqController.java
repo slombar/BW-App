@@ -30,6 +30,7 @@ import javafx.scene.text.Text;
 
 public class ReqController implements Initializable {
 
+  public JFXButton assignButton;
   @FXML private VBox reqBox;
   @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
@@ -105,6 +106,9 @@ public class ReqController implements Initializable {
     System.out.println("RequestType: " + typeOfRequest);
     reqList = DisplayRequest.getSpecificReqList(typeOfRequest);
     displayList(reqList);
+
+    assignButton.setDisable(!UserHandling.getAdmin());
+    assignButton.setVisible(UserHandling.getAdmin());
   }
 
   public void addNewRequest(ActionEvent actionEvent) {

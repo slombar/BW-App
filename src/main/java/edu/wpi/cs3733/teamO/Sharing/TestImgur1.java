@@ -62,11 +62,22 @@ public class TestImgur1 {
 
     System.out.println(response.getBody());
 
-    /* testing string
-    String b =
-        "{\"status\":200,\"success\":true,\"data\":{\"id\":\"ImYycv8\",\"deletehash\":\"626l0igShHmm0bE\",\"account_id\":146010003,\"account_url\":\"bwolive3733\",\"ad_type\":null,\"ad_url\":null,\"title\":null,\"description\":null,\"name\":\"\",\"type\":\"image/png\",\"width\":1288,\"height\":1059,\"size\":209967,\"views\":0,\"section\":null,\"vote\":null,\"bandwidth\":0,\"animated\":false,\"favorite\":false,\"in_gallery\":false,\"in_most_viral\":false,\"has_sound\":false,\"is_ad\":false,\"nsfw\":null,\"link\":\"https://i.imgur.com/ImYycv8.png\",\"tags\":[],\"datetime\":1614654552,\"mp4\":\"\",\"hls\":\"\"}}";
-    String a = b.substring(b.indexOf("https"));
-    System.out.print(a.substring(0, a.indexOf("png") + 3));
+    /*
+    var clientId = ""; // Your client Id
+    var imgUrl = "http://i.imgur.com/l5OqYoZ.jpg";
+    var albumId = 'ABC123'; // Your owned album id
+
+    $.ajax({
+            url: "https://api.imgur.com/3/upload",
+            type: "POST",
+            datatype: "json",
+            data: {image: imgUrl, album: albumId},
+    success: showMe,
+            error: showMe,
+            beforeSend: function (xhr) {
+      xhr.setRequestHeader("Authorization", "Client-ID " + clientId);
+    }});
     */
+
   }
 }
