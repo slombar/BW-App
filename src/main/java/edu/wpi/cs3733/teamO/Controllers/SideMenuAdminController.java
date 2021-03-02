@@ -18,7 +18,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class SideMenuStaffController implements Initializable {
+public class SideMenuAdminController implements Initializable {
+    @FXML private JFXButton employeeButton;
     @FXML
     private JFXButton reqBtn;
     @FXML
@@ -42,7 +43,7 @@ public class SideMenuStaffController implements Initializable {
     @FXML
     private JFXButton exitBtn;
 
-    public SideMenuStaffController() {
+    public SideMenuAdminController() {
     }
 
     public void goToMainMenu(MouseEvent mouseEvent) {
@@ -88,6 +89,8 @@ public class SideMenuStaffController implements Initializable {
     public void toReq(ActionEvent actionEvent) {
         SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
     }
+
+    public void manageEmployees(ActionEvent actionEvent) {SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");}
 
     public void mouseOnNot(MouseEvent mouseEvent) {
         notificationBtn.setUnderline(true);
@@ -177,5 +180,15 @@ public class SideMenuStaffController implements Initializable {
     public void mouseOffReq(MouseEvent mouseEvent) {
         reqBtn.setUnderline(false);
         reqBtn.setButtonType(JFXButton.ButtonType.FLAT);
+    }
+
+    public void mouseOnEmp(MouseEvent mouseEvent) {
+        employeeButton.setUnderline(true);
+        employeeButton.setButtonType(JFXButton.ButtonType.RAISED);
+    }
+
+    public void mouseOffEmp(MouseEvent mouseEvent) {
+        employeeButton.setUnderline(false);
+        employeeButton.setButtonType(JFXButton.ButtonType.FLAT);
     }
 }
