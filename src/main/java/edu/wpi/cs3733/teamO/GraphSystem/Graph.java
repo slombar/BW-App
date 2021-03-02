@@ -24,6 +24,7 @@ public class Graph {
   private static ObservableList<Node> listOfNodes;
   private static ObservableList<Edge> listOfEdges;
   private static Hashtable<String, Node> stringNodeHashtable;
+  private static Hashtable<String, Edge> stringEdgeHashtable;
   private static Hashtable<Node, Circle> nodeCircleHashtable;
   private AStarSearch aStarSearch;
   List<Node> path;
@@ -73,7 +74,10 @@ public class Graph {
     listOfEdges = FXCollections.observableArrayList();
     listOfEdges = NodesAndEdges.getAllEdges();
 
+    stringEdgeHashtable = new Hashtable<>();
+
     for (Edge e : listOfEdges) {
+      stringEdgeHashtable.put(e.getID(), e);
       Node nodeA = stringNodeHashtable.get(e.getStart());
       Node nodeB = stringNodeHashtable.get(e.getEnd());
 
@@ -288,7 +292,7 @@ public class Graph {
   }
 
   public void deleteEdge(String eID) {
-    Edge e = NodesAndEdges.getEdge(eID);
+    Edge e = stringEdgeHashtable.get(eID);
     // delete edge from graph
     // go into neighbor list, unlink the startnode and endnode of the edge
 
