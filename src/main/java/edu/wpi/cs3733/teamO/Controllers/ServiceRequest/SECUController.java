@@ -20,7 +20,7 @@ public class SECUController {
   @FXML private JFXCheckBox field3;
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 
   public void clear(ActionEvent actionEvent) {
@@ -40,7 +40,7 @@ public class SECUController {
     String sum = summary.getText();
     String f1 = field1.getText();
     String f2 = String.valueOf(field2.getValue());
-    String f3 = null;
+    String f3 = String.valueOf(field3.isSelected());
 
     System.out.println(
         "Adding this to DB: "

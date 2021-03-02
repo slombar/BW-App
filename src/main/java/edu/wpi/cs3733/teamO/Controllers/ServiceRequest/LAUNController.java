@@ -52,7 +52,7 @@ public class LAUNController implements Initializable {
     String loc = locationF.getText();
     String sum = summary.getText();
     String f1 = field1.getText();
-    String f2 = field2.getText();
+    String f2 = String.valueOf(field2.isSelected());
     String f3 = loadSize;
 
     System.out.println(

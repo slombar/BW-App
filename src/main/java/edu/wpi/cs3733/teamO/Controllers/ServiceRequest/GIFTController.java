@@ -44,7 +44,7 @@ public class GIFTController {
     String sum = summary.getText();
     String f1 = field1.getText();
     String f2 = field2.getText();
-    String f3 = null;
+    String f3 = String.valueOf(field3.isSelected());
 
     System.out.println(
         "Adding this to DB: "
