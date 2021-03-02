@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.SRequest.DisplayRequest;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.net.URL;
@@ -21,11 +22,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class ReqController implements Initializable {
 
@@ -36,6 +39,10 @@ public class ReqController implements Initializable {
 
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
+    Stage s = null;
+    Scene scene = null;
+    s = Opp.getPrimaryStage();
+    scene = s.getScene();
 
     String reqID = r.getRequestID();
     String requestedBy = r.getRequestedBy();
@@ -49,7 +56,9 @@ public class ReqController implements Initializable {
 
     HBox addBox = new HBox();
 
-    addBox.setSpacing(10);
+    // Sets the writing style for requests displayed
+    //TODO: Set the font color to be white; currently doesn't set the color
+    addBox.setStyle("-fx-font-size: 18px; -fx-font-family:  Leelawadee UI; -fx-text-fill: white");
 
     Label id = new Label(reqID);
     Label reqBy = new Label(requestedBy);
@@ -61,6 +70,18 @@ public class ReqController implements Initializable {
     Label p2 = new Label(par2);
     Label p3 = new Label(par3);
 
+    boolean check = false;
+
+    id.getStyleClass().add("label");
+    reqBy.getStyleClass().add("label");
+    filledBy.getStyleClass().add("label");
+    dReq.getStyleClass().add("label");
+    dNeed.getStyleClass().add("label");
+    loc.getStyleClass().add("label");
+    p1.getStyleClass().add("label");
+    p2.getStyleClass().add("label");
+    p3.getStyleClass().add("label");
+
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
     addBox.getChildren().add(filledBy);
@@ -71,7 +92,8 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(p2);
     addBox.getChildren().add(p3);
 
-    reqBox.getChildren().add(addBox);
+    check = reqBox.getChildren().add(addBox);
+    System.out.println("Addbox check: " + check);
   }
 
   public void displayList(ObservableList<Request> requests) {
