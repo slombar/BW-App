@@ -61,6 +61,47 @@ public class UserHandling {
     }
   }
 
+  public static void createEmployee(
+          String username, String password, String email, String fName, String lName, boolean admin)
+          throws SQLException {
+
+    String encodedPass = null;
+    try {
+      encodedPass = Encrypter.encryptPassword(password);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+
+    String query =
+            "INSERT INTO USERS VALUES('"
+                    + username
+                    + "', '"
+                    + encodedPass
+                    + "', '"
+                    + email
+                    + "', '"
+                    + fName
+                    + "', '"
+                    + lName
+                    + "', "
+                    + true
+                    + ", "
+                    + admin
+                    + ")";
+
+    System.out.println("CREATE ACCT QUERY: " + query);
+
+    PreparedStatement preparedStmt = null;
+    try {
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.execute();
+      preparedStmt.close();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      throw new SQLException();
+    }
+  }
+
   /**
    * Logs in the user utilizing DB
    *
