@@ -295,6 +295,27 @@ public class UserHandling {
     return b;
   }
 
+  public static void assignEmployee(String reqID, String employee){
+    String query =
+            "UPDATE Requests SET requestedBy = '"
+                    + employee
+                    + "', WHERE requestID = '"
+                    + reqID
+                    + "'";
+    PreparedStatement preparedStmt = null;
+
+    try {
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      return;
+    }
+    System.out.println("Request with ID: " + reqID + "has been assigned employee: " + employee + ".");
+  }
+
   public static String getUsername() {
     return username;
   }
