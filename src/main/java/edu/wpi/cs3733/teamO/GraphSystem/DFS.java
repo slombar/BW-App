@@ -41,7 +41,7 @@ class DFS {
           llVisited.add(g.getID());
           stack.push(g);
           path.add(g);
-          if(g.equals(end)) return path;
+          if (g.equals(end)) return path;
         }
       }
     }
