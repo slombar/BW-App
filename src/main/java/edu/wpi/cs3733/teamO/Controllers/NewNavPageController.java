@@ -493,6 +493,7 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editNode(ActionEvent actionEvent) {
+    // TODO: i think this is where we would need to parse the text fields to validate them
     if (addNodeDB) {
       NodesAndEdges.addNode(
           nodeID.getText(),
@@ -506,14 +507,6 @@ public class NewNavPageController implements Initializable {
           "O",
           true);
 
-      nodeID.clear();
-      xCoord.clear();
-      yCoord.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
       addNodeDB = false;
 
     } else {
@@ -528,15 +521,16 @@ public class NewNavPageController implements Initializable {
           shortName.getText(),
           "O",
           true);
-      nodeID.clear();
-      xCoord.clear();
-      yCoord.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
     }
+
+    nodeID.clear();
+    xCoord.clear();
+    yCoord.clear();
+    floor.clear();
+    building.clear();
+    nodeType.clear();
+    longName.clear();
+    shortName.clear();
   }
 
   public void uploadN(ActionEvent actionEvent) {
