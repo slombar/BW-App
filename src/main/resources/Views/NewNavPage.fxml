@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="gridPane" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
+<GridPane fx:id="gridPane" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="15.0" prefWidth="100.0" />
     <ColumnConstraints fx:id="col1" percentWidth="70.0" />
@@ -370,22 +370,46 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Line>
-                  <JFXButton fx:id="uploadCSVBtn" onAction="#uploadCSV" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Upload CSV">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="saveCSVBtn" onAction="#saveCSV" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Save to CSV">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </JFXButton>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="uploadNBtn" onAction="#uploadN" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Upload N">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="uploadEBtn" onAction="#uploadE" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Upload E">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="saveNBtn" onAction="#saveN" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Save N">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="saveEBtn" onAction="#saveE" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #c0c0c0;" text="Save E">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" />
