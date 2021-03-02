@@ -33,6 +33,7 @@ import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private JFXCheckBox setVisibility;
   // edit map components
   @FXML private GridPane innerGrid;
   @FXML private JFXButton uploadCSVBtn;
@@ -505,7 +506,7 @@ public class NewNavPageController implements Initializable {
           longName.getText(),
           shortName.getText(),
           "O",
-          true);
+          setVisibility.isSelected());
 
       addNodeDB = false;
 
@@ -520,7 +521,7 @@ public class NewNavPageController implements Initializable {
           longName.getText(),
           shortName.getText(),
           "O",
-          true);
+          setVisibility.isSelected());
     }
 
     nodeID.clear();

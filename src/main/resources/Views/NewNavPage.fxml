@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
@@ -119,7 +120,7 @@
       </VBox>
       <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="402.0" prefWidth="123.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
       <JFXHamburger fx:id="hamburger" style="-fx-background-color: #3a5369;" />
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <children>
             <JFXToggleButton fx:id="editToggle" contentDisplay="RIGHT" onAction="#editMode" prefHeight="38.0" prefWidth="200.0" text="Edit Map">
                <VBox.margin>
@@ -280,6 +281,25 @@
                         </JFXTextField>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
+                     <children>
+                        <Label prefHeight="21.0" prefWidth="192.0" text="Visible:">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXCheckBox fx:id="setVisibility" contentDisplay="GRAPHIC_ONLY" prefHeight="21.0" prefWidth="209.0" text="Visible" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
                   <JFXButton fx:id="editNodeBtn" onAction="#editNode" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Make Changes to Node">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
@@ -317,6 +337,7 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </JFXToggleButton>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0" />
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
                      <children>
                         <Label prefWidth="120.0" text="Edge ID:">
@@ -397,14 +418,14 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Line>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="280.0" VBox.vgrow="ALWAYS">
                      <children>
                         <JFXButton fx:id="uploadNBtn" onAction="#uploadN" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Upload N">
                            <font>
                               <Font name="Leelawadee UI Bold" size="15.0" />
                            </font>
                            <HBox.margin>
-                              <Insets right="20.0" />
+                              <Insets right="10.0" />
                            </HBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="uploadEBtn" onAction="#uploadE" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Upload E">
@@ -417,17 +438,17 @@
                         <Insets top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="41.0" prefWidth="280.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <JFXButton fx:id="saveNBtn" onAction="#saveN" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Save N">
+                        <JFXButton fx:id="saveNBtn" onAction="#saveN" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Save Node">
                            <font>
                               <Font name="Leelawadee UI Bold" size="15.0" />
                            </font>
                            <HBox.margin>
-                              <Insets right="20.0" top="10.0" />
+                              <Insets right="10.0" top="10.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="saveEBtn" onAction="#saveE" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #c0c0c0;" text="Save E">
+                        <JFXButton fx:id="saveEBtn" onAction="#saveE" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #c0c0c0;" text="Save Edge">
                            <font>
                               <Font name="Leelawadee UI Bold" size="15.0" />
                            </font>
