@@ -155,7 +155,7 @@ public class PopupMaker {
 
     // Creates the content for the popup
     JFXDialogLayout symptoms = new JFXDialogLayout();
-    symptoms.setHeading(new Text("Invalid Username"));
+    symptoms.setHeading(new Text("Symptoms of COVID-19:"));
     symptoms.setBody(
         new Text(
             "Fever or chills\n"
