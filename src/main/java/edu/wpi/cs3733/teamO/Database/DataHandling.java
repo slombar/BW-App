@@ -103,7 +103,7 @@ public class DataHandling {
           longName = scan.next();
           shortName = scan.next();
           teamAssigned = scan.next();
-          visible = scan.nextBoolean();
+          visible = true;
 
           NodesAndEdges.addNode(
               nodeID,
@@ -139,23 +139,12 @@ public class DataHandling {
         }
 
         while (scan.hasNext()) {
-
-          nodeID = scan.next();
+          scan.next();
           startNode = scan.next();
           endNode = scan.next();
-          length = scan.nextDouble();
+          length = 0;
 
-          System.out.println(
-              "nodeID:"
-                  + nodeID
-                  + "\nstartNode:"
-                  + startNode
-                  + "\nendNode:"
-                  + endNode
-                  + "\nlength:"
-                  + length);
-
-          NodesAndEdges.addEdge(startNode, endNode, length);
+          NodesAndEdges.addNewEdge(startNode, endNode);
         }
       }
     } else {
@@ -192,11 +181,6 @@ public class DataHandling {
       pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes");
       ResultSet rset = pstmt.executeQuery();
 
-      // Obtain csv file for nodes from user
-
-      // String url = "C:\\Users\\Kyle Lopez\\Desktop\\SoftEng -
-      // Code\\Project-BWApp\\MapONodes.csv";
-
       BufferedWriter bw;
       bw = new BufferedWriter(new FileWriter(url));
       while (rset.next()) {
@@ -222,8 +206,7 @@ public class DataHandling {
                 nodeType,
                 longName,
                 shortName,
-                teamAssigned,
-                visible);
+                teamAssigned);
 
         // writes "enter", so we more to the next line
         bw.newLine();
@@ -263,7 +246,7 @@ public class DataHandling {
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
         length = rset.getDouble("length");
-        String line = String.format("%s,%s,%s,%d ", ID, startNode, endNode, length);
+        String line = String.format("%s,%s,%s,%d ", ID, startNode, endNode);
         bw.newLine();
         bw.write(line);
       }
