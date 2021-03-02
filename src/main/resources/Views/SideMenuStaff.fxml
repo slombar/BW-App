@@ -112,7 +112,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="477.0" prefWidth="350.0">
+      <VBox alignment="BOTTOM_LEFT" prefHeight="400.0" prefWidth="350.0">
          <children>
             <JFXButton fx:id="logout" alignment="BOTTOM_LEFT" onAction="#goToLogin" onMouseEntered="#mouseOnLog" onMouseExited="#mouseOffLog" prefHeight="51.0" prefWidth="145.0" text="Log Out">
                <font>

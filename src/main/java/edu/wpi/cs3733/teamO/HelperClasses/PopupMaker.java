@@ -193,7 +193,7 @@ public class PopupMaker {
     symptoms.setBody(
         new Text(
             "You are at high risk of spreading COVID-19!\n"
-                + "\nPlease seek medical help and do not enter the hospital\n"));
+                + "\nPlease do not enter the hospital\n"));
     JFXButton closeButton = new JFXButton("Close");
     symptoms.setActions(closeButton);
 
