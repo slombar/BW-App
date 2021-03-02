@@ -56,6 +56,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXButton addEdgeBtn;
   @FXML private JFXButton delEdgeBtn;
   private boolean addNodeMode;
+  private boolean addNodeDB;
 
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -172,6 +173,7 @@ public class NewNavPageController implements Initializable {
       editVBox.setVisible(true);
     }
     addNodeMode = false;
+    addNodeDB = false;
     // autocompletes the node Id for start and end
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
     Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
@@ -294,21 +296,12 @@ public class NewNavPageController implements Initializable {
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
 
     if (addNodeMode) {
-      //      xCoord.setText(String.valueOf(mouseEvent.getX()));
-      //      yCoord.setText(String.valueOf(mouseEvent.getY()));
-
       Node n = new Node();
       n.setXCoord((int) mouseEvent.getX());
       n.setYCoord((int) mouseEvent.getY());
 
       autocompleteEditMap(n);
 
-      //      nodeID.clear();
-      //      floor.clear();
-      //      building.clear();
-      //      nodeType.clear();
-      //      longName.clear();
-      //      shortName.clear();
       addNodeMode = false;
     } else if (editToggle.isSelected()) {
       autocompleteEditMap(clickedNode);
@@ -360,6 +353,7 @@ public class NewNavPageController implements Initializable {
 
   public void addNode(ActionEvent actionEvent) {
     addNodeMode = true;
+    addNodeDB = true;
   }
 
   public void editEdge(ActionEvent actionEvent) {
@@ -384,6 +378,30 @@ public class NewNavPageController implements Initializable {
   }
 
   public void editNode(ActionEvent actionEvent) {
+    if (addNodeDB) {
+      NodesAndEdges.addNode(
+          nodeID.getText(),
+          xCoord.getText(),
+          yCoord.getText(),
+          floor.getText(),
+          building.getText(),
+          nodeType.getText(),
+          longName.getText(),
+          shortName.getText(),
+          "O",
+          true);
+
+      nodeID.clear();
+      xCoord.clear();
+      yCoord.clear();
+      floor.clear();
+      building.clear();
+      nodeType.clear();
+      longName.clear();
+      shortName.clear();
+
+      addNodeDB = false;
+    }
     NodesAndEdges.editNode(
         nodeID.getText(),
         Integer.parseInt(xCoord.getText()),
@@ -395,9 +413,14 @@ public class NewNavPageController implements Initializable {
         shortName.getText(),
         "O",
         true);
-    edgeID.clear();
-    startNodeID.clear();
-    endNodeID.clear();
+    nodeID.clear();
+    xCoord.clear();
+    yCoord.clear();
+    floor.clear();
+    building.clear();
+    nodeType.clear();
+    longName.clear();
+    shortName.clear();
   }
 
   public void uploadN(ActionEvent actionEvent) {
