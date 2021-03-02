@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
@@ -11,11 +12,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class SideMenuController implements Initializable {
+  @FXML private Label nameLabel;
   @FXML private JFXButton navBtn;
   @FXML private JFXButton mainMenuBtn;
   @FXML private VBox sideVBox;
@@ -31,7 +34,9 @@ public class SideMenuController implements Initializable {
   public void goToMainMenu(MouseEvent mouseEvent) {}
 
   @Override
-  public void initialize(URL location, ResourceBundle resources) {}
+  public void initialize(URL location, ResourceBundle resources) {
+    nameLabel.setText(UserHandling.getUsername());
+  }
 
   public void exit(ActionEvent actionEvent) {
     Platform.exit();
