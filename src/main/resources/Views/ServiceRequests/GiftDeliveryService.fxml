@@ -143,7 +143,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXButton style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
+                  <JFXButton fx:id="back" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -151,7 +151,7 @@
                         <Insets left="50.0" right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
+                  <JFXButton fx:id="clear" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
@@ -159,7 +159,7 @@
                         <Insets left="50.0" right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
+                  <JFXButton fx:id="submit" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="18.0" />
                      </font>
