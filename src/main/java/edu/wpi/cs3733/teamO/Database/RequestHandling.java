@@ -114,12 +114,15 @@ public class RequestHandling {
 
     pstmt =
         DatabaseConnection.getConnection()
-            .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = '" + reqID + "'");
+            .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = ?");
+
+    pstmt.setInt(1, Integer.valueOf(reqID));
 
     ResultSet rset = pstmt.executeQuery();
-    rset.next();
 
-    status = rset.getString("STATUS");
+    while (rset.next()) {
+      status = rset.getString("STATUS");
+    }
 
     rset.close();
     pstmt.close();
@@ -133,12 +136,12 @@ public class RequestHandling {
    * @param reqID
    */
   public static void setStatus(String reqID, String status) throws SQLException {
-    String query =
-        "UPDATE REQUESTS SET STATUS = '" + status + "' WHERE REQUESTID = '" + reqID + "'";
+    String query = "UPDATE REQUESTS SET STATUS = '" + status + "' WHERE REQUESTID = ?";
 
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
 
+    pstmt.setInt(1, Integer.valueOf(reqID));
     pstmt.executeUpdate();
     pstmt.close();
   }
@@ -150,7 +153,9 @@ public class RequestHandling {
       PreparedStatement pstmt = null;
       pstmt =
           DatabaseConnection.getConnection()
-              .prepareStatement("SELECT * FROM Requests WHERE reqID = '" + reqID + "'");
+              .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = ?");
+      pstmt.setInt(1, Integer.valueOf(reqID));
+
       ResultSet rset = pstmt.executeQuery();
 
       // add properties to the node
@@ -235,10 +240,13 @@ public class RequestHandling {
   }
 
   public static void deleteRequest(int requestID) {
-    String query = "DELETE FROM REQUESTS WHERE requestID =" + requestID;
+    String query = "DELETE FROM REQUESTS WHERE REQUESTID = ?";
+
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setInt(1, Integer.valueOf(requestID));
+
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -281,12 +289,11 @@ public class RequestHandling {
             + customParameter2
             + "', customParameter3 = '"
             + customParameter3
-            + "'WHERE requestID ='"
-            + requestID
-            + "'";
+            + "'WHERE requestID = ?";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setInt(1, Integer.valueOf(requestID));
       preparedStmt.execute();
       preparedStmt.close();
 
