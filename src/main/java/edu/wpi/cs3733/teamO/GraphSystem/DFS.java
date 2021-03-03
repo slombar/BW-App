@@ -23,6 +23,7 @@ class DFS implements AlgorithmStrategy {
     g.setVisited(true);
     llVisited.add(g.getID());
     LinkedList<Node> path = dfsStack(g, end);
+    path.addFirst(g);
     return path;
   }
 
