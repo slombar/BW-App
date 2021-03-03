@@ -127,7 +127,7 @@ public class EmailPageController implements Initializable {
     // }*/
   }
 
-  /*public void sendText(ActionEvent actionEvent) throws IOException, UnirestException {
+  public void prepareQR(ActionEvent actionEvent) throws IOException, UnirestException {
 
     String phoneString = phoneNum.getText();
     System.out.println(phoneString);
@@ -147,16 +147,16 @@ public class EmailPageController implements Initializable {
 
     String albumLink = "https://imgur.com/a/" + albumID;
 
-    SharingFunctionality.sendSMSTwillio(phoneString, albumLink);
+    SharingFunctionality.createQR(albumLink);
     submissionPopup();
 
     // }
-    else {
+    /*else {
       errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
       System.out.print(errorMsg);
       invalidPopup();
-    }
-  }*/
+    }*/
+  }
 
   public void sendEmail(ActionEvent actionEvent) throws IOException {
 
