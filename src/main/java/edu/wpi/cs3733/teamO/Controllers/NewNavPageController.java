@@ -7,12 +7,12 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
+import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +35,8 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
@@ -273,7 +275,8 @@ public class NewNavPageController implements Initializable {
 
   public void goToMain(ActionEvent actionEvent) {
     String MenuUrl = "/Views/MainPage.fxml";
-    if (UserHandling.getEmployee()||UserHandling.getAdmin()) MenuUrl = "/Views/StaffMainPage.fxml";
+    if (UserHandling.getEmployee() || UserHandling.getAdmin())
+      MenuUrl = "/Views/StaffMainPage.fxml";
     SwitchScene.goToParent(MenuUrl);
   }
 
@@ -328,6 +331,7 @@ public class NewNavPageController implements Initializable {
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
+    Circle c = null;
 
     // if navigating
     if (!editing) {
@@ -341,10 +345,15 @@ public class NewNavPageController implements Initializable {
     else {
       if (selectingEditNode) {
         autocompleteEditMap(clickedNode);
+        selectedNode = clickedNode;
       } else if (addNodeMode) {
-        Node n = new Node();
-        n.setXCoord((int) mouseEvent.getX());
-        n.setYCoord((int) mouseEvent.getY());
+        Node n = getRealXY(sFloor, mouseEvent);
+        n.setFloor(sFloor);
+
+        c = new Circle();
+        c.setCenterX(mouseEvent.getX());
+        c.setCenterY(mouseEvent.getY());
+        c.setRadius(mapCanvas.getWidth() * 0.00625);
 
         autocompleteEditMap(n);
       }
@@ -353,13 +362,50 @@ public class NewNavPageController implements Initializable {
     draw();
 
     if (addNodeMode) {
-      // TODO: draw circle
-
+      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
       addNodeMode = false;
-      selectingEditNode = false; // (still)
+      selectingEditNode = true;
     }
 
     System.out.println("mapCanvas click");
+  }
+
+  private Node getRealXY(String floor, MouseEvent mouseEvent) {
+    Node n = new Node();
+    double imgX = 0;
+    double imgY = 0;
+    switch (floor) {
+      case "G":
+        imgX = campusMap.getWidth();
+        imgY = campusMap.getHeight();
+        break;
+      case "1":
+        imgX = floor1Map.getWidth();
+        imgY = floor1Map.getHeight();
+        break;
+      case "2":
+        imgX = floor2Map.getWidth();
+        imgY = floor2Map.getHeight();
+        break;
+      case "3":
+        imgX = floor3Map.getWidth();
+        imgY = floor3Map.getHeight();
+        break;
+      case "4":
+        imgX = floor4Map.getWidth();
+        imgY = floor4Map.getHeight();
+        break;
+      case "5":
+        imgX = floor5Map.getWidth();
+        imgY = floor5Map.getHeight();
+        break;
+    }
+
+    double nPercX = mouseEvent.getX() / gc.getCanvas().getWidth();
+    double nPercY = mouseEvent.getY() / gc.getCanvas().getHeight();
+    n.setXCoord((int) (nPercX * imgX));
+    n.setYCoord((int) (nPercY * imgY));
+    return n;
   }
 
   public void startLocSelection(ActionEvent actionEvent) {
@@ -440,7 +486,6 @@ public class NewNavPageController implements Initializable {
     addingEdgeBD = false;
   }
 
-  // TODO: make sure nodes take the checkbox value for VISIBLE
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
     if (addNodeDBMode) {
