@@ -27,8 +27,8 @@ public class TextDirection {
     double cross_product =
         (node2.getXCoord() * node3.getYCoord() - node2.getYCoord() * node3.getXCoord());
 
-    //for the different floors.
-    if(v2_x == 0 && v2_y == 0) return 100;
+    // for the different floors.
+    if (v2_x == 0 && v2_y == 0) return 100;
 
     // return ZERO if dot_product is zero.
     if (angle == 0.0) return Math.abs(angle);
@@ -54,12 +54,12 @@ public class TextDirection {
       // to support floor.
       if (angle == 100) {
         Directions.add(
-                "Walk towards "
-                        + path.get(i + 1).getLongName()
-                        + " and use "
-                        + path.get(i + 2).getLongName()
-                        + " to go to floor "
-                        + path.get(i + 2).getFloor());
+            "Walk towards "
+                + path.get(i + 1).getLongName()
+                + " and use "
+                + path.get(i + 2).getLongName()
+                + " to go to floor "
+                + path.get(i + 2).getFloor());
       }
       if (angle < -25) {
         // Lefts
