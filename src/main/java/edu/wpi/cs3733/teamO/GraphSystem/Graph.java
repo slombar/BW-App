@@ -440,6 +440,16 @@ public class Graph {
     path = aStarSearch.findRoute(startNode, targetNode);
   }
 
+  // add function calls for direction at points.
+  public static double findDirectionForPoints(Node node1, Node node2, Node node3) {
+    return TextDirection.direction(node1, node2, node3);
+  }
+
+  // add function calls for text direction.
+  public static ArrayList<String> findTextDirection(ArrayList<Node> path) {
+    return TextDirection.textDirections(path);
+  }
+
   public void resetPath() {
     path = new LinkedList<>();
   }
