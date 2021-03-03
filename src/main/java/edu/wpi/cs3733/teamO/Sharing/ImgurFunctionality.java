@@ -35,15 +35,16 @@ public class ImgurFunctionality {
     return result;
   }
 
-  public static String uploadImage(String imageName) throws UnirestException{
+  public static String uploadImage(String imageName) throws UnirestException {
     String home = System.getProperty("user.home");
     String file = home + "/Downloads/" + imageName;
 
-    //TODO change to upload image
+    // TODO change to upload image
     Unirest.setTimeouts(0, 0);
-    HttpResponse<String> response = Unirest.post("https://api.imgur.com/3/upload")
+    HttpResponse<String> response =
+        Unirest.post("https://api.imgur.com/3/upload")
             .header("Authorization", "Client-ID 546c25a59c58ad7")
-            .field("file", new File(file))
+            .field("image", new File(file))
             .asString();
 
     String b = response.getBody();
@@ -60,17 +61,9 @@ public class ImgurFunctionality {
     HttpResponse<String> response =
         Unirest.post("https://api.imgur.com/3/upload")
             .header("Authorization", "Client-ID 546c25a59c58ad7")
-            .field("file", new File(file))
+            .field("image", new File(file))
             .field("album", albumDeleteHash)
             .asString();
-
-
-  }
-
-  public static String parseID(String msgBody) {
-    msgBody = msgBody.substring(msgBody.indexOf("'id':'"));
-    msgBody = msgBody.substring(0, msgBody.indexOf("','"));
-    return msgBody;
   }
 
   public static void main(String[] args) throws Exception {

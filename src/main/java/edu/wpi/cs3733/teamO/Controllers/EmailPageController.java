@@ -6,14 +6,12 @@ import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Sharing.ImgurFunctionality;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,10 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
@@ -73,12 +67,11 @@ public class EmailPageController implements Initializable {
       img = ImageIO.read(new File(inputfile));
     } catch (IOException e) {
     }
-    Image image = SwingFXUtils.toFXImage(img, null );
+    Image image = SwingFXUtils.toFXImage(img, null);
     QRView.setImage(image);
     QRView.setScaleX(2);
     QRView.setScaleY(2);
     QRView.setTranslateY(250);
-
   }
 
   public static void setScreenShot(
@@ -127,10 +120,7 @@ public class EmailPageController implements Initializable {
     // }*/
   }
 
-  public void prepareQR(ActionEvent actionEvent) throws IOException, UnirestException {
-
-    String phoneString = phoneNum.getText();
-    System.out.println(phoneString);
+  public static void prepareQR() throws IOException, UnirestException {
 
     // if (RegexBoi.checkPhoneNum(phoneString)) {
 
@@ -138,6 +128,7 @@ public class EmailPageController implements Initializable {
     String albumID = albumInfo.get(0);
     String albumDeleteHash = albumInfo.get(1);
 
+    ImgurFunctionality.uploadToImgur("mapimg1.png", albumDeleteHash);
     ImgurFunctionality.uploadToImgur("mapimg1.png", albumDeleteHash);
     ImgurFunctionality.uploadToImgur("mapimg2.png", albumDeleteHash);
     ImgurFunctionality.uploadToImgur("mapimg3.png", albumDeleteHash);
@@ -148,7 +139,7 @@ public class EmailPageController implements Initializable {
     String albumLink = "https://imgur.com/a/" + albumID;
 
     SharingFunctionality.createQR(albumLink);
-    submissionPopup();
+    // submissionPopup();
 
     // }
     /*else {

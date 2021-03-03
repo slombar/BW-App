@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
@@ -456,7 +457,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    * @throws IOException
    */
-  public void toSharePage(ActionEvent actionEvent) throws IOException {
+  public void toSharePage(ActionEvent actionEvent) throws IOException, UnirestException {
 
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
     mapCanvas.getGraphicsContext2D();
@@ -467,7 +468,8 @@ public class NewNavPageController implements Initializable {
     WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
     WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
     EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
-    //TODO: Insert method call that write qr.png to download folder
+    // TODO: Insert method call that write qr.png to download folder
+    EmailPageController.prepareQR();
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 

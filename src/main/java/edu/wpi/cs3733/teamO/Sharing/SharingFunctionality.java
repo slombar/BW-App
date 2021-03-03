@@ -60,7 +60,7 @@ public class SharingFunctionality {
                 new com.twilio.type.PhoneNumber(
                     sendingTo), // replace with cindy's number if testing
                 new com.twilio.type.PhoneNumber("+16173560972"),
-                "This is the ship that made the Kessel Run in fourteen parsecs?")
+                "Hello! Here are your map images!")
             .setMediaUrl(
                 Arrays.asList(
                     URI.create(linkToFile1),
