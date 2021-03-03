@@ -1,11 +1,9 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
-import java.util.LinkedList;
+import java.util.List;
 
-public interface AlgorithmStrategy {
+interface AlgorithmStrategy {
 
-  public static LinkedList<Node> findRoute(Graph g, Node startNode, Node targetNode) {
-    return null;
-  }
+  List<Node> findRoute(Node startNode, Node targetNode);
 }
