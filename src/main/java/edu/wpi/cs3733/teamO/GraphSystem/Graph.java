@@ -329,7 +329,7 @@ public class Graph {
     }
 
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, null, null);
-    if (selectedNode != null) {
+    if (listOfNodes.contains(selectedNode)) {
       DrawHelper.drawSingleNode(gc, nodeCircleHashtable.get(selectedNode), Color.BLUE);
     }
   }
