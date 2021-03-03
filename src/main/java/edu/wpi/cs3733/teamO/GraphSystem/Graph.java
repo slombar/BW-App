@@ -289,21 +289,23 @@ public class Graph {
   public void deleteNode(String nodeID) {
     Node n = stringNodeHashtable.get(nodeID);
     // delete from graph
-    nodeCircleHashtable.remove(n);
+
     // remove from the string hashtable
-    stringNodeHashtable.remove(n.getID());
+
     // removes all edges
     // for each neighbor of the given deleting node
-    for (Node node : n.getNeighbourList()) {
-      // remove the neighbor from the list
-      n.getNeighbourList().remove(node);
-
-      // check edgelist to see if the variable Node "node" is equal
-      // to the start node or end node of any edge in the list
-      listOfEdges.removeIf(
-          e -> e.getStart().equals(node.getID()) || e.getEnd().equals(node.getID()));
+    for (Edge e : listOfEdges) {
+      if (e.getStart().equals(nodeID) || e.getEnd().equals(nodeID)) {
+        try {
+          this.deleteEdge(e.getStart(), e.getEnd());
+        } catch (SQLException throwables) {
+          throwables.printStackTrace();
+        }
+      }
     }
     listOfNodes.remove(n);
+    nodeCircleHashtable.remove(n);
+    stringNodeHashtable.remove(n.getID());
   }
 
   public void deleteEdge(String startNodeID, String endNodeID) throws SQLException {
