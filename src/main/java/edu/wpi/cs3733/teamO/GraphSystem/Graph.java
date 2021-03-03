@@ -353,7 +353,7 @@ public class Graph {
     }
 
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, null, null);
-    if (listOfNodes.contains(selectedNode)) {
+    if (listOfNodes.contains(selectedNode) && selectedNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, nodeCircleHashtable.get(selectedNode), Color.BLUE);
     }
   }
@@ -478,5 +478,9 @@ public class Graph {
 
   public void resetPath() {
     path = new LinkedList<>();
+  }
+
+  public ObservableList<Node> getListOfNodes() {
+    return listOfNodes;
   }
 }

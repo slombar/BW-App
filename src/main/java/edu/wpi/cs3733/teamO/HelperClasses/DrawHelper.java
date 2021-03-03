@@ -44,13 +44,21 @@ public class DrawHelper {
       double diameter = 2 * tempCir.getRadius();
 
       if (n.getNodeType().equals("STAI")) {
+        gc.setGlobalAlpha(0.25);
         gc.setFill(Color.GREEN);
+        gc.setStroke(Color.GREEN);
       } else if (n.getNodeType().equals("ELEV")) {
+        gc.setGlobalAlpha(0.25);
         gc.setFill(Color.PURPLE);
+        gc.setStroke(Color.PURPLE);
       }
 
       if (n.getNodeType().equals("EXIT")) {
         gc.setFill(Color.ORANGE);
+      }
+
+      if (!n.isVisible()) {
+        gc.setFill(Color.TRANSPARENT);
       }
 
       if (n.equals(startNode)) {
@@ -60,6 +68,7 @@ public class DrawHelper {
       }
 
       gc.fillOval(tempCirX, tempCirY, diameter, diameter);
+      gc.setGlobalAlpha(1.0);
       gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
     }
 
