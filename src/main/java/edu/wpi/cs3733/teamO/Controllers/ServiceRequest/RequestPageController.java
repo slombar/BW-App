@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;
@@ -40,8 +41,10 @@ public class RequestPageController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // Set drawer to SideMenu
+    String sideMenu = "/Views/SideMenuStaff.fxml";
+    if(UserHandling.getAdmin()) sideMenu = "/Views/SideMenuAdmin.fxml";
     try {
-      VBox vbox = FXMLLoader.load(getClass().getResource("/Views/SideMenuStaff.fxml"));
+      VBox vbox = FXMLLoader.load(getClass().getResource(sideMenu));
       drawer.setSidePane(vbox);
     } catch (IOException e) {
       e.printStackTrace();
