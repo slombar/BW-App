@@ -41,11 +41,10 @@ public class ImgurFunctionality {
 
     //TODO change to upload image
     Unirest.setTimeouts(0, 0);
-    HttpResponse<String> response =
-            Unirest.post("https://api.imgur.com/3/upload")
-                    .header("Authorization", "Client-ID 546c25a59c58ad7")
-                    .field("file", new File(file))
-                    .asString();
+    HttpResponse<String> response = Unirest.post("https://api.imgur.com/3/upload")
+            .header("Authorization", "Client-ID 546c25a59c58ad7")
+            .field("file", new File(file))
+            .asString();
 
     String b = response.getBody();
     String a = b.substring(b.indexOf("https"));
