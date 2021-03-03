@@ -639,8 +639,8 @@ public class NewNavPageController implements Initializable {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
       try {
-        NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
-        graph.deleteEdge(edgeID.getText());
+        // NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
+        graph.deleteEdge(startNodeID.getText(), endNodeID.getText());
       } catch (SQLException throwables) {
         PopupMaker.edgeDoesntExists(nodeWarningPane);
       }
