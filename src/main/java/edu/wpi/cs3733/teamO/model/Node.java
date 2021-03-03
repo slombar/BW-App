@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.model;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Set;
 
 public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> {
   String ID, building, nodeType, longName, shortName, floor, team;
@@ -123,7 +122,7 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
     this.team = team;
   }
 
-  public Set<Node> getNeighbourList() {
+  public HashSet<Node> getNeighbourList() {
     return neighbourList;
   }
 
@@ -219,5 +218,11 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
     this.visible = visible;
   }
 
-  public void addNeighbour(Node n2) {}
+  public Hashtable<Node, Edge> getNodeEdgeHashtable() {
+    return nodeEdgeHashtable;
+  }
+
+  public void setNodeEdgeHashtable(Hashtable<Node, Edge> nodeEdgeHashtable) {
+    this.nodeEdgeHashtable = nodeEdgeHashtable;
+  }
 }

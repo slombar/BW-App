@@ -1,16 +1,11 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
-import static edu.wpi.cs3733.teamO.Database.NodesAndEdges.getNode;
-
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -210,6 +205,25 @@ public class Graph {
   }
 
   public void addNode(Node n) {
+    // if ID already exists, then editing -> need node's neighborlist
+    if (stringNodeHashtable.containsKey(n.getID())) {
+      Node prev = stringNodeHashtable.get(n.getID());
+      HashSet<Node> prevNList = prev.getNeighbourList();
+      Hashtable<Node, Edge> prevNEList = prev.getNodeEdgeHashtable();
+      Circle prevC = nodeCircleHashtable.get(prev);
+
+      listOfNodes.remove(prev);
+      nodeCircleHashtable.remove(prev);
+
+      n.setNeighbourList(prevNList);
+      n.setNodeEdgeHashtable(prevNEList);
+
+      listOfNodes.add(n);
+      stringNodeHashtable.put(n.getID(), n);
+      nodeCircleHashtable.put(n, prevC);
+      return;
+    }
+
     // add circle
     // add node to graph
     String nodeID = n.getID();
@@ -263,8 +277,8 @@ public class Graph {
   }
 
   public void addEdge(Edge e) {
-    Node node1 = getNode(e.getStart());
-    Node node2 = getNode(e.getEnd());
+    Node node1 = stringNodeHashtable.get(e.getStart());
+    Node node2 = stringNodeHashtable.get(e.getEnd());
     // add edge to graph
     link(node1, node2, e);
 

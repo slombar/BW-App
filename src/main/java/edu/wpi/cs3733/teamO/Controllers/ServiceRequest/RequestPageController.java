@@ -42,7 +42,7 @@ public class RequestPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // Set drawer to SideMenu
     String sideMenu = "/Views/SideMenuStaff.fxml";
-    if(UserHandling.getAdmin()) sideMenu = "/Views/SideMenuAdmin.fxml";
+    if (UserHandling.getAdmin()) sideMenu = "/Views/SideMenuAdmin.fxml";
     try {
       VBox vbox = FXMLLoader.load(getClass().getResource(sideMenu));
       drawer.setSidePane(vbox);

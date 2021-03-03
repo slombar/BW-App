@@ -34,6 +34,7 @@ class AStarSearch implements AlgorithmStrategy {
   }
 
   public List<Node> findRoute(Node startNode, Node targetNode) {
+    // TODO: reset all node's priority to 0.0???
     frontier = new PriorityQueue<>();
     cameFrom = new Hashtable<>();
     costSoFar = new Hashtable<>();
