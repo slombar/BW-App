@@ -23,7 +23,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -51,7 +51,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -79,7 +79,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -113,7 +113,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -136,8 +136,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -173,7 +172,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog symptomsDialog =
-        new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, true);
+        new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -199,7 +198,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, true);
+        new JFXDialog(popupPane, symptoms, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -222,8 +221,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -246,8 +244,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -270,8 +267,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -294,8 +290,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -318,8 +313,7 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, true);
-    warningDialog.setOverlayClose(false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
 
     // Closes the popup
     closeButton.setOnAction(
