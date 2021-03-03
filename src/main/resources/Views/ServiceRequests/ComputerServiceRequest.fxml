@@ -17,7 +17,7 @@
          <children>
             <Label text="Computer Service Request" textFill="WHITE">
                <font>
-                  <Font name="Leelawadee UI Bold" size="55.0" />
+                  <Font name="Leelawadee UI Bold" size="55.0" />ComputerServiceRequest
                </font>
             </Label>
          </children>
