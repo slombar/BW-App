@@ -301,6 +301,13 @@ public class UserHandling {
   }
 
   public static void assignEmployee(String reqID, String employee) {
+
+    try {
+      RequestHandling.setStatus(reqID, "Assigned");
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
     String query =
         "UPDATE Requests SET fulfilledBy = '"
             + employee
