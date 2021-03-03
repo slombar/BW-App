@@ -61,7 +61,7 @@
       </GridPane>
       <VBox fx:id="topMenu" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
-            <Label text="Brigham &amp; Womens Hospital" textFill="WHITE">
+            <Label text="Brigham &amp; Women's Faulkner Hospital" textFill="WHITE">
                <font>
                   <Font name="Leelawadee UI Bold" size="36.0" />
                </font>
