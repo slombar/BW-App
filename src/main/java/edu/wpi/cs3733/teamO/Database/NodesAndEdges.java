@@ -213,7 +213,6 @@ public class NodesAndEdges {
   /** @param nodeID */
   public static void deleteEdge(String nodeID) throws SQLException {
     // get the edge to throw error if it doesn't exist.
-    getEdge(nodeID);
     String query = "DELETE FROM Edges WHERE nodeID = '" + nodeID + "'";
 
     try {
