@@ -1,11 +1,14 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.*;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Sharing.ImgurFunctionality;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,37 +74,66 @@ public class EmailPageController implements Initializable {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
-  public void sendText(ActionEvent actionEvent) throws IOException {
+  public void sendText(ActionEvent actionEvent) throws IOException, UnirestException {
 
     String phoneString = phoneNum.getText();
     System.out.println(phoneString);
 
-    if (RegexBoi.checkPhoneNum(phoneString)) {
+    // if (RegexBoi.checkPhoneNum(phoneString)) {
 
-      String home = System.getProperty("user.home");
-      String outputFile1 = home + "/Downloads/" + "mapimg1.png";
-      String outputFile2 = home + "/Downloads/" + "mapimg2.png";
-      String outputFile3 = home + "/Downloads/" + "mapimg3.png";
-      String outputFile4 = home + "/Downloads/" + "mapimg4.png";
-      String outputFile5 = home + "/Downloads/" + "mapimg5.png";
-      String outputFile6 = home + "/Downloads/" + "mapimg6.png";
+    LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
+    String albumID = albumInfo.get(0);
+    String albumDeleteHash = albumInfo.get(1);
 
-      SharingFunctionality.sendSMSTwillio(
-          phoneString,
-          outputFile1,
-          outputFile2,
-          outputFile3,
-          outputFile4,
-          outputFile5,
-          outputFile6);
-      submissionPopup();
+    String outputFile1 = ImgurFunctionality.uploadImage("mapimg1.png");
+    String outputFile2 = ImgurFunctionality.uploadImage("mapimg2.png");
+    String outputFile3 = ImgurFunctionality.uploadImage("mapimg3.png");
+    String outputFile4 = ImgurFunctionality.uploadImage("mapimg4.png");
+    String outputFile5 = ImgurFunctionality.uploadImage("mapimg5.png");
+    String outputFile6 = ImgurFunctionality.uploadImage("mapimg6.png");
 
-    } else {
+    SharingFunctionality.sendSMSTwillio(
+        phoneString, outputFile1, outputFile2, outputFile3, outputFile4, outputFile5, outputFile6);
+    submissionPopup();
+
+    // }
+    // else {
+    /*errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
+    System.out.print(errorMsg);
+    invalidPopup();
+    // }*/
+  }
+
+  /*public void sendText(ActionEvent actionEvent) throws IOException, UnirestException {
+
+    String phoneString = phoneNum.getText();
+    System.out.println(phoneString);
+
+    // if (RegexBoi.checkPhoneNum(phoneString)) {
+
+    LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
+    String albumID = albumInfo.get(0);
+    String albumDeleteHash = albumInfo.get(1);
+
+    ImgurFunctionality.uploadToImgur("mapimg1.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgur("mapimg2.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgur("mapimg3.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgur("mapimg4.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgur("mapimg5.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgur("mapimg6.png", albumDeleteHash);
+
+    String albumLink = "https://imgur.com/a/" + albumID;
+
+    SharingFunctionality.sendSMSTwillio(phoneString, albumLink);
+    submissionPopup();
+
+    // }
+    else {
       errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
       System.out.print(errorMsg);
       invalidPopup();
     }
-  }
+  }*/
 
   public void sendEmail(ActionEvent actionEvent) throws IOException {
 
