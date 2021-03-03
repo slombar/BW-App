@@ -55,9 +55,7 @@ public class ReqController implements Initializable {
 
     HBox addBox = new HBox();
     addBox.setSpacing(10);
-
-    // Sets the writing style for requests displayed
-    addBox.setStyle("-fx-font-size: 14pt; -fx-font-family:  Leelawadee UI;");
+    reqBox.setSpacing(15);
 
     Label id = new Label(reqID);
     Label reqBy = new Label(requestedBy);
@@ -69,6 +67,13 @@ public class ReqController implements Initializable {
     Label p2 = new Label(par2);
     Label p3 = new Label(par3);
     Button markDone = new Button();
+    String status = "";
+
+    try {
+      status = RequestHandling.getStatus(reqID);
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
 
     markDone.setOnAction(
         new EventHandler<ActionEvent>() {
@@ -77,12 +82,17 @@ public class ReqController implements Initializable {
             // mark the thing as done
             try {
               RequestHandling.setStatus(reqID, "Complete");
+              SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
             } catch (SQLException throwables) {
               // TODO @sam add input scrubbing / verification?
               throwables.printStackTrace();
             }
           }
         });
+
+    markDone.setText("Mark Complete");
+    markDone.setStyle(
+        "-fx-background-color: white; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: 800;");
 
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
@@ -104,38 +114,26 @@ public class ReqController implements Initializable {
       counter++;
     }
 
-    try {
-      if (RequestHandling.getStatus(reqID).equals("Not Assigned")) {
-        addBox.setStyle("-fx-border-color:  red;");
+    if (status.equals("Not Assigned")) {
+      addBox.setStyle("-fx-border-color:  #ffaca4; -fx-border-width: 2px;");
 
-      } else if (RequestHandling.getStatus(reqID).equals("Assigned")) {
-        addBox.setStyle("-fx-border-color:  yellow;");
+    } else if (status.equals("Assigned")) {
+      addBox.setStyle("-fx-border-color:  #fec107; -fx-border-width: 2px;");
 
-      } else {
-        addBox.setStyle("-fx-border-color:  green;");
-      }
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-      // TODO @sam need to add input scrubbing /verification?
+    } else if (status.equals("Complete")) {
+      addBox.setStyle("-fx-border-color:  #72db8e; -fx-border-width: 2px;");
     }
+    // add button
+    addBox.getChildren().add(markDone);
 
     for (int x = 0; x < counter; x++) {
 
       // set text to be white
-      addBox.getChildren().get(x).setStyle("-fx-text-fill:  #FFFFFF; -fx-min-width:  100;");
+      addBox
+          .getChildren()
+          .get(x)
+          .setStyle("-fx-text-fill:  #FFFFFF; -fx-min-width:  100; -fx-font-size: 14pt;");
     }
-
-    // add button to each request that lets you mark as completed
-    // the action event for the button will do 1 of 3 things
-    // check status. if status is 'Not Assigned', then
-    // change background color to red
-    // if status is 'Assigned' then change background color to yellow
-    // if status is 'Complete' then change background color to green
-    // Once there is an employee assigned, it will be yellow (for in progress) and update status in
-    // DB
-    //
-    // TODO add button that deletes, add button that allows admin to edit (extra, but cool) (SADIE)
-    // addBox.getChildren().add();
 
     reqBox.getChildren().add(addBox);
   }
