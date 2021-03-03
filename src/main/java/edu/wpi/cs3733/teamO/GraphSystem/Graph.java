@@ -259,6 +259,7 @@ public class Graph {
     c.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
     // rewrites the hash
+    listOfNodes.add(n);
     stringNodeHashtable.put(nodeID, n);
     nodeCircleHashtable.put(n, c);
   }
@@ -269,6 +270,7 @@ public class Graph {
     // add edge to graph
     link(node1, node2, e);
 
+    stringEdgeHashtable.put(e.getID(), e);
     listOfEdges.add(e);
   }
 
@@ -292,8 +294,20 @@ public class Graph {
     listOfNodes.remove(n);
   }
 
-  public void deleteEdge(String eID) throws SQLException {
-    Edge e = NodesAndEdges.getEdge(eID);
+  public void deleteEdge(String startNodeID, String endNodeID) throws SQLException {
+    String eID = "not set yet";
+    String eID1 = startNodeID + "_" + endNodeID;
+    String eID2 = endNodeID + "_" + startNodeID;
+    if (stringEdgeHashtable.containsKey(eID1)) {
+      eID = eID1;
+    } else if (stringEdgeHashtable.containsKey(eID2)) {
+      eID = eID2;
+    } else {
+      return; // neither key/ID is in the hashtable -> just return
+    }
+
+    Edge e = stringEdgeHashtable.get(eID);
+    NodesAndEdges.deleteEdge(eID);
     // delete edge from graph
     // go into neighbor list, unlink the startnode and endnode of the edge
 
@@ -327,7 +341,7 @@ public class Graph {
     }
 
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, null, null);
-    if (selectedNode != null) {
+    if (listOfNodes.contains(selectedNode)) {
       DrawHelper.drawSingleNode(gc, nodeCircleHashtable.get(selectedNode), Color.BLUE);
     }
   }

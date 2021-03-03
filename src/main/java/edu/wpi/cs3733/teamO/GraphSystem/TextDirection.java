@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class TextDirection {
 
-  public static double direction(Node node1, Node node2, Node node3) {
+  public static double ZERO = 0.0;
+  public static ArrayList<String> Directions = new ArrayList<>();
 
-    double ZERO = 0.0;
+  public static double direction(Node node1, Node node2, Node node3) {
 
     double v1_x = node2.getXCoord() - node1.getXCoord(); // 1
     double v1_y = node2.getYCoord() - node1.getYCoord(); // sqrt3
@@ -27,6 +28,9 @@ public class TextDirection {
     double cross_product =
         (node2.getXCoord() * node3.getYCoord() - node2.getYCoord() * node3.getXCoord());
 
+    // for the different floors.
+    if (v2_x == 0 && v2_y == 0) return 100;
+
     // return ZERO if dot_product is zero.
     if (angle == 0.0) return Math.abs(angle);
 
@@ -42,12 +46,20 @@ public class TextDirection {
 
   public static ArrayList<String> textDirections(ArrayList<Node> path) {
 
-    ArrayList<String> Directions = new ArrayList<>();
-
     Directions.add("Start from " + path.get(0).getLongName() + " to " + path.get(1).getLongName());
 
     for (int i = 0; i < path.size() - 2; i++) {
       double angle = direction(path.get(i), path.get(i + 1), path.get(i + 2));
+      // to support floor.
+      if (angle == 100) {
+        Directions.add(
+            "Walk towards "
+                + path.get(i + 1).getLongName()
+                + " and use "
+                + path.get(i + 2).getLongName()
+                + " to go to floor "
+                + path.get(i + 2).getFloor());
+      }
       if (angle < -25) {
         // Lefts
         if (angle < -120) {
