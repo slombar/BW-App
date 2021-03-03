@@ -273,7 +273,7 @@ public class ReqController implements Initializable {
     // Bringing the popup screen to the front and disabling the background
     popUpPane.toFront();
     JFXDialog dialog =
-        new JFXDialog(popUpPane, assignStaffLayout, JFXDialog.DialogTransition.BOTTOM);
+        new JFXDialog(popUpPane, assignStaffLayout, JFXDialog.DialogTransition.BOTTOM, false);
 
     // Closing the popup
     closeButton.setOnAction(
