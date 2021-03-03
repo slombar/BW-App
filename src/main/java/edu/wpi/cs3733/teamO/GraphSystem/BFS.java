@@ -2,11 +2,12 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class BFS implements AlgorithmStrategy {
 
-  private static Queue<Node> queue;
+  private Queue<Node> queue;
   private LinkedList<String> visited;
 
   BFS() {
@@ -15,7 +16,7 @@ public class BFS implements AlgorithmStrategy {
   }
 
   // main method for breadth-first search
-  public static LinkedList<Node> findRoute(Graph graph, Node n, Node end) {
+  public List<Node> findRoute(Node n, Node end) {
 
     LinkedList<Node> path = new LinkedList<>();
 
@@ -29,7 +30,7 @@ public class BFS implements AlgorithmStrategy {
 
       // dequeue node from queue and print it
       n = queue.poll();
-      System.out.print(n.getID() + " ");
+      // System.out.print(n.getID() + " ");
 
       for (Node g : n.getNeighbourList()) {
         if (!g.isVisited()) {

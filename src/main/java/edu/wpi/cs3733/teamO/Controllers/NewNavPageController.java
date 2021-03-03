@@ -42,6 +42,7 @@ import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
 
+  @FXML private JFXComboBox algoStratCBox;
   @FXML private StackPane nodeWarningPane;
   @FXML private JFXCheckBox setVisibility;
   // edit map components
@@ -105,6 +106,9 @@ public class NewNavPageController implements Initializable {
   Node endNode = null;
   Node selectedNode = null;
 
+  String strategy = "A*";
+  ObservableList<String> listOfStrats = FXCollections.observableArrayList("A*", "DFS", "BFS");
+
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
           "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
@@ -162,6 +166,7 @@ public class NewNavPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     floorSelectionBtn.setItems(listOfFloors);
     floorSelectionBtn.setValue("Campus");
+    algoStratCBox.setItems(listOfStrats);
 
     mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
@@ -320,7 +325,7 @@ public class NewNavPageController implements Initializable {
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       graph.resetPath();
-      graph.findPath(startNode, endNode);
+      graph.findPath(strategy, startNode, endNode);
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
@@ -715,5 +720,9 @@ public class NewNavPageController implements Initializable {
 
   public void updateEdgeIDMouse(MouseEvent mouseEvent) {
     edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
+  }
+
+  public void chooseStrat(ActionEvent actionEvent) {
+    strategy = (String) algoStratCBox.getValue();
   }
 }

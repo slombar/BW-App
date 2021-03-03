@@ -27,7 +27,7 @@ public class Graph {
   private static Hashtable<String, Node> stringNodeHashtable;
   private static Hashtable<String, Edge> stringEdgeHashtable;
   private static Hashtable<Node, Circle> nodeCircleHashtable;
-  private AStarSearch aStarSearch;
+  private AlgorithmStrategy strategy;
   List<Node> path;
 
   // GC/Canvas-related attributes:
@@ -88,8 +88,6 @@ public class Graph {
     nodeCircleHashtable = new Hashtable<>();
     this.gc = gc;
     createCircles();
-
-    aStarSearch = new AStarSearch(this);
   }
 
   /**
@@ -434,10 +432,24 @@ public class Graph {
     }
   }
 
-  public void findPath(Node startNode, Node targetNode) {
-    // TODO: change to accommodate Admin choice of A*, DFS, or BFS
+  public void findPath(String strat, Node startNode, Node targetNode) {
+    for (Node n : listOfNodes) {
+      n.setVisited(false);
+    }
 
-    path = aStarSearch.findRoute(startNode, targetNode);
+    switch (strat) {
+      case "A*":
+        strategy = new AStarSearch(this);
+        break;
+      case "DFS":
+        strategy = new DFS();
+        break;
+      case "BFS":
+        strategy = new BFS();
+        break;
+    }
+
+    path = strategy.findRoute(startNode, targetNode);
   }
 
   // add function calls for direction at points.

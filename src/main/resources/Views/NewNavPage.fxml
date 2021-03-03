@@ -123,7 +123,7 @@
       <JFXHamburger fx:id="hamburger" style="-fx-background-color: #3a5369;" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <children>
-            <JFXToggleButton fx:id="editToggle" contentDisplay="RIGHT" onAction="#editMode" prefHeight="38.0" prefWidth="200.0" text="Edit Map">
+            <JFXToggleButton fx:id="editToggle" contentDisplay="RIGHT" onAction="#editMode" prefHeight="38.0" prefWidth="200.0" text="Edit Map" toggleColor="#1747a6" toggleLineColor="#82baec">
                <VBox.margin>
                   <Insets left="15.0" />
                </VBox.margin>
@@ -292,7 +292,7 @@
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXCheckBox fx:id="setVisibility" contentDisplay="GRAPHIC_ONLY" prefHeight="21.0" prefWidth="209.0" text="Visible" />
+                        <JFXCheckBox fx:id="setVisibility" checkedColor="#1747a6" contentDisplay="GRAPHIC_ONLY" prefHeight="21.0" prefWidth="209.0" text="Visible" unCheckedColor="#9aa8b5" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -301,7 +301,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <JFXButton fx:id="editNodeBtn" onAction="#editNode" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Make Changes to Node">
+                  <JFXButton fx:id="editNodeBtn" onAction="#editNode" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Save Node">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
@@ -309,7 +309,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="delNodeBtn" onAction="#deleteNode" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Select &amp; Delete Node">
+                  <JFXButton fx:id="delNodeBtn" onAction="#deleteNode" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Delete Selected Node">
                      <font>
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
@@ -333,7 +333,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXToggleButton fx:id="showEdgesToggle" alignment="CENTER_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" onAction="#showEdgesOnAction" prefHeight="30.0" text="Show all edges" translateX="-25.0">
+                  <JFXToggleButton fx:id="showEdgesToggle" alignment="CENTER_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" onAction="#showEdgesOnAction" prefHeight="30.0" text="Show all edges" toggleColor="#1747a6" toggleLineColor="#82baec" translateX="-25.0">
                      <VBox.margin>
                         <Insets left="15.0" />
                      </VBox.margin>
@@ -451,6 +451,19 @@
                         </JFXButton>
                      </children>
                   </HBox>
+                  <Line endX="113.29289245605469" startX="-100.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Line>
+                  <JFXComboBox fx:id="algoStratCBox" onAction="#chooseStrat" prefHeight="31.0" prefWidth="280.0" promptText="Algorithm Strategy">
+                     <opaqueInsets>
+                        <Insets top="10.0" />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXComboBox>
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" />

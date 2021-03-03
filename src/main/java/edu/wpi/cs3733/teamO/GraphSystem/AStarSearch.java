@@ -33,75 +33,7 @@ class AStarSearch implements AlgorithmStrategy {
     //    foundRoute = new LinkedList<>();
   }
 
-  /**
-   * OLD METHOD - returns route from startNode to endNode as a LL of NodeIDs
-   *
-   * @return LinkedList of Nodes
-   */
-  /*static List<String> findRouteOLD(Node startNode, Node endNode) {
-    // sets start node based on startID provided in constructor
-
-    // path, but in reverse order
-    LinkedList<String> path = new LinkedList<>();
-
-    frontier.add(startNode);
-    cameFrom.put(startNode, "-1"); // didn't come from anywhere at start
-    costSoFar.put(targetNode, 0.0); // didn't cost anything at start
-
-    boolean foundPath = false;
-
-    while (!frontier.isEmpty()) {
-      Node current = frontier.poll(); // continues searching from next frontier node
-
-      if (current.getID().equals(targetID)) {
-        foundPath = true;
-        break;
-      }
-
-      // iterates through current nodes neighbours
-      int llsize = current.getNeighbourList().size();
-      for (int i = 0; i < llsize; i++) {
-        // gets next node in neighbours
-        // sets next's cost so far to current's cost so far + edge cost
-        Node next = current.getNeighbourList().iterator().next();
-        double newCost = costSoFar.get(current.getID()) + dist(current, next);
-
-        // if cost to next hasn't been calculated yet, or if the newCost is less
-        //    than the previously calc'ed cost, replace with newCost
-        if (costSoFar.get(next.getID()) == null || newCost < costSoFar.get(next.getID())) {
-          costSoFar.put(next.getID(), newCost);
-
-          // calculates priority (cost from start + distance to target --> lower is better)
-          double priority = newCost + heuristic(next);
-          next.setPriority(priority);
-          frontier.add(next);
-          cameFrom.put(next.getID(), current.getID()); // next came from current
-        }
-      }
-    }
-
-    if (foundPath) {
-      // backtrack to add to path:
-      // start by adding target node, then iterate through cameFrom,
-      // appending next node to the front of path
-      path.add(startNode.getID());
-      String cameFromID = targetID;
-
-      while (!cameFromID.equals(startID)) { // goes until it appends startNode
-        String nID = cameFrom.get(cameFromID);
-        path.addFirst(nID);
-        cameFromID = nID;
-      }
-
-      // DUMMY RETURN:
-      return path;
-
-    } else {
-      return null;
-    }
-  }*/
-
-  List<Node> findRoute(Node startNode, Node targetNode) {
+  public List<Node> findRoute(Node startNode, Node targetNode) {
     frontier = new PriorityQueue<>();
     cameFrom = new Hashtable<>();
     costSoFar = new Hashtable<>();

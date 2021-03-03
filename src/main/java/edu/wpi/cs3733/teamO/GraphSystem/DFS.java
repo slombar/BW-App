@@ -2,9 +2,10 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
-class DFS {
+class DFS implements AlgorithmStrategy {
 
   private static Stack<Node> stack;
   private static LinkedList<String> llVisited;
@@ -16,7 +17,7 @@ class DFS {
   }
 
   // main method for depth-first search
-  public static LinkedList<Node> findRoute(Node g, Node end) {
+  public List<Node> findRoute(Node g, Node end) {
 
     if (g.equals(end)) new LinkedList<Node>();
     g.setVisited(true);
