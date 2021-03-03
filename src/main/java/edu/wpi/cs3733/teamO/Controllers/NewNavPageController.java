@@ -12,6 +12,8 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -269,12 +271,9 @@ public class NewNavPageController implements Initializable {
   }
 
   public void goToMain(ActionEvent actionEvent) {
-    try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    String MenuUrl = "/Views/MainPage.fxml";
+    if (UserHandling.getEmployee()||UserHandling.getAdmin()) MenuUrl = "/Views/StaffMainPage.fxml";
+    SwitchScene.goToParent(MenuUrl);
   }
 
   public void floorSelection(ActionEvent actionEvent) {

@@ -97,13 +97,84 @@ public class SharingFunctionality {
     emailThreader.start();
   }
 
+  // creates QR code in the downloads folder
+  public static void createQR(String link) {
+
+    String home = System.getProperty("user.home");
+    File QRFile = new File(home + "/Downloads/" + "qr.png");
+    String myCodeText = link;
+    String filePath = home + "/Downloads/";
+    int size = 512;
+    String QRFileType = "png";
+    try {
+
+      Map<EncodeHintType, Object> QRHintType =
+          new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
+      QRHintType.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+      // Now with version 3.4.1 you could change margin (white border size)
+      QRHintType.put(EncodeHintType.MARGIN, 1); /* default = 4 */
+      Object put = QRHintType.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+
+      QRCodeWriter mYQRCodeWriter = new QRCodeWriter(); // throws com.google.zxing.WriterException
+      BitMatrix QRBitMatrix =
+          mYQRCodeWriter.encode(myCodeText, BarcodeFormat.QR_CODE, size, size, QRHintType);
+      int QRWidth = QRBitMatrix.getWidth();
+
+      // The BufferedImage subclass describes an Image with an accessible buffer of QRImage
+      // data.
+      BufferedImage QRImage = new BufferedImage(QRWidth, QRWidth, BufferedImage.TYPE_INT_RGB);
+
+      // Creates a Graphics2D, which can be used to draw into this BufferedImage.
+      QRImage.createGraphics();
+
+      // This Graphics2D class extends the Graphics class to provide more sophisticated control over
+      // geometry, coordinate transformations, color management, and text layout.
+      // This is the fundamental class for rendering 2-dimensional shapes, text and images on the
+      // Java(tm) platform.
+      Graphics2D QRGraphics = (Graphics2D) QRImage.getGraphics();
+
+      // setColor() sets this graphics context's current color to the specified color.
+      // All subsequent graphics operations using this graphics context use this specified color.
+      QRGraphics.setColor(Color.white);
+
+      // fillRect() fills the specified rectangle. The left and right edges of the rectangle are at
+      // x and x + width - 1.
+      QRGraphics.fillRect(0, 0, QRWidth, QRWidth);
+
+      QRGraphics.setColor(new Color(58, 83, 105));
+
+      for (int i = 0; i < QRWidth; i++) {
+        for (int j = 0; j < QRWidth; j++) {
+          if (QRBitMatrix.get(i, j)) {
+            QRGraphics.fillRect(i, j, 1, 1);
+          }
+        }
+      }
+
+      // A class containing static convenience methods for locating
+      // ImageReaders and ImageWriters, and performing simple encoding and decoding.
+      ImageIO.write(QRImage, QRFileType, QRFile);
+
+      System.out.println(
+          "\nCongratulation.. You have successfully created QR Code.. \n"
+              + "Check your code here: "
+              + filePath);
+    } catch (WriterException e) {
+      System.out.println("\nSorry.. Something went wrong...\n");
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   // for testing purposes, change sendingTo param to cindy's number
   public static void main(String[] args) {
     // sendSMSTwillio("16176061459", "https://i.imgur.com/ImYycv8.png");
 
     String home = System.getProperty("user.home");
-    File crunchifyFile = new File(home + "/Downloads/" + "mapimg.png");
-    String myCodeText = "https://i.imgur.com/ImYycv8.png";
+    File crunchifyFile = new File(home + "/Downloads/" + "qr.png");
+    String myCodeText = "https://imgur.com/a/4GdeKiq";
     String filePath = home + "/Downloads/";
     int size = 512;
     String crunchifyFileType = "png";
@@ -145,7 +216,7 @@ public class SharingFunctionality {
       crunchifyGraphics.fillRect(0, 0, CrunchifyWidth, CrunchifyWidth);
 
       // TODO: Please change this color as per your need
-      crunchifyGraphics.setColor(Color.BLUE);
+      crunchifyGraphics.setColor(new Color(58, 83, 105));
 
       for (int i = 0; i < CrunchifyWidth; i++) {
         for (int j = 0; j < CrunchifyWidth; j++) {
