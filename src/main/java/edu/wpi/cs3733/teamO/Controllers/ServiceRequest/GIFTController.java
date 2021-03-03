@@ -16,8 +16,8 @@ import javafx.fxml.FXML;
 public class GIFTController {
 
   @FXML private JFXDatePicker dateNeeded;
-  @FXML private JFXTextArea summary;
   @FXML private JFXTextField locationF;
+  @FXML private JFXTextArea summary;
   @FXML private JFXTextField field1;
   @FXML private JFXTextField field2;
   @FXML private JFXCheckBox field3;

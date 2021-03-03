@@ -275,6 +275,7 @@ public class NewNavPageController implements Initializable {
     nodeType.setText(clickedNode.getNodeType());
     longName.setText(clickedNode.getLongName());
     shortName.setText(clickedNode.getShortName());
+    setVisibility.setSelected(clickedNode.isVisible());
   }
 
   public void goToMain(ActionEvent actionEvent) {
@@ -471,6 +472,7 @@ public class NewNavPageController implements Initializable {
     WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
     WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
     EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
+    //TODO: Insert method call that write qr.png to download folder
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
