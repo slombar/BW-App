@@ -7,6 +7,7 @@ import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
+import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
@@ -33,6 +34,8 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
@@ -328,6 +331,7 @@ public class NewNavPageController implements Initializable {
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
+    Circle c = null;
 
     // if navigating
     if (!editing) {
@@ -341,8 +345,15 @@ public class NewNavPageController implements Initializable {
     else {
       if (selectingEditNode) {
         autocompleteEditMap(clickedNode);
+        selectedNode = clickedNode;
       } else if (addNodeMode) {
         Node n = getRealXY(sFloor, mouseEvent);
+        n.setFloor(sFloor);
+
+        c = new Circle();
+        c.setCenterX(mouseEvent.getX());
+        c.setCenterY(mouseEvent.getY());
+        c.setRadius(mapCanvas.getWidth() * 0.00625);
 
         autocompleteEditMap(n);
       }
@@ -351,8 +362,9 @@ public class NewNavPageController implements Initializable {
     draw();
 
     if (addNodeMode) {
+      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
       addNodeMode = false;
-      selectingEditNode = false; // (still)
+      selectingEditNode = true;
     }
 
     System.out.println("mapCanvas click");
@@ -389,8 +401,8 @@ public class NewNavPageController implements Initializable {
         break;
     }
 
-    double nPercX = mouseEvent.getX() / imgX;
-    double nPercY = mouseEvent.getY() / imgY;
+    double nPercX = mouseEvent.getX() / gc.getCanvas().getWidth();
+    double nPercY = mouseEvent.getY() / gc.getCanvas().getHeight();
     n.setXCoord((int) (nPercX * imgX));
     n.setYCoord((int) (nPercY * imgY));
     return n;

@@ -259,9 +259,9 @@ public class Graph {
     c.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
     // rewrites the hash
+    listOfNodes.add(n);
     stringNodeHashtable.put(nodeID, n);
     nodeCircleHashtable.put(n, c);
-    DrawHelper.drawSingleNode(gc, c, Color.BLUE);
   }
 
   public void addEdge(Edge e) {
@@ -270,6 +270,7 @@ public class Graph {
     // add edge to graph
     link(node1, node2, e);
 
+    stringEdgeHashtable.put(e.getID(), e);
     listOfEdges.add(e);
   }
 
