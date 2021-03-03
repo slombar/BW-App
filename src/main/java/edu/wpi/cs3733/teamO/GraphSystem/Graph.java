@@ -392,6 +392,7 @@ public class Graph {
   }
 
   public void drawAllEdges(String floor) {
+    gc.setStroke(Color.BLACK);
     for (Edge e : listOfEdges) {
       try {
         Node nodeA = stringNodeHashtable.get(e.getStart());
