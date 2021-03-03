@@ -268,6 +268,7 @@ public class NewNavPageController implements Initializable {
     nodeType.setText(clickedNode.getNodeType());
     longName.setText(clickedNode.getLongName());
     shortName.setText(clickedNode.getShortName());
+    setVisibility.setSelected(clickedNode.isVisible());
   }
 
   public void goToMain(ActionEvent actionEvent) {
