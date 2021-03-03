@@ -4,9 +4,14 @@ import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +21,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
 
@@ -53,6 +63,19 @@ public class EmailPageController implements Initializable {
     backBtn.setStyle("-fx-background-color: #c3d6e8");
     confirmBtn.setStyle("-fx-background-color: #c3d6e8");
     textButton.setStyle("-fx-background-color: #c3d6e8");
+    String home = System.getProperty("user.home");
+    String inputfile = home + "/Downloads/" + "qr.png";
+    BufferedImage img = null;
+    try {
+      img = ImageIO.read(new File(inputfile));
+    } catch (IOException e) {
+    }
+    Image image = SwingFXUtils.toFXImage(img, null );
+    QRView.setImage(image);
+    QRView.setScaleX(2);
+    QRView.setScaleY(2);
+    QRView.setTranslateY(250);
+
   }
 
   public static void setScreenShot(

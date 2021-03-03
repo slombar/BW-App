@@ -95,12 +95,12 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <ImageView fx:id="QRView" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="175.0" />
+                  <ImageView fx:id="QRView" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" translateX="100.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="175.0" />
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <JFXButton fx:id="backBtn" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="52.0" prefWidth="135.0" text="Back" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="-1.0">
+      <JFXButton fx:id="backBtn" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="50.0" prefWidth="135.0" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="-1.0">
          <font>
             <Font size="27.0" />
          </font>
