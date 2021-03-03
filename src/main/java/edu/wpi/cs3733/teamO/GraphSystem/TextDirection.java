@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class TextDirection {
 
-  public static double direction(Node node1, Node node2, Node node3) {
+  public static double ZERO = 0.0;
+  public static ArrayList<String> Directions = new ArrayList<>();
 
-    double ZERO = 0.0;
+  public static double direction(Node node1, Node node2, Node node3) {
 
     double v1_x = node2.getXCoord() - node1.getXCoord(); // 1
     double v1_y = node2.getYCoord() - node1.getYCoord(); // sqrt3
@@ -44,8 +45,6 @@ public class TextDirection {
   }
 
   public static ArrayList<String> textDirections(ArrayList<Node> path) {
-
-    ArrayList<String> Directions = new ArrayList<>();
 
     Directions.add("Start from " + path.get(0).getLongName() + " to " + path.get(1).getLongName());
 
