@@ -487,6 +487,11 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
+  /**
+   * sets the mode for adding a new node
+   *
+   * @param actionEvent
+   */
   public void addNode(ActionEvent actionEvent) {
     addNodeMode = true;
     addNodeDBMode = true;
@@ -494,17 +499,17 @@ public class NewNavPageController implements Initializable {
     addingEdgeBD = false;
   }
 
+  /**
+   * Edits the node that is currently selected. If the map is page is in adding new node mode,
+   * clicking this button will add the new node to the DB. Otherwise, will edit existing node. Once
+   * changes are made, the fields will be cleared
+   *
+   * @param actionEvent
+   */
   public void editNode(ActionEvent actionEvent) {
     // TODO: i think this is where we would need to parse the text fields to validate them
     if (addNodeDBMode) {
-      if ((nodeID.getText() == null)
-          || (xCoord.getText() == null)
-          || (yCoord.getText() == null)
-          || (floor.getText() == null)
-          || (building.getText() == null)
-          || (nodeType.getText() == null)
-          || (longName.getText() == null)
-          || (shortName.getText() == null)) {
+      if (isNodeInfoNull()) {
         PopupMaker.incompletePopup(nodeWarningPane);
       } else {
         try {
@@ -541,14 +546,7 @@ public class NewNavPageController implements Initializable {
       }
       // editing node part
     } else {
-      if (nodeID.getText().isEmpty()
-          || xCoord.getText().isEmpty()
-          || yCoord.getText().isEmpty()
-          || floor.getText().isEmpty()
-          || building.getText().isEmpty()
-          || nodeType.getText().isEmpty()
-          || longName.getText().isEmpty()
-          || shortName.getText().isEmpty()) {
+      if (isNodeInfoEmpty()) {
         PopupMaker.incompletePopup(nodeWarningPane);
       }
       try {
@@ -581,21 +579,16 @@ public class NewNavPageController implements Initializable {
         PopupMaker.nodeDoesntExist(nodeWarningPane);
       }
     }
-
-    nodeID.clear();
-    xCoord.clear();
-    yCoord.clear();
-    floor.clear();
-    building.clear();
-    nodeType.clear();
-    longName.clear();
-    shortName.clear();
-    setVisibility.setSelected(false);
-
+    clearNodeInfo();
     selectingEditNode = true;
     draw();
   }
 
+  /**
+   * will delete the node that is currently selected
+   *
+   * @param actionEvent
+   */
   public void deleteNode(ActionEvent actionEvent) {
 
     if (nodeID.getText().isEmpty()) {
@@ -607,19 +600,16 @@ public class NewNavPageController implements Initializable {
         PopupMaker.nodeDoesntExist(nodeWarningPane);
       }
       graph.deleteNode(nodeID.getText());
-      nodeID.clear();
-      xCoord.clear();
-      yCoord.clear();
-      floor.clear();
-      building.clear();
-      nodeType.clear();
-      longName.clear();
-      shortName.clear();
-      setVisibility.setSelected(false);
+      clearNodeInfo();
     }
     draw();
   }
 
+  /**
+   * will add a new edge based on the start and end node IDs
+   *
+   * @param actionEvent
+   */
   public void addEdge(ActionEvent actionEvent) {
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
@@ -632,14 +622,17 @@ public class NewNavPageController implements Initializable {
       } catch (SQLException throwables) {
         PopupMaker.edgeAlreadyExists(nodeWarningPane);
       }
-
-      edgeID.clear();
-      startNodeID.clear();
-      endNodeID.clear();
+      clearEdgeInfo();
     }
     draw();
   }
 
+  /**
+   * will delete a node based on start and end node IDs
+   *
+   * @param actionEvent
+   * @throws SQLException
+   */
   public void deleteEdge(ActionEvent actionEvent) throws SQLException {
 
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
@@ -651,31 +644,114 @@ public class NewNavPageController implements Initializable {
       } catch (SQLException throwables) {
         PopupMaker.edgeDoesntExists(nodeWarningPane);
       }
-      edgeID.clear();
-      startNodeID.clear();
-      endNodeID.clear();
+      clearEdgeInfo();
     }
     draw();
   }
 
+  /**
+   * checks if the any of the node fields are null
+   * @return true if any node fields are null
+   */
+  private boolean isNodeInfoNull() {
+    if ((nodeID.getText() == null)
+        || (xCoord.getText() == null)
+        || (yCoord.getText() == null)
+        || (floor.getText() == null)
+        || (building.getText() == null)
+        || (nodeType.getText() == null)
+        || (longName.getText() == null)
+        || (shortName.getText() == null)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * checks if the any of the node fields are empty
+   * @return true if any node fields are empty
+   */
+  private boolean isNodeInfoEmpty() {
+    if (nodeID.getText().isEmpty()
+        || xCoord.getText().isEmpty()
+        || yCoord.getText().isEmpty()
+        || floor.getText().isEmpty()
+        || building.getText().isEmpty()
+        || nodeType.getText().isEmpty()
+        || longName.getText().isEmpty()
+        || shortName.getText().isEmpty()) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * clears all info in node textfields
+   */
+  private void clearNodeInfo() {
+    nodeID.clear();
+    xCoord.clear();
+    yCoord.clear();
+    floor.clear();
+    building.clear();
+    nodeType.clear();
+    longName.clear();
+    shortName.clear();
+    setVisibility.setSelected(false);
+  }
+
+  /**
+   * clears all info in edge textfields
+   */
+  private void clearEdgeInfo() {
+    edgeID.clear();
+    startNodeID.clear();
+    endNodeID.clear();
+  }
+
+  /**
+   * will upload node data from a CSV
+   *
+   * @param actionEvent
+   */
   public void uploadN(ActionEvent actionEvent) {
     DataHandling.importExcelData(true);
     // TODO: re-initialize Graph after uploading excel file?
   }
 
+  /**
+   * will upload edge data from a CSV
+   *
+   * @param actionEvent
+   */
   public void uploadE(ActionEvent actionEvent) {
     DataHandling.importExcelData(false);
     // TODO: re-initialize Graph after uploading excel file?
   }
 
+  /**
+   * will save current node data to a CSV
+   *
+   * @param actionEvent
+   */
   public void saveN(ActionEvent actionEvent) {
     DataHandling.save(true);
   }
 
+  /**
+   * will save current edge data to a CSV
+   *
+   * @param actionEvent
+   */
   public void saveE(ActionEvent actionEvent) {
     DataHandling.save(false);
   }
 
+  /**
+   * will show all edges on the map if toggled
+   *
+   * @param actionEvent
+   */
   public void showEdgesOnAction(ActionEvent actionEvent) {
     if (editing) {
       showingEdges = showEdgesToggle.isSelected();
@@ -683,6 +759,7 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
+  /** can draw the path, nodes, and edges based on booleans */
   private void draw() {
     resizeCanvas();
 
@@ -714,14 +791,30 @@ public class NewNavPageController implements Initializable {
     }
   }
 
+  /**
+   * automatically generates the edgeID from the start and end node IDs once starting to type in the
+   * start and end node ID textfields
+   *
+   * @param actionEvent
+   */
   public void updateEdgeID(KeyEvent actionEvent) {
     edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
   }
 
+  /**
+   * will update the edge ID once clicking on the edge ID textfield
+   *
+   * @param mouseEvent
+   */
   public void updateEdgeIDMouse(MouseEvent mouseEvent) {
     edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
   }
 
+  /**
+   * chooses the pathfinding algorithm used
+   *
+   * @param actionEvent
+   */
   public void chooseStrat(ActionEvent actionEvent) {
     strategy = (String) algoStratCBox.getValue();
   }

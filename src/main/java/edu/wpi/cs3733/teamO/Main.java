@@ -8,6 +8,7 @@ public class Main {
 
   /**
    * starts the gosh dern program XD
+   *
    * @param args who really knows or cares tbh
    */
   public static void main(String args[]) {
