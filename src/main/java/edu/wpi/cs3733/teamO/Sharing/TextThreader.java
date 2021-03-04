@@ -4,7 +4,8 @@ public class TextThreader extends Thread {
   public String sendingTo;
   public String fileToBeSent;
 
-  public void TextThreader(String sendingTo, String fileToBeSent) {}
-
+  /**
+   * should prolly do this soon
+   */
   public void run() {}
 }
