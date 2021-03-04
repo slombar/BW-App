@@ -253,6 +253,10 @@ public class NewNavPageController implements Initializable {
     mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
   }
 
+  /**
+   * switches between editing and pathfinding for admin users
+   * @param actionEvent
+   */
   public void editMode(ActionEvent actionEvent) {
     editing = editToggle.isSelected();
     editVBox.setVisible(editing);
@@ -267,6 +271,10 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
+  /**
+   * fills in a nodes info when it is clicked
+   * @param clickedNode
+   */
   public void autocompleteEditMap(Node clickedNode) {
     nodeID.setText(clickedNode.getID());
     xCoord.setText(Integer.toString(clickedNode.getXCoord()));
@@ -279,6 +287,10 @@ public class NewNavPageController implements Initializable {
     setVisibility.setSelected(clickedNode.isVisible());
   }
 
+  /**
+   * goes to the main page (changes based on user logged in)
+   * @param actionEvent
+   */
   public void goToMain(ActionEvent actionEvent) {
     String MenuUrl = "/Views/MainPage.fxml";
     if (UserHandling.getEmployee() || UserHandling.getAdmin())
@@ -286,6 +298,10 @@ public class NewNavPageController implements Initializable {
     SwitchScene.goToParent(MenuUrl);
   }
 
+  /**
+   * switches between images and canvases for different floors selected in the combobox
+   * @param actionEvent
+   */
   public void floorSelection(ActionEvent actionEvent) {
     selectedFloor = floorSelectionBtn.getValue();
     // System.out.println(floorSelected);
@@ -329,8 +345,10 @@ public class NewNavPageController implements Initializable {
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
+    }else{
+      PopupMaker.invalidPathfind(nodeWarningPane);
     }
-    // TODO: else -> throw exception? or make popup or something? idk
+
     draw();
   }
 

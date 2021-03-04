@@ -89,6 +89,7 @@ public class LoginController implements Initializable {
   public void unhoverPatient(MouseEvent mouseEvent) {
     patientBtn.setRadius(125);
   }
+  //TODO since all of the above do the same thing, we can name their functions the same and have only 2 instead of 6
 
   public void exit(ActionEvent actionEvent) {
     Platform.exit();

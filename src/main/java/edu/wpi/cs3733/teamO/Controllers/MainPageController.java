@@ -24,6 +24,11 @@ public class MainPageController implements Initializable {
   @FXML private JFXButton covidBtn;
   @FXML private JFXButton parkingBtn;
 
+  /**
+   * the page loading in
+   * @param location
+   * @param resources
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // Set drawer to SideMenu
@@ -70,7 +75,8 @@ public class MainPageController implements Initializable {
 
   public void goToGifts(ActionEvent actionEvent) {}
 
-  public void goToCovid(ActionEvent actionEvent) {}
+  public void goToCovid(ActionEvent actionEvent) {//TODO this feels like it would be easy to make something
+  }
 
   public void goToParking(ActionEvent actionEvent) {}
 }
