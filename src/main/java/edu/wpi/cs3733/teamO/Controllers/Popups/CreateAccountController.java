@@ -27,6 +27,7 @@ public class CreateAccountController {
 
   /**
    * connected to the create account button; triggers account creation
+   *
    * @param actionEvent
    */
   public void create(ActionEvent actionEvent) {
@@ -56,6 +57,7 @@ public class CreateAccountController {
 
   /**
    * closes the form and goes back to create new account page
+   *
    * @param actionEvent
    */
   public void close(ActionEvent actionEvent) {
@@ -68,10 +70,12 @@ public class CreateAccountController {
   }
 
   /**
-   * whenever a key is pressed in the text field it checks if it is the enter button to submit the form
+   * whenever a key is pressed in the text field it checks if it is the enter button to submit the
+   * form
+   *
    * @param keyEvent
    */
-  public void checkEnter(KeyEvent keyEvent){
+  public void checkEnter(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
       create(new ActionEvent());
     }

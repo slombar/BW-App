@@ -26,6 +26,7 @@ public class CreateEmployeeAccountController {
 
   /**
    * creates a new employee account
+   *
    * @param actionEvent
    */
   public void create(ActionEvent actionEvent) {
@@ -55,6 +56,7 @@ public class CreateEmployeeAccountController {
 
   /**
    * checks if the pressed key is *enter* and submits the form if so.
+   *
    * @param keyEvent
    */
   public void checkEnter(KeyEvent keyEvent) {
@@ -65,6 +67,7 @@ public class CreateEmployeeAccountController {
 
   /**
    * pretty self explanatory tbh... it goes to that page.
+   *
    * @param actionEvent
    */
   public void goToManageEmployee(ActionEvent actionEvent) {

@@ -41,20 +41,8 @@ import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
-
-  @FXML private JFXComboBox algoStratCBox;
-  @FXML private StackPane nodeWarningPane;
-  @FXML private JFXCheckBox setVisibility;
   // edit map components
-  @FXML private GridPane innerGrid;
-  @FXML private JFXButton uploadCSVBtn;
-  @FXML private JFXButton saveCSVBtn;
-  @FXML private JFXButton saveEBtn;
-  @FXML private JFXButton saveNBtn;
-  @FXML private JFXButton uploadEBtn;
-  @FXML private JFXButton uploadNBtn;
-  @FXML private JFXButton share;
-  @FXML private JFXButton clearBtn1;
+  @FXML private JFXToggleButton editToggle;
   @FXML private VBox editVBox;
   @FXML private JFXTextField nodeID;
   @FXML private JFXTextField xCoord;
@@ -64,38 +52,29 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXTextField nodeType;
   @FXML private JFXTextField longName;
   @FXML private JFXTextField shortName;
-  @FXML private JFXButton editNodeBtn;
-  @FXML private JFXButton addNodeBtn;
-  @FXML private JFXButton delNodeBtn;
+  @FXML private JFXCheckBox setVisibility;
+  @FXML private JFXToggleButton showEdgesToggle;
   @FXML private JFXTextField edgeID;
   @FXML private JFXTextField startNodeID;
   @FXML private JFXTextField endNodeID;
-  @FXML private JFXButton editEdgeBtn;
-  @FXML private JFXButton addEdgeBtn;
-  @FXML private JFXButton delEdgeBtn;
-  @FXML private JFXToggleButton showEdgesToggle;
+  @FXML private JFXComboBox algoStratCBox;
+  @FXML private StackPane nodeWarningPane;
 
+  // side menu
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
+
+  // map
   @FXML private HBox hboxRef;
   @FXML private VBox vboxRef;
-  @FXML private RowConstraints row0;
-  @FXML private RowConstraints row1;
-  @FXML private ColumnConstraints col1;
   @FXML private GridPane gridPane;
-  @FXML private JFXDrawer drawerSM1;
-  @FXML private VBox topMenu;
-  @FXML private JFXDrawer drawerSM;
-  @FXML private BorderPane borderPane;
-  @FXML private JFXToggleButton editToggle;
-
-  @FXML private JFXComboBox<String> floorSelectionBtn;
-  @FXML private JFXButton startLocBtn;
-  @FXML private JFXButton endLocBtn;
-  @FXML private JFXButton pathfindBtn;
-
   @FXML private ImageView imageView;
   @FXML private Canvas mapCanvas;
+  @FXML private GridPane innerGrid;
+
+  // pathfinding
+  @FXML private JFXComboBox<String> floorSelectionBtn;
+
   private GraphicsContext gc;
   private String selectedFloor = "Campus";
   private String sFloor = "G";
@@ -121,7 +100,6 @@ public class NewNavPageController implements Initializable {
   public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
   // booleans:
-
   private boolean editing = false;
 
   // navigating bools:
@@ -144,7 +122,6 @@ public class NewNavPageController implements Initializable {
   private boolean addingEdgeBD = false;
   // private boolean addingEdgeN1 = false;
   // private boolean addingEdgeN2 = false;
-
   private boolean showingEdges = false;
 
   private void setEditFalse() {
@@ -255,6 +232,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * switches between editing and pathfinding for admin users
+   *
    * @param actionEvent
    */
   public void editMode(ActionEvent actionEvent) {
@@ -273,6 +251,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * fills in a nodes info when it is clicked
+   *
    * @param clickedNode
    */
   public void autocompleteEditMap(Node clickedNode) {
@@ -289,6 +268,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * goes to the main page (changes based on user logged in)
+   *
    * @param actionEvent
    */
   public void goToMain(ActionEvent actionEvent) {
@@ -300,6 +280,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * switches between images and canvases for different floors selected in the combobox
+   *
    * @param actionEvent
    */
   public void floorSelection(ActionEvent actionEvent) {
@@ -338,6 +319,10 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
+  /**
+   * resets path and creates a new path depending on start and end nodes
+   * @param actionEvent
+   */
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       graph.resetPath();
@@ -345,13 +330,17 @@ public class NewNavPageController implements Initializable {
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
-    }else{
+    } else {
       PopupMaker.invalidPathfind(nodeWarningPane);
     }
 
     draw();
   }
 
+  /**
+   * determines closest node to mouse click on canvas, used for both navigating and editing the map
+   * @param mouseEvent
+   */
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
@@ -394,6 +383,12 @@ public class NewNavPageController implements Initializable {
     System.out.println("mapCanvas click");
   }
 
+  /**
+   * gets the xy coordinates of the mouse and scales it to the image
+   * @param floor
+   * @param mouseEvent
+   * @return
+   */
   private Node getRealXY(String floor, MouseEvent mouseEvent) {
     Node n = new Node();
     double imgX = 0;
@@ -432,11 +427,19 @@ public class NewNavPageController implements Initializable {
     return n;
   }
 
+  /**
+   * sets teh start location for pathfinding
+   * @param actionEvent
+   */
   public void startLocSelection(ActionEvent actionEvent) {
     selectingStart = true;
     selectingEnd = false;
   }
 
+  /**
+   * sets the end desination for pathfinding
+   * @param actionEvent
+   */
   public void endLocSelection(ActionEvent actionEvent) {
     selectingStart = false;
     selectingEnd = true;
@@ -669,6 +672,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * checks if the any of the node fields are null
+   *
    * @return true if any node fields are null
    */
   private boolean isNodeInfoNull() {
@@ -687,6 +691,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * checks if the any of the node fields are empty
+   *
    * @return true if any node fields are empty
    */
   private boolean isNodeInfoEmpty() {
@@ -703,9 +708,7 @@ public class NewNavPageController implements Initializable {
     return false;
   }
 
-  /**
-   * clears all info in node textfields
-   */
+  /** clears all info in node textfields */
   private void clearNodeInfo() {
     nodeID.clear();
     xCoord.clear();
@@ -718,9 +721,7 @@ public class NewNavPageController implements Initializable {
     setVisibility.setSelected(false);
   }
 
-  /**
-   * clears all info in edge textfields
-   */
+  /** clears all info in edge textfields */
   private void clearEdgeInfo() {
     edgeID.clear();
     startNodeID.clear();
