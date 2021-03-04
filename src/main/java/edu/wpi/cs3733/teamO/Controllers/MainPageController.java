@@ -26,6 +26,7 @@ public class MainPageController implements Initializable {
 
   /**
    * the page loading in
+   *
    * @param location
    * @param resources
    */
@@ -75,7 +76,8 @@ public class MainPageController implements Initializable {
 
   public void goToGifts(ActionEvent actionEvent) {}
 
-  public void goToCovid(ActionEvent actionEvent) {//TODO this feels like it would be easy to make something
+  public void goToCovid(
+      ActionEvent actionEvent) { // TODO this feels like it would be easy to make something
   }
 
   public void goToParking(ActionEvent actionEvent) {}
