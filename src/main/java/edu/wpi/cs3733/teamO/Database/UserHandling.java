@@ -2,7 +2,6 @@ package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
 import edu.wpi.cs3733.teamO.UserTypes.User;
-import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,11 +92,7 @@ public class UserHandling {
       throws SQLException {
 
     String encodedPass = null;
-    try {
-      encodedPass = Encrypter.encryptPassword(password);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(password);
 
     String query =
         "INSERT INTO USERS VALUES('"
@@ -134,11 +129,7 @@ public class UserHandling {
       throws SQLException {
 
     String encodedPass = null;
-    try {
-      encodedPass = Encrypter.encryptPassword(password);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(password);
 
     String query =
         "INSERT INTO USERS VALUES('"
@@ -182,11 +173,7 @@ public class UserHandling {
     setUsername(u);
 
     String encodedPass = "";
-    try {
-      encodedPass = Encrypter.encryptPassword(p);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(p);
 
     p = encodedPass;
 
@@ -219,11 +206,8 @@ public class UserHandling {
     setUsername(u);
 
     String encodedPass = "";
-    try {
-      encodedPass = Encrypter.encryptPassword(p);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(p);
+
     p = encodedPass;
 
     String vu = "";

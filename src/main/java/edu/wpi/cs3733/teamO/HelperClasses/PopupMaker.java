@@ -91,7 +91,7 @@ public class PopupMaker {
   }
 
   /**
-   * Creates a popup to notify the user of invalid username or email and why this may be
+   * Creates a popup to notify the user of invalid username and why this may be
    *
    * @param popupPane is the stack pane on which the popup needs to be made on
    */
@@ -124,6 +124,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user of invalid email
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void invalidEmail(StackPane popupPane) {
     popupPane.toFront();
 
@@ -147,6 +152,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user of common symptoms of COVID-19
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void covidSymptoms(StackPane popupPane) {
     popupPane.toFront();
 
@@ -183,6 +193,12 @@ public class PopupMaker {
     symptomsDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user not to enter the hospital due to the risk of spreading
+   * COVID-19
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void covidRisk(StackPane popupPane) {
     popupPane.toFront();
 
@@ -209,6 +225,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user to select both start and end of path
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void invalidPathfind(StackPane popupPane) {
     popupPane.toFront();
 
@@ -232,6 +253,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user that the new node has a duplicated NODEID
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void nodeAlreadyExists(StackPane popupPane) {
     popupPane.toFront();
 
@@ -255,6 +281,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user that the node they are trying to access does not exist
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void nodeDoesntExist(StackPane popupPane) {
     popupPane.toFront();
 
@@ -278,6 +309,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user that the new edge has a duplicated EDGEID
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void edgeAlreadyExists(StackPane popupPane) {
     popupPane.toFront();
 
@@ -301,6 +337,11 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  /**
+   * Creates a popup to notify the user that the edge they are trying to access doesnt exist
+   *
+   * @param popupPane is the stack pane on which the popup needs to be made on
+   */
   public static void edgeDoesntExists(StackPane popupPane) {
     popupPane.toFront();
 
