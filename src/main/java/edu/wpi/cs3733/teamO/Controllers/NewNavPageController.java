@@ -319,6 +319,10 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
+  /**
+   * resets path and creates a new path depending on start and end nodes
+   * @param actionEvent
+   */
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       graph.resetPath();
@@ -333,6 +337,10 @@ public class NewNavPageController implements Initializable {
     draw();
   }
 
+  /**
+   * determines closest node to mouse click on canvas, used for both navigating and editing the map
+   * @param mouseEvent
+   */
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
@@ -375,6 +383,12 @@ public class NewNavPageController implements Initializable {
     System.out.println("mapCanvas click");
   }
 
+  /**
+   * gets the xy coordinates of the mouse and scales it to the image
+   * @param floor
+   * @param mouseEvent
+   * @return
+   */
   private Node getRealXY(String floor, MouseEvent mouseEvent) {
     Node n = new Node();
     double imgX = 0;
@@ -413,11 +427,19 @@ public class NewNavPageController implements Initializable {
     return n;
   }
 
+  /**
+   * sets teh start location for pathfinding
+   * @param actionEvent
+   */
   public void startLocSelection(ActionEvent actionEvent) {
     selectingStart = true;
     selectingEnd = false;
   }
 
+  /**
+   * sets the end desination for pathfinding
+   * @param actionEvent
+   */
   public void endLocSelection(ActionEvent actionEvent) {
     selectingStart = false;
     selectingEnd = true;
