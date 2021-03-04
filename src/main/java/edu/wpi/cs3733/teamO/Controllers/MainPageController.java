@@ -65,7 +65,7 @@ public class MainPageController implements Initializable {
    * @param actionEvent
    */
   public void goToNav(ActionEvent actionEvent) {
-    SwitchScene.goToGridPane("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
   public void goToGifts(ActionEvent actionEvent) {}

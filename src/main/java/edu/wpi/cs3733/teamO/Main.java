@@ -5,6 +5,11 @@ import edu.wpi.cs3733.teamO.Database.DatabaseConnection;
 public class Main {
 
   // C:\Users\sadie\IdeaProjects\BW-App\src\main\resources\MapOEdges.csv
+
+  /**
+   * starts the gosh dern program XD
+   * @param args who really knows or cares tbh
+   */
   public static void main(String args[]) {
     String node = "";
     String filePath = "path";

@@ -86,7 +86,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void goToCheckReq(ActionEvent actionEvent) {
-    SwitchScene.goToBorderPane("/Views/RequestStatus.fxml");
+    SwitchScene.goToParent("/Views/RequestStatus.fxml");
   }
 
   /**

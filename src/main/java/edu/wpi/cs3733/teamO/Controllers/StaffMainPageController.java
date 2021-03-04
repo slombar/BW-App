@@ -80,7 +80,7 @@ public class StaffMainPageController implements Initializable {
   }
 
   public void goToNav(ActionEvent actionEvent) {
-    SwitchScene.goToGridPane("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
   public void goToCovid(ActionEvent actionEvent) {}
@@ -95,6 +95,6 @@ public class StaffMainPageController implements Initializable {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
-    SwitchScene.goToBorderPane("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
   }
 }
