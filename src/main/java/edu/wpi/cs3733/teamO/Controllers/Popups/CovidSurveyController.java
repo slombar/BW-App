@@ -22,6 +22,7 @@ public class CovidSurveyController {
 
   /**
    * this is connected to a link and shows the covid symptom popup
+   *
    * @param actionEvent
    */
   public void covidSymptoms(ActionEvent actionEvent) {
@@ -30,6 +31,7 @@ public class CovidSurveyController {
 
   /**
    * button to go back to the previous page instead of completing the survey
+   *
    * @param actionEvent
    */
   public void goToLoginMenu(ActionEvent actionEvent) {
@@ -38,10 +40,11 @@ public class CovidSurveyController {
 
   /**
    * submit button for the covid survey
+   *
    * @param actionEvent
    */
   public void submitCovidForm(ActionEvent actionEvent) {
-//TODO we should do something with this data
+    // TODO we should do something with this data
     if (No1.isSelected()
         || yes1.isSelected() && No2.isSelected()
         || yes2.isSelected() && No3.isSelected()

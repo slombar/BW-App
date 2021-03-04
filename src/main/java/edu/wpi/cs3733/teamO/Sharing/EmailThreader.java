@@ -38,11 +38,9 @@ public class EmailThreader extends Thread {
     this.fileToBeSent6 = fileToBeSent6;
   }
 
-
   /**
-   * run is the only method available to threading in this way,
-   * this method sends an email containing pictures in a separate
-   * thread from the main function so as to not freeze the app
+   * run is the only method available to threading in this way, this method sends an email
+   * containing pictures in a separate thread from the main function so as to not freeze the app
    */
   @Override
   public void run() {
