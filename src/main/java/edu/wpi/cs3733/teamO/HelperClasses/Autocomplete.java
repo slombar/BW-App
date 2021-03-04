@@ -39,6 +39,11 @@ public class Autocomplete {
             });
   }
 
+  /**
+   * gets all the node data for a specific field adn can be used to autocomplete textfields
+   * @param nodeProperty a string that identifies the specific node detail
+   * @return an array list of string of all the node's specific property
+   */
   public static ArrayList<String> autoNodeData(String nodeProperty) {
     ObservableList<Node> nodeList;
     nodeList = NodesAndEdges.getAllNodes();
