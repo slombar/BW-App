@@ -17,7 +17,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-//TODO can we make all these type hamburgers into one and use database.getEmployee etc in the initializer??
+// TODO can we make all these type hamburgers into one and use database.getEmployee etc in the
+// initializer??
 public class SideMenuStaffController implements Initializable {
   @FXML private JFXButton reqBtn;
   @FXML private Label nameLabel;

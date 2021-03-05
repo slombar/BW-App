@@ -321,6 +321,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * resets path and creates a new path depending on start and end nodes
+   *
    * @param actionEvent
    */
   public void doPathfind(ActionEvent actionEvent) {
@@ -339,6 +340,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * determines closest node to mouse click on canvas, used for both navigating and editing the map
+   *
    * @param mouseEvent
    */
   public void canvasClick(MouseEvent mouseEvent) {
@@ -385,6 +387,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * gets the xy coordinates of the mouse and scales it to the image
+   *
    * @param floor
    * @param mouseEvent
    * @return
@@ -428,7 +431,8 @@ public class NewNavPageController implements Initializable {
   }
 
   /**
-   * sets teh start location for pathfinding
+   * sets the start location for pathfinding
+   *
    * @param actionEvent
    */
   public void startLocSelection(ActionEvent actionEvent) {
@@ -438,6 +442,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * sets the end desination for pathfinding
+   *
    * @param actionEvent
    */
   public void endLocSelection(ActionEvent actionEvent) {
@@ -495,7 +500,6 @@ public class NewNavPageController implements Initializable {
     WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
     EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
     // TODO: Insert method call that write qr.png to download folder
-    EmailPageController.prepareQR();
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
