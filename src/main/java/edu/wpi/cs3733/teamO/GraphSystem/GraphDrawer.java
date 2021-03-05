@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
+import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
-import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.sql.SQLException;
 import java.util.*;
@@ -14,19 +13,15 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Graph {
+public class GraphDrawer {
 
-  private int size; // necessary
-  private static ObservableList<Node> listOfNodes;
-  private static ObservableList<Edge> listOfEdges;
-  private static Hashtable<String, Node> stringNodeHashtable;
-  private static Hashtable<String, Edge> stringEdgeHashtable;
   private static Hashtable<Node, Circle> nodeCircleHashtable;
   private AlgorithmStrategy strategy;
   List<Node> path;
 
   // GC/Canvas-related attributes:
   private GraphicsContext gc;
+  private Graph graph;
 
   // TODO: put these as public static final somewhere?
   private final Image campusMap = new Image("FaulknerCampus_Updated.png");
@@ -54,68 +49,14 @@ public class Graph {
    *
    * @param gc the GraphicsContext which the Graph will be displayed on
    */
-  public Graph(GraphicsContext gc) {
-    // initialize nodes based on DB
-    listOfNodes = FXCollections.observableArrayList();
-    listOfNodes = NodesAndEdges.getAllNodes();
-
-    stringNodeHashtable = new Hashtable<>();
-    for (Node n : listOfNodes) {
-      stringNodeHashtable.put(n.getID(), n);
-    }
-
-    size = listOfNodes.size();
-
-    // initialize edges based on DB
-    listOfEdges = FXCollections.observableArrayList();
-    listOfEdges = NodesAndEdges.getAllEdges();
-
-    stringEdgeHashtable = new Hashtable<>();
-
-    for (Edge e : listOfEdges) {
-      stringEdgeHashtable.put(e.getID(), e);
-      Node nodeA = stringNodeHashtable.get(e.getStart());
-      Node nodeB = stringNodeHashtable.get(e.getEnd());
-
-      link(nodeA, nodeB, e);
-    }
-
+  public GraphDrawer(GraphicsContext gc) {
     nodeCircleHashtable = new Hashtable<>();
     this.gc = gc;
     createCircles();
+    graph = Graph.getInstance();
+
   }
 
-  /**
-   * Graph constructor purely for testing purposes
-   *
-   * @param test dummy parameter (can be true or false)
-   */
-  /*Graph(boolean test) {
-    listOfNodeIDs = new LinkedList<String>();
-    size = 0;
-    // listOfNodes = new Hashtable<>();
-  }*/
-
-  /**
-   * Adds each Node to the other's list of neighbouring Nodes
-   *
-   * @param node1 first node
-   * @param node2 second node
-   */
-  void link(Node node1, Node node2, Edge edge) {
-    // TODO: calculate edge distance
-    // TODO:   --> if stairs, dist = 1.0, if elevator, dist = 0.0
-
-    // check if both exist
-    if (listOfNodes.contains(node1) && listOfNodes.contains(node2)) {
-      node1.addNeighbour(node2, edge);
-      node2.addNeighbour(node1, edge);
-    }
-  }
-
-  int getSize() {
-    return size;
-  }
 
   /**
    * Returns the Node closest to the given (x,y) on the given floor
@@ -126,11 +67,11 @@ public class Graph {
    * @return Node closest to the ClickEvent
    * @throws NullPointerException
    */
-  public static Node closestNode(String floor, double x, double y) throws NullPointerException {
+  public Node closestNode(String floor, double x, double y) throws NullPointerException {
     double currentDist = 1000000000;
     Node node = null;
 
-    for (Node n : listOfNodes) {
+    for (Node n : graph.listOfNodes) {
       if (n.getFloor().equals(floor)) {
         Circle tempCircle = nodeCircleHashtable.get(n);
         double dist =
@@ -153,7 +94,7 @@ public class Graph {
    */
   public void createCircles() {
 
-    for (Node n : listOfNodes) {
+    for (Node n : graph.listOfNodes) {
       // get node's x and y (and floor)
       double nX = n.getXCoord();
       double nY = n.getYCoord();
@@ -204,7 +145,7 @@ public class Graph {
     }
   }
 
-  public void addNode(Node n) {
+/*  public void addNode(Node n) {
     // if ID already exists, then editing -> need node's neighborlist
     if (stringNodeHashtable.containsKey(n.getID())) {
       Node prev = stringNodeHashtable.get(n.getID());
@@ -263,84 +204,10 @@ public class Graph {
         nXperc = nX / width5;
         nYperc = nY / height5;
         break;
-    }
+    }*/
 
-    // copied from above, should workerino
-    c.radiusProperty().bind(gc.getCanvas().widthProperty().multiply(0.00625));
-    c.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
-    c.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
 
-    // rewrites the hash
-    listOfNodes.add(n);
-    stringNodeHashtable.put(nodeID, n);
-    nodeCircleHashtable.put(n, c);
-  }
 
-  public void addEdge(Edge e) {
-    Node node1 = stringNodeHashtable.get(e.getStart());
-    Node node2 = stringNodeHashtable.get(e.getEnd());
-    // add edge to graph
-    link(node1, node2, e);
-
-    stringEdgeHashtable.put(e.getID(), e);
-    listOfEdges.add(e);
-  }
-
-  public void deleteNode(String nodeID) {
-    Node n = stringNodeHashtable.get(nodeID);
-    // delete from graph
-
-    // remove from the string hashtable
-
-    // removes all edges
-    // for each neighbor of the given deleting node
-    for (Edge e : listOfEdges) {
-      if (e.getStart().equals(nodeID) || e.getEnd().equals(nodeID)) {
-        try {
-          this.deleteEdge(e.getStart(), e.getEnd());
-        } catch (SQLException throwables) {
-          throwables.printStackTrace();
-        }
-      }
-    }
-    listOfNodes.remove(n);
-    nodeCircleHashtable.remove(n);
-    stringNodeHashtable.remove(n.getID());
-  }
-
-  public void deleteEdge(String startNodeID, String endNodeID) throws SQLException {
-    String eID = "not set yet";
-    String eID1 = startNodeID + "_" + endNodeID;
-    String eID2 = endNodeID + "_" + startNodeID;
-    if (stringEdgeHashtable.containsKey(eID1)) {
-      eID = eID1;
-    } else if (stringEdgeHashtable.containsKey(eID2)) {
-      eID = eID2;
-    } else {
-      return; // neither key/ID is in the hashtable -> just return
-    }
-
-    Edge e = stringEdgeHashtable.get(eID);
-    NodesAndEdges.deleteEdge(eID);
-    // delete edge from graph
-    // go into neighbor list, unlink the startnode and endnode of the edge
-
-    // retrieve start and end nodes
-    String sNode = e.getStart();
-    String eNode = e.getEnd();
-
-    // get the proper
-    Node node1 = stringNodeHashtable.get(sNode);
-    Node node2 = stringNodeHashtable.get(eNode);
-
-    node1.getNeighbourList().remove(node2);
-    // TODO also remove from the hashtable of neighbors
-    node2.getNeighbourList().remove(node1);
-    // TODO also remove from the hashtable of neighbors
-
-    // remove edge from list
-    listOfEdges.remove(e);
-  }
 
   /**
    * Draws all nodes for the given floor
@@ -350,12 +217,12 @@ public class Graph {
   public void drawAllNodes(String floor, Node selectedNode) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
-    for (Node n : listOfNodes) {
+    for (Node n : graph.listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
     }
 
     DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, null, null);
-    if (listOfNodes.contains(selectedNode) && selectedNode.getFloor().equals(floor)) {
+    if (graph.listOfNodes.contains(selectedNode) && selectedNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, nodeCircleHashtable.get(selectedNode), Color.BLUE);
     }
   }
@@ -363,7 +230,7 @@ public class Graph {
   public void drawVisibleNodes(String floor, Node startNode, Node endNode) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
-    for (Node n : listOfNodes) {
+    for (Node n : graph.listOfNodes) {
       if (n.isVisible() && n.getFloor().equals(floor)) {
         floorNodes.add(n);
       }
@@ -393,7 +260,7 @@ public class Graph {
 
   public void drawAllEdges(String floor) {
     gc.setStroke(Color.BLACK);
-    for (Edge e : listOfEdges) {
+    for (Node n : graph.listOfNodes) {
       try {
         Node nodeA = stringNodeHashtable.get(e.getStart());
         Node nodeB = stringNodeHashtable.get(e.getEnd());

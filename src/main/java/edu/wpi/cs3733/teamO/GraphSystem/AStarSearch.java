@@ -5,7 +5,7 @@ import java.util.*;
 
 class AStarSearch implements AlgorithmStrategy {
 
-  private Graph graph;
+  private GraphDrawer graph;
   private int graphSize;
 
   private static PriorityQueue<Node> frontier; // expanding frontier of search
@@ -23,7 +23,7 @@ class AStarSearch implements AlgorithmStrategy {
   }*/
 
   // constructor
-  AStarSearch(Graph g) {
+  AStarSearch(GraphDrawer g) {
     graph = g;
     graphSize = graph.getSize();
 

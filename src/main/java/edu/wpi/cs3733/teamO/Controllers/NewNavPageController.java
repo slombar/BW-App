@@ -6,7 +6,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
-import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.GraphSystem.GraphDrawer;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
@@ -14,7 +14,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
-import java.awt.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -80,7 +80,7 @@ public class NewNavPageController implements Initializable {
   private String sFloor = "G";
   private String sideMenuUrl;
 
-  private Graph graph;
+  private GraphDrawer graph;
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
@@ -133,6 +133,8 @@ public class NewNavPageController implements Initializable {
     selectedNode = null;
   }
 
+  GraphDrawer graphDrawer;
+
   ////////////////////
   ///// Methods: /////
   ////////////////////
@@ -147,11 +149,12 @@ public class NewNavPageController implements Initializable {
 
     mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
+    graphDrawer = new GraphDrawer(gc);
 
     imageView.setImage(campusMap);
     resizableWindow();
 
-    graph = new Graph(gc);
+    graph = new GraphDrawer(gc);
     editToggle.setVisible(false);
 
     if (UserHandling.getEmployee()) {
@@ -343,7 +346,7 @@ public class NewNavPageController implements Initializable {
    */
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
-    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
+    Node clickedNode = graphDrawer.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
     Circle c = null;
 
     // if navigating

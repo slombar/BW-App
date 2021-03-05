@@ -3,116 +3,56 @@ package edu.wpi.cs3733.teamO.model;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Objects;
 
-public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> {
+public class Node{
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
   private boolean visible;
 
-  // added from GraphNode
-  private HashSet<Node> neighbourList;
-  // TODO: have each neighbour stored with it's Edge
-  private Hashtable<Node, Edge> nodeEdgeHashtable;
-  private double priority;
-  private boolean visited;
-
   /**
    * Constructor for Node
    *
-   * @param ID
    * @param xCoord
    * @param yCoord
    * @param floor
    * @param building
    * @param nodeType
    * @param longName
-   * @param shortName
    * @param team
    */
   public Node(
-      String ID,
       int xCoord,
       int yCoord,
       String floor,
       String building,
       String nodeType,
       String longName,
-      String shortName,
       String team) {
-    this.ID = ID;
+    //TODO generate ID
     this.building = building;
     this.nodeType = nodeType;
     this.longName = longName;
-    this.shortName = shortName;
     this.floor = floor;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     this.team = team;
-    this.visited = false;
-    this.neighbourList = new HashSet<Node>();
-    this.nodeEdgeHashtable = new Hashtable<>();
-    this.visible = true;
+    this.visible = !nodeType.equals("WALK") && !nodeType.equals("HALL");
   }
 
-  public Node(
-      String ID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName,
-      String team,
-      boolean visible) {
-    this.ID = ID;
-    this.building = building;
-    this.nodeType = nodeType;
-    this.longName = longName;
-    this.shortName = shortName;
-    this.floor = floor;
-    this.xCoord = xCoord;
-    this.yCoord = yCoord;
-    this.team = team;
-    this.visited = false;
-    this.neighbourList = new HashSet<>();
-    this.visible = visible;
-    this.nodeEdgeHashtable = new Hashtable<>();
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Node node = (Node) o;
+    return xCoord == node.xCoord && yCoord == node.yCoord && ID.equals(node.ID) && building.equals(node.building) && nodeType.equals(node.nodeType) && longName.equals(node.longName) && floor.equals(node.floor) && team.equals(node.team);
   }
 
-  public Node() {
-    this.ID = null;
-    this.building = null;
-    this.nodeType = null;
-    this.longName = null;
-    this.shortName = null;
-    this.floor = null;
-    this.xCoord = 0;
-    this.yCoord = 0;
-    this.team = null;
-    this.visited = false;
-    this.neighbourList = new HashSet<>();
-    this.visible = true;
-    this.nodeEdgeHashtable = new Hashtable<>();
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID);
   }
 
-  // for testing
-  public Node(String nodeID, int x, int y) {
-    this.ID = nodeID;
-    this.xCoord = x;
-    this.yCoord = y;
-    this.visited = false;
-    this.neighbourList = new HashSet<>();
-  }
-
-  public int compareTo(Node node) {
-    return Double.compare(priority, node.getPriority());
-  }
-
-  public void addNeighbour(Node graphNode, Edge edge) {
-    this.neighbourList.add(graphNode);
-    this.nodeEdgeHashtable.put(graphNode, edge);
-  }
 
   public String getTeam() {
     return team;
@@ -120,30 +60,6 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
 
   public void setTeam(String team) {
     this.team = team;
-  }
-
-  public HashSet<Node> getNeighbourList() {
-    return neighbourList;
-  }
-
-  public void setNeighbourList(HashSet<Node> neighbourList) {
-    this.neighbourList = neighbourList;
-  }
-
-  public double getPriority() {
-    return priority;
-  }
-
-  public void setPriority(double priority) {
-    this.priority = priority;
-  }
-
-  public boolean isVisited() {
-    return visited;
-  }
-
-  public void setVisited(boolean visited) {
-    this.visited = visited;
   }
 
   public String getID() {
@@ -218,11 +134,4 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
     this.visible = visible;
   }
 
-  public Hashtable<Node, Edge> getNodeEdgeHashtable() {
-    return nodeEdgeHashtable;
-  }
-
-  public void setNodeEdgeHashtable(Hashtable<Node, Edge> nodeEdgeHashtable) {
-    this.nodeEdgeHashtable = nodeEdgeHashtable;
-  }
 }

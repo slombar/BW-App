@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class NodesAndEdges {
+public class ArchiveNE {
   /**
    * Adds the given data into a table row in the database
    *
@@ -379,62 +379,6 @@ public class NodesAndEdges {
     return e;
   }
 
-  /**
-   * Displays all the nodes from the database
-   *
-   * @return ObservableList<Node> type, filled with nodes
-   */
-  public static ObservableList<Node> getAllNodes() {
-    ObservableList<Node> nodeList = FXCollections.observableArrayList();
-
-    try {
-      // statments to grab all node values from db
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes");
-      // returns results from DB
-      ResultSet rset = pstmt.executeQuery();
-
-      // temp variables
-      String ID = "";
-      int xcoord = 0;
-      int ycoord = 0;
-      String floor = "";
-      String building = "";
-      String nodeType = "";
-      String longName = "";
-      String shortName = "";
-      String team = "";
-      boolean visible = false;
-
-      Node n = new Node();
-
-      while (rset.next()) {
-        // add data from result set of query to observable list for processing
-        ID = rset.getString("NODEID");
-        xcoord = rset.getInt("XCOORD");
-        ycoord = rset.getInt("YCOORD");
-        floor = rset.getString("FLOOR");
-        building = rset.getString("BUILDING");
-        nodeType = rset.getString("NODETYPE");
-        longName = rset.getString("LONGNAME");
-        shortName = rset.getString("SHORTNAME");
-        team = rset.getString("TEAMASSIGNED");
-        visible = rset.getBoolean("VISIBLE");
-        // add to observable list
-        n =
-            new Node(
-                ID, xcoord, ycoord, floor, building, nodeType, longName, shortName, team, visible);
-        nodeList.add(n);
-      }
-      // must close to get proper info from db
-      rset.close();
-      pstmt.close();
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return nodeList;
-  }
 
   /**
    * Returns all the edges from the database
