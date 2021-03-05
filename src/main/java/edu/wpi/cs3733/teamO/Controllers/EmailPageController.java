@@ -48,7 +48,6 @@ public class EmailPageController implements Initializable {
   @FXML private static Image screenShot6;
   @FXML private StackPane sharePane; // this thing might fuck up our code :))=
 
-
   // this is a new comment
   @Override
   public void initialize(URL url, ResourceBundle res) {

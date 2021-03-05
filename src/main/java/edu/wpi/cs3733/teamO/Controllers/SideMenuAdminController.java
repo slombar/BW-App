@@ -35,6 +35,7 @@ public class SideMenuAdminController implements Initializable {
 
   /**
    * sets the name at the top to the username of the user
+   *
    * @param location
    * @param resources
    */
@@ -45,6 +46,7 @@ public class SideMenuAdminController implements Initializable {
 
   /**
    * closes the application
+   *
    * @param actionEvent
    */
   public void exit(ActionEvent actionEvent) {
@@ -61,6 +63,7 @@ public class SideMenuAdminController implements Initializable {
 
   /**
    * goes to the login page
+   *
    * @param actionEvent
    */
   public void goToLogin(ActionEvent actionEvent) {
@@ -74,6 +77,7 @@ public class SideMenuAdminController implements Initializable {
 
   /**
    * goes to the main page
+   *
    * @param actionEvent
    */
   public void toMain(ActionEvent actionEvent) {
@@ -82,6 +86,7 @@ public class SideMenuAdminController implements Initializable {
 
   /**
    * goes to the navigation page
+   *
    * @param actionEvent
    */
   public void toNav(ActionEvent actionEvent) {
@@ -90,6 +95,7 @@ public class SideMenuAdminController implements Initializable {
 
   /**
    * goes to the menu of service requests
+   *
    * @param actionEvent
    */
   public void toReq(ActionEvent actionEvent) {
@@ -98,13 +104,14 @@ public class SideMenuAdminController implements Initializable {
 
   /**
    * goes to the manage employees page
+   *
    * @param actionEvent
    */
   public void manageEmployees(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
-//TODO theres no way this shit has to be this long; not sure what the best way is though
+  // TODO theres no way this shit has to be this long; not sure what the best way is though
   public void mouseOnNot(MouseEvent mouseEvent) {
     notificationBtn.setUnderline(true);
     notificationBtn.setButtonType(JFXButton.ButtonType.RAISED);
