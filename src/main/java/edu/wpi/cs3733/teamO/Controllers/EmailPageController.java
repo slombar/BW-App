@@ -26,7 +26,8 @@ import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
 
-  @FXML private ImageView mapView5;
+  @FXML private StackPane spinnerPane;
+    @FXML private ImageView mapView5;
   @FXML private ImageView mapView3;
   @FXML private ImageView mapView2;
   @FXML private ImageView mapView1;
@@ -50,8 +51,9 @@ public class EmailPageController implements Initializable {
   private String errorMsg = "";
 
   /**
-   * Initializes all components of email page
-   * including: setting screenshots to images, button styles, and QR code positioning
+   * Initializes all components of email page including: setting screenshots to images, button
+   * styles, and QR code positioning
+   *
    * @param url
    * @param res
    */
@@ -83,6 +85,7 @@ public class EmailPageController implements Initializable {
 
   /**
    * Sets screenshots of map images on canvas
+   *
    * @param sc1
    * @param sc2
    * @param sc3
@@ -100,10 +103,9 @@ public class EmailPageController implements Initializable {
     screenShot6 = sc6;
   }
 
-
-
   /**
    * Triggers back button functionality
+   *
    * @param actionEvent
    * @throws IOException
    */
@@ -113,6 +115,7 @@ public class EmailPageController implements Initializable {
 
   /**
    * Triggers functions to send MMS text with map images to user
+   *
    * @param actionEvent
    * @throws IOException
    * @throws UnirestException
@@ -150,6 +153,7 @@ public class EmailPageController implements Initializable {
 
   /**
    * Triggers functions to prepare for generation of QR Code
+   *
    * @throws IOException
    * @throws UnirestException
    */
@@ -184,6 +188,7 @@ public class EmailPageController implements Initializable {
 
   /**
    * Triggers action to send email of map images to user
+   *
    * @param actionEvent
    * @throws IOException
    */
@@ -218,9 +223,7 @@ public class EmailPageController implements Initializable {
     }
   }
 
-  /**
-   * Popup for when user inputs invalid values for text fields
-   */
+  /** Popup for when user inputs invalid values for text fields */
   public void invalidPopup() {
     // dialogContent has the conetnt of the popup
     JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -270,9 +273,7 @@ public class EmailPageController implements Initializable {
     submissionDialog.show();
   }
 
-  /**
-   * Popup for when user has successfully submits email/phone number
-   */
+  /** Popup for when user has successfully submits email/phone number */
   public void submissionPopup() {
 
     // dialogContent has the conetnt of the popup

@@ -10,6 +10,7 @@ public class ImgurFunctionality {
 
   /**
    * Creates an album on Imgur using bwappteamo@gmail.com credientals
+   *
    * @return LinkedList<String> that contains album ID [1], album deleteHash [2]
    * @throws UnirestException
    */
@@ -21,7 +22,7 @@ public class ImgurFunctionality {
     HttpResponse<String> response =
         Unirest.post("https://api.imgur.com/3/album")
             .header("Authorization", "Bearer 87600038c4c60be5eff9d42dd09d5010f8cadde5")
-                // if function suddenly doesn't work, get new access token value from Postman
+            // if function suddenly doesn't work, get new access token value from Postman
             .field("title", "My Map Images")
             .asString();
 
@@ -42,6 +43,7 @@ public class ImgurFunctionality {
 
   /**
    * Uploads a single image from file directory to Imgur
+   *
    * @param imageName (ex. somethingName.png)
    * @return String link of where image is located on Imgur
    * @throws UnirestException
@@ -54,8 +56,8 @@ public class ImgurFunctionality {
     HttpResponse<String> response =
         Unirest.post("https://api.imgur.com/3/upload")
             .header("Authorization", "Client-ID 546c25a59c58ad7")
-                // NOTE: this takes in a client ID token and not an access token
-                // also can be generated via Postman
+            // NOTE: this takes in a client ID token and not an access token
+            // also can be generated via Postman
             .field("image", new File(file))
             .asString();
 
@@ -65,8 +67,9 @@ public class ImgurFunctionality {
   }
 
   /**
-   * Uploads an image to an already existing Imgur Album
-   * To be used for QR Code Functionality as all images will be stored at one link
+   * Uploads an image to an already existing Imgur Album To be used for QR Code Functionality as all
+   * images will be stored at one link
+   *
    * @param imageName (ex. somethingName.png)
    * @param albumDeleteHash (String at index 2 of returned LL from createImgurAlbum() function)
    * @throws UnirestException
@@ -80,8 +83,8 @@ public class ImgurFunctionality {
     HttpResponse<String> response =
         Unirest.post("https://api.imgur.com/3/upload")
             .header("Authorization", "Client-ID 546c25a59c58ad7")
-                // NOTE: this takes in a client ID token and not an access token
-                // also can be generated via Postman
+            // NOTE: this takes in a client ID token and not an access token
+            // also can be generated via Postman
             .field("image", new File(file))
             .field("album", albumDeleteHash)
             .asString();
@@ -90,7 +93,7 @@ public class ImgurFunctionality {
   // !!! keeping to test when we figure out how to send only necessary maps
   public static void main(String[] args) throws Exception {
     String res =
-            "{\"data\":{\"id\":\"4GdeKiq\",\"deletehash\":\"ROsDeYe56rdVsFp\"},\"success\":true,\"status\":200}";
+        "{\"data\":{\"id\":\"4GdeKiq\",\"deletehash\":\"ROsDeYe56rdVsFp\"},\"success\":true,\"status\":200}";
 
     String startId = res.substring(res.indexOf("id") + 5);
     System.out.print(startId.substring(0, startId.indexOf("\"")));

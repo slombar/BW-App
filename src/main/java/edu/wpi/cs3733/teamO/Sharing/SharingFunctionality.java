@@ -22,6 +22,7 @@ public class SharingFunctionality {
 
   /**
    * Sends a MMS to given phone number with 6 map images
+   *
    * @param sendingTo
    * @param linkToFile1
    * @param linkToFile2
@@ -84,6 +85,7 @@ public class SharingFunctionality {
 
   /**
    * Generates QR code with a given link
+   *
    * @param link
    */
   public static void createQR(String link) {
