@@ -22,6 +22,7 @@ public class SharingFunctionality {
 
   /**
    * Sends a MMS to given phone number with 6 map images
+   *
    * @param sendingTo
    * @param linkToFile1
    * @param linkToFile2
@@ -83,26 +84,26 @@ public class SharingFunctionality {
   }
 
   public static void createQRCode(
-          String fileToBeSent1,
-          String fileToBeSent2,
-          String fileToBeSent3,
-          String fileToBeSent4,
-          String fileToBeSent5,
-          String fileToBeSent6) {
+      String fileToBeSent1,
+      String fileToBeSent2,
+      String fileToBeSent3,
+      String fileToBeSent4,
+      String fileToBeSent5,
+      String fileToBeSent6) {
     QRCodeThreader qrThreader =
-            new QRCodeThreader(
-                    fileToBeSent1,
-                    fileToBeSent2,
-                    fileToBeSent3,
-                    fileToBeSent4,
-                    fileToBeSent5,
-                    fileToBeSent6);
+        new QRCodeThreader(
+            fileToBeSent1,
+            fileToBeSent2,
+            fileToBeSent3,
+            fileToBeSent4,
+            fileToBeSent5,
+            fileToBeSent6);
     qrThreader.start();
   }
 
-
   /**
    * Generates QR code with a given link
+   *
    * @param link
    */
   public static void createQR(String link) {

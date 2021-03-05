@@ -500,7 +500,6 @@ public class NewNavPageController implements Initializable {
     WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
     EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
     // TODO: Insert method call that write qr.png to download folder
-    EmailPageController.prepareQR();
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
