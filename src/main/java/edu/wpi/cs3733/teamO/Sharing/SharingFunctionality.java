@@ -84,23 +84,22 @@ public class SharingFunctionality {
   }
 
   public static void createQRCode(
-          String fileToBeSent1,
-          String fileToBeSent2,
-          String fileToBeSent3,
-          String fileToBeSent4,
-          String fileToBeSent5,
-          String fileToBeSent6) {
+      String fileToBeSent1,
+      String fileToBeSent2,
+      String fileToBeSent3,
+      String fileToBeSent4,
+      String fileToBeSent5,
+      String fileToBeSent6) {
     QRCodeThreader qrThreader =
-            new QRCodeThreader(
-                    fileToBeSent1,
-                    fileToBeSent2,
-                    fileToBeSent3,
-                    fileToBeSent4,
-                    fileToBeSent5,
-                    fileToBeSent6);
+        new QRCodeThreader(
+            fileToBeSent1,
+            fileToBeSent2,
+            fileToBeSent3,
+            fileToBeSent4,
+            fileToBeSent5,
+            fileToBeSent6);
     qrThreader.start();
   }
-
 
   /**
    * Generates QR code with a given link
