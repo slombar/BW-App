@@ -11,16 +11,6 @@ import java.util.regex.Pattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-/**
- * TYPES OF REQUESTS language interpreters sanitation services – cleaning up spills, rooms, and
- * public spaces laundry services gift delivery service for presents purchased at the hospital
- * floral delivery service medicine delivery service religious requests such as blessings or last
- * rites. If you implement this component, be aware that multiple religions need to be taken into
- * account. internal patient transportation (transportation for a patient inside the hospital)
- * external patient transportation (ambulance, helicopter, etc) for a patient to be transported to a
- * location outside of the hospital security services facilities maintenance requests including
- * elevator and power issues computer service requests audio/visual requests
- */
 public class DataHandling {
 
   private Desktop desktop = Desktop.getDesktop();
@@ -160,6 +150,10 @@ public class DataHandling {
     }
   }
 
+  /**
+   * Save both the nodes and the edges files
+   * @param node
+   */
   public static void save(boolean node) {
     String url = explorer(Opp.getPrimaryStage());
     if (node) {
@@ -169,6 +163,10 @@ public class DataHandling {
     }
   }
 
+  /**
+   * Save the node file to your chosen destination
+   * @param url
+   */
   public static void saveNodes(String url) {
 
     String nodeID = "";
@@ -233,6 +231,10 @@ public class DataHandling {
     }
   }
 
+  /**
+   * Save the edge file to your chosen destination
+   * @param url
+   */
   private static void saveEdges(String url) {
 
     String ID = "";

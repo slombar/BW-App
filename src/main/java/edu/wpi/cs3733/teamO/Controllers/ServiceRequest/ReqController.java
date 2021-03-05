@@ -138,6 +138,10 @@ public class ReqController implements Initializable {
     reqBox.getChildren().add(addBox);
   }
 
+  /**
+   * Displays the list on the page by going through obs. list of requests
+   * @param requests
+   */
   public void displayList(ObservableList<Request> requests) {
 
     for (Request r : requests) {
@@ -156,6 +160,10 @@ public class ReqController implements Initializable {
     assignButton.setVisible(UserHandling.getAdmin());
   }
 
+  /**
+   * Button control for adding a new request, depending on the type you will get sent to the proper fxml
+   * @param actionEvent
+   */
   public void addNewRequest(ActionEvent actionEvent) {
     if (typeOfRequest.equals("COMP")) {
       SwitchScene.goToParent("/Views/ServiceRequests/ComputerServiceRequest.fxml");
@@ -190,6 +198,10 @@ public class ReqController implements Initializable {
     }
   }
 
+  /**
+   * Button functionality that will assign the user to the request
+   * @param actionEvent
+   */
   public void assignStaff(ActionEvent actionEvent) {
 
     // addEdgePopup has the content of the popup
@@ -251,6 +263,10 @@ public class ReqController implements Initializable {
     SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
   }
 
+  /**
+   * Delete button functionality. will delete service request from DB
+   * @param actionEvent
+   */
   public void delete(ActionEvent actionEvent) {
     JFXDialogLayout assignStaffLayout = new JFXDialogLayout();
     assignStaffLayout.setHeading(new Text("Delete Service Request"));

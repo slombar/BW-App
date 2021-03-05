@@ -12,7 +12,7 @@ public class DatabaseConnection {
   /**
    * get the conecrtion
    *
-   * @return
+   * @return the connection of the database
    */
   public static Connection getConnection() {
     return connection;
@@ -21,7 +21,7 @@ public class DatabaseConnection {
   /**
    * connect to the database that is: if the embedded driver wasn't fucked trash shit!! (:
    *
-   * @return
+   * @return true if you properly connected
    */
   public static boolean establishConnection() {
 

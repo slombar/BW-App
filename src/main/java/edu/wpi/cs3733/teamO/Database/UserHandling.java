@@ -14,6 +14,10 @@ public class UserHandling {
   private static Boolean isLoggedIn;
   private static String fName;
 
+  /**
+   * Delete the given user from the database based on Username
+   * @param uname
+   */
   public static void deleteUser(String uname) {
 
     String query = "DELETE FROM USERS WHERE username = '" + uname + "'";
@@ -30,6 +34,10 @@ public class UserHandling {
     }
   }
 
+  /**
+   * retrieve all users from database
+   * @return
+   */
   public static ObservableList<User> getUsers() {
 
     ObservableList<User> userList = FXCollections.observableArrayList();
@@ -124,6 +132,16 @@ public class UserHandling {
     }
   }
 
+  /**
+   * Make a brand new employee in the Db
+   * @param username
+   * @param password
+   * @param email
+   * @param fName
+   * @param lName
+   * @param admin
+   * @throws SQLException
+   */
   public static void createEmployee(
       String username, String password, String email, String fName, String lName, boolean admin)
       throws SQLException {
@@ -200,6 +218,12 @@ public class UserHandling {
     }
   }
 
+  /**
+   * logs in the employee from the database
+   * @param u
+   * @param p
+   * @throws SQLException
+   */
   public static void loginEmployee(String u, String p) throws SQLException {
     // setFirstName(fName);
     setLoginStatus(true);
@@ -238,6 +262,10 @@ public class UserHandling {
     }
   }
 
+  /**
+   * get true if the current user is an admin
+   * @return
+   */
   public static boolean getAdmin() {
     boolean b = false;
 
@@ -261,6 +289,10 @@ public class UserHandling {
     return b;
   }
 
+  /**
+   * get true if the current user is an employee
+   * @return
+   */
   public static boolean getEmployee() {
     boolean b = false;
 
@@ -284,6 +316,11 @@ public class UserHandling {
     return b;
   }
 
+  /**
+   * assign an employee to a service request
+   * @param reqID
+   * @param employee
+   */
   public static void assignEmployee(String reqID, String employee) {
 
     try {
@@ -316,6 +353,7 @@ public class UserHandling {
     return username;
   }
 
+  //gettas and settas
   public static void setUsername(String u) {
     username = u;
   }
