@@ -8,10 +8,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import com.vonage.client.VonageClient;
-import com.vonage.client.sms.MessageStatus;
-import com.vonage.client.sms.SmsSubmissionResponse;
-import com.vonage.client.sms.messages.TextMessage;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -24,25 +20,16 @@ import javax.imageio.ImageIO;
 
 public class SharingFunctionality {
 
-  // TODO:implement sending image to phone &  get a better service?
-  public static void sendSMS(String sendingTo, String fileToBeSent) {
-
-    VonageClient client =
-        VonageClient.builder().apiKey("390a6808").apiSecret("vdFIoqy6XZ9nFRQn").build();
-
-    TextMessage message =
-        new TextMessage("18888571289", sendingTo, "A text message sent using the Vonage SMS API");
-
-    SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
-
-    if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
-      System.out.println("Message sent successfully.");
-    } else {
-      System.out.println(
-          "Message failed with error: " + response.getMessages().get(0).getErrorText());
-    }
-  }
-
+  /**
+   * Sends a MMS to given phone number with 6 map images
+   * @param sendingTo
+   * @param linkToFile1
+   * @param linkToFile2
+   * @param linkToFile3
+   * @param linkToFile4
+   * @param linkToFile5
+   * @param linkToFile6
+   */
   public static void sendSMSTwillio(
       String sendingTo,
       String linkToFile1,
@@ -58,7 +45,7 @@ public class SharingFunctionality {
     Message message =
         Message.creator(
                 new com.twilio.type.PhoneNumber(
-                    sendingTo), // replace with cindy's number if testing
+                    sendingTo), // if testing, please use verified number. will not work otherwise
                 new com.twilio.type.PhoneNumber("+16173560972"),
                 "Hello! Here are your map images!")
             .setMediaUrl(
@@ -70,8 +57,6 @@ public class SharingFunctionality {
                     URI.create(linkToFile5),
                     URI.create(linkToFile6)))
             .create();
-
-    // file:/C:/users/cindy/Downloads/mapimg.png
 
     System.out.println(message.getSid());
   }
@@ -97,7 +82,10 @@ public class SharingFunctionality {
     emailThreader.start();
   }
 
-  // creates QR code in the downloads folder
+  /**
+   * Generates QR code with a given link
+   * @param link
+   */
   public static void createQR(String link) {
 
     String home = System.getProperty("user.home");
@@ -169,6 +157,7 @@ public class SharingFunctionality {
   }
 
   // for testing purposes, change sendingTo param to cindy's number
+  // !!! keeping to test when we figure out how to send only necessary maps
   public static void main(String[] args) {
     // sendSMSTwillio("16176061459", "https://i.imgur.com/ImYycv8.png");
 

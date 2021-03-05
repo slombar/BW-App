@@ -47,8 +47,14 @@ public class EmailPageController implements Initializable {
   @FXML private static Image screenShot5;
   @FXML private static Image screenShot6;
   @FXML private StackPane sharePane; // this thing might fuck up our code :))=
+  private String errorMsg = "";
 
-  // this is a new comment
+  /**
+   * Initializes all components of email page
+   * including: setting screenshots to images, button styles, and QR code positioning
+   * @param url
+   * @param res
+   */
   @Override
   public void initialize(URL url, ResourceBundle res) {
 
@@ -75,6 +81,15 @@ public class EmailPageController implements Initializable {
     QRView.setTranslateY(250);
   }
 
+  /**
+   * Sets screenshots of map images on canvas
+   * @param sc1
+   * @param sc2
+   * @param sc3
+   * @param sc4
+   * @param sc5
+   * @param sc6
+   */
   public static void setScreenShot(
       Image sc1, Image sc2, Image sc3, Image sc4, Image sc5, Image sc6) {
     screenShot1 = sc1;
@@ -85,17 +100,29 @@ public class EmailPageController implements Initializable {
     screenShot6 = sc6;
   }
 
-  private String errorMsg = "";
 
+
+  /**
+   * Triggers back button functionality
+   * @param actionEvent
+   * @throws IOException
+   */
   public void back(ActionEvent actionEvent) throws IOException {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
+  /**
+   * Triggers functions to send MMS text with map images to user
+   * @param actionEvent
+   * @throws IOException
+   * @throws UnirestException
+   */
   public void sendText(ActionEvent actionEvent) throws IOException, UnirestException {
 
     String phoneString = phoneNum.getText();
     System.out.println(phoneString);
 
+    // TODO reimplement regexboi checker for +1 area codes
     // if (RegexBoi.checkPhoneNum(phoneString)) {
 
     LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
@@ -121,21 +148,26 @@ public class EmailPageController implements Initializable {
     // }*/
   }
 
+  /**
+   * Triggers functions to prepare for generation of QR Code
+   * @throws IOException
+   * @throws UnirestException
+   */
   public static void prepareQR() throws IOException, UnirestException {
-
+    // TODO reimplement regexboi checker for +1 area codes
     // if (RegexBoi.checkPhoneNum(phoneString)) {
 
     LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
     String albumID = albumInfo.get(0);
     String albumDeleteHash = albumInfo.get(1);
 
-    ImgurFunctionality.uploadToImgur("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg2.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg3.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg4.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg5.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg6.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
+    ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
 
     String albumLink = "https://imgur.com/a/" + albumID;
 
@@ -150,6 +182,11 @@ public class EmailPageController implements Initializable {
     }*/
   }
 
+  /**
+   * Triggers action to send email of map images to user
+   * @param actionEvent
+   * @throws IOException
+   */
   public void sendEmail(ActionEvent actionEvent) throws IOException {
 
     String emailString = email.getText();
@@ -173,13 +210,6 @@ public class EmailPageController implements Initializable {
 
       submissionPopup();
 
-      //      mapView0 = new ImageView(outputFile1);
-      //      mapView1 = new ImageView(outputFile2);
-      //      mapView2 = new ImageView(outputFile3);
-      //      mapView3 = new ImageView(outputFile4);
-      //      mapView4 = new ImageView(outputFile5);
-      //      mapView5 = new ImageView(outputFile6);
-
     } else {
       errorMsg =
           "Email is invalid. Make sure your email is spelled correctly and follows typical conventions. (email@company.com)";
@@ -188,6 +218,9 @@ public class EmailPageController implements Initializable {
     }
   }
 
+  /**
+   * Popup for when user inputs invalid values for text fields
+   */
   public void invalidPopup() {
     // dialogContent has the conetnt of the popup
     JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -237,6 +270,9 @@ public class EmailPageController implements Initializable {
     submissionDialog.show();
   }
 
+  /**
+   * Popup for when user has successfully submits email/phone number
+   */
   public void submissionPopup() {
 
     // dialogContent has the conetnt of the popup
