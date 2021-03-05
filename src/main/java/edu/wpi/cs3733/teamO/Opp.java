@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO;
 
+import edu.wpi.cs3733.teamO.Database.Graph;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,8 @@ public class Opp extends Application {
   }
 
   public void start(Stage ps) {
+
+    Graph graph = new Graph();
 
     Opp.primaryStage = ps;
 

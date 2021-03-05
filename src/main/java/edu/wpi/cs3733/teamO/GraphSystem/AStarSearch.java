@@ -1,31 +1,22 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.*;
 
 class AStarSearch implements AlgorithmStrategy {
 
-  private GraphDrawer graph;
-  private int graphSize;
+  private GraphDrawer graphDrawer;
 
   private static PriorityQueue<Node> frontier; // expanding frontier of search
   private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
   private static Hashtable<Node, Double> costSoFar; // NodeID and that nodes current cost so far
 
-  // private LinkedList<Node> foundRoute; // most recent found root for this A* object
-
-  /*AStarSearch(boolean test) {
-    graph = new Graph(test); // may not want/need to initialize graph here
-    graphSize = -1;
-    startID = "-1";
-    targetID = "-1";
-    frontier = new PriorityQueue<Node>();
-  }*/
+  Graph graph = Graph.getInstance();
 
   // constructor
   AStarSearch(GraphDrawer g) {
-    graph = g;
-    graphSize = graph.getSize();
+    graphDrawer = g;
 
     //    frontier = new PriorityQueue<>();
     //    cameFrom = new Hashtable<>();
@@ -34,7 +25,7 @@ class AStarSearch implements AlgorithmStrategy {
   }
 
   public List<Node> findRoute(Node startNode, Node targetNode) {
-    for (Node n : graph.getListOfNodes()) {
+    for (Node n : graph.listOfNodes) {
       n.setPriority(0.0);
     }
 
@@ -60,9 +51,7 @@ class AStarSearch implements AlgorithmStrategy {
       }
 
       // iterates through current nodes neighbours
-      int llsize = current.getNeighbourList().size();
-
-      Set<Node> nList = current.getNeighbourList();
+      Set<Node> nList = (Set<Node>) graph.map.get(current);
 
       Iterator<Node> iterator = nList.iterator();
 

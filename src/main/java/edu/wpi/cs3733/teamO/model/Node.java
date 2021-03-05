@@ -1,14 +1,13 @@
 package edu.wpi.cs3733.teamO.model;
 
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Objects;
 
-public class Node{
+public class Node {
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
   private boolean visible;
+  private double priority;
+  private int typeCount;
 
   /**
    * Constructor for Node
@@ -29,7 +28,7 @@ public class Node{
       String nodeType,
       String longName,
       String team) {
-    //TODO generate ID
+    // TODO generate ID
     this.building = building;
     this.nodeType = nodeType;
     this.longName = longName;
@@ -38,6 +37,43 @@ public class Node{
     this.yCoord = yCoord;
     this.team = team;
     this.visible = !nodeType.equals("WALK") && !nodeType.equals("HALL");
+
+  }
+
+  //TODO get these ID's auto generating
+  public Node(int xCoord,
+              int yCoord,
+              String floor,
+              String building,
+              String nodeType,
+              String longName,
+              String team) {
+
+    this.building = building;
+    this.nodeType = nodeType;
+    this.longName = longName;
+    this.floor = floor;
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.team = team;
+    this.visible = !nodeType.equals("WALK") && !nodeType.equals("HALL");
+
+
+
+    typeCount = getTypeCount(nodeType);
+
+    String newID = team + nodeType + floor + typeCount + ;
+  }
+
+  public Node() {
+    this.building = null;
+    this.nodeType = null;
+    this.longName = null;
+    this.floor = null;
+    this.xCoord = -11111;
+    this.yCoord = -11111;
+    this.team = null;
+    this.visible = !nodeType.equals("WALK") && !nodeType.equals("HALL");
   }
 
   @Override
@@ -45,14 +81,20 @@ public class Node{
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Node node = (Node) o;
-    return xCoord == node.xCoord && yCoord == node.yCoord && ID.equals(node.ID) && building.equals(node.building) && nodeType.equals(node.nodeType) && longName.equals(node.longName) && floor.equals(node.floor) && team.equals(node.team);
+    return xCoord == node.xCoord
+        && yCoord == node.yCoord
+        && ID.equals(node.ID)
+        && building.equals(node.building)
+        && nodeType.equals(node.nodeType)
+        && longName.equals(node.longName)
+        && floor.equals(node.floor)
+        && team.equals(node.team);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(ID);
   }
-
 
   public String getTeam() {
     return team;
@@ -134,4 +176,8 @@ public class Node{
     this.visible = visible;
   }
 
+  public void setPriority(double p) {
+
+    this.priority = p;
+  }
 }

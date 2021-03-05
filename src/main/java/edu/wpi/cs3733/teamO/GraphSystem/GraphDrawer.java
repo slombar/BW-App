@@ -3,10 +3,7 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.model.Node;
-import java.sql.SQLException;
 import java.util.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -54,9 +51,7 @@ public class GraphDrawer {
     this.gc = gc;
     createCircles();
     graph = Graph.getInstance();
-
   }
-
 
   /**
    * Returns the Node closest to the given (x,y) on the given floor
@@ -145,70 +140,6 @@ public class GraphDrawer {
     }
   }
 
-/*  public void addNode(Node n) {
-    // if ID already exists, then editing -> need node's neighborlist
-    if (stringNodeHashtable.containsKey(n.getID())) {
-      Node prev = stringNodeHashtable.get(n.getID());
-      HashSet<Node> prevNList = prev.getNeighbourList();
-      Hashtable<Node, Edge> prevNEList = prev.getNodeEdgeHashtable();
-      Circle prevC = nodeCircleHashtable.get(prev);
-
-      listOfNodes.remove(prev);
-      nodeCircleHashtable.remove(prev);
-
-      n.setNeighbourList(prevNList);
-      n.setNodeEdgeHashtable(prevNEList);
-
-      listOfNodes.add(n);
-      stringNodeHashtable.put(n.getID(), n);
-      nodeCircleHashtable.put(n, prevC);
-      return;
-    }
-
-    // add circle
-    // add node to graph
-    String nodeID = n.getID();
-    Circle c = new Circle();
-
-    // get node's x and y (and floor)
-    double nX = n.getXCoord();
-    double nY = n.getYCoord();
-    double nXperc = 0.0;
-    double nYperc = 0.0;
-    String nFloor = n.getFloor();
-
-    // set nX/Yperc to be the node's x/y as a percentage of the image's x/y
-    // switch case basically = if, else if, etc...
-    switch (nFloor) {
-      case "G":
-        nXperc = nX / widthG;
-        nYperc = nY / heightG;
-        break;
-      case "1":
-        nXperc = nX / width1;
-        nYperc = nY / height1;
-        break;
-      case "2":
-        nXperc = nX / width2;
-        nYperc = nY / height2;
-        break;
-      case "3":
-        nXperc = nX / width3;
-        nYperc = nY / height3;
-        break;
-      case "4":
-        nXperc = nX / width4;
-        nYperc = nY / height4;
-        break;
-      case "5":
-        nXperc = nX / width5;
-        nYperc = nY / height5;
-        break;
-    }*/
-
-
-
-
   /**
    * Draws all nodes for the given floor
    *
@@ -258,19 +189,35 @@ public class GraphDrawer {
     }
   }
 
+  /**
+   * Draws all of the edges from the database
+   *
+   * @param floor
+   */
   public void drawAllEdges(String floor) {
     gc.setStroke(Color.BLACK);
     for (Node n : graph.listOfNodes) {
       try {
-        Node nodeA = stringNodeHashtable.get(e.getStart());
-        Node nodeB = stringNodeHashtable.get(e.getEnd());
+        /*Node nodeA = stringNodeHashtable.get(e.getStart());
+        Node nodeB = stringNodeHashtable.get(e.getEnd());*/
 
-        if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
-          Circle circleA = nodeCircleHashtable.get(nodeA);
-          Circle circleB = nodeCircleHashtable.get(nodeB);
+        Node nodeA = n;
+        Node nodeB;
+        List<Node> neighborList = graph.map.get(n);
 
-          DrawHelper.drawEdge(gc, circleA, circleB);
+        for (Node neighbor : neighborList) {
+          nodeB = neighbor;
+
+          // if they are on the same, current floor
+          if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
+            // create circles
+            Circle circleA = nodeCircleHashtable.get(nodeA);
+            Circle circleB = nodeCircleHashtable.get(nodeB);
+
+            DrawHelper.drawEdge(gc, circleA, circleB);
+          }
         }
+
       } catch (NullPointerException ignored) {
         // TODO: use this catch block to filter out bad/extraneous data
         // for now it just ignores them and draws the edges that do actually exist
@@ -287,18 +234,23 @@ public class GraphDrawer {
    */
   public void drawCurrentPath(String floor, Node startNode, Node endNode) {
     Canvas canvas = gc.getCanvas();
+    // clears the canvas
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+    // for each node in the path, draw on canvas
     for (Node n : path) {
-      if (n.getFloor().equals(floor) && n.getNodeType().equals("STAI")) {
+      // if the current node is on the floor, and its t
+      if (n.getNodeType().equals("STAI") && n.getFloor().equals(floor)) {
         Circle c = nodeCircleHashtable.get(n);
+
         DrawHelper.drawSingleNode(gc, c, Color.GREEN);
-      } else if (n.getFloor().equals(floor) && n.getNodeType().equals("ELEV")) {
+      } else if (n.getNodeType().equals("ELEV") && n.getFloor().equals(floor)) {
         Circle c = nodeCircleHashtable.get(n);
+
         DrawHelper.drawSingleNode(gc, c, Color.PURPLE);
       }
 
-      if (n.getFloor().equals(floor) && n.getNodeType().equals("EXIT")) {
+      if (n.getNodeType().equals("EXIT") && n.getFloor().equals(floor)) {
         Circle c = nodeCircleHashtable.get(n);
         DrawHelper.drawSingleNode(gc, c, Color.ORANGE);
       }
@@ -316,21 +268,22 @@ public class GraphDrawer {
     }
   }
 
+  // TODO figure out something to do about the fucking visited thing
   public void findPath(String strat, Node startNode, Node targetNode) {
-    for (Node n : listOfNodes) {
-      n.setVisited(false);
-    }
 
     switch (strat) {
       case "A*":
         strategy = new AStarSearch(this);
         break;
-      case "DFS":
-        strategy = new DFS();
-        break;
-      case "BFS":
-        strategy = new BFS();
-        break;
+        /* TODO implement new methods to pathfind (KE)
+        case "DFS":
+          strategy = new DFS();
+          break;
+        case "BFS":
+          strategy = new BFS();
+          break;
+          8?
+           */
     }
 
     path = strategy.findRoute(startNode, targetNode);
@@ -341,16 +294,15 @@ public class GraphDrawer {
     return TextDirection.direction(node1, node2, node3);
   }
 
-  // add function calls for text direction.
+  /**
+   * @param path
+   * @return
+   */
   public static ArrayList<String> findTextDirection(ArrayList<Node> path) {
     return TextDirection.textDirections(path);
   }
 
   public void resetPath() {
     path = new LinkedList<>();
-  }
-
-  public ObservableList<Node> getListOfNodes() {
-    return listOfNodes;
   }
 }

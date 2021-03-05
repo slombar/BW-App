@@ -4,7 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
+import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.GraphDrawer;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -12,9 +12,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
-import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -80,7 +78,6 @@ public class NewNavPageController implements Initializable {
   private String sFloor = "G";
   private String sideMenuUrl;
 
-  private GraphDrawer graph;
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
@@ -154,7 +151,7 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(campusMap);
     resizableWindow();
 
-    graph = new GraphDrawer(gc);
+    graphDrawer = new GraphDrawer(gc);
     editToggle.setVisible(false);
 
     if (UserHandling.getEmployee()) {
@@ -201,9 +198,11 @@ public class NewNavPageController implements Initializable {
 
     editVBox.setVisible(editToggle.isSelected());
 
+    Autocomplete autocomplete = new Autocomplete();
+
     // autocompletes the node Id for start and end
-    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
-    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
+    Autocomplete.autoComplete(autocomplete.autoNodeData("nodeID"), startNodeID);
+    Autocomplete.autoComplete(autocomplete.autoNodeData("nodeID"), endNodeID);
   }
 
   /**
@@ -324,12 +323,13 @@ public class NewNavPageController implements Initializable {
 
   /**
    * resets path and creates a new path depending on start and end nodes
+   *
    * @param actionEvent
    */
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
-      graph.resetPath();
-      graph.findPath(strategy, startNode, endNode);
+      graphDrawer.resetPath();
+      graphDrawer.findPath(strategy, startNode, endNode);
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
@@ -342,6 +342,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * determines closest node to mouse click on canvas, used for both navigating and editing the map
+   *
    * @param mouseEvent
    */
   public void canvasClick(MouseEvent mouseEvent) {
@@ -388,6 +389,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * gets the xy coordinates of the mouse and scales it to the image
+   *
    * @param floor
    * @param mouseEvent
    * @return
@@ -432,6 +434,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * sets teh start location for pathfinding
+   *
    * @param actionEvent
    */
   public void startLocSelection(ActionEvent actionEvent) {
@@ -441,6 +444,7 @@ public class NewNavPageController implements Initializable {
 
   /**
    * sets the end desination for pathfinding
+   *
    * @param actionEvent
    */
   public void endLocSelection(ActionEvent actionEvent) {
@@ -505,7 +509,7 @@ public class NewNavPageController implements Initializable {
   public void clearSelection(ActionEvent actionEvent) {
     setNavFalse();
 
-    graph.resetPath();
+    graphDrawer.resetPath();
 
     resizeCanvas();
     draw();
@@ -523,6 +527,10 @@ public class NewNavPageController implements Initializable {
     addingEdgeBD = false;
   }
 
+  // Graph. Putting here bc this shit is a mess smh
+  Graph graph = Graph.getInstance();
+  String team = "O";
+
   /**
    * Edits the node that is currently selected. If the map is page is in adding new node mode,
    * clicking this button will add the new node to the DB. Otherwise, will edit existing node. Once
@@ -536,35 +544,17 @@ public class NewNavPageController implements Initializable {
       if (isNodeInfoNull()) {
         PopupMaker.incompletePopup(nodeWarningPane);
       } else {
-        try {
-          NodesAndEdges.addNode(
-              nodeID.getText(),
-              xCoord.getText(),
-              yCoord.getText(),
-              floor.getText(),
-              building.getText(),
-              nodeType.getText(),
-              longName.getText(),
-              shortName.getText(),
-              "O",
-              setVisibility.isSelected());
-          Node n =
-              new Node(
-                  nodeID.getText(),
-                  Integer.parseInt(xCoord.getText()),
-                  Integer.parseInt(yCoord.getText()),
-                  floor.getText(),
-                  building.getText(),
-                  nodeType.getText(),
-                  longName.getText(),
-                  shortName.getText(),
-                  "O",
-                  setVisibility.isSelected());
 
-          graph.addNode(n);
-        } catch (SQLException throwables) {
-          PopupMaker.nodeAlreadyExists(nodeWarningPane);
-        }
+        Node newNode =
+            new Node(
+                Integer.valueOf(xCoord.getText()),
+                Integer.valueOf(yCoord.getText()),
+                floor.getText(),
+                building.getText(),
+                nodeType.getText(),
+                longName.getText(),
+                team);
+        graph.addNode(newNode);
 
         addNodeDBMode = false;
       }
@@ -573,35 +563,19 @@ public class NewNavPageController implements Initializable {
       if (isNodeInfoEmpty()) {
         PopupMaker.incompletePopup(nodeWarningPane);
       }
-      try {
-        NodesAndEdges.editNode(
-            nodeID.getText(),
-            Integer.parseInt(xCoord.getText()),
-            Integer.parseInt(yCoord.getText()),
-            floor.getText(),
-            building.getText(),
-            nodeType.getText(),
-            longName.getText(),
-            shortName.getText(),
-            "O",
-            setVisibility.isSelected());
-        Node n =
-            new Node(
-                nodeID.getText(),
-                Integer.parseInt(xCoord.getText()),
-                Integer.parseInt(yCoord.getText()),
-                floor.getText(),
-                building.getText(),
-                nodeType.getText(),
-                longName.getText(),
-                shortName.getText(),
-                "O",
-                setVisibility.isSelected());
+      Node pastNode = graph.key.get(nodeID.getText());
 
-        graph.addNode(n);
-      } catch (SQLException throwables) {
-        PopupMaker.nodeDoesntExist(nodeWarningPane);
-      }
+      Node futureNode =
+          new Node(
+              Integer.parseInt(xCoord.getText()),
+              Integer.parseInt(yCoord.getText()),
+              floor.getText(),
+              building.getText(),
+              nodeType.getText(),
+              longName.getText(),
+              team);
+
+      graph.editNode(pastNode, futureNode);
     }
     clearNodeInfo();
     selectingEditNode = true;
@@ -618,11 +592,9 @@ public class NewNavPageController implements Initializable {
     if (nodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
-      try {
-        NodesAndEdges.deleteNode(nodeID.getText());
-      } catch (SQLException throwables) {
-        PopupMaker.nodeDoesntExist(nodeWarningPane);
-      }
+
+      graph.deleteNode(nodeID.getText());
+
       graph.deleteNode(nodeID.getText());
       clearNodeInfo();
     }
@@ -639,11 +611,9 @@ public class NewNavPageController implements Initializable {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
       try {
-        NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
-        String eID = startNodeID.getText() + "_" + endNodeID.getText();
-        Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
-        graph.addEdge(e);
-      } catch (SQLException throwables) {
+        graph.addEdge(startNodeID.getText(), endNodeID.getText());
+
+      } catch (Exception e) {
         PopupMaker.edgeAlreadyExists(nodeWarningPane);
       }
       clearEdgeInfo();
@@ -665,7 +635,7 @@ public class NewNavPageController implements Initializable {
       try {
         // NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
         graph.deleteEdge(startNodeID.getText(), endNodeID.getText());
-      } catch (SQLException throwables) {
+      } catch (Exception throwables) {
         PopupMaker.edgeDoesntExists(nodeWarningPane);
       }
       clearEdgeInfo();
@@ -737,7 +707,8 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void uploadN(ActionEvent actionEvent) {
-    DataHandling.importExcelData(true);
+    DataHandling d = new DataHandling();
+    d.importExcelData();
     // TODO: re-initialize Graph after uploading excel file?
   }
 
@@ -747,8 +718,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void uploadE(ActionEvent actionEvent) {
-    DataHandling.importExcelData(false);
-    // TODO: re-initialize Graph after uploading excel file?
+    // fuck this
   }
 
   /**
@@ -787,13 +757,13 @@ public class NewNavPageController implements Initializable {
 
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      graph.drawVisibleNodes(sFloor, startNode, endNode);
+      graphDrawer.drawVisibleNodes(sFloor, startNode, endNode);
     } else if (!editing && displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
+      graphDrawer.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
-      graph.drawAllNodes(sFloor, selectedNode);
+      graphDrawer.drawAllNodes(sFloor, selectedNode);
       if (showingEdges) {
-        graph.drawAllEdges(sFloor);
+        graphDrawer.drawAllEdges(sFloor);
       }
     }
   }
@@ -802,13 +772,13 @@ public class NewNavPageController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      graph.drawVisibleNodes(sFloor, startNode, endNode);
+      graphDrawer.drawVisibleNodes(sFloor, startNode, endNode);
     } else if (!editing && displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
+      graphDrawer.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
-      graph.drawAllNodes(sFloor, selectedNode);
+      graphDrawer.drawAllNodes(sFloor, selectedNode);
       if (showingEdges) {
-        graph.drawAllEdges(sFloor);
+        graphDrawer.drawAllEdges(sFloor);
       }
     }
   }

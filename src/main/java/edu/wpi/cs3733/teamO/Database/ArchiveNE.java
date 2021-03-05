@@ -1,13 +1,10 @@
 package edu.wpi.cs3733.teamO.Database;
 
-import edu.wpi.cs3733.teamO.model.Edge;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class ArchiveNE {
   /**
@@ -350,79 +347,5 @@ public class ArchiveNE {
     }
 
     return n;
-  }
-
-  /**
-   * Retrieve an edge from the DB by sending the ID as a parameter
-   *
-   * @param id of the node you want to snag from DB
-   * @return
-   */
-  public static Edge getEdge(String id) throws SQLException {
-    Edge e = new Edge();
-
-    PreparedStatement pstmt = null;
-    pstmt =
-        DatabaseConnection.getConnection()
-            .prepareStatement("SELECT * FROM Edges WHERE nodeID = '" + id + "'");
-    ResultSet rset = pstmt.executeQuery();
-
-    // add properties to the node
-    e.setID(rset.getString("NODEID"));
-    e.setStart(rset.getString("STARTNODE"));
-    e.setID(rset.getString("ENDNODE"));
-    e.setLength(rset.getDouble("LENGTH"));
-
-    rset.close();
-    pstmt.close();
-
-    return e;
-  }
-
-
-  /**
-   * Returns all the edges from the database
-   *
-   * @return ObservableList<Edge> which contains all edges from DB
-   */
-  public static ObservableList<Edge> getAllEdges() {
-    ObservableList<Edge> edgeList = FXCollections.observableArrayList();
-    try {
-      // database statement to grab values
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Edges");
-      // returns the results from query
-      ResultSet rset = pstmt.executeQuery();
-
-      // temp variables for assignment
-      String ID = "";
-      String startNode = "";
-      String endNode = "";
-      double length = 0;
-
-      Edge e = new Edge();
-      // grab everything from the result set and add to observable list for processing
-      while (rset.next()) {
-        ID = rset.getString("NODEID");
-        startNode = rset.getString("STARTNODE");
-        endNode = rset.getString("ENDNODE");
-        length = rset.getDouble("LENGTH");
-
-        e = new Edge(ID, startNode, endNode, length);
-
-        e.setID(ID);
-        e.setStart(startNode);
-
-        edgeList.add(e);
-      }
-
-      // must close these for update to occur
-      rset.close();
-      pstmt.close();
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return edgeList;
   }
 }

@@ -2,10 +2,10 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 
 import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXTextField;
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
+import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.ArrayList;
-import javafx.collections.ObservableList;
+import java.util.List;
 
 public class Autocomplete {
   /**
@@ -38,15 +38,18 @@ public class Autocomplete {
               }
             });
   }
+  // Adding the graph
+  Graph graph = Graph.getInstance();
 
   /**
    * gets all the node data for a specific field adn can be used to autocomplete textfields
+   *
    * @param nodeProperty a string that identifies the specific node detail
    * @return an array list of string of all the node's specific property
    */
-  public static ArrayList<String> autoNodeData(String nodeProperty) {
-    ObservableList<Node> nodeList;
-    nodeList = NodesAndEdges.getAllNodes();
+  public ArrayList<String> autoNodeData(String nodeProperty) {
+    List<Node> nodeList;
+    nodeList = graph.listOfNodes;
 
     ArrayList<String> data = new ArrayList<>();
     switch (nodeProperty) {

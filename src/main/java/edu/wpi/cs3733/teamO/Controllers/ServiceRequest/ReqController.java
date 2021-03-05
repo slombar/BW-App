@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
-import static edu.wpi.cs3733.teamO.Controllers.Archive.EditPageController.createFields;
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
 import com.jfoenix.controls.JFXButton;
@@ -245,6 +244,16 @@ public class ReqController implements Initializable {
           }
         });
     assignStaffDialog.show();
+  }
+
+  public static ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+    ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
+    for (String label : labels) {
+      JFXTextField text = new JFXTextField();
+      text.setPromptText(label);
+      listOfFields.add(text);
+    }
+    return listOfFields;
   }
 
   public void back(ActionEvent actionEvent) {
