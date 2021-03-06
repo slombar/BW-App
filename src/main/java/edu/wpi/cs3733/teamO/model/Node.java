@@ -1,8 +1,9 @@
 package edu.wpi.cs3733.teamO.model;
 
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
-public class Node {
+public class Node implements Comparable {
   public double estimatedDistanceBetween, distanceFromStart;
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
@@ -192,5 +193,10 @@ public class Node {
 
   public void setPriority(double p) {
     this.priority = p;
+  }
+
+  @Override
+  public int compareTo(@NotNull Object n) {
+    return Double.compare(this.estimatedDistanceBetween, ((Node) n).estimatedDistanceBetween);
   }
 }

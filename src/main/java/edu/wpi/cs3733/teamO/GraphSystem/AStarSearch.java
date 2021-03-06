@@ -16,52 +16,100 @@ public class AStarSearch implements AlgorithmStrategy {
 
   Graph graph = Graph.getInstance();
 
-public ArrayList<Node> findPath(Node start, Node target){
-  aStar(start, target);
-  //TODO
-  return null;
-}
+  public ArrayList<Node> reverseArrayList(ArrayList<Node> alist) {
+
+    ArrayList<Node> revArrayList = new ArrayList<Node>();
+    for (int i = alist.size() - 1; i >= 0; i--) {
+      // Append the elements in reverse order
+      revArrayList.add(alist.get(i));
+    }
+
+    // Return the reversed arraylist
+    return revArrayList;
+  }
+
+  public ArrayList<Node> findPath(Node start, Node target) {
+    Node currentNode;
+    currentNode = aStar(start, target);
+
+    if (currentNode == null) {
+      return null;
+    }
+
+    ArrayList<Node> path = new ArrayList<>();
+
+    // while there is still nodes behind our current (parents)
+    while (currentNode.getParent() != null) {
+      path.add(currentNode);
+      currentNode = currentNode.getParent();
+    }
+
+    path.add(currentNode);
+
+    return reverseArrayList(path);
+  }
 
   public Node aStar(Node start, Node target) {
+    // get the list of nodes
     for (Node n : graph.listOfNodes) {
+      // set the priority, the parent, and the distance from start
       n.setPriority(0.0);
       n.setParent(null);
       n.distanceFromStart = 0;
     }
+    // make the open and closed lists for storing nodes we want to keep in our path and those we
+    // don't want to visit anymore/call upon
     TreeSet<Node> closedList = new TreeSet<>();
     TreeSet<Node> openList = new TreeSet<>();
 
+    // get the estimated distance between the start and the next node
     start.estimatedDistanceBetween = start.distanceFromStart + calculateHeuristic(start, target);
+    // add to the list of nodes we want to view
     openList.add(start);
 
-    while(!openList.isEmpty()){
+    // while the list is not empty(has nodes in it)
+    while (!openList.isEmpty()) {
+
       Node n = openList.first();
-      if(n == target){
+
+      if (n == target) {
         return n;
       }
 
-      for(Node neighbor : graph.map.get(n)){
-        double totalWeight = n.distanceFromStart + neighbor.weight;
+      // for each neighbor in the graph map
+      for (Node neighbor : graph.map.get(n)) {
 
-        if(!openList.contains(neighbor) && !closedList.contains(neighbor)){
-          neighbor.parent = n;
+        // calculate the weight of the edge from the tart to the next neighbor
+        double totalWeight = n.distanceFromStart + graph.getEdgeWeight(n, neighbor);
+
+        // if the node is brand new, aka. has never been processed
+        if (!openList.contains(neighbor) && !closedList.contains(neighbor)) {
+          // set the parent ot the neighbor to be n
+          neighbor.setParent(n);
+          // set the distance from the start
           neighbor.distanceFromStart = totalWeight;
-          neighbor.estimatedDistanceBetween = neighbor.distanceFromStart + neighbor.calculateHeuristic(target);
-          openList.add(neighbor);
-        } else {
-          if(totalWeight < neighbor.distanceFromStart){
-            neighbor.parent = n;
-            neighbor.distanceFromStart = totalWeight;
-            neighbor.estimatedDistanceBetween = neighbor.distanceFromStart + neighbor.calculateHeuristic(target);
 
-            if(closedList.contains(neighbor)){
+          neighbor.estimatedDistanceBetween =
+              neighbor.distanceFromStart + calculateHeuristic(neighbor, target);
+          // add the neighbor to the open path
+          openList.add(neighbor);
+          // if we have already visited this node
+        } else {
+          // if the total weight of this edge is less than the distance from the start of the
+          // current neighbor, (found better route)
+          if (totalWeight < neighbor.distanceFromStart) {
+            neighbor.setParent(n);
+            neighbor.distanceFromStart = totalWeight;
+            neighbor.estimatedDistanceBetween =
+                neighbor.distanceFromStart + calculateHeuristic(neighbor, target);
+
+            if (closedList.contains(neighbor)) {
               closedList.remove(neighbor);
               openList.add(neighbor);
             }
           }
         }
       }
-
       openList.remove(n);
       closedList.add(n);
     }
@@ -69,7 +117,7 @@ public ArrayList<Node> findPath(Node start, Node target){
   }
 
   private double calculateHeuristic(Node start, Node target) {
-    //TODO:
+    // TODO:
     return 0.0;
   }
 
@@ -82,19 +130,5 @@ public ArrayList<Node> findPath(Node start, Node target){
     // return dist(next, targetNode);
     return 0.0;
     // TODO: have this return an actual heuristic
-  }
-
-  // TODO: needs to take floors into account
-  // finds distance between two nodes (length/weight of edge)
-  static double dist(Node a, Node b) {
-    int x1 = a.getXCoord();
-    int x2 = b.getXCoord();
-    int y1 = a.getYCoord();
-    int y2 = b.getYCoord();
-
-    // distance formula, sqrt((|x1-x2|)^2 + (|y1-y2|)^2),
-    // probably can't use approximation (because calculating edge cost)
-    double distSq = Math.pow(Math.abs(x1 - x2), 2.0) + Math.pow(Math.abs(y1 - y2), 2.0);
-    return Math.sqrt(distSq);
   }
 }

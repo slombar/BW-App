@@ -1,30 +1,42 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
+import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-// class that SOLEY draws shit
 public class DrawHelper {
 
-  /**
-   * Draws every Circle from the given Hashtable corresponding to each Node in the ArrayList
-   *
-   * @param gc the GraphicsContext on which the Circles will be drawn
-   * @param ncTable the Hashtable in which the Circles are stored
-   * @param nodeList the list of Nodes whose Circles should be drawn
-   */
-  public static void drawNodeCircles(
-      GraphicsContext gc,
-      Hashtable<Node, Circle> ncTable,
-      ArrayList<Node> nodeList,
-      Node startNode,
-      Node endNode) {
+  private final double campusWidth = 2989;
+  private final double campusHeight = 2457;
+  private final double buildingWidth = 2476;
+  private final double buildingHeight = 1486;
+
+
+  private Hashtable<Node, Circle> nodeCircleHashtable;
+  Graph graph;
+
+  public static void drawSingleNode(GraphicsContext gc, Circle circle, Paint paint) {
+    gc.setGlobalAlpha(1.0);
+    gc.setFill(paint);
+    gc.setStroke(Color.BLACK);
+    gc.setLineWidth(2.0);
+
+    double tempCirX = circle.getCenterX() - circle.getRadius();
+    double tempCirY = circle.getCenterY() - circle.getRadius();
+    double diameter = 2 * circle.getRadius();
+
+    gc.fillOval(tempCirX, tempCirY, diameter, diameter);
+    gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
+  }
+
+  public void drawNodes(GraphicsContext gc, ArrayList<Node> nodeList) {
 
     Canvas mapcanvas = gc.getCanvas();
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
@@ -38,7 +50,7 @@ public class DrawHelper {
       gc.setStroke(Color.BLACK);
       gc.setLineWidth(2.0);
 
-      tempCir = ncTable.get(n);
+      tempCir = nodeCircleHashtable.get(n);
       double tempCirX = tempCir.getCenterX() - tempCir.getRadius();
       double tempCirY = tempCir.getCenterY() - tempCir.getRadius();
       double diameter = 2 * tempCir.getRadius();
@@ -61,105 +73,119 @@ public class DrawHelper {
         gc.setFill(Color.TRANSPARENT);
       }
 
-      if (n.equals(startNode)) {
-        gc.setFill(Color.BLUE);
-      } else if (n.equals(endNode)) {
-        gc.setFill(Color.RED);
-      }
-
       gc.fillOval(tempCirX, tempCirY, diameter, diameter);
       gc.setGlobalAlpha(1.0);
       gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
     }
-
-    /*//////////////////// FOR TESTING: ////////////////////
-    gc.setStroke(Color.RED);
-    gc.setLineWidth(3.0);
-
-    gc.strokeOval(0, 0, 5, 5);
-    gc.strokeOval(0, mapcanvas.getHeight(), 5, 5);
-    gc.strokeOval(mapcanvas.getWidth(), 0, 5, 5);
-    gc.strokeOval(mapcanvas.getWidth(), mapcanvas.getHeight(), 5, 5);
-
-    gc.strokeRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    gc.strokeLine(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);*/
   }
 
-  /**
-   * Draws a single line with an arrowhead halfway from point a to point b
-   *
-   * @param gc
-   * @param circleA
-   * @param circleB
-   */
-  public static void drawMidArrow(GraphicsContext gc, Circle circleA, Circle circleB) {
-    double arrowLength = 6;
-    final double arrowWidth = 4;
-    final double minArrowDistSq = 180;
-    // ^ do the dist you wanted squared (probably want 5*(arrowLength^2))
+  public void createCircles() {
+    graph = Graph.getInstance();
+    nodeCircleHashtable = new Hashtable<>();
 
-    double ax = circleA.getCenterX();
-    double ay = circleA.getCenterY();
-    double bx = circleB.getCenterX();
-    double by = circleB.getCenterY();
+    int radius = 5;
 
-    double distSq = Math.pow(Math.abs(ax - bx), 2.0) + Math.pow(Math.abs(ay - by), 2.0);
+    for (Node n : graph.listOfNodes) {
+      // get node's x and y (and floor)
+      double nX = n.getXCoord();
+      double nY = n.getYCoord();
+      String nFloor = n.getFloor();
 
-    if (distSq >= minArrowDistSq) {
-      double cx = (ax + bx) / 2;
-      double cy = (ay + by) / 2;
+      Circle c = new Circle();
+      c.setCenterX(nX);
+      c.setCenterY(nY);
+      c.setRadius(radius);
 
-      double hypot = Math.hypot(ax - cx, ay - cy);
-      double factor = arrowLength / hypot;
-      double factorO = arrowWidth / hypot;
-
-      // part in direction of main line
-      double dx = (ax - cx) * factor;
-      double dy = (ay - cy) * factor;
-
-      // part orthogonal to main line
-      double ox = (ax - cx) * factorO;
-      double oy = (ay - cy) * factorO;
-
-      double arrow1startX = (cx + dx - oy);
-      double arrow1startY = (cy + dy + ox);
-      double arrow2startX = (cx + dx + oy);
-      double arrow2startY = (cy + dy - ox);
-
-      gc.setLineWidth(3.0);
-      gc.strokeLine(arrow1startX, arrow1startY, cx, cy);
-      gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
-    } else {
-      boolean dummy = true;
+      nodeCircleHashtable.put(n, c);
     }
-    gc.strokeLine(ax, ay, bx, by);
   }
 
-  public static void drawEdge(GraphicsContext gc, Circle circleA, Circle circleB) {
+  public void drawVisibleNodes(GraphicsContext gc, String floor) {
+    ArrayList<Node> visibleNodes = new ArrayList<>();
+
+    for (Node n : graph.listOfNodes) {
+      if (n.isVisible() && n.getFloor().equals(floor)) {
+        visibleNodes.add(n);
+      }
+    }
+
+    drawNodes(gc, visibleNodes);
+  }
+
+  public static void drawSingleEdge(GraphicsContext gc, Node circleA, Node circleB) {
     gc.setLineWidth(3.0);
     gc.strokeLine(
-        circleA.getCenterX(), circleA.getCenterY(), circleB.getCenterX(), circleB.getCenterY());
+        circleA.getXCoord(), circleA.getYCoord(), circleB.getXCoord(), circleB.getYCoord());
+  }
+
+  public void drawEdges(GraphicsContext gc, String floor) {
+    gc.setStroke(Color.BLACK);
+    for (Node n : graph.listOfNodes) {
+      try {
+
+        Node nodeA = n;
+        Node nodeB;
+        List<Node> neighborList = graph.map.get(n);
+
+        for (Node neighbor : neighborList) {
+          nodeB = neighbor;
+
+          // if they are on the same, current floor
+          if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
+
+            drawSingleEdge(gc, nodeA, nodeB);
+          }
+        }
+
+      } catch (NullPointerException ignored) {
+        // TODO: use this catch block to filter out bad/extraneous data
+        // for now it just ignores them and draws the edges that do actually exist
+      }
+    }
   }
 
   /**
-   * Draws the given Circle in the given color WITHOUT CLEARING CANVAS FIRST
+   * Draws the current path stored by this Graph
    *
-   * @param gc GraphicsContext on which to draw
-   * @param circle circle (node) being drawn
-   * @param paint Color.COLOR being drawn
+   * @param floor selected floor
    */
-  public static void drawSingleNode(GraphicsContext gc, Circle circle, Paint paint) {
-    gc.setGlobalAlpha(1.0);
-    gc.setFill(paint);
-    gc.setStroke(Color.BLACK);
-    gc.setLineWidth(2.0);
+  public void drawPath(GraphicsContext gc, ArrayList<Node> path, String floor) {
+    Canvas canvas = gc.getCanvas();
+    // clears the canvas
+    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-    double tempCirX = circle.getCenterX() - circle.getRadius();
-    double tempCirY = circle.getCenterY() - circle.getRadius();
-    double diameter = 2 * circle.getRadius();
+    // for each node in the path, draw on canvas
+    for (int x = 0; x < path.size(); x++) {
+      Node n = path.get(x);
+      // if the current node is on the floor, and its t
+      if (n.getNodeType().equals("STAI") && n.getFloor().equals(floor)) {
+        Circle c = nodeCircleHashtable.get(n);
 
-    gc.fillOval(tempCirX, tempCirY, diameter, diameter);
-    gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
+        DrawHelper.drawSingleNode(gc, c, Color.GREEN);
+      } else if (n.getNodeType().equals("ELEV") && n.getFloor().equals(floor)) {
+        Circle c = nodeCircleHashtable.get(n);
+
+        DrawHelper.drawSingleNode(gc, c, Color.PURPLE);
+      }
+
+      if (n.getNodeType().equals("EXIT") && n.getFloor().equals(floor)) {
+        Circle c = nodeCircleHashtable.get(n);
+        DrawHelper.drawSingleNode(gc, c, Color.ORANGE);
+      }
+
+      if (x < path.size() - 1) {
+        drawSingleEdge(gc, n, path.get(x + 1));
+      }
+    }
+
+    // Coloring for nodes start and end
+    if (path.get(0).getFloor().equals(floor)) {
+      Circle c = nodeCircleHashtable.get(path.get(0));
+      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
+    }
+    if (path.get(path.size() - 1).getFloor().equals(floor)) {
+      Circle c = nodeCircleHashtable.get(path.get(path.size() - 1));
+      DrawHelper.drawSingleNode(gc, c, Color.RED);
+    }
   }
 }

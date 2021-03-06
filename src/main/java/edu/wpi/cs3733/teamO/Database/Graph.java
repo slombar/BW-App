@@ -213,18 +213,18 @@ public class Graph {
     editingNode.setNodeType(futureNode.getNodeType());
   }
 
-  public double getEdgeWeight(Node start, Node end){
+  public double getEdgeWeight(Node start, Node end) {
 
-    if(start.getNodeType().equals("ELEV") && end.getNodeType().equals("ELEV")){
+    if (start.getNodeType().equals("ELEV") && end.getNodeType().equals("ELEV")) {
       return 1;
-    }else if(start.getNodeType().equals("STAI") && end.getNodeType().equals("STAI")){
+    } else if (start.getNodeType().equals("STAI") && end.getNodeType().equals("STAI")) {
       return 2;
-    }else {
+    } else {
       double X1 = start.getXCoord();
       double Y1 = start.getXCoord();
       double X2 = start.getXCoord();
       double Y2 = start.getXCoord();
-      return Math.sqrt(Math.pow((Y2-Y1),2) + Math.pow((X2-X1),2));
+      return Math.sqrt(Math.pow((Y2 - Y1), 2) + Math.pow((X2 - X1), 2));
     }
   }
 }

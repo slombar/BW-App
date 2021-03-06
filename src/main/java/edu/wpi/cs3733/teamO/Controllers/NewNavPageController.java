@@ -7,7 +7,6 @@ import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.AStarSearch;
-import edu.wpi.cs3733.teamO.GraphSystem.GraphDrawer;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
@@ -18,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,13 +68,13 @@ public class NewNavPageController implements Initializable {
   @FXML private VBox vboxRef;
   @FXML private GridPane gridPane;
   @FXML private ImageView imageView;
-  @FXML private Canvas mapCanvas;
+  @FXML public Canvas mapCanvas;
   @FXML private GridPane innerGrid;
 
   // pathfinding
   @FXML private JFXComboBox<String> floorSelectionBtn;
 
-  private GraphicsContext gc;
+  public static GraphicsContext gc;
   private String selectedFloor = "Campus";
   private String sFloor = "G";
   private String sideMenuUrl;
@@ -107,6 +107,10 @@ public class NewNavPageController implements Initializable {
   private boolean selectingEnd = false;
   private boolean displayingRoute = false;
 
+  public static GraphicsContext getGC() {
+    return gc;
+  }
+
   private void setNavFalse() {
     selectingStart = false;
     selectingEnd = false;
@@ -133,7 +137,7 @@ public class NewNavPageController implements Initializable {
     selectedNode = null;
   }
 
-  GraphDrawer graphDrawer;
+  DrawHelper graphDrawer;
 
   ////////////////////
   ///// Methods: /////
@@ -150,12 +154,13 @@ public class NewNavPageController implements Initializable {
 
     mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
-    graphDrawer = new GraphDrawer(gc);
+    graphDrawer = new DrawHelper();
+    graphDrawer.createCircles();
+    graphDrawer.drawNodes(gc, graph.listOfNodes);
+    graphDrawer.drawEdges(gc, "G");
 
     imageView.setImage(campusMap);
     resizableWindow();
-
-    graphDrawer = new GraphDrawer(gc);
     editToggle.setVisible(false);
 
     if (UserHandling.getEmployee()) {
@@ -177,9 +182,6 @@ public class NewNavPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    // draws appropriately accordingly to combination of booleans
-    draw(1);
 
     // just for testing
 
@@ -251,8 +253,6 @@ public class NewNavPageController implements Initializable {
     } else {
       setEditFalse();
     }
-
-    draw();
   }
 
   /**
@@ -322,7 +322,6 @@ public class NewNavPageController implements Initializable {
     }
 
     resizeCanvas();
-    draw();
   }
 
   /**
@@ -331,18 +330,50 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void doPathfind(ActionEvent actionEvent) {
+
     if (startNode != null && endNode != null) {
-      graphDrawer.resetPath();
       AStarSearch pathFindingStrategy = new AStarSearch();
-      pathFindingStrategy.findPath(startNode, endNode);
+
+      ArrayList<Node> path = pathFindingStrategy.findPath(startNode, endNode);
+      graphDrawer.drawPath(gc, path, selectedFloor);
+
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
     } else {
       PopupMaker.invalidPathfind(nodeWarningPane);
     }
+  }
 
-    draw();
+  /**
+   * Returns the Node closest to the given (x,y) on the given floor
+   *
+   * @param floor floor currently displaying when clicked
+   * @param x x-coordinate of the ClickEvent
+   * @param y y-coordinate of the ClickEvent
+   * @return Node closest to the ClickEvent
+   * @throws NullPointerException
+   */
+  public Node closestNode(String floor, double x, double y) throws NullPointerException {
+    double currentDist = 1000000000;
+    Node node = null;
+
+    for (Node n : graph.listOfNodes) {
+      int xcoord = n.getXCoord();
+      int ycoord = n.getYCoord();
+
+      if (n.getFloor().equals(floor)) {
+
+        double dist = Math.pow(Math.abs(x - xcoord), 2.0) + Math.pow(Math.abs(y - ycoord), 2.0);
+        if (dist < currentDist) {
+          currentDist = dist;
+          node = n;
+        }
+      }
+    }
+
+    // TODO: nodeCircleHashtable.get(n).actionEvent();
+    return node;
   }
 
   /**
@@ -352,7 +383,7 @@ public class NewNavPageController implements Initializable {
    */
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
-    Node clickedNode = graphDrawer.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
+    Node clickedNode = closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
     Circle c = null;
 
     // if navigating
@@ -380,8 +411,6 @@ public class NewNavPageController implements Initializable {
         autocompleteEditMap(n);
       }
     }
-
-    draw();
 
     if (addNodeMode) {
       DrawHelper.drawSingleNode(gc, c, Color.BLUE);
@@ -483,7 +512,6 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(image);
     sFloor = floor;
     resizeCanvas();
-    draw();
     WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
     return map;
@@ -513,11 +541,7 @@ public class NewNavPageController implements Initializable {
 
   public void clearSelection(ActionEvent actionEvent) {
     setNavFalse();
-
-    graphDrawer.resetPath();
-
     resizeCanvas();
-    draw();
   }
 
   /**
@@ -582,7 +606,6 @@ public class NewNavPageController implements Initializable {
     }
     clearNodeInfo();
     selectingEditNode = true;
-    draw();
   }
 
   /**
@@ -601,7 +624,6 @@ public class NewNavPageController implements Initializable {
       graph.deleteNode(nodeID.getText());
       clearNodeInfo();
     }
-    draw();
   }
 
   /**
@@ -621,7 +643,6 @@ public class NewNavPageController implements Initializable {
       }
       clearEdgeInfo();
     }
-    draw();
   }
 
   /**
@@ -643,7 +664,6 @@ public class NewNavPageController implements Initializable {
       }
       clearEdgeInfo();
     }
-    draw();
   }
 
   /**
@@ -750,39 +770,6 @@ public class NewNavPageController implements Initializable {
   public void showEdgesOnAction(ActionEvent actionEvent) {
     if (editing) {
       showingEdges = showEdgesToggle.isSelected();
-    }
-    draw();
-  }
-
-  /** can draw the path, nodes, and edges based on booleans */
-  private void draw() {
-    resizeCanvas();
-
-    // i know these can be simplified but i don't care -- this is more organized
-    if (!editing && !displayingRoute) {
-      graphDrawer.drawVisibleNodes(sFloor, startNode, endNode);
-    } else if (!editing && displayingRoute) {
-      graphDrawer.drawCurrentPath(sFloor, startNode, endNode);
-    } else if (editing) {
-      graphDrawer.drawAllNodes(sFloor, selectedNode);
-      if (showingEdges) {
-        graphDrawer.drawAllEdges(sFloor);
-      }
-    }
-  }
-
-  // ignore this -- BUT DON'T DELETE IT!!!!!!!!!!!!!!
-  private void draw(int i) {
-    // i know these can be simplified but i don't care -- this is more organized
-    if (!editing && !displayingRoute) {
-      graphDrawer.drawVisibleNodes(sFloor, startNode, endNode);
-    } else if (!editing && displayingRoute) {
-      graphDrawer.drawCurrentPath(sFloor, startNode, endNode);
-    } else if (editing) {
-      graphDrawer.drawAllNodes(sFloor, selectedNode);
-      if (showingEdges) {
-        graphDrawer.drawAllEdges(sFloor);
-      }
     }
   }
 
