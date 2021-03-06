@@ -2,47 +2,20 @@ package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
-import java.io.IOException;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class MainScreenController extends Application implements Initializable {
+public class MainScreenController implements Initializable {
 
-  private static Stage primaryStage;
   @FXML private JFXNodesList buttonList;
   private final JFXButton welcomeBtn = new JFXButton("Welcome to the B&W Faulkner Hospital");
   private final JFXButton navBtn = new JFXButton("Navigating to the hospital");
   private final JFXButton covidBtn = new JFXButton("Get the latest COVID-19 information");
-
-  public static Stage getPrimaryStage() {
-    return primaryStage;
-  }
-
-  @Override
-  public void start(Stage ps) throws Exception {
-    MainScreenController.primaryStage = ps;
-
-    try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MobileApp/MainScreen.fxml"));
-      Scene scene = new Scene(root);
-      Image icon =
-              new Image(getClass().getResourceAsStream("/Brigham_and_Womens_Hospital_logo.png"));
-      ps.getIcons().add(icon);
-      ps.setScene(scene);
-      ps.setFullScreen(true);
-      ps.show();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
+  private Stage currentStage;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,17 +29,20 @@ public class MainScreenController extends Application implements Initializable {
     buttonList.addAnimatedNode(navBtn);
     buttonList.addAnimatedNode(covidBtn);
     buttonList.setSpacing(20);
+    //    currentStage = (Stage) welcomeBtn.getScene().getWindow();
+    //    buttonFunction(currentStage);
   }
 
-  private void buttonFunction() {
-    navBtn.setOnAction(actionEvent -> {
-//      goToParentMobile();
-    });
+  private void buttonFunction(Stage currStage) {
 
-    covidBtn.setOnAction(actionEvent -> {
-//      goToParentMobile();
-    });
+    navBtn.setOnAction(
+        actionEvent -> {
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileNav.fxml", actionEvent);
+        });
+
+    covidBtn.setOnAction(
+        actionEvent -> {
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
+        });
   }
-
-
 }

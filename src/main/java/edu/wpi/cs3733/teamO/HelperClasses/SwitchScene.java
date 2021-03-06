@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
-import edu.wpi.cs3733.teamO.Controllers.Mobile.MainScreenController;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -47,10 +48,12 @@ public class SwitchScene {
    *
    * @param path to desired FXML file
    */
-  public static void goToParentMobile(String path) {
+  public static void goToParentMobile(String path, ActionEvent actionEvent) {
     try {
+      Node node = (Node) actionEvent.getSource();
+      Stage thisStage = (Stage) node.getScene().getWindow();
       Parent root = FXMLLoader.load(SwitchScene.class.getResource(path));
-      MainScreenController.getPrimaryStage().getScene().setRoot(root);
+      thisStage.getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
     }
