@@ -788,13 +788,20 @@ public class NewNavPageController implements Initializable {
   private void draw() {
     resizeCanvas();
 
-    // i know these can be simplified but i don't care -- this is more organized
+    // i know these can be simplified but i don't care -- this is more organized imo
+
     if (!editing && !displayingRoute) {
+      // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
       graph.drawVisibleNodes(sFloor, startNode, endNode);
-    } else if (!editing && displayingRoute) {
+    }
+    else if (!editing && displayingRoute) {
+      // draw the portion on sFloor + highlight start and end
       graph.drawCurrentPath(sFloor, startNode, endNode);
-    } else if (editing) {
+    }
+    else if (editing) {
+      // draw ALL the nodes (editing) + highlight selected node (if selected)
       graph.drawAllNodes(sFloor, selectedNode);
+      // and if "show edges" is selected, draw them as well
       if (showingEdges) {
         graph.drawAllEdges(sFloor);
       }
