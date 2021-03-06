@@ -4,9 +4,7 @@ import com.jfoenix.controls.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Sharing.EmailThreader;
 import edu.wpi.cs3733.teamO.Sharing.ImgurFunctionality;
-import edu.wpi.cs3733.teamO.Sharing.QRCodeThreader;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -72,18 +71,43 @@ public class EmailPageController implements Initializable {
     backBtn.setStyle("-fx-background-color: #c3d6e8");
     confirmBtn.setStyle("-fx-background-color: #c3d6e8");
     textButton.setStyle("-fx-background-color: #c3d6e8");
-    String home = System.getProperty("user.home");
-    String inputfile = home + "/Downloads/" + "qr.png";
-    BufferedImage img = null;
-    try {
-      img = ImageIO.read(new File(inputfile));
-    } catch (IOException e) {
+    Task<Void> QRtask =
+        new Task<Void>() {
+
+          @Override
+          protected Void call() throws Exception {
+            prepareQR();
+            return null;
+          }
+        };
+    Thread QRthread = new Thread(QRtask);
+    QRthread.start();
+    QRgeneration(QRtask);
+  }
+
+  void QRgeneration(Task<Void> QRtask) {
+    ProgressIndicator progress = new ProgressIndicator();
+    spinnerPane.getChildren().add(progress);
+    progress.setProgress(1.0);
+    progress.progressProperty().bind(QRtask.progressProperty());
+    spinnerPane.toFront();
+
+    if (QRtask.isDone()) {
+      spinnerPane.toBack();
+      String home = System.getProperty("user.home");
+      String inputfile = home + "/Downloads/" + "qr.png";
+      BufferedImage img = null;
+      try {
+        img = ImageIO.read(new File(inputfile));
+      } catch (IOException e) {
+      }
+      Image image = SwingFXUtils.toFXImage(img, null);
+      QRView.setImage(image);
+      QRView.setScaleX(2);
+      QRView.setScaleY(2);
+      QRView.setTranslateY(250);
+      QRView.toFront();
     }
-    Image image = SwingFXUtils.toFXImage(img, null);
-    QRView.setImage(image);
-    QRView.setScaleX(2);
-    QRView.setScaleY(2);
-    QRView.setTranslateY(250);
   }
 
   /**
@@ -177,7 +201,6 @@ public class EmailPageController implements Initializable {
     ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
 
     String albumLink = "https://imgur.com/a/" + albumID;
-
 
     SharingFunctionality.createQR(albumLink);
 

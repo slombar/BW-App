@@ -115,6 +115,7 @@ public class Graph {
 
   /**
    * gets the size of the Graph - the number of nodes in it
+   *
    * @return the graph's size
    */
   int getSize() {
@@ -137,8 +138,7 @@ public class Graph {
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor) && n.isVisible()) {
         double dist =
-            Math.pow(Math.abs(x - n.getXCoord()), 2.0)
-                + Math.pow(Math.abs(y - n.getYCoord()), 2.0);
+            Math.pow(Math.abs(x - n.getXCoord()), 2.0) + Math.pow(Math.abs(y - n.getYCoord()), 2.0);
         if (dist < currentDist) {
           currentDist = dist;
           node = n;
@@ -209,6 +209,7 @@ public class Graph {
 
   /**
    * adds the given Node to the graph appropriately
+   *
    * @param n Node to be added
    */
   public void addNode(Node n) {
@@ -285,6 +286,7 @@ public class Graph {
 
   /**
    * adds the given Edge to the graph appropriately
+   *
    * @param e Edge to be added
    */
   public void addEdge(Edge e) {
@@ -299,6 +301,7 @@ public class Graph {
 
   /**
    * removes the given Node from the graph appropriately (including all of it's Edges)
+   *
    * @param nodeID the Node to be removed
    */
   public void deleteNode(String nodeID) {
@@ -325,6 +328,7 @@ public class Graph {
 
   /**
    * removes the given Edge from the graph
+   *
    * @param startNodeID ID (String) of one of the Nodes connected by the Edge
    * @param endNodeID ID (String) of the other Node connected by the Edge
    * @throws SQLException thrown by NodesAndEdges.deleteEdge(edgeID)
@@ -383,6 +387,7 @@ public class Graph {
 
   /**
    * draws all Nodes whose visible property = true
+   *
    * @param floor "G", "1", "2", "3", "4", or "5"
    * @param startNode Node currently set as the start
    * @param endNode Node currently set as the end
@@ -420,6 +425,7 @@ public class Graph {
 
   /**
    * draws all Edges on the given floor
+   *
    * @param floor "G", "1", "2", "3", "4", or "5"
    */
   public void drawAllEdges(String floor) {
@@ -481,7 +487,9 @@ public class Graph {
   }
 
   /**
-   * sets this Graph's path = the path found by the given algorithm from the given start to end Nodes
+   * sets this Graph's path = the path found by the given algorithm from the given start to end
+   * Nodes
+   *
    * @param strat "A*", "DFS", or "BFS"
    * @param startNode start Node of the path
    * @param targetNode end Node of the path
@@ -516,15 +524,14 @@ public class Graph {
     return TextDirection.textDirections(path);
   }
 
-  /**
-   * resets this graph's path to a new LinkedList
-   */
+  /** resets this graph's path to a new LinkedList */
   public void resetPath() {
     path = new LinkedList<>();
   }
 
   /**
    * gets the list of all Nodes in this graph
+   *
    * @return list of all Nodes
    */
   public ObservableList<Node> getListOfNodes() {

@@ -8,8 +8,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import javafx.scene.control.ProgressIndicator;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -101,8 +99,6 @@ public class SharingFunctionality {
             fileToBeSent5,
             fileToBeSent6);
     qrThreader.start();
-    ProgressIndicator progress = new ProgressIndicator();
-    progress.visibleProperty().bind(qrThreader.get);
   }
 
   /**

@@ -3,17 +3,11 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.util.Duration;
 
 // class that SOLEY draws shit
 public class DrawHelper {

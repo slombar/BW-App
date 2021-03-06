@@ -24,6 +24,7 @@ class AStarSearch implements AlgorithmStrategy {
 
   /**
    * creates a new AStarSearch object that will search on the given Graph
+   *
    * @param g Graph to be searched on
    */
   AStarSearch(Graph g) {
@@ -37,7 +38,9 @@ class AStarSearch implements AlgorithmStrategy {
   }
 
   /**
-   * returns the list of Nodes representing the shortest path from the start Node to the end Node (in order)
+   * returns the list of Nodes representing the shortest path from the start Node to the end Node
+   * (in order)
+   *
    * @param startNode start Node of the search
    * @param targetNode destination Node of the search
    * @return LinkedList of Nodes from start to end in order
@@ -119,14 +122,16 @@ class AStarSearch implements AlgorithmStrategy {
   }
 
   /**
-   * determines the heuristic from Node next to the target Node (must be less than the actual distance)
+   * determines the heuristic from Node next to the target Node (must be less than the actual
+   * distance)
+   *
    * @param next the Node from which the heuristic is calculated
    * @param targetNode the target Node used in the heuristic calculation
    * @return heuristic <= actual distance from next to target
    */
   private static double heuristic(Node next, Node targetNode) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    //return dist(next, targetNode);
+    // return dist(next, targetNode);
     return 0.0;
     // TODO: have this return an actual heuristic
   }
@@ -135,6 +140,7 @@ class AStarSearch implements AlgorithmStrategy {
   // finds distance between two nodes (length/weight of edge)
   /**
    * calculates distance from Node a to Node b
+   *
    * @param a first Node
    * @param b second Node
    * @return sqrt((|x1-x2|)^2 + (|y1-y2|)^2)
