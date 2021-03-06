@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class MainScreenController implements Initializable {
 
-  @FXML private JFXNodesList buttonList;
+  @FXML private JFXNodesList buttonsList;
   private final JFXButton welcomeBtn = new JFXButton("Welcome to the B&W Faulkner Hospital");
   private final JFXButton navBtn = new JFXButton("Navigating to the hospital");
   private final JFXButton covidBtn = new JFXButton("Get the latest COVID-19 information");
@@ -20,20 +20,19 @@ public class MainScreenController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // style the buttons
-    welcomeBtn.getStyleClass().addAll("animated-option-button");
-    navBtn.getStyleClass().addAll("animated-option-button");
-    covidBtn.getStyleClass().addAll("animated-option-button");
+    welcomeBtn.getStyleClass().addAll("main-menu-button");
+    navBtn.getStyleClass().addAll("main-menu-button");
+    covidBtn.getStyleClass().addAll("main-menu-button");
 
     // add them to be in an animated node list
-    buttonList.addAnimatedNode(welcomeBtn);
-    buttonList.addAnimatedNode(navBtn);
-    buttonList.addAnimatedNode(covidBtn);
-    buttonList.setSpacing(20);
-    //    currentStage = (Stage) welcomeBtn.getScene().getWindow();
-    //    buttonFunction(currentStage);
+    buttonsList.addAnimatedNode(welcomeBtn);
+    buttonsList.addAnimatedNode(navBtn);
+    buttonsList.addAnimatedNode(covidBtn);
+    buttonsList.setSpacing(20);
+    buttonFunction();
   }
 
-  private void buttonFunction(Stage currStage) {
+  private void buttonFunction() {
 
     navBtn.setOnAction(
         actionEvent -> {

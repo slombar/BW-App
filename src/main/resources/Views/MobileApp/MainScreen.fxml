@@ -25,7 +25,7 @@
                <image>
                   <Image url="@../../Brigham_and_Womens_Hospital_logo.png" />
                </image></ImageView>
-            <JFXNodesList fx:id="buttonList" prefHeight="55.0" prefWidth="88.0">
+            <JFXNodesList fx:id="buttonsList" prefHeight="55.0" prefWidth="88.0">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin></JFXNodesList>
