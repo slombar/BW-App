@@ -71,6 +71,7 @@ public class EmailPageController implements Initializable {
     backBtn.setStyle("-fx-background-color: #c3d6e8");
     confirmBtn.setStyle("-fx-background-color: #c3d6e8");
     textButton.setStyle("-fx-background-color: #c3d6e8");
+
     Task<Void> QRtask =
         new Task<Void>() {
 
@@ -80,6 +81,9 @@ public class EmailPageController implements Initializable {
             return null;
           }
         };
+
+    // QRView.setImage(loading);
+
     Thread QRthread = new Thread(QRtask);
     QRthread.start();
     QRgeneration(QRtask);
@@ -92,8 +96,10 @@ public class EmailPageController implements Initializable {
     progress.progressProperty().bind(QRtask.progressProperty());
     spinnerPane.toFront();
 
-    if (QRtask.isDone()) {
-      spinnerPane.toBack();
+    /*
+    while (QRtask.isDone()) {
+      // spinnerPane.toBack();
+      // spinnerPane.setVisible(false);
       String home = System.getProperty("user.home");
       String inputfile = home + "/Downloads/" + "qr.png";
       BufferedImage img = null;
@@ -108,6 +114,8 @@ public class EmailPageController implements Initializable {
       QRView.setTranslateY(250);
       QRView.toFront();
     }
+
+     */
   }
 
   /**
@@ -340,5 +348,23 @@ public class EmailPageController implements Initializable {
           SwitchScene.goToParent("/Views/NewNavPage.fxml");
         });
     submissionDialog.show();
+  }
+
+  public void QRCodeGeneration(ActionEvent actionEvent) throws IOException, UnirestException {
+    prepareQR();
+    spinnerPane.setVisible(false);
+    String home = System.getProperty("user.home");
+    String inputfile = home + "/Downloads/" + "qr.png";
+    BufferedImage img = null;
+    try {
+      img = ImageIO.read(new File(inputfile));
+    } catch (IOException e) {
+    }
+    Image image = SwingFXUtils.toFXImage(img, null);
+    QRView.setImage(image);
+    QRView.setScaleX(2);
+    QRView.setScaleY(2);
+    QRView.setTranslateY(250);
+    QRView.toFront();
   }
 }
