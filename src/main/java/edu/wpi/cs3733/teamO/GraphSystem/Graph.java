@@ -2,8 +2,8 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
-import edu.wpi.cs3733.teamO.model.Edge;
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Edge;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.SQLException;
 import java.util.*;
 import javafx.collections.FXCollections;

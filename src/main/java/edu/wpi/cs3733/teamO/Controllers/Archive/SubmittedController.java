@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.teamO.Controllers;
+package edu.wpi.cs3733.teamO.Controllers.Archive;
 
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;

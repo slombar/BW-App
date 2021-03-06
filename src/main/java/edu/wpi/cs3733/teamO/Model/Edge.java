@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.teamO.model;
+package edu.wpi.cs3733.teamO.Model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 

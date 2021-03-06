@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import javafx.scene.canvas.Canvas;

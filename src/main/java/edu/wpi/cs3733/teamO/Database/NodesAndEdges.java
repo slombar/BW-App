@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.teamO.Database;
 
-import edu.wpi.cs3733.teamO.model.Edge;
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Edge;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

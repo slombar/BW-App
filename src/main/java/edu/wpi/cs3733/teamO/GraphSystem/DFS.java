@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;

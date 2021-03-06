@@ -3,7 +3,7 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 
