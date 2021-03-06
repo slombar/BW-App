@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 // TODO can we make all these type hamburgers into one and use database.getEmployee etc in the
 // initializer??
 public class SideMenuController implements Initializable {
+  public JFXButton aboutBtn1;
   @FXML private Label nameLabel;
   @FXML private JFXButton navBtn;
   @FXML private JFXButton mainMenuBtn;
@@ -145,5 +146,9 @@ public class SideMenuController implements Initializable {
   public void mouseOffNav(MouseEvent mouseEvent) {
     navBtn.setUnderline(false);
     navBtn.setButtonType(JFXButton.ButtonType.FLAT);
+  }
+
+  public void toAbout(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/AboutPage.fxml");
   }
 }
