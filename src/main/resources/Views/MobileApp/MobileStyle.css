@@ -1,0 +1,6 @@
+.animated-option-button {
+-fx-pref-width: 300px;
+-fx-pref-height: 40px;
+-fx-text-fill: white;
+-fx-background-color: #3A5369;
+}
