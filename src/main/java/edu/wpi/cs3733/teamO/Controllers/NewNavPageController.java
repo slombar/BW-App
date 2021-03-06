@@ -11,10 +11,9 @@ import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.Model.Edge;
 import edu.wpi.cs3733.teamO.Model.Node;
-
+import edu.wpi.cs3733.teamO.Opp;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

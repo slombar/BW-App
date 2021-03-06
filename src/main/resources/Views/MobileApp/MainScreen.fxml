@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Mobile.MainScreenController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="58.0" prefWidth="263.0" style="-fx-background-color: #3A5369;" BorderPane.alignment="CENTER">
+         <children>
+            <Label style="-fx-font: Leelawadee UI;" text="B&amp;W Faulkner Hospital Mobile App" textFill="WHITE">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="15.0" />
+               </font></Label>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -109,17 +110,29 @@
       </VBox>
    </top>
    <bottom>
-      <JFXButton fx:id="exitBtn" alignment="CENTER_RIGHT" contentDisplay="BOTTOM" onAction="#exit" prefHeight="178.0" prefWidth="166.0" text=" " textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
-         <font>
-            <Font name="Leelawadee UI" size="32.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Icons/powerIconWhite.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#goToMobileApp" prefHeight="86.0" prefWidth="110.0">
+               <graphic>
+                  <ImageView fitHeight="79.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/mobileIconWhite.png" />
+                     </image></ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="exitBtn" alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#exit" prefHeight="89.0" prefWidth="110.0" text=" " textFill="WHITE">
+               <font>
+                  <Font name="Leelawadee UI" size="32.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/powerIconWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>
