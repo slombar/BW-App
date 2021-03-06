@@ -93,7 +93,7 @@ public class RequestPageController implements Initializable {
    * below are all on action methods for the buttons on the request page it uses the goToRequest
    * helper and then leads to the specific form
    *
-   * type variable is for getting to the proper fxml document
+   * <p>type variable is for getting to the proper fxml document
    *
    * @param actionEvent
    */

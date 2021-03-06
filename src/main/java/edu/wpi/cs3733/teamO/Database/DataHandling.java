@@ -152,6 +152,7 @@ public class DataHandling {
 
   /**
    * Save both the nodes and the edges files
+   *
    * @param node
    */
   public static void save(boolean node) {
@@ -165,6 +166,7 @@ public class DataHandling {
 
   /**
    * Save the node file to your chosen destination
+   *
    * @param url
    */
   public static void saveNodes(String url) {
@@ -233,6 +235,7 @@ public class DataHandling {
 
   /**
    * Save the edge file to your chosen destination
+   *
    * @param url
    */
   private static void saveEdges(String url) {

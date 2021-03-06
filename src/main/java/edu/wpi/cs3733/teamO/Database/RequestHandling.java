@@ -14,6 +14,7 @@ public class RequestHandling {
 
   /**
    * Retrieve all service requests from database
+   *
    * @return
    */
   public static ObservableList<Request> getRequests() {
@@ -152,6 +153,7 @@ public class RequestHandling {
 
   /**
    * Get the request from the database based off of the ID
+   *
    * @param reqID
    * @return
    */
@@ -250,6 +252,7 @@ public class RequestHandling {
 
   /**
    * Remove request from database, provide w/ ID of desired deleted request
+   *
    * @param requestID
    */
   public static void deleteRequest(int requestID) {
@@ -269,8 +272,8 @@ public class RequestHandling {
   }
 
   /**
-   * TODO Finish this
-   * Allows editing of request
+   * TODO Finish this Allows editing of request
+   *
    * @param requestID
    * @param requestedBy
    * @param fulfilledBy

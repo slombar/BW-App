@@ -140,6 +140,7 @@ public class ReqController implements Initializable {
 
   /**
    * Displays the list on the page by going through obs. list of requests
+   *
    * @param requests
    */
   public void displayList(ObservableList<Request> requests) {
@@ -161,7 +162,9 @@ public class ReqController implements Initializable {
   }
 
   /**
-   * Button control for adding a new request, depending on the type you will get sent to the proper fxml
+   * Button control for adding a new request, depending on the type you will get sent to the proper
+   * fxml
+   *
    * @param actionEvent
    */
   public void addNewRequest(ActionEvent actionEvent) {
@@ -200,6 +203,7 @@ public class ReqController implements Initializable {
 
   /**
    * Button functionality that will assign the user to the request
+   *
    * @param actionEvent
    */
   public void assignStaff(ActionEvent actionEvent) {
@@ -265,6 +269,7 @@ public class ReqController implements Initializable {
 
   /**
    * Delete button functionality. will delete service request from DB
+   *
    * @param actionEvent
    */
   public void delete(ActionEvent actionEvent) {

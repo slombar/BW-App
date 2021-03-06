@@ -16,6 +16,7 @@ public class UserHandling {
 
   /**
    * Delete the given user from the database based on Username
+   *
    * @param uname
    */
   public static void deleteUser(String uname) {
@@ -36,6 +37,7 @@ public class UserHandling {
 
   /**
    * retrieve all users from database
+   *
    * @return
    */
   public static ObservableList<User> getUsers() {
@@ -134,6 +136,7 @@ public class UserHandling {
 
   /**
    * Make a brand new employee in the Db
+   *
    * @param username
    * @param password
    * @param email
@@ -220,6 +223,7 @@ public class UserHandling {
 
   /**
    * logs in the employee from the database
+   *
    * @param u
    * @param p
    * @throws SQLException
@@ -264,6 +268,7 @@ public class UserHandling {
 
   /**
    * get true if the current user is an admin
+   *
    * @return
    */
   public static boolean getAdmin() {
@@ -291,6 +296,7 @@ public class UserHandling {
 
   /**
    * get true if the current user is an employee
+   *
    * @return
    */
   public static boolean getEmployee() {
@@ -318,6 +324,7 @@ public class UserHandling {
 
   /**
    * assign an employee to a service request
+   *
    * @param reqID
    * @param employee
    */
@@ -353,7 +360,7 @@ public class UserHandling {
     return username;
   }
 
-  //gettas and settas
+  // gettas and settas
   public static void setUsername(String u) {
     username = u;
   }

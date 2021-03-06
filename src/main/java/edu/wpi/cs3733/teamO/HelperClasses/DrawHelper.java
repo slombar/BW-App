@@ -3,11 +3,17 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.util.Duration;
 
 // class that SOLEY draws shit
 public class DrawHelper {
@@ -43,6 +49,7 @@ public class DrawHelper {
       double tempCirY = tempCir.getCenterY() - tempCir.getRadius();
       double diameter = 2 * tempCir.getRadius();
 
+      // makes stairs green and elevators purple
       if (n.getNodeType().equals("STAI")) {
         gc.setGlobalAlpha(0.25);
         gc.setFill(Color.GREEN);
@@ -53,14 +60,17 @@ public class DrawHelper {
         gc.setStroke(Color.PURPLE);
       }
 
+      // exits are orange
       if (n.getNodeType().equals("EXIT")) {
         gc.setFill(Color.ORANGE);
       }
 
+      // invisible nodes in navigator aren't filled in in editor
       if (!n.isVisible()) {
         gc.setFill(Color.TRANSPARENT);
       }
 
+      // start node is blue and end is red
       if (n.equals(startNode)) {
         gc.setFill(Color.BLUE);
       } else if (n.equals(endNode)) {
@@ -96,8 +106,8 @@ public class DrawHelper {
   public static void drawMidArrow(GraphicsContext gc, Circle circleA, Circle circleB) {
     double arrowLength = 6;
     final double arrowWidth = 4;
-    final double minArrowDistSq = 180;
-    // ^ do the dist you wanted squared (probably want 5*(arrowLength^2))
+    final double minArrowDistSq = 216;
+    // ^ do the dist you wanted squared (currently have 6*(arrowLength^2))
 
     double ax = circleA.getCenterX();
     double ay = circleA.getCenterY();
@@ -106,7 +116,12 @@ public class DrawHelper {
 
     double distSq = Math.pow(Math.abs(ax - bx), 2.0) + Math.pow(Math.abs(ay - by), 2.0);
 
+    gc.setLineWidth(3.0);
+    gc.setStroke(Color.BLACK);
+
+    // only will draw arrowhead if line will be at least min length
     if (distSq >= minArrowDistSq) {
+      // a bunch of math to draw arrowhead in line with line's direction:
       double cx = (ax + bx) / 2;
       double cy = (ay + by) / 2;
 
@@ -127,12 +142,31 @@ public class DrawHelper {
       double arrow2startX = (cx + dx + oy);
       double arrow2startY = (cy + dy - ox);
 
-      gc.setLineWidth(3.0);
+      // draws arrowhead lines
       gc.strokeLine(arrow1startX, arrow1startY, cx, cy);
       gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
-    } else {
-      boolean dummy = true;
     }
+
+    // tried to get this animation playing on the Canvas somehow but couldn't figure it out yet
+    /*Line line = new Line(ax, ay, bx, by);
+    line.getStrokeDashArray().setAll(25d, 20d, 5d, 20d);
+
+    final double maxOffset = line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                new KeyValue(line.strokeDashOffsetProperty(), 0, Interpolator.LINEAR)),
+            new KeyFrame(
+                Duration.seconds(2),
+                new KeyValue(line.strokeDashOffsetProperty(), maxOffset, Interpolator.LINEAR)));
+
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+
+    gc.getCanvas().getScene().getRoot().*/
+
     gc.strokeLine(ax, ay, bx, by);
   }
 
