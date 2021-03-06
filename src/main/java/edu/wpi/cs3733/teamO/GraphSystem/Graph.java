@@ -16,25 +16,17 @@ import javafx.scene.shape.Circle;
 
 public class Graph {
 
-  private int size; // necessary
-  private static ObservableList<Node> listOfNodes;
-  private static ObservableList<Edge> listOfEdges;
-  private static Hashtable<String, Node> stringNodeHashtable;
-  private static Hashtable<String, Edge> stringEdgeHashtable;
-  private static Hashtable<Node, Circle> nodeCircleHashtable;
-  private AlgorithmStrategy strategy;
-  List<Node> path;
+  // *****************************//
+  // maps and related variables: //
+  // *****************************//
 
-  // GC/Canvas-related attributes:
-  private GraphicsContext gc;
-
-  // TODO: put these as public static final somewhere?
-  private final Image campusMap = new Image("FaulknerCampus_Updated.png");
-  private final Image floor1Map = new Image("Faulkner1_Updated.png");
-  private final Image floor2Map = new Image("Faulkner2_Updated.png");
-  private final Image floor3Map = new Image("Faulkner3_Updated.png");
-  private final Image floor4Map = new Image("Faulkner4_Updated.png");
-  private final Image floor5Map = new Image("Faulkner5_Updated.png");
+  // public static Images of each floor map
+  public static Image campusMap = new Image("FaulknerCampus_Updated.png");
+  public static Image floor1Map = new Image("Faulkner1_Updated.png");
+  public static Image floor2Map = new Image("Faulkner2_Updated.png");
+  public static Image floor3Map = new Image("Faulkner3_Updated.png");
+  public static Image floor4Map = new Image("Faulkner4_Updated.png");
+  public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
   private final double widthG = campusMap.getWidth();
   private final double heightG = campusMap.getHeight();
@@ -49,12 +41,39 @@ public class Graph {
   private final double width5 = floor5Map.getWidth();
   private final double height5 = floor5Map.getHeight();
 
-  /**
-   * Creates a Graph from the database that will display on the provided GraphicsContext
-   *
-   * @param gc the GraphicsContext which the Graph will be displayed on
-   */
-  public Graph(GraphicsContext gc) {
+  // *****************************//
+  // singleton-related stuff:    //
+  // *****************************//
+
+  private Graph() {
+    initialize();
+  }
+
+  private static class SingeltonHelper {
+    private static final Graph GRAPH = new Graph();
+  }
+
+  public static Graph getInstance() {
+    return SingeltonHelper.GRAPH;
+  }
+
+  // *****************************//
+  // Graph's parameters/methods: //
+  // *****************************//
+
+  private int size; // not really necessary? idk
+  private static ObservableList<Node> listOfNodes;
+  private static ObservableList<Edge> listOfEdges;
+  private static Hashtable<String, Node> stringNodeHashtable;
+  private static Hashtable<String, Edge> stringEdgeHashtable;
+  private static Hashtable<Node, Circle> nodeCircleHashtable;
+  private AlgorithmStrategy strategy;
+  List<Node> path;
+
+  private GraphicsContext gc;
+
+  /** initializes GRAPH based on the valued retrieved from the database */
+  private void initialize() {
     // initialize nodes based on DB
     listOfNodes = FXCollections.observableArrayList();
     listOfNodes = NodesAndEdges.getAllNodes();
@@ -81,20 +100,12 @@ public class Graph {
     }
 
     nodeCircleHashtable = new Hashtable<>();
+  }
+
+  public void setGraphicsContext(GraphicsContext gc) {
     this.gc = gc;
     createCircles();
   }
-
-  /**
-   * Graph constructor purely for testing purposes
-   *
-   * @param test dummy parameter (can be true or false)
-   */
-  /*Graph(boolean test) {
-    listOfNodeIDs = new LinkedList<String>();
-    size = 0;
-    // listOfNodes = new Hashtable<>();
-  }*/
 
   /**
    * Adds each Node to the other's list of neighbouring Nodes
@@ -137,8 +148,10 @@ public class Graph {
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor) && n.isVisible()) {
+        Circle c = nodeCircleHashtable.get(n);
         double dist =
-            Math.pow(Math.abs(x - n.getXCoord()), 2.0) + Math.pow(Math.abs(y - n.getYCoord()), 2.0);
+            Math.pow(Math.abs(x - c.getCenterX()), 2.0)
+                + Math.pow(Math.abs(y - c.getCenterY()), 2.0);
         if (dist < currentDist) {
           currentDist = dist;
           node = n;
