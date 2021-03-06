@@ -100,7 +100,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="aboutBtn1" alignment="BOTTOM_LEFT" onAction="#toAbout" onMouseEntered="#mouseOnApp" onMouseExited="#mouseOffApp" prefHeight="77.0" prefWidth="446.0" text="About" translateX="10.0">
+      <JFXButton fx:id="aboutBtn1" alignment="BOTTOM_LEFT" onAction="#toAbout" onMouseEntered="#mouseOnAbout" onMouseExited="#mouseOffAbout" prefHeight="77.0" prefWidth="446.0" text="About" translateX="10.0">
          <font>
             <Font name="Leelawadee UI" size="30.0" />
          </font>
