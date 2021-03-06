@@ -12,7 +12,7 @@ import lombok.SneakyThrows;
 public class Graph {
 
   private static Graph graph = null;
-  public ArrayList<Node> listOfNodes;
+  public ArrayList<Node> listOfNodes = new ArrayList<>();
   public Hashtable<Node, ArrayList<Node>> map;
   public Hashtable<String, Node> key;
 
@@ -30,7 +30,6 @@ public class Graph {
     }
   }
 
-  // TODO fix to be wong's recommendation instead of this function
   public static Graph getInstance() {
     return graph;
   }
@@ -125,6 +124,13 @@ public class Graph {
   }
 
   public void addNode(Node node) {
+
+    boolean IDAlreadyExists = true;
+    while (IDAlreadyExists) {
+      String ID = node.getID();
+      IDAlreadyExists = key.get(ID).getID().equals(ID);
+      node.setID(node.randIDGen());
+    }
     map.put(node, new ArrayList<>());
     key.put(node.getID(), node);
   }

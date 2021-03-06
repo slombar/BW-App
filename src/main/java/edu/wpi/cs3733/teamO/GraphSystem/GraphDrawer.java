@@ -47,10 +47,10 @@ public class GraphDrawer {
    * @param gc the GraphicsContext which the Graph will be displayed on
    */
   public GraphDrawer(GraphicsContext gc) {
+    graph = Graph.getInstance();
     nodeCircleHashtable = new Hashtable<>();
     this.gc = gc;
     createCircles();
-    graph = Graph.getInstance();
   }
 
   /**

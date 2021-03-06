@@ -77,6 +77,8 @@ public class NewNavPageController implements Initializable {
   private String selectedFloor = "Campus";
   private String sFloor = "G";
   private String sideMenuUrl;
+  Graph graph;
+  String team = "O";
 
   Node startNode = null;
   Node endNode = null;
@@ -140,6 +142,7 @@ public class NewNavPageController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    graph = Graph.getInstance();
     floorSelectionBtn.setItems(listOfFloors);
     floorSelectionBtn.setValue("Campus");
     algoStratCBox.setItems(listOfStrats);
@@ -528,8 +531,6 @@ public class NewNavPageController implements Initializable {
   }
 
   // Graph. Putting here bc this shit is a mess smh
-  Graph graph = Graph.getInstance();
-  String team = "O";
 
   /**
    * Edits the node that is currently selected. If the map is page is in adding new node mode,

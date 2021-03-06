@@ -7,7 +7,6 @@ public class Node {
   int xCoord, yCoord;
   private boolean visible;
   private double priority;
-  private int typeCount;
 
   /**
    * Constructor for Node
@@ -38,17 +37,26 @@ public class Node {
     this.team = team;
     this.visible = !nodeType.equals("WALK") && !nodeType.equals("HALL");
 
+    this.ID = randIDGen();
   }
 
-  //TODO get these ID's auto generating
-  public Node(String nodeID,
-              int xCoord,
-              int yCoord,
-              String floor,
-              String building,
-              String nodeType,
-              String longName,
-              String team) {
+  public String randIDGen() {
+    // generates random 4 digit number;
+    Integer randID = ((int) (Math.random() * 10000));
+
+    return team + nodeType + randID.toString() + floor;
+  }
+
+  // TODO get these ID's auto generating
+  public Node(
+      String nodeID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      String longName,
+      String team) {
 
     this.ID = nodeID;
     this.building = building;
@@ -59,12 +67,6 @@ public class Node {
     this.yCoord = yCoord;
     this.team = team;
     this.visible = !nodeType.equals("WALK") && !nodeType.equals("HALL");
-
-
-
-    typeCount = getTypeCount(nodeType);
-
-    String newID = team + nodeType + floor + typeCount + ;
   }
 
   public Node() {
