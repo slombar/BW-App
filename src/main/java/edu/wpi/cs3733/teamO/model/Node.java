@@ -41,7 +41,8 @@ public class Node {
   }
 
   //TODO get these ID's auto generating
-  public Node(int xCoord,
+  public Node(String nodeID,
+              int xCoord,
               int yCoord,
               String floor,
               String building,
@@ -49,6 +50,7 @@ public class Node {
               String longName,
               String team) {
 
+    this.ID = nodeID;
     this.building = building;
     this.nodeType = nodeType;
     this.longName = longName;
