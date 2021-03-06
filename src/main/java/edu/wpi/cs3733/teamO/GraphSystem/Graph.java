@@ -113,6 +113,10 @@ public class Graph {
     }
   }
 
+  /**
+   * gets the size of the Graph - the number of nodes in it
+   * @return the graph's size
+   */
   int getSize() {
     return size;
   }
@@ -124,18 +128,17 @@ public class Graph {
    * @param x x-coordinate of the ClickEvent
    * @param y y-coordinate of the ClickEvent
    * @return Node closest to the ClickEvent
-   * @throws NullPointerException
+   * @throws NullPointerException will return null if it doesn't find a closest node
    */
   public static Node closestNode(String floor, double x, double y) throws NullPointerException {
     double currentDist = 1000000000;
     Node node = null;
 
     for (Node n : listOfNodes) {
-      if (n.getFloor().equals(floor)) {
-        Circle tempCircle = nodeCircleHashtable.get(n);
+      if (n.getFloor().equals(floor) && n.isVisible()) {
         double dist =
-            Math.pow(Math.abs(x - tempCircle.getCenterX()), 2.0)
-                + Math.pow(Math.abs(y - tempCircle.getCenterY()), 2.0);
+            Math.pow(Math.abs(x - n.getXCoord()), 2.0)
+                + Math.pow(Math.abs(y - n.getYCoord()), 2.0);
         if (dist < currentDist) {
           currentDist = dist;
           node = n;
@@ -204,6 +207,10 @@ public class Graph {
     }
   }
 
+  /**
+   * adds the given Node to the graph appropriately
+   * @param n Node to be added
+   */
   public void addNode(Node n) {
     // if ID already exists, then editing -> need node's neighborlist
     if (stringNodeHashtable.containsKey(n.getID())) {
@@ -276,6 +283,10 @@ public class Graph {
     nodeCircleHashtable.put(n, c);
   }
 
+  /**
+   * adds the given Edge to the graph appropriately
+   * @param e Edge to be added
+   */
   public void addEdge(Edge e) {
     Node node1 = stringNodeHashtable.get(e.getStart());
     Node node2 = stringNodeHashtable.get(e.getEnd());
@@ -286,6 +297,10 @@ public class Graph {
     listOfEdges.add(e);
   }
 
+  /**
+   * removes the given Node from the graph appropriately (including all of it's Edges)
+   * @param nodeID the Node to be removed
+   */
   public void deleteNode(String nodeID) {
     Node n = stringNodeHashtable.get(nodeID);
     // delete from graph
@@ -308,6 +323,12 @@ public class Graph {
     stringNodeHashtable.remove(n.getID());
   }
 
+  /**
+   * removes the given Edge from the graph
+   * @param startNodeID ID (String) of one of the Nodes connected by the Edge
+   * @param endNodeID ID (String) of the other Node connected by the Edge
+   * @throws SQLException thrown by NodesAndEdges.deleteEdge(edgeID)
+   */
   public void deleteEdge(String startNodeID, String endNodeID) throws SQLException {
     String eID = "not set yet";
     String eID1 = startNodeID + "_" + endNodeID;
@@ -345,7 +366,7 @@ public class Graph {
   /**
    * Draws all nodes for the given floor
    *
-   * @param floor G, 1, 2, 3, 4, or 5
+   * @param floor "G", "1", "2", "3", "4", or "5"
    */
   public void drawAllNodes(String floor, Node selectedNode) {
     ArrayList<Node> floorNodes = new ArrayList<>();
@@ -360,6 +381,12 @@ public class Graph {
     }
   }
 
+  /**
+   * draws all Nodes whose visible property = true
+   * @param floor "G", "1", "2", "3", "4", or "5"
+   * @param startNode Node currently set as the start
+   * @param endNode Node currently set as the end
+   */
   public void drawVisibleNodes(String floor, Node startNode, Node endNode) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
@@ -391,6 +418,10 @@ public class Graph {
     }
   }
 
+  /**
+   * draws all Edges on the given floor
+   * @param floor "G", "1", "2", "3", "4", or "5"
+   */
   public void drawAllEdges(String floor) {
     gc.setStroke(Color.BLACK);
     for (Edge e : listOfEdges) {
@@ -449,6 +480,12 @@ public class Graph {
     }
   }
 
+  /**
+   * sets this Graph's path = the path found by the given algorithm from the given start to end Nodes
+   * @param strat "A*", "DFS", or "BFS"
+   * @param startNode start Node of the path
+   * @param targetNode end Node of the path
+   */
   public void findPath(String strat, Node startNode, Node targetNode) {
     for (Node n : listOfNodes) {
       n.setVisited(false);
@@ -479,10 +516,17 @@ public class Graph {
     return TextDirection.textDirections(path);
   }
 
+  /**
+   * resets this graph's path to a new LinkedList
+   */
   public void resetPath() {
     path = new LinkedList<>();
   }
 
+  /**
+   * gets the list of all Nodes in this graph
+   * @return list of all Nodes
+   */
   public ObservableList<Node> getListOfNodes() {
     return listOfNodes;
   }

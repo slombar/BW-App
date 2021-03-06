@@ -12,6 +12,11 @@ public class RequestHandling {
 
   // TODO: add function to set employee assigned
 
+  /**
+   * Retrieve all service requests from database
+   *
+   * @return
+   */
   public static ObservableList<Request> getRequests() {
     ObservableList<Request> requestList = FXCollections.observableArrayList();
     try {
@@ -146,6 +151,12 @@ public class RequestHandling {
     pstmt.close();
   }
 
+  /**
+   * Get the request from the database based off of the ID
+   *
+   * @param reqID
+   * @return
+   */
   public Request getRequest(String reqID) {
     Request r = new Request();
 
@@ -239,6 +250,11 @@ public class RequestHandling {
     }
   }
 
+  /**
+   * Remove request from database, provide w/ ID of desired deleted request
+   *
+   * @param requestID
+   */
   public static void deleteRequest(int requestID) {
     String query = "DELETE FROM REQUESTS WHERE REQUESTID = ?";
 
@@ -255,6 +271,21 @@ public class RequestHandling {
     }
   }
 
+  /**
+   * TODO Finish this Allows editing of request
+   *
+   * @param requestID
+   * @param requestedBy
+   * @param fulfilledBy
+   * @param dateRequested
+   * @param dateNeeded
+   * @param requestType
+   * @param locationNodeID
+   * @param summary
+   * @param customParameter1
+   * @param customParameter2
+   * @param customParameter3
+   */
   public static void editRequest(
       int requestID,
       String requestedBy,

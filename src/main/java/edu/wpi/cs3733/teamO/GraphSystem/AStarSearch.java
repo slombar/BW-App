@@ -22,7 +22,10 @@ class AStarSearch implements AlgorithmStrategy {
     frontier = new PriorityQueue<Node>();
   }*/
 
-  // constructor
+  /**
+   * creates a new AStarSearch object that will search on the given Graph
+   * @param g Graph to be searched on
+   */
   AStarSearch(Graph g) {
     graph = g;
     graphSize = graph.getSize();
@@ -33,6 +36,12 @@ class AStarSearch implements AlgorithmStrategy {
     //    foundRoute = new LinkedList<>();
   }
 
+  /**
+   * returns the list of Nodes representing the shortest path from the start Node to the end Node (in order)
+   * @param startNode start Node of the search
+   * @param targetNode destination Node of the search
+   * @return LinkedList of Nodes from start to end in order
+   */
   public List<Node> findRoute(Node startNode, Node targetNode) {
     for (Node n : graph.getListOfNodes()) {
       n.setPriority(0.0);
@@ -80,7 +89,7 @@ class AStarSearch implements AlgorithmStrategy {
 
           // calculates priority (cost from start + distance to target --> lower is better)
           // TODO: change heuristic to take into account floor diff
-          double priority = newCost + heuristic(next);
+          double priority = newCost + heuristic(next, targetNode);
           next.setPriority(priority);
           frontier.add(next);
           cameFrom.put(next, current); // next came from current
@@ -110,18 +119,26 @@ class AStarSearch implements AlgorithmStrategy {
   }
 
   /**
-   * @param next
-   * @return
+   * determines the heuristic from Node next to the target Node (must be less than the actual distance)
+   * @param next the Node from which the heuristic is calculated
+   * @param targetNode the target Node used in the heuristic calculation
+   * @return heuristic <= actual distance from next to target
    */
-  private static double heuristic(Node next) {
+  private static double heuristic(Node next, Node targetNode) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    // return dist(next, targetNode);
+    //return dist(next, targetNode);
     return 0.0;
     // TODO: have this return an actual heuristic
   }
 
   // TODO: needs to take floors into account
   // finds distance between two nodes (length/weight of edge)
+  /**
+   * calculates distance from Node a to Node b
+   * @param a first Node
+   * @param b second Node
+   * @return sqrt((|x1-x2|)^2 + (|y1-y2|)^2)
+   */
   static double dist(Node a, Node b) {
     int x1 = a.getXCoord();
     int x2 = b.getXCoord();

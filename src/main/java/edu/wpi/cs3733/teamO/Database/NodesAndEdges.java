@@ -192,6 +192,12 @@ public class NodesAndEdges {
     }
   }
 
+  /**
+   * Delete a node from the database based off its ID
+   *
+   * @param nodeID
+   * @throws SQLException
+   */
   public static void deleteNode(String nodeID) throws SQLException {
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
     try {
@@ -210,7 +216,11 @@ public class NodesAndEdges {
     deleteAllEdges(nodeID);
   }
 
-  /** @param nodeID */
+  /**
+   * Delete an edge based off of the database's edge ID & nodeID param
+   *
+   * @param nodeID
+   */
   public static void deleteEdge(String nodeID) throws SQLException {
     // get the edge to throw error if it doesn't exist.
     String query = "DELETE FROM Edges WHERE nodeID = '" + nodeID + "'";
