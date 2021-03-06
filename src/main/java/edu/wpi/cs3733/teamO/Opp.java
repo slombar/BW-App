@@ -24,7 +24,7 @@ public class Opp extends Application {
 
   public void start(Stage ps) {
 
-    Graph graph = new Graph();
+    Graph graph = Graph.getInstance();
 
     Opp.primaryStage = ps;
 

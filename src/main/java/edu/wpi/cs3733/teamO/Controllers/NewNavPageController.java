@@ -6,6 +6,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.GraphSystem.AStarSearch;
 import edu.wpi.cs3733.teamO.GraphSystem.GraphDrawer;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
@@ -332,7 +333,8 @@ public class NewNavPageController implements Initializable {
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       graphDrawer.resetPath();
-      graphDrawer.findPath(strategy, startNode, endNode);
+      AStarSearch pathFindingStrategy = new AStarSearch();
+      pathFindingStrategy.findPath(startNode, endNode);
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;

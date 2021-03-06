@@ -23,7 +23,6 @@ import javafx.stage.Stage;
  */
 public class DataHandling {
 
-  Graph graph = Graph.getInstance();
   private Desktop desktop = Desktop.getDesktop();
 
   /**
@@ -162,7 +161,7 @@ public class DataHandling {
         }
       }
 
-      graph = new Graph();
+      Graph.resetAll();
 
     } else {
       System.out.println("File is empty");

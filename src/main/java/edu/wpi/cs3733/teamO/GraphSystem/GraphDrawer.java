@@ -267,27 +267,28 @@ public class GraphDrawer {
       DrawHelper.drawSingleNode(gc, c, Color.RED);
     }
   }
-
-  // TODO figure out something to do about the fucking visited thing
-  public void findPath(String strat, Node startNode, Node targetNode) {
-
-    switch (strat) {
-      case "A*":
-        strategy = new AStarSearch(this);
-        break;
-        /* TODO implement new methods to pathfind (KE)
-        case "DFS":
-          strategy = new DFS();
-          break;
-        case "BFS":
-          strategy = new BFS();
-          break;
-          8?
-           */
-    }
-
-    path = strategy.findRoute(startNode, targetNode);
-  }
+//
+//  // TODO figure out something to do about the fucking visited thing
+//  public void findPath(String strat, Node startNode, Node targetNode) {
+//
+//    //    switch (strat) {
+//    //      case "A*":
+//    //strategy = new AStarSearch();
+//    /*
+//    break;
+//     TODO implement new methods to pathfind (KE)
+//    case "DFS":
+//      strategy = new DFS();
+//      break;
+//    case "BFS":
+//      strategy = new BFS();
+//      break;
+//      8?
+//       */
+//    // }
+//
+//    path = (startNode, targetNode);
+//  }
 
   // add function calls for direction at points.
   public static double findDirectionForPoints(Node node1, Node node2, Node node3) {

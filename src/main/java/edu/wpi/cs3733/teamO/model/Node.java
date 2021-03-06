@@ -3,8 +3,10 @@ package edu.wpi.cs3733.teamO.model;
 import java.util.Objects;
 
 public class Node {
+  public double estimatedDistanceBetween, distanceFromStart;
   String ID, building, nodeType, longName, shortName, floor, team;
   int xCoord, yCoord;
+  private Node parent;
   private boolean visible;
   private double priority;
 
@@ -77,7 +79,7 @@ public class Node {
     this.xCoord = -11111;
     this.yCoord = -11111;
     this.team = null;
-    this.visible = !nodeType.equals("WALK") && !nodeType.equals("HALL");
+    this.visible = false;
   }
 
   @Override
@@ -180,8 +182,15 @@ public class Node {
     this.visible = visible;
   }
 
-  public void setPriority(double p) {
+  public Node getParent() {
+    return parent;
+  }
 
+  public void setParent(Node parent) {
+    this.parent = parent;
+  }
+
+  public void setPriority(double p) {
     this.priority = p;
   }
 }

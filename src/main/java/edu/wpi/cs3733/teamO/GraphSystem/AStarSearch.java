@@ -4,9 +4,11 @@ import edu.wpi.cs3733.teamO.Database.Graph;
 import edu.wpi.cs3733.teamO.model.Node;
 import java.util.*;
 
-class AStarSearch implements AlgorithmStrategy {
+public class AStarSearch implements AlgorithmStrategy {
 
-  private GraphDrawer graphDrawer;
+  public AStarSearch() {
+    this.graph = Graph.getInstance();
+  }
 
   private static PriorityQueue<Node> frontier; // expanding frontier of search
   private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
@@ -14,88 +16,61 @@ class AStarSearch implements AlgorithmStrategy {
 
   Graph graph = Graph.getInstance();
 
-  // constructor
-  AStarSearch(GraphDrawer g) {
-    graphDrawer = g;
+public ArrayList<Node> findPath(Node start, Node target){
+  aStar(start, target);
+  //TODO
+  return null;
+}
 
-    //    frontier = new PriorityQueue<>();
-    //    cameFrom = new Hashtable<>();
-    //    costSoFar = new Hashtable<>();
-    //    foundRoute = new LinkedList<>();
-  }
-
-  public List<Node> findRoute(Node startNode, Node targetNode) {
+  public Node aStar(Node start, Node target) {
     for (Node n : graph.listOfNodes) {
       n.setPriority(0.0);
+      n.setParent(null);
+      n.distanceFromStart = 0;
     }
+    TreeSet<Node> closedList = new TreeSet<>();
+    TreeSet<Node> openList = new TreeSet<>();
 
-    frontier = new PriorityQueue<>();
-    cameFrom = new Hashtable<>();
-    costSoFar = new Hashtable<>();
+    start.estimatedDistanceBetween = start.distanceFromStart + calculateHeuristic(start, target);
+    openList.add(start);
 
-    // path, but in reverse order
-    LinkedList<Node> path = new LinkedList<>();
-
-    frontier.add(startNode);
-    cameFrom.put(startNode, new Node()); // didn't come from anywhere at start
-    costSoFar.put(startNode, 0.0); // didn't cost anything at start
-
-    boolean foundPath = false;
-
-    while (!frontier.isEmpty()) {
-      Node current = frontier.poll(); // continues searching from next frontier node
-
-      if (current.equals(targetNode)) {
-        foundPath = true;
-        break;
+    while(!openList.isEmpty()){
+      Node n = openList.first();
+      if(n == target){
+        return n;
       }
 
-      // iterates through current nodes neighbours
-      Set<Node> nList = (Set<Node>) graph.map.get(current);
+      for(Node neighbor : graph.map.get(n)){
+        double totalWeight = n.distanceFromStart + neighbor.weight;
 
-      Iterator<Node> iterator = nList.iterator();
+        if(!openList.contains(neighbor) && !closedList.contains(neighbor)){
+          neighbor.parent = n;
+          neighbor.distanceFromStart = totalWeight;
+          neighbor.estimatedDistanceBetween = neighbor.distanceFromStart + neighbor.calculateHeuristic(target);
+          openList.add(neighbor);
+        } else {
+          if(totalWeight < neighbor.distanceFromStart){
+            neighbor.parent = n;
+            neighbor.distanceFromStart = totalWeight;
+            neighbor.estimatedDistanceBetween = neighbor.distanceFromStart + neighbor.calculateHeuristic(target);
 
-      while (iterator.hasNext()) {
-        // gets next node in neighbours
-        // sets next's cost so far to current's cost so far + edge cost
-        Node next = iterator.next();
-        // TODO: change dist to get Edge length
-        double newCost = costSoFar.get(current) + dist(current, next);
-
-        // if cost to next hasn't been calculated yet, or if the newCost is less
-        //    than the previously calc'ed cost, replace with newCost
-        if (costSoFar.get(next) == null || newCost < costSoFar.get(next)) {
-          costSoFar.put(next, newCost);
-
-          // calculates priority (cost from start + distance to target --> lower is better)
-          // TODO: change heuristic to take into account floor diff
-          double priority = newCost + heuristic(next);
-          next.setPriority(priority);
-          frontier.add(next);
-          cameFrom.put(next, current); // next came from current
+            if(closedList.contains(neighbor)){
+              closedList.remove(neighbor);
+              openList.add(neighbor);
+            }
+          }
         }
       }
+
+      openList.remove(n);
+      closedList.add(n);
     }
+    return null;
+  }
 
-    if (foundPath) {
-      // backtrack to add to path:
-      // start by adding target node, then iterate through cameFrom,
-      // appending next node to the front of path
-      path.add(targetNode);
-      Node cameFromNode = targetNode;
-
-      while (!cameFromNode.equals(startNode)) { // goes until it appends startNode
-        Node n = cameFrom.get(cameFromNode);
-        path.addFirst(n);
-        cameFromNode = n;
-      }
-
-      return path;
-
-    } else {
-      // TODO: throw PathNotFoundException or something
-      return null;
-    }
+  private double calculateHeuristic(Node start, Node target) {
+    //TODO:
+    return 0.0;
   }
 
   /**

@@ -17,7 +17,7 @@ public class Graph {
   public Hashtable<String, Node> key;
 
   /** NEVER CALL THIS EVER. this function is NOT what you want */
-  public Graph() {
+  private Graph() {
     ArrayList<Node> listOfNeighbors = new ArrayList<>();
     map = new Hashtable<Node, ArrayList<Node>>();
     key = new Hashtable<String, Node>();
@@ -31,7 +31,15 @@ public class Graph {
   }
 
   public static Graph getInstance() {
+    if (graph == null) {
+      graph = new Graph();
+    }
+
     return graph;
+  }
+
+  public static void resetAll() {
+    graph = new Graph();
   }
 
   @SneakyThrows
@@ -203,5 +211,20 @@ public class Graph {
     editingNode.setLongName(futureNode.getLongName());
     editingNode.setBuilding(futureNode.getBuilding());
     editingNode.setNodeType(futureNode.getNodeType());
+  }
+
+  public double getEdgeWeight(Node start, Node end){
+
+    if(start.getNodeType().equals("ELEV") && end.getNodeType().equals("ELEV")){
+      return 1;
+    }else if(start.getNodeType().equals("STAI") && end.getNodeType().equals("STAI")){
+      return 2;
+    }else {
+      double X1 = start.getXCoord();
+      double Y1 = start.getXCoord();
+      double X2 = start.getXCoord();
+      double Y2 = start.getXCoord();
+      return Math.sqrt(Math.pow((Y2-Y1),2) + Math.pow((X2-X1),2));
+    }
   }
 }
