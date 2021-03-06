@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
+
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -79,7 +81,7 @@ public class NewNavPageController implements Initializable {
   private String sFloor = "G";
   private String sideMenuUrl;
 
-  private Graph graph;
+  Graph graph = Graph.getInstance();
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
@@ -90,13 +92,6 @@ public class NewNavPageController implements Initializable {
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(
           "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
-
-  public static Image campusMap = new Image("FaulknerCampus_Updated.png");
-  public static Image floor1Map = new Image("Faulkner1_Updated.png");
-  public static Image floor2Map = new Image("Faulkner2_Updated.png");
-  public static Image floor3Map = new Image("Faulkner3_Updated.png");
-  public static Image floor4Map = new Image("Faulkner4_Updated.png");
-  public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
   // booleans:
   private boolean editing = false;
@@ -150,7 +145,8 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(campusMap);
     resizableWindow();
 
-    graph = new Graph(gc);
+    graph.setGraphicsContext(gc);
+
     editToggle.setVisible(false);
 
     if (UserHandling.getEmployee()) {
@@ -793,12 +789,10 @@ public class NewNavPageController implements Initializable {
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
       graph.drawVisibleNodes(sFloor, startNode, endNode);
-    }
-    else if (!editing && displayingRoute) {
+    } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
       graph.drawCurrentPath(sFloor, startNode, endNode);
-    }
-    else if (editing) {
+    } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
       graph.drawAllNodes(sFloor, selectedNode);
       // and if "show edges" is selected, draw them as well
