@@ -4,7 +4,9 @@ import com.jfoenix.controls.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Sharing.EmailThreader;
 import edu.wpi.cs3733.teamO.Sharing.ImgurFunctionality;
+import edu.wpi.cs3733.teamO.Sharing.QRCodeThreader;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,6 +18,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -27,7 +30,7 @@ import javax.imageio.ImageIO;
 public class EmailPageController implements Initializable {
 
   @FXML private StackPane spinnerPane;
-    @FXML private ImageView mapView5;
+  @FXML private ImageView mapView5;
   @FXML private ImageView mapView3;
   @FXML private ImageView mapView2;
   @FXML private ImageView mapView1;
@@ -175,7 +178,9 @@ public class EmailPageController implements Initializable {
 
     String albumLink = "https://imgur.com/a/" + albumID;
 
+
     SharingFunctionality.createQR(albumLink);
+
     // submissionPopup();
 
     // }
