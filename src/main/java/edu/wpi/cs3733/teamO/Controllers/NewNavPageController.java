@@ -77,6 +77,7 @@ public class NewNavPageController implements Initializable {
 
   private GraphicsContext gc;
   private double percImageView = 1.0;
+  private Rectangle2D currentViewport;
   private String selectedFloor = "Campus";
   private String sFloor = "G";
   private String sideMenuUrl;
@@ -145,7 +146,8 @@ public class NewNavPageController implements Initializable {
     gc = mapCanvas.getGraphicsContext2D();
 
     imageView.setImage(campusMap);
-    imageView.setViewport(new Rectangle2D(0, 0, campusMap.getWidth(), campusMap.getHeight()));
+    currentViewport = new Rectangle2D(0, 0, campusMap.getWidth(), campusMap.getHeight());
+    imageView.setViewport(currentViewport);
     //    ObservableValue<Rectangle2D> viewportBind = new ObservableValue<Rectangle2D>() {
     //      @Override
     //      public void addListener(ChangeListener<? super Rectangle2D> listener) {
@@ -524,17 +526,24 @@ public class NewNavPageController implements Initializable {
       }
     }
 
-    double a = scrollEvent.getX();
-    double b = scrollEvent.getY();
+    double a = getImgX(scrollEvent.getX());
+    double b = getImgY(scrollEvent.getY());
     double vX = percImageView * imageView.getImage().getWidth();
     double vY = percImageView * imageView.getImage().getHeight();
-    // TODO: fix this
-    Rectangle2D imgViewport = imageView.getViewport();
-    Rectangle2D newImgViewport =
-        new Rectangle2D(a - (0.5 * vX), b - (0.5 * vY), a + (0.5 * vX), b + (0.5 * vY));
+    currentViewport = new Rectangle2D(a - (0.5 * vX), b - (0.5 * vY), vX, vY);
 
-    imageView.setViewport(newImgViewport);
+    imageView.setViewport(currentViewport);
     draw();
+  }
+
+  public double getImgX(double canvasX) {
+    double percCanvasX = canvasX / mapCanvas.getWidth();
+    return (currentViewport.getMinX() + (percCanvasX * currentViewport.getWidth()));
+  }
+
+  public double getImgY(double canvasY) {
+    double percCanvasY = canvasY / mapCanvas.getHeight();
+    return (currentViewport.getMinY() + ((percCanvasY * currentViewport.getHeight())));
   }
 
   /**
