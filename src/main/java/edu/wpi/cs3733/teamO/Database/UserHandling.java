@@ -5,8 +5,15 @@ import edu.wpi.cs3733.teamO.UserTypes.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import lombok.SneakyThrows;
 
 public class UserHandling {
 
@@ -379,5 +386,84 @@ public class UserHandling {
 
   public static void setFirstName(String f) {
     fName = f;
+  }
+
+  @SneakyThrows
+  public static void promptForgotPassword(String sendingTo) {
+
+    String query = "SELECT * FROM USERS WHERE EMAIL = '" + sendingTo + "'";
+    String password = "";
+    String firstname = "";
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet res = pstmt.executeQuery();
+      res.next();
+
+      firstname = res.getString("fname");
+
+      res.close();
+      pstmt.close();
+    } catch (SQLException throwables) {
+      // TODO no email is attached to this account
+      System.out.println("Not a valid email");
+    }
+
+    //TODO create new random password and let user changeit from a different screen
+    String q = "SELECT * FROM USERS WHERE EMAIL = '" + sendingTo + "'";
+
+    try {
+      PreparedStatement pstmt = null;
+      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      ResultSet res = pstmt.executeQuery();
+      res.next();
+
+      firstname = res.getString("fname");
+
+      res.close();
+      pstmt.close();
+    } catch (SQLException throwables) {
+      // TODO no email is attached to this account
+      System.out.println("Not a valid email");
+    }
+
+    String from = "bwolive3733@gmail.com"; // sender's email, need default sender email !
+    String host = "smtp.gmail.com"; // where email is being sent from
+
+    Properties properties = System.getProperties(); // set up mail server
+    properties.put("mail.smtp.host", host);
+    properties.put("mail.smtp.port", "465");
+    properties.put("mail.smtp.ssl.enable", "true");
+    properties.put("mail.smtp.auth", "true");
+
+    Session session =
+        Session.getInstance(
+            properties,
+            new javax.mail.Authenticator() {
+              protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication(from, "oliveopossum69");
+              }
+            });
+
+    MimeMessage message = new MimeMessage(session); // Create a default MimeMessage object
+
+    // Setting Email Headers
+    message.setFrom(new InternetAddress(from)); // Set From: header
+    message.addRecipient(
+        Message.RecipientType.TO, new InternetAddress(sendingTo)); // Set To: header
+    message.setSubject("Your Password Reset"); // Set Subject: header
+
+    BodyPart body = new MimeBodyPart();
+    Multipart multipart = new MimeMultipart();
+    String m = "Hi " + firstname + ",\n Here is your new temporary password: " + password;
+    body.setText(m);
+
+    multipart.addBodyPart(body);
+    message.setContent(multipart);
+
+    Transport.send(message);
+    System.out.println("Sent message successfully...");
   }
 }

@@ -66,4 +66,8 @@ public class StaffSignInPopupController {
       signIn(new ActionEvent());
     }
   }
+
+  public void forgotPassword(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ForgotPassword.fxml");
+  }
 }
