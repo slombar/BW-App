@@ -50,6 +50,7 @@ public class SharingFunctionality {
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
+    // did same thing as emails
     Graph graph = GRAPH;
     String pathFloors = "";
     for (Node n : graph.getPath()) {
@@ -60,6 +61,8 @@ public class SharingFunctionality {
     String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
     String lastFloor = pathFloors.substring(pathFloors.length() - 1);
     System.out.println(firstLast);
+
+    // this time, i made a list of the links we need since the constructor to make the text != allow for concat
     LinkedList<String> toPrint = new LinkedList<String>();
 
     if (firstLast.contains("G")) {
@@ -74,6 +77,7 @@ public class SharingFunctionality {
     if (firstLast.contains("5")) toPrint.add(linkToFile6);
     System.out.println(toPrint.get(0));
 
+    // check how many links we need to send, calls message constructor with that amount of URLs
     if (toPrint.size() == 1) {
       Message message =
           Message.creator(
@@ -85,6 +89,7 @@ public class SharingFunctionality {
               .create();
 
       System.out.println(message.getSid());
+
     } else if (toPrint.size() == 2) {
       Message message =
           Message.creator(
@@ -96,6 +101,7 @@ public class SharingFunctionality {
               .create();
 
       System.out.println(message.getSid());
+
     } else if (toPrint.size() == 3) {
       Message message =
           Message.creator(
@@ -109,6 +115,8 @@ public class SharingFunctionality {
                       URI.create(toPrint.get(1)),
                       URI.create(toPrint.get(2))))
               .create();
+      // if not 1,2,3, then just send all 6 maps for now
+      // TODO: prob want to throw error if no pathfind
     } else {
       Message message =
           Message.creator(
