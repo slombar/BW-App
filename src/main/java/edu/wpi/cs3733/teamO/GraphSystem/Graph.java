@@ -462,6 +462,14 @@ public class Graph {
   }
 
   /**
+   * Getter for path
+   * @return path
+   */
+  public List<Node> getPath() {
+    return path;
+  }
+
+  /**
    * Draws the current path stored by this Graph
    *
    * @param floor selected floor
