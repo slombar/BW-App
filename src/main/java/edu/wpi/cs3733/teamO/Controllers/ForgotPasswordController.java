@@ -5,13 +5,18 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javax.mail.MessagingException;
 
 public class ForgotPasswordController {
 
   @FXML TextField forgotEmail;
 
   public void resetPassword(ActionEvent actionEvent) {
-    UserHandling.promptForgotPassword(forgotEmail.getText());
+    try {
+      UserHandling.promptForgotPassword(forgotEmail.getText());
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    }
     SwitchScene.goToParent("/Views/Login.fxml");
   }
 

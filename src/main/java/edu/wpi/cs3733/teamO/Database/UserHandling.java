@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Random;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javax.mail.*;
@@ -13,7 +14,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import lombok.SneakyThrows;
 
 public class UserHandling {
 
@@ -329,6 +329,36 @@ public class UserHandling {
     return b;
   }
 
+  public static void editProfile(String newPassword, String newFName, String newLname){
+
+    String passQuery = "UPDATE Users SET password = ? WHERE email = ?";
+
+
+
+    //check what the user actually wants to update
+    if(newPassword!=null){
+        //update query in the DB
+
+      try {
+        preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+        preparedStmt.executeUpdate();
+        preparedStmt.close();
+
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+        return;
+      }
+
+    }else if(newFName !=null){
+
+
+    }else if (newLname !=null){
+
+
+    }
+
+  }
+
   /**
    * assign an employee to a service request
    *
@@ -388,46 +418,76 @@ public class UserHandling {
     fName = f;
   }
 
-  @SneakyThrows
-  public static void promptForgotPassword(String sendingTo) {
+  public static String getTempPassword() {
 
-    String query = "SELECT * FROM USERS WHERE EMAIL = '" + sendingTo + "'";
-    String password = "";
+    int leftLimit = 48; // numeral '0'
+    int rightLimit = 122; // letter 'z'
+    int targetStringLength = 10;
+    Random random = new Random();
+
+    String generatedString =
+        random
+            .ints(leftLimit, rightLimit + 1)
+            .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+            .limit(targetStringLength)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+
+    return generatedString;
+  }
+
+  /**
+   * creates and sets a temporary password for the given email (sendingTo) that is then sent in an
+   * email to the user associated with the sendingTo adress.
+   *
+   * @param sendingTo, the email of the password you want to reset bc you forgot it
+   * @throws MessagingException
+   */
+  public static void promptForgotPassword(String sendingTo) throws MessagingException {
+
+    // get the email from the database that matches this, to check if it exists
+    String emailQuery = "SELECT * FROM USERS WHERE EMAIL = '" + sendingTo + "'";
+    String passQuery = "UPDATE Users SET password = ? WHERE email = ?";
+    String tempPassword = getTempPassword();
+    String encryptedPassword = Encrypter.encryptPassword(tempPassword);
     String firstname = "";
 
     try {
+      // execute DB statement
       PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      PreparedStatement ps = null;
+      // execute email query
+      pstmt = DatabaseConnection.getConnection().prepareStatement(emailQuery);
+      // results set for email query
       ResultSet res = pstmt.executeQuery();
+
+      // execute update password to temp password
+      ps = DatabaseConnection.getConnection().prepareStatement(passQuery);
+      // set the variables in sql statement
+      ps.setString(1, encryptedPassword);
+      ps.setString(2, sendingTo);
+
+      // get the first item in the result set
       res.next();
 
+      // retrieve the first name from DB
       firstname = res.getString("fname");
 
+      // execute, and close to fully execute
       res.close();
       pstmt.close();
+      ps.executeUpdate();
+      ps.close();
+
     } catch (SQLException throwables) {
-      // TODO no email is attached to this account
+      // Not a valid email
       System.out.println("Not a valid email");
     }
 
-    //TODO create new random password and let user changeit from a different screen
-    String q = "SELECT * FROM USERS WHERE EMAIL = '" + sendingTo + "'";
-
-    try {
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-      ResultSet res = pstmt.executeQuery();
-      res.next();
-
-      firstname = res.getString("fname");
-
-      res.close();
-      pstmt.close();
-    } catch (SQLException throwables) {
-      // TODO no email is attached to this account
-      System.out.println("Not a valid email");
-    }
-
+    /**
+     * change the user's database password to the temporary random password (the one associated with
+     * the account to reset the password for)
+     */
     String from = "bwolive3733@gmail.com"; // sender's email, need default sender email !
     String host = "smtp.gmail.com"; // where email is being sent from
 
@@ -455,9 +515,15 @@ public class UserHandling {
         Message.RecipientType.TO, new InternetAddress(sendingTo)); // Set To: header
     message.setSubject("Your Password Reset"); // Set Subject: header
 
+    // make new body that contains temporary password for user
     BodyPart body = new MimeBodyPart();
     Multipart multipart = new MimeMultipart();
-    String m = "Hi " + firstname + ",\n Here is your new temporary password: " + password;
+    String m =
+        "Hi "
+            + firstname
+            + ",\nHere is your new temporary password:"
+            + tempPassword
+            + "\nUse this to login to your BW-Pathfinding Account, and immediately change your password by viewing your profile, and clicking Reset Password.";
     body.setText(m);
 
     multipart.addBodyPart(body);
