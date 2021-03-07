@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.*;
-
-import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
 public abstract class AStarVariant {
   PriorityQueue<Node> frontier;

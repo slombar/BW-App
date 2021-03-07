@@ -113,7 +113,7 @@ public class EmailThreader extends Thread {
       String filename5 = fileToBeSent5; // file to be sent, map image
       String filename6 = fileToBeSent6; // file to be sent, map image
 
-      // TODO Determine where start and end nodes are for pathfind
+      // Determines start and end nodes
       Graph graph = GRAPH;
       String pathFloors = "";
       for (Node n : graph.getPath()) {
