@@ -27,9 +27,9 @@ public class MobileGoogleNavController implements Initializable {
   ImageView parkingIconView = new ImageView(parkingIcon);
 
   // adding icons to buttons
-  JFXButton addBtn = new JFXButton(null, addIconView);
-  JFXButton parkingBtn = new JFXButton(null, hospitalIconView);
-  JFXButton hospitalBtn = new JFXButton(null, parkingIconView);
+  private final JFXButton addBtn = new JFXButton(null, addIconView);
+  private final JFXButton parkingBtn = new JFXButton(null, parkingIconView);
+  private final JFXButton hospitalBtn = new JFXButton(null, hospitalIconView);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -60,16 +60,16 @@ public class MobileGoogleNavController implements Initializable {
 
   private void buttonFunction() {
 
-    parkingBtn.setOnAction(
-        actionEvent -> {
-          // save parking spot
-          SwitchScene.goToParentMobile("/Views/MobileApp/___.fxml", actionEvent);
-        });
+    //    parkingBtn.setOnAction(
+    //        actionEvent -> {
+    //          // save parking spot
+    //          SwitchScene.goToParentMobile("/Views/MobileApp/___.fxml", actionEvent);
+    //        });
 
     hospitalBtn.setOnAction(
         actionEvent -> {
           // navigate hospital campus
-          SwitchScene.goToParentMobile("/Views/MobileApp/___.fxml", actionEvent);
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
         });
   }
 }
