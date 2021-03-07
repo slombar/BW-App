@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.AppBar?>
+<?import com.gluonhq.charm.glisten.mvc.View?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<View maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Mobile.MainScreenController">
+   <top>
+      <AppBar style="-fx-background-color: #3A5369;" titleText="B&amp;W Faulkner Hospital Mobile App" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateY="-30.0">
+               <image>
+                  <Image url="@../../Brigham_and_Womens_Hospital_logo.png" />
+               </image>
+            </ImageView>
+            <JFXNodesList fx:id="buttonsList">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXNodesList>
+         </children>
+      </VBox>
+   </center>
+</View>

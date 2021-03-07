@@ -1,0 +1,29 @@
+.main-menu-button {
+-fx-pref-width: 300px;
+-fx-pref-height: 40px;
+-fx-text-fill: white;
+-fx-background-color: #3A5369;
+}
+
+.nav-menu-button {
+-fx-pref-width: 40px;
+-fx-pref-height: 40px;
+-fx-background-radius: 40px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
+}
+
+.nav-buttons {
+-fx-pref-width: 190px;
+-fx-pref-height: 40px;
+-fx-background-radius: 40px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
+-text-align: left
+}
