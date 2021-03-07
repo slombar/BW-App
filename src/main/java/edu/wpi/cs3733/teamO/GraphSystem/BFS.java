@@ -58,6 +58,10 @@ public class BFS implements AlgorithmStrategy {
   @Override
   public List<Node> findRoute(Node startNode, Node targetNode) {
 
+    for (Node N : Graph.getInstance().getListOfNodes()) {
+      N.setVisited(false);
+    }
+
     Hashtable<Node, Node> cameFrom = new Hashtable<>();
     LinkedList<Node> path = new LinkedList<>();
 
