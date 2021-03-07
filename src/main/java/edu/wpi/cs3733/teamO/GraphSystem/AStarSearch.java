@@ -1,43 +1,26 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
-import edu.wpi.cs3733.teamO.Model.Node;
-import sun.awt.image.ImageWatched;
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.*;
 
 class AStarSearch extends AStarVariant implements AlgorithmStrategy {
 
-    private Graph graph;
-    private int graphSize;
+  private Graph graph;
+  // private int graphSize;
 
-    private static PriorityQueue<Node> frontier; // expanding frontier of search
-    private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
-    private static Hashtable<Node, Double> costSoFar; // NodeID and that nodes current cost so far
+  private static PriorityQueue<Node> frontier; // expanding frontier of search
+  private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
+  private static Hashtable<Node, Double> costSoFar; // NodeID and that nodes current cost so far
 
-    // private LinkedList<Node> foundRoute; // most recent found root for this A* object
+  // private LinkedList<Node> foundRoute; // most recent found root for this A* object
 
-  /*AStarSearch(boolean test) {
-    graph = new Graph(test); // may not want/need to initialize graph here
-    graphSize = -1;
-    startID = "-1";
-    targetID = "-1";
-    frontier = new PriorityQueue<Node>();
-  }*/
-
-    /**
-     * creates a new AStarSearch object that will search on the given Graph
-     *
-     * @param g Graph to be searched on
-     */
-    AStarSearch(Graph g) {
-        graph = g;
-        graphSize = graph.getSize();
-
-        //    frontier = new PriorityQueue<>();
-        //    cameFrom = new Hashtable<>();
-        //    costSoFar = new Hashtable<>();
-        //    foundRoute = new LinkedList<>();
-    }
+  /** creates a new AStarSearch object that will search on the singleton Graph */
+  AStarSearch() {
+    graph = GRAPH;
+    // graphSize = graph.getSize();
+  }
 
     /**
      * returns the list of Nodes representing the shortest path from the start Node to the end Node
@@ -160,11 +143,11 @@ class AStarSearch extends AStarVariant implements AlgorithmStrategy {
             path.add(targetNode);
             Node cameFromNode = targetNode;
 
-            while (!cameFromNode.equals(startNode)) { // goes until it appends startNode
-                Node n = cameFrom.get(cameFromNode);
-                path.addFirst(n);
-                cameFromNode = n;
-            }
+      while (!cameFromNode.equals(startNode)) { // goes until it appends startNode
+        Node n = cameFrom.get(cameFromNode);
+        path.addFirst(n);
+        cameFromNode = n;
+      }
 
             return path;
 
