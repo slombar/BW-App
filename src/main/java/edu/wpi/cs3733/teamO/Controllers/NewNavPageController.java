@@ -332,7 +332,7 @@ public class NewNavPageController implements Initializable {
 
     draw();
     pathFloors = "";
-    for (Node n : graph.getPath()) {
+    for (Node n : GRAPH.getPath()) {
       if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
     }
   }
