@@ -164,7 +164,7 @@ public class EmailThreader extends Thread {
       }
 
       if (firstLast.contains("5")) {
-        DataSource source6 = new FileDataSource(filename5);
+        DataSource source6 = new FileDataSource(filename6);
         messageBodyPart6.setDataHandler(new DataHandler(source6));
         messageBodyPart6.setFileName("Floor5Route.png");
         multipart.addBodyPart(messageBodyPart6);

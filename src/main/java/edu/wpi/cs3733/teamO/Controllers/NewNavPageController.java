@@ -499,17 +499,11 @@ public class NewNavPageController implements Initializable {
     // "mapimg6.png");
 
     WritableImage map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
-    ;
-    WritableImage map2 = grabImage(campusMap, "1", createOutputFile("mapimg2.png"));
-    ;
-    WritableImage map3 = grabImage(campusMap, "2", createOutputFile("mapimg3.png"));
-    ;
-    WritableImage map4 = grabImage(campusMap, "3", createOutputFile("mapimg4.png"));
-    ;
-    WritableImage map5 = grabImage(campusMap, "4", createOutputFile("mapimg5.png"));
-    ;
-    WritableImage map6 = grabImage(campusMap, "5", createOutputFile("mapimg6.png"));
-    ;
+    WritableImage map2 = grabImage(floor1Map, "1", createOutputFile("mapimg2.png"));
+    WritableImage map3 = grabImage(floor2Map, "2", createOutputFile("mapimg3.png"));
+    WritableImage map4 = grabImage(floor3Map, "3", createOutputFile("mapimg4.png"));
+    WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
+    WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
     LinkedList<WritableImage> listOfImages = new LinkedList<>();
     if (pathFloors.contains("G")) {
       listOfImages.add(map1);
@@ -532,6 +526,7 @@ public class NewNavPageController implements Initializable {
     if (listOfImages.isEmpty()) {
       // TODO: Throw a error "you did not do pathfind"
     }
+    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
     // EmailPageController.setScreenShot(listOfImages);
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
