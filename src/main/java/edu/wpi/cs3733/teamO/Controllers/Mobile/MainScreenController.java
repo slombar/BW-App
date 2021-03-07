@@ -35,8 +35,8 @@ public class MainScreenController implements Initializable {
     buttonFunction();
   }
 
+  /** adding on action functionality to the buttons in the JFXNodeslist */
   private void buttonFunction() {
-
     navBtn.setOnAction(
         actionEvent -> {
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);

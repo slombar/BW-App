@@ -35,7 +35,7 @@ public class SwitchScene {
       Parent root = FXMLLoader.load(SwitchScene.class.getResource(path));
       Stage stage = new Stage();
       stage.setTitle("Mobile Application");
-      stage.setScene(new Scene(root, 355, 600));
+      stage.setScene(new Scene(root, 335, 600));
       stage.show();
 
     } catch (IOException e) {
