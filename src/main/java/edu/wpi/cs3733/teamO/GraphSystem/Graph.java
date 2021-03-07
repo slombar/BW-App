@@ -12,6 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 public class Graph {
@@ -275,14 +276,27 @@ public class Graph {
     stringNodeHashtable.put(n.getID(), n);
   }
 
-  /**
-   * adds the given Edge to the graph appropriately
-   *
-   * @param e Edge to be added
-   */
-  public void addEdge(Edge e) throws SQLException {
-    // add to DB
-    NodesAndEdges.addNewEdge(e.getStart(), e.getEnd());
+  /** adds the given Edge to the graph appropriately */
+  public void addEdge(String startID, String endID) throws SQLException {
+    String eID = "not set yet";
+    String eID1 = startID + "_" + endID;
+    String eID2 = endID + "_" + startID;
+    // if Edge with eID1 exists, have NodesAndEdges throw exception
+    if (stringEdgeHashtable.containsKey(eID1)) {
+      throw new SQLException();
+    }
+    // else, if Edge with eID2 exists, have NodesAndEdges throw exception
+    else if (stringEdgeHashtable.containsKey(eID2)) {
+      throw new SQLException();
+    }
+    // else, Edge doesn't exist already, so actually add it
+    else {
+      // add to DB
+      NodesAndEdges.addNewEdge(startID, endID);
+    }
+
+    // make new Edge
+    Edge e = new Edge(eID, startID, endID, 0.0);
 
     // add to graph
     Node node1 = stringNodeHashtable.get(e.getStart());
@@ -338,7 +352,7 @@ public class Graph {
     } else if (stringEdgeHashtable.containsKey(eID2)) {
       eID = eID2;
     } else {
-      return; // neither key/ID is in the hashtable -> just return
+      throw new SQLException();
     }
 
     Edge e = stringEdgeHashtable.get(eID);
@@ -389,6 +403,10 @@ public class Graph {
     }
     // otherwise, if two Nodes selected, draws both as blue
     else if (listOfNodes.contains(selectedNodeA) && listOfNodes.contains(selectedNodeB)) {
+      Paint paint = Color.BLUE;
+      if (selectedNodeA.getNeighbourList().contains(selectedNodeB)) {
+        paint = Color.RED;
+      }
 
       boolean isFloorA = selectedNodeA.getFloor().equals(floor);
       boolean isFloorB = selectedNodeB.getFloor().equals(floor);
@@ -401,7 +419,7 @@ public class Graph {
             gc,
             stringCircleHashtable.get(selectedNodeA.getID()),
             stringCircleHashtable.get(selectedNodeB.getID()),
-            Color.BLUE);
+            paint);
       }
 
       // currently has first selectedNode always GREEN
@@ -410,7 +428,7 @@ public class Graph {
             gc, stringCircleHashtable.get(selectedNodeA.getID()), Color.GREEN);
       }
       if (isFloorB) {
-        DrawHelper.drawSingleNode(gc, stringCircleHashtable.get(selectedNodeB.getID()), Color.BLUE);
+        DrawHelper.drawSingleNode(gc, stringCircleHashtable.get(selectedNodeB.getID()), paint);
       }
     }
   }
@@ -458,7 +476,7 @@ public class Graph {
    *
    * @param floor "G", "1", "2", "3", "4", or "5"
    */
-  public void drawAllEdges(String floor) {
+  public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) {
     gc.setStroke(Color.BLACK);
     for (Edge e : listOfEdges) {
       try {
@@ -469,7 +487,9 @@ public class Graph {
           Circle circleA = stringCircleHashtable.get(nodeA.getID());
           Circle circleB = stringCircleHashtable.get(nodeB.getID());
 
-          DrawHelper.drawEdge(gc, circleA, circleB, Color.BLACK);
+          if (nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB)) {
+            DrawHelper.drawEdge(gc, circleA, circleB, Color.RED);
+          } else DrawHelper.drawEdge(gc, circleA, circleB, Color.BLACK);
         }
       } catch (NullPointerException ignored) {
         // TODO: use this catch block to filter out bad/extraneous data?

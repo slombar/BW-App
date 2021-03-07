@@ -11,7 +11,6 @@ import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Model.Edge;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.File;
@@ -123,6 +122,7 @@ public class NewNavPageController implements Initializable {
     addNodeDBMode = false;
     addingEdgeBD = false;
     showingEdges = false;
+    showEdgesToggle.setSelected(false);
     selectedNode = null;
   }
 
@@ -671,9 +671,7 @@ public class NewNavPageController implements Initializable {
     // else, add appropriate edge
     else {
       try {
-        String eID = startNodeID.getText() + "_" + endNodeID.getText();
-        Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
-        GRAPH.addEdge(e);
+        GRAPH.addEdge(startNodeID.getText(), endNodeID.getText());
         clearEdgeInfo(); // when clear info, de-select Nodes
         selectedNode = null;
         selectedNodeB = null;
@@ -835,12 +833,12 @@ public class NewNavPageController implements Initializable {
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB);
       }
     }
   }
 
-  // ignore this -- BUT DON'T DELETE IT!!!!!!!!!!!!!!
+  // ignore this, BUT DON'T DELETE IT!!!!! ...i have my reasons
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
@@ -850,7 +848,7 @@ public class NewNavPageController implements Initializable {
     } else if (editing) {
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB);
       }
     }
   }
