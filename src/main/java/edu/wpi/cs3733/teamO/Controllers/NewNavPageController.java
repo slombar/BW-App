@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -34,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -74,6 +76,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXComboBox<String> floorSelectionBtn;
 
   private GraphicsContext gc;
+  private double percImageView = 1.0;
   private String selectedFloor = "Campus";
   private String sFloor = "G";
   private String sideMenuUrl;
@@ -142,6 +145,34 @@ public class NewNavPageController implements Initializable {
     gc = mapCanvas.getGraphicsContext2D();
 
     imageView.setImage(campusMap);
+    imageView.setViewport(new Rectangle2D(0, 0, campusMap.getWidth(), campusMap.getHeight()));
+    //    ObservableValue<Rectangle2D> viewportBind = new ObservableValue<Rectangle2D>() {
+    //      @Override
+    //      public void addListener(ChangeListener<? super Rectangle2D> listener) {
+    //
+    //      }
+    //
+    //      @Override
+    //      public void removeListener(ChangeListener<? super Rectangle2D> listener) {
+    //
+    //      }
+    //
+    //      @Override
+    //      public Rectangle2D getValue() {
+    //        return null;
+    //      }
+    //
+    //      @Override
+    //      public void addListener(InvalidationListener listener) {
+    //
+    //      }
+    //
+    //      @Override
+    //      public void removeListener(InvalidationListener listener) {
+    //
+    //      }
+    //    }
+    //    imageView.viewportProperty().bind();
     resizableWindow();
 
     GRAPH.setGraphicsContext(gc);
@@ -468,6 +499,42 @@ public class NewNavPageController implements Initializable {
     n.setXCoord((int) (nPercX * imgX));
     n.setYCoord((int) (nPercY * imgY));
     return n;
+  }
+
+  public void onCanvasScroll(ScrollEvent scrollEvent) {
+    double scrollDeltaY = scrollEvent.getDeltaY();
+    // if scroll is at least a certain amount, then zoom (idk, maybe change this??)
+    if (Math.abs(scrollDeltaY) > 10) {
+      // if positive, then scrolling up (zooming in)
+      if (scrollDeltaY > 0) {
+        if (percImageView <= 0.5) {
+          return;
+        } else {
+          percImageView -= 0.1;
+        }
+
+      }
+      // else, scrolling down (zooming out)
+      else {
+        if (percImageView >= 1.0) {
+          return;
+        } else {
+          percImageView += 0.1;
+        }
+      }
+    }
+
+    double a = scrollEvent.getX();
+    double b = scrollEvent.getY();
+    double vX = percImageView * imageView.getImage().getWidth();
+    double vY = percImageView * imageView.getImage().getHeight();
+    // TODO: fix this
+    Rectangle2D imgViewport = imageView.getViewport();
+    Rectangle2D newImgViewport =
+        new Rectangle2D(a - (0.5 * vX), b - (0.5 * vY), a + (0.5 * vX), b + (0.5 * vY));
+
+    imageView.setViewport(newImgViewport);
+    draw();
   }
 
   /**

@@ -76,7 +76,7 @@ public class DrawHelper {
       gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
     }
 
-    /*//////////////////// FOR TESTING: ////////////////////
+    //////////////////// FOR TESTING: ////////////////////
     gc.setStroke(Color.RED);
     gc.setLineWidth(3.0);
 
@@ -87,7 +87,7 @@ public class DrawHelper {
 
     gc.strokeRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
     gc.strokeLine(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);*/
+    gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);
   }
 
   /**
