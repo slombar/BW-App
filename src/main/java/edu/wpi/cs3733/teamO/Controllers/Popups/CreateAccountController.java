@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,15 +38,11 @@ public class CreateAccountController {
         try {
           UserHandling.createAccount(
               user.getText(), pass.getText(), email.getText(), fName.getText(), lName.getText());
+          SwitchScene.goToParent("/Views/Login.fxml");
+
         } catch (SQLException throwables) {
-          PopupMaker.incompletePopup(popupPane);
+          PopupMaker.usernameAlreadyInUse(popupPane);
           throwables.printStackTrace();
-        }
-        try {
-          Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
-          Opp.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-          ex.printStackTrace();
         }
       } else {
         PopupMaker.invalidEmail(popupPane);

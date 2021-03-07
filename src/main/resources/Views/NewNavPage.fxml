@@ -138,12 +138,20 @@
                         <Insets />
                      </VBox.margin>
                   </Line>
+                  <JFXButton fx:id="addNodeBtn" onAction="#addNode" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Click &amp; Create New Node">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
                   <Label text="Selected Node">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
@@ -317,45 +325,20 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="addNodeBtn" onAction="#addNode" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Click &amp; Create New Node">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="15.0" />
-                     </font>
+                  <JFXToggleButton fx:id="showEdgesToggle" alignment="CENTER_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" onAction="#showEdgesOnAction" prefHeight="30.0" text="Show all edges" toggleColor="#1747a6" toggleLineColor="#82baec" translateX="-25.0">
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets bottom="5.0" left="15.0" top="15.0" />
                      </VBox.margin>
-                  </JFXButton>
+                  </JFXToggleButton>
                   <Label text="Edge">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin>
                   </Label>
-                  <JFXToggleButton fx:id="showEdgesToggle" alignment="CENTER_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" onAction="#showEdgesOnAction" prefHeight="30.0" text="Show all edges" toggleColor="#1747a6" toggleLineColor="#82baec" translateX="-25.0">
-                     <VBox.margin>
-                        <Insets left="15.0" />
-                     </VBox.margin>
-                  </JFXToggleButton>
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
-                     <children>
-                        <Label onMouseReleased="#updateEdgeIDMouse" prefWidth="120.0" text="Edge ID:">
-                           <font>
-                              <Font name="Leelawadee UI" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="8.0" />
-                           </HBox.margin>
-                        </Label>
-                        <JFXTextField fx:id="edgeID" editable="false" onMouseReleased="#updateEdgeIDMouse" prefHeight="31.0" prefWidth="132.0">
-                           <font>
-                              <Font name="Leelawadee UI" size="15.0" />
-                           </font>
-                        </JFXTextField>
-                     </children>
-                  </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="218.0">
                      <children>
                         <Label prefWidth="120.0" text="Start Node:">
@@ -366,7 +349,7 @@
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField fx:id="startNodeID" onKeyReleased="#updateEdgeID" onMouseReleased="#updateEdgeIDMouse" prefHeight="31.0" prefWidth="132.0">
+                        <JFXTextField fx:id="startNodeID" editable="false" prefHeight="31.0" prefWidth="132.0">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
@@ -383,7 +366,7 @@
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField fx:id="endNodeID" onKeyReleased="#updateEdgeID" onMouseReleased="#updateEdgeIDMouse" prefHeight="31.0" prefWidth="132.0">
+                        <JFXTextField fx:id="endNodeID" editable="false" prefHeight="31.0" prefWidth="132.0">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
@@ -395,7 +378,7 @@
                         <Font name="Leelawadee UI Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </JFXButton>
                   <JFXButton fx:id="delEdgeBtn" onAction="#deleteEdge" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #c0c0c0;" text="Delete Edge">
@@ -461,7 +444,7 @@
                         <Insets top="10.0" />
                      </opaqueInsets>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                   </JFXComboBox>
                </children>

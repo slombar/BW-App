@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 
 public class StaffSignInPopupController {
+
   @FXML private StackPane popupPane;
   @FXML private JFXTextField user;
   @FXML private JFXPasswordField pass;

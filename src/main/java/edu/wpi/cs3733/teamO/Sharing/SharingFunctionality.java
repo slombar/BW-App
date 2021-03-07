@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.teamO.Sharing;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -8,6 +10,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,6 +19,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.LinkedList;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
@@ -31,6 +36,111 @@ public class SharingFunctionality {
    * @param linkToFile5
    * @param linkToFile6
    */
+  // TODO Hi Din, please run the text feature. I think my computer is being stupid again.
+  public static void sendSMSTwillio(
+      String sendingTo,
+      String linkToFile1,
+      String linkToFile2,
+      String linkToFile3,
+      String linkToFile4,
+      String linkToFile5,
+      String linkToFile6) {
+    String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
+    String AUTH_TOKEN = "98a818e03c58110dc0fbc752695d9e40";
+
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+    // did same thing as emails
+    Graph graph = GRAPH;
+    String pathFloors = "";
+    for (Node n : graph.getPath()) {
+      if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+    }
+
+    // check for campus, check for last thing
+    String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
+    String lastFloor = pathFloors.substring(pathFloors.length() - 1);
+    System.out.println(firstLast);
+
+    // this time, i made a list of the links we need since the constructor to make the text != allow
+    // for concat
+    LinkedList<String> toPrint = new LinkedList<String>();
+
+    if (firstLast.contains("G")) {
+      toPrint.add(linkToFile1);
+      if (!lastFloor.contains("1")) toPrint.add(linkToFile2);
+    }
+
+    if (firstLast.contains("1")) toPrint.add(linkToFile2);
+    if (firstLast.contains("2")) toPrint.add(linkToFile3);
+    if (firstLast.contains("3")) toPrint.add(linkToFile4);
+    if (firstLast.contains("4")) toPrint.add(linkToFile5);
+    if (firstLast.contains("5")) toPrint.add(linkToFile6);
+    System.out.println(toPrint.get(0));
+
+    // check how many links we need to send, calls message constructor with that amount of URLs
+    if (toPrint.size() == 1) {
+      Message message =
+          Message.creator(
+                  new com.twilio.type.PhoneNumber(
+                      sendingTo), // if testing, please use verified number. will not work otherwise
+                  new com.twilio.type.PhoneNumber("+16173560972"),
+                  "Hello! Here are your map images!")
+              .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0))))
+              .create();
+
+      System.out.println(message.getSid());
+
+    } else if (toPrint.size() == 2) {
+      Message message =
+          Message.creator(
+                  new com.twilio.type.PhoneNumber(
+                      sendingTo), // if testing, please use verified number. will not work otherwise
+                  new com.twilio.type.PhoneNumber("+16173560972"),
+                  "Hello! Here are your map images!")
+              .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0)), URI.create(toPrint.get(1))))
+              .create();
+
+      System.out.println(message.getSid());
+
+    } else if (toPrint.size() == 3) {
+      Message message =
+          Message.creator(
+                  new com.twilio.type.PhoneNumber(
+                      sendingTo), // if testing, please use verified number. will not work otherwise
+                  new com.twilio.type.PhoneNumber("+16173560972"),
+                  "Hello! Here are your map images!")
+              .setMediaUrl(
+                  Arrays.asList(
+                      URI.create(toPrint.get(0)),
+                      URI.create(toPrint.get(1)),
+                      URI.create(toPrint.get(2))))
+              .create();
+      // if not 1,2,3, then just send all 6 maps for now
+      // TODO: prob want to throw error if no pathfind
+    } else {
+      Message message =
+          Message.creator(
+                  new com.twilio.type.PhoneNumber(
+                      sendingTo), // if testing, please use verified number. will not work otherwise
+                  new com.twilio.type.PhoneNumber("+16173560972"),
+                  "Hello! Here are your map images!")
+              .setMediaUrl(
+                  Arrays.asList(
+                      URI.create(linkToFile1),
+                      URI.create(linkToFile2),
+                      URI.create(linkToFile3),
+                      URI.create(linkToFile4),
+                      URI.create(linkToFile5),
+                      URI.create(linkToFile6)))
+              .create();
+
+      System.out.println(message.getSid());
+    }
+  }
+
+  // working code between trying to only send necessary maps
+  /*
   public static void sendSMSTwillio(
       String sendingTo,
       String linkToFile1,
@@ -61,6 +171,7 @@ public class SharingFunctionality {
 
     System.out.println(message.getSid());
   }
+   */
 
   // check email threader for previous code
   public static void sendEmailAttachment(
@@ -165,7 +276,7 @@ public class SharingFunctionality {
       ImageIO.write(QRImage, QRFileType, QRFile);
 
       System.out.println(
-          "\nCongratulation.. You have successfully created QR Code.. \n"
+          "\nCongratulations.. You have successfully created QR Code.. \n"
               + "Check your code here: "
               + filePath);
     } catch (WriterException e) {
@@ -224,7 +335,7 @@ public class SharingFunctionality {
       // x and x + width - 1.
       crunchifyGraphics.fillRect(0, 0, CrunchifyWidth, CrunchifyWidth);
 
-      // TODO: Please change this color as per your need
+      // CHANGE COLOR OF QR HERE
       crunchifyGraphics.setColor(new Color(58, 83, 105));
 
       for (int i = 0; i < CrunchifyWidth; i++) {
@@ -240,7 +351,7 @@ public class SharingFunctionality {
       ImageIO.write(crunchifyImage, crunchifyFileType, crunchifyFile);
 
       System.out.println(
-          "\nCongratulation.. You have successfully created QR Code.. \n"
+          "\nCongratulations... You have successfully created QR Code.. \n"
               + "Check your code here: "
               + filePath);
     } catch (WriterException e) {

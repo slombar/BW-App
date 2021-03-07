@@ -6,10 +6,8 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
-import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -20,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +33,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -55,7 +54,6 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXTextField shortName;
   @FXML private JFXCheckBox setVisibility;
   @FXML private JFXToggleButton showEdgesToggle;
-  @FXML private JFXTextField edgeID;
   @FXML private JFXTextField startNodeID;
   @FXML private JFXTextField endNodeID;
   @FXML private JFXComboBox algoStratCBox;
@@ -80,11 +78,12 @@ public class NewNavPageController implements Initializable {
   private String selectedFloor = "Campus";
   private String sFloor = "G";
   private String sideMenuUrl;
+  private String pathFloors = "";
 
-  Graph graph = Graph.getInstance();
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
+  Node selectedNodeB = null;
 
   String strategy = "A*";
   ObservableList<String> listOfStrats = FXCollections.observableArrayList("A*", "DFS", "BFS");
@@ -145,7 +144,7 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(campusMap);
     resizableWindow();
 
-    graph.setGraphicsContext(gc);
+    GRAPH.setGraphicsContext(gc);
 
     editToggle.setVisible(false);
 
@@ -194,8 +193,8 @@ public class NewNavPageController implements Initializable {
     editVBox.setVisible(editToggle.isSelected());
 
     // autocompletes the node Id for start and end
-    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
-    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
+    // Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
+    // Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
   }
 
   /**
@@ -321,8 +320,8 @@ public class NewNavPageController implements Initializable {
    */
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
-      graph.resetPath();
-      graph.findPath(strategy, startNode, endNode);
+      GRAPH.resetPath();
+      GRAPH.findPath(strategy, startNode, endNode);
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
@@ -331,6 +330,10 @@ public class NewNavPageController implements Initializable {
     }
 
     draw();
+    pathFloors = "";
+    for (Node n : GRAPH.getPath()) {
+      if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+    }
   }
 
   /**
@@ -340,41 +343,83 @@ public class NewNavPageController implements Initializable {
    */
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
-    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
-    Circle c = null;
+    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing);
 
-    // if navigating
-    if (!editing) {
-      if (selectingStart) {
-        startNode = clickedNode;
-      } else if (selectingEnd) {
-        endNode = clickedNode;
+    // ----------------------
+    // block for LEFT CLICK
+    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      if (!addNodeMode) {
+        selectingEditNode = true;
+      }
+
+      selectedNodeB = null;
+      Circle c = null;
+
+      // if navigating
+      if (!editing) {
+        if (selectingStart) {
+          startNode = clickedNode;
+        } else if (selectingEnd) {
+          endNode = clickedNode;
+        }
+      }
+      // if editing
+      else {
+        if (selectingEditNode) {
+          autocompleteEditMap(clickedNode);
+          selectedNode = clickedNode;
+        } else if (addNodeMode) {
+          Node n = getRealXY(sFloor, mouseEvent);
+          n.setFloor(sFloor);
+
+          c = new Circle();
+          c.setCenterX(mouseEvent.getX());
+          c.setCenterY(mouseEvent.getY());
+          c.setRadius(mapCanvas.getWidth() * 0.00625);
+
+          autocompleteEditMap(n);
+        }
+      }
+
+      if (addNodeMode) {
+        selectedNode = null;
+        draw();
+        DrawHelper.drawSingleNode(gc, c, Color.BLUE);
+        addNodeMode = false;
+        selectingEditNode = true;
+      } else {
+        draw();
       }
     }
-    // if editing
-    else {
-      if (selectingEditNode) {
-        autocompleteEditMap(clickedNode);
-        selectedNode = clickedNode;
-      } else if (addNodeMode) {
-        Node n = getRealXY(sFloor, mouseEvent);
-        n.setFloor(sFloor);
+    // ----------------------
+    // block for RIGHT CLICK
+    else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
 
-        c = new Circle();
-        c.setCenterX(mouseEvent.getX());
-        c.setCenterY(mouseEvent.getY());
-        c.setRadius(mapCanvas.getWidth() * 0.00625);
-
-        autocompleteEditMap(n);
+      // if navigating
+      if (!editing) {
+        draw();
       }
-    }
+      // if editing
+      else {
+        if (selectingEditNode && selectedNode == null) {
+          autocompleteEditMap(clickedNode);
+          selectedNode = clickedNode;
+          selectingEditNode = false;
+        } else {
+          autocompleteEditMap(clickedNode);
+          selectedNodeB = clickedNode;
+        }
+      }
 
-    draw();
+      // if selectedNode != null or selectedNodeB != null, set those Edge text fields
+      if (selectedNode != null) {
+        startNodeID.setText(selectedNode.getID());
+      }
+      if (selectedNodeB != null) {
+        endNodeID.setText(selectedNodeB.getID());
+      }
 
-    if (addNodeMode) {
-      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
-      addNodeMode = false;
-      selectingEditNode = true;
+      draw();
     }
 
     System.out.println("mapCanvas click");
@@ -487,24 +532,48 @@ public class NewNavPageController implements Initializable {
 
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
     mapCanvas.getGraphicsContext2D();
+    // TODO: Insert method call that write qr.png to download folder
+    //    SharingFunctionality.createQRCode(
+    //        "mapimg1.png", "mapimg2.png", "mapimg3.png", "mapimg4.png", "mapimg5.png",
+    // "mapimg6.png");
+
     WritableImage map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
     WritableImage map2 = grabImage(floor1Map, "1", createOutputFile("mapimg2.png"));
     WritableImage map3 = grabImage(floor2Map, "2", createOutputFile("mapimg3.png"));
     WritableImage map4 = grabImage(floor3Map, "3", createOutputFile("mapimg4.png"));
     WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
     WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
+    LinkedList<WritableImage> listOfImages = new LinkedList<>();
+    if (pathFloors.contains("G")) {
+      listOfImages.add(map1);
+    }
+    if (pathFloors.contains("1")) {
+      listOfImages.add(map2);
+    }
+    if (pathFloors.contains("2")) {
+      listOfImages.add(map3);
+    }
+    if (pathFloors.contains("3")) {
+      listOfImages.add(map4);
+    }
+    if (pathFloors.contains("4")) {
+      listOfImages.add(map5);
+    }
+    if (pathFloors.contains("5")) {
+      listOfImages.add(map6);
+    }
+    if (listOfImages.isEmpty()) {
+      // TODO: Throw a error "you did not do pathfind"
+    }
     EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
-    // TODO: Insert method call that write qr.png to download folder
-    //    SharingFunctionality.createQRCode(
-    //        "mapimg1.png", "mapimg2.png", "mapimg3.png", "mapimg4.png", "mapimg5.png",
-    // "mapimg6.png");
+    // EmailPageController.setScreenShot(listOfImages);
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
   public void clearSelection(ActionEvent actionEvent) {
     setNavFalse();
 
-    graph.resetPath();
+    GRAPH.resetPath();
 
     resizeCanvas();
     draw();
@@ -530,60 +599,13 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void editNode(ActionEvent actionEvent) {
-    // TODO: i think this is where we would need to parse the text fields to validate them
-    if (addNodeDBMode) {
-      if (isNodeInfoNull()) {
-        PopupMaker.incompletePopup(nodeWarningPane);
-      } else {
-        try {
-          NodesAndEdges.addNode(
-              nodeID.getText(),
-              xCoord.getText(),
-              yCoord.getText(),
-              floor.getText(),
-              building.getText(),
-              nodeType.getText(),
-              longName.getText(),
-              shortName.getText(),
-              "O",
-              setVisibility.isSelected());
-          Node n =
-              new Node(
-                  nodeID.getText(),
-                  Integer.parseInt(xCoord.getText()),
-                  Integer.parseInt(yCoord.getText()),
-                  floor.getText(),
-                  building.getText(),
-                  nodeType.getText(),
-                  longName.getText(),
-                  shortName.getText(),
-                  "O",
-                  setVisibility.isSelected());
-
-          graph.addNode(n);
-        } catch (SQLException throwables) {
-          PopupMaker.nodeAlreadyExists(nodeWarningPane);
-        }
-
-        addNodeDBMode = false;
-      }
-      // editing node part
-    } else {
-      if (isNodeInfoEmpty()) {
-        PopupMaker.incompletePopup(nodeWarningPane);
-      }
+    // if any fields are empty, show appropriate warning
+    if (isNodeInfoEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    }
+    // else, add/edit Node (depending on addNodeDBMode = t/f)
+    else {
       try {
-        NodesAndEdges.editNode(
-            nodeID.getText(),
-            Integer.parseInt(xCoord.getText()),
-            Integer.parseInt(yCoord.getText()),
-            floor.getText(),
-            building.getText(),
-            nodeType.getText(),
-            longName.getText(),
-            shortName.getText(),
-            "O",
-            setVisibility.isSelected());
         Node n =
             new Node(
                 nodeID.getText(),
@@ -597,12 +619,17 @@ public class NewNavPageController implements Initializable {
                 "O",
                 setVisibility.isSelected());
 
-        graph.addNode(n);
+        GRAPH.addNode(n, addNodeDBMode);
+        clearNodeInfo();
+        selectedNode = null; // when clear Node info, also de-select Node
+
       } catch (SQLException throwables) {
-        PopupMaker.nodeDoesntExist(nodeWarningPane);
+        PopupMaker.nodeAlreadyExists(nodeWarningPane);
       }
     }
-    clearNodeInfo();
+
+    addNodeDBMode = false;
+
     selectingEditNode = true;
     draw();
   }
@@ -613,18 +640,21 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void deleteNode(ActionEvent actionEvent) {
-
+    // if any fields are empty, show appropriate warning
     if (nodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
+    }
+    // else, delete selected Node
+    else {
       try {
-        NodesAndEdges.deleteNode(nodeID.getText());
+        GRAPH.deleteNode(nodeID.getText());
+        clearNodeInfo();
+        selectedNode = null;
       } catch (SQLException throwables) {
         PopupMaker.nodeDoesntExist(nodeWarningPane);
       }
-      graph.deleteNode(nodeID.getText());
-      clearNodeInfo();
     }
+
     draw();
   }
 
@@ -634,19 +664,25 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void addEdge(ActionEvent actionEvent) {
+    // if any fields are empty, show appropriate warning
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
+    }
+    // else, add appropriate edge
+    else {
       try {
-        NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
         String eID = startNodeID.getText() + "_" + endNodeID.getText();
         Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
-        graph.addEdge(e);
+        GRAPH.addEdge(e);
+        clearEdgeInfo(); // when clear info, de-select Nodes
+        selectedNode = null;
+        selectedNodeB = null;
+
       } catch (SQLException throwables) {
         PopupMaker.edgeAlreadyExists(nodeWarningPane);
       }
-      clearEdgeInfo();
     }
+
     draw();
   }
 
@@ -657,18 +693,21 @@ public class NewNavPageController implements Initializable {
    * @throws SQLException
    */
   public void deleteEdge(ActionEvent actionEvent) throws SQLException {
-
+    // if any fields are empty, show appropriate warning
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
       try {
-        // NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
-        graph.deleteEdge(startNodeID.getText(), endNodeID.getText());
+        GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
+        clearEdgeInfo(); // when clear info, de-select Nodes
+        selectedNode = null;
+        selectedNodeB = null;
+
       } catch (SQLException throwables) {
         PopupMaker.edgeDoesntExists(nodeWarningPane);
       }
-      clearEdgeInfo();
     }
+
     draw();
   }
 
@@ -725,7 +764,6 @@ public class NewNavPageController implements Initializable {
 
   /** clears all info in edge textfields */
   private void clearEdgeInfo() {
-    edgeID.clear();
     startNodeID.clear();
     endNodeID.clear();
   }
@@ -788,16 +826,16 @@ public class NewNavPageController implements Initializable {
 
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      graph.drawVisibleNodes(sFloor, startNode, endNode);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      graph.drawCurrentPath(sFloor, startNode, endNode);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      graph.drawAllNodes(sFloor, selectedNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
-        graph.drawAllEdges(sFloor);
+        GRAPH.drawAllEdges(sFloor);
       }
     }
   }
@@ -806,35 +844,36 @@ public class NewNavPageController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      graph.drawVisibleNodes(sFloor, startNode, endNode);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode);
     } else if (!editing && displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
-      graph.drawAllNodes(sFloor, selectedNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
       if (showingEdges) {
-        graph.drawAllEdges(sFloor);
+        GRAPH.drawAllEdges(sFloor);
       }
     }
   }
 
-  /**
-   * automatically generates the edgeID from the start and end node IDs once starting to type in the
-   * start and end node ID textfields
-   *
-   * @param actionEvent
-   */
-  public void updateEdgeID(KeyEvent actionEvent) {
-    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
-  }
+  //  /**
+  //   * automatically generates the edgeID from the start and end node IDs once starting to type in
+  // the
+  //   * start and end node ID textfields
+  //   *
+  //   * @param actionEvent
+  //   */
+  //  public void updateEdgeID(KeyEvent actionEvent) {
+  //    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
+  //  }
 
-  /**
-   * will update the edge ID once clicking on the edge ID textfield
-   *
-   * @param mouseEvent
-   */
-  public void updateEdgeIDMouse(MouseEvent mouseEvent) {
-    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
-  }
+  //  /**
+  //   * will update the edge ID once clicking on the edge ID textfield
+  //   *
+  //   * @param mouseEvent
+  //   */
+  //  public void updateEdgeIDMouse(MouseEvent mouseEvent) {
+  //    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
+  //  }
 
   /**
    * chooses the pathfinding algorithm used

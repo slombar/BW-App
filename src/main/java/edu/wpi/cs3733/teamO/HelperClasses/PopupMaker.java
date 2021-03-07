@@ -90,6 +90,32 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  public static void usernameAlreadyInUse(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Account Creation Failed"));
+    warning.setBody(
+        new Text(
+            "Username is already in use. \n"
+                + "Try another username or go to sign in page to change password if the account belongs to you."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
   /**
    * Creates a popup to notify the user of invalid username and why this may be
    *

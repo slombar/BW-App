@@ -21,7 +21,7 @@ public class DrawHelper {
    */
   public static void drawNodeCircles(
       GraphicsContext gc,
-      Hashtable<Node, Circle> ncTable,
+      Hashtable<String, Circle> ncTable,
       ArrayList<Node> nodeList,
       Node startNode,
       Node endNode) {
@@ -38,7 +38,7 @@ public class DrawHelper {
       gc.setStroke(Color.BLACK);
       gc.setLineWidth(2.0);
 
-      tempCir = ncTable.get(n);
+      tempCir = ncTable.get(n.getID());
       double tempCirX = tempCir.getCenterX() - tempCir.getRadius();
       double tempCirY = tempCir.getCenterY() - tempCir.getRadius();
       double diameter = 2 * tempCir.getRadius();
@@ -164,8 +164,9 @@ public class DrawHelper {
     gc.strokeLine(ax, ay, bx, by);
   }
 
-  public static void drawEdge(GraphicsContext gc, Circle circleA, Circle circleB) {
+  public static void drawEdge(GraphicsContext gc, Circle circleA, Circle circleB, Paint color) {
     gc.setLineWidth(3.0);
+    gc.setStroke(color);
     gc.strokeLine(
         circleA.getCenterX(), circleA.getCenterY(), circleB.getCenterX(), circleB.getCenterY());
   }
