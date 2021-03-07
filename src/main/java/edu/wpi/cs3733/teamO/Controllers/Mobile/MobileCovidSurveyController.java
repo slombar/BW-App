@@ -26,10 +26,18 @@ public class MobileCovidSurveyController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {}
 
+  /**
+   * go to the google nav page that directs to and from hospital
+   * @param actionEvent
+   */
   public void goToGoogleNav(ActionEvent actionEvent) {
     SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);
   }
 
+  /**
+   * go to the hospital nav page that directs within hospital campus
+   * @param actionEvent
+   */
   public void goToHospitalNav(ActionEvent actionEvent) {
     if (no1.isSelected()
         || yes1.isSelected() && no2.isSelected()
