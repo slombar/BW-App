@@ -40,7 +40,6 @@ public class QRCodeThreader extends Thread {
     String albumID = albumInfo.get(0);
     String albumDeleteHash = albumInfo.get(1);
 
-    // TODO: Add method to get rid off unused floors in pathfinding
     ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
     ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
     ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
