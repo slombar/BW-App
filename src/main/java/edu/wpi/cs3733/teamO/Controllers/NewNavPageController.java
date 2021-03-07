@@ -498,17 +498,17 @@ public class NewNavPageController implements Initializable {
     //        "mapimg1.png", "mapimg2.png", "mapimg3.png", "mapimg4.png", "mapimg5.png",
     // "mapimg6.png");
 
-    WritableImage map1 = map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
+    WritableImage map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
     ;
-    WritableImage map2 = map2 = grabImage(campusMap, "1", createOutputFile("mapimg2.png"));
+    WritableImage map2 = grabImage(campusMap, "1", createOutputFile("mapimg2.png"));
     ;
-    WritableImage map3 = map3 = grabImage(campusMap, "2", createOutputFile("mapimg3.png"));
+    WritableImage map3 = grabImage(campusMap, "2", createOutputFile("mapimg3.png"));
     ;
-    WritableImage map4 = map4 = grabImage(campusMap, "3", createOutputFile("mapimg4.png"));
+    WritableImage map4 = grabImage(campusMap, "3", createOutputFile("mapimg4.png"));
     ;
-    WritableImage map5 = map5 = grabImage(campusMap, "4", createOutputFile("mapimg5.png"));
+    WritableImage map5 = grabImage(campusMap, "4", createOutputFile("mapimg5.png"));
     ;
-    WritableImage map6 = map6 = grabImage(campusMap, "5", createOutputFile("mapimg6.png"));
+    WritableImage map6 = grabImage(campusMap, "5", createOutputFile("mapimg6.png"));
     ;
     LinkedList<WritableImage> listOfImages = new LinkedList<>();
     if (pathFloors.contains("G")) {
