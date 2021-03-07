@@ -6,7 +6,6 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
-import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -374,8 +373,7 @@ public class NewNavPageController implements Initializable {
       DrawHelper.drawSingleNode(gc, c, Color.BLUE);
       addNodeMode = false;
       selectingEditNode = true;
-    }
-    else {
+    } else {
       draw();
     }
 
@@ -539,25 +537,24 @@ public class NewNavPageController implements Initializable {
     // else, add/edit Node (depending on addNodeDBMode = t/f)
     else {
       try {
-          Node n =
-              new Node(
-                  nodeID.getText(),
-                  Integer.parseInt(xCoord.getText()),
-                  Integer.parseInt(yCoord.getText()),
-                  floor.getText(),
-                  building.getText(),
-                  nodeType.getText(),
-                  longName.getText(),
-                  shortName.getText(),
-                  "O",
-                  setVisibility.isSelected());
+        Node n =
+            new Node(
+                nodeID.getText(),
+                Integer.parseInt(xCoord.getText()),
+                Integer.parseInt(yCoord.getText()),
+                floor.getText(),
+                building.getText(),
+                nodeType.getText(),
+                longName.getText(),
+                shortName.getText(),
+                "O",
+                setVisibility.isSelected());
 
-          GRAPH.addNode(n, addNodeDBMode);
-          clearNodeInfo();
-        }
-        catch (SQLException throwables) {
-          PopupMaker.nodeAlreadyExists(nodeWarningPane);
-        }
+        GRAPH.addNode(n, addNodeDBMode);
+        clearNodeInfo();
+      } catch (SQLException throwables) {
+        PopupMaker.nodeAlreadyExists(nodeWarningPane);
+      }
     }
 
     addNodeDBMode = false;
@@ -581,11 +578,11 @@ public class NewNavPageController implements Initializable {
       try {
         GRAPH.deleteNode(nodeID.getText());
         clearNodeInfo();
-      }
-      catch (SQLException throwables) {
+      } catch (SQLException throwables) {
         PopupMaker.nodeDoesntExist(nodeWarningPane);
       }
     }
+
     draw();
   }
 
@@ -595,19 +592,22 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void addEdge(ActionEvent actionEvent) {
+    // if any fields are empty, show appropriate warning
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
+    }
+    // else, add appropriate edge
+    else {
       try {
-        NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
         String eID = startNodeID.getText() + "_" + endNodeID.getText();
         Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
         GRAPH.addEdge(e);
+        clearEdgeInfo();
       } catch (SQLException throwables) {
         PopupMaker.edgeAlreadyExists(nodeWarningPane);
       }
-      clearEdgeInfo();
     }
+
     draw();
   }
 
@@ -618,18 +618,18 @@ public class NewNavPageController implements Initializable {
    * @throws SQLException
    */
   public void deleteEdge(ActionEvent actionEvent) throws SQLException {
-
+    // if any fields are empty, show appropriate warning
     if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
     } else {
       try {
-        // NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
         GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
+        clearEdgeInfo();
       } catch (SQLException throwables) {
         PopupMaker.edgeDoesntExists(nodeWarningPane);
       }
-      clearEdgeInfo();
     }
+
     draw();
   }
 

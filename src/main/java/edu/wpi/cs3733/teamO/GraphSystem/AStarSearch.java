@@ -16,27 +16,10 @@ class AStarSearch implements AlgorithmStrategy {
 
   // private LinkedList<Node> foundRoute; // most recent found root for this A* object
 
-  /*AStarSearch(boolean test) {
-    graph = new Graph(test); // may not want/need to initialize graph here
-    graphSize = -1;
-    startID = "-1";
-    targetID = "-1";
-    frontier = new PriorityQueue<Node>();
-  }*/
-
-  /**
-   * creates a new AStarSearch object that will search on the given Graph
-   *
-   * @param g Graph to be searched on
-   */
+  /** creates a new AStarSearch object that will search on the singleton Graph */
   AStarSearch() {
     graph = GRAPH;
     // graphSize = graph.getSize();
-
-    //    frontier = new PriorityQueue<>();
-    //    cameFrom = new Hashtable<>();
-    //    costSoFar = new Hashtable<>();
-    //    foundRoute = new LinkedList<>();
   }
 
   /**

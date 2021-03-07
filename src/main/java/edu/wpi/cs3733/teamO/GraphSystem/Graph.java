@@ -100,7 +100,7 @@ public class Graph {
 
   public void setGraphicsContext(GraphicsContext gc) {
     this.gc = gc;
-    for(Node n : listOfNodes) {
+    for (Node n : listOfNodes) {
       createCircle(n);
     }
   }
@@ -152,8 +152,8 @@ public class Graph {
   }
 
   /**
-   * Creates a properly-scaled Circle the given Node and adds it to
-   * stringCircleHashtable with it's corresponding Node's ID as the key
+   * Creates a properly-scaled Circle the given Node and adds it to stringCircleHashtable with it's
+   * corresponding Node's ID as the key
    */
   public void createCircle(Node n) {
 
@@ -213,18 +213,26 @@ public class Graph {
    */
   public void addNode(Node n, boolean addNodeDBMode) throws SQLException {
     // if not adding (editing), do edit stuff, otherwise just add
-    if(!addNodeDBMode) {
+    if (!addNodeDBMode) {
 
-      // try adding to DB (throws SQLException)
-      NodesAndEdges.addNode(n.getID(), Integer.toString(n.getXCoord()), Integer.toString(n.getYCoord()),
-        n.getFloor(), n.getBuilding(), n.getNodeType(), n.getLongName(), n.getShortName(), "O", n.isVisible());
+      // try editing in DB (throws SQLException)
+      NodesAndEdges.editNode(
+          n.getID(),
+          n.getXCoord(),
+          n.getYCoord(),
+          n.getFloor(),
+          n.getBuilding(),
+          n.getNodeType(),
+          n.getLongName(),
+          n.getShortName(),
+          "O",
+          n.isVisible());
 
       // if NodesAndEdges.addNode() doesn't throw exception, add to graph itself:
       // get old version of Node and it's related things
       Node prev = stringNodeHashtable.get(n.getID());
       HashSet<Node> prevNList = prev.getNeighbourList();
       Hashtable<Node, Edge> prevNEList = prev.getNodeEdgeHashtable();
-      Circle prevC = stringCircleHashtable.get(prev.getID());
 
       // remove old version from Node list
       listOfNodes.remove(prev);
@@ -233,15 +241,28 @@ public class Graph {
       n.setNeighbourList(prevNList);
       n.setNodeEdgeHashtable(prevNEList);
 
-      prevC.setCenterX(n.getXCoord());
-      prevC.setCenterY(n.getYCoord());
+      // n needs new Circle (in case x,y changed)
+      stringCircleHashtable.remove(n.getID());
+      createCircle(n);
 
       // add new node and corresponding
       listOfNodes.add(n);
       stringNodeHashtable.put(n.getID(), n);
-      stringCircleHashtable.put(n.getID(), prevC);
       return;
     }
+
+    // try adding to DB (throws SQLException)
+    NodesAndEdges.addNode(
+        n.getID(),
+        Integer.toString(n.getXCoord()),
+        Integer.toString(n.getYCoord()),
+        n.getFloor(),
+        n.getBuilding(),
+        n.getNodeType(),
+        n.getLongName(),
+        n.getShortName(),
+        "O",
+        n.isVisible());
 
     // adding new Node and Circle:
 
@@ -253,13 +274,16 @@ public class Graph {
     stringNodeHashtable.put(n.getID(), n);
   }
 
- /**
+  /**
    * adds the given Edge to the graph appropriately
    *
    * @param e Edge to be added
    */
-  public void addEdge(Edge e) {
-    // TODO: add Edge to DB
+  public void addEdge(Edge e) throws SQLException {
+    // add to DB
+    NodesAndEdges.addNewEdge(e.getStart(), e.getEnd());
+
+    // add to graph
     Node node1 = stringNodeHashtable.get(e.getStart());
     Node node2 = stringNodeHashtable.get(e.getEnd());
     // add edge to graph
@@ -305,7 +329,6 @@ public class Graph {
    * @throws SQLException thrown by NodesAndEdges.deleteEdge(edgeID)
    */
   public void deleteEdge(String startNodeID, String endNodeID) throws SQLException {
-    // TODO: delete Edge from DB
     String eID = "not set yet";
     String eID1 = startNodeID + "_" + endNodeID;
     String eID2 = endNodeID + "_" + startNodeID;
