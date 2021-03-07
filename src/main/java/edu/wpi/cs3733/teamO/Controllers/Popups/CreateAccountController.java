@@ -41,8 +41,7 @@ public class CreateAccountController {
           SwitchScene.goToParent("/Views/Login.fxml");
 
         } catch (SQLException throwables) {
-          PopupMaker.invalidLogin(
-              popupPane); // Todo this should be a new popup for possibly having the same username
+          PopupMaker.usernameAlreadyInUse(popupPane);
           throwables.printStackTrace();
         }
       } else {

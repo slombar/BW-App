@@ -41,11 +41,11 @@ public class CreateEmployeeAccountController {
               fName.getText(),
               lName.getText(),
               adminCheck.isSelected());
+          SwitchScene.goToParent("/Views/ManageEmployees.fxml");
         } catch (SQLException throwables) {
-          PopupMaker.incompletePopup(popupPane);
+          PopupMaker.usernameAlreadyInUse(popupPane);
           throwables.printStackTrace();
         }
-        SwitchScene.goToParent("/Views/ManageEmployees.fxml");
       } else {
         PopupMaker.invalidEmail(popupPane);
       }
