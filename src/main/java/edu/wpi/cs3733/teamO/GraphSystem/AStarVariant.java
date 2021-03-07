@@ -3,6 +3,8 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.*;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 public abstract class AStarVariant {
   PriorityQueue<Node> frontier;
   Hashtable<Node, Node> cameFrom;
@@ -14,7 +16,7 @@ public abstract class AStarVariant {
    * @param startNode starting node
    */
   protected final void init(Node startNode) {
-    for (Node n : Graph.getInstance().getListOfNodes()) {
+    for (Node n : GRAPH.getListOfNodes()) {
       n.setPriority(0.0);
       n.setVisited(false);
     }
