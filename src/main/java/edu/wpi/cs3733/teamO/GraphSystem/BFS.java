@@ -5,7 +5,6 @@ import java.util.*;
 
 public class BFS implements AlgorithmStrategy {
 
-
   @Override
   public List<Node> findRoute(Node startNode, Node targetNode) {
 

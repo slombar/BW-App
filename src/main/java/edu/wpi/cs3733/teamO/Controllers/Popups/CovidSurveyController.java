@@ -45,7 +45,6 @@ public class CovidSurveyController {
    */
   public void submitCovidForm(ActionEvent actionEvent) {
     // TODO we should do something with this data, also i think this should use the toggle group
-    // simpler
     if (No1.isSelected()
         || yes1.isSelected() && No2.isSelected()
         || yes2.isSelected() && No3.isSelected()

@@ -101,6 +101,10 @@ public class UserHandling {
       String username, String password, String email, String fName, String lName)
       throws SQLException {
 
+    // Added by sam to make username and email case insensitive:
+    username = username.toLowerCase();
+    email = email.toLowerCase();
+
     String encodedPass = null;
     encodedPass = Encrypter.encryptPassword(password);
 
@@ -149,6 +153,10 @@ public class UserHandling {
       String username, String password, String email, String fName, String lName, boolean admin)
       throws SQLException {
 
+    // Added by sam to make username and email case insensitive:
+    username = username.toLowerCase();
+    email = email.toLowerCase();
+
     String encodedPass = null;
     encodedPass = Encrypter.encryptPassword(password);
 
@@ -190,6 +198,10 @@ public class UserHandling {
    * @return null if login is bad, User with all info from DB if good
    */
   public static void login(String u, String p) throws SQLException {
+
+    // Added by sam to make username and email case insensitive:
+    u = u.toLowerCase();
+
     setLoginStatus(true);
     setUsername(u);
 
@@ -229,6 +241,9 @@ public class UserHandling {
    * @throws SQLException
    */
   public static void loginEmployee(String u, String p) throws SQLException {
+    // Added by sam to make username and email case insensitive:
+    u = u.toLowerCase();
+
     // setFirstName(fName);
     setLoginStatus(true);
     setUsername(u);
