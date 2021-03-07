@@ -17,12 +17,18 @@ repositories {
     maven {
         url 'https://apisite.crmyers.dev/maven'
     }
+
 //    maven {
 //        url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
 //    }
 }
 
 dependencies {
+
+    //google maps integration
+    implementation 'com.google.maps:google-maps-services:0.17.0'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+
     implementation 'junit:junit:4.12'
     implementation 'junit:junit:4.12'
     compile 'com.google.api-client:google-api-client:1.23.0'
