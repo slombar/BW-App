@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -62,8 +63,8 @@ public class MobileHospitalNavController implements Initializable {
     buttonFunction();
   }
 
+  /** adding on action functionality to the buttons in the JFXNodeslist */
   private void buttonFunction() {
-
     parkingBtn.setOnAction(
         actionEvent -> {
           // TODO: save parking spot
@@ -72,6 +73,11 @@ public class MobileHospitalNavController implements Initializable {
     hospitalBtn.setOnAction(
         actionEvent -> {
           // TODO: navigate hospital campus, maybe another nodes list with drop downs?
+        });
+
+    exitBtn.setOnAction(
+        actionEvent -> {
+          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
         });
   }
 }
