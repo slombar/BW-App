@@ -131,12 +131,13 @@ public class Graph {
    * @return Node closest to the ClickEvent
    * @throws NullPointerException will return null if it doesn't find a closest node
    */
-  public static Node closestNode(String floor, double x, double y) throws NullPointerException {
+  public static Node closestNode(String floor, double x, double y, boolean editing)
+      throws NullPointerException {
     double currentDist = 1000000000;
     Node node = null;
 
     for (Node n : listOfNodes) {
-      if (n.getFloor().equals(floor) && n.isVisible()) {
+      if (n.getFloor().equals(floor) && (n.isVisible() || editing)) {
         Circle c = stringCircleHashtable.get(n.getID());
         double dist =
             Math.pow(Math.abs(x - c.getCenterX()), 2.0)

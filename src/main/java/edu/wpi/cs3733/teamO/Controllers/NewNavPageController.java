@@ -344,7 +344,7 @@ public class NewNavPageController implements Initializable {
    */
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
-    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY());
+    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing);
     Circle c = null;
 
     // if navigating
