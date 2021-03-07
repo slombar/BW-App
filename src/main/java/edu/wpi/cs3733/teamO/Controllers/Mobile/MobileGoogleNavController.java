@@ -44,9 +44,9 @@ public class MobileGoogleNavController implements Initializable {
     // style the buttons
     addBtn.getStyleClass().addAll("nav-menu-button");
     addBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    parkingBtn.getStyleClass().addAll("nav-menu-button");
+    parkingBtn.getStyleClass().addAll("nav-buttons");
     parkingBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    hospitalBtn.getStyleClass().addAll("nav-menu-button");
+    hospitalBtn.getStyleClass().addAll("nav-buttons");
     hospitalBtn.setButtonType(JFXButton.ButtonType.RAISED);
 
     // add them to be in an animated node list

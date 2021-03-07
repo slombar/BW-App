@@ -14,5 +14,16 @@
 -fx-border-color: white;
 -fx-border-width: 2px;
 -fx-border-radius: 40px;
+}
 
+.nav-buttons {
+-fx-pref-width: 190px;
+-fx-pref-height: 40px;
+-fx-background-radius: 40px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
+-text-align: left
 }
