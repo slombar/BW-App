@@ -28,6 +28,7 @@ public class MobileCovidSurveyController implements Initializable {
 
   /**
    * go to the google nav page that directs to and from hospital
+   *
    * @param actionEvent
    */
   public void goToGoogleNav(ActionEvent actionEvent) {
@@ -36,6 +37,7 @@ public class MobileCovidSurveyController implements Initializable {
 
   /**
    * go to the hospital nav page that directs within hospital campus
+   *
    * @param actionEvent
    */
   public void goToHospitalNav(ActionEvent actionEvent) {
