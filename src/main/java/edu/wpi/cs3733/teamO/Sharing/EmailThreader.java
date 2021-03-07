@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.teamO.Sharing;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.Model.Node;
@@ -112,7 +114,7 @@ public class EmailThreader extends Thread {
       String filename6 = fileToBeSent6; // file to be sent, map image
 
       // TODO Determine where start and end nodes are for pathfind
-      Graph graph = Graph.getInstance();
+      Graph graph = GRAPH;
       String pathFloors = "";
       for (Node n : graph.getPath()) {
         if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();

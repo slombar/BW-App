@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.*;
 
@@ -77,7 +79,7 @@ public class DFS implements AlgorithmStrategy {
   @Override
   public List<Node> findRoute(Node startNode, Node targetNode) {
 
-    for (Node N : Graph.getInstance().getListOfNodes()) {
+    for (Node N : GRAPH.getListOfNodes()) {
       N.setVisited(false);
     }
 
