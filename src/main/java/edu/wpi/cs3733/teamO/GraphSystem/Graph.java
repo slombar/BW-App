@@ -292,6 +292,7 @@ public class Graph {
     // else, Edge doesn't exist already, so actually add it
     else {
       // add to DB
+      eID = eID1;
       NodesAndEdges.addNewEdge(startID, endID);
     }
 
@@ -375,6 +376,7 @@ public class Graph {
 
     // remove edge from list
     listOfEdges.remove(e);
+    stringEdgeHashtable.remove(eID);
   }
 
   /**
