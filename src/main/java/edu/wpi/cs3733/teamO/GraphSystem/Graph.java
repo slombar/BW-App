@@ -489,7 +489,8 @@ public class Graph {
           Circle circleA = stringCircleHashtable.get(nodeA.getID());
           Circle circleB = stringCircleHashtable.get(nodeB.getID());
 
-          if (nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB)) {
+          if ((nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB))
+              || (nodeB.equals(selectedNodeA) && nodeA.equals(selectedNodeB))) {
             DrawHelper.drawEdge(gc, circleA, circleB, Color.RED);
           } else DrawHelper.drawEdge(gc, circleA, circleB, Color.BLACK);
         }
