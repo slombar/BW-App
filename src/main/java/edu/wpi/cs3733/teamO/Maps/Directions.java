@@ -5,6 +5,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 // Reference
 // PlaceDetailsRequest query = PlacesApi.placeDetails(new
@@ -83,20 +84,21 @@ public class Directions {
 
         directionsSteps.add(dl.steps[j]);
       }
-    for (DirectionsRoute r : route) {
-      System.out.println(r.overviewPolyline.getEncodedPath());
-      System.out.println(decodePoly(r.overviewPolyline.getEncodedPath()));
+      for (DirectionsRoute r : route) {
+        System.out.println(r.overviewPolyline.getEncodedPath());
+        System.out.println(decodePoly(r.overviewPolyline.getEncodedPath()));
+      }
+
+      System.out.println("Steps: \n");
+      int stepcount = 0;
+
+      for (DirectionsStep s : directionsSteps) {
+        System.out.println("Step " + stepcount + ": " + html2text(s.htmlInstructions));
+        stepcount++;
+      }
+
+      System.out.println("Ended Steps");
     }
-
-    System.out.println("Steps: \n");
-    int stepcount = 0;
-
-    for (DirectionsStep s : directionsSteps) {
-      System.out.println("Step " + stepcount + ": " + html2text(s.htmlInstructions));
-      stepcount++;
-    }
-
-    System.out.println("Ended Steps");
   }
 
   public static String html2text(String html) {
