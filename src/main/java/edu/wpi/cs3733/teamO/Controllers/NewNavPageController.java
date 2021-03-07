@@ -85,7 +85,8 @@ public class NewNavPageController implements Initializable {
   Node selectedNodeB = null;
 
   String strategy = "A*";
-  ObservableList<String> listOfStrats = FXCollections.observableArrayList("A*", "DFS", "BFS");
+  ObservableList<String> listOfStrats =
+      FXCollections.observableArrayList("A*", "Djikstra", "DFS", "BFS");
 
   ObservableList<String> listOfFloors =
       FXCollections.observableArrayList(

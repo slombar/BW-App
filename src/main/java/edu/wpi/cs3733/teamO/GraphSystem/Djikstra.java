@@ -3,7 +3,9 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.*;
 
-public class Djikstra extends AStarVariant {
+public class Djikstra extends AStarVariant implements AlgorithmStrategy {
+
+  protected Djikstra() {}
 
   /**
    * determines the heuristic from Node next to the target Node (must be less than the actual

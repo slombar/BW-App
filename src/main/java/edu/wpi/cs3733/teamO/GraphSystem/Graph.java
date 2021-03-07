@@ -570,6 +570,9 @@ public class Graph {
       case "BFS":
         strategy = new BFS();
         break;
+      case "Djikstra":
+        strategy = new Djikstra();
+        break;
     }
 
     path = strategy.findRoute(startNode, targetNode);
