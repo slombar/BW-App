@@ -43,7 +43,6 @@ class AStarSearch implements AlgorithmStrategy {
    *
    * @param startNode start Node of the search
    * @param targetNode destination Node of the search
-   * @return LinkedList of Nodes from start to end in order
    */
   public List<Node> findRoute(Node startNode, Node targetNode) {
     for (Node n : graph.getListOfNodes()) {

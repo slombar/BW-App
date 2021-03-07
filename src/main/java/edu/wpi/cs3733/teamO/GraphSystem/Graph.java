@@ -503,9 +503,9 @@ public class Graph {
       case "A*":
         strategy = new AStarSearch(this);
         break;
-      case "DFS":
-        strategy = new DFS();
-        break;
+        //    case "DFS":
+        //      strategy = new DFS(this);
+        //     break;
       case "BFS":
         strategy = new BFS();
         break;
