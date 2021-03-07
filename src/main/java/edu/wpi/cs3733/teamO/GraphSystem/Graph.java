@@ -463,6 +463,7 @@ public class Graph {
 
   /**
    * Getter for path
+   *
    * @return path
    */
   public List<Node> getPath() {

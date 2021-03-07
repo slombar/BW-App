@@ -240,7 +240,7 @@ public class SharingFunctionality {
       ImageIO.write(crunchifyImage, crunchifyFileType, crunchifyFile);
 
       System.out.println(
-          "\nCongratulation.. You have successfully created QR Code.. \n"
+          "\nCongratulations... You have successfully created QR Code.. \n"
               + "Check your code here: "
               + filePath);
     } catch (WriterException e) {

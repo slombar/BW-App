@@ -334,8 +334,8 @@ public class NewNavPageController implements Initializable {
 
     draw();
     pathFloors = "";
-    for (Node n: graph.getPath()){
-      if(!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+    for (Node n : graph.getPath()) {
+      if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
     }
   }
 
@@ -491,7 +491,6 @@ public class NewNavPageController implements Initializable {
    */
   public void toSharePage(ActionEvent actionEvent) throws IOException, UnirestException {
 
-
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
     mapCanvas.getGraphicsContext2D();
     // TODO: Insert method call that write qr.png to download folder
@@ -499,35 +498,41 @@ public class NewNavPageController implements Initializable {
     //        "mapimg1.png", "mapimg2.png", "mapimg3.png", "mapimg4.png", "mapimg5.png",
     // "mapimg6.png");
 
-    WritableImage map1 = map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));;
-    WritableImage map2 = map2 = grabImage(campusMap, "1", createOutputFile("mapimg2.png"));;
-    WritableImage map3 = map3 = grabImage(campusMap, "2", createOutputFile("mapimg3.png"));;
-    WritableImage map4 = map4 = grabImage(campusMap, "3", createOutputFile("mapimg4.png"));;
-    WritableImage map5 = map5 = grabImage(campusMap, "4", createOutputFile("mapimg5.png"));;
-    WritableImage map6 = map6 = grabImage(campusMap, "5", createOutputFile("mapimg6.png"));;
+    WritableImage map1 = map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
+    ;
+    WritableImage map2 = map2 = grabImage(campusMap, "1", createOutputFile("mapimg2.png"));
+    ;
+    WritableImage map3 = map3 = grabImage(campusMap, "2", createOutputFile("mapimg3.png"));
+    ;
+    WritableImage map4 = map4 = grabImage(campusMap, "3", createOutputFile("mapimg4.png"));
+    ;
+    WritableImage map5 = map5 = grabImage(campusMap, "4", createOutputFile("mapimg5.png"));
+    ;
+    WritableImage map6 = map6 = grabImage(campusMap, "5", createOutputFile("mapimg6.png"));
+    ;
     LinkedList<WritableImage> listOfImages = new LinkedList<>();
-    if (pathFloors.contains("G")){
+    if (pathFloors.contains("G")) {
       listOfImages.add(map1);
     }
-    if (pathFloors.contains("1")){
+    if (pathFloors.contains("1")) {
       listOfImages.add(map2);
     }
-    if (pathFloors.contains("2")){
+    if (pathFloors.contains("2")) {
       listOfImages.add(map3);
     }
-    if (pathFloors.contains("3")){
+    if (pathFloors.contains("3")) {
       listOfImages.add(map4);
     }
-    if (pathFloors.contains("4")){
+    if (pathFloors.contains("4")) {
       listOfImages.add(map5);
     }
-    if (pathFloors.contains("5")){
+    if (pathFloors.contains("5")) {
       listOfImages.add(map6);
     }
     if (listOfImages.isEmpty()) {
       // TODO: Throw a error "you did not do pathfind"
     }
-    //EmailPageController.setScreenShot(listOfImages);
+    // EmailPageController.setScreenShot(listOfImages);
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
