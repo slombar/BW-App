@@ -35,6 +35,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -85,6 +86,7 @@ public class NewNavPageController implements Initializable {
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
+  Node selectedNodeB = null;
 
   String strategy = "A*";
   ObservableList<String> listOfStrats = FXCollections.observableArrayList("A*", "DFS", "BFS");
@@ -345,43 +347,77 @@ public class NewNavPageController implements Initializable {
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
     Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing);
-    Circle c = null;
 
-    // if navigating
-    if (!editing) {
-      if (selectingStart) {
-        startNode = clickedNode;
-      } else if (selectingEnd) {
-        endNode = clickedNode;
+    // ----------------------
+    // block for LEFT CLICK
+    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      if (!addNodeMode) {
+        selectingEditNode = true;
+      }
+
+      selectedNodeB = null;
+      Circle c = null;
+
+      // if navigating
+      if (!editing) {
+        if (selectingStart) {
+          startNode = clickedNode;
+        } else if (selectingEnd) {
+          endNode = clickedNode;
+        }
+      }
+      // if editing
+      else {
+        if (selectingEditNode) {
+          autocompleteEditMap(clickedNode);
+          selectedNode = clickedNode;
+        } else if (addNodeMode) {
+          Node n = getRealXY(sFloor, mouseEvent);
+          n.setFloor(sFloor);
+
+          c = new Circle();
+          c.setCenterX(mouseEvent.getX());
+          c.setCenterY(mouseEvent.getY());
+          c.setRadius(mapCanvas.getWidth() * 0.00625);
+
+          autocompleteEditMap(n);
+        }
+      }
+
+      if (addNodeMode) {
+        selectedNode = null;
+        draw();
+        DrawHelper.drawSingleNode(gc, c, Color.BLUE);
+        addNodeMode = false;
+        selectingEditNode = true;
+      } else {
+        draw();
       }
     }
-    // if editing
-    else {
-      if (selectingEditNode) {
-        autocompleteEditMap(clickedNode);
-        selectedNode = clickedNode;
-      } else if (addNodeMode) {
-        Node n = getRealXY(sFloor, mouseEvent);
-        n.setFloor(sFloor);
+    // ----------------------
+    // block for RIGHT CLICK
+    else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
 
-        c = new Circle();
-        c.setCenterX(mouseEvent.getX());
-        c.setCenterY(mouseEvent.getY());
-        c.setRadius(mapCanvas.getWidth() * 0.00625);
-
-        autocompleteEditMap(n);
+      // if navigating
+      if (!editing) {
+        draw();
       }
+      // if editing
+      else {
+        if (selectingEditNode && selectedNode == null) {
+          autocompleteEditMap(clickedNode);
+          selectedNode = clickedNode;
+          selectingEditNode = false;
+        } else {
+          autocompleteEditMap(clickedNode);
+          selectedNodeB = clickedNode;
+        }
+      }
+
+      draw();
     }
 
-    if (addNodeMode) {
-      selectedNode = null;
-      draw();
-      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
-      addNodeMode = false;
-      selectingEditNode = true;
-    } else {
-      draw();
-    }
+
 
     System.out.println("mapCanvas click");
   }
@@ -785,7 +821,7 @@ public class NewNavPageController implements Initializable {
       GRAPH.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      GRAPH.drawAllNodes(sFloor, selectedNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
         GRAPH.drawAllEdges(sFloor);
@@ -801,7 +837,7 @@ public class NewNavPageController implements Initializable {
     } else if (!editing && displayingRoute) {
       GRAPH.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
-      GRAPH.drawAllNodes(sFloor, selectedNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
       if (showingEdges) {
         GRAPH.drawAllEdges(sFloor);
       }

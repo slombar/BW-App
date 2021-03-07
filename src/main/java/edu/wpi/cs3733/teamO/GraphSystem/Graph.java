@@ -364,20 +364,54 @@ public class Graph {
   }
 
   /**
-   * Draws all nodes for the given floor
+   * Draws all nodes for the given floor + selected node as Color.GREEN, or draws both right-clicked
+   * nodes Color.BLUE + a blue edge (to be added/deleted)
    *
    * @param floor "G", "1", "2", "3", "4", or "5"
    */
-  public void drawAllNodes(String floor, Node selectedNode) {
+  public void drawAllNodes(
+      String floor, Node selectedNodeA, Node selectedNodeB, boolean selectingEditNode) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
     }
 
+    // draws all Nodes on floor
     DrawHelper.drawNodeCircles(gc, stringCircleHashtable, floorNodes, null, null);
-    if (listOfNodes.contains(selectedNode) && selectedNode.getFloor().equals(floor)) {
-      DrawHelper.drawSingleNode(gc, stringCircleHashtable.get(selectedNode.getID()), Color.BLUE);
+
+    // if one Node selected, draws it as green
+    if (selectedNodeB == null
+        && listOfNodes.contains(selectedNodeA)
+        && selectedNodeA.getFloor().equals(floor)) {
+
+      DrawHelper.drawSingleNode(gc, stringCircleHashtable.get(selectedNodeA.getID()), Color.GREEN);
+    }
+    // otherwise, if two Nodes selected, draws both as blue
+    else if (listOfNodes.contains(selectedNodeA) && listOfNodes.contains(selectedNodeB)) {
+
+      boolean isFloorA = selectedNodeA.getFloor().equals(floor);
+      boolean isFloorB = selectedNodeB.getFloor().equals(floor);
+
+      // TODO: not sure if should draw edge only if both Nodes on same floor,
+      //    or just if at least one is on current floor (since edges can go between floors)
+      //    -- currently drawing if just one of 2 Nodes is on current floor ( || )
+      if (isFloorA || isFloorB) {
+        DrawHelper.drawEdge(
+            gc,
+            stringCircleHashtable.get(selectedNodeA.getID()),
+            stringCircleHashtable.get(selectedNodeB.getID()),
+            Color.BLUE);
+      }
+
+      // currently has first selectedNode always GREEN
+      if (isFloorA) {
+        DrawHelper.drawSingleNode(
+            gc, stringCircleHashtable.get(selectedNodeA.getID()), Color.GREEN);
+      }
+      if (isFloorB) {
+        DrawHelper.drawSingleNode(gc, stringCircleHashtable.get(selectedNodeB.getID()), Color.BLUE);
+      }
     }
   }
 
@@ -435,7 +469,7 @@ public class Graph {
           Circle circleA = stringCircleHashtable.get(nodeA.getID());
           Circle circleB = stringCircleHashtable.get(nodeB.getID());
 
-          DrawHelper.drawEdge(gc, circleA, circleB);
+          DrawHelper.drawEdge(gc, circleA, circleB, Color.BLACK);
         }
       } catch (NullPointerException ignored) {
         // TODO: use this catch block to filter out bad/extraneous data?

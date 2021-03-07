@@ -164,8 +164,9 @@ public class DrawHelper {
     gc.strokeLine(ax, ay, bx, by);
   }
 
-  public static void drawEdge(GraphicsContext gc, Circle circleA, Circle circleB) {
+  public static void drawEdge(GraphicsContext gc, Circle circleA, Circle circleB, Paint color) {
     gc.setLineWidth(3.0);
+    gc.setStroke(color);
     gc.strokeLine(
         circleA.getCenterX(), circleA.getCenterY(), circleB.getCenterX(), circleB.getCenterY());
   }
