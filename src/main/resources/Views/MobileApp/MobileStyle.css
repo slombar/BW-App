@@ -6,8 +6,13 @@
 }
 
 .nav-menu-button {
-    -fx-pref-width: 50px;
-    -fx-background-radius: 50px;
-    -fx-text-fill: black;
-    -fx-background-color: #CFE2F3;
+-fx-pref-width: 40px;
+-fx-pref-height: 40px;
+-fx-background-radius: 40px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
+
 }

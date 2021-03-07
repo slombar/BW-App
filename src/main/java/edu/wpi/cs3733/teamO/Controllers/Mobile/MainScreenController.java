@@ -21,8 +21,11 @@ public class MainScreenController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // style the buttons
     welcomeBtn.getStyleClass().addAll("main-menu-button");
+    welcomeBtn.setButtonType(JFXButton.ButtonType.RAISED);
     navBtn.getStyleClass().addAll("main-menu-button");
+    navBtn.setButtonType(JFXButton.ButtonType.RAISED);
     covidBtn.getStyleClass().addAll("main-menu-button");
+    covidBtn.setButtonType(JFXButton.ButtonType.RAISED);
 
     // add them to be in an animated node list
     buttonsList.addAnimatedNode(welcomeBtn);
@@ -36,12 +39,12 @@ public class MainScreenController implements Initializable {
 
     navBtn.setOnAction(
         actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MobileApp/MobileNav.fxml", actionEvent);
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);
         });
 
     covidBtn.setOnAction(
         actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
+          SwitchScene.goToParentMobile("/Views/MainPage.fxml", actionEvent);
         });
   }
 }
