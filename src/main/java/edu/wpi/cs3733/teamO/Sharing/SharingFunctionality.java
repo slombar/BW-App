@@ -62,7 +62,8 @@ public class SharingFunctionality {
     String lastFloor = pathFloors.substring(pathFloors.length() - 1);
     System.out.println(firstLast);
 
-    // this time, i made a list of the links we need since the constructor to make the text != allow for concat
+    // this time, i made a list of the links we need since the constructor to make the text != allow
+    // for concat
     LinkedList<String> toPrint = new LinkedList<String>();
 
     if (firstLast.contains("G")) {

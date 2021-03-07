@@ -8,7 +8,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
-import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -34,7 +33,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -56,7 +54,6 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXTextField shortName;
   @FXML private JFXCheckBox setVisibility;
   @FXML private JFXToggleButton showEdgesToggle;
-  @FXML private JFXTextField edgeID;
   @FXML private JFXTextField startNodeID;
   @FXML private JFXTextField endNodeID;
   @FXML private JFXComboBox algoStratCBox;
@@ -196,8 +193,8 @@ public class NewNavPageController implements Initializable {
     editVBox.setVisible(editToggle.isSelected());
 
     // autocompletes the node Id for start and end
-    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
-    Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
+    // Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), startNodeID);
+    // Autocomplete.autoComplete(Autocomplete.autoNodeData("nodeID"), endNodeID);
   }
 
   /**
@@ -414,10 +411,16 @@ public class NewNavPageController implements Initializable {
         }
       }
 
+      // if selectedNode != null or selectedNodeB != null, set those Edge text fields
+      if (selectedNode != null) {
+        startNodeID.setText(selectedNode.getID());
+      }
+      if (selectedNodeB != null) {
+        endNodeID.setText(selectedNodeB.getID());
+      }
+
       draw();
     }
-
-
 
     System.out.println("mapCanvas click");
   }
@@ -618,6 +621,8 @@ public class NewNavPageController implements Initializable {
 
         GRAPH.addNode(n, addNodeDBMode);
         clearNodeInfo();
+        selectedNode = null; // when clear Node info, also de-select Node
+
       } catch (SQLException throwables) {
         PopupMaker.nodeAlreadyExists(nodeWarningPane);
       }
@@ -644,6 +649,7 @@ public class NewNavPageController implements Initializable {
       try {
         GRAPH.deleteNode(nodeID.getText());
         clearNodeInfo();
+        selectedNode = null;
       } catch (SQLException throwables) {
         PopupMaker.nodeDoesntExist(nodeWarningPane);
       }
@@ -668,7 +674,10 @@ public class NewNavPageController implements Initializable {
         String eID = startNodeID.getText() + "_" + endNodeID.getText();
         Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
         GRAPH.addEdge(e);
-        clearEdgeInfo();
+        clearEdgeInfo(); // when clear info, de-select Nodes
+        selectedNode = null;
+        selectedNodeB = null;
+
       } catch (SQLException throwables) {
         PopupMaker.edgeAlreadyExists(nodeWarningPane);
       }
@@ -690,7 +699,10 @@ public class NewNavPageController implements Initializable {
     } else {
       try {
         GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
-        clearEdgeInfo();
+        clearEdgeInfo(); // when clear info, de-select Nodes
+        selectedNode = null;
+        selectedNodeB = null;
+
       } catch (SQLException throwables) {
         PopupMaker.edgeDoesntExists(nodeWarningPane);
       }
@@ -752,7 +764,6 @@ public class NewNavPageController implements Initializable {
 
   /** clears all info in edge textfields */
   private void clearEdgeInfo() {
-    edgeID.clear();
     startNodeID.clear();
     endNodeID.clear();
   }
@@ -844,24 +855,25 @@ public class NewNavPageController implements Initializable {
     }
   }
 
-  /**
-   * automatically generates the edgeID from the start and end node IDs once starting to type in the
-   * start and end node ID textfields
-   *
-   * @param actionEvent
-   */
-  public void updateEdgeID(KeyEvent actionEvent) {
-    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
-  }
+  //  /**
+  //   * automatically generates the edgeID from the start and end node IDs once starting to type in
+  // the
+  //   * start and end node ID textfields
+  //   *
+  //   * @param actionEvent
+  //   */
+  //  public void updateEdgeID(KeyEvent actionEvent) {
+  //    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
+  //  }
 
-  /**
-   * will update the edge ID once clicking on the edge ID textfield
-   *
-   * @param mouseEvent
-   */
-  public void updateEdgeIDMouse(MouseEvent mouseEvent) {
-    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
-  }
+  //  /**
+  //   * will update the edge ID once clicking on the edge ID textfield
+  //   *
+  //   * @param mouseEvent
+  //   */
+  //  public void updateEdgeIDMouse(MouseEvent mouseEvent) {
+  //    edgeID.setText(startNodeID.getText() + "_" + endNodeID.getText());
+  //  }
 
   /**
    * chooses the pathfinding algorithm used
