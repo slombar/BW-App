@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="sideVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuController">
+<VBox fx:id="sideVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SideMenuController">
    <children>
       <HBox prefHeight="92.0" prefWidth="349.0" style="-fx-background-color: #f2f2f2;">
          <children>
@@ -107,7 +107,7 @@
          <graphic>
             <ImageView fitHeight="47.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
-                  <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
+                  <Image url="@../Icons/BWH_BW_Logo.png" />
                </image>
             </ImageView>
          </graphic>
