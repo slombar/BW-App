@@ -81,7 +81,6 @@ public class NewNavPageController implements Initializable {
   private String sFloor = "G";
   private String sideMenuUrl;
 
-  Graph graph = Graph.getInstance();
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
@@ -145,7 +144,7 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(campusMap);
     resizableWindow();
 
-    graph.setGraphicsContext(gc);
+    GRAPH.setGraphicsContext(gc);
 
     editToggle.setVisible(false);
 
@@ -321,8 +320,8 @@ public class NewNavPageController implements Initializable {
    */
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
-      graph.resetPath();
-      graph.findPath(strategy, startNode, endNode);
+      GRAPH.resetPath();
+      GRAPH.findPath(strategy, startNode, endNode);
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
@@ -369,12 +368,15 @@ public class NewNavPageController implements Initializable {
       }
     }
 
-    draw();
-
     if (addNodeMode) {
+      selectedNode = null;
+      draw();
       DrawHelper.drawSingleNode(gc, c, Color.BLUE);
       addNodeMode = false;
       selectingEditNode = true;
+    }
+    else {
+      draw();
     }
 
     System.out.println("mapCanvas click");
@@ -504,7 +506,7 @@ public class NewNavPageController implements Initializable {
   public void clearSelection(ActionEvent actionEvent) {
     setNavFalse();
 
-    graph.resetPath();
+    GRAPH.resetPath();
 
     resizeCanvas();
     draw();
@@ -530,23 +532,13 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void editNode(ActionEvent actionEvent) {
-    // TODO: i think this is where we would need to parse the text fields to validate them
-    if (addNodeDBMode) {
-      if (isNodeInfoNull()) {
-        PopupMaker.incompletePopup(nodeWarningPane);
-      } else {
-        try {
-          NodesAndEdges.addNode(
-              nodeID.getText(),
-              xCoord.getText(),
-              yCoord.getText(),
-              floor.getText(),
-              building.getText(),
-              nodeType.getText(),
-              longName.getText(),
-              shortName.getText(),
-              "O",
-              setVisibility.isSelected());
+    // if any fields are empty, show appropriate warning
+    if (isNodeInfoEmpty()) {
+      PopupMaker.incompletePopup(nodeWarningPane);
+    }
+    // else, add/edit Node (depending on addNodeDBMode = t/f)
+    else {
+      try {
           Node n =
               new Node(
                   nodeID.getText(),
@@ -560,49 +552,16 @@ public class NewNavPageController implements Initializable {
                   "O",
                   setVisibility.isSelected());
 
-          graph.addNode(n);
-        } catch (SQLException throwables) {
+          GRAPH.addNode(n, addNodeDBMode);
+          clearNodeInfo();
+        }
+        catch (SQLException throwables) {
           PopupMaker.nodeAlreadyExists(nodeWarningPane);
         }
-
-        addNodeDBMode = false;
-      }
-      // editing node part
-    } else {
-      if (isNodeInfoEmpty()) {
-        PopupMaker.incompletePopup(nodeWarningPane);
-      }
-      try {
-        NodesAndEdges.editNode(
-            nodeID.getText(),
-            Integer.parseInt(xCoord.getText()),
-            Integer.parseInt(yCoord.getText()),
-            floor.getText(),
-            building.getText(),
-            nodeType.getText(),
-            longName.getText(),
-            shortName.getText(),
-            "O",
-            setVisibility.isSelected());
-        Node n =
-            new Node(
-                nodeID.getText(),
-                Integer.parseInt(xCoord.getText()),
-                Integer.parseInt(yCoord.getText()),
-                floor.getText(),
-                building.getText(),
-                nodeType.getText(),
-                longName.getText(),
-                shortName.getText(),
-                "O",
-                setVisibility.isSelected());
-
-        graph.addNode(n);
-      } catch (SQLException throwables) {
-        PopupMaker.nodeDoesntExist(nodeWarningPane);
-      }
     }
-    clearNodeInfo();
+
+    addNodeDBMode = false;
+
     selectingEditNode = true;
     draw();
   }
@@ -613,17 +572,19 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void deleteNode(ActionEvent actionEvent) {
-
+    // if any fields are empty, show appropriate warning
     if (nodeID.getText().isEmpty()) {
       PopupMaker.incompletePopup(nodeWarningPane);
-    } else {
+    }
+    // else, delete selected Node
+    else {
       try {
-        NodesAndEdges.deleteNode(nodeID.getText());
-      } catch (SQLException throwables) {
+        GRAPH.deleteNode(nodeID.getText());
+        clearNodeInfo();
+      }
+      catch (SQLException throwables) {
         PopupMaker.nodeDoesntExist(nodeWarningPane);
       }
-      graph.deleteNode(nodeID.getText());
-      clearNodeInfo();
     }
     draw();
   }
@@ -641,7 +602,7 @@ public class NewNavPageController implements Initializable {
         NodesAndEdges.addNewEdge(startNodeID.getText(), endNodeID.getText());
         String eID = startNodeID.getText() + "_" + endNodeID.getText();
         Edge e = new Edge(eID, startNodeID.getText(), endNodeID.getText(), 0.0);
-        graph.addEdge(e);
+        GRAPH.addEdge(e);
       } catch (SQLException throwables) {
         PopupMaker.edgeAlreadyExists(nodeWarningPane);
       }
@@ -663,7 +624,7 @@ public class NewNavPageController implements Initializable {
     } else {
       try {
         // NodesAndEdges.deleteEdge(startNodeID.getText() + "_" + endNodeID.getText());
-        graph.deleteEdge(startNodeID.getText(), endNodeID.getText());
+        GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
       } catch (SQLException throwables) {
         PopupMaker.edgeDoesntExists(nodeWarningPane);
       }
@@ -788,16 +749,16 @@ public class NewNavPageController implements Initializable {
 
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      graph.drawVisibleNodes(sFloor, startNode, endNode);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      graph.drawCurrentPath(sFloor, startNode, endNode);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      graph.drawAllNodes(sFloor, selectedNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
-        graph.drawAllEdges(sFloor);
+        GRAPH.drawAllEdges(sFloor);
       }
     }
   }
@@ -806,13 +767,13 @@ public class NewNavPageController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      graph.drawVisibleNodes(sFloor, startNode, endNode);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode);
     } else if (!editing && displayingRoute) {
-      graph.drawCurrentPath(sFloor, startNode, endNode);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode);
     } else if (editing) {
-      graph.drawAllNodes(sFloor, selectedNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode);
       if (showingEdges) {
-        graph.drawAllEdges(sFloor);
+        GRAPH.drawAllEdges(sFloor);
       }
     }
   }

@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.*;
 
 class AStarSearch implements AlgorithmStrategy {
 
   private Graph graph;
-  private int graphSize;
+  // private int graphSize;
 
   private static PriorityQueue<Node> frontier; // expanding frontier of search
   private static Hashtable<Node, Node> cameFrom; // NodeID and the NodeID of the node to get to it
@@ -27,9 +29,9 @@ class AStarSearch implements AlgorithmStrategy {
    *
    * @param g Graph to be searched on
    */
-  AStarSearch(Graph g) {
-    graph = g;
-    graphSize = graph.getSize();
+  AStarSearch() {
+    graph = GRAPH;
+    // graphSize = graph.getSize();
 
     //    frontier = new PriorityQueue<>();
     //    cameFrom = new Hashtable<>();
@@ -136,7 +138,7 @@ class AStarSearch implements AlgorithmStrategy {
     // TODO: have this return an actual heuristic
   }
 
-  // TODO: needs to take floors into account
+  // TODO: needs to take floors into account somehow
   // finds distance between two nodes (length/weight of edge)
   /**
    * calculates distance from Node a to Node b
