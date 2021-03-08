@@ -45,7 +45,7 @@
 }
 
 .nav-text {
--fx-pref-width: 280px;
+-fx-pref-width: 300px;
 -fx-pref-height: 60px;
 -fx-background-radius: 20px;
 -fx-text-fill: black;
@@ -57,7 +57,7 @@
 }
 
 .back-buttons {
--fx-pref-width: 56px;
+-fx-pref-width: 62px;
 -fx-pref-height: 40px;
 -fx-background-radius: 40px;
 -fx-text-fill: black;
