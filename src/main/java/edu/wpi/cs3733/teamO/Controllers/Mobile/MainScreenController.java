@@ -7,44 +7,45 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.stage.Stage;
 
 public class MainScreenController implements Initializable {
 
   @FXML private JFXNodesList buttonsList;
-  private final JFXButton welcomeBtn = new JFXButton("Welcome to the B&W Faulkner Hospital");
-  private final JFXButton navBtn = new JFXButton("Navigating to the hospital");
-  private final JFXButton covidBtn = new JFXButton("Get the latest COVID-19 information");
-  private Stage currentStage;
+  private final JFXButton welcomeBtn = new JFXButton("I would like to navigate...");
+  private final JFXButton googleNavBtn = new JFXButton("To the hospital");
+  private final JFXButton hospitalNavBtn = new JFXButton("Within the hospital");
+  public static boolean isBackHome = false;
+  public static boolean isBackGoogle = false;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // style the buttons
     welcomeBtn.getStyleClass().addAll("main-menu-button");
     welcomeBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    navBtn.getStyleClass().addAll("main-menu-button");
-    navBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    covidBtn.getStyleClass().addAll("main-menu-button");
-    covidBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    googleNavBtn.getStyleClass().addAll("main-button");
+    googleNavBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    hospitalNavBtn.getStyleClass().addAll("main-button");
+    hospitalNavBtn.setButtonType(JFXButton.ButtonType.RAISED);
 
     // add them to be in an animated node list
     buttonsList.addAnimatedNode(welcomeBtn);
-    buttonsList.addAnimatedNode(navBtn);
-    buttonsList.addAnimatedNode(covidBtn);
+    buttonsList.addAnimatedNode(googleNavBtn);
+    buttonsList.addAnimatedNode(hospitalNavBtn);
     buttonsList.setSpacing(20);
     buttonFunction();
   }
 
   /** adding on action functionality to the buttons in the JFXNodeslist */
   private void buttonFunction() {
-    navBtn.setOnAction(
+    googleNavBtn.setOnAction(
         actionEvent -> {
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);
         });
 
-    covidBtn.setOnAction(
+    hospitalNavBtn.setOnAction(
         actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MainPage.fxml", actionEvent);
+          isBackHome = true;
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
         });
   }
 }
