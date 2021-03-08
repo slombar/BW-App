@@ -27,3 +27,15 @@
 -fx-border-radius: 40px;
 -text-align: left
 }
+
+.nav-text {
+-fx-pref-width: 280px;
+-fx-pref-height: 60px;
+-fx-background-radius: 20px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 20px;
+-text-align: left
+}
