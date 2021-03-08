@@ -22,8 +22,6 @@ public class MobileHospitalNavController implements Initializable {
   // creating icons for buttons
   Image addIcon = new Image(getClass().getResourceAsStream("/Icons/addBlack.png"));
   ImageView addIconView = new ImageView(addIcon);
-  Image hospitalIcon = new Image(getClass().getResourceAsStream("/Icons/hospitalBlack.png"));
-  ImageView hospitalIconView = new ImageView(hospitalIcon);
   Image parkingIcon = new Image(getClass().getResourceAsStream("/Icons/parkingBlack.png"));
   ImageView parkingIconView = new ImageView(parkingIcon);
   Image exitIcon = new Image(getClass().getResourceAsStream("/Icons/exitBlack.png"));
@@ -38,7 +36,6 @@ public class MobileHospitalNavController implements Initializable {
   // adding icons to buttons
   private final JFXButton addBtn = new JFXButton(null, addIconView);
   private final JFXButton parkingBtn = new JFXButton("Save Parking Spot", parkingIconView);
-  private final JFXButton hospitalBtn = new JFXButton("Hospital Navigation", hospitalIconView);
   private final JFXButton exitBtn = new JFXButton("Exit Navigation", exitIconView);
   private final JFXButton directionsBtn = new JFXButton(null, navIconView);
   private final JFXButton startBtn = new JFXButton("Start Navigation", startIconView);
@@ -55,8 +52,6 @@ public class MobileHospitalNavController implements Initializable {
     // set the icons sizes
     addIconView.setFitWidth(15);
     addIconView.setFitHeight(15);
-    hospitalIconView.setFitWidth(25);
-    hospitalIconView.setFitHeight(25);
     parkingIconView.setFitWidth(25);
     parkingIconView.setFitHeight(25);
     exitIconView.setFitWidth(20);
@@ -79,8 +74,6 @@ public class MobileHospitalNavController implements Initializable {
     addBtn.setButtonType(JFXButton.ButtonType.RAISED);
     parkingBtn.getStyleClass().addAll("nav-buttons");
     parkingBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    hospitalBtn.getStyleClass().addAll("nav-buttons");
-    hospitalBtn.setButtonType(JFXButton.ButtonType.RAISED);
     exitBtn.getStyleClass().addAll("nav-buttons");
     exitBtn.setButtonType(JFXButton.ButtonType.RAISED);
     directionsBtn.getStyleClass().addAll("nav-menu-button");
@@ -94,7 +87,6 @@ public class MobileHospitalNavController implements Initializable {
     buttonsList.addAnimatedNode(addBtn);
     buttonsList.addAnimatedNode(textBtn);
     buttonsList.addAnimatedNode(parkingBtn);
-    buttonsList.addAnimatedNode(hospitalBtn);
     buttonsList.addAnimatedNode(exitBtn);
     buttonsList.setSpacing(20);
     buttonsList.setRotate(180);
@@ -121,11 +113,6 @@ public class MobileHospitalNavController implements Initializable {
           // page of just text directions
           MainScreenController.isBackGoogle = false;
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
-        });
-
-    hospitalBtn.setOnAction(
-        actionEvent -> {
-          // TODO: navigate hospital campus, maybe another nodes list with drop downs?
         });
 
     exitBtn.setOnAction(
