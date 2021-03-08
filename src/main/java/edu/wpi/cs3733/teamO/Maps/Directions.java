@@ -30,10 +30,8 @@ public class Directions {
    */
   public static ArrayList<DirectionsStep> getDirections(String fromLocation, String toLocation)
       throws ApiException, InterruptedException, IOException {
-
-    DirectionsApiRequest dirReq =
-        DirectionsApi.getDirections(
-            new GeoApiContext.Builder().apiKey(API_KEY).build(), fromLocation, toLocation);
+    GeoApiContext geo = new GeoApiContext.Builder().apiKey(API_KEY).build();
+    DirectionsApiRequest dirReq = DirectionsApi.getDirections(geo, fromLocation, toLocation);
 
     dirReq.departureTimeNow();
     dirReq.units(Unit.IMPERIAL);
@@ -86,12 +84,13 @@ public class Directions {
 
     directionsSteps.addAll(Arrays.asList(legs.get(0).steps)); // only takes one leg for now
 
-    for (DirectionsRoute r : route) {
-      System.out.println(r.overviewPolyline.getEncodedPath());
-      System.out.println(decodePoly(r.overviewPolyline.getEncodedPath()));
-    } // TODO should be moved maybe
+    //    polyline shit that we dont use
+    //    for (DirectionsRoute r : route) {
+    //      System.out.println(r.overviewPolyline.getEncodedPath());
+    //      System.out.println(decodePoly(r.overviewPolyline.getEncodedPath()));
+    //    }
 
-    // TODO close the fucking socket!!!!!!!!!!!!!!!!!!!
+    geo.shutdown();
     return directionsSteps;
   }
 
@@ -176,5 +175,13 @@ public class Directions {
     }
 
     return poly;
+  }
+
+  public static String getApiKey() {
+    return API_KEY;
+  }
+
+  public static String urlForm(String words) {
+    return words.replace(' ', '+');
   }
 }

@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -23,30 +24,30 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 
 public class GoogleMapPageController implements Initializable {
+
+  public ScrollPane scrollPane;
+  public WebView mapView;
 
   @FXML private JFXTextField toBox;
   @FXML private StackPane popupPane;
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
-  @FXML private JFXScrollPane scrollPane;
   @FXML private JFXTextField fromBox;
-
-  VBox dirVbox = new VBox();
+  @FXML private VBox dirVbox;
 
   ArrayList<DirectionsStep> directions;
+  Text title;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    scrollPane.autosize();
-    Text title = new Text("Directions");
+    title = new Text("Directions\n");
     title.setFont(Font.font("leelawadee ui", 24.0));
-    scrollPane.getTopBar().getChildren().add(title);
-    Color darkBlue = new Color(13, 51, 166);
-    scrollPane
-        .getTopBar()
-        .setStyle("-fx-background-color:" + darkBlue + "; -fx-fill:" + darkBlue + ";"); //TODO dont know how this works
+    dirVbox.getChildren().add(title);
+    JFXScrollPane.smoothScrolling(scrollPane);
+    mapView.getEngine().load("https://www.google.com/maps/@?api=1&map_action=map");
   }
 
   public void goToMainMenu(MouseEvent mouseEvent) {
@@ -55,14 +56,16 @@ public class GoogleMapPageController implements Initializable {
 
   public void checkEnter(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
-      displayTextRoute(
-          fromBox.getText(), toBox.getText()); // TODO maybe disable text boxes for a second??
+      toBox.setDisable(true);
+      fromBox.setDisable(true);
+      displayTextRoute(fromBox.getText(), toBox.getText());
     }
   }
 
   public void shareGoogleRoute(ActionEvent actionEvent) {} // TODO this too!!
 
   private void displayTextRoute(String fromLocation, String toLocation) {
+    dirVbox.maxWidth(45);
     try {
       directions = Directions.getDirections(fromLocation, toLocation);
     } catch (ApiException ignored) {
@@ -71,15 +74,21 @@ public class GoogleMapPageController implements Initializable {
     }
 
     dirVbox.getChildren().clear();
+    dirVbox.getChildren().add(title);
 
-    scrollPane.setContent(dirVbox);
+    toBox.setDisable(false);
+    fromBox.setDisable(false);
 
-    for (int i = 0; i < directions.size(); i++) {
-      // System.out.println("Step " + i + ": " +
-      // Directions.html2text(directions.get(i).htmlInstructions));
-      addTextToDirectionBox(directions.get(i).htmlInstructions);
+    for (DirectionsStep direction : directions) {
+      addTextToDirectionBox(direction.htmlInstructions);
     }
-    scrollPane.setContent(dirVbox);
+    mapView
+        .getEngine()
+        .load(
+            "https://www.google.com/maps/dir/?api=1&origin="
+                + Directions.urlForm(fromLocation)
+                + "&destination="
+                + Directions.urlForm(toLocation));
   }
 
   private void addTextToDirectionBox(String text) {
