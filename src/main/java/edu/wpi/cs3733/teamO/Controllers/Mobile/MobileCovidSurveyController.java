@@ -85,4 +85,13 @@ public class MobileCovidSurveyController implements Initializable {
       PopupMaker.incompletePopup(popupPane);
     }
   }
+
+  public void surveyApproved(){
+    // what to do once covid survey request is marked as completed
+    // when marked as complete, can change the location to entrance???
+    // getStatus
+
+    // pop-up
+
+  }
 }
