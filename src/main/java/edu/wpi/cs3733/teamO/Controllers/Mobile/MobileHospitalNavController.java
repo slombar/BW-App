@@ -263,7 +263,8 @@ public class MobileHospitalNavController implements Initializable {
             selectingStart = false;
             selectingEnd = false;
           } else if (!startLoc.getText().isEmpty() && !endLoc.getText().isEmpty()) {
-            // TODO: find the node associated to the strings in the textfield
+            startNode = GRAPH.getNodeByLongName(startLoc.getText());
+            endNode = GRAPH.getNodeByLongName(endLoc.getText());
             GRAPH.resetPath();
             GRAPH.findPath("A*", startNode, endNode);
             displayingRoute = true;
@@ -301,8 +302,10 @@ public class MobileHospitalNavController implements Initializable {
 
       if (selectingStart) {
         startNode = clickedNode;
+        startLoc.setText(startNode.getLongName());
       } else if (selectingEnd) {
         endNode = clickedNode;
+        endLoc.setText(endNode.getLongName());
       }
       draw();
     }
