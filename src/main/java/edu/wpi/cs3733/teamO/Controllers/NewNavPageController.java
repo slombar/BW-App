@@ -421,6 +421,19 @@ public class NewNavPageController implements Initializable {
       }
 
       draw();
+      /**
+       * If the middle mouse is pressed, we want the node to be dragged with the user's cursor.
+       * Once it is pressed up, we will drop the node in that location
+       */
+    } else if (mouseEvent.getButton().equals(MouseButton.MIDDLE)) {
+
+      Node draggedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false);
+
+      Circle draggedCircle ;
+
+
+
+
     }
 
     System.out.println("mapCanvas click");
