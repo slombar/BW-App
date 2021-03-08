@@ -49,20 +49,6 @@ public class SharingFunctionality {
     String AUTH_TOKEN = "29c1347315b388cb034d93e5aff4685f";
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-    Message.creator(
-            new com.twilio.type.PhoneNumber(
-                sendingTo), // if testing, please use verified number. will not work otherwise
-            new com.twilio.type.PhoneNumber("+16173560972"),
-            "Hello! Here are your map images!")
-        .setMediaUrl(
-            Arrays.asList(
-                URI.create(linkToFile1),
-                URI.create(linkToFile2),
-                URI.create(linkToFile3),
-                URI.create(linkToFile4),
-                URI.create(linkToFile5),
-                URI.create(linkToFile6)))
-        .create();
 
     // did same thing as emails
     if (GRAPH.equals(null)) {
