@@ -121,7 +121,7 @@
             </VBox>
             <HBox prefHeight="122.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <JFXButton onAction="#goToGoogleNav" text="Back" textFill="WHITE">
+                  <JFXButton onAction="#goBack" text="Back" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="15.0" />
                      </font>
