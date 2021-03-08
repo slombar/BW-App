@@ -496,27 +496,12 @@ public class NodesAndEdges {
 
     PreparedStatement pstmt = null;
     pstmt =
-        DatabaseConnection.getConnection()
-            .prepareStatement("SELECT * FROM Nodes WHERE nodeID = '" + id + "'");
+        DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes WHERE nodeID = ?");
+    pstmt.setString(1, id);
     ResultSet rset = pstmt.executeQuery();
 
     // add properties to the node
-    String lName = rset.getString("LONGNAME");
-
-    rset.close();
-    pstmt.close();
-
-    return lName;
-  }
-
-  public static String getNodeLongName(int x, int y) throws SQLException {
-
-    String query = "SELECT * FROM Nodes WHERE xCoord = '" + x + "' AND yCoord ='" + y + "'";
-    PreparedStatement pstmt = null;
-    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-    ResultSet rset = pstmt.executeQuery();
-
-    // add properties to the node
+    rset.next();
     String lName = rset.getString("LONGNAME");
 
     rset.close();
