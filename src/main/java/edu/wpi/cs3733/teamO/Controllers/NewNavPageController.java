@@ -6,6 +6,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
@@ -29,6 +30,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -56,7 +58,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXTextField endNodeID;
   @FXML private JFXComboBox algoStratCBox;
   @FXML private StackPane nodeWarningPane;
-
+  @FXML private Label displayLongName;
   // side menu
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -280,6 +282,11 @@ public class NewNavPageController implements Initializable {
    * @param clickedNode
    */
   public void autocompleteEditMap(Node clickedNode) {
+    try {
+      displayLongName.setText(NodesAndEdges.getNodeLongName(clickedNode.getID()));
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
     nodeID.setText(clickedNode.getID());
     xCoord.setText(Integer.toString(clickedNode.getXCoord()));
     yCoord.setText(Integer.toString(clickedNode.getYCoord()));

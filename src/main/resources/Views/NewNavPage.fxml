@@ -146,7 +146,7 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <Label text="Selected Node">
+                  <Label fx:id="displayLongName" text="Selected Node">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
