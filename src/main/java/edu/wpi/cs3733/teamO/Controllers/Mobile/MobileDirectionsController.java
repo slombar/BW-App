@@ -15,7 +15,7 @@ public class MobileDirectionsController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    //TODO: popuplate (Label) textDirections with text directions
+    // TODO: popuplate (Label) textDirections with text directions
     backButton.setButtonType(JFXButton.ButtonType.RAISED);
   }
 

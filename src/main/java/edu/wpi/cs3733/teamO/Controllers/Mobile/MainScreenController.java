@@ -11,9 +11,9 @@ import javafx.fxml.Initializable;
 public class MainScreenController implements Initializable {
 
   @FXML private JFXNodesList buttonsList;
-  private final JFXButton welcomeBtn = new JFXButton("I would Like to...");
-  private final JFXButton googleNavBtn = new JFXButton("Navigate to the hospital");
-  private final JFXButton hospitalNavBtn = new JFXButton("Navigate within the hospital");
+  private final JFXButton welcomeBtn = new JFXButton("I would like to navigate...");
+  private final JFXButton googleNavBtn = new JFXButton("To the hospital");
+  private final JFXButton hospitalNavBtn = new JFXButton("Within the hospital");
   public static boolean isBackHome = false;
   public static boolean isBackGoogle = false;
 
