@@ -7,7 +7,6 @@ import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,13 +61,12 @@ public class MobileCovidSurveyController implements Initializable {
 
       String requestedBy = getUsername();
 
-      java.util.Date utilDate = new java.util.Date();
-      java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-      java.sql.Date dateN = (Date) new java.util.Date(sqlDate.getTime());
+      long millis = System.currentTimeMillis();
+      java.util.Date dateN = new java.sql.Date(millis);
 
       String requestType = "CV19";
-      String loc = null;
-      String sum = null;
+      String loc = "entrance";
+      String sum = "summary";
       String f1 = String.valueOf(no1.isSelected());
       String f2 = String.valueOf(no2.isSelected());
       String f3 = String.valueOf(no3.isSelected());
@@ -90,5 +88,14 @@ public class MobileCovidSurveyController implements Initializable {
       popupPane.setVisible(true);
       PopupMaker.incompletePopup(popupPane);
     }
+  }
+
+  public void surveyApproved() {
+    // what to do once covid survey request is marked as completed
+
+    // getStatus
+
+    // pop-up
+
   }
 }
