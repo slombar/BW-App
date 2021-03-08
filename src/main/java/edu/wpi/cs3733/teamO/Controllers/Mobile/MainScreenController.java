@@ -15,7 +15,6 @@ public class MainScreenController implements Initializable {
   private final JFXButton welcomeBtn = new JFXButton("I would Like to...");
   private final JFXButton googleNavBtn = new JFXButton("Navigate to the hospital");
   private final JFXButton hospitalNavBtn = new JFXButton("Navigate within the hospital");
-  private Stage currentStage;
   public static boolean isBackHome = false;
 
   @Override
@@ -23,9 +22,9 @@ public class MainScreenController implements Initializable {
     // style the buttons
     welcomeBtn.getStyleClass().addAll("main-menu-button");
     welcomeBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    googleNavBtn.getStyleClass().addAll("main-menu-button");
+    googleNavBtn.getStyleClass().addAll("main-button");
     googleNavBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    hospitalNavBtn.getStyleClass().addAll("main-menu-button");
+    hospitalNavBtn.getStyleClass().addAll("main-button");
     hospitalNavBtn.setButtonType(JFXButton.ButtonType.RAISED);
 
     // add them to be in an animated node list

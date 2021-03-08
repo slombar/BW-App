@@ -103,7 +103,7 @@ public class MobileGoogleNavController implements Initializable {
 
     exitBtn.setOnAction(
         actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileMainScreen.fxml", actionEvent);
         });
   }
 }
