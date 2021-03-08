@@ -466,7 +466,7 @@ public class NewNavPageController implements Initializable {
        */
     } else if (mouseEvent.getButton().equals(MouseButton.MIDDLE)) {
 
-      Node draggedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false);
+      Node draggedNode = GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false, imageView);
 
       Circle draggedCircle ;
 
