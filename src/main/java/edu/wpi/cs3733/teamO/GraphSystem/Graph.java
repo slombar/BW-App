@@ -565,4 +565,17 @@ public class Graph {
   public ObservableList<Node> getListOfNodes() {
     return listOfNodes;
   }
+
+  /**
+   * gets the Node with the provided long name (doesn't guarantee it's the only Node with the given name)
+   * @param longName 'long name' of the Node being retrieved
+   * @return a Node with the corresponding long name
+   */
+  public Node getNodeByLongName(String longName) {
+    for (Node n : listOfNodes) {
+      if (n.getLongName().equals(longName))
+        return n;
+    }
+    return null;
+  }
 }
