@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -62,8 +63,6 @@ public class Graph {
   private static ObservableList<Edge> listOfEdges;
   private static Hashtable<String, Node> stringNodeHashtable;
   private static Hashtable<String, Edge> stringEdgeHashtable;
-  private static Hashtable<String, Circle>
-      stringCircleHashtable; // changed back to <NodeID, Circle>
   private AlgorithmStrategy strategy;
   List<Node> path;
 
@@ -95,15 +94,10 @@ public class Graph {
 
       link(nodeA, nodeB, e);
     }
-
-    stringCircleHashtable = new Hashtable<>();
   }
 
   public void setGraphicsContext(GraphicsContext gc) {
     this.gc = gc;
-    for (Node n : listOfNodes) {
-      createCircle(n);
-    }
   }
 
   /**
@@ -132,17 +126,31 @@ public class Graph {
    * @return Node closest to the ClickEvent
    * @throws NullPointerException will return null if it doesn't find a closest node
    */
-  public static Node closestNode(String floor, double x, double y, boolean editing)
+  public Node closestNode(String floor, double x, double y, boolean editing, ImageView imageView)
       throws NullPointerException {
     double currentDist = 1000000000;
     Node node = null;
 
+    double canvasW = gc.getCanvas().getWidth();
+    double canvasH = gc.getCanvas().getHeight();
+
+    double imageW = imageView.getImage().getWidth();
+    double imageH = imageView.getImage().getHeight();
+
+    double vpX = imageView.getViewport().getMinX() / imageW;
+    double vpY = imageView.getViewport().getMinY() / imageH;
+    double wp = imageView.getViewport().getWidth() / imageW;
+    double hp = imageView.getViewport().getHeight() / imageH;
+
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor) && (n.isVisible() || editing)) {
-        Circle c = stringCircleHashtable.get(n.getID());
-        double dist =
-            Math.pow(Math.abs(x - c.getCenterX()), 2.0)
-                + Math.pow(Math.abs(y - c.getCenterY()), 2.0);
+        double nxp = n.getXCoord() / imageW;
+        double nyp = n.getYCoord() / imageH;
+
+        double nodeX = (((nxp - vpX) / wp) * canvasW);
+        double nodeY = (((nyp - vpY) / hp) * canvasH);
+
+        double dist = Math.pow(Math.abs(x - nodeX), 2.0) + Math.pow(Math.abs(y - nodeY), 2.0);
         if (dist < currentDist) {
           currentDist = dist;
           node = n;
@@ -157,56 +165,7 @@ public class Graph {
    * Creates a properly-scaled Circle the given Node and adds it to stringCircleHashtable with it's
    * corresponding Node's ID as the key
    */
-  public void createCircle(Node n) {
-
-    // get node's x and y (and floor)
-    double nX = n.getXCoord();
-    double nY = n.getYCoord();
-    double nXperc = 0.0;
-    double nYperc = 0.0;
-    String nFloor = n.getFloor();
-
-    // set nX/Yperc to be the node's x/y as a percentage of the image's x/y
-    // switch case basically = if, else if, etc...
-    switch (nFloor) {
-      case "G":
-        nXperc = nX / widthG;
-        nYperc = nY / heightG;
-        break;
-      case "1":
-        nXperc = nX / width1;
-        nYperc = nY / height1;
-        break;
-      case "2":
-        nXperc = nX / width2;
-        nYperc = nY / height2;
-        break;
-      case "3":
-        nXperc = nX / width3;
-        nYperc = nY / height3;
-        break;
-      case "4":
-        nXperc = nX / width4;
-        nYperc = nY / height4;
-        break;
-      case "5":
-        nXperc = nX / width5;
-        nYperc = nY / height5;
-        break;
-    }
-
-    Circle circle = new Circle();
-    // set radius to be percentage of canvas height, and bind circle's x/y to the canvas
-    // width/height * percent
-    circle.radiusProperty().bind(gc.getCanvas().widthProperty().multiply(0.00625));
-    circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
-    circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
-
-    /* implement the clicking function for the circles(?) - probably not
-    circle.addEventHandler("click", clickCircle);*/
-
-    stringCircleHashtable.put(n.getID(), circle);
-  }
+  /*public void createCircle(Node n) */
 
   /**
    * adds the given Node to the graph appropriately
@@ -243,10 +202,6 @@ public class Graph {
       n.setNeighbourList(prevNList);
       n.setNodeEdgeHashtable(prevNEList);
 
-      // n needs new Circle (in case x,y changed)
-      stringCircleHashtable.remove(n.getID());
-      createCircle(n);
-
       // add new node and corresponding
       listOfNodes.add(n);
       stringNodeHashtable.put(n.getID(), n);
@@ -269,7 +224,7 @@ public class Graph {
     // adding new Node and Circle:
 
     // add circle for n
-    createCircle(n);
+    // createCircle(n);
 
     // rewrites the hash
     listOfNodes.add(n);
@@ -333,7 +288,6 @@ public class Graph {
 
     // remove from graph
     listOfNodes.remove(n);
-    stringCircleHashtable.remove(n.getID());
     stringNodeHashtable.remove(n.getID());
   }
 
@@ -379,31 +333,46 @@ public class Graph {
     stringEdgeHashtable.remove(eID);
   }
 
+  // ------------------------------
+  // ------------------------------
+  // COMMENTING OUT AND REWRITING DRAWING METHODS...
+  // ------------------------------
+  // ------------------------------
+
   /**
    * Draws all nodes for the given floor + selected node as Color.GREEN, or draws both right-clicked
    * nodes Color.BLUE + a blue edge (to be added/deleted)
    *
    * @param floor "G", "1", "2", "3", "4", or "5"
    */
+  /*public void drawAllNodes(
+  String floor, Node selectedNodeA, Node selectedNodeB, boolean selectingEditNode) */
+
   public void drawAllNodes(
-      String floor, Node selectedNodeA, Node selectedNodeB, boolean selectingEditNode) {
+      String floor,
+      Node selectedNodeA,
+      Node selectedNodeB,
+      boolean selectingEditNode,
+      ImageView imageView) {
+
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
     }
 
-    // draws all Nodes on floor
-    DrawHelper.drawNodeCircles(gc, stringCircleHashtable, floorNodes, null, null);
+    // draws given Nodes
+    DrawHelper.drawNodeCircles(gc, floorNodes, null, null, imageView);
 
     // if one Node selected, draws it as green
     if (selectedNodeB == null
         && listOfNodes.contains(selectedNodeA)
         && selectedNodeA.getFloor().equals(floor)) {
 
-      DrawHelper.drawSingleNode(gc, stringCircleHashtable.get(selectedNodeA.getID()), Color.GREEN);
+      DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView);
     }
-    // otherwise, if two Nodes selected, draws both as blue
+
+    // otherwise, if two Nodes selected, draws second as BLUE
     else if (listOfNodes.contains(selectedNodeA) && listOfNodes.contains(selectedNodeB)) {
       Paint paint = Color.BLUE;
       if (selectedNodeA.getNeighbourList().contains(selectedNodeB)) {
@@ -417,20 +386,15 @@ public class Graph {
       //    or just if at least one is on current floor (since edges can go between floors)
       //    -- currently drawing if just one of 2 Nodes is on current floor ( || )
       if (isFloorA || isFloorB) {
-        DrawHelper.drawEdge(
-            gc,
-            stringCircleHashtable.get(selectedNodeA.getID()),
-            stringCircleHashtable.get(selectedNodeB.getID()),
-            paint);
+        DrawHelper.drawEdge(gc, selectedNodeA, selectedNodeB, paint, imageView);
       }
 
       // currently has first selectedNode always GREEN
       if (isFloorA) {
-        DrawHelper.drawSingleNode(
-            gc, stringCircleHashtable.get(selectedNodeA.getID()), Color.GREEN);
+        DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView);
       }
       if (isFloorB) {
-        DrawHelper.drawSingleNode(gc, stringCircleHashtable.get(selectedNodeB.getID()), paint);
+        DrawHelper.drawSingleNode(gc, selectedNodeB, paint, imageView);
       }
     }
   }
@@ -442,7 +406,9 @@ public class Graph {
    * @param startNode Node currently set as the start
    * @param endNode Node currently set as the end
    */
-  public void drawVisibleNodes(String floor, Node startNode, Node endNode) {
+  /*public void drawVisibleNodes(String floor, Node startNode, Node endNode) */
+
+  public void drawVisibleNodes(String floor, Node startNode, Node endNode, ImageView imageView) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
@@ -451,7 +417,7 @@ public class Graph {
       }
     }
 
-    DrawHelper.drawNodeCircles(gc, stringCircleHashtable, floorNodes, startNode, endNode);
+    DrawHelper.drawNodeCircles(gc, floorNodes, startNode, endNode, imageView);
   }
 
   /**
@@ -459,16 +425,15 @@ public class Graph {
    *
    * @param floor floor to draw on
    */
-  private void drawMidArrows(String floor) {
+  /*private void drawMidArrows(String floor) */
+
+  private void drawMidArrows(String floor, ImageView imageView) {
     for (int i = 0; i < path.size() - 1; i++) {
       Node nodeA = path.get(i);
       Node nodeB = path.get(i + 1);
 
       if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
-        Circle circleA = stringCircleHashtable.get(nodeA.getID());
-        Circle circleB = stringCircleHashtable.get(nodeB.getID());
-
-        DrawHelper.drawMidArrow(gc, circleA, circleB);
+        DrawHelper.drawMidArrow(gc, nodeA, nodeB, imageView);
       }
     }
   }
@@ -478,7 +443,10 @@ public class Graph {
    *
    * @param floor "G", "1", "2", "3", "4", or "5"
    */
-  public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) {
+  /*public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) */
+
+  public void drawAllEdges(
+      String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView) {
     gc.setStroke(Color.BLACK);
     for (Edge e : listOfEdges) {
       try {
@@ -486,12 +454,14 @@ public class Graph {
         Node nodeB = stringNodeHashtable.get(e.getEnd());
 
         if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
-          Circle circleA = stringCircleHashtable.get(nodeA.getID());
-          Circle circleB = stringCircleHashtable.get(nodeB.getID());
 
-          if (nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB)) {
-            DrawHelper.drawEdge(gc, circleA, circleB, Color.RED);
-          } else DrawHelper.drawEdge(gc, circleA, circleB, Color.BLACK);
+          // if edge between selected already exists, draw in RED
+          if ((nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB))
+              || (nodeB.equals(selectedNodeA) && nodeA.equals(selectedNodeB))) {
+            DrawHelper.drawEdge(gc, nodeA, nodeB, Color.RED, imageView);
+          }
+          // draw edges between non-selected BLACK
+          else DrawHelper.drawEdge(gc, nodeA, nodeB, Color.BLACK, imageView);
         }
       } catch (NullPointerException ignored) {
         // TODO: use this catch block to filter out bad/extraneous data?
@@ -516,34 +486,29 @@ public class Graph {
    * @param startNode start Node of path
    * @param endNode end Node of path
    */
-  public void drawCurrentPath(String floor, Node startNode, Node endNode) {
+  public void drawCurrentPath(String floor, Node startNode, Node endNode, ImageView imageView) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
     for (Node n : path) {
       if (n.getFloor().equals(floor) && n.getNodeType().equals("STAI")) {
-        Circle c = stringCircleHashtable.get(n.getID());
-        DrawHelper.drawSingleNode(gc, c, Color.GREEN);
+        DrawHelper.drawSingleNode(gc, n, Color.GREEN, imageView);
       } else if (n.getFloor().equals(floor) && n.getNodeType().equals("ELEV")) {
-        Circle c = stringCircleHashtable.get(n.getID());
-        DrawHelper.drawSingleNode(gc, c, Color.PURPLE);
+        DrawHelper.drawSingleNode(gc, n, Color.PURPLE, imageView);
       }
 
       if (n.getFloor().equals(floor) && n.getNodeType().equals("EXIT")) {
-        Circle c = stringCircleHashtable.get(n.getID());
-        DrawHelper.drawSingleNode(gc, c, Color.ORANGE);
+        DrawHelper.drawSingleNode(gc, n, Color.ORANGE, imageView);
       }
     }
 
-    drawMidArrows(floor);
+    drawMidArrows(floor, imageView);
 
     if (startNode.getFloor().equals(floor)) {
-      Circle c = stringCircleHashtable.get(startNode.getID());
-      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
+      DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView);
     }
     if (endNode.getFloor().equals(floor)) {
-      Circle c = stringCircleHashtable.get(endNode.getID());
-      DrawHelper.drawSingleNode(gc, c, Color.RED);
+      DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView);
     }
   }
 

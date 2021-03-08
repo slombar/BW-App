@@ -2,15 +2,17 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 
 // class that SOLEY draws shit
 public class DrawHelper {
+
+  private static double dperc = 0.015;
+  private static double dmin = 10;
 
   /**
    * Draws every Circle from the given Hashtable corresponding to each Node in the ArrayList
@@ -19,30 +21,50 @@ public class DrawHelper {
    * @param ncTable the Hashtable in which the Circles are stored
    * @param nodeList the list of Nodes whose Circles should be drawn
    */
+  /*public static void drawNodeCircles(
+  GraphicsContext gc,
+  Hashtable<String, Circle> ncTable,
+  ArrayList<Node> nodeList,
+  Node startNode,
+  Node endNode)*/
+
   public static void drawNodeCircles(
       GraphicsContext gc,
-      Hashtable<String, Circle> ncTable,
       ArrayList<Node> nodeList,
       Node startNode,
-      Node endNode) {
+      Node endNode,
+      ImageView imageView) {
 
     Canvas mapcanvas = gc.getCanvas();
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
 
-    Circle tempCir = new Circle();
+    double canvasW = gc.getCanvas().getWidth();
+    double canvasH = gc.getCanvas().getHeight();
 
-    // for each node in the DB, add their circle to the map
+    double imageW = imageView.getImage().getWidth();
+    double imageH = imageView.getImage().getHeight();
+
+    double vpX = imageView.getViewport().getMinX() / imageW;
+    double vpY = imageView.getViewport().getMinY() / imageH;
+    double wp = imageView.getViewport().getWidth() / imageW;
+    double hp = imageView.getViewport().getHeight() / imageH;
+
     for (Node n : nodeList) {
       gc.setGlobalAlpha(1.0);
       gc.setFill(Color.YELLOW);
       gc.setStroke(Color.BLACK);
       gc.setLineWidth(2.0);
 
-      tempCir = ncTable.get(n.getID());
-      double tempCirX = tempCir.getCenterX() - tempCir.getRadius();
-      double tempCirY = tempCir.getCenterY() - tempCir.getRadius();
-      double diameter = 2 * tempCir.getRadius();
+      double nxp = n.getXCoord() / imageW;
+      double nyp = n.getYCoord() / imageH;
 
+      double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+
+      double circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
+      double circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;
+
+      // ------------------
+      // color stuff:
       // makes stairs green and elevators purple
       if (n.getNodeType().equals("STAI")) {
         gc.setGlobalAlpha(0.25);
@@ -70,24 +92,12 @@ public class DrawHelper {
       } else if (n.equals(endNode)) {
         gc.setFill(Color.RED);
       }
+      // ------------------
 
-      gc.fillOval(tempCirX, tempCirY, diameter, diameter);
+      gc.fillOval(circleX, circleY, diameter, diameter);
       gc.setGlobalAlpha(1.0);
-      gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
+      gc.strokeOval(circleX, circleY, diameter, diameter);
     }
-
-    /*//////////////////// FOR TESTING: ////////////////////
-    gc.setStroke(Color.RED);
-    gc.setLineWidth(3.0);
-
-    gc.strokeOval(0, 0, 5, 5);
-    gc.strokeOval(0, mapcanvas.getHeight(), 5, 5);
-    gc.strokeOval(mapcanvas.getWidth(), 0, 5, 5);
-    gc.strokeOval(mapcanvas.getWidth(), mapcanvas.getHeight(), 5, 5);
-
-    gc.strokeRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    gc.strokeLine(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
-    gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);*/
   }
 
   /**
@@ -97,16 +107,36 @@ public class DrawHelper {
    * @param circleA
    * @param circleB
    */
-  public static void drawMidArrow(GraphicsContext gc, Circle circleA, Circle circleB) {
+  public static void drawMidArrow(GraphicsContext gc, Node nodeA, Node nodeB, ImageView imageView) {
     double arrowLength = 6;
     final double arrowWidth = 4;
     final double minArrowDistSq = 216;
     // ^ do the dist you wanted squared (currently have 6*(arrowLength^2))
 
-    double ax = circleA.getCenterX();
-    double ay = circleA.getCenterY();
-    double bx = circleB.getCenterX();
-    double by = circleB.getCenterY();
+    double canvasW = gc.getCanvas().getWidth();
+    double canvasH = gc.getCanvas().getHeight();
+
+    double imageW = imageView.getImage().getWidth();
+    double imageH = imageView.getImage().getHeight();
+
+    double vpX = imageView.getViewport().getMinX() / imageW;
+    double vpY = imageView.getViewport().getMinY() / imageH;
+    double wp = imageView.getViewport().getWidth() / imageW;
+    double hp = imageView.getViewport().getHeight() / imageH;
+
+    double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+
+    double nxpA = nodeA.getXCoord() / imageW;
+    double nypA = nodeA.getYCoord() / imageH;
+
+    double ax = (((nxpA - vpX) / wp) * canvasW);
+    double ay = (((nypA - vpY) / hp) * canvasH);
+
+    double nxpB = nodeB.getXCoord() / imageW;
+    double nypB = nodeB.getYCoord() / imageH;
+
+    double bx = (((nxpB - vpX) / wp) * canvasW);
+    double by = (((nypB - vpY) / hp) * canvasH);
 
     double distSq = Math.pow(Math.abs(ax - bx), 2.0) + Math.pow(Math.abs(ay - by), 2.0);
 
@@ -141,34 +171,42 @@ public class DrawHelper {
       gc.strokeLine(arrow2startX, arrow2startY, cx, cy);
     }
 
-    // tried to get this animation playing on the Canvas somehow but couldn't figure it out yet
-    /*Line line = new Line(ax, ay, bx, by);
-    line.getStrokeDashArray().setAll(25d, 20d, 5d, 20d);
-
-    final double maxOffset = line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
-
-    Timeline timeline =
-        new Timeline(
-            new KeyFrame(
-                Duration.ZERO,
-                new KeyValue(line.strokeDashOffsetProperty(), 0, Interpolator.LINEAR)),
-            new KeyFrame(
-                Duration.seconds(2),
-                new KeyValue(line.strokeDashOffsetProperty(), maxOffset, Interpolator.LINEAR)));
-
-    timeline.setCycleCount(Timeline.INDEFINITE);
-    timeline.play();
-
-    gc.getCanvas().getScene().getRoot().*/
-
     gc.strokeLine(ax, ay, bx, by);
   }
 
-  public static void drawEdge(GraphicsContext gc, Circle circleA, Circle circleB, Paint color) {
+  public static void drawEdge(
+      GraphicsContext gc, Node nodeA, Node nodeB, Paint color, ImageView imageView) {
     gc.setLineWidth(3.0);
     gc.setStroke(color);
-    gc.strokeLine(
-        circleA.getCenterX(), circleA.getCenterY(), circleB.getCenterX(), circleB.getCenterY());
+
+    double canvasW = gc.getCanvas().getWidth();
+    double canvasH = gc.getCanvas().getHeight();
+
+    double imageW = imageView.getImage().getWidth();
+    double imageH = imageView.getImage().getHeight();
+
+    double vpX = imageView.getViewport().getMinX() / imageW;
+    double vpY = imageView.getViewport().getMinY() / imageH;
+    double wp = imageView.getViewport().getWidth() / imageW;
+    double hp = imageView.getViewport().getHeight() / imageH;
+
+    double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+
+    // ------------------------------------
+
+    double nxpA = nodeA.getXCoord() / imageW;
+    double nypA = nodeA.getYCoord() / imageH;
+
+    double circleXA = (((nxpA - vpX) / wp) * canvasW);
+    double circleYA = (((nypA - vpY) / hp) * canvasH);
+
+    double nxpB = nodeB.getXCoord() / imageW;
+    double nypB = nodeB.getYCoord() / imageH;
+
+    double circleXB = (((nxpB - vpX) / wp) * canvasW);
+    double circleYB = (((nypB - vpY) / hp) * canvasH);
+
+    gc.strokeLine(circleXA, circleYA, circleXB, circleYB);
   }
 
   /**
@@ -178,17 +216,34 @@ public class DrawHelper {
    * @param circle circle (node) being drawn
    * @param paint Color.COLOR being drawn
    */
-  public static void drawSingleNode(GraphicsContext gc, Circle circle, Paint paint) {
+  public static void drawSingleNode(GraphicsContext gc, Node n, Paint paint, ImageView imageView) {
     gc.setGlobalAlpha(1.0);
     gc.setFill(paint);
     gc.setStroke(Color.BLACK);
     gc.setLineWidth(2.0);
 
-    double tempCirX = circle.getCenterX() - circle.getRadius();
-    double tempCirY = circle.getCenterY() - circle.getRadius();
-    double diameter = 2 * circle.getRadius();
+    Canvas mapcanvas = gc.getCanvas();
 
-    gc.fillOval(tempCirX, tempCirY, diameter, diameter);
-    gc.strokeOval(tempCirX, tempCirY, diameter, diameter);
+    double canvasW = gc.getCanvas().getWidth();
+    double canvasH = gc.getCanvas().getHeight();
+
+    double imageW = imageView.getImage().getWidth();
+    double imageH = imageView.getImage().getHeight();
+
+    double vpX = imageView.getViewport().getMinX() / imageW;
+    double vpY = imageView.getViewport().getMinY() / imageH;
+    double wp = imageView.getViewport().getWidth() / imageW;
+    double hp = imageView.getViewport().getHeight() / imageH;
+
+    double nxp = n.getXCoord() / imageW;
+    double nyp = n.getYCoord() / imageH;
+
+    double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+
+    double circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
+    double circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;
+
+    gc.fillOval(circleX, circleY, diameter, diameter);
+    gc.strokeOval(circleX, circleY, diameter, diameter);
   }
 }
