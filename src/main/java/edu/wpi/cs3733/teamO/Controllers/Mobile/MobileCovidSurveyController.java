@@ -68,6 +68,7 @@ public class MobileCovidSurveyController implements Initializable {
       String f1 = String.valueOf(no1.isSelected());
       String f2 = String.valueOf(no2.isSelected());
       String f3 = String.valueOf(no3.isSelected());
+      System.out.println(f1 + f2 + f3);
 
       System.out.println(
           "Adding this to DB: "

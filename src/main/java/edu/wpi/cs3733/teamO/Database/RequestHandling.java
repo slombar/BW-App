@@ -301,13 +301,28 @@ public class RequestHandling {
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
       preparedStmt.setString(1, fulfilledBy);
       preparedStmt.setString(2, requestType);
-      preparedStmt.setString(3, locationNodeID);
-      preparedStmt.setString(4, summary);
+      preparedStmt.setString(3, "location TBD");
+      preparedStmt.setString(4, "summary");
       preparedStmt.setString(5, customParameter1);
       preparedStmt.setString(6, customParameter2);
       preparedStmt.setString(7, customParameter3);
       preparedStmt.setInt(8, requestID);
 
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+      System.out.println("printed " + query);
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  public static void updateRequest(int requestID, String locationNode) {
+    String query = "UPDATE REQUESTS SET location = ? WHERE requestID = ?";
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, locationNode);
+      preparedStmt.setInt(2, requestID);
       preparedStmt.executeUpdate();
       preparedStmt.close();
       System.out.println("printed " + query);

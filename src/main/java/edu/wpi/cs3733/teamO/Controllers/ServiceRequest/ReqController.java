@@ -318,15 +318,17 @@ public class ReqController implements Initializable {
           } else {
             Request selectedRequest = RequestHandling.getRequest(listOfFields.get(0).getText());
             System.out.println(listOfFields.get(0).getText());
-            RequestHandling.editRequest(
-                Integer.parseInt(listOfFields.get(0).getText()),
-                selectedRequest.getFulfilledBy(),
-                selectedRequest.getRequestType(),
-                listOfFields.get(1).getText(),
-                selectedRequest.getSummary(),
-                selectedRequest.getPara1(),
-                selectedRequest.getPara2(),
-                selectedRequest.getPara3());
+            /* RequestHandling.editRequest(
+            Integer.parseInt(listOfFields.get(0).getText()),
+            selectedRequest.getFulfilledBy(),
+            "CV19",
+            listOfFields.get(1).getText(),
+            selectedRequest.getSummary(),
+            selectedRequest.getPara1(),
+            selectedRequest.getPara2(),
+            selectedRequest.getPara3());*/
+            RequestHandling.updateRequest(
+                Integer.parseInt(listOfFields.get(0).getText()), listOfFields.get(1).getText());
 
             dialog.close();
             popUpPane.toBack();
