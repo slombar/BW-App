@@ -530,7 +530,14 @@ public class NewNavPageController implements Initializable {
     double b = getImgY(scrollEvent.getY());
     double vX = percImageView * imageView.getImage().getWidth();
     double vY = percImageView * imageView.getImage().getHeight();
-    currentViewport = new Rectangle2D(a - (0.5 * vX), b - (0.5 * vY), vX, vY);
+    /*currentViewport =
+        new Rectangle2D(
+            (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
+                - vX / 2,
+            (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
+                - vY / 2,
+            vX,
+            vY);*/
 
     imageView.setViewport(currentViewport);
     draw();
