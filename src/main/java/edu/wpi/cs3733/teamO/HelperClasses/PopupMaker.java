@@ -390,4 +390,64 @@ public class PopupMaker {
         });
     warningDialog.show();
   }
+
+  /**
+   * creating a popup to inform patient to enter using main entrance
+   *
+   * @param popupPane
+   */
+  public static void mainEntranceNotif(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Welcome to B&W Faulkner Hospital"));
+    warning.setBody(
+        new Text(
+            "Your entrance request has been approved, please use the Main Atrium Entrance. Have a great day."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
+  /**
+   * creating a popup to inform patient to enter using covid entrance
+   *
+   * @param popupPane
+   */
+  public static void covidEntranceNotif(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Welcome to B&W Faulkner Hospital"));
+    warning.setBody(
+        new Text(
+            "Your entrance request has been approved, please use the Emergency Entrance. Have a great day."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
 }

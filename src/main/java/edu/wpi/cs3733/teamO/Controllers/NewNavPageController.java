@@ -34,9 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -471,12 +469,6 @@ public class NewNavPageController implements Initializable {
        * If the middle mouse is pressed, we want the node to be dragged with the user's cursor. Once
        * it is pressed up, we will drop the node in that location
        */
-    } else if (mouseEvent.getButton().equals(MouseButton.MIDDLE)) {
-
-      Node draggedNode =
-          GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false, imageView);
-
-      Circle draggedCircle;
     }
 
     System.out.println("mapCanvas click");
@@ -993,5 +985,22 @@ public class NewNavPageController implements Initializable {
    */
   public void chooseStrat(ActionEvent actionEvent) {
     strategy = (String) algoStratCBox.getValue();
+  }
+
+  /**
+   * Drags the node based on user's mouse x and y coords
+   *
+   * @param mouseEvent
+   */
+  public void nodeDrag(MouseEvent mouseEvent) {
+    Node draggedNode =
+        GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
+
+    int x = (int) (getImgX(mouseEvent.getX()));
+    int y = (int) (getImgY(mouseEvent.getY()));
+
+    draggedNode.setXCoord(x);
+    draggedNode.setYCoord(y);
+    draw();
   }
 }

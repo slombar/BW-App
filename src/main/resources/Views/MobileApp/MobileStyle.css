@@ -1,8 +1,23 @@
 .main-menu-button {
--fx-pref-width: 300px;
--fx-pref-height: 40px;
--fx-text-fill: white;
--fx-background-color: #3A5369;
+-fx-pref-width: 230px;
+-fx-pref-height: 30px;
+-fx-text-fill: black;
+-fx-background-radius: 40px;
+-fx-background-color: #82BAEC;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
+}
+
+.main-button {
+-fx-pref-width: 230px;
+-fx-pref-height: 30px;
+-fx-text-fill: black;
+-fx-background-radius: 40px;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
 }
 
 .nav-menu-button {
@@ -14,6 +29,7 @@
 -fx-border-color: white;
 -fx-border-width: 2px;
 -fx-border-radius: 40px;
+
 }
 
 .nav-buttons {
@@ -25,5 +41,29 @@
 -fx-border-color: white;
 -fx-border-width: 2px;
 -fx-border-radius: 40px;
--text-align: left
+-fx-alignment: CENTER_LEFT
+}
+
+.nav-text {
+-fx-pref-width: 280px;
+-fx-pref-height: 60px;
+-fx-background-radius: 20px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 20px;
+-fx-alignment: CENTER_LEFT
+}
+
+.back-buttons {
+-fx-pref-width: 56px;
+-fx-pref-height: 40px;
+-fx-background-radius: 40px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
+-fx-alignment: CENTER_LEFT
 }
