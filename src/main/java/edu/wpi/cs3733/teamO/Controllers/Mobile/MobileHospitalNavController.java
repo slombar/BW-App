@@ -32,6 +32,8 @@ public class MobileHospitalNavController implements Initializable {
   ImageView navIconView = new ImageView(navIcon);
   Image startIcon = new Image(getClass().getResourceAsStream("/Icons/arrowIconBlack.png"));
   ImageView startIconView = new ImageView(startIcon);
+  Image textIcon = new Image(getClass().getResourceAsStream("/Icons/bookIconBlack.png"));
+  ImageView textIconView = new ImageView(textIcon);
 
   // adding icons to buttons
   private final JFXButton addBtn = new JFXButton(null, addIconView);
@@ -40,6 +42,7 @@ public class MobileHospitalNavController implements Initializable {
   private final JFXButton exitBtn = new JFXButton("Exit Navigation", exitIconView);
   private final JFXButton directionsBtn = new JFXButton(null, navIconView);
   private final JFXButton startBtn = new JFXButton("Start Navigation", startIconView);
+  private final JFXButton textBtn = new JFXButton("Text Directions", textIconView);
 
   JFXTextField startLoc = new JFXTextField();
   JFXTextField endLoc = new JFXTextField();
@@ -62,6 +65,8 @@ public class MobileHospitalNavController implements Initializable {
     navIconView.setFitHeight(15);
     startIconView.setFitWidth(15);
     startIconView.setFitHeight(15);
+    textIconView.setFitWidth(25);
+    textIconView.setFitHeight(25);
 
     // set prompt text
     startLoc.setPromptText("Start Location");
@@ -80,11 +85,14 @@ public class MobileHospitalNavController implements Initializable {
     exitBtn.setButtonType(JFXButton.ButtonType.RAISED);
     directionsBtn.getStyleClass().addAll("nav-menu-button");
     directionsBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    textBtn.getStyleClass().addAll("nav-buttons");
+    textBtn.setButtonType(JFXButton.ButtonType.RAISED);
     startBtn.getStyleClass().addAll("nav-buttons");
     locBox.getStyleClass().addAll("nav-text");
 
     // add them to be in an animated node list
     buttonsList.addAnimatedNode(addBtn);
+    buttonsList.addAnimatedNode(textBtn);
     buttonsList.addAnimatedNode(parkingBtn);
     buttonsList.addAnimatedNode(hospitalBtn);
     buttonsList.addAnimatedNode(exitBtn);
@@ -108,6 +116,13 @@ public class MobileHospitalNavController implements Initializable {
           // TODO: save parking spot
         });
 
+    textBtn.setOnAction(
+        actionEvent -> {
+          // page of just text directions
+          MainScreenController.isBackGoogle = false;
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
+        });
+
     hospitalBtn.setOnAction(
         actionEvent -> {
           // TODO: navigate hospital campus, maybe another nodes list with drop downs?
@@ -115,7 +130,7 @@ public class MobileHospitalNavController implements Initializable {
 
     exitBtn.setOnAction(
         actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MobileApp/MobileMainScreen.fxml", actionEvent);
+          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
         });
   }
 }
