@@ -199,6 +199,10 @@ public class ReqController implements Initializable {
     if (typeOfRequest.equals("FLOR")) {
       SwitchScene.goToParent("/Views/ServiceRequests/FloralDeliveryRequest.fxml");
     }
+    if (typeOfRequest.equals("CV19")) {
+      // replace with covid 19 survey
+      SwitchScene.goToParent("/Views/MobileApp/MobileCovidSurvey.fxml");
+    }
   }
 
   /**
