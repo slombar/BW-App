@@ -52,7 +52,6 @@ public class MobileCovidSurveyController implements Initializable {
         || yes1.isSelected() && no2.isSelected()
         || yes2.isSelected() && no3.isSelected()
         || yes3.isSelected()) {
-      // if (no1.isSelected() && no2.isSelected() && no3.isSelected()) {
 
       // if all three questions are answered, submit survey review request
       SwitchScene.goToParentMobile("/Views/MobileApp/WaitingPage.fxml", actionEvent);

@@ -301,8 +301,8 @@ public class RequestHandling {
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
       preparedStmt.setString(1, fulfilledBy);
       preparedStmt.setString(2, requestType);
-      preparedStmt.setString(3, "location TBD");
-      preparedStmt.setString(4, "summary");
+      preparedStmt.setString(3, locationNodeID);
+      preparedStmt.setString(4, summary);
       preparedStmt.setString(5, customParameter1);
       preparedStmt.setString(6, customParameter2);
       preparedStmt.setString(7, customParameter3);
