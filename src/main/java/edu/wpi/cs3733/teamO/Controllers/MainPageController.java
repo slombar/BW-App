@@ -20,7 +20,7 @@ public class MainPageController implements Initializable {
   public JFXDrawer drawer;
   public JFXHamburger hamburger;
   @FXML private JFXButton navBtn;
-  @FXML private JFXButton giftsBtn;
+  @FXML private JFXButton googleNavButton;
   @FXML private JFXButton covidBtn;
   @FXML private JFXButton parkingBtn;
 
@@ -60,7 +60,7 @@ public class MainPageController implements Initializable {
   /** hovering over the button will make the buttons darker */
   public void hoverAllBtn() {
     Effects.hoverEffect(navBtn);
-    Effects.hoverEffect(giftsBtn);
+    Effects.hoverEffect(googleNavButton);
     Effects.hoverEffect(covidBtn);
     Effects.hoverEffect(parkingBtn);
   }
@@ -81,4 +81,8 @@ public class MainPageController implements Initializable {
   }
 
   public void goToParking(ActionEvent actionEvent) {}
+
+  public void goToGoogleNav(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/GoogleMaps/GoogleMapPage.fxml");
+  }
 }

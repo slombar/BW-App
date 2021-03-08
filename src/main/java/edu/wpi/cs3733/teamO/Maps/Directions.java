@@ -5,6 +5,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // Reference
@@ -14,45 +15,53 @@ import java.util.List;
 
 public class Directions {
 
-  public static void main(String[] args) {
-    getDirections();
-  }
-
   private static final String API_KEY = "AIzaSyBXXka_F4Sk_WZ7pdCcS-zNatD8oLoLwJ0";
 
-  public static void getDirections() {
+  /**
+   * gets the directions using google maps api
+   *
+   * @param fromLocation starting location
+   * @param toLocation ending location
+   * @return an arrayList of directionSteps... can be accessed in a loop using
+   *     (directionStep).htmlInstructions
+   * @throws ApiException not sure yet
+   * @throws InterruptedException not sure yet
+   * @throws IOException not sure yet
+   */
+  public static ArrayList<DirectionsStep> getDirections(String fromLocation, String toLocation)
+      throws ApiException, InterruptedException, IOException {
 
     DirectionsApiRequest dirReq =
         DirectionsApi.getDirections(
-            new GeoApiContext.Builder().apiKey(API_KEY).build(),
-            "100 Institute Rd. Worcester MA, 01609",
-            "182 Russel Street Worcester MA, 01609");
+            new GeoApiContext.Builder().apiKey(API_KEY).build(), fromLocation, toLocation);
 
     dirReq.departureTimeNow();
     dirReq.units(Unit.IMPERIAL);
     dirReq.mode(TravelMode.DRIVING);
 
     DirectionsResult result = null;
-    DirectionsStep dStep = new DirectionsStep();
     ArrayList<DirectionsLeg> legs = new ArrayList<>();
 
     try {
       result = dirReq.await();
-    } catch (ApiException e) {
+    } catch (ApiException e) { // TODO find what these exceptions mean to display to user;
       e.printStackTrace();
       System.out.println("HELP");
+      throw e;
     } catch (InterruptedException e) {
       e.printStackTrace();
       System.out.println("HELP1");
+      throw e;
+
     } catch (IOException e) {
       e.printStackTrace();
       System.out.println("HELP2");
+      throw e;
     }
 
     assert result != null;
 
     DirectionsRoute[] route = result.routes;
-    ArrayList<LatLng> pointsToDestination = new ArrayList<LatLng>();
 
     for (int i = 0; i < route.length; i++) {
 
@@ -68,69 +77,75 @@ public class Directions {
 
       LatLng center = new LatLng((lat1 + lat2) / 2, (lng1 + lng2) / 2);
 
-      for (DirectionsLeg dl : currentLegs) {
-        legs.add(dl);
-      }
-
-      pointsToDestination.add(center);
+      legs.addAll(Arrays.asList(currentLegs));
     }
     ArrayList<DirectionsStep> directionsSteps = new ArrayList<>();
 
     int i = 0;
     // leg of current directionroute
-    for (DirectionsLeg dl : legs) {
 
-      for (int j = 0; j < dl.steps.length; j++) {
+    directionsSteps.addAll(Arrays.asList(legs.get(0).steps)); // only takes one leg for now
 
-        directionsSteps.add(dl.steps[j]);
-      }
-      for (DirectionsRoute r : route) {
-        System.out.println(r.overviewPolyline.getEncodedPath());
-        System.out.println(decodePoly(r.overviewPolyline.getEncodedPath()));
-      }
+    for (DirectionsRoute r : route) {
+      System.out.println(r.overviewPolyline.getEncodedPath());
+      System.out.println(decodePoly(r.overviewPolyline.getEncodedPath()));
+    } // TODO should be moved maybe
 
-      System.out.println("Steps: \n");
-      int stepcount = 0;
-
-      for (DirectionsStep s : directionsSteps) {
-        System.out.println("Step " + stepcount + ": " + html2text(s.htmlInstructions));
-        stepcount++;
-      }
-
-      System.out.println("Ended Steps");
-    }
+    // TODO close the fucking socket!!!!!!!!!!!!!!!!!!!
+    return directionsSteps;
   }
 
+  /**
+   * removes some of the tags and bs from html to make it plain text
+   *
+   * @param html text with html bullshit
+   * @return clean text hopefully
+   */
   public static String html2text(String html) {
 
-    boolean legit = true;
+    boolean tag = true; // the text is part of a html tag
+    boolean reserved = true; // the text is part of a reserved keyword
     char[] charA = html.toCharArray();
-    String noHtml = "";
+    StringBuilder noHtml = new StringBuilder();
 
     int count = 0;
     for (char c : charA) {
 
       if (c == '<') {
 
-        legit = false;
+        tag = false;
 
         if (charA[count + 1] == 'd') {
-          noHtml += "\n";
+          noHtml.append("\n");
         }
 
       } else if (c == '>') {
-        legit = true;
+        tag = true;
 
-      } else if (legit) {
-        noHtml += c;
+      } else if (c == '&') {
+
+        reserved = false;
+
+      } else if (c == ';') {
+
+        reserved = true;
+
+      } else if (tag && reserved) {
+        noHtml.append(c);
       }
 
       count++;
     }
-    return noHtml;
+    return noHtml.toString();
   }
 
-  private static List<LatLng> decodePoly(String encoded) {
+  /**
+   * this decodes a PolyLine datatype into gps coordinates
+   *
+   * @param encoded an encoded version of a polyline in string format
+   * @return a list of the decoded coordinates
+   */
+  public static List<LatLng> decodePoly(String encoded) {
 
     List<LatLng> poly = new ArrayList<LatLng>();
     int index = 0, len = encoded.length();
