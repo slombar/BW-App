@@ -146,4 +146,9 @@ public class RequestPageController implements Initializable {
     reqType = "SANA";
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
+
+  public void goToCOVIDSurveyReq(ActionEvent actionEvent) {
+    reqType = "CV19";
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+  }
 }
