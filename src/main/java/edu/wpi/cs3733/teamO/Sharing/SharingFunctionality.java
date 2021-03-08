@@ -36,7 +36,6 @@ public class SharingFunctionality {
    * @param linkToFile5
    * @param linkToFile6
    */
-
   public static void sendSMSTwillio(
       String sendingTo,
       String linkToFile1,

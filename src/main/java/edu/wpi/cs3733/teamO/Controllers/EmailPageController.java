@@ -28,6 +28,7 @@ import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
 
+  @FXML private JFXButton generateQRBtn;
   @FXML private StackPane spinnerPane;
   @FXML private ImageView mapView5;
   @FXML private ImageView mapView3;
@@ -62,6 +63,8 @@ public class EmailPageController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle res) {
 
+    generateQRBtn.setVisible(false);
+
     mapView0.setImage(screenShot1);
     mapView1.setImage(screenShot2);
     mapView2.setImage(screenShot3);
@@ -78,6 +81,7 @@ public class EmailPageController implements Initializable {
           @Override
           protected Void call() throws Exception {
             prepareQR();
+            generateQRBtn.setVisible(true);
             return null;
           }
         };
@@ -95,27 +99,6 @@ public class EmailPageController implements Initializable {
     progress.setProgress(1.0);
     progress.progressProperty().bind(QRtask.progressProperty());
     spinnerPane.toFront();
-
-    /*
-    while (QRtask.isDone()) {
-      // spinnerPane.toBack();
-      // spinnerPane.setVisible(false);
-      String home = System.getProperty("user.home");
-      String inputfile = home + "/Downloads/" + "qr.png";
-      BufferedImage img = null;
-      try {
-        img = ImageIO.read(new File(inputfile));
-      } catch (IOException e) {
-      }
-      Image image = SwingFXUtils.toFXImage(img, null);
-      QRView.setImage(image);
-      QRView.setScaleX(2);
-      QRView.setScaleY(2);
-      QRView.setTranslateY(250);
-      QRView.toFront();
-    }
-
-     */
   }
 
   /**
@@ -211,15 +194,6 @@ public class EmailPageController implements Initializable {
     String albumLink = "https://imgur.com/a/" + albumID;
 
     SharingFunctionality.createQR(albumLink);
-
-    // submissionPopup();
-
-    // }
-    /*else {
-      errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
-      System.out.print(errorMsg);
-      invalidPopup();
-    }*/
   }
 
   /**
@@ -351,7 +325,6 @@ public class EmailPageController implements Initializable {
   }
 
   public void QRCodeGeneration(ActionEvent actionEvent) throws IOException, UnirestException {
-    prepareQR();
     spinnerPane.setVisible(false);
     String home = System.getProperty("user.home");
     String inputfile = home + "/Downloads/" + "qr.png";
