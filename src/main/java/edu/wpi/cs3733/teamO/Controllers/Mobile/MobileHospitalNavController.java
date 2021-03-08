@@ -6,10 +6,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -115,6 +117,9 @@ public class MobileHospitalNavController implements Initializable {
     textIconView.setFitHeight(25);
 
     // set prompt text
+    ArrayList<String> longNameNodes = Autocomplete.autoNodeData("longName");
+    Autocomplete.autoComplete(longNameNodes, startLoc);
+    Autocomplete.autoComplete(longNameNodes, endLoc);
     startLoc.setPromptText("Start Location");
     endLoc.setPromptText("Destination");
     locBox.getChildren().addAll(startLoc, endLoc);
@@ -252,6 +257,13 @@ public class MobileHospitalNavController implements Initializable {
     startBtn.setOnAction(
         actionEvent -> {
           if (startNode != null && endNode != null) {
+            GRAPH.resetPath();
+            GRAPH.findPath("A*", startNode, endNode);
+            displayingRoute = true;
+            selectingStart = false;
+            selectingEnd = false;
+          } else if (!startLoc.getText().isEmpty() && !endLoc.getText().isEmpty()) {
+            //TODO: find the node associated to the strings in the textfield
             GRAPH.resetPath();
             GRAPH.findPath("A*", startNode, endNode);
             displayingRoute = true;
