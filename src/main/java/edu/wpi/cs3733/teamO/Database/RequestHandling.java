@@ -315,4 +315,19 @@ public class RequestHandling {
       throwables.printStackTrace();
     }
   }
+
+  public static void updateRequest(int requestID, String locationNode) {
+    String query = "UPDATE REQUESTS SET location = ? WHERE requestID = ?";
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, locationNode);
+      preparedStmt.setInt(2, requestID);
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+      System.out.println("printed " + query);
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
 }

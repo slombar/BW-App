@@ -52,7 +52,6 @@ public class MobileCovidSurveyController implements Initializable {
         || yes1.isSelected() && no2.isSelected()
         || yes2.isSelected() && no3.isSelected()
         || yes3.isSelected()) {
-      // if (no1.isSelected() && no2.isSelected() && no3.isSelected()) {
 
       // if all three questions are answered, submit survey review request
       SwitchScene.goToParentMobile("/Views/MobileApp/WaitingPage.fxml", actionEvent);
@@ -68,6 +67,7 @@ public class MobileCovidSurveyController implements Initializable {
       String f1 = String.valueOf(no1.isSelected());
       String f2 = String.valueOf(no2.isSelected());
       String f3 = String.valueOf(no3.isSelected());
+      System.out.println(f1 + f2 + f3);
 
       System.out.println(
           "Adding this to DB: "
