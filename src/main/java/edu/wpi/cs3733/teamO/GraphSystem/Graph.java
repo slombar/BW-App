@@ -548,7 +548,7 @@ public class Graph {
   }
 
   // add function calls for text direction.
-  public static List<String> findTextDirection(ArrayList<Node> path) {
+  public static List<String> findTextDirection() {
     return TextDirection.textDirections();
   }
 

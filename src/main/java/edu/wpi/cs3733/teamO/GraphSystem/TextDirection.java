@@ -48,8 +48,8 @@ public class TextDirection {
   }
 
   public static ArrayList<String> textDirections() {
-
     List<Node> path = GRAPH.getPath();
+
     Directions.add("Start from " + path.get(0).getLongName() + " to " + path.get(1).getLongName());
 
     for (int i = 0; i < path.size() - 2; i++) {
