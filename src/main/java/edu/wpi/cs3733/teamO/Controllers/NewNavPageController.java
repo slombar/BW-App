@@ -38,6 +38,9 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
@@ -1002,5 +1005,13 @@ public class NewNavPageController implements Initializable {
     draggedNode.setXCoord(x);
     draggedNode.setYCoord(y);
     draw();
+  }
+
+  private void addTextToDirectionBox(String text) {
+    Graph graph = GRAPH;
+
+    Text newText = new Text(Directions.html2text(text) + "\n");
+    newText.setFont(Font.font("leelawadee ui", 16.0));
+    dirVbox.getChildren().add(newText);
   }
 }
