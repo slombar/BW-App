@@ -7,7 +7,6 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
-import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -381,7 +380,8 @@ public class NewNavPageController implements Initializable {
    */
   public void canvasClick(MouseEvent mouseEvent) {
     // displayingRoute = false;
-    Node clickedNode = Graph.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing);
+    Node clickedNode =
+        GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
 
     // ----------------------
     // block for LEFT CLICK
@@ -392,6 +392,7 @@ public class NewNavPageController implements Initializable {
 
       selectedNodeB = null;
       Circle c = null;
+      Node n = null;
 
       // if navigating
       if (!editing) {
@@ -407,7 +408,7 @@ public class NewNavPageController implements Initializable {
           autocompleteEditMap(clickedNode);
           selectedNode = clickedNode;
         } else if (addNodeMode) {
-          Node n = getRealXY(sFloor, mouseEvent);
+          n = getRealXY(sFloor, mouseEvent);
           n.setFloor(sFloor);
 
           c = new Circle();
@@ -422,7 +423,7 @@ public class NewNavPageController implements Initializable {
       if (addNodeMode) {
         selectedNode = null;
         draw();
-        DrawHelper.drawSingleNode(gc, c, Color.BLUE);
+        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView);
         addNodeMode = false;
         selectingEditNode = true;
       } else {
@@ -515,10 +516,10 @@ public class NewNavPageController implements Initializable {
     if (Math.abs(scrollDeltaY) > 10) {
       // if positive, then scrolling up (zooming in)
       if (scrollDeltaY > 0) {
-        if (percImageView <= 0.5) {
+        if (percImageView <= 0.4) {
           return;
         } else {
-          percImageView -= 0.1;
+          percImageView -= 0.05;
         }
 
       }
@@ -527,26 +528,28 @@ public class NewNavPageController implements Initializable {
         if (percImageView >= 1.0) {
           return;
         } else {
-          percImageView += 0.1;
+          percImageView += 0.05;
         }
       }
     }
 
     double a = getImgX(scrollEvent.getX());
     double b = getImgY(scrollEvent.getY());
-    double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
-    double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
     double vX = percImageView * imageView.getImage().getWidth();
     double vY = percImageView * imageView.getImage().getHeight();
-    /*currentViewport =
+    // zoom option A:
+    currentViewport =
         new Rectangle2D(
             (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
                 - vX / 2,
             (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
                 - vY / 2,
             vX,
-            vY);*/
-    currentViewport = new Rectangle2D(a - (percCanvasA * vX), b - (percCanvasB * vY), vX, vY);
+            vY);
+    // zoom option B:
+    /*double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
+    double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
+    currentViewport = new Rectangle2D(a - (percCanvasA * vX), b - (percCanvasB * vY), vX, vY);*/
 
     imageView.setViewport(currentViewport);
     draw();
@@ -916,16 +919,16 @@ public class NewNavPageController implements Initializable {
 
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView);
       }
     }
   }
@@ -934,13 +937,13 @@ public class NewNavPageController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
     } else if (!editing && displayingRoute) {
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
     } else if (editing) {
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView);
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView);
       }
     }
   }
