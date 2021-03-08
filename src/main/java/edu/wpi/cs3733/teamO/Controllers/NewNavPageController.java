@@ -342,6 +342,11 @@ public class NewNavPageController implements Initializable {
         break;
     }
 
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
     resizeCanvas();
     draw();
   }
@@ -466,6 +471,7 @@ public class NewNavPageController implements Initializable {
    * @return
    */
   private Node getRealXY(String floor, MouseEvent mouseEvent) {
+    // TODO: don't need this -- want to use other methods below since those accommodate zooming
     Node n = new Node();
     double imgX = 0;
     double imgY = 0;
@@ -528,9 +534,11 @@ public class NewNavPageController implements Initializable {
 
     double a = getImgX(scrollEvent.getX());
     double b = getImgY(scrollEvent.getY());
+    double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
+    double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
     double vX = percImageView * imageView.getImage().getWidth();
     double vY = percImageView * imageView.getImage().getHeight();
-    currentViewport = new Rectangle2D(a - (0.5 * vX), b - (0.5 * vY), vX, vY);
+    currentViewport = new Rectangle2D(a - (percCanvasA * vX), b - (percCanvasB * vY), vX, vY);
 
     imageView.setViewport(currentViewport);
     draw();
