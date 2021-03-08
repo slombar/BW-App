@@ -127,14 +127,14 @@
                   </JFXTextField>
                </children>
             </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="6.0" prefWidth="479.0">
+            <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="414.0">
                <children>
                   <JFXButton onAction="#back" prefHeight="39.0" prefWidth="121.0" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="50.0" right="50.0" />
+                        <Insets left="70.0" right="30.0" />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton onAction="#clear" prefHeight="39.0" prefWidth="127.0" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
@@ -150,7 +150,7 @@
                         <Font name="Leelawadee UI Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="50.0" right="50.0" />
+                        <Insets left="20.0" right="50.0" />
                      </HBox.margin>
                   </JFXButton>
                </children>
