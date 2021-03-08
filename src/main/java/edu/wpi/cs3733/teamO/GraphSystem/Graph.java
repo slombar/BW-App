@@ -63,8 +63,6 @@ public class Graph {
   private static ObservableList<Edge> listOfEdges;
   private static Hashtable<String, Node> stringNodeHashtable;
   private static Hashtable<String, Edge> stringEdgeHashtable;
-  private static Hashtable<String, Circle>
-      stringCircleHashtable; // changed back to <NodeID, Circle>
   private AlgorithmStrategy strategy;
   List<Node> path;
 
@@ -96,15 +94,10 @@ public class Graph {
 
       link(nodeA, nodeB, e);
     }
-
-    stringCircleHashtable = new Hashtable<>();
   }
 
   public void setGraphicsContext(GraphicsContext gc) {
     this.gc = gc;
-    for (Node n : listOfNodes) {
-      // createCircle(n);
-    }
   }
 
   /**
@@ -209,10 +202,6 @@ public class Graph {
       n.setNeighbourList(prevNList);
       n.setNodeEdgeHashtable(prevNEList);
 
-      // n needs new Circle (in case x,y changed)
-      stringCircleHashtable.remove(n.getID());
-      // createCircle(n);
-
       // add new node and corresponding
       listOfNodes.add(n);
       stringNodeHashtable.put(n.getID(), n);
@@ -299,7 +288,6 @@ public class Graph {
 
     // remove from graph
     listOfNodes.remove(n);
-    stringCircleHashtable.remove(n.getID());
     stringNodeHashtable.remove(n.getID());
   }
 
