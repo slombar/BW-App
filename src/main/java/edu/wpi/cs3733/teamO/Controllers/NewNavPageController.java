@@ -8,6 +8,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -40,10 +41,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
+  public VBox directionvbox;
   // edit map components
   @FXML private JFXToggleButton editToggle;
   @FXML private VBox editVBox;
@@ -380,6 +381,9 @@ public class NewNavPageController implements Initializable {
     for (Node n : GRAPH.getPath()) {
       if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
     }
+    for (String d : Graph.findTextDirection()) {
+      addTextToDirectionBox(d);
+    }
   }
 
   /**
@@ -685,6 +689,7 @@ public class NewNavPageController implements Initializable {
 
     resizeCanvas();
     draw();
+    directionvbox.getChildren().clear();
   }
 
   /**
@@ -1008,10 +1013,9 @@ public class NewNavPageController implements Initializable {
   }
 
   private void addTextToDirectionBox(String text) {
-    Graph graph = GRAPH;
 
-    Text newText = new Text(Directions.html2text(text) + "\n");
+    Text newText = new Text(text + "\n");
     newText.setFont(Font.font("leelawadee ui", 16.0));
-    dirVbox.getChildren().add(newText);
+    directionvbox.getChildren().add(newText);
   }
 }

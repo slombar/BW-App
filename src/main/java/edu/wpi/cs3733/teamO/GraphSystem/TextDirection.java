@@ -1,11 +1,10 @@
 package edu.wpi.cs3733.teamO.GraphSystem;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.ArrayList;
 import java.util.List;
-
-import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
-
 
 public class TextDirection {
 
@@ -49,7 +48,7 @@ public class TextDirection {
   }
 
   public static ArrayList<String> textDirections() {
-    List<Node> path =  GRAPH.getPath();
+    List<Node> path = GRAPH.getPath();
 
     Directions.add("Start from " + path.get(0).getLongName() + " to " + path.get(1).getLongName());
 
