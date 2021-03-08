@@ -29,7 +29,7 @@
 -fx-border-color: white;
 -fx-border-width: 2px;
 -fx-border-radius: 40px;
--text-align: left
+
 }
 
 .nav-buttons {
@@ -41,7 +41,7 @@
 -fx-border-color: white;
 -fx-border-width: 2px;
 -fx-border-radius: 40px;
--text-align: left
+-fx-alignment: CENTER_LEFT
 }
 
 .nav-text {
@@ -53,5 +53,17 @@
 -fx-border-color: white;
 -fx-border-width: 2px;
 -fx-border-radius: 20px;
--text-align: left
+-fx-alignment: CENTER_LEFT
+}
+
+.back-buttons {
+-fx-pref-width: 56px;
+-fx-pref-height: 40px;
+-fx-background-radius: 40px;
+-fx-text-fill: black;
+-fx-background-color: #cfe2f3;
+-fx-border-color: white;
+-fx-border-width: 2px;
+-fx-border-radius: 40px;
+-fx-alignment: CENTER_LEFT
 }

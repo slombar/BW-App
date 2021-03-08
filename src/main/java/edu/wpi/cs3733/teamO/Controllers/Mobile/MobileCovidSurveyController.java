@@ -37,7 +37,7 @@ public class MobileCovidSurveyController implements Initializable {
    */
   public void goBack(ActionEvent actionEvent) {
     if (MainScreenController.isBackHome) {
-      SwitchScene.goToParentMobile("/Views/MobileApp/MobileMainScreen.fxml", actionEvent);
+      SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
       MainScreenController.isBackHome = false;
     } else {
       SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);

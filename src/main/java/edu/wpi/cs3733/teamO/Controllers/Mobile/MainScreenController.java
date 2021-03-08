@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.stage.Stage;
 
 public class MainScreenController implements Initializable {
 
@@ -16,6 +15,7 @@ public class MainScreenController implements Initializable {
   private final JFXButton googleNavBtn = new JFXButton("Navigate to the hospital");
   private final JFXButton hospitalNavBtn = new JFXButton("Navigate within the hospital");
   public static boolean isBackHome = false;
+  public static boolean isBackGoogle = false;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
