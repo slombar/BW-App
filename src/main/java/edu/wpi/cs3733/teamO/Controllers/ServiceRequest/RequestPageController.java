@@ -28,7 +28,7 @@ public class RequestPageController implements Initializable {
   @FXML private JFXButton transportBtn;
   @FXML private JFXButton maintenanceBtn;
   @FXML private JFXButton medicineBtn;
-  @FXML private JFXButton laundryBtn2;
+  @FXML private JFXButton entryBtn;
   @FXML private JFXButton securityBtn;
   @FXML private JFXButton sanitationBtn;
   @FXML private JFXButton moreBtn;
@@ -79,7 +79,7 @@ public class RequestPageController implements Initializable {
     Effects.hoverEffect(transportBtn);
     Effects.hoverEffect(maintenanceBtn);
     Effects.hoverEffect(medicineBtn);
-    Effects.hoverEffect(laundryBtn2);
+    Effects.hoverEffect(entryBtn);
     Effects.hoverEffect(securityBtn);
     Effects.hoverEffect(sanitationBtn);
     Effects.hoverEffect(moreBtn);
