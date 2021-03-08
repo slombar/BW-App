@@ -15,7 +15,7 @@ public class WaitingPageController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    hospitalNavBtn.setDisable(true);
+    //    hospitalNavBtn.setDisable(true);
     // TODO: need to use the following popups
     //    PopupMaker.mainEntranceNotif(popupNotification);
     //    PopupMaker.covidEntranceNotif(popupNotification);

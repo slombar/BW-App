@@ -62,6 +62,7 @@ public class ImgurFunctionality {
             .asString();
 
     String b = response.getBody();
+    System.out.print(b);
     String a = b.substring(b.indexOf("https")); // TODO Din, does this give you index out of range?
     return a.substring(0, a.indexOf("png") + 3);
   }

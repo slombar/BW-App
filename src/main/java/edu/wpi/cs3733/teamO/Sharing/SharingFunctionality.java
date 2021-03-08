@@ -46,79 +46,26 @@ public class SharingFunctionality {
       String linkToFile5,
       String linkToFile6) {
     String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
-    String AUTH_TOKEN = "98a818e03c58110dc0fbc752695d9e40";
+    String AUTH_TOKEN = "29c1347315b388cb034d93e5aff4685f";
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+    Message.creator(
+            new com.twilio.type.PhoneNumber(
+                sendingTo), // if testing, please use verified number. will not work otherwise
+            new com.twilio.type.PhoneNumber("+16173560972"),
+            "Hello! Here are your map images!")
+        .setMediaUrl(
+            Arrays.asList(
+                URI.create(linkToFile1),
+                URI.create(linkToFile2),
+                URI.create(linkToFile3),
+                URI.create(linkToFile4),
+                URI.create(linkToFile5),
+                URI.create(linkToFile6)))
+        .create();
 
     // did same thing as emails
-    Graph graph = GRAPH;
-    String pathFloors = "";
-    for (Node n : graph.getPath()) {
-      if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
-    }
-
-    // check for campus, check for last thing
-    String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
-    String lastFloor = pathFloors.substring(pathFloors.length() - 1);
-    System.out.println(firstLast);
-
-    // this time, i made a list of the links we need since the constructor to make the text != allow
-    // for concat
-    LinkedList<String> toPrint = new LinkedList<String>();
-
-    if (firstLast.contains("G")) {
-      toPrint.add(linkToFile1);
-      if (!lastFloor.contains("1")) toPrint.add(linkToFile2);
-    }
-
-    if (firstLast.contains("1")) toPrint.add(linkToFile2);
-    if (firstLast.contains("2")) toPrint.add(linkToFile3);
-    if (firstLast.contains("3")) toPrint.add(linkToFile4);
-    if (firstLast.contains("4")) toPrint.add(linkToFile5);
-    if (firstLast.contains("5")) toPrint.add(linkToFile6);
-    System.out.println(toPrint.get(0));
-
-    // check how many links we need to send, calls message constructor with that amount of URLs
-    if (toPrint.size() == 1) {
-      Message message =
-          Message.creator(
-                  new com.twilio.type.PhoneNumber(
-                      sendingTo), // if testing, please use verified number. will not work otherwise
-                  new com.twilio.type.PhoneNumber("+16173560972"),
-                  "Hello! Here are your map images!")
-              .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0))))
-              .create();
-
-      System.out.println(message.getSid());
-
-    } else if (toPrint.size() == 2) {
-      Message message =
-          Message.creator(
-                  new com.twilio.type.PhoneNumber(
-                      sendingTo), // if testing, please use verified number. will not work otherwise
-                  new com.twilio.type.PhoneNumber("+16173560972"),
-                  "Hello! Here are your map images!")
-              .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0)), URI.create(toPrint.get(1))))
-              .create();
-
-      System.out.println(message.getSid());
-
-    } else if (toPrint.size() == 3) {
-      Message message =
-          Message.creator(
-                  new com.twilio.type.PhoneNumber(
-                      sendingTo), // if testing, please use verified number. will not work otherwise
-                  new com.twilio.type.PhoneNumber("+16173560972"),
-                  "Hello! Here are your map images!")
-              .setMediaUrl(
-                  Arrays.asList(
-                      URI.create(toPrint.get(0)),
-                      URI.create(toPrint.get(1)),
-                      URI.create(toPrint.get(2))))
-              .create();
-      // if not 1,2,3, then just send all 6 maps for now
-      // TODO: prob want to throw error if no pathfind
-    } else {
+    if (GRAPH.equals(null)) {
       Message message =
           Message.creator(
                   new com.twilio.type.PhoneNumber(
@@ -136,6 +83,83 @@ public class SharingFunctionality {
               .create();
 
       System.out.println(message.getSid());
+    } else {
+      Graph graph = GRAPH;
+      String pathFloors = "";
+      for (Node n : graph.getPath()) {
+        if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+      }
+
+      // check for campus, check for last thing
+      String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
+      String lastFloor = pathFloors.substring(pathFloors.length() - 1);
+      System.out.println(firstLast);
+
+      // this time, i made a list of the links we need since the constructor to make the text !=
+      // allow
+      // for concat
+      LinkedList<String> toPrint = new LinkedList<String>();
+
+      if (firstLast.contains("G")) {
+        toPrint.add(linkToFile1);
+        if (!lastFloor.contains("1")) toPrint.add(linkToFile2);
+      }
+
+      if (firstLast.contains("1")) toPrint.add(linkToFile2);
+      if (firstLast.contains("2")) toPrint.add(linkToFile3);
+      if (firstLast.contains("3")) toPrint.add(linkToFile4);
+      if (firstLast.contains("4")) toPrint.add(linkToFile5);
+      if (firstLast.contains("5")) toPrint.add(linkToFile6);
+      System.out.println(toPrint.get(0));
+
+      // check how many links we need to send, calls message constructor with that amount of URLs
+      if (toPrint.size() == 1) {
+        Message message =
+            Message.creator(
+                    new com.twilio.type.PhoneNumber(
+                        sendingTo), // if testing, please use verified number. will not work
+                    // otherwise
+                    new com.twilio.type.PhoneNumber("+16173560972"),
+                    "Hello! Here are your map images!")
+                .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0))))
+                .create();
+        System.out.println(message.getSid());
+
+        System.out.println(message.getSid());
+
+      } else if (toPrint.size() == 2) {
+        Message message =
+            Message.creator(
+                    new com.twilio.type.PhoneNumber(
+                        sendingTo), // if testing, please use verified number. will not work
+                    // otherwise
+                    new com.twilio.type.PhoneNumber("+16173560972"),
+                    "Hello! Here are your map images!")
+                .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0)), URI.create(toPrint.get(1))))
+                .create();
+        System.out.println(message.getSid());
+
+        System.out.println(message.getSid());
+
+      } else if (toPrint.size() == 3) {
+        Message message =
+            Message.creator(
+                    new com.twilio.type.PhoneNumber(
+                        sendingTo), // if testing, please use verified number. will not work
+                    // otherwise
+                    new com.twilio.type.PhoneNumber("+16173560972"),
+                    "Hello! Here are your map images!")
+                .setMediaUrl(
+                    Arrays.asList(
+                        URI.create(toPrint.get(0)),
+                        URI.create(toPrint.get(1)),
+                        URI.create(toPrint.get(2))))
+                .create();
+        System.out.println(message.getSid());
+        // if not 1,2,3, then just send all 6 maps for now
+        // TODO: prob want to throw error if no pathfind
+
+      }
     }
   }
 
