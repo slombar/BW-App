@@ -23,7 +23,10 @@
                <font>
                   <Font size="32.0" />
                </font></Label>
-            <Label text="Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Image is temp" textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
+            <Label text="This system was brought to you by the WPI Computer Science Department, CS3733-C21 Software Engineering, Prof. Wilson Wong, Michael Clements our team coach, and the team:
+Sadie Lombardi Lead Software Engineer, Cindy Trac Asst. Lead Software Engineer, Ryan Darcey Asst. Lead Software Engineer, Selina Spry Project Manager, Luke Hoy Scrum Master, Kyle Lopez Documentation Analyst,
+Nathan Draudt Product Owner, Ke Zhao Algorithms Specialist, Sam Parks UX/UI Design Specialist, and Dinmukhamed Umbetzhan Algorithm Specialist. Special thanks to Brigham and Women’s Hospital and Andrew Shinn for their time and imput.
+" textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -39,7 +42,7 @@
                      <center>
                         <ImageView fitHeight="500.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                            <image>
-                              <Image url="@../FaulknerCampus_Updated.png" />
+                              <Image url="@../BrighamArtistic.jpeg" />
                            </image>
                         </ImageView>
                      </center>
