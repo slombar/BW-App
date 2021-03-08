@@ -50,7 +50,7 @@
                   <Image url="@../FaulknerCampus_Updated.png" />
                </image>
             </ImageView>
-            <Canvas fx:id="mapCanvas" height="955.0" onMouseClicked="#canvasClick" onScroll="#onCanvasScroll" width="1160.0" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Canvas fx:id="mapCanvas" height="955.0" onDragDetected="#nodeDrag" onMouseClicked="#canvasClick" onScroll="#onCanvasScroll" width="1160.0" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
          </children>
          <columnConstraints>
             <ColumnConstraints />
