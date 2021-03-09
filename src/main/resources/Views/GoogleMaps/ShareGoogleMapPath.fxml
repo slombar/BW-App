@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.GoogleMaps.ShareGoogleMapPageController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+      <ColumnConstraints percentWidth="35.0" />
+      <ColumnConstraints hgrow="ALWAYS" percentWidth="35.0" />
+      <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="400.0" percentHeight="85.0" vgrow="ALWAYS" />
+   </rowConstraints>
+   <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="977.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Label onMouseClicked="#goToMainMenu" text="Brigham &amp; Women's Faulkner Hospital" textFill="WHITE">
+         <font>
+            <Font name="Leelawadee UI Bold" size="36.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="25.0" />
+         </VBox.margin>
+      </Label>
+   </VBox>
+   <Pane style="-fx-background-color: #3a5369;" />
+   <Pane style="-fx-background-color: #3a5369;" GridPane.columnIndex="3" />
+   <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints percentHeight="25.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <Hyperlink onAction="#goToLink" prefHeight="88.0" prefWidth="445.0" text="Click here to open route in Google Maps" wrapText="true" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+         <font>
+            <Font name="Leelawadee UI" size="24.0" />
+         </font>
+      </Hyperlink>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Leelawadee UI Bold" size="18.0" />
+         </font>
+      </Text>
+      <JFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textLink" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Text me the link!" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textDir" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Text me the directions!" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textBoth" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefHeight="700.0" prefWidth="300.0" text="Text me both!" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailLink" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Email me the link!" GridPane.rowIndex="3">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="10.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailDir" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Email me the directions!" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="10.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailBoth" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Email me both!" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="emailInput" promptText="Email" GridPane.rowIndex="1">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="textInput" layoutX="10.0" layoutY="148.0" promptText="Cell Number" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <font>
+            <Font name="Leelawadee UI" size="16.0" />
+         </font>
+      </JFXTextField>
+   </GridPane>
+   <JFXButton alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#goBack" text=" " textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <font>
+         <Font name="Leelawadee UI" size="32.0" />
+      </font>
+      <graphic>
+         <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../Icons/backArrow.png" />
+         </ImageView>
+      </graphic>
+   </JFXButton>
+</GridPane>

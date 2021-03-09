@@ -28,7 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -57,8 +56,8 @@ public class MobileHospitalNavController implements Initializable {
   Node selectedNodeB = null;
 
   ObservableList<String> listOfFloors =
-          FXCollections.observableArrayList(
-                  "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+      FXCollections.observableArrayList(
+          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
 
   // navigating bools:
   private boolean selectingStart = false;
@@ -156,7 +155,7 @@ public class MobileHospitalNavController implements Initializable {
     directionsList.setRotate(0);
     directionsList.setAlignment(Pos.CENTER_RIGHT);
 
-    buttonFunction();   // adds on action functionality to buttons
+    buttonFunction(); // adds on action functionality to buttons
 
     // initializing everything for pathfinding and drawing the hospital map
     floorSelectionBtn.setItems(listOfFloors);
@@ -188,15 +187,15 @@ public class MobileHospitalNavController implements Initializable {
         });
 
     textBtn.setOnAction(
-            actionEvent -> {
-              MainScreenController.isBackGoogle = false;
-              SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
-            });
+        actionEvent -> {
+          MainScreenController.isBackGoogle = false;
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
+        });
 
     exitBtn.setOnAction(
-            actionEvent -> {
-              SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
-            });
+        actionEvent -> {
+          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
+        });
   }
 
   /** Resizes Canvas to be the current size of the Image */
@@ -246,7 +245,7 @@ public class MobileHospitalNavController implements Initializable {
     }
 
     currentViewport =
-            new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
     imageView.setViewport(currentViewport);
     percImageView = 1.0;
 
@@ -257,31 +256,31 @@ public class MobileHospitalNavController implements Initializable {
   /** resets path and creates a new path depending on start and end nodes */
   public void doPathfind() {
     startBtn.setOnAction(
-            actionEvent -> {
-              if (startNode != null && endNode != null) {
-                GRAPH.resetPath();
-                GRAPH.findPath("A*", startNode, endNode);
-                displayingRoute = true;
-                selectingStart = false;
-                selectingEnd = false;
-              } else if (!startLoc.getText().isEmpty() && !endLoc.getText().isEmpty()) {
-                startNode = GRAPH.getNodeByLongName(startLoc.getText());
-                endNode = GRAPH.getNodeByLongName(endLoc.getText());
-                GRAPH.resetPath();
-                GRAPH.findPath("A*", startNode, endNode);
-                displayingRoute = true;
-                selectingStart = false;
-                selectingEnd = false;
-              } else {
-                PopupMaker.invalidPathfind(stackPane);
-              }
+        actionEvent -> {
+          if (startNode != null && endNode != null) {
+            GRAPH.resetPath();
+            GRAPH.findPath("A*", startNode, endNode);
+            displayingRoute = true;
+            selectingStart = false;
+            selectingEnd = false;
+          } else if (!startLoc.getText().isEmpty() && !endLoc.getText().isEmpty()) {
+            startNode = GRAPH.getNodeByLongName(startLoc.getText());
+            endNode = GRAPH.getNodeByLongName(endLoc.getText());
+            GRAPH.resetPath();
+            GRAPH.findPath("A*", startNode, endNode);
+            displayingRoute = true;
+            selectingStart = false;
+            selectingEnd = false;
+          } else {
+            PopupMaker.invalidPathfind(stackPane);
+          }
 
-              draw();
-              pathFloors = "";
-              for (Node n : GRAPH.getPath()) {
-                if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
-              }
-            });
+          draw();
+          pathFloors = "";
+          for (Node n : GRAPH.getPath()) {
+            if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+          }
+        });
   }
 
   /**
@@ -293,7 +292,7 @@ public class MobileHospitalNavController implements Initializable {
     selectingStart = !selectingStart;
     selectingEnd = !selectingEnd;
     Node clickedNode =
-            GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false, imageView);
+        GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false, imageView);
 
     // ----------------------
     // block for LEFT CLICK
@@ -349,13 +348,13 @@ public class MobileHospitalNavController implements Initializable {
     double vY = percImageView * imageView.getImage().getHeight();
     // zoom option A:
     currentViewport =
-            new Rectangle2D(
-                    (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
-                            - vX / 2,
-                    (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
-                            - vY / 2,
-                    vX,
-                    vY);
+        new Rectangle2D(
+            (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
+                - vX / 2,
+            (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
+                - vY / 2,
+            vX,
+            vY);
     imageView.setViewport(currentViewport);
     draw();
   }
@@ -387,6 +386,7 @@ public class MobileHospitalNavController implements Initializable {
 
   /**
    * clear button to clear path
+   *
    * @param actionEvent
    */
   public void clearPath(ActionEvent actionEvent) {

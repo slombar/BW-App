@@ -12,7 +12,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MobileGoogleNavController implements Initializable {
@@ -104,22 +103,22 @@ public class MobileGoogleNavController implements Initializable {
   /** adding on action functionality to the buttons in the JFXNodeslist */
   private void buttonFunction() {
     hospitalBtn.setOnAction(
-            actionEvent -> {
-              // navigate hospital campus
-              SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
-            });
+        actionEvent -> {
+          // navigate hospital campus
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
+        });
 
     textBtn.setOnAction(
-            actionEvent -> {
-              // page of just text directions
-              MainScreenController.isBackGoogle = true;
-              SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
-            });
+        actionEvent -> {
+          // page of just text directions
+          MainScreenController.isBackGoogle = true;
+          SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
+        });
 
     exitBtn.setOnAction(
-            // exits to main phone screen page
-            actionEvent -> {
-              SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
-            });
+        // exits to main phone screen page
+        actionEvent -> {
+          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
+        });
   }
 }
