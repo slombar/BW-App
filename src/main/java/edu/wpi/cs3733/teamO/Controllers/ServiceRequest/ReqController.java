@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.Controllers.Mobile.WaitingPageController;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
@@ -322,18 +323,19 @@ public class ReqController implements Initializable {
           } else {
             Request selectedRequest = RequestHandling.getRequest(listOfFields.get(0).getText());
             System.out.println(listOfFields.get(0).getText());
-            RequestHandling.editRequest(
-                Integer.parseInt(listOfFields.get(0).getText()),
-                selectedRequest.getFulfilledBy(),
-                "CV19",
-                listOfFields.get(1).getText(),
-                selectedRequest.getSummary(),
-                selectedRequest.getPara1(),
-                selectedRequest.getPara2(),
-                selectedRequest.getPara3());
+            /*RequestHandling.editRequest(
+            Integer.parseInt(listOfFields.get(0).getText()),
+            selectedRequest.getFulfilledBy(),
+            "CV19",
+            listOfFields.get(1).getText(),
+            selectedRequest.getSummary(),
+            selectedRequest.getPara1(),
+            selectedRequest.getPara2(),
+            selectedRequest.getPara3());*/
 
             RequestHandling.updateRequest(
                 Integer.parseInt(listOfFields.get(0).getText()), listOfFields.get(1).getText());
+            WaitingPageController.setSurveyApproved(true);
 
             dialog.close();
             popUpPane.toBack();
