@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 public class GoogleEmailThreader extends Thread {
 
@@ -78,19 +76,16 @@ public class GoogleEmailThreader extends Thread {
 
       if (url != null) {
         tempMessage.append(url).append("\n");
-        System.out.println("sending url");
       }
 
       if (directions != null) {
         for (DirectionsStep d : directions) {
           tempMessage.append(d.htmlInstructions).append("\n");
-          System.out.println("sending directions");
         }
       }
 
       tempMessage.append("</body>\n" + "</html>\n");
       ////////////////////////////////////////////////////////////////////////////////////////////////
-
 
       // Send the complete message parts
       message.setContent(tempMessage.toString(), "text/html");

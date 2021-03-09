@@ -41,8 +41,10 @@ public class GoogleTextThreader extends Thread {
   }
 
   public void run() {
+
+    System.out.println("starting text");
     String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
-    String AUTH_TOKEN = "29c1347315b388cb034d93e5aff4685f";
+    String AUTH_TOKEN = "23c75ae104565d6197a504786ae1e335";
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
@@ -61,14 +63,34 @@ public class GoogleTextThreader extends Thread {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Message message =
-        Message.creator(
-                new com.twilio.type.PhoneNumber(
-                    sendingTo), // if testing, please use verified number. will not work otherwise
-                new com.twilio.type.PhoneNumber("+16173560972"),
-                tempMessage.toString())
-            .create();
+    char[] msg = tempMessage.toString().toCharArray();
+    int lineCount = 0;
+    ArrayList<Integer> breaks = new ArrayList<>();
 
-    System.out.println(message.getSid());
+    // finds the points of each 10 lines;
+    breaks.add(0);
+    for (int i = 0; i < msg.length; i++) {
+      if (msg[i] == '\n') {
+        lineCount++;
+        if (lineCount >= 10) {
+          breaks.add(i + 1);
+          lineCount = 0;
+        }
+      }
+    }
+    breaks.add(tempMessage.length() - 1);
+
+    // sends all of the messages based on the breaks
+    for (int i = 0; i < breaks.size() - 1; i++) {
+      String send = tempMessage.substring(breaks.get(i), breaks.get(i + 1));
+      Message message =
+          Message.creator(
+                  new com.twilio.type.PhoneNumber(
+                      sendingTo), // if testing, please use verified number. will not work otherwise
+                  new com.twilio.type.PhoneNumber("+16173560972"),
+                  send)
+              .create();
+      System.out.println("SID from Twillio: " + message.getSid()); //TODO this works but throws error, not sure why
+    }
   }
 }
