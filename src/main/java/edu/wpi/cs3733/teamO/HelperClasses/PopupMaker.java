@@ -34,6 +34,31 @@ public class PopupMaker {
     warningDialog.show();
   }
 
+  public static void unconnectedPopup(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("WARNING!"));
+    warning.setBody(
+        new Text(
+            "There are nodes unreachable from others, try turning on view all edges and adding some more. Then you can exit edit mode."));
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
   /**
    * creates a popup to notify the user that a selected ID does not exist
    *

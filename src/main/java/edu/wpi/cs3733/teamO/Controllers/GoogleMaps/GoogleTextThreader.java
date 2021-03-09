@@ -90,7 +90,9 @@ public class GoogleTextThreader extends Thread {
                   new com.twilio.type.PhoneNumber("+16173560972"),
                   send)
               .create();
-      System.out.println("SID from Twillio: " + message.getSid()); //TODO this works but throws error, not sure why
+      System.out.println(
+          "SID from Twillio: "
+              + message.getSid()); // TODO this works but throws error, not sure why
     }
   }
 }
