@@ -53,7 +53,7 @@ public class WaitingPageController implements Initializable {
       // popup to say you can now continue
       // TODO grab which entrance
       PopupMaker.mainEntranceNotif(popupNotification);
-//      PopupMaker.covidEntranceNotif(popupNotification);
+      //      PopupMaker.covidEntranceNotif(popupNotification);
     }
   }
 
