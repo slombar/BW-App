@@ -589,11 +589,12 @@ public class Graph {
    * @param nodeType 'long name' of the Node being retrieved
    * @return a Node with the corresponding long name
    */
-  public Node getNodeByNodeType(String nodeType) {
+  public ArrayList<Node> getNodeByNodeType(String nodeType) {
+    ArrayList<Node> list = new ArrayList<>();
     for (Node n : listOfNodes) {
-      if (n.getNodeType().equals(nodeType)) return n;
+      if (n.getNodeType().equals(nodeType)) list.add(n);
     }
-    return null;
+    return list;
   }
 
   public Node getNodeBYID(String id) {
