@@ -15,8 +15,10 @@ public class MainScreenController implements Initializable {
   private final JFXButton googleNavBtn = new JFXButton("To the hospital");
   private final JFXButton hospitalNavBtn = new JFXButton("Within the hospital");
 
-  public static boolean isBackHome = false; // keeps track of whether the last page was the home page
-  public static boolean isBackGoogle = false; // keeps track of whether the last page was the google nav page
+  public static boolean isBackHome =
+      false; // keeps track of whether the last page was the home page
+  public static boolean isBackGoogle =
+      false; // keeps track of whether the last page was the google nav page
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {

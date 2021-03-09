@@ -24,7 +24,7 @@ public class MobileDirectionsController implements Initializable {
 
     // create text directions based on last screen
     if (MainScreenController.isBackGoogle) {
-      //TODO: add text directions or google API
+      // TODO: add text directions or google API
     } else {
       for (String d : Graph.findTextDirection()) {
         addTextToDirectionBox(d);
@@ -34,6 +34,7 @@ public class MobileDirectionsController implements Initializable {
 
   /**
    * returns the previous map page based on whether the last page was google nav
+   *
    * @param actionEvent
    */
   public void goBack(ActionEvent actionEvent) {
@@ -42,6 +43,7 @@ public class MobileDirectionsController implements Initializable {
 
   /**
    * adds text directions to a VBox
+   *
    * @param text
    */
   private void addTextToDirectionBox(String text) {
