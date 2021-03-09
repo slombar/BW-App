@@ -26,12 +26,9 @@ public class SaveParkingController implements Initializable {
     // setting up auto complete for parking nodes
     ArrayList<String> parkingNodes = new ArrayList<>();
     for (Node node : GRAPH.getListOfNodes()) {
-      if (node.getNodeType().equals("PARK")) { // checking if its a parking node
-        parkingNodes.add(node.getLongName()); // adds the node's long name to list
+      if (node.getNodeType().equals("PARK")) {  // checking if its a parking node
+        parkingNodes.add(node.getLongName());   // adds the node's long name to list
       }
-
-    for (Node n : GRAPH.getNodeByNodeType("PARK")) {
-      parkingNodes.add(n.getLongName());
     }
     // actually autocompleting with the parking nodes (displays the long name)
     Autocomplete.autoComplete(parkingNodes, input);
@@ -48,7 +45,7 @@ public class SaveParkingController implements Initializable {
 
   // TODO make the textfield autocomplete things?
   public void saveSpot(ActionEvent actionEvent) {
-    String spot = input.getText().substring(6, 8);
+    String spot = input.getText().substring(13);
     UserHandling.setParkingSpot(spot);
     System.out.println(spot);
     currentSpot.setText(spot);
