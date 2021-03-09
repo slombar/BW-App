@@ -3,7 +3,7 @@ package edu.wpi.cs3733.teamO.Controllers.GoogleMaps;
 import com.google.maps.model.DirectionsStep;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import edu.wpi.cs3733.teamO.Maps.Directions;
+import edu.wpi.cs3733.teamO.Controllers.Maps.Directions;
 import java.util.ArrayList;
 
 public class GoogleTextThreader extends Thread {
@@ -90,7 +90,9 @@ public class GoogleTextThreader extends Thread {
                   new com.twilio.type.PhoneNumber("+16173560972"),
                   send)
               .create();
-      System.out.println("SID from Twillio: " + message.getSid()); //TODO this works but throws error, not sure why
+      System.out.println(
+          "SID from Twillio: "
+              + message.getSid()); // TODO this works but throws error, not sure why
     }
   }
 }
