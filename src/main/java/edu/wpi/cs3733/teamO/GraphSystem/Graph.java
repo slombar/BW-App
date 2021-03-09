@@ -580,6 +580,20 @@ public class Graph {
     return null;
   }
 
+  /**
+   * gets the Node with the provided long name (doesn't guarantee it's the only Node with the given
+   * name)
+   *
+   * @param nodeType 'long name' of the Node being retrieved
+   * @return a Node with the corresponding long name
+   */
+  public Node getNodeByNodeType(String nodeType) {
+    for (Node n : listOfNodes) {
+      if (n.getNodeType().equals(nodeType)) return n;
+    }
+    return null;
+  }
+
   public Node getNodeBYID(String id) {
     for (Node n : listOfNodes) {
       if (n.getID().equals(id)) return n;
