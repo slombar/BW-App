@@ -25,6 +25,8 @@ import javax.imageio.ImageIO;
 
 public class SharingFunctionality {
 
+  public static void sendDirections(String sendingTo) {}
+
   /**
    * Sends a MMS to given phone number with 6 map images
    *
@@ -146,40 +148,6 @@ public class SharingFunctionality {
       }
     }
   }
-
-  // working code between trying to only send necessary maps
-  /*
-  public static void sendSMSTwillio(
-      String sendingTo,
-      String linkToFile1,
-      String linkToFile2,
-      String linkToFile3,
-      String linkToFile4,
-      String linkToFile5,
-      String linkToFile6) {
-    String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
-    String AUTH_TOKEN = "98a818e03c58110dc0fbc752695d9e40";
-
-    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-    Message message =
-        Message.creator(
-                new com.twilio.type.PhoneNumber(
-                    sendingTo), // if testing, please use verified number. will not work otherwise
-                new com.twilio.type.PhoneNumber("+16173560972"),
-                "Hello! Here are your map images!")
-            .setMediaUrl(
-                Arrays.asList(
-                    URI.create(linkToFile1),
-                    URI.create(linkToFile2),
-                    URI.create(linkToFile3),
-                    URI.create(linkToFile4),
-                    URI.create(linkToFile5),
-                    URI.create(linkToFile6)))
-            .create();
-
-    System.out.println(message.getSid());
-  }
-   */
 
   // check email threader for previous code
   public static void sendEmailAttachment(
