@@ -147,6 +147,26 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                   </JFXButton>
+                  <HBox prefHeight="100.0" prefWidth="280.0">
+                     <children>
+                        <JFXButton fx:id="alignHButton" onAction="#alignVertically" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Align H.">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="alignVButton" onAction="#alignHorizontally" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #c0c0c0;" text="Align V.">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
                   <Label fx:id="displayLongName" text="Selected Node">
                      <font>
                         <Font name="System Bold" size="15.0" />
