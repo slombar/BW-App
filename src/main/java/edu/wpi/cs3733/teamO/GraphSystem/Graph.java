@@ -515,7 +515,7 @@ public class Graph {
    * sets this Graph's path = the path found by the given algorithm from the given start to end
    * Nodes
    *
-   * @param strat "A*", "DFS", or "BFS"
+   * @param strat "A*", "DFS", "BFS", or "Djikstra"
    * @param startNode start Node of the path
    * @param targetNode end Node of the path
    */
@@ -578,5 +578,30 @@ public class Graph {
       if (n.getLongName().equals(longName)) return n;
     }
     return null;
+  }
+
+  public Node getNodeBYID(String id) {
+    for (Node n : listOfNodes) {
+      if (n.getID().equals(id)) return n;
+    }
+    return null;
+  }
+
+  public boolean allConnected() {
+    Node testNode = listOfNodes.get(0);
+    for (Node n : listOfNodes) {
+
+      if (n != testNode) {
+
+        findPath("A*", testNode, n);
+
+        if (path == null) {
+          resetPath();
+          return false;
+        }
+        resetPath();
+      }
+    }
+    return true;
   }
 }

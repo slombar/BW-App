@@ -14,8 +14,9 @@ public class MainScreenController implements Initializable {
   private final JFXButton welcomeBtn = new JFXButton("I would like to navigate...");
   private final JFXButton googleNavBtn = new JFXButton("To the hospital");
   private final JFXButton hospitalNavBtn = new JFXButton("Within the hospital");
-  public static boolean isBackHome = false;
-  public static boolean isBackGoogle = false;
+
+  public static boolean isBackHome = false; // keeps track of whether the last page was the home page
+  public static boolean isBackGoogle = false; // keeps track of whether the last page was the google nav page
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -32,16 +33,20 @@ public class MainScreenController implements Initializable {
     buttonsList.addAnimatedNode(googleNavBtn);
     buttonsList.addAnimatedNode(hospitalNavBtn);
     buttonsList.setSpacing(20);
+
+    // adding on action function to the buttons
     buttonFunction();
   }
 
   /** adding on action functionality to the buttons in the JFXNodeslist */
   private void buttonFunction() {
+    // goes to the google navigation page
     googleNavBtn.setOnAction(
         actionEvent -> {
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);
         });
 
+    // goes to the covid survey (required pre hospital navigation page)
     hospitalNavBtn.setOnAction(
         actionEvent -> {
           isBackHome = true;

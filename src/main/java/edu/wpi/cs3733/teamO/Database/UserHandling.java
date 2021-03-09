@@ -13,6 +13,15 @@ public class UserHandling {
   private static String username;
   private static Boolean isLoggedIn;
   private static String fName;
+  private static String parkingSpot;
+
+  public static String getParkingSpot() {
+    return parkingSpot;
+  }
+
+  public static void setParkingSpot(String parkingSpot) {
+    UserHandling.parkingSpot = parkingSpot;
+  }
 
   /**
    * Delete the given user from the database based on Username
