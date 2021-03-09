@@ -263,10 +263,9 @@ public class SharingFunctionality {
     }
   }
 
-  // for testing purposes, change sendingTo param to cindy's number
+
   // !!! keeping to test when we figure out how to send only necessary maps
   public static void main(String[] args) {
-    // sendSMSTwillio("16176061459", "https://i.imgur.com/ImYycv8.png");
 
     String home = System.getProperty("user.home");
     File crunchifyFile = new File(home + "/Downloads/" + "qr.png");
