@@ -76,13 +76,11 @@ public class GoogleEmailThreader extends Thread {
 
       if (url != null) {
         tempMessage.append(url).append("\n");
-        System.out.println("sending url");
       }
 
       if (directions != null) {
         for (DirectionsStep d : directions) {
           tempMessage.append(d.htmlInstructions).append("\n");
-          System.out.println("sending directions");
         }
       }
 

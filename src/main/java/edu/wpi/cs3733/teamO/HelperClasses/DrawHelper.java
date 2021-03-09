@@ -11,8 +11,15 @@ import javafx.scene.paint.Paint;
 // class that SOLEY draws shit
 public class DrawHelper {
 
+  // these control the size of the nodes (different for desktop/mobile)
+  //  -> dperc makes the circles a certain percent of the image adjusted based on the zoom level
+  //  -> dmin is the minimum diameter (in pixels), so if you're zoomed out too much, they won't be
+  // too small
+  // which is used is based on Math.MAX()
   private static double dperc = 0.015;
   private static double dmin = 10;
+  private static double dpercMOBILE = 0.005;
+  private static double dminMOBILE = 4;
 
   /**
    * Draws every Circle from the given Hashtable corresponding to each Node in the ArrayList
@@ -33,7 +40,8 @@ public class DrawHelper {
       ArrayList<Node> nodeList,
       Node startNode,
       Node endNode,
-      ImageView imageView) {
+      ImageView imageView,
+      boolean isMobile) {
 
     Canvas mapcanvas = gc.getCanvas();
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
@@ -58,7 +66,12 @@ public class DrawHelper {
       double nxp = n.getXCoord() / imageW;
       double nyp = n.getYCoord() / imageH;
 
-      double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+      double diameter = -1;
+      if (isMobile) {
+        diameter = Math.max(dminMOBILE, dpercMOBILE * (1 - wp) * imageW);
+      } else {
+        diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+      }
 
       double circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
       double circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;
@@ -107,7 +120,8 @@ public class DrawHelper {
    * @param circleA
    * @param circleB
    */
-  public static void drawMidArrow(GraphicsContext gc, Node nodeA, Node nodeB, ImageView imageView) {
+  public static void drawMidArrow(
+      GraphicsContext gc, Node nodeA, Node nodeB, ImageView imageView, boolean isMobile) {
     double arrowLength = 6;
     final double arrowWidth = 4;
     final double minArrowDistSq = 216;
@@ -124,7 +138,12 @@ public class DrawHelper {
     double wp = imageView.getViewport().getWidth() / imageW;
     double hp = imageView.getViewport().getHeight() / imageH;
 
-    double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+    double diameter = -1;
+    if (isMobile) {
+      diameter = Math.max(dminMOBILE, dpercMOBILE * (1 - wp) * imageW);
+    } else {
+      diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+    }
 
     double nxpA = nodeA.getXCoord() / imageW;
     double nypA = nodeA.getYCoord() / imageH;
@@ -175,7 +194,12 @@ public class DrawHelper {
   }
 
   public static void drawEdge(
-      GraphicsContext gc, Node nodeA, Node nodeB, Paint color, ImageView imageView) {
+      GraphicsContext gc,
+      Node nodeA,
+      Node nodeB,
+      Paint color,
+      ImageView imageView,
+      boolean isMobile) {
     gc.setLineWidth(3.0);
     gc.setStroke(color);
 
@@ -190,7 +214,12 @@ public class DrawHelper {
     double wp = imageView.getViewport().getWidth() / imageW;
     double hp = imageView.getViewport().getHeight() / imageH;
 
-    double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+    double diameter = -1;
+    if (isMobile) {
+      diameter = Math.max(dminMOBILE, dpercMOBILE * (1 - wp) * imageW);
+    } else {
+      diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+    }
 
     // ------------------------------------
 
@@ -216,7 +245,8 @@ public class DrawHelper {
    * @param circle circle (node) being drawn
    * @param paint Color.COLOR being drawn
    */
-  public static void drawSingleNode(GraphicsContext gc, Node n, Paint paint, ImageView imageView) {
+  public static void drawSingleNode(
+      GraphicsContext gc, Node n, Paint paint, ImageView imageView, boolean isMobile) {
     gc.setGlobalAlpha(1.0);
     gc.setFill(paint);
     gc.setStroke(Color.BLACK);
@@ -238,7 +268,12 @@ public class DrawHelper {
     double nxp = n.getXCoord() / imageW;
     double nyp = n.getYCoord() / imageH;
 
-    double diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+    double diameter = -1;
+    if (isMobile) {
+      diameter = Math.max(dminMOBILE, dpercMOBILE * (1 - wp) * imageW);
+    } else {
+      diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
+    }
 
     double circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
     double circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;

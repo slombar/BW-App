@@ -60,7 +60,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="51.0" prefWidth="268.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="116.0" style="-fx-font-size: 1.2em;" text="Select a new Spot" textOverrun="CLIP">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="184.0" style="-fx-font-size: 1.2em;" text="Select a new Spot" textOverrun="CLIP">
                      <font>
                         <Font name="Leelawadee UI Bold" size="20.0" />
                      </font>
@@ -83,7 +83,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="68.0" prefWidth="268.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="135.0" style="-fx-font-size: 1.3em;" text="Your Parking Spot" textOverrun="CLIP">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="202.0" style="-fx-font-size: 1.3em;" text="Your Parking Spot" textOverrun="CLIP">
                      <font>
                         <Font name="Leelawadee UI Bold" size="20.0" />
                      </font>

@@ -1,22 +1,42 @@
 package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 public class SaveParkingController implements Initializable {
 
   public Label currentSpot;
-  public TextField input;
+  public JFXTextField input;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     currentSpot.setText(UserHandling.getParkingSpot());
+
+    // setting up auto complete for parking nodes
+    ArrayList<String> nodeTypeNodes = Autocomplete.autoNodeData("nodeType");    // getting all nodes types
+    ArrayList<String> parkingNodes = new ArrayList<>();
+    Node pNode = null;
+
+    // getting all the parking nodes based on node type
+    for (String nodeType : nodeTypeNodes) {
+      if (nodeType.equals("PARK")) {                  // checking if its a parking node
+        pNode = GRAPH.getNodeByNodeType(nodeType);    // gets the actual node
+        parkingNodes.add(pNode.getLongName());        // adds the node's long name to list
+      }
+    }
+    // actually autocompleting with the parking nodes (displays the long name)
+    Autocomplete.autoComplete(parkingNodes, input);
   }
 
   /**

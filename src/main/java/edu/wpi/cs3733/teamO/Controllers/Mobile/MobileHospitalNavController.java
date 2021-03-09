@@ -325,7 +325,9 @@ public class MobileHospitalNavController implements Initializable {
     if (Math.abs(scrollDeltaY) > 10) {
       // if positive, then scrolling up (zooming in)
       if (scrollDeltaY > 0) {
-        if (percImageView <= 0.4) {
+        // selina - this is where you change how far you can zoom in (i lowered it but just letting
+        // you know)
+        if (percImageView <= 0.1) {
           return;
         } else {
           percImageView -= 0.05;
@@ -347,14 +349,21 @@ public class MobileHospitalNavController implements Initializable {
     double vX = percImageView * imageView.getImage().getWidth();
     double vY = percImageView * imageView.getImage().getHeight();
     // zoom option A:
-    currentViewport =
-        new Rectangle2D(
-            (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
-                - vX / 2,
-            (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
-                - vY / 2,
-            vX,
-            vY);
+    /*currentViewport =
+    new Rectangle2D(
+        (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
+            - vX / 2,
+        (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
+            - vY / 2,
+        vX,
+        vY);*/
+    // zoom option B:
+    double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
+    double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
+    currentViewport = new Rectangle2D(a - (percCanvasA * vX), b - (percCanvasB * vY), vX, vY);
+    // i felt like option B actually feels a lot better with the much smaller screen for the mobile
+    // version
+    // but obviously it can be changed back to option A if wanted
     imageView.setViewport(currentViewport);
     draw();
   }
@@ -377,10 +386,10 @@ public class MobileHospitalNavController implements Initializable {
 
     if (!displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, true);
     } else if (displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, true);
     }
   }
 
