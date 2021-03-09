@@ -272,7 +272,7 @@ public class MobileHospitalNavController implements Initializable {
             selectingStart = false;
             selectingEnd = false;
           } else {
-            PopupMaker.invalidPathfind(stackPane);
+            PopupMaker.invalidLocationMobile(stackPane);
           }
 
           draw();

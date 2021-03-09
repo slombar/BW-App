@@ -21,7 +21,7 @@
     <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" text="Navigate to B&amp;W Faulkner Hospital Campus" wrapText="true" GridPane.columnIndex="1">
+      <Label fx:id="title" alignment="CENTER" prefHeight="60.0" prefWidth="535.0" text="Navigate to B&amp;W Faulkner Hospital Campus" wrapText="true" GridPane.columnIndex="1">
          <font>
             <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
