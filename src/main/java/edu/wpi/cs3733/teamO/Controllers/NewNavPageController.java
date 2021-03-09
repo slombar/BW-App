@@ -89,8 +89,7 @@ public class NewNavPageController implements Initializable {
   private String sideMenuUrl;
   private String pathFloors = "";
 
-  ArrayList<String> alignList =new ArrayList<>();
-
+  ArrayList<String> alignList = new ArrayList<>();
 
   Node startNode = null;
   Node endNode = null;
@@ -107,7 +106,6 @@ public class NewNavPageController implements Initializable {
 
   // booleans:
   private boolean editing = false;
-
 
   // navigating bools:
   private boolean selectingStart = false;
@@ -414,23 +412,20 @@ public class NewNavPageController implements Initializable {
     Node clickedNode =
         GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
 
-    //block for SHIFT CLICK
-    if(editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-      if((selectingEditNode && selectedNode == null)){
+    // block for SHIFT CLICK
+    if (editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      if ((selectingEditNode && selectedNode == null)) {
         selectedNode = clickedNode;
-        selectedNodeB = null;
-        selectingAlign = true;
-      }else if(selectingEditNode && selectedNode != null){
+
+      } else if (selectingEditNode && selectedNode != null && selectedNode != clickedNode) {
         alignList.add(clickedNode.getID());
       }
+      selectedNodeB = null;
       autocompleteEditMap(clickedNode);
-
-
-
     }
     // ----------------------
     // block for LEFT CLICK
-    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+    else if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
       if (!addNodeMode) {
         selectingEditNode = true;
       }
@@ -503,13 +498,13 @@ public class NewNavPageController implements Initializable {
         endNodeID.setText(selectedNodeB.getID());
       }
 
-      draw();
       /**
        * If the middle mouse is pressed, we want the node to be dragged with the user's cursor. Once
        * it is pressed up, we will drop the node in that location
        */
     }
 
+    draw();
     System.out.println("mapCanvas click");
   }
 
@@ -982,12 +977,10 @@ public class NewNavPageController implements Initializable {
       }
     }
 
-    if(!alignList.isEmpty()){
-      for (String s:
-           alignList) {
+    if (!alignList.isEmpty()) {
+      for (String s : alignList) {
         Node n = GRAPH.getNodeBYID(s);
-        DrawHelper.drawSingleNode(gc,n,Color.BLUE,imageView);
-
+        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView);
       }
     }
   }
@@ -1061,10 +1054,9 @@ public class NewNavPageController implements Initializable {
   }
 
   public void alignVertically(ActionEvent actionEvent) {
-    for (String s:
-         alignList) {
+    for (String s : alignList) {
       Node n = GRAPH.getNodeBYID(s);
-      n.setXCoord(selectedNode.getXCoord());
+      n.setYCoord(selectedNode.getYCoord());
     }
 
     alignList = new ArrayList<>();
@@ -1072,10 +1064,9 @@ public class NewNavPageController implements Initializable {
   }
 
   public void alignHorizontally(ActionEvent actionEvent) {
-    for (String s:
-            alignList) {
+    for (String s : alignList) {
       Node n = GRAPH.getNodeBYID(s);
-      n.setYCoord(selectedNode.getYCoord());
+      n.setXCoord(selectedNode.getXCoord());
     }
 
     alignList = new ArrayList<>();
