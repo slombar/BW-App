@@ -2,13 +2,11 @@ package edu.wpi.cs3733.teamO.Controllers.GoogleMaps;
 
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsStep;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXScrollPane;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Maps.Directions;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,9 +26,9 @@ import javafx.scene.web.WebView;
 
 public class GoogleMapPageController implements Initializable {
 
-  public ScrollPane scrollPane;
-  public WebView mapView;
-
+  @FXML private ScrollPane scrollPane;
+  @FXML private WebView mapView;
+  @FXML private JFXButton shareBtn;
   @FXML private JFXTextField toBox;
   @FXML private StackPane popupPane;
   @FXML private JFXDrawer drawer;
@@ -38,11 +36,13 @@ public class GoogleMapPageController implements Initializable {
   @FXML private JFXTextField fromBox;
   @FXML private VBox dirVbox;
 
-  ArrayList<DirectionsStep> directions;
+  private static ArrayList<DirectionsStep> directions;
   Text title;
+  private static String directionsURL;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    shareBtn.setDisable(true);
     title = new Text("Directions\n");
     title.setFont(Font.font("leelawadee ui", 24.0));
     dirVbox.getChildren().add(title);
@@ -51,49 +51,59 @@ public class GoogleMapPageController implements Initializable {
   }
 
   public void goToMainMenu(MouseEvent mouseEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    String MenuUrl = "/Views/MainPage.fxml";
+    if (UserHandling.getEmployee() || UserHandling.getAdmin())
+      MenuUrl = "/Views/StaffMainPage.fxml";
+    SwitchScene.goToParent(MenuUrl);
   }
 
   public void checkEnter(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
-      toBox.setDisable(true);
-      fromBox.setDisable(true);
-      displayTextRoute(fromBox.getText(), toBox.getText());
+      displayRoute(fromBox.getText(), toBox.getText());
     }
   }
 
-  public void shareGoogleRoute(ActionEvent actionEvent) {} // TODO this too!!
+  public void shareGoogleRoute(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/GoogleMaps/ShareGoogleMapPath.fxml");
+  }
 
-  private void displayTextRoute(String fromLocation, String toLocation) {
-    dirVbox.maxWidth(45);
+  private void displayRoute(String fromLocation, String toLocation) {
     try {
       directions = Directions.getDirections(fromLocation, toLocation);
-    } catch (ApiException ignored) {
-    } catch (InterruptedException ignored) { // TODO figure out what these should do
-    } catch (IOException ignored) {
+    } catch (ApiException | IOException | InterruptedException e) {
+      PopupMaker.invalidLocationA(popupPane);
     }
 
     dirVbox.getChildren().clear();
     dirVbox.getChildren().add(title);
 
-    toBox.setDisable(false);
-    fromBox.setDisable(false);
-
     for (DirectionsStep direction : directions) {
       addTextToDirectionBox(direction.htmlInstructions);
     }
-    mapView
-        .getEngine()
-        .load(
-            "https://www.google.com/maps/dir/?api=1&origin="
-                + Directions.urlForm(fromLocation)
-                + "&destination="
-                + Directions.urlForm(toLocation));
+
+    directionsURL =
+        "https://www.google.com/maps/dir/?api=1&origin="
+            + Directions.urlForm(fromLocation)
+            + "&destination="
+            + Directions.urlForm(toLocation);
+    mapView.getEngine().load(directionsURL);
+
+    if (directionsURL != null) {
+      shareBtn.setDisable(false);
+    }
   }
 
   private void addTextToDirectionBox(String text) {
     Text newText = new Text(Directions.html2text(text) + "\n");
     newText.setFont(Font.font("leelawadee ui", 16.0));
     dirVbox.getChildren().add(newText);
+  }
+
+  public static String getDirectionsURL() {
+    return directionsURL;
+  }
+
+  public static ArrayList<DirectionsStep> getDirections() {
+    return directions;
   }
 }

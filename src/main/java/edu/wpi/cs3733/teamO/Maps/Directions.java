@@ -61,28 +61,15 @@ public class Directions {
 
     DirectionsRoute[] route = result.routes;
 
-    for (int i = 0; i < route.length; i++) {
+    for (DirectionsRoute directionsRoute : route) {
 
-      Bounds b = route[i].bounds;
-      DirectionsLeg[] currentLegs = route[i].legs;
-      LatLng l1 = b.northeast;
-      LatLng l2 = b.southwest;
-
-      double lat1 = l1.lat;
-      double lng1 = l1.lng;
-      double lat2 = l2.lat;
-      double lng2 = l2.lng;
-
-      LatLng center = new LatLng((lat1 + lat2) / 2, (lng1 + lng2) / 2);
+      DirectionsLeg[] currentLegs = directionsRoute.legs;
 
       legs.addAll(Arrays.asList(currentLegs));
     }
-    ArrayList<DirectionsStep> directionsSteps = new ArrayList<>();
 
-    int i = 0;
-    // leg of current directionroute
-
-    directionsSteps.addAll(Arrays.asList(legs.get(0).steps)); // only takes one leg for now
+    ArrayList<DirectionsStep> directionsSteps =
+        new ArrayList<>(Arrays.asList(legs.get(0).steps)); // only takes one leg for now
 
     //    polyline shit that we dont use
     //    for (DirectionsRoute r : route) {
