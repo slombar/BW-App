@@ -147,21 +147,18 @@ public class MobileGoogleNavController implements Initializable {
         });
   }
 
-  //  public void checkEnter(KeyEvent keyEvent) {
-  //    if (keyEvent.getCode() == KeyCode.ENTER) {
-  //      displayRoute(startLoc.getText(), endLoc.getText());
-  //    }
-  //  }
-
+  /**
+   * displays the route on the web view based on from adn to text boxes
+   *
+   * @param fromLocation
+   * @param toLocation
+   */
   private void displayRoute(String fromLocation, String toLocation) {
     try {
       directions = Directions.getDirections(fromLocation, toLocation);
     } catch (ApiException | IOException | InterruptedException e) {
-      PopupMaker.invalidLocationA(popupPane);
+      PopupMaker.invalidLocationMobile(popupPane);
     }
-    //        for (DirectionsStep direction : directions) {
-    //          addTextToDirectionBox(direction.htmlInstructions);
-    //        }
 
     directionsURL =
         "https://www.google.com/maps/dir/?api=1&origin="
@@ -170,12 +167,6 @@ public class MobileGoogleNavController implements Initializable {
             + Directions.urlForm(toLocation);
     mapView.getEngine().load(directionsURL);
   }
-
-  //    private void addTextToDirectionBox(String text) {
-  //      Text newText = new Text(Directions.html2text(text) + "\n");
-  //      newText.setFont(Font.font("leelawadee ui", 16.0));
-  //      dirVbox.getChildren().add(newText);
-  //    }
 
   public static String getDirectionsURL() {
     return directionsURL;

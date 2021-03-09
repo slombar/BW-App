@@ -61,7 +61,7 @@ public class TextDirection {
    * @param node2
    * @return
    */
-  public static String nodeToRealDist(Node node1, Node node2) {
+  public static String realDistance(Node node1, Node node2) {
     double distance =
         Math.sqrt(
             Math.pow((node2.getXCoord() - node1.getXCoord()), 2)
@@ -88,7 +88,7 @@ public class TextDirection {
             + " --(Walk Straight)--> "
             + path.get(1).getLongName()
             + "("
-            + nodeToRealDist(path.get(0), path.get(1))
+            + realDistance(path.get(0), path.get(1))
             + " ft.)");
 
     for (int i = 0; i < path.size() - 2; i++) {
@@ -102,7 +102,7 @@ public class TextDirection {
                 + " to go to floor "
                 + path.get(i + 2).getFloor()
                 + "("
-                + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                + realDistance(path.get(i + 1), path.get(i + 2))
                 + " ft.)");
       } else if (angle < -25) {
         // Lefts
@@ -112,7 +112,7 @@ public class TextDirection {
                   + " --(Turn Around)--> "
                   + path.get(i + 2).getLongName()
                   + "("
-                  + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                  + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
         } else if (angle < -60) {
@@ -121,7 +121,7 @@ public class TextDirection {
                   + " --(Turn Left)--> "
                   + path.get(i + 2).getLongName()
                   + "("
-                  + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                  + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
         } else {
@@ -130,7 +130,7 @@ public class TextDirection {
                   + " --(Slightly Left)--> "
                   + path.get(i + 2).getLongName()
                   + "("
-                  + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                  + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
         }
 
@@ -142,7 +142,7 @@ public class TextDirection {
                   + " --(Turn Around)--> "
                   + path.get(i + 2).getLongName()
                   + "("
-                  + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                  + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
         } else if (angle > 60) {
@@ -151,7 +151,7 @@ public class TextDirection {
                   + " --(Turn Right)--> "
                   + path.get(i + 2).getLongName()
                   + "("
-                  + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                  + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
         } else {
@@ -160,7 +160,7 @@ public class TextDirection {
                   + " --(Slightly Right)--> "
                   + path.get(i + 2).getLongName()
                   + "("
-                  + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                  + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
         }
       } else {
@@ -169,7 +169,7 @@ public class TextDirection {
                 + " --(Walk Straight)--> "
                 + path.get(i + 2).getLongName()
                 + "("
-                + nodeToRealDist(path.get(i + 1), path.get(i + 2))
+                + realDistance(path.get(i + 1), path.get(i + 2))
                 + " ft.)");
       }
     }

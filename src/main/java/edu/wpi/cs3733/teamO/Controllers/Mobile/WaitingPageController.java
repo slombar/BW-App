@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,13 +11,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
 
 public class WaitingPageController implements Initializable {
+  private static boolean isSurveyApproved;
   @FXML private JFXButton hospitalNavBtn;
+  @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    //    hospitalNavBtn.setDisable(true);
+    hospitalNavBtn.setDisable(true);
+    entryStatusBtn.setDisable(false);
     // TODO: need to use the following popups
+    // enable button once employee edits form and grab location
+
     //    PopupMaker.mainEntranceNotif(popupNotification);
     //    PopupMaker.covidEntranceNotif(popupNotification);
   }
@@ -37,5 +43,21 @@ public class WaitingPageController implements Initializable {
    */
   public void goToHospitalNav(ActionEvent actionEvent) {
     SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
+    isSurveyApproved = false;
+    hospitalNavBtn.setDisable(true);
+  }
+
+  public void checkEntryStatus(ActionEvent actionEvent) {
+    if (isSurveyApproved) {
+      hospitalNavBtn.setDisable(false);
+      // popup to say you can now continue
+      // TODO grab which entrance
+      PopupMaker.mainEntranceNotif(popupNotification);
+      //      PopupMaker.covidEntranceNotif(popupNotification);
+    }
+  }
+
+  public static void setSurveyApproved(boolean status) {
+    isSurveyApproved = status;
   }
 }

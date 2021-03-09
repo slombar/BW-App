@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 public class MainScreenController implements Initializable {
 
@@ -14,6 +15,7 @@ public class MainScreenController implements Initializable {
   private final JFXButton welcomeBtn = new JFXButton("I would like to navigate...");
   private final JFXButton googleNavBtn = new JFXButton("To the hospital");
   private final JFXButton hospitalNavBtn = new JFXButton("Within the hospital");
+  private final JFXButton exitAppBtn = new JFXButton("Exit mobile app");
 
   public static boolean isBackHome =
       false; // keeps track of whether the last page was the home page
@@ -29,11 +31,14 @@ public class MainScreenController implements Initializable {
     googleNavBtn.setButtonType(JFXButton.ButtonType.RAISED);
     hospitalNavBtn.getStyleClass().addAll("main-button");
     hospitalNavBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    exitAppBtn.getStyleClass().addAll("main-button");
+    exitAppBtn.setButtonType(JFXButton.ButtonType.RAISED);
 
     // add them to be in an animated node list
     buttonsList.addAnimatedNode(welcomeBtn);
     buttonsList.addAnimatedNode(googleNavBtn);
     buttonsList.addAnimatedNode(hospitalNavBtn);
+    buttonsList.addAnimatedNode(exitAppBtn);
     buttonsList.setSpacing(20);
 
     // adding on action function to the buttons
@@ -53,6 +58,13 @@ public class MainScreenController implements Initializable {
         actionEvent -> {
           isBackHome = true;
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
+        });
+
+    // exits mobile app
+    exitAppBtn.setOnAction(
+        actionEvent -> {
+          Stage stage = (Stage) exitAppBtn.getScene().getWindow();
+          stage.close();
         });
   }
 }
