@@ -981,7 +981,7 @@ public class NewNavPageController implements Initializable {
 
     if (!alignList.isEmpty()) {
       for (String s : alignList) {
-        Node n = GRAPH.getNodeBYID(s);
+        Node n = GRAPH.getNodeByID(s);
         DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView, false);
       }
     }
@@ -1057,7 +1057,7 @@ public class NewNavPageController implements Initializable {
 
   public void alignVertically(ActionEvent actionEvent) {
     for (String s : alignList) {
-      Node n = GRAPH.getNodeBYID(s);
+      Node n = GRAPH.getNodeByID(s);
       n.setYCoord(selectedNode.getYCoord());
     }
 
@@ -1067,7 +1067,7 @@ public class NewNavPageController implements Initializable {
 
   public void alignHorizontally(ActionEvent actionEvent) {
     for (String s : alignList) {
-      Node n = GRAPH.getNodeBYID(s);
+      Node n = GRAPH.getNodeByID(s);
       n.setXCoord(selectedNode.getXCoord());
     }
 
