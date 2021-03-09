@@ -181,12 +181,11 @@ public class MobileHospitalNavController implements Initializable {
   private void buttonFunction() {
     parkingBtn.setOnAction(
         actionEvent -> {
-          // TODO: save parking spot
+          SwitchScene.goToParentMobile("/Views/MobileApp/SaveParking.fxml", actionEvent);
         });
 
     textBtn.setOnAction(
         actionEvent -> {
-          // page of just text directions
           MainScreenController.isBackGoogle = false;
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
         });
@@ -313,17 +312,6 @@ public class MobileHospitalNavController implements Initializable {
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
       draw();
-
-      /**
-       * If the middle mouse is pressed, we want the node to be dragged with the user's cursor. Once
-       * it is pressed up, we will drop the node in that location
-       */
-    } else if (mouseEvent.getButton().equals(MouseButton.MIDDLE)) {
-
-      Node draggedNode =
-          GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false, imageView);
-
-      Circle draggedCircle;
     }
 
     System.out.println("mapCanvas click");

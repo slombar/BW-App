@@ -2,9 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Mobile.MobileDirectionsController">
@@ -25,9 +27,10 @@
          </font>
       </Label>
       <JFXButton fx:id="backButton" onAction="#goBack" prefWidth="56.0" styleClass="back-buttons" stylesheets="@MobileStyle.css" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-      <Label fx:id="textDirections" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
-         <font>
-            <Font name="Leelawadee UI" size="15.0" />
-         </font></Label>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <content>
+            <VBox fx:id="directionVBox" prefHeight="423.0" prefWidth="266.0" />
+         </content>
+      </ScrollPane>
    </children>
 </GridPane>
