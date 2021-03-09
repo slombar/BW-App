@@ -26,8 +26,8 @@ public class SaveParkingController implements Initializable {
     // setting up auto complete for parking nodes
     ArrayList<String> parkingNodes = new ArrayList<>();
     for (Node node : GRAPH.getListOfNodes()) {
-      if (node.getNodeType().equals("PARK")) {  // checking if its a parking node
-        parkingNodes.add(node.getLongName());   // adds the node's long name to list
+      if (node.getNodeType().equals("PARK")) { // checking if its a parking node
+        parkingNodes.add(node.getLongName()); // adds the node's long name to list
       }
     }
     // actually autocompleting with the parking nodes (displays the long name)

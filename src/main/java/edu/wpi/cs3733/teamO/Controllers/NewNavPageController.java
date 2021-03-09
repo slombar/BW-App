@@ -277,10 +277,12 @@ public class NewNavPageController implements Initializable {
     if (editToggle.isSelected() || GRAPH.allConnected()) {
       editing = editToggle.isSelected();
     } else {
-      System.out.println("Incomplete map.");
+
       editing = true;
       editToggle.setSelected(true);
-      // TODO:this should throw an error and not let you change it
+
+      System.out.println("Incomplete map.");
+      PopupMaker.unconnectedPopup(nodeWarningPane);
       return;
     }
 
