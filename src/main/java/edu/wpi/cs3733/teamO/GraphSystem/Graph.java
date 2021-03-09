@@ -579,4 +579,22 @@ public class Graph {
     }
     return null;
   }
+
+  public boolean allConnected() {
+    Node testNode = listOfNodes.get(0);
+    for (Node n : listOfNodes) {
+
+      if (n != testNode) {
+
+        findPath("A*", testNode, n);
+
+        if (path == null) {
+          resetPath();
+          return false;
+        }
+        resetPath();
+      }
+    }
+    return true;
+  }
 }

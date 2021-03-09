@@ -267,7 +267,17 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void editMode(ActionEvent actionEvent) {
-    editing = editToggle.isSelected();
+
+    if (editToggle.isSelected() || GRAPH.allConnected()) {
+      editing = editToggle.isSelected();
+    } else {
+      System.out.println("Incomplete map.");
+      editing = true;
+      editToggle.setSelected(true);
+      // TODO:this should throw an error and not let you change it
+      return;
+    }
+
     editVBox.setVisible(editing);
 
     if (editing) {
