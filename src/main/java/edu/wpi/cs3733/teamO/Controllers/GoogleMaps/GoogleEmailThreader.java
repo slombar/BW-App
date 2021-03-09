@@ -91,16 +91,9 @@ public class GoogleEmailThreader extends Thread {
       tempMessage.append("</body>\n" + "</html>\n");
       ////////////////////////////////////////////////////////////////////////////////////////////////
 
-      BodyPart messageBodyPart0 = new MimeBodyPart();
-
-      messageBodyPart0.setText(tempMessage.toString());
-
-      // Create a multipart message + set text message part
-      Multipart multipart = new MimeMultipart();
-      multipart.addBodyPart(messageBodyPart0);
 
       // Send the complete message parts
-      message.setContent(multipart, "text/html");
+      message.setContent(tempMessage.toString(), "text/html");
 
       // Send Email
       Transport.send(message);
