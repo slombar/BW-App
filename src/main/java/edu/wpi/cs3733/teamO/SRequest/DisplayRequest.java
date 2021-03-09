@@ -12,15 +12,16 @@ public class DisplayRequest {
     reqList = RequestHandling.getRequests();
     ObservableList<Request> specList = FXCollections.observableArrayList();
 
-    for (int x = 0; x < reqList.size(); x++) {
+    if (reqList != null) {
+      for (int x = 0; x < reqList.size(); x++) {
 
-      if (reqList.get(x).getRequestType().equals(typeOfRequest)) {
-        specList.add(reqList.get(x));
+        if (reqList.get(x).getRequestType().equals(typeOfRequest)) {
+          specList.add(reqList.get(x));
 
-        System.out.println(reqList.get(x).getRequestID());
+          System.out.println(reqList.get(x).getRequestID());
+        }
       }
     }
-
     return specList;
   }
 }

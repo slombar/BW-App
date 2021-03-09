@@ -50,6 +50,11 @@
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
                   </JFXButton>
+                  <JFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#update" style="-fx-background-color: #3A5369;" text="Update" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                  </JFXButton>
                   <JFXButton onAction="#delete" style="-fx-background-color: #3A5369;" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />

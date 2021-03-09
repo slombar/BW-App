@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
-import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
-
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
@@ -30,7 +28,7 @@ public class MobileCovidSurveyController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {}
 
   /**
-   * go to the google nav page that directs to and from hospital
+   * goes back either to the main screen or google nav page depending on isBackHome
    *
    * @param actionEvent
    */
@@ -54,12 +52,11 @@ public class MobileCovidSurveyController implements Initializable {
         || yes1.isSelected() && no2.isSelected()
         || yes2.isSelected() && no3.isSelected()
         || yes3.isSelected()) {
-      // if (no1.isSelected() && no2.isSelected() && no3.isSelected()) {
 
       // if all three questions are answered, submit survey review request
       SwitchScene.goToParentMobile("/Views/MobileApp/WaitingPage.fxml", actionEvent);
 
-      String requestedBy = getUsername();
+      String requestedBy = "user";
 
       long millis = System.currentTimeMillis();
       java.util.Date dateN = new java.sql.Date(millis);
@@ -70,6 +67,7 @@ public class MobileCovidSurveyController implements Initializable {
       String f1 = String.valueOf(no1.isSelected());
       String f2 = String.valueOf(no2.isSelected());
       String f3 = String.valueOf(no3.isSelected());
+      System.out.println(f1 + f2 + f3);
 
       System.out.println(
           "Adding this to DB: "
