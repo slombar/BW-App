@@ -1,10 +1,16 @@
 package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsStep;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Maps.Directions;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,11 +18,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 
 public class MobileGoogleNavController implements Initializable {
+  @FXML private StackPane popupPane;
+  @FXML private WebView mapView;
   @FXML private JFXNodesList buttonsList;
   @FXML private JFXNodesList directionsList;
+
+  private static ArrayList<DirectionsStep> directions;
+  private static String directionsURL;
 
   // creating icons for buttons
   Image addIcon = new Image(getClass().getResourceAsStream("/Icons/addBlack.png"));
@@ -98,6 +111,12 @@ public class MobileGoogleNavController implements Initializable {
     directionsList.setRotate(0);
     directionsList.setAlignment(Pos.CENTER_RIGHT);
     buttonFunction();
+
+    // load online google maps
+    mapView.getEngine().load("https://www.google.com/maps/@?api=1&map_action=map");
+
+    buttonsList.toFront();
+    directionsList.toFront();
   }
 
   /** adding on action functionality to the buttons in the JFXNodeslist */
@@ -120,5 +139,49 @@ public class MobileGoogleNavController implements Initializable {
         actionEvent -> {
           SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
         });
+
+    startBtn.setOnAction(
+        // exits to main phone screen page
+        actionEvent -> {
+          displayRoute(startLoc.getText(), endLoc.getText());
+        });
+  }
+
+  //  public void checkEnter(KeyEvent keyEvent) {
+  //    if (keyEvent.getCode() == KeyCode.ENTER) {
+  //      displayRoute(startLoc.getText(), endLoc.getText());
+  //    }
+  //  }
+
+  private void displayRoute(String fromLocation, String toLocation) {
+    try {
+      directions = Directions.getDirections(fromLocation, toLocation);
+    } catch (ApiException | IOException | InterruptedException e) {
+      PopupMaker.invalidLocationA(popupPane);
+    }
+    //        for (DirectionsStep direction : directions) {
+    //          addTextToDirectionBox(direction.htmlInstructions);
+    //        }
+
+    directionsURL =
+        "https://www.google.com/maps/dir/?api=1&origin="
+            + Directions.urlForm(fromLocation)
+            + "&destination="
+            + Directions.urlForm(toLocation);
+    mapView.getEngine().load(directionsURL);
+  }
+
+  //    private void addTextToDirectionBox(String text) {
+  //      Text newText = new Text(Directions.html2text(text) + "\n");
+  //      newText.setFont(Font.font("leelawadee ui", 16.0));
+  //      dirVbox.getChildren().add(newText);
+  //    }
+
+  public static String getDirectionsURL() {
+    return directionsURL;
+  }
+
+  public static ArrayList<DirectionsStep> getDirections() {
+    return directions;
   }
 }

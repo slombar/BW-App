@@ -87,6 +87,7 @@ public class ShareGoogleMapPageController implements Initializable {
 
   public void textBoth(ActionEvent actionEvent) {
     String num = textInput.getText();
+    System.out.println(RegexBoi.checkPhoneNum(num));
     if (RegexBoi.checkPhoneNum(num)) {
       GoogleTextThreader gtt = new GoogleTextThreader(num, directions, url);
       gtt.start();
