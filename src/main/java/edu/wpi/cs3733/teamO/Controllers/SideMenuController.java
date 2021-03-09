@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 // initializer??
 public class SideMenuController implements Initializable {
   public JFXButton aboutBtn1;
+  public JFXButton testBttn;
   @FXML private Label nameLabel;
   @FXML private JFXButton navBtn;
   @FXML private JFXButton mainMenuBtn;
@@ -160,5 +161,20 @@ public class SideMenuController implements Initializable {
   public void mouseOffAbout(MouseEvent mouseEvent) {
     aboutBtn1.setUnderline(false);
     aboutBtn1.setButtonType(JFXButton.ButtonType.FLAT);
+  }
+
+  public void toTest(ActionEvent actionEvent) {
+    // Change
+    // SwitchScene.goToParent("/Views/AboutPage.fxml");
+  }
+
+  public void mouseOnTest(MouseEvent mouseEvent) {
+    testBttn.setUnderline(true);
+    testBttn.setButtonType(JFXButton.ButtonType.RAISED);
+  }
+
+  public void mouseOffTest(MouseEvent mouseEvent) {
+    testBttn.setUnderline(false);
+    testBttn.setButtonType(JFXButton.ButtonType.FLAT);
   }
 }
