@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 public class GoogleEmailThreader extends Thread {
 
@@ -90,7 +88,6 @@ public class GoogleEmailThreader extends Thread {
 
       tempMessage.append("</body>\n" + "</html>\n");
       ////////////////////////////////////////////////////////////////////////////////////////////////
-
 
       // Send the complete message parts
       message.setContent(tempMessage.toString(), "text/html");

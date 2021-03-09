@@ -352,7 +352,8 @@ public class Graph {
       Node selectedNodeA,
       Node selectedNodeB,
       boolean selectingEditNode,
-      ImageView imageView) {
+      ImageView imageView,
+      boolean isMobile) {
 
     ArrayList<Node> floorNodes = new ArrayList<>();
 
@@ -361,14 +362,14 @@ public class Graph {
     }
 
     // draws given Nodes
-    DrawHelper.drawNodeCircles(gc, floorNodes, null, null, imageView);
+    DrawHelper.drawNodeCircles(gc, floorNodes, null, null, imageView, isMobile);
 
     // if one Node selected, draws it as green
     if (selectedNodeB == null
         && listOfNodes.contains(selectedNodeA)
         && selectedNodeA.getFloor().equals(floor)) {
 
-      DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView);
+      DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView, isMobile);
     }
 
     // otherwise, if two Nodes selected, draws second as BLUE
@@ -385,15 +386,15 @@ public class Graph {
       //    or just if at least one is on current floor (since edges can go between floors)
       //    -- currently drawing if just one of 2 Nodes is on current floor ( || )
       if (isFloorA || isFloorB) {
-        DrawHelper.drawEdge(gc, selectedNodeA, selectedNodeB, paint, imageView);
+        DrawHelper.drawEdge(gc, selectedNodeA, selectedNodeB, paint, imageView, isMobile);
       }
 
       // currently has first selectedNode always GREEN
       if (isFloorA) {
-        DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView);
+        DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView, isMobile);
       }
       if (isFloorB) {
-        DrawHelper.drawSingleNode(gc, selectedNodeB, paint, imageView);
+        DrawHelper.drawSingleNode(gc, selectedNodeB, paint, imageView, isMobile);
       }
     }
   }
@@ -407,7 +408,8 @@ public class Graph {
    */
   /*public void drawVisibleNodes(String floor, Node startNode, Node endNode) */
 
-  public void drawVisibleNodes(String floor, Node startNode, Node endNode, ImageView imageView) {
+  public void drawVisibleNodes(
+      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
@@ -416,7 +418,7 @@ public class Graph {
       }
     }
 
-    DrawHelper.drawNodeCircles(gc, floorNodes, startNode, endNode, imageView);
+    DrawHelper.drawNodeCircles(gc, floorNodes, startNode, endNode, imageView, isMobile);
   }
 
   /**
@@ -425,14 +427,13 @@ public class Graph {
    * @param floor floor to draw on
    */
   /*private void drawMidArrows(String floor) */
-
-  private void drawMidArrows(String floor, ImageView imageView) {
+  private void drawMidArrows(String floor, ImageView imageView, boolean isMobile) {
     for (int i = 0; i < path.size() - 1; i++) {
       Node nodeA = path.get(i);
       Node nodeB = path.get(i + 1);
 
       if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
-        DrawHelper.drawMidArrow(gc, nodeA, nodeB, imageView);
+        DrawHelper.drawMidArrow(gc, nodeA, nodeB, imageView, isMobile);
       }
     }
   }
@@ -445,7 +446,7 @@ public class Graph {
   /*public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) */
 
   public void drawAllEdges(
-      String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView) {
+      String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView, boolean isMobile) {
     gc.setStroke(Color.BLACK);
     for (Edge e : listOfEdges) {
       try {
@@ -457,10 +458,10 @@ public class Graph {
           // if edge between selected already exists, draw in RED
           if ((nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB))
               || (nodeB.equals(selectedNodeA) && nodeA.equals(selectedNodeB))) {
-            DrawHelper.drawEdge(gc, nodeA, nodeB, Color.RED, imageView);
+            DrawHelper.drawEdge(gc, nodeA, nodeB, Color.RED, imageView, isMobile);
           }
           // draw edges between non-selected BLACK
-          else DrawHelper.drawEdge(gc, nodeA, nodeB, Color.BLACK, imageView);
+          else DrawHelper.drawEdge(gc, nodeA, nodeB, Color.BLACK, imageView, isMobile);
         }
       } catch (NullPointerException ignored) {
         // TODO: use this catch block to filter out bad/extraneous data?
@@ -485,29 +486,30 @@ public class Graph {
    * @param startNode start Node of path
    * @param endNode end Node of path
    */
-  public void drawCurrentPath(String floor, Node startNode, Node endNode, ImageView imageView) {
+  public void drawCurrentPath(
+      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
     for (Node n : path) {
       if (n.getFloor().equals(floor) && n.getNodeType().equals("STAI")) {
-        DrawHelper.drawSingleNode(gc, n, Color.GREEN, imageView);
+        DrawHelper.drawSingleNode(gc, n, Color.GREEN, imageView, isMobile);
       } else if (n.getFloor().equals(floor) && n.getNodeType().equals("ELEV")) {
-        DrawHelper.drawSingleNode(gc, n, Color.PURPLE, imageView);
+        DrawHelper.drawSingleNode(gc, n, Color.PURPLE, imageView, isMobile);
       }
 
       if (n.getFloor().equals(floor) && n.getNodeType().equals("EXIT")) {
-        DrawHelper.drawSingleNode(gc, n, Color.ORANGE, imageView);
+        DrawHelper.drawSingleNode(gc, n, Color.ORANGE, imageView, isMobile);
       }
     }
 
-    drawMidArrows(floor, imageView);
+    drawMidArrows(floor, imageView, isMobile);
 
     if (startNode.getFloor().equals(floor)) {
-      DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView);
+      DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView, isMobile);
     }
     if (endNode.getFloor().equals(floor)) {
-      DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView);
+      DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, isMobile);
     }
   }
 

@@ -463,7 +463,7 @@ public class NewNavPageController implements Initializable {
       if (addNodeMode) {
         selectedNode = null;
         draw();
-        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView);
+        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView, false);
         addNodeMode = false;
         selectingEditNode = true;
       } else {
@@ -964,23 +964,23 @@ public class NewNavPageController implements Initializable {
 
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
       }
     }
 
     if (!alignList.isEmpty()) {
       for (String s : alignList) {
         Node n = GRAPH.getNodeBYID(s);
-        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView);
+        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView, false);
       }
     }
   }
@@ -989,13 +989,13 @@ public class NewNavPageController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
       }
     }
   }
