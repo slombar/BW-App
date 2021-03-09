@@ -37,13 +37,7 @@ public class MobileDirectionsController implements Initializable {
    * @param actionEvent
    */
   public void goBack(ActionEvent actionEvent) {
-    if (MainScreenController.isBackGoogle) {
-      MainScreenController.isBackGoogle = false;
-      SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);
-    } else {
-      MainScreenController.isBackGoogle = false;
-      SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
-    }
+    SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
   }
 
   /**
