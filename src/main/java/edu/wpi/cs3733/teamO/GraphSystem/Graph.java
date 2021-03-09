@@ -606,13 +606,14 @@ public class Graph {
 
   /**
    * gets a list of Nodes on the given floor
+   *
    * @param floor "G", "1", "2", "3", "4", "5"
    * @return ArrayList of Nodes on the floor
    */
   public ArrayList<Node> getNodesByFloor(String floor) {
     ArrayList<Node> list = new ArrayList<>();
-    for(Node n : listOfNodes) {
-      if(n.getFloor().equals(floor)) list.add(n);
+    for (Node n : listOfNodes) {
+      if (n.getFloor().equals(floor)) list.add(n);
     }
     return list;
   }
