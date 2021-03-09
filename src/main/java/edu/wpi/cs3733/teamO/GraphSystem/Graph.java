@@ -515,7 +515,7 @@ public class Graph {
    * sets this Graph's path = the path found by the given algorithm from the given start to end
    * Nodes
    *
-   * @param strat "A*", "DFS", or "BFS"
+   * @param strat "A*", "DFS", "BFS", or "Djikstra"
    * @param startNode start Node of the path
    * @param targetNode end Node of the path
    */
