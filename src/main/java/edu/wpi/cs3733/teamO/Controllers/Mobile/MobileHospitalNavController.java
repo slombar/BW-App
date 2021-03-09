@@ -186,7 +186,6 @@ public class MobileHospitalNavController implements Initializable {
 
     textBtn.setOnAction(
         actionEvent -> {
-          // page of just text directions
           MainScreenController.isBackGoogle = false;
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
         });
