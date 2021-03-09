@@ -41,10 +41,10 @@ public class GoogleMapPageController implements Initializable {
   private static ArrayList<DirectionsStep> directions;
   Text title;
   private static String directionsURL;
-  private String sideMenuUrl;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    String sideMenuUrl;
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
       sideMenuUrl = "/Views/SideMenuStaff.fxml";
