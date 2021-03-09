@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import edu.wpi.cs3733.teamO.Controllers.Mobile.WaitingPageController;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -326,6 +327,8 @@ public class RequestHandling {
       preparedStmt.executeUpdate();
       preparedStmt.close();
       System.out.println("printed " + query);
+      WaitingPageController.setEntrance(locationNode);
+
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
