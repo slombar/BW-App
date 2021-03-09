@@ -41,13 +41,23 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="googleNavButton" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToGoogleNav" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Navigate To Hospital" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="googleNavButton" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToGoogleNav" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Getting to Hospital" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                      <font>
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="143.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/hospitalIconWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
                   </JFXButton>
                   <JFXButton fx:id="covidBtn" alignment="CENTER" contentDisplay="TOP" minHeight="150.0" minWidth="150.0" onAction="#goToCovid" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="COVID-19 Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
@@ -71,7 +81,8 @@
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
                            <image>
                               <Image url="@../Icons/parkingIconWhite.png" />
-                           </image></ImageView>
+                           </image>
+                        </ImageView>
                      </graphic>
                      <font>
                         <Font name="Leelawadee UI Bold" size="22.0" />
