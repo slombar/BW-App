@@ -47,7 +47,7 @@ public class SharingFunctionality {
       String linkToFile5,
       String linkToFile6) {
     String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
-    String AUTH_TOKEN = "29c1347315b388cb034d93e5aff4685f";
+    String AUTH_TOKEN = "23c75ae104565d6197a504786ae1e335";
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
