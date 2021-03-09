@@ -43,7 +43,6 @@ public class SaveParkingController implements Initializable {
     SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
   }
 
-  // TODO make the textfield autocomplete things?
   public void saveSpot(ActionEvent actionEvent) {
     String spot = input.getText().substring(13);
     UserHandling.setParkingSpot(spot);
