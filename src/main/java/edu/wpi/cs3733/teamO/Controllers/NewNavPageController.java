@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -45,6 +46,8 @@ import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
   public VBox directionvbox;
+  public JFXButton alignVButton;
+  public JFXButton alignHButton;
   // edit map components
   @FXML private JFXToggleButton editToggle;
   @FXML private VBox editVBox;
@@ -86,6 +89,9 @@ public class NewNavPageController implements Initializable {
   private String sideMenuUrl;
   private String pathFloors = "";
 
+  ArrayList<String> alignList =new ArrayList<>();
+
+
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
@@ -101,6 +107,7 @@ public class NewNavPageController implements Initializable {
 
   // booleans:
   private boolean editing = false;
+
 
   // navigating bools:
   private boolean selectingStart = false;
@@ -123,6 +130,7 @@ public class NewNavPageController implements Initializable {
   // private boolean addingEdgeN1 = false;
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
+  private boolean selectingAlign = false;
 
   private void setEditFalse() {
     selectingEditNode = false;
@@ -406,6 +414,20 @@ public class NewNavPageController implements Initializable {
     Node clickedNode =
         GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
 
+    //block for SHIFT CLICK
+    if(editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+      if((selectingEditNode && selectedNode == null)){
+        selectedNode = clickedNode;
+        selectedNodeB = null;
+        selectingAlign = true;
+      }else if(selectingEditNode && selectedNode != null){
+        alignList.add(clickedNode.getID());
+      }
+      autocompleteEditMap(clickedNode);
+
+
+
+    }
     // ----------------------
     // block for LEFT CLICK
     if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
@@ -959,6 +981,15 @@ public class NewNavPageController implements Initializable {
         GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView);
       }
     }
+
+    if(!alignList.isEmpty()){
+      for (String s:
+           alignList) {
+        Node n = GRAPH.getNodeBYID(s);
+        DrawHelper.drawSingleNode(gc,n,Color.BLUE,imageView);
+
+      }
+    }
   }
 
   // ignore this, BUT DON'T DELETE IT!!!!! ...i have my reasons
@@ -1027,5 +1058,27 @@ public class NewNavPageController implements Initializable {
     Text newText = new Text(text + "\n");
     newText.setFont(Font.font("leelawadee ui", 16.0));
     directionvbox.getChildren().add(newText);
+  }
+
+  public void alignVertically(ActionEvent actionEvent) {
+    for (String s:
+         alignList) {
+      Node n = GRAPH.getNodeBYID(s);
+      n.setXCoord(selectedNode.getXCoord());
+    }
+
+    alignList = new ArrayList<>();
+    draw();
+  }
+
+  public void alignHorizontally(ActionEvent actionEvent) {
+    for (String s:
+            alignList) {
+      Node n = GRAPH.getNodeBYID(s);
+      n.setYCoord(selectedNode.getYCoord());
+    }
+
+    alignList = new ArrayList<>();
+    draw();
   }
 }
