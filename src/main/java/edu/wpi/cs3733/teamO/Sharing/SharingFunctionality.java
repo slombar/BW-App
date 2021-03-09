@@ -263,7 +263,6 @@ public class SharingFunctionality {
     }
   }
 
-
   // !!! keeping to test when we figure out how to send only necessary maps
   public static void main(String[] args) {
 
