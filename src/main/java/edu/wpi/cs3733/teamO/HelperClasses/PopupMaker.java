@@ -426,16 +426,21 @@ public class PopupMaker {
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
-    warning.setHeading(new Text("Welcome to B&W Faulkner Hospital"));
-    warning.setBody(
+    Text heading = new Text("Welcome to B&W Faulkner Hospital");
+    heading.setWrappingWidth(200);
+    warning.setHeading(heading);
+    Text text =
         new Text(
-            "Your entrance request has been approved, please use the Main Atrium Entrance. Have a great day."));
+            "Your entrance request has been approved, please use the Main Atrium Entrance. Have a great day.");
+    text.setWrappingWidth(200);
+    warning.setBody(text);
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
     // Creates the actual popup
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+    warningDialog.setPrefWidth(200);
 
     // Closes the popup
     closeButton.setOnAction(
@@ -456,16 +461,21 @@ public class PopupMaker {
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
-    warning.setHeading(new Text("Welcome to B&W Faulkner Hospital"));
-    warning.setBody(
+    Text heading = new Text("Welcome to B&W Faulkner Hospital");
+    heading.setWrappingWidth(200);
+    warning.setHeading(heading);
+    Text text =
         new Text(
-            "Your entrance request has been approved, please use the Emergency Entrance. Have a great day."));
+            "Your entrance request has been approved, please use the Emergency Entrance. Have a great day.");
+    text.setWrappingWidth(200);
+    warning.setBody(text);
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
     // Creates the actual popup
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+    warningDialog.setPrefWidth(200);
 
     // Closes the popup
     closeButton.setOnAction(

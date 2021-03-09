@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,6 +52,8 @@ public class WaitingPageController implements Initializable {
       hospitalNavBtn.setDisable(false);
       // popup to say you can now continue
       // TODO grab which entrance
+      PopupMaker.mainEntranceNotif(popupNotification);
+//      PopupMaker.covidEntranceNotif(popupNotification);
     }
   }
 
