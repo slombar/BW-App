@@ -28,8 +28,7 @@ public class MobileCovidSurveyController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {}
 
   /**
-   * go to the google nav page that directs to and from hospital
-   *
+   * goes back either to the main screen or google nav page depending on isBackHome
    * @param actionEvent
    */
   public void goBack(ActionEvent actionEvent) {
@@ -44,7 +43,6 @@ public class MobileCovidSurveyController implements Initializable {
 
   /**
    * go to the hospital nav page that directs within hospital campus
-   *
    * @param actionEvent
    */
   public void goToHospitalNav(ActionEvent actionEvent) {

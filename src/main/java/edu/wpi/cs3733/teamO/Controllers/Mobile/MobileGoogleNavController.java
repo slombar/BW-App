@@ -41,10 +41,9 @@ public class MobileGoogleNavController implements Initializable {
   private final JFXButton startBtn = new JFXButton("Start Navigation", startIconView);
   private final JFXButton textBtn = new JFXButton("Text Directions", textIconView);
 
+  // components for location textfields
   JFXTextField startLoc = new JFXTextField();
   JFXTextField endLoc = new JFXTextField();
-
-  HBox hbox = new HBox();
   VBox locBox = new VBox();
 
   @Override
@@ -63,7 +62,7 @@ public class MobileGoogleNavController implements Initializable {
     textIconView.setFitWidth(25);
     textIconView.setFitHeight(25);
 
-    // set prompt text
+    // set up for location selection
     startLoc.setPromptText("Start Location");
     endLoc.setPromptText("Destination");
     locBox.getChildren().addAll(startLoc, endLoc);
@@ -83,7 +82,7 @@ public class MobileGoogleNavController implements Initializable {
     startBtn.getStyleClass().addAll("nav-buttons");
     locBox.getStyleClass().addAll("nav-text");
 
-    // add them to be in an animated node list
+    // add buttons to bottom right animated node list (additional buttons)
     buttonsList.addAnimatedNode(addBtn);
     buttonsList.addAnimatedNode(textBtn);
     buttonsList.addAnimatedNode(hospitalBtn);
@@ -92,6 +91,7 @@ public class MobileGoogleNavController implements Initializable {
     buttonsList.setRotate(180);
     buttonsList.setAlignment(Pos.CENTER_RIGHT);
 
+    // add buttons to top left animated node list (directions)
     directionsList.addAnimatedNode(directionsBtn);
     directionsList.addAnimatedNode(locBox);
     directionsList.addAnimatedNode(startBtn);
@@ -104,21 +104,22 @@ public class MobileGoogleNavController implements Initializable {
   /** adding on action functionality to the buttons in the JFXNodeslist */
   private void buttonFunction() {
     hospitalBtn.setOnAction(
-        actionEvent -> {
-          // navigate hospital campus
-          SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
-        });
+            actionEvent -> {
+              // navigate hospital campus
+              SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
+            });
 
     textBtn.setOnAction(
-        actionEvent -> {
-          // page of just text directions
-          MainScreenController.isBackGoogle = true;
-          SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
-        });
+            actionEvent -> {
+              // page of just text directions
+              MainScreenController.isBackGoogle = true;
+              SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
+            });
 
     exitBtn.setOnAction(
-        actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
-        });
+            // exits to main phone screen page
+            actionEvent -> {
+              SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
+            });
   }
 }

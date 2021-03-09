@@ -19,20 +19,21 @@ public class MobileDirectionsController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    // TODO: popuplate (Label) textDirections with text directions
-    if (MainScreenController.isBackGoogle) {
+    // style button
+    backButton.setButtonType(JFXButton.ButtonType.RAISED);
 
+    // create text directions based on last screen
+    if (MainScreenController.isBackGoogle) {
+      //TODO: add text directions or google API
     } else {
       for (String d : Graph.findTextDirection()) {
         addTextToDirectionBox(d);
       }
     }
-    backButton.setButtonType(JFXButton.ButtonType.RAISED);
   }
 
   /**
-   * returns the previous map page based on booleans
-   *
+   * returns the previous map page based on whether the last page was google nav
    * @param actionEvent
    */
   public void goBack(ActionEvent actionEvent) {
@@ -45,6 +46,10 @@ public class MobileDirectionsController implements Initializable {
     }
   }
 
+  /**
+   * adds text directions to a VBox
+   * @param text
+   */
   private void addTextToDirectionBox(String text) {
     Text newText = new Text(text + "\n");
     newText.setFont(Font.font("leelawadee ui", 12.0));

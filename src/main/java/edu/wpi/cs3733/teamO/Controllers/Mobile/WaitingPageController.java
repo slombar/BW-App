@@ -23,7 +23,6 @@ public class WaitingPageController implements Initializable {
 
   /**
    * go back to the covid 19 survey that will be sent ot the hospital to review entry request
-   *
    * @param actionEvent
    */
   public void goToSurvey(ActionEvent actionEvent) {
@@ -32,7 +31,6 @@ public class WaitingPageController implements Initializable {
 
   /**
    * go to the hospital navigation once a pop up appears and informs the patient of the entrance
-   *
    * @param actionEvent
    */
   public void goToHospitalNav(ActionEvent actionEvent) {
