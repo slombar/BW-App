@@ -36,7 +36,6 @@ public class SharingFunctionality {
    * @param linkToFile5
    * @param linkToFile6
    */
-  // TODO Hi Din, please run the text feature. I think my computer is being stupid again.
   public static void sendSMSTwillio(
       String sendingTo,
       String linkToFile1,
@@ -143,7 +142,6 @@ public class SharingFunctionality {
                 .create();
         System.out.println(message.getSid());
         // if not 1,2,3, then just send all 6 maps for now
-        // TODO: prob want to throw error if no pathfind
 
       }
     }

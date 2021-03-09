@@ -548,8 +548,8 @@ public class Graph {
   }
 
   // add function calls for text direction.
-  public static ArrayList<String> findTextDirection(ArrayList<Node> path) {
-    return TextDirection.textDirections(path);
+  public static List<String> findTextDirection() {
+    return TextDirection.textDirections();
   }
 
   /** resets this graph's path to a new LinkedList */
