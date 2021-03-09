@@ -505,4 +505,35 @@ public class PopupMaker {
         });
     warningDialog.show();
   }
+
+  /**
+   * bada e rfe4
+   *
+   * @param popupPane
+   */
+  public static void invalidLocationMobile(StackPane popupPane) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    warning.setHeading(new Text("Invalid Route"));
+    Text text =
+        new Text("Could not find a route using the locations specified.\n" + "Please try again...");
+    text.setWrappingWidth(200);
+    warning.setBody(text);
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+    warningDialog.setPrefWidth(200);
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
 }
