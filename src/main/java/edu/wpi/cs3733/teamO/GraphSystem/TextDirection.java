@@ -39,7 +39,9 @@ public class TextDirection {
         (node2.getXCoord() * node3.getYCoord() - node2.getYCoord() * node3.getXCoord());
 
     // for the different floors.
-    if (v2_x == 0 && v2_y == 0) return 100;
+    if (node3.getLongName().equals(node2.getLongName())) {
+      return 100.0;
+    }
 
     // return ZERO if dot_product is zero.
     if (angle == 0.0) return Math.abs(angle);
@@ -96,8 +98,7 @@ public class TextDirection {
       // to support floor.
       if (angle == 100) {
         directions.add(
-            path.get(i + 1).getLongName()
-                + " use "
+            "Use "
                 + path.get(i + 2).getLongName()
                 + " to go to floor "
                 + path.get(i + 2).getFloor()

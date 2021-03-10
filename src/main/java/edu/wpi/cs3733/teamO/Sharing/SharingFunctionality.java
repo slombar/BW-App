@@ -48,11 +48,12 @@ public class SharingFunctionality {
       String linkToFile6) {
     String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
     String AUTH_TOKEN = "23c75ae104565d6197a504786ae1e335";
+    Graph graph = GRAPH;
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
     // did same thing as emails
-    if (GRAPH.equals(null)) {
+    if (graph.getPath() == null) {
       Message message =
           Message.creator(
                   new com.twilio.type.PhoneNumber(
@@ -71,7 +72,6 @@ public class SharingFunctionality {
 
       System.out.println(message.getSid());
     } else {
-      Graph graph = GRAPH;
       String pathFloors = "";
       for (Node n : graph.getPath()) {
         if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
@@ -168,24 +168,6 @@ public class SharingFunctionality {
             fileToBeSent5,
             fileToBeSent6);
     emailThreader.start();
-  }
-
-  public static void createQRCode(
-      String fileToBeSent1,
-      String fileToBeSent2,
-      String fileToBeSent3,
-      String fileToBeSent4,
-      String fileToBeSent5,
-      String fileToBeSent6) {
-    QRCodeThreader qrThreader =
-        new QRCodeThreader(
-            fileToBeSent1,
-            fileToBeSent2,
-            fileToBeSent3,
-            fileToBeSent4,
-            fileToBeSent5,
-            fileToBeSent6);
-    qrThreader.start();
   }
 
   /**
