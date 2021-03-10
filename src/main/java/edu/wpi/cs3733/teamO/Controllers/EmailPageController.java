@@ -190,9 +190,7 @@ public class EmailPageController implements Initializable {
     String albumDeleteHash = albumInfo.get(1);
     Graph graph = GRAPH;
     System.out.println("test");
-    System.out.println(GRAPH.equals(null));
-    System.out.println(GRAPH);
-    if (GRAPH.equals(null)) {
+    if (graph.getPath() == null) {
       System.out.println("If null statement - success");
       ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
       System.out.println("Step 1 - Success");
