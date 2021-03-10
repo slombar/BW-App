@@ -94,8 +94,11 @@
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
                   </Label>
-                  <Button fx:id="camp" mnemonicParsing="false" onAction="#goCamp" style="-fx-background-color: #cfe2f3;" text="Campus" textFill="#3a5369">
+                  <Button fx:id="camp" mnemonicParsing="false" onAction="#goCamp" style="-fx-background-color: #cfe2f3;" text="G" textFill="#3a5369">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>

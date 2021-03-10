@@ -157,8 +157,8 @@ public class NewNavPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // floorSelectionBtn.setItems(listOfFloors);
     // floorSelectionBtn.setValue("Campus");
-    camp.setVisible(false);
-    //camp.setStyle("-fx-background-color: #fec107;");
+    // camp.setVisible(false);
+    camp.setStyle("-fx-background-color: #fec107;");
     algoStratCBox.setItems(listOfStrats);
 
     mapCanvas.toFront();
@@ -982,12 +982,12 @@ public class NewNavPageController implements Initializable {
     if (sFloor.equals("G")) {
       return;
     }
-    camp.setVisible(false);
-    F1.setVisible(true);
-    F2.setVisible(true);
-    F3.setVisible(true);
-    F4.setVisible(true);
-    F5.setVisible(true);
+    camp.setStyle("-fx-background-color: #fec107;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
 
     imageView.setImage(campusMap);
     sFloor = "G";
@@ -1005,12 +1005,12 @@ public class NewNavPageController implements Initializable {
     if (sFloor.equals("1")) {
       return;
     }
-    camp.setVisible(true);
-    F1.setVisible(false);
-    F2.setVisible(true);
-    F3.setVisible(true);
-    F4.setVisible(true);
-    F5.setVisible(true);
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #fec107;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
 
     imageView.setImage(floor1Map);
     sFloor = "1";
@@ -1028,12 +1028,12 @@ public class NewNavPageController implements Initializable {
     if (sFloor.equals("2")) {
       return;
     }
-    camp.setVisible(true);
-    F1.setVisible(true);
-    F2.setVisible(false);
-    F3.setVisible(true);
-    F4.setVisible(true);
-    F5.setVisible(true);
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #fec107;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
 
     imageView.setImage(floor2Map);
     sFloor = "2";
@@ -1051,12 +1051,12 @@ public class NewNavPageController implements Initializable {
     if (sFloor.equals("3")) {
       return;
     }
-    camp.setVisible(true);
-    F1.setVisible(true);
-    F2.setVisible(true);
-    F3.setVisible(false);
-    F4.setVisible(true);
-    F5.setVisible(true);
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #fec107;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
 
     imageView.setImage(floor3Map);
     sFloor = "3";
@@ -1074,12 +1074,12 @@ public class NewNavPageController implements Initializable {
     if (sFloor.equals("4")) {
       return;
     }
-    camp.setVisible(true);
-    F1.setVisible(true);
-    F2.setVisible(true);
-    F3.setVisible(true);
-    F4.setVisible(false);
-    F5.setVisible(true);
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #fec107;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
 
     imageView.setImage(floor4Map);
     sFloor = "4";
@@ -1097,12 +1097,13 @@ public class NewNavPageController implements Initializable {
     if (sFloor.equals("5")) {
       return;
     }
-    camp.setVisible(true);
-    F1.setVisible(true);
-    F2.setVisible(true);
-    F3.setVisible(true);
-    F4.setVisible(true);
-    F5.setVisible(false);
+
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #fec107;");
 
     imageView.setImage(floor5Map);
     sFloor = "5";
