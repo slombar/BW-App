@@ -97,9 +97,9 @@ public class EmailPageController implements Initializable {
     QRgeneration(QRtask);
   }
 
-
   /**
    * QR Generation made to pin loading sign on it
+   *
    * @param QRtask
    */
   void QRgeneration(Task<Void> QRtask) {

@@ -16,19 +16,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #7E93BE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.MAITController">
+<GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="700.0" style="-fx-background-color: #7E93BE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.MAITController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="41.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="462.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="47.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="41.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" percentWidth="80.0" prefWidth="462.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="47.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="309.0" minHeight="10.0" prefHeight="309.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="129.0" minHeight="10.0" percentHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="309.0" minHeight="10.0" percentHeight="60.0" prefHeight="309.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #3a5369;" GridPane.columnSpan="3">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #3a5369;" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <children>
             <ImageView fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -52,24 +52,24 @@
          <children>
             <HBox alignment="CENTER" prefHeight="33.0" prefWidth="479.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="96.0" text="Location" textFill="WHITE">
+                  <Label prefHeight="27.0" prefWidth="150.0" text="Location" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="locationF" prefHeight="25.0" prefWidth="188.0" style="-fx-background-color: #ffffff;" text=" Hospital Location" unFocusColor="#ffffff00">
+                  <JFXTextField fx:id="locationF" prefHeight="25.0" prefWidth="225.0" style="-fx-background-color: #ffffff;" text=" Hospital Location" unFocusColor="#ffffff00">
                      <HBox.margin>
-                        <Insets left="15.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXTextField>
                </children>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets top="50.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="479.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="111.0" text="Type" textFill="WHITE">
+                  <Label prefHeight="27.0" prefWidth="150.0" text="Type" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
@@ -77,20 +77,20 @@
                         <Insets right="48.0" />
                      </padding>
                   </Label>
-                  <JFXComboBox fx:id="selectbox" onAction="#comboBoxAction" prefHeight="25.0" prefWidth="188.0" promptText=" Type of Maintenance" style="-fx-background-color: #ffffff; -fx-font-size: 12px;" />
+                  <JFXComboBox fx:id="selectbox" onAction="#comboBoxAction" prefHeight="25.0" prefWidth="225.0" promptText=" Type of Maintenance" style="-fx-background-color: #ffffff; -fx-font-size: 12px;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefWidth="100.0" text="Summary" textFill="WHITE">
+                  <Label prefWidth="150.0" text="Summary" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="89.0" right="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
-                  <JFXTextArea fx:id="summary" prefHeight="100.0" prefWidth="187.0" promptText=" Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
+                  <JFXTextArea fx:id="summary" prefHeight="100.0" prefWidth="225.0" promptText=" Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font>
@@ -99,28 +99,28 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="98.0" text="Date" textFill="WHITE">
+                  <Label prefHeight="27.0" prefWidth="150.0" text="Date" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
-                  <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefHeight="25.0" prefWidth="186.0" promptText="Date Needed By" style="-fx-font-size: 12px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
+                  <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefHeight="25.0" prefWidth="225.0" promptText="Date Needed By" style="-fx-font-size: 12px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
                </children>
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="52.0" prefWidth="479.0">
                <children>
-                  <Label prefWidth="100.0" text="Personnel" textFill="WHITE">
+                  <Label prefWidth="150.0" text="Personnel" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="field1" focusColor="BLACK" prefHeight="25.0" prefWidth="188.0" promptText="Billy Brute" style="-fx-font-size: 12px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+                  <JFXTextField fx:id="field1" focusColor="BLACK" prefHeight="25.0" prefWidth="225.0" promptText="Billy Brute" style="-fx-font-size: 12px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -129,28 +129,28 @@
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="414.0">
                <children>
-                  <JFXButton onAction="#back" prefHeight="39.0" prefWidth="121.0" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
+                  <JFXButton onAction="#back" prefHeight="39.0" prefWidth="75.0" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="70.0" right="30.0" />
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#clear" prefHeight="39.0" prefWidth="127.0" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
+                  <JFXButton onAction="#clear" prefHeight="39.0" prefWidth="75.0" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="50.0" right="50.0" />
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#submit" prefHeight="39.0" prefWidth="137.0" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
+                  <JFXButton onAction="#submit" prefHeight="39.0" prefWidth="75.0" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="20.0" right="50.0" />
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </HBox.margin>
                   </JFXButton>
                </children>
