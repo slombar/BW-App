@@ -193,17 +193,18 @@ public class EmailPageController implements Initializable {
     if (graph.getPath() == null) {
       System.out.println("If null statement - success");
       ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
-      System.out.println("Step 1 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      System.out.println("Image 1 - Success");
       ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
-      System.out.println("Step 2 - Success");
+      System.out.println("Image 2 - Success");
       ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
-      System.out.println("Step 3 - Success");
+      System.out.println("Image 3 - Success");
       ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
-      System.out.println("Step 4 - Success");
+      System.out.println("Image 4 - Success");
       ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
-      System.out.println("Step 5 - Success");
+      System.out.println("Image 5 - Success");
       ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
-      System.out.println("Graph is null - everything is done");
+      System.out.println("All images are uploaded!");
 
     } else {
       String pathFloors = "";
