@@ -353,15 +353,13 @@ public class UserHandling {
     return b;
   }
 
-  public static void editProfile(String newPassword, String newFName, String newLname){
+  public static void editProfile(String newPassword, String newFName, String newLname) {
 
     String passQuery = "UPDATE Users SET password = ? WHERE email = ?";
 
-
-
-    //check what the user actually wants to update
-    if(newPassword!=null){
-        //update query in the DB
+    // check what the user actually wants to update
+    if (newPassword != null) {
+      // update query in the DB
 
       try {
         preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -373,14 +371,11 @@ public class UserHandling {
         return;
       }
 
-    }else if(newFName !=null){
+    } else if (newFName != null) {
 
-
-    }else if (newLname !=null){
-
+    } else if (newLname != null) {
 
     }
-
   }
 
   /**
