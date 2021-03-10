@@ -5,7 +5,7 @@ import com.google.maps.model.DirectionsStep;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
-import edu.wpi.cs3733.teamO.Controllers.Maps.Directions;
+import edu.wpi.cs3733.teamO.Controllers.GoogleMaps.Maps.Directions;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;

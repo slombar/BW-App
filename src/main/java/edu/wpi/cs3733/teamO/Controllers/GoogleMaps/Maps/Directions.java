@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.teamO.Controllers.Maps;
+package edu.wpi.cs3733.teamO.Controllers.GoogleMaps.Maps;
 
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
