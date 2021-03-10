@@ -23,7 +23,7 @@
                   <Image url="@../../Icons/maintenanceIconWhite.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" minHeight="-Infinity" prefHeight="96.0" prefWidth="805.0" text="Facilities Maintenance Request" textAlignment="CENTER" textFill="#cfe2f3" wrapText="true">
+            <Label alignment="CENTER" minHeight="-Infinity" prefHeight="96.0" prefWidth="805.0" text="Facilities Maintenance Request" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Leelawadee UI Bold" size="55.0" />
                </font>

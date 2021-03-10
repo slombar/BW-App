@@ -40,7 +40,7 @@
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
                   </JFXButton>
-                      <JFXButton onAction="#addNewRequest" style="-fx-background-color: #3A5369;" text="Add New Request" textFill="WHITE">
+                      <JFXButton fx:id="addButton" onAction="#addNewRequest" style="-fx-background-color: #3A5369;" text="Add New Request" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -50,7 +50,7 @@
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#update" style="-fx-background-color: #3A5369;" text="Update" textFill="WHITE">
+                  <JFXButton fx:id="updateButton" alignment="CENTER" contentDisplay="CENTER" onAction="#update" style="-fx-background-color: #3A5369;" text="Update" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
