@@ -3,7 +3,7 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 
@@ -39,6 +39,12 @@ public class Autocomplete {
             });
   }
 
+  /**
+   * gets all the node data for a specific field adn can be used to autocomplete textfields
+   *
+   * @param nodeProperty a string that identifies the specific node detail
+   * @return an array list of string of all the node's specific property
+   */
   public static ArrayList<String> autoNodeData(String nodeProperty) {
     ObservableList<Node> nodeList;
     nodeList = NodesAndEdges.getAllNodes();
@@ -87,5 +93,47 @@ public class Autocomplete {
         break;
     }
     return data;
+  }
+
+  /**
+   * checks if the given text fields are empty
+   *
+   * @param textFields
+   * @return
+   */
+  public static boolean areFieldsEmpty(ArrayList<JFXTextField> textFields) {
+    for (JFXTextField text : textFields) {
+      if (text.getText().isEmpty()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * checks if the given text fields are null
+   *
+   * @param textFields
+   * @return
+   */
+  public static boolean areFieldsNull(ArrayList<JFXTextField> textFields) {
+    for (JFXTextField text : textFields) {
+      if (text.getText() == null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * clear all textfields
+   *
+   * @param textFields
+   * @return
+   */
+  public static void clearAllFields(ArrayList<JFXTextField> textFields) {
+    for (JFXTextField text : textFields) {
+      text.clear();
+    }
   }
 }

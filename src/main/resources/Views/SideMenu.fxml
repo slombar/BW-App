@@ -100,7 +100,19 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="477.0" prefWidth="350.0">
+      <JFXButton fx:id="aboutBtn1" alignment="BOTTOM_LEFT" onAction="#toAbout" onMouseEntered="#mouseOnAbout" onMouseExited="#mouseOffAbout" prefHeight="77.0" prefWidth="446.0" text="About" translateX="10.0">
+         <font>
+            <Font name="Leelawadee UI" size="30.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+               <image>
+                  <Image url="@../Icons/BWH_BW_Logo.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="400.0" prefWidth="350.0">
          <children>
             <JFXButton fx:id="logout" alignment="BOTTOM_LEFT" onAction="#goToLogin" onMouseEntered="#mouseOnLog" onMouseExited="#mouseOffLog" prefHeight="51.0" prefWidth="145.0" text="Log Out">
                <font>

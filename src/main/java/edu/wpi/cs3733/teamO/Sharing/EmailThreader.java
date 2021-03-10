@@ -1,6 +1,10 @@
 package edu.wpi.cs3733.teamO.Sharing;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.io.File;
 import java.util.Properties;
 import javax.activation.DataHandler;
@@ -38,6 +42,10 @@ public class EmailThreader extends Thread {
     this.fileToBeSent6 = fileToBeSent6;
   }
 
+  /**
+   * run is the only method available to threading in this way, this method sends an email
+   * containing pictures in a separate thread from the main function so as to not freeze the app
+   */
   @Override
   public void run() {
 
@@ -104,30 +112,93 @@ public class EmailThreader extends Thread {
       String filename4 = fileToBeSent4; // file to be sent, map image
       String filename5 = fileToBeSent5; // file to be sent, map image
       String filename6 = fileToBeSent6; // file to be sent, map image
-      DataSource source1 = new FileDataSource(filename1);
-      messageBodyPart1.setDataHandler(new DataHandler(source1));
-      messageBodyPart1.setFileName("GroundRoute.png");
-      multipart.addBodyPart(messageBodyPart1);
-      DataSource source2 = new FileDataSource(filename2);
-      messageBodyPart2.setDataHandler(new DataHandler(source2));
-      messageBodyPart2.setFileName("Floor1Route.png");
-      multipart.addBodyPart(messageBodyPart2);
-      DataSource source3 = new FileDataSource(filename3);
-      messageBodyPart3.setDataHandler(new DataHandler(source3));
-      messageBodyPart3.setFileName("Floor2Route.png");
-      multipart.addBodyPart(messageBodyPart3);
-      DataSource source4 = new FileDataSource(filename4);
-      messageBodyPart4.setDataHandler(new DataHandler(source4));
-      messageBodyPart4.setFileName("Floor3Route.png");
-      multipart.addBodyPart(messageBodyPart4);
-      DataSource source5 = new FileDataSource(filename5);
-      messageBodyPart5.setDataHandler(new DataHandler(source5));
-      messageBodyPart5.setFileName("Floor4Route.png");
-      multipart.addBodyPart(messageBodyPart5);
-      DataSource source6 = new FileDataSource(filename6);
-      messageBodyPart6.setDataHandler(new DataHandler(source6));
-      messageBodyPart6.setFileName("Floor5Route.png");
-      multipart.addBodyPart(messageBodyPart6);
+
+      // Determines start and end nodes
+      Graph graph = GRAPH;
+      String pathFloors = "";
+      if (graph.getPath() == null) {
+        DataSource source1 = new FileDataSource(filename1);
+        messageBodyPart1.setDataHandler(new DataHandler(source1));
+        messageBodyPart1.setFileName("GroundRoute.png");
+        multipart.addBodyPart(messageBodyPart1);
+        DataSource source2 = new FileDataSource(filename2);
+        messageBodyPart2.setDataHandler(new DataHandler(source2));
+        messageBodyPart2.setFileName("Floor1Route.png");
+        multipart.addBodyPart(messageBodyPart2);
+        DataSource source3 = new FileDataSource(filename3);
+        messageBodyPart3.setDataHandler(new DataHandler(source3));
+        messageBodyPart3.setFileName("Floor2Route.png");
+        multipart.addBodyPart(messageBodyPart3);
+        DataSource source4 = new FileDataSource(filename4);
+        messageBodyPart4.setDataHandler(new DataHandler(source4));
+        messageBodyPart4.setFileName("Floor3Route.png");
+        multipart.addBodyPart(messageBodyPart4);
+        DataSource source5 = new FileDataSource(filename5);
+        messageBodyPart5.setDataHandler(new DataHandler(source5));
+        messageBodyPart5.setFileName("Floor4Route.png");
+        multipart.addBodyPart(messageBodyPart5);
+        DataSource source6 = new FileDataSource(filename6);
+        messageBodyPart6.setDataHandler(new DataHandler(source6));
+        messageBodyPart6.setFileName("Floor5Route.png");
+        multipart.addBodyPart(messageBodyPart6);
+      } else {
+        for (Node n : graph.getPath()) {
+          if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+        }
+
+        // check for campus, check for last thing
+        String firstLast =
+            pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
+        String lastFloor = pathFloors.substring(pathFloors.length() - 1);
+
+        if (firstLast.contains("G")) {
+          DataSource source1 = new FileDataSource(filename1);
+          messageBodyPart1.setDataHandler(new DataHandler(source1));
+          messageBodyPart1.setFileName("GroundRoute.png");
+          multipart.addBodyPart(messageBodyPart1);
+          if (!lastFloor.contains("1") && !lastFloor.contains("G")) {
+            DataSource source2 = new FileDataSource(filename2);
+            messageBodyPart2.setDataHandler(new DataHandler(source2));
+            messageBodyPart2.setFileName("Floor1Route.png");
+            multipart.addBodyPart(messageBodyPart2);
+          }
+        }
+
+        if (firstLast.contains("1")) {
+          DataSource source2 = new FileDataSource(filename2);
+          messageBodyPart2.setDataHandler(new DataHandler(source2));
+          messageBodyPart2.setFileName("Floor1Route.png");
+          multipart.addBodyPart(messageBodyPart2);
+        }
+
+        if (firstLast.contains("2")) {
+          DataSource source3 = new FileDataSource(filename3);
+          messageBodyPart3.setDataHandler(new DataHandler(source3));
+          messageBodyPart3.setFileName("Floor2Route.png");
+          multipart.addBodyPart(messageBodyPart3);
+        }
+
+        if (firstLast.contains("3")) {
+          DataSource source4 = new FileDataSource(filename4);
+          messageBodyPart4.setDataHandler(new DataHandler(source4));
+          messageBodyPart4.setFileName("Floor3Route.png");
+          multipart.addBodyPart(messageBodyPart4);
+        }
+
+        if (firstLast.contains("4")) {
+          DataSource source5 = new FileDataSource(filename5);
+          messageBodyPart5.setDataHandler(new DataHandler(source5));
+          messageBodyPart5.setFileName("Floor4Route.png");
+          multipart.addBodyPart(messageBodyPart5);
+        }
+
+        if (firstLast.contains("5")) {
+          DataSource source6 = new FileDataSource(filename6);
+          messageBodyPart6.setDataHandler(new DataHandler(source6));
+          messageBodyPart6.setFileName("Floor5Route.png");
+          multipart.addBodyPart(messageBodyPart6);
+        }
+      }
 
       // Send the complete message parts
       message.setContent(multipart);

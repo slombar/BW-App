@@ -2,7 +2,6 @@ package edu.wpi.cs3733.teamO.Database;
 
 import edu.wpi.cs3733.teamO.HelperClasses.Encrypter;
 import edu.wpi.cs3733.teamO.UserTypes.User;
-import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +13,21 @@ public class UserHandling {
   private static String username;
   private static Boolean isLoggedIn;
   private static String fName;
+  private static String parkingSpot;
 
+  public static String getParkingSpot() {
+    return parkingSpot;
+  }
+
+  public static void setParkingSpot(String parkingSpot) {
+    UserHandling.parkingSpot = parkingSpot;
+  }
+
+  /**
+   * Delete the given user from the database based on Username
+   *
+   * @param uname
+   */
   public static void deleteUser(String uname) {
 
     String query = "DELETE FROM USERS WHERE username = '" + uname + "'";
@@ -31,6 +44,11 @@ public class UserHandling {
     }
   }
 
+  /**
+   * retrieve all users from database
+   *
+   * @return
+   */
   public static ObservableList<User> getUsers() {
 
     ObservableList<User> userList = FXCollections.observableArrayList();
@@ -92,12 +110,12 @@ public class UserHandling {
       String username, String password, String email, String fName, String lName)
       throws SQLException {
 
+    // Added by sam to make username and email case insensitive:
+    username = username.toLowerCase();
+    email = email.toLowerCase();
+
     String encodedPass = null;
-    try {
-      encodedPass = Encrypter.encryptPassword(password);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(password);
 
     String query =
         "INSERT INTO USERS VALUES('"
@@ -129,16 +147,27 @@ public class UserHandling {
     }
   }
 
+  /**
+   * Make a brand new employee in the Db
+   *
+   * @param username
+   * @param password
+   * @param email
+   * @param fName
+   * @param lName
+   * @param admin
+   * @throws SQLException
+   */
   public static void createEmployee(
       String username, String password, String email, String fName, String lName, boolean admin)
       throws SQLException {
 
+    // Added by sam to make username and email case insensitive:
+    username = username.toLowerCase();
+    email = email.toLowerCase();
+
     String encodedPass = null;
-    try {
-      encodedPass = Encrypter.encryptPassword(password);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(password);
 
     String query =
         "INSERT INTO USERS VALUES('"
@@ -178,15 +207,15 @@ public class UserHandling {
    * @return null if login is bad, User with all info from DB if good
    */
   public static void login(String u, String p) throws SQLException {
+
+    // Added by sam to make username and email case insensitive:
+    u = u.toLowerCase();
+
     setLoginStatus(true);
     setUsername(u);
 
     String encodedPass = "";
-    try {
-      encodedPass = Encrypter.encryptPassword(p);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(p);
 
     p = encodedPass;
 
@@ -213,17 +242,24 @@ public class UserHandling {
     }
   }
 
+  /**
+   * logs in the employee from the database
+   *
+   * @param u
+   * @param p
+   * @throws SQLException
+   */
   public static void loginEmployee(String u, String p) throws SQLException {
+    // Added by sam to make username and email case insensitive:
+    u = u.toLowerCase();
+
     // setFirstName(fName);
     setLoginStatus(true);
     setUsername(u);
 
     String encodedPass = "";
-    try {
-      encodedPass = Encrypter.encryptPassword(p);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
+    encodedPass = Encrypter.encryptPassword(p);
+
     p = encodedPass;
 
     String vu = "";
@@ -254,6 +290,11 @@ public class UserHandling {
     }
   }
 
+  /**
+   * get true if the current user is an admin
+   *
+   * @return
+   */
   public static boolean getAdmin() {
     boolean b = false;
 
@@ -277,6 +318,11 @@ public class UserHandling {
     return b;
   }
 
+  /**
+   * get true if the current user is an employee
+   *
+   * @return
+   */
   public static boolean getEmployee() {
     boolean b = false;
 
@@ -300,6 +346,12 @@ public class UserHandling {
     return b;
   }
 
+  /**
+   * assign an employee to a service request
+   *
+   * @param reqID
+   * @param employee
+   */
   public static void assignEmployee(String reqID, String employee) {
 
     try {
@@ -332,6 +384,7 @@ public class UserHandling {
     return username;
   }
 
+  // gettas and settas
   public static void setUsername(String u) {
     username = u;
   }

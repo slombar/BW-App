@@ -33,13 +33,22 @@ public class SideMenuAdminController implements Initializable {
 
   public SideMenuAdminController() {}
 
-  public void goToMainMenu(MouseEvent mouseEvent) {}
-
+  /**
+   * sets the name at the top to the username of the user
+   *
+   * @param location
+   * @param resources
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     nameLabel.setText(UserHandling.getUsername());
   }
 
+  /**
+   * closes the application
+   *
+   * @param actionEvent
+   */
   public void exit(ActionEvent actionEvent) {
     Platform.exit();
   }
@@ -52,6 +61,11 @@ public class SideMenuAdminController implements Initializable {
 
   public void toSettings(ActionEvent actionEvent) {}
 
+  /**
+   * goes to the login page
+   *
+   * @param actionEvent
+   */
   public void goToLogin(ActionEvent actionEvent) {
     try {
       BorderPane root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
@@ -61,22 +75,43 @@ public class SideMenuAdminController implements Initializable {
     }
   }
 
+  /**
+   * goes to the main page
+   *
+   * @param actionEvent
+   */
   public void toMain(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/StaffMainPage.fxml");
   }
 
+  /**
+   * goes to the navigation page
+   *
+   * @param actionEvent
+   */
   public void toNav(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
+  /**
+   * goes to the menu of service requests
+   *
+   * @param actionEvent
+   */
   public void toReq(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
   }
 
+  /**
+   * goes to the manage employees page
+   *
+   * @param actionEvent
+   */
   public void manageEmployees(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
+  // TODO theres no way this shit has to be this long; not sure what the best way is though
   public void mouseOnNot(MouseEvent mouseEvent) {
     notificationBtn.setUnderline(true);
     notificationBtn.setButtonType(JFXButton.ButtonType.RAISED);

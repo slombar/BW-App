@@ -1,9 +1,13 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import com.jfoenix.controls.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Sharing.ImgurFunctionality;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.awt.image.BufferedImage;
@@ -12,10 +16,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -26,6 +32,8 @@ import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
 
+  @FXML private JFXButton generateQRBtn;
+  @FXML private StackPane spinnerPane;
   @FXML private ImageView mapView5;
   @FXML private ImageView mapView3;
   @FXML private ImageView mapView2;
@@ -47,9 +55,19 @@ public class EmailPageController implements Initializable {
   @FXML private static Image screenShot5;
   @FXML private static Image screenShot6;
   @FXML private StackPane sharePane; // this thing might fuck up our code :))=
+  private String errorMsg = "";
 
+  /**
+   * Initializes all components of email page including: setting screenshots to images, button
+   * styles, and QR code positioning
+   *
+   * @param url
+   * @param res
+   */
   @Override
   public void initialize(URL url, ResourceBundle res) {
+
+    generateQRBtn.setVisible(false);
 
     mapView0.setImage(screenShot1);
     mapView1.setImage(screenShot2);
@@ -60,20 +78,48 @@ public class EmailPageController implements Initializable {
     backBtn.setStyle("-fx-background-color: #c3d6e8");
     confirmBtn.setStyle("-fx-background-color: #c3d6e8");
     textButton.setStyle("-fx-background-color: #c3d6e8");
-    String home = System.getProperty("user.home");
-    String inputfile = home + "/Downloads/" + "qr.png";
-    BufferedImage img = null;
-    try {
-      img = ImageIO.read(new File(inputfile));
-    } catch (IOException e) {
-    }
-    Image image = SwingFXUtils.toFXImage(img, null);
-    QRView.setImage(image);
-    QRView.setScaleX(2);
-    QRView.setScaleY(2);
-    QRView.setTranslateY(250);
+
+    Task<Void> QRtask =
+        new Task<Void>() {
+
+          @Override
+          protected Void call() throws Exception {
+            prepareQR();
+            generateQRBtn.setVisible(true);
+            return null;
+          }
+        };
+
+    // QRView.setImage(loading);
+
+    Thread QRthread = new Thread(QRtask);
+    QRthread.start();
+    QRgeneration(QRtask);
   }
 
+  /**
+   * QR Generation made to pin loading sign on it
+   *
+   * @param QRtask
+   */
+  void QRgeneration(Task<Void> QRtask) {
+    ProgressIndicator progress = new ProgressIndicator();
+    spinnerPane.getChildren().add(progress);
+    progress.setProgress(1.0);
+    progress.progressProperty().bind(QRtask.progressProperty());
+    spinnerPane.toFront();
+  }
+
+  /**
+   * Sets screenshots of map images on canvas
+   *
+   * @param sc1
+   * @param sc2
+   * @param sc3
+   * @param sc4
+   * @param sc5
+   * @param sc6
+   */
   public static void setScreenShot(
       Image sc1, Image sc2, Image sc3, Image sc4, Image sc5, Image sc6) {
     screenShot1 = sc1;
@@ -84,17 +130,29 @@ public class EmailPageController implements Initializable {
     screenShot6 = sc6;
   }
 
-  private String errorMsg = "";
-
+  /**
+   * Triggers back button functionality
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
   public void back(ActionEvent actionEvent) throws IOException {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
+  /**
+   * Triggers functions to send MMS text with map images to user
+   *
+   * @param actionEvent
+   * @throws IOException
+   * @throws UnirestException
+   */
   public void sendText(ActionEvent actionEvent) throws IOException, UnirestException {
 
     String phoneString = phoneNum.getText();
     System.out.println(phoneString);
 
+    // TODO reimplement regexboi checker for +1 area codes
     // if (RegexBoi.checkPhoneNum(phoneString)) {
 
     LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
@@ -120,35 +178,89 @@ public class EmailPageController implements Initializable {
     // }*/
   }
 
+  /**
+   * Triggers functions to prepare for generation of QR Code
+   *
+   * @throws IOException
+   * @throws UnirestException
+   */
   public static void prepareQR() throws IOException, UnirestException {
-
-    // if (RegexBoi.checkPhoneNum(phoneString)) {
-
     LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
     String albumID = albumInfo.get(0);
     String albumDeleteHash = albumInfo.get(1);
+    Graph graph = GRAPH;
+    System.out.println("test");
+    if (graph.getPath() == null) {
+      System.out.println("If null statement - success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      System.out.println("Image 1 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+      System.out.println("Image 2 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
+      System.out.println("Image 3 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
+      System.out.println("Image 4 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
+      System.out.println("Image 5 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+      System.out.println("All images are uploaded!");
 
-    ImgurFunctionality.uploadToImgur("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg2.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg3.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg4.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg5.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgur("mapimg6.png", albumDeleteHash);
+    } else {
+      String pathFloors = "";
+      for (Node n : graph.getPath()) {
+        if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+      }
 
+      String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
+      String lastFloor = pathFloors.substring(pathFloors.length() - 1);
+
+      System.out.println(pathFloors + "\n");
+      System.out.println(firstLast);
+
+      // need this statement to make everything work
+      if (true) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      }
+      if (firstLast.contains("G")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+        if (!lastFloor.contains("1")) {
+          ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+        }
+      }
+
+      if (firstLast.contains("1")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("2")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("3")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("4")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("5")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+      }
+    }
     String albumLink = "https://imgur.com/a/" + albumID;
+    System.out.println(albumLink);
 
     SharingFunctionality.createQR(albumLink);
-    // submissionPopup();
-
-    // }
-    /*else {
-      errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
-      System.out.print(errorMsg);
-      invalidPopup();
-    }*/
   }
 
+  /**
+   * Triggers action to send email of map images to user
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
   public void sendEmail(ActionEvent actionEvent) throws IOException {
 
     String emailString = email.getText();
@@ -172,13 +284,6 @@ public class EmailPageController implements Initializable {
 
       submissionPopup();
 
-      //      mapView0 = new ImageView(outputFile1);
-      //      mapView1 = new ImageView(outputFile2);
-      //      mapView2 = new ImageView(outputFile3);
-      //      mapView3 = new ImageView(outputFile4);
-      //      mapView4 = new ImageView(outputFile5);
-      //      mapView5 = new ImageView(outputFile6);
-
     } else {
       errorMsg =
           "Email is invalid. Make sure your email is spelled correctly and follows typical conventions. (email@company.com)";
@@ -187,6 +292,7 @@ public class EmailPageController implements Initializable {
     }
   }
 
+  /** Popup for when user inputs invalid values for text fields */
   public void invalidPopup() {
     // dialogContent has the conetnt of the popup
     JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -236,6 +342,7 @@ public class EmailPageController implements Initializable {
     submissionDialog.show();
   }
 
+  /** Popup for when user has successfully submits email/phone number */
   public void submissionPopup() {
 
     // dialogContent has the conetnt of the popup
@@ -274,5 +381,22 @@ public class EmailPageController implements Initializable {
           SwitchScene.goToParent("/Views/NewNavPage.fxml");
         });
     submissionDialog.show();
+  }
+
+  public void QRCodeGeneration(ActionEvent actionEvent) throws IOException, UnirestException {
+    spinnerPane.setVisible(false);
+    String home = System.getProperty("user.home");
+    String inputfile = home + "/Downloads/" + "qr.png";
+    BufferedImage img = null;
+    try {
+      img = ImageIO.read(new File(inputfile));
+    } catch (IOException e) {
+    }
+    Image image = SwingFXUtils.toFXImage(img, null);
+    QRView.setImage(image);
+    QRView.setScaleX(2);
+    QRView.setScaleY(2);
+    QRView.setTranslateY(250);
+    QRView.toFront();
   }
 }

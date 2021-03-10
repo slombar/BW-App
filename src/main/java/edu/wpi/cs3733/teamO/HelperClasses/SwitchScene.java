@@ -2,30 +2,17 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 
 import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class SwitchScene {
 
   /**
-   * switches the scene to a scene made on a border pane
-   *
-   * @param path to desired FXML file
-   */
-  public static void goToBorderPane(String path) {
-    try {
-      BorderPane root = FXMLLoader.load(SwitchScene.class.getResource(path));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
-
-  /**
-   * switches the scene to a scene made on a border pane
+   * switches the scene to a new scene full screen
    *
    * @param path to desired FXML file
    */
@@ -39,28 +26,34 @@ public class SwitchScene {
   }
 
   /**
-   * switches the scene to a scene made on a grid pane
+   * create a new window for the mobile app
    *
-   * @param path to desired FXML file
+   * @param path
    */
-  public static void goToGridPane(String path) {
+  public static void newWindowParent(String path) {
     try {
-      GridPane root = FXMLLoader.load(SwitchScene.class.getResource(path));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
+      Parent root = FXMLLoader.load(SwitchScene.class.getResource(path));
+      Stage stage = new Stage();
+      stage.setTitle("Mobile Application");
+      stage.setScene(new Scene(root, 335, 600));
+      stage.show();
+
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
   /**
-   * switches the scene to a scene made on a anchor pane
+   * switches the scene to a new scene in mobile
    *
    * @param path to desired FXML file
    */
-  public static void goToAnchorPane(String path) {
+  public static void goToParentMobile(String path, ActionEvent actionEvent) {
     try {
-      AnchorPane root = FXMLLoader.load(SwitchScene.class.getResource(path));
-      Opp.getPrimaryStage().getScene().setRoot(root);
+      Node node = (Node) actionEvent.getSource();
+      Stage thisStage = (Stage) node.getScene().getWindow();
+      Parent root = FXMLLoader.load(SwitchScene.class.getResource(path));
+      thisStage.getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
     }

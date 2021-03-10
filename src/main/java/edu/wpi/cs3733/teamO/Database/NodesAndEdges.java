@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.teamO.Database;
 
-import edu.wpi.cs3733.teamO.model.Edge;
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Edge;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -192,6 +192,12 @@ public class NodesAndEdges {
     }
   }
 
+  /**
+   * Delete a node from the database based off its ID
+   *
+   * @param nodeID
+   * @throws SQLException
+   */
   public static void deleteNode(String nodeID) throws SQLException {
     String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
     try {
@@ -210,7 +216,11 @@ public class NodesAndEdges {
     deleteAllEdges(nodeID);
   }
 
-  /** @param nodeID */
+  /**
+   * Delete an edge based off of the database's edge ID & nodeID param
+   *
+   * @param nodeID
+   */
   public static void deleteEdge(String nodeID) throws SQLException {
     // get the edge to throw error if it doesn't exist.
     String query = "DELETE FROM Edges WHERE nodeID = '" + nodeID + "'";
@@ -480,5 +490,23 @@ public class NodesAndEdges {
       e.printStackTrace();
     }
     return edgeList;
+  }
+
+  public static String getNodeLongName(String id) throws SQLException {
+
+    PreparedStatement pstmt = null;
+    pstmt =
+        DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes WHERE nodeID = ?");
+    pstmt.setString(1, id);
+    ResultSet rset = pstmt.executeQuery();
+
+    // add properties to the node
+    rset.next();
+    String lName = rset.getString("LONGNAME");
+
+    rset.close();
+    pstmt.close();
+
+    return lName;
   }
 }

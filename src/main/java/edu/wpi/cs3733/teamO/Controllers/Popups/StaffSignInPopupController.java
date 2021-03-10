@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 
 public class StaffSignInPopupController {
+
   @FXML private StackPane popupPane;
   @FXML private JFXTextField user;
   @FXML private JFXPasswordField pass;
@@ -42,6 +43,11 @@ public class StaffSignInPopupController {
     }
   }
 
+  /**
+   * goes to the previous page (login page)
+   *
+   * @param actionEvent
+   */
   public void close(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
@@ -51,6 +57,11 @@ public class StaffSignInPopupController {
     }
   }
 
+  /**
+   * allows the enter key to submit the login
+   *
+   * @param keyEvent
+   */
   public void checkEnter(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
       signIn(new ActionEvent());

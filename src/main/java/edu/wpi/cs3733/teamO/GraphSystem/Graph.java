@@ -2,8 +2,8 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
-import edu.wpi.cs3733.teamO.model.Edge;
-import edu.wpi.cs3733.teamO.model.Node;
+import edu.wpi.cs3733.teamO.Model.Edge;
+import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.SQLException;
 import java.util.*;
 import javafx.collections.FXCollections;
@@ -11,30 +11,23 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Paint;
 
 public class Graph {
 
-  private int size; // necessary
-  private static ObservableList<Node> listOfNodes;
-  private static ObservableList<Edge> listOfEdges;
-  private static Hashtable<String, Node> stringNodeHashtable;
-  private static Hashtable<String, Edge> stringEdgeHashtable;
-  private static Hashtable<Node, Circle> nodeCircleHashtable;
-  private AlgorithmStrategy strategy;
-  List<Node> path;
+  // *****************************//
+  // maps and related variables:  //
+  // *****************************//
 
-  // GC/Canvas-related attributes:
-  private GraphicsContext gc;
-
-  // TODO: put these as public static final somewhere?
-  private final Image campusMap = new Image("FaulknerCampus_Updated.png");
-  private final Image floor1Map = new Image("Faulkner1_Updated.png");
-  private final Image floor2Map = new Image("Faulkner2_Updated.png");
-  private final Image floor3Map = new Image("Faulkner3_Updated.png");
-  private final Image floor4Map = new Image("Faulkner4_Updated.png");
-  private final Image floor5Map = new Image("Faulkner5_Updated.png");
+  // public static Images of each floor map
+  public static Image campusMap = new Image("FaulknerCampus_Updated.png");
+  public static Image floor1Map = new Image("Faulkner1_Updated.png");
+  public static Image floor2Map = new Image("Faulkner2_Updated.png");
+  public static Image floor3Map = new Image("Faulkner3_Updated.png");
+  public static Image floor4Map = new Image("Faulkner4_Updated.png");
+  public static Image floor5Map = new Image("Faulkner5_Updated.png");
 
   private final double widthG = campusMap.getWidth();
   private final double heightG = campusMap.getHeight();
@@ -49,12 +42,33 @@ public class Graph {
   private final double width5 = floor5Map.getWidth();
   private final double height5 = floor5Map.getHeight();
 
-  /**
-   * Creates a Graph from the database that will display on the provided GraphicsContext
-   *
-   * @param gc the GraphicsContext which the Graph will be displayed on
-   */
-  public Graph(GraphicsContext gc) {
+  // *****************************//
+  // singleton-related stuff:     //
+  // *****************************//
+
+  // want eager initialization here (may cause problems with threading)
+  public static Graph GRAPH = new Graph();
+
+  private Graph() {
+    initialize();
+  }
+
+  // *****************************//
+  // Graph's parameters/methods:  //
+  // *****************************//
+
+  private int size; // not really necessary? idk
+  private static ObservableList<Node> listOfNodes;
+  private static ObservableList<Edge> listOfEdges;
+  private static Hashtable<String, Node> stringNodeHashtable;
+  private static Hashtable<String, Edge> stringEdgeHashtable;
+  private AlgorithmStrategy strategy;
+  List<Node> path;
+
+  private GraphicsContext gc;
+
+  /** initializes GRAPH based on the valued retrieved from the database */
+  private void initialize() {
     // initialize nodes based on DB
     listOfNodes = FXCollections.observableArrayList();
     listOfNodes = NodesAndEdges.getAllNodes();
@@ -79,22 +93,11 @@ public class Graph {
 
       link(nodeA, nodeB, e);
     }
-
-    nodeCircleHashtable = new Hashtable<>();
-    this.gc = gc;
-    createCircles();
   }
 
-  /**
-   * Graph constructor purely for testing purposes
-   *
-   * @param test dummy parameter (can be true or false)
-   */
-  /*Graph(boolean test) {
-    listOfNodeIDs = new LinkedList<String>();
-    size = 0;
-    // listOfNodes = new Hashtable<>();
-  }*/
+  public void setGraphicsContext(GraphicsContext gc) {
+    this.gc = gc;
+  }
 
   /**
    * Adds each Node to the other's list of neighbouring Nodes
@@ -113,10 +116,6 @@ public class Graph {
     }
   }
 
-  int getSize() {
-    return size;
-  }
-
   /**
    * Returns the Node closest to the given (x,y) on the given floor
    *
@@ -124,18 +123,33 @@ public class Graph {
    * @param x x-coordinate of the ClickEvent
    * @param y y-coordinate of the ClickEvent
    * @return Node closest to the ClickEvent
-   * @throws NullPointerException
+   * @throws NullPointerException will return null if it doesn't find a closest node
    */
-  public static Node closestNode(String floor, double x, double y) throws NullPointerException {
+  public Node closestNode(String floor, double x, double y, boolean editing, ImageView imageView)
+      throws NullPointerException {
     double currentDist = 1000000000;
     Node node = null;
 
+    double canvasW = gc.getCanvas().getWidth();
+    double canvasH = gc.getCanvas().getHeight();
+
+    double imageW = imageView.getImage().getWidth();
+    double imageH = imageView.getImage().getHeight();
+
+    double vpX = imageView.getViewport().getMinX() / imageW;
+    double vpY = imageView.getViewport().getMinY() / imageH;
+    double wp = imageView.getViewport().getWidth() / imageW;
+    double hp = imageView.getViewport().getHeight() / imageH;
+
     for (Node n : listOfNodes) {
-      if (n.getFloor().equals(floor)) {
-        Circle tempCircle = nodeCircleHashtable.get(n);
-        double dist =
-            Math.pow(Math.abs(x - tempCircle.getCenterX()), 2.0)
-                + Math.pow(Math.abs(y - tempCircle.getCenterY()), 2.0);
+      if (n.getFloor().equals(floor) && (n.isVisible() || editing)) {
+        double nxp = n.getXCoord() / imageW;
+        double nyp = n.getYCoord() / imageH;
+
+        double nodeX = (((nxp - vpX) / wp) * canvasW);
+        double nodeY = (((nyp - vpY) / hp) * canvasH);
+
+        double dist = Math.pow(Math.abs(x - nodeX), 2.0) + Math.pow(Math.abs(y - nodeY), 2.0);
         if (dist < currentDist) {
           currentDist = dist;
           node = n;
@@ -143,140 +157,103 @@ public class Graph {
       }
     }
 
-    // TODO: nodeCircleHashtable.get(n).actionEvent();
     return node;
   }
 
   /**
-   * Creates a properly-scaled Circle for every Node in the database and adds it to
-   * nodeCircleHashtable with it's corresponding Node as the key
+   * Creates a properly-scaled Circle the given Node and adds it to stringCircleHashtable with it's
+   * corresponding Node's ID as the key
    */
-  public void createCircles() {
+  /*public void createCircle(Node n) */
 
-    for (Node n : listOfNodes) {
-      // get node's x and y (and floor)
-      double nX = n.getXCoord();
-      double nY = n.getYCoord();
-      double nXperc = 0.0;
-      double nYperc = 0.0;
-      String nFloor = n.getFloor();
+  /**
+   * adds the given Node to the graph appropriately
+   *
+   * @param n Node to be added
+   */
+  public void addNode(Node n, boolean addNodeDBMode) throws SQLException {
+    // if not adding (editing), do edit stuff, otherwise just add
+    if (!addNodeDBMode) {
 
-      // set nX/Yperc to be the node's x/y as a percentage of the image's x/y
-      // switch case basically = if, else if, etc...
-      switch (nFloor) {
-        case "G":
-          nXperc = nX / widthG;
-          nYperc = nY / heightG;
-          break;
-        case "1":
-          nXperc = nX / width1;
-          nYperc = nY / height1;
-          break;
-        case "2":
-          nXperc = nX / width2;
-          nYperc = nY / height2;
-          break;
-        case "3":
-          nXperc = nX / width3;
-          nYperc = nY / height3;
-          break;
-        case "4":
-          nXperc = nX / width4;
-          nYperc = nY / height4;
-          break;
-        case "5":
-          nXperc = nX / width5;
-          nYperc = nY / height5;
-          break;
-      }
+      // try editing in DB (throws SQLException)
+      NodesAndEdges.editNode(
+          n.getID(),
+          n.getXCoord(),
+          n.getYCoord(),
+          n.getFloor(),
+          n.getBuilding(),
+          n.getNodeType(),
+          n.getLongName(),
+          n.getShortName(),
+          "O",
+          n.isVisible());
 
-      Circle circle = new Circle();
-      // set radius to be percentage of canvas height, and bind circle's x/y to the canvas
-      // width/height * percent
-      circle.radiusProperty().bind(gc.getCanvas().widthProperty().multiply(0.00625));
-      circle.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
-      circle.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
-
-      /*TODO implement the clicking function for the circles
-      circle.addEventHandler("click", clickCircle);*/
-
-      nodeCircleHashtable.put(n, circle);
-    }
-  }
-
-  public void addNode(Node n) {
-    // if ID already exists, then editing -> need node's neighborlist
-    if (stringNodeHashtable.containsKey(n.getID())) {
+      // if NodesAndEdges.addNode() doesn't throw exception, add to graph itself:
+      // get old version of Node and it's related things
       Node prev = stringNodeHashtable.get(n.getID());
       HashSet<Node> prevNList = prev.getNeighbourList();
       Hashtable<Node, Edge> prevNEList = prev.getNodeEdgeHashtable();
-      Circle prevC = nodeCircleHashtable.get(prev);
 
+      // remove old version from Node list
       listOfNodes.remove(prev);
-      nodeCircleHashtable.remove(prev);
 
+      // set new version's neighbours = old's
       n.setNeighbourList(prevNList);
       n.setNodeEdgeHashtable(prevNEList);
 
+      // add new node and corresponding
       listOfNodes.add(n);
       stringNodeHashtable.put(n.getID(), n);
-      nodeCircleHashtable.put(n, prevC);
       return;
     }
 
-    // add circle
-    // add node to graph
-    String nodeID = n.getID();
-    Circle c = new Circle();
+    // try adding to DB (throws SQLException)
+    NodesAndEdges.addNode(
+        n.getID(),
+        Integer.toString(n.getXCoord()),
+        Integer.toString(n.getYCoord()),
+        n.getFloor(),
+        n.getBuilding(),
+        n.getNodeType(),
+        n.getLongName(),
+        n.getShortName(),
+        "O",
+        n.isVisible());
 
-    // get node's x and y (and floor)
-    double nX = n.getXCoord();
-    double nY = n.getYCoord();
-    double nXperc = 0.0;
-    double nYperc = 0.0;
-    String nFloor = n.getFloor();
+    // adding new Node and Circle:
 
-    // set nX/Yperc to be the node's x/y as a percentage of the image's x/y
-    // switch case basically = if, else if, etc...
-    switch (nFloor) {
-      case "G":
-        nXperc = nX / widthG;
-        nYperc = nY / heightG;
-        break;
-      case "1":
-        nXperc = nX / width1;
-        nYperc = nY / height1;
-        break;
-      case "2":
-        nXperc = nX / width2;
-        nYperc = nY / height2;
-        break;
-      case "3":
-        nXperc = nX / width3;
-        nYperc = nY / height3;
-        break;
-      case "4":
-        nXperc = nX / width4;
-        nYperc = nY / height4;
-        break;
-      case "5":
-        nXperc = nX / width5;
-        nYperc = nY / height5;
-        break;
-    }
-
-    // copied from above, should workerino
-    c.radiusProperty().bind(gc.getCanvas().widthProperty().multiply(0.00625));
-    c.centerXProperty().bind(gc.getCanvas().widthProperty().multiply(nXperc));
-    c.centerYProperty().bind(gc.getCanvas().heightProperty().multiply(nYperc));
+    // add circle for n
+    // createCircle(n);
 
     // rewrites the hash
     listOfNodes.add(n);
-    stringNodeHashtable.put(nodeID, n);
-    nodeCircleHashtable.put(n, c);
+    stringNodeHashtable.put(n.getID(), n);
   }
 
-  public void addEdge(Edge e) {
+  /** adds the given Edge to the graph appropriately */
+  public void addEdge(String startID, String endID) throws SQLException {
+    String eID = "not set yet";
+    String eID1 = startID + "_" + endID;
+    String eID2 = endID + "_" + startID;
+    // if Edge with eID1 exists, have NodesAndEdges throw exception
+    if (stringEdgeHashtable.containsKey(eID1)) {
+      throw new SQLException();
+    }
+    // else, if Edge with eID2 exists, have NodesAndEdges throw exception
+    else if (stringEdgeHashtable.containsKey(eID2)) {
+      throw new SQLException();
+    }
+    // else, Edge doesn't exist already, so actually add it
+    else {
+      // add to DB
+      eID = eID1;
+      NodesAndEdges.addNewEdge(startID, endID);
+    }
+
+    // make new Edge
+    Edge e = new Edge(eID, startID, endID, 0.0);
+
+    // add to graph
     Node node1 = stringNodeHashtable.get(e.getStart());
     Node node2 = stringNodeHashtable.get(e.getEnd());
     // add edge to graph
@@ -286,14 +263,18 @@ public class Graph {
     listOfEdges.add(e);
   }
 
-  public void deleteNode(String nodeID) {
+  /**
+   * removes the given Node from the graph appropriately (including all of it's Edges)
+   *
+   * @param nodeID the Node to be removed
+   */
+  public void deleteNode(String nodeID) throws SQLException {
+    // (try) deleting from DB
+    NodesAndEdges.deleteNode(nodeID);
+
     Node n = stringNodeHashtable.get(nodeID);
-    // delete from graph
 
-    // remove from the string hashtable
-
-    // removes all edges
-    // for each neighbor of the given deleting node
+    // removes all edges for each neighbor of the given deleting node
     for (Edge e : listOfEdges) {
       if (e.getStart().equals(nodeID) || e.getEnd().equals(nodeID)) {
         try {
@@ -303,11 +284,19 @@ public class Graph {
         }
       }
     }
+
+    // remove from graph
     listOfNodes.remove(n);
-    nodeCircleHashtable.remove(n);
     stringNodeHashtable.remove(n.getID());
   }
 
+  /**
+   * removes the given Edge from the graph
+   *
+   * @param startNodeID ID (String) of one of the Nodes connected by the Edge
+   * @param endNodeID ID (String) of the other Node connected by the Edge
+   * @throws SQLException thrown by NodesAndEdges.deleteEdge(edgeID)
+   */
   public void deleteEdge(String startNodeID, String endNodeID) throws SQLException {
     String eID = "not set yet";
     String eID1 = startNodeID + "_" + endNodeID;
@@ -317,7 +306,7 @@ public class Graph {
     } else if (stringEdgeHashtable.containsKey(eID2)) {
       eID = eID2;
     } else {
-      return; // neither key/ID is in the hashtable -> just return
+      throw new SQLException();
     }
 
     Edge e = stringEdgeHashtable.get(eID);
@@ -334,33 +323,93 @@ public class Graph {
     Node node2 = stringNodeHashtable.get(eNode);
 
     node1.getNeighbourList().remove(node2);
-    // TODO also remove from the hashtable of neighbors
+    node1.getNodeEdgeHashtable().remove(node2);
     node2.getNeighbourList().remove(node1);
-    // TODO also remove from the hashtable of neighbors
+    node2.getNodeEdgeHashtable().remove(node1);
 
     // remove edge from list
     listOfEdges.remove(e);
+    stringEdgeHashtable.remove(eID);
   }
 
+  // ------------------------------
+  // ------------------------------
+  // COMMENTING OUT AND REWRITING DRAWING METHODS...
+  // ------------------------------
+  // ------------------------------
+
   /**
-   * Draws all nodes for the given floor
+   * Draws all nodes for the given floor + selected node as Color.GREEN, or draws both right-clicked
+   * nodes Color.BLUE + a blue edge (to be added/deleted)
    *
-   * @param floor G, 1, 2, 3, 4, or 5
+   * @param floor "G", "1", "2", "3", "4", or "5"
    */
-  public void drawAllNodes(String floor, Node selectedNode) {
+  /*public void drawAllNodes(
+  String floor, Node selectedNodeA, Node selectedNodeB, boolean selectingEditNode) */
+
+  public void drawAllNodes(
+      String floor,
+      Node selectedNodeA,
+      Node selectedNodeB,
+      boolean selectingEditNode,
+      ImageView imageView,
+      boolean isMobile) {
+
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
       if (n.getFloor().equals(floor)) floorNodes.add(n);
     }
 
-    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, null, null);
-    if (listOfNodes.contains(selectedNode) && selectedNode.getFloor().equals(floor)) {
-      DrawHelper.drawSingleNode(gc, nodeCircleHashtable.get(selectedNode), Color.BLUE);
+    // draws given Nodes
+    DrawHelper.drawNodeCircles(gc, floorNodes, null, null, imageView, isMobile);
+
+    // if one Node selected, draws it as green
+    if (selectedNodeB == null
+        && listOfNodes.contains(selectedNodeA)
+        && selectedNodeA.getFloor().equals(floor)) {
+
+      DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView, isMobile);
+    }
+
+    // otherwise, if two Nodes selected, draws second as BLUE
+    else if (listOfNodes.contains(selectedNodeA) && listOfNodes.contains(selectedNodeB)) {
+      Paint paint = Color.BLUE;
+      if (selectedNodeA.getNeighbourList().contains(selectedNodeB)) {
+        paint = Color.RED;
+      }
+
+      boolean isFloorA = selectedNodeA.getFloor().equals(floor);
+      boolean isFloorB = selectedNodeB.getFloor().equals(floor);
+
+      // TODO: not sure if should draw edge only if both Nodes on same floor,
+      //    or just if at least one is on current floor (since edges can go between floors)
+      //    -- currently drawing if just one of 2 Nodes is on current floor ( || )
+      if (isFloorA || isFloorB) {
+        DrawHelper.drawEdge(gc, selectedNodeA, selectedNodeB, paint, imageView, isMobile);
+      }
+
+      // currently has first selectedNode always GREEN
+      if (isFloorA) {
+        DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView, isMobile);
+      }
+      if (isFloorB) {
+        DrawHelper.drawSingleNode(gc, selectedNodeB, paint, imageView, isMobile);
+      }
     }
   }
 
-  public void drawVisibleNodes(String floor, Node startNode, Node endNode) {
+  /**
+   * draws all Nodes whose visible property = true
+   *
+   * @param floor "G", "1", "2", "3", "4", or "5"
+   * @param startNode Node currently set as the start
+   * @param endNode Node currently set as the end
+   */
+  /*public void drawVisibleNodes(String floor, Node startNode, Node endNode) */
+
+  public void drawVisibleNodes(
+      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
@@ -369,7 +418,7 @@ public class Graph {
       }
     }
 
-    DrawHelper.drawNodeCircles(gc, nodeCircleHashtable, floorNodes, startNode, endNode);
+    DrawHelper.drawNodeCircles(gc, floorNodes, startNode, endNode, imageView, isMobile);
   }
 
   /**
@@ -377,21 +426,27 @@ public class Graph {
    *
    * @param floor floor to draw on
    */
-  private void drawMidArrows(String floor) {
+  /*private void drawMidArrows(String floor) */
+  private void drawMidArrows(String floor, ImageView imageView, boolean isMobile) {
     for (int i = 0; i < path.size() - 1; i++) {
       Node nodeA = path.get(i);
       Node nodeB = path.get(i + 1);
 
       if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
-        Circle circleA = nodeCircleHashtable.get(nodeA);
-        Circle circleB = nodeCircleHashtable.get(nodeB);
-
-        DrawHelper.drawMidArrow(gc, circleA, circleB);
+        DrawHelper.drawMidArrow(gc, nodeA, nodeB, imageView, isMobile);
       }
     }
   }
 
-  public void drawAllEdges(String floor) {
+  /**
+   * draws all Edges on the given floor
+   *
+   * @param floor "G", "1", "2", "3", "4", or "5"
+   */
+  /*public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) */
+
+  public void drawAllEdges(
+      String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView, boolean isMobile) {
     gc.setStroke(Color.BLACK);
     for (Edge e : listOfEdges) {
       try {
@@ -399,16 +454,29 @@ public class Graph {
         Node nodeB = stringNodeHashtable.get(e.getEnd());
 
         if (nodeA.getFloor().equals(floor) && nodeB.getFloor().equals(floor)) {
-          Circle circleA = nodeCircleHashtable.get(nodeA);
-          Circle circleB = nodeCircleHashtable.get(nodeB);
 
-          DrawHelper.drawEdge(gc, circleA, circleB);
+          // if edge between selected already exists, draw in RED
+          if ((nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB))
+              || (nodeB.equals(selectedNodeA) && nodeA.equals(selectedNodeB))) {
+            DrawHelper.drawEdge(gc, nodeA, nodeB, Color.RED, imageView, isMobile);
+          }
+          // draw edges between non-selected BLACK
+          else DrawHelper.drawEdge(gc, nodeA, nodeB, Color.BLACK, imageView, isMobile);
         }
       } catch (NullPointerException ignored) {
-        // TODO: use this catch block to filter out bad/extraneous data
+        // TODO: use this catch block to filter out bad/extraneous data?
         // for now it just ignores them and draws the edges that do actually exist
       }
     }
+  }
+
+  /**
+   * Getter for path
+   *
+   * @return path
+   */
+  public List<Node> getPath() {
+    return path;
   }
 
   /**
@@ -418,37 +486,41 @@ public class Graph {
    * @param startNode start Node of path
    * @param endNode end Node of path
    */
-  public void drawCurrentPath(String floor, Node startNode, Node endNode) {
+  public void drawCurrentPath(
+      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
     for (Node n : path) {
       if (n.getFloor().equals(floor) && n.getNodeType().equals("STAI")) {
-        Circle c = nodeCircleHashtable.get(n);
-        DrawHelper.drawSingleNode(gc, c, Color.GREEN);
+        DrawHelper.drawSingleNode(gc, n, Color.GREEN, imageView, isMobile);
       } else if (n.getFloor().equals(floor) && n.getNodeType().equals("ELEV")) {
-        Circle c = nodeCircleHashtable.get(n);
-        DrawHelper.drawSingleNode(gc, c, Color.PURPLE);
+        DrawHelper.drawSingleNode(gc, n, Color.PURPLE, imageView, isMobile);
       }
 
       if (n.getFloor().equals(floor) && n.getNodeType().equals("EXIT")) {
-        Circle c = nodeCircleHashtable.get(n);
-        DrawHelper.drawSingleNode(gc, c, Color.ORANGE);
+        DrawHelper.drawSingleNode(gc, n, Color.ORANGE, imageView, isMobile);
       }
     }
 
-    drawMidArrows(floor);
+    drawMidArrows(floor, imageView, isMobile);
 
     if (startNode.getFloor().equals(floor)) {
-      Circle c = nodeCircleHashtable.get(startNode);
-      DrawHelper.drawSingleNode(gc, c, Color.BLUE);
+      DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView, isMobile);
     }
     if (endNode.getFloor().equals(floor)) {
-      Circle c = nodeCircleHashtable.get(endNode);
-      DrawHelper.drawSingleNode(gc, c, Color.RED);
+      DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, isMobile);
     }
   }
 
+  /**
+   * sets this Graph's path = the path found by the given algorithm from the given start to end
+   * Nodes
+   *
+   * @param strat "A*", "DFS", "BFS", or "Djikstra"
+   * @param startNode start Node of the path
+   * @param targetNode end Node of the path
+   */
   public void findPath(String strat, Node startNode, Node targetNode) {
     for (Node n : listOfNodes) {
       n.setVisited(false);
@@ -456,13 +528,16 @@ public class Graph {
 
     switch (strat) {
       case "A*":
-        strategy = new AStarSearch(this);
+        strategy = new AStarSearch();
         break;
       case "DFS":
         strategy = new DFS();
         break;
       case "BFS":
         strategy = new BFS();
+        break;
+      case "Djikstra":
+        strategy = new Djikstra();
         break;
     }
 
@@ -475,15 +550,89 @@ public class Graph {
   }
 
   // add function calls for text direction.
-  public static ArrayList<String> findTextDirection(ArrayList<Node> path) {
-    return TextDirection.textDirections(path);
+  public static List<String> findTextDirection() {
+    return TextDirection.textDirections();
   }
 
+  /** resets this graph's path to a new LinkedList */
   public void resetPath() {
     path = new LinkedList<>();
   }
 
+  /**
+   * gets the list of all Nodes in this graph
+   *
+   * @return list of all Nodes
+   */
   public ObservableList<Node> getListOfNodes() {
     return listOfNodes;
+  }
+
+  /**
+   * gets the Node with the provided long name (doesn't guarantee it's the only Node with the given
+   * name)
+   *
+   * @param longName 'long name' of the Node being retrieved
+   * @return a Node with the corresponding long name
+   */
+  public Node getNodeByLongName(String longName) {
+    for (Node n : listOfNodes) {
+      if (n.getLongName().equals(longName)) return n;
+    }
+    return null;
+  }
+
+  /**
+   * gets the Node with the provided long name (doesn't guarantee it's the only Node with the given
+   * name)
+   *
+   * @param nodeType 'long name' of the Node being retrieved
+   * @return a Node with the corresponding long name
+   */
+  public ArrayList<Node> getNodeByNodeType(String nodeType) {
+    ArrayList<Node> list = new ArrayList<>();
+    for (Node n : listOfNodes) {
+      if (n.getNodeType().equals(nodeType)) list.add(n);
+    }
+    return list;
+  }
+
+  public Node getNodeByID(String id) {
+    for (Node n : listOfNodes) {
+      if (n.getID().equals(id)) return n;
+    }
+    return null;
+  }
+
+  /**
+   * gets a list of Nodes on the given floor
+   *
+   * @param floor "G", "1", "2", "3", "4", "5"
+   * @return ArrayList of Nodes on the floor
+   */
+  public ArrayList<Node> getNodesByFloor(String floor) {
+    ArrayList<Node> list = new ArrayList<>();
+    for (Node n : listOfNodes) {
+      if (n.getFloor().equals(floor)) list.add(n);
+    }
+    return list;
+  }
+
+  public boolean allConnected() {
+    Node testNode = listOfNodes.get(0);
+    for (Node n : listOfNodes) {
+
+      if (n != testNode) {
+
+        findPath("A*", testNode, n);
+
+        if (path == null) {
+          resetPath();
+          return false;
+        }
+        resetPath();
+      }
+    }
+    return true;
   }
 }

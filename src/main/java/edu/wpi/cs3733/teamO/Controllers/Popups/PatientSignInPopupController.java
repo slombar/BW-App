@@ -43,6 +43,11 @@ public class PatientSignInPopupController {
     }
   }
 
+  /**
+   * goes back to the previous page (login page)
+   *
+   * @param actionEvent
+   */
   public void close(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
@@ -61,6 +66,11 @@ public class PatientSignInPopupController {
     SwitchScene.goToParent("/Views/CreateAccount.fxml");
   }
 
+  /**
+   * allows hitting enter to submit the form
+   *
+   * @param keyEvent
+   */
   public void checkEnter(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
       signIn(new ActionEvent());

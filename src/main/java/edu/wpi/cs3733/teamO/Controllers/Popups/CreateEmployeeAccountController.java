@@ -24,6 +24,11 @@ public class CreateEmployeeAccountController {
   @FXML private JFXTextField lName;
   @FXML private StackPane popupPane;
 
+  /**
+   * creates a new employee account
+   *
+   * @param actionEvent
+   */
   public void create(ActionEvent actionEvent) {
     if (RegexBoi.checkUsername(user.getText())) {
       if (RegexBoi.checkEmail(email.getText())) {
@@ -36,11 +41,11 @@ public class CreateEmployeeAccountController {
               fName.getText(),
               lName.getText(),
               adminCheck.isSelected());
+          SwitchScene.goToParent("/Views/ManageEmployees.fxml");
         } catch (SQLException throwables) {
-          PopupMaker.incompletePopup(popupPane);
+          PopupMaker.usernameAlreadyInUse(popupPane);
           throwables.printStackTrace();
         }
-        SwitchScene.goToParent("/Views/ManageEmployees.fxml");
       } else {
         PopupMaker.invalidEmail(popupPane);
       }
@@ -49,12 +54,22 @@ public class CreateEmployeeAccountController {
     }
   }
 
-  public void checkEnter(KeyEvent keyEvent) throws SQLException {
+  /**
+   * checks if the pressed key is *enter* and submits the form if so.
+   *
+   * @param keyEvent
+   */
+  public void checkEnter(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
       create(new ActionEvent());
     }
   }
 
+  /**
+   * pretty self explanatory tbh... it goes to that page.
+   *
+   * @param actionEvent
+   */
   public void goToManageEmployee(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }

@@ -39,11 +39,11 @@ public class LoginController implements Initializable {
    * @param mouseEvent
    */
   public void goToLogin(MouseEvent mouseEvent) {
-    SwitchScene.goToGridPane("/Views/PatientSignInPopup.fxml");
+    SwitchScene.goToParent("/Views/PatientSignInPopup.fxml");
   }
 
   public void goToStaffLogin(MouseEvent mouseEvent) {
-    SwitchScene.goToGridPane("/Views/StaffSignInPopup.fxml");
+    SwitchScene.goToParent("/Views/StaffSignInPopup.fxml");
   }
 
   /**
@@ -89,8 +89,14 @@ public class LoginController implements Initializable {
   public void unhoverPatient(MouseEvent mouseEvent) {
     patientBtn.setRadius(125);
   }
+  // TODO since all of the above do the same thing, we can name their functions the same and have
+  // only 2 instead of 6
 
   public void exit(ActionEvent actionEvent) {
     Platform.exit();
+  }
+
+  public void goToMobileApp(ActionEvent actionEvent) {
+    SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");
   }
 }

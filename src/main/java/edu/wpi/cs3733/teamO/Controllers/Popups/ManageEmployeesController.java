@@ -18,16 +18,24 @@ public class ManageEmployeesController implements Initializable {
   public JFXComboBox<String> currentEmployeesCombobox;
   public JFXButton rmEmployeeButton;
 
+  /**
+   * is run when the class is made
+   *
+   * @param location
+   * @param resources
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     initComboBox();
   }
 
+  /** sets the combobox of employees to be all current employees in the database. */
   private void initComboBox() {
     ObservableList<User> userList = UserHandling.getUsers();
     ObservableList<String> employeeNames = FXCollections.observableArrayList();
     String name = "";
-
+    // TODO maybe make this use autocomplete as i dont think a combobox is the way to go with a full
+    // hospital
     for (User u : userList) {
       if (u.isEmployee() && (u.isAdmin())) {
         name = u.getUsername() + " -> " + u.getFirstName() + " " + u.getLastName() + ":  Admin";
@@ -42,14 +50,29 @@ public class ManageEmployeesController implements Initializable {
     currentEmployeesCombobox.setItems(employeeNames);
   }
 
+  /**
+   * goes back to the staffMainPage
+   *
+   * @param actionEvent
+   */
   public void close(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/StaffMainPage.fxml");
   }
 
+  /**
+   * goes to add employee form
+   *
+   * @param actionEvent
+   */
   public void addEmployee(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/CreateEmployeeAccount.fxml");
   }
 
+  /**
+   * removes the employee selected in the combobox from the database
+   *
+   * @param actionEvent
+   */
   public void rmEmployee(ActionEvent actionEvent) {
     String emp = currentEmployeesCombobox.getValue();
 
@@ -63,7 +86,13 @@ public class ManageEmployeesController implements Initializable {
     SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
-  public void employeeSelected(ActionEvent actionEvent) {
+  /**
+   * sets the button to remove employees to visible only if one is selected
+   *
+   * @param actionEvent
+   */
+  public void employeeSelected(
+      ActionEvent actionEvent) { // TODO probably never turns invisible again
     rmEmployeeButton.setVisible(true);
   }
 }
