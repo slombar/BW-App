@@ -176,8 +176,8 @@ public class ReqController implements Initializable {
 
     updateButton.setDisable(!typeOfRequest.equals("CV19"));
     updateButton.setVisible(typeOfRequest.equals("CV19"));
-    addButton.setDisable(!typeOfRequest.equals("CV19"));
-    addButton.setVisible(typeOfRequest.equals("CV19"));
+    addButton.setDisable(typeOfRequest.equals("CV19"));
+    addButton.setVisible(!typeOfRequest.equals("CV19"));
   }
 
   /**
