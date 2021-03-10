@@ -162,4 +162,5 @@ public class SideMenuController implements Initializable {
     aboutBtn1.setUnderline(false);
     aboutBtn1.setButtonType(JFXButton.ButtonType.FLAT);
   }
+
 }
