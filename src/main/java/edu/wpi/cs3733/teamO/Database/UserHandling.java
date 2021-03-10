@@ -353,6 +353,7 @@ public class UserHandling {
     return b;
   }
 
+  /*
   public static void editProfile(String newPassword, String newFName, String newLname) {
 
     String passQuery = "UPDATE Users SET password = ? WHERE email = ?";
@@ -376,7 +377,7 @@ public class UserHandling {
     } else if (newLname != null) {
 
     }
-  }
+  }*/
 
   /**
    * assign an employee to a service request
