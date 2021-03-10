@@ -14,6 +14,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -96,7 +97,7 @@ public class NewNavPageController implements Initializable {
   Node selectedNode = null;
   Node selectedNodeB = null;
 
-  String strategy = "A*";
+  String strategy = Settings.getInstance().getAlgoChoice();
   ObservableList<String> listOfStrats =
       FXCollections.observableArrayList("A*", "Djikstra", "DFS", "BFS");
 
@@ -158,33 +159,6 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(campusMap);
     currentViewport = new Rectangle2D(0, 0, campusMap.getWidth(), campusMap.getHeight());
     imageView.setViewport(currentViewport);
-    //    ObservableValue<Rectangle2D> viewportBind = new ObservableValue<Rectangle2D>() {
-    //      @Override
-    //      public void addListener(ChangeListener<? super Rectangle2D> listener) {
-    //
-    //      }
-    //
-    //      @Override
-    //      public void removeListener(ChangeListener<? super Rectangle2D> listener) {
-    //
-    //      }
-    //
-    //      @Override
-    //      public Rectangle2D getValue() {
-    //        return null;
-    //      }
-    //
-    //      @Override
-    //      public void addListener(InvalidationListener listener) {
-    //
-    //      }
-    //
-    //      @Override
-    //      public void removeListener(InvalidationListener listener) {
-    //
-    //      }
-    //    }
-    //    imageView.viewportProperty().bind();
     resizableWindow();
 
     GRAPH.setGraphicsContext(gc);
@@ -428,6 +402,8 @@ public class NewNavPageController implements Initializable {
     // ----------------------
     // block for LEFT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      alignList = new ArrayList<>();
+
       if (!addNodeMode) {
         selectingEditNode = true;
       }
@@ -450,13 +426,8 @@ public class NewNavPageController implements Initializable {
           autocompleteEditMap(clickedNode);
           selectedNode = clickedNode;
         } else if (addNodeMode) {
-          n = getRealXY(sFloor, mouseEvent);
+          n = getRealXY(mouseEvent);
           n.setFloor(sFloor);
-
-          c = new Circle();
-          c.setCenterX(mouseEvent.getX());
-          c.setCenterY(mouseEvent.getY());
-          c.setRadius(mapCanvas.getWidth() * 0.00625);
 
           autocompleteEditMap(n);
         }
@@ -468,6 +439,7 @@ public class NewNavPageController implements Initializable {
         DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView, false);
         addNodeMode = false;
         selectingEditNode = true;
+        return;
       } else {
         draw();
       }
@@ -475,6 +447,7 @@ public class NewNavPageController implements Initializable {
     // ----------------------
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+      alignList = new ArrayList<>();
 
       // if navigating
       if (!editing) {
@@ -513,46 +486,13 @@ public class NewNavPageController implements Initializable {
   /**
    * gets the xy coordinates of the mouse and scales it to the image
    *
-   * @param floor
    * @param mouseEvent
    * @return
    */
-  private Node getRealXY(String floor, MouseEvent mouseEvent) {
-    // TODO: don't need this -- want to use other methods below since those accommodate zooming
+  private Node getRealXY(MouseEvent mouseEvent) {
     Node n = new Node();
-    double imgX = 0;
-    double imgY = 0;
-    switch (floor) {
-      case "G":
-        imgX = campusMap.getWidth();
-        imgY = campusMap.getHeight();
-        break;
-      case "1":
-        imgX = floor1Map.getWidth();
-        imgY = floor1Map.getHeight();
-        break;
-      case "2":
-        imgX = floor2Map.getWidth();
-        imgY = floor2Map.getHeight();
-        break;
-      case "3":
-        imgX = floor3Map.getWidth();
-        imgY = floor3Map.getHeight();
-        break;
-      case "4":
-        imgX = floor4Map.getWidth();
-        imgY = floor4Map.getHeight();
-        break;
-      case "5":
-        imgX = floor5Map.getWidth();
-        imgY = floor5Map.getHeight();
-        break;
-    }
-
-    double nPercX = mouseEvent.getX() / gc.getCanvas().getWidth();
-    double nPercY = mouseEvent.getY() / gc.getCanvas().getHeight();
-    n.setXCoord((int) (nPercX * imgX));
-    n.setYCoord((int) (nPercY * imgY));
+    n.setXCoord((int) getImgX(mouseEvent.getX()));
+    n.setYCoord((int) getImgY(mouseEvent.getY()));
     return n;
   }
 
