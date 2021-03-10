@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polyline;
@@ -245,7 +246,7 @@ public class DrawHelper {
     gc.strokeLine(circleXA, circleYA, circleXB, circleYB);
   }
 
-  public static void makeDashes(Polyline polyline) {
+  public static void makeDashes(Polyline polyline, GridPane gridPane) {
 
     polyline.getStrokeDashArray().setAll(25d, 20d, 5d, 20d);
     polyline.setStrokeWidth(2);
@@ -263,8 +264,8 @@ public class DrawHelper {
     timeline.setCycleCount(Timeline.INDEFINITE);
     timeline.play();
 
-    //stage.setScene(new Scene(new Group(polyline), 100, 120));
-    //stage.show();
+    stage.setScene(new Scene(new Group(polyline), 100, 120));
+    stage.show();
   }
 
   /**

@@ -387,7 +387,6 @@ public class NewNavPageController implements Initializable {
     if (startNode != null && endNode != null) {
       GRAPH.resetPath();
       GRAPH.findPath(strategy, startNode, endNode);
-      DrawHelper.makeDashes(Graph.pathToPolyline(GRAPH.getPath()));
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
@@ -610,6 +609,12 @@ public class NewNavPageController implements Initializable {
   public double getImgY(double canvasY) {
     double percCanvasY = canvasY / mapCanvas.getHeight();
     return (currentViewport.getMinY() + ((percCanvasY * currentViewport.getHeight())));
+  }
+
+  // TODO: need this to convert Node x,y to Scene x,y for polyline
+  public double getSceneX(double imageX) {
+    double percImgX = imageX / imageView.getImage().getWidth();
+    //imageView.getScene().
   }
 
   /**
@@ -979,6 +984,8 @@ public class NewNavPageController implements Initializable {
         GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
       }
     }
+
+    gridPane.getScene().
 
     if (!alignList.isEmpty()) {
       for (String s : alignList) {

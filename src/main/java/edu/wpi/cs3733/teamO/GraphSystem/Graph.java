@@ -12,6 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polyline;
@@ -488,7 +489,7 @@ public class Graph {
    * @param endNode end Node of path
    */
   public void drawCurrentPath(
-      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
+      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile, GridPane gridPane) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -504,7 +505,8 @@ public class Graph {
       }
     }
 
-    drawMidArrows(floor, imageView, isMobile);
+    //drawMidArrows(floor, imageView, isMobile);
+    DrawHelper.makeDashes(Graph.pathToPolyline(GRAPH.getPath()), gridPane);
 
     if (startNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView, isMobile);
