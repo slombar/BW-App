@@ -7,7 +7,7 @@ public class Settings {
   // --------------------
 
   private Settings() {
-    // fill in constructor
+    algoChoice = "A*";
   }
 
   public static Settings getInstance() {
@@ -22,4 +22,13 @@ public class Settings {
   // attributes/methods:
   // --------------------
 
+  String algoChoice;
+
+  public String getAlgoChoice() {
+    return algoChoice;
+  }
+
+  public void setAlgoChoice(String algoChoice) {
+    this.algoChoice = algoChoice;
+  }
 }

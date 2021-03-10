@@ -1,9 +1,13 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import com.jfoenix.controls.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Sharing.ImgurFunctionality;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.awt.image.BufferedImage;
@@ -93,6 +97,11 @@ public class EmailPageController implements Initializable {
     QRgeneration(QRtask);
   }
 
+
+  /**
+   * QR Generation made to pin loading sign on it
+   * @param QRtask
+   */
   void QRgeneration(Task<Void> QRtask) {
     ProgressIndicator progress = new ProgressIndicator();
     spinnerPane.getChildren().add(progress);
@@ -176,22 +185,62 @@ public class EmailPageController implements Initializable {
    * @throws UnirestException
    */
   public static void prepareQR() throws IOException, UnirestException {
-    // TODO reimplement regexboi checker for +1 area codes
-    // if (RegexBoi.checkPhoneNum(phoneString)) {
-
     LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
     String albumID = albumInfo.get(0);
     String albumDeleteHash = albumInfo.get(1);
+    if (GRAPH.equals(null)) {
+      ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+      ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
+      ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
+      ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
+      ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+    } else {
+      Graph graph = GRAPH;
+      String pathFloors = "";
+      for (Node n : graph.getPath()) {
+        if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+      }
 
-    ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+      String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
+      String lastFloor = pathFloors.substring(pathFloors.length() - 1);
 
+      System.out.println(pathFloors + "\n");
+      System.out.println(firstLast);
+
+      // need this statement to make everything work
+      if (true) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      }
+      if (firstLast.contains("G")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+        if (!lastFloor.contains("1")) {
+          ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+        }
+      }
+
+      if (firstLast.contains("1")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("2")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("3")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("4")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("5")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+      }
+    }
     String albumLink = "https://imgur.com/a/" + albumID;
+    System.out.println(albumLink);
 
     SharingFunctionality.createQR(albumLink);
   }

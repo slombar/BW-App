@@ -28,11 +28,7 @@ class AStarSearch extends AStarVariant implements AlgorithmStrategy {
    */
   protected double heuristic(Node next, Node targetNode) {
     // this method is literally just returning the dist between next and target Ryan you dummy
-    // return dist(next, targetNode);
-    return 0.0;
-    // TODO: have this return an actual heuristic
+    return dist(next, targetNode) - 0.1;
+    // return 0.0;
   }
-
-  // TODO: needs to take floors into account
-
 }
