@@ -2,11 +2,20 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.ArrayList;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polyline;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 // class that SOLEY draws shit
 public class DrawHelper {
@@ -24,17 +33,13 @@ public class DrawHelper {
   /**
    * Draws every Circle from the given Hashtable corresponding to each Node in the ArrayList
    *
-   * @param gc the GraphicsContext on which the Circles will be drawn
-   * @param ncTable the Hashtable in which the Circles are stored
-   * @param nodeList the list of Nodes whose Circles should be drawn
+   * @param gc
+   * @param nodeList
+   * @param startNode
+   * @param endNode
+   * @param imageView
+   * @param isMobile
    */
-  /*public static void drawNodeCircles(
-  GraphicsContext gc,
-  Hashtable<String, Circle> ncTable,
-  ArrayList<Node> nodeList,
-  Node startNode,
-  Node endNode)*/
-
   public static void drawNodeCircles(
       GraphicsContext gc,
       ArrayList<Node> nodeList,
@@ -117,8 +122,10 @@ public class DrawHelper {
    * Draws a single line with an arrowhead halfway from point a to point b
    *
    * @param gc
-   * @param circleA
-   * @param circleB
+   * @param nodeA
+   * @param nodeB
+   * @param imageView
+   * @param isMobile
    */
   public static void drawMidArrow(
       GraphicsContext gc, Node nodeA, Node nodeB, ImageView imageView, boolean isMobile) {
@@ -238,12 +245,36 @@ public class DrawHelper {
     gc.strokeLine(circleXA, circleYA, circleXB, circleYB);
   }
 
+  public static void makeDashes(Polyline polyline) {
+
+    polyline.getStrokeDashArray().setAll(25d, 20d, 5d, 20d);
+    polyline.setStrokeWidth(2);
+
+    final double maxOffset = polyline.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                new KeyValue(polyline.strokeDashOffsetProperty(), 0, Interpolator.LINEAR)),
+            new KeyFrame(
+                Duration.seconds(2),
+                new KeyValue(polyline.strokeDashOffsetProperty(), maxOffset, Interpolator.LINEAR)));
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+
+    //stage.setScene(new Scene(new Group(polyline), 100, 120));
+    //stage.show();
+  }
+
   /**
    * Draws the given Circle in the given color WITHOUT CLEARING CANVAS FIRST
    *
-   * @param gc GraphicsContext on which to draw
-   * @param circle circle (node) being drawn
-   * @param paint Color.COLOR being drawn
+   * @param gc
+   * @param n
+   * @param paint
+   * @param imageView
+   * @param isMobile
    */
   public static void drawSingleNode(
       GraphicsContext gc, Node n, Paint paint, ImageView imageView, boolean isMobile) {

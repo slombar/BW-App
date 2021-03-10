@@ -387,6 +387,7 @@ public class NewNavPageController implements Initializable {
     if (startNode != null && endNode != null) {
       GRAPH.resetPath();
       GRAPH.findPath(strategy, startNode, endNode);
+      DrawHelper.makeDashes(Graph.pathToPolyline(GRAPH.getPath()));
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;

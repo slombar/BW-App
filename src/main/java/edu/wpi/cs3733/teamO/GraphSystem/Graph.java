@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polyline;
 
 public class Graph {
 
@@ -542,6 +543,17 @@ public class Graph {
     }
 
     path = strategy.findRoute(startNode, targetNode);
+  }
+
+  public static Polyline pathToPolyline(List<Node> path) {
+    Polyline polyline = new Polyline();
+    double x, y;
+    for (Node n : path) {
+      x = n.getXCoord();
+      y = n.getYCoord();
+      polyline.getPoints().addAll(new Double[] {x, y});
+    }
+    return polyline;
   }
 
   // add function calls for direction at points.
