@@ -52,8 +52,9 @@ public class WaitingPageController implements Initializable {
       hospitalNavBtn.setDisable(false);
       // popup to say you can now continue
       // TODO grab which entrance
+      popupNotification.toFront();
       PopupMaker.mainEntranceNotif(popupNotification);
-//      PopupMaker.covidEntranceNotif(popupNotification);
+      //      PopupMaker.covidEntranceNotif(popupNotification);
     }
   }
 
