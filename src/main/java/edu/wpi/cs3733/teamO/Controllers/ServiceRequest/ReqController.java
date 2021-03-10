@@ -34,6 +34,7 @@ import javafx.scene.text.Text;
 public class ReqController implements Initializable {
 
   @FXML private JFXButton assignButton;
+  @FXML private JFXButton updateButton;
   @FXML private VBox reqBox;
   @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
@@ -171,6 +172,9 @@ public class ReqController implements Initializable {
 
     assignButton.setDisable(!UserHandling.getAdmin());
     assignButton.setVisible(UserHandling.getAdmin());
+
+    updateButton.setDisable(!typeOfRequest.equals("CV19"));
+    updateButton.setVisible(typeOfRequest.equals("CV19"));
   }
 
   /**
