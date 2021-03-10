@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.teamO.Maps;
+package edu.wpi.cs3733.teamO.Controllers.GoogleMaps.Maps;
 
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
@@ -11,11 +11,10 @@ import java.util.List;
 // Reference
 // PlaceDetailsRequest query = PlacesApi.placeDetails(new
 // GeoApiContext.Builder().apiKey(API_KEY).build(), prediction.getPrediction().placeId);
-// API KEY "AIzaSyBXXka_F4Sk_WZ7pdCcS-zNatD8oLoLwJ0"
 
 public class Directions {
 
-  private static final String API_KEY = "AIzaSyBXXka_F4Sk_WZ7pdCcS-zNatD8oLoLwJ0";
+  private static final String API_KEY = "AIzaSyAQAtN1oeIq_BUzpQLJlTdS0YB4wnvikqI";
 
   /**
    * gets the directions using google maps api

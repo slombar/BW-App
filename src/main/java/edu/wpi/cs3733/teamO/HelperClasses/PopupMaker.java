@@ -431,7 +431,7 @@ public class PopupMaker {
     warning.setHeading(heading);
     Text text =
         new Text(
-            "Your entrance request has been approved, please use the Main Atrium Entrance. Have a great day.");
+            "Your entrance request has been approved. Please use the MAIN ATRIUM ENTRANCE. Have a great day!");
     text.setWrappingWidth(200);
     warning.setBody(text);
     JFXButton closeButton = new JFXButton("Close");
@@ -466,7 +466,7 @@ public class PopupMaker {
     warning.setHeading(heading);
     Text text =
         new Text(
-            "Your entrance request has been approved, please use the Emergency Entrance. Have a great day.");
+            "Your entrance request has been approved. Please use the EMERGENCY ENTRANCE. Have a great day!");
     text.setWrappingWidth(200);
     warning.setBody(text);
     JFXButton closeButton = new JFXButton("Close");

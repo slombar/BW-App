@@ -7,7 +7,6 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -23,17 +21,17 @@ public class StaffMainPageController implements Initializable {
 
   @FXML private JFXButton navBtn;
   @FXML private JFXButton requestBtn;
-  @FXML private JFXButton covidBtn;
+  @FXML private JFXButton googleNavButton;
   @FXML private JFXButton parkingBtn;
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
-  private String sideMenuUrl;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     System.out.println("Employee " + UserHandling.getEmployee());
     System.out.println("Admin " + UserHandling.getAdmin());
 
+    String sideMenuUrl;
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
       sideMenuUrl = "/Views/SideMenuStaff.fxml";
@@ -75,7 +73,7 @@ public class StaffMainPageController implements Initializable {
   public void hoverAllBtn() {
     Effects.hoverEffect(navBtn);
     Effects.hoverEffect(requestBtn);
-    Effects.hoverEffect(covidBtn);
+    Effects.hoverEffect(googleNavButton);
     Effects.hoverEffect(parkingBtn);
   }
 
@@ -83,18 +81,13 @@ public class StaffMainPageController implements Initializable {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
-  public void goToCovid(ActionEvent actionEvent) {}
-
   public void goToParking(ActionEvent actionEvent) {}
 
   public void goToRequest(ActionEvent actionEvent) {
-    try {
-      Parent root =
-          FXMLLoader.load(getClass().getResource("/Views/ServiceRequests/RequestPage.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
     SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+  }
+
+  public void goToGoogleNav(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/GoogleMaps/GoogleMapPage.fxml");
   }
 }

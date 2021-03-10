@@ -225,4 +225,13 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
   public void setNodeEdgeHashtable(Hashtable<Node, Edge> nodeEdgeHashtable) {
     this.nodeEdgeHashtable = nodeEdgeHashtable;
   }
+
+  public double getDistToNeighbour(Node neighbour) {
+    if (nodeEdgeHashtable.containsKey(neighbour)) {
+      Edge e = nodeEdgeHashtable.get(neighbour);
+      return e.getLength();
+    } else {
+      return -1;
+    }
+  }
 }

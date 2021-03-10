@@ -2,9 +2,9 @@ package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
 import com.google.maps.model.DirectionsStep;
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.Controllers.GoogleMaps.Maps.Directions;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Maps.Directions;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
