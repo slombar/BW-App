@@ -40,9 +40,9 @@
             <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
-            <RowConstraints percentHeight="8.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="12.5" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="39.79998779296875" minHeight="33.4000244140625" percentHeight="8.0" prefHeight="33.4000244140625" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="78.5999755859375" minHeight="10.0" prefHeight="19.4000244140625" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <ImageView fitHeight="125.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BASELINE">
@@ -58,15 +58,26 @@
                <font>
                   <Font name="Leelawadee UI" size="15.0" />
                </font></JFXPasswordField>
-            <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                <font>
                   <Font name="Leelawadee UI Bold" size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
             </JFXButton>
-            <Hyperlink onAction="#createAccount" text="Create an account" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+            <Hyperlink contentDisplay="CENTER" onAction="#createAccount" text="Create an account" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <font>
                   <Font name="Leelawadee UI" size="14.0" />
                </font>
+            </Hyperlink>
+            <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#forgotPassword" text="Forgot Password?" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Leelawadee UI" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Hyperlink>
             <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
                <font>
