@@ -97,6 +97,11 @@ public class EmailPageController implements Initializable {
     QRgeneration(QRtask);
   }
 
+
+  /**
+   * QR Generation made to pin loading sign on it
+   * @param QRtask
+   */
   void QRgeneration(Task<Void> QRtask) {
     ProgressIndicator progress = new ProgressIndicator();
     spinnerPane.getChildren().add(progress);
@@ -209,36 +214,29 @@ public class EmailPageController implements Initializable {
       }
       if (firstLast.contains("G")) {
         ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
-        System.out.println("G passed");
         if (!lastFloor.contains("1")) {
           ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
-          System.out.println("G special passed");
         }
       }
 
       if (firstLast.contains("1")) {
         ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
-        System.out.println("1 passed");
       }
 
       if (firstLast.contains("2")) {
         ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
-        System.out.println("2 passed");
       }
 
       if (firstLast.contains("3")) {
         ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
-        System.out.println("3 passed");
       }
 
       if (firstLast.contains("4")) {
         ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
-        System.out.println("4 passed");
       }
 
       if (firstLast.contains("5")) {
         ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
-        System.out.println("5 passed");
       }
     }
     String albumLink = "https://imgur.com/a/" + albumID;
