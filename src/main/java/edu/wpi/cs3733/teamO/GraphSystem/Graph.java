@@ -251,7 +251,7 @@ public class Graph {
     }
 
     // make new Edge
-    Edge e = new Edge(eID, startID, endID, 0.0);
+    Edge e = new Edge(eID, startID, endID);
 
     // add to graph
     Node node1 = stringNodeHashtable.get(e.getStart());
