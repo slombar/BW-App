@@ -360,7 +360,7 @@ public class NewNavPageController implements Initializable {
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       GRAPH.resetPath();
-      GRAPH.findPath(strategy, startNode, endNode);
+      GRAPH.findPath(Settings.getInstance().getAlgoChoice(), startNode, endNode);
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
@@ -969,6 +969,7 @@ public class NewNavPageController implements Initializable {
    */
   public void chooseStrat(ActionEvent actionEvent) {
     strategy = (String) algoStratCBox.getValue();
+    Settings.getInstance().setAlgoChoice(strategy);
   }
 
   /**
