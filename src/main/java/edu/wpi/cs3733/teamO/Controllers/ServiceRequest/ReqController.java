@@ -35,6 +35,7 @@ public class ReqController implements Initializable {
 
   @FXML private JFXButton assignButton;
   @FXML private JFXButton updateButton;
+  @FXML private JFXButton addButton;
   @FXML private VBox reqBox;
   @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
@@ -175,6 +176,8 @@ public class ReqController implements Initializable {
 
     updateButton.setDisable(!typeOfRequest.equals("CV19"));
     updateButton.setVisible(typeOfRequest.equals("CV19"));
+    addButton.setDisable(!typeOfRequest.equals("CV19"));
+    addButton.setVisible(typeOfRequest.equals("CV19"));
   }
 
   /**
