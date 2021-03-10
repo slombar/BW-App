@@ -91,7 +91,6 @@ public class ImgurFunctionality {
             .field("image", new File(file))
             .field("album", albumDeleteHash)
             .asString();
-    if (response.getBody().contains("success")) System.out.println("success");
   }
 
   // !!! keeping to test when we figure out how to send only necessary maps
