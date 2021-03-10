@@ -43,6 +43,11 @@ public class TextDirection {
       return 100.0;
     }
 
+    // for the outdoor to .
+    if (node3.getNodeType().equals(node2.getNodeType())) {
+      return 200.0;
+    }
+
     // return ZERO if dot_product is zero.
     if (angle == 0.0) return Math.abs(angle);
 
@@ -89,7 +94,7 @@ public class TextDirection {
             + path.get(0).getLongName()
             + " --(Walk Straight)--> "
             + path.get(1).getLongName()
-            + "("
+            + " ("
             + realDistance(path.get(0), path.get(1))
             + " ft.)");
 
@@ -102,9 +107,14 @@ public class TextDirection {
                 + path.get(i + 2).getLongName()
                 + " to go to floor "
                 + path.get(i + 2).getFloor()
-                + "("
+                + " ("
                 + realDistance(path.get(i + 1), path.get(i + 2))
                 + " ft.)");
+      }
+      // enter the building or leave the building.
+      else if (angle == 200) {
+        directions.add(
+            "Use " + path.get(i + 1).getLongName() + " to enter " + path.get(i + 2).getLongName());
       } else if (angle < -25) {
         // Lefts
         if (angle < -120) {
@@ -112,7 +122,7 @@ public class TextDirection {
               path.get(i + 1).getLongName()
                   + " --(Turn Around)--> "
                   + path.get(i + 2).getLongName()
-                  + "("
+                  + " ("
                   + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
@@ -121,7 +131,7 @@ public class TextDirection {
               path.get(i + 1).getLongName()
                   + " --(Turn Left)--> "
                   + path.get(i + 2).getLongName()
-                  + "("
+                  + " ("
                   + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
@@ -130,7 +140,7 @@ public class TextDirection {
               path.get(i + 1).getLongName()
                   + " --(Slightly Left)--> "
                   + path.get(i + 2).getLongName()
-                  + "("
+                  + " ("
                   + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
         }
@@ -142,7 +152,7 @@ public class TextDirection {
               path.get(i + 1).getLongName()
                   + " --(Turn Around)--> "
                   + path.get(i + 2).getLongName()
-                  + "("
+                  + " ("
                   + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
@@ -151,7 +161,7 @@ public class TextDirection {
               path.get(i + 1).getLongName()
                   + " --(Turn Right)--> "
                   + path.get(i + 2).getLongName()
-                  + "("
+                  + " ("
                   + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
 
@@ -160,7 +170,7 @@ public class TextDirection {
               path.get(i + 1).getLongName()
                   + " --(Slightly Right)--> "
                   + path.get(i + 2).getLongName()
-                  + "("
+                  + " ("
                   + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
         }
@@ -169,7 +179,7 @@ public class TextDirection {
             path.get(i + 1).getLongName()
                 + " --(Walk Straight)--> "
                 + path.get(i + 2).getLongName()
-                + "("
+                + " ("
                 + realDistance(path.get(i + 1), path.get(i + 2))
                 + " ft.)");
       }

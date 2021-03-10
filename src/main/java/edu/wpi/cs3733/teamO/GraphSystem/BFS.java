@@ -67,7 +67,16 @@ public class BFS implements AlgorithmStrategy {
 
     while (!cameFromNode.equals(startNode)) { // goes until it appends startNode
       Node n = cameFrom.get(cameFromNode);
-      path.addFirst(n);
+      // doesn't add consecutive elevator/stair nodes to path
+      if ((cameFromNode.getNodeType().equals("STAI") || cameFromNode.getNodeType().equals("ELEV"))
+          && !(n.getNodeType().equals("STAI") || n.getNodeType().equals("ELEV"))) {
+        path.addFirst(cameFromNode);
+        path.addFirst(n);
+      } else if (!((cameFromNode.getNodeType().equals("STAI") && n.getNodeType().equals("STAI"))
+          || (cameFromNode.getNodeType().equals("ELEV") && n.getNodeType().equals("ELEV")))) {
+        path.addFirst(n);
+      }
+
       cameFromNode = n;
     }
 
