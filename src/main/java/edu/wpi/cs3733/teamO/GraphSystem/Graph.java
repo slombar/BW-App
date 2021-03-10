@@ -126,7 +126,7 @@ public class Graph {
    * @throws NullPointerException will return null if it doesn't find a closest node
    */
   public Node closestNode(String floor, double x, double y, boolean editing, ImageView imageView)
-          throws NullPointerException {
+      throws NullPointerException {
     double currentDist = 1000000000;
     Node node = null;
 
@@ -177,16 +177,16 @@ public class Graph {
 
       // try editing in DB (throws SQLException)
       NodesAndEdges.editNode(
-              n.getID(),
-              n.getXCoord(),
-              n.getYCoord(),
-              n.getFloor(),
-              n.getBuilding(),
-              n.getNodeType(),
-              n.getLongName(),
-              n.getShortName(),
-              "O",
-              n.isVisible());
+          n.getID(),
+          n.getXCoord(),
+          n.getYCoord(),
+          n.getFloor(),
+          n.getBuilding(),
+          n.getNodeType(),
+          n.getLongName(),
+          n.getShortName(),
+          "O",
+          n.isVisible());
 
       // if NodesAndEdges.addNode() doesn't throw exception, add to graph itself:
       // get old version of Node and it's related things
@@ -209,16 +209,16 @@ public class Graph {
 
     // try adding to DB (throws SQLException)
     NodesAndEdges.addNode(
-            n.getID(),
-            Integer.toString(n.getXCoord()),
-            Integer.toString(n.getYCoord()),
-            n.getFloor(),
-            n.getBuilding(),
-            n.getNodeType(),
-            n.getLongName(),
-            n.getShortName(),
-            "O",
-            n.isVisible());
+        n.getID(),
+        Integer.toString(n.getXCoord()),
+        Integer.toString(n.getYCoord()),
+        n.getFloor(),
+        n.getBuilding(),
+        n.getNodeType(),
+        n.getLongName(),
+        n.getShortName(),
+        "O",
+        n.isVisible());
 
     // adding new Node and Circle:
 
@@ -348,12 +348,12 @@ public class Graph {
   String floor, Node selectedNodeA, Node selectedNodeB, boolean selectingEditNode) */
 
   public void drawAllNodes(
-          String floor,
-          Node selectedNodeA,
-          Node selectedNodeB,
-          boolean selectingEditNode,
-          ImageView imageView,
-          boolean isMobile) {
+      String floor,
+      Node selectedNodeA,
+      Node selectedNodeB,
+      boolean selectingEditNode,
+      ImageView imageView,
+      boolean isMobile) {
 
     ArrayList<Node> floorNodes = new ArrayList<>();
 
@@ -366,8 +366,8 @@ public class Graph {
 
     // if one Node selected, draws it as green
     if (selectedNodeB == null
-            && listOfNodes.contains(selectedNodeA)
-            && selectedNodeA.getFloor().equals(floor)) {
+        && listOfNodes.contains(selectedNodeA)
+        && selectedNodeA.getFloor().equals(floor)) {
 
       DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView, isMobile);
     }
@@ -409,7 +409,7 @@ public class Graph {
   /*public void drawVisibleNodes(String floor, Node startNode, Node endNode) */
 
   public void drawVisibleNodes(
-          String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
+      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     ArrayList<Node> floorNodes = new ArrayList<>();
 
     for (Node n : listOfNodes) {
@@ -446,7 +446,7 @@ public class Graph {
   /*public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) */
 
   public void drawAllEdges(
-          String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView, boolean isMobile) {
+      String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView, boolean isMobile) {
     gc.setStroke(Color.BLACK);
     for (Edge e : listOfEdges) {
       try {
@@ -457,7 +457,7 @@ public class Graph {
 
           // if edge between selected already exists, draw in RED
           if ((nodeA.equals(selectedNodeA) && nodeB.equals(selectedNodeB))
-                  || (nodeB.equals(selectedNodeA) && nodeA.equals(selectedNodeB))) {
+              || (nodeB.equals(selectedNodeA) && nodeA.equals(selectedNodeB))) {
             DrawHelper.drawEdge(gc, nodeA, nodeB, Color.RED, imageView, isMobile);
           }
           // draw edges between non-selected BLACK
@@ -487,7 +487,7 @@ public class Graph {
    * @param endNode end Node of path
    */
   public void drawCurrentPath(
-          String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
+      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
