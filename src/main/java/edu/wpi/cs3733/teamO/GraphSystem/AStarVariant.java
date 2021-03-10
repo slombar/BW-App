@@ -70,8 +70,7 @@ public abstract class AStarVariant {
       for (Node next : nList) {
         // gets next node in neighbours
         // sets next's cost so far to current's cost so far + edge cost
-        // TODO: change dist to get Edge length
-        double newCost = costSoFar.get(current) + dist(current, next);
+        double newCost = costSoFar.get(current) + current.getDistToNeighbour(next);
 
         // if cost to next hasn't been calculated yet, or if the newCost is less
         //    than the previously calc'ed cost, replace with newCost
@@ -79,7 +78,6 @@ public abstract class AStarVariant {
           costSoFar.put(next, newCost);
 
           // calculates priority (cost from start + distance to target --> lower is better)
-          // TODO: change heuristic to take into account floor diff
           double priority = newCost + heuristic(next, targetNode);
           next.setPriority(priority);
           frontier.add(next);
@@ -97,13 +95,35 @@ public abstract class AStarVariant {
    * @param b second Node
    * @return distance between nodes
    */
-  protected final double dist(Node a, Node b) {
+  public static double dist(Node a, Node b) {
     int x1 = a.getXCoord();
     int x2 = b.getXCoord();
     int y1 = a.getYCoord();
     int y2 = b.getYCoord();
 
     double distSq = Math.pow(Math.abs(x1 - x2), 2.0) + Math.pow(Math.abs(y1 - y2), 2.0);
+
+    // if a and b aren't on the same floor, it adds the floor difference to the distance
+    if (!a.getFloor().equals(b.getFloor())) {
+      int aFloor = -1;
+      int bFloor = -1;
+      if (a.getFloor().equals("G")) {
+        aFloor = 0;
+      } else {
+        aFloor = Integer.parseInt(a.getFloor());
+      }
+
+      if (b.getFloor().equals("G")) {
+        bFloor = 0;
+      } else {
+        bFloor = Integer.parseInt(b.getFloor());
+      }
+
+      int floorDiff = Math.abs(aFloor - bFloor);
+
+      distSq += floorDiff;
+    }
+
     return Math.sqrt(distSq);
   }
 
@@ -127,7 +147,16 @@ public abstract class AStarVariant {
 
       while (!cameFromNode.equals(startNode)) { // goes until it appends startNode
         Node n = cameFrom.get(cameFromNode);
-        path.addFirst(n);
+        // doesn't add consecutive elevator/stair nodes to path
+        if ((cameFromNode.getNodeType().equals("STAI") || cameFromNode.getNodeType().equals("ELEV"))
+            && !(n.getNodeType().equals("STAI") || n.getNodeType().equals("ELEV"))) {
+          path.addFirst(cameFromNode);
+          path.addFirst(n);
+        } else if (!((cameFromNode.getNodeType().equals("STAI") && n.getNodeType().equals("STAI"))
+            || (cameFromNode.getNodeType().equals("ELEV") && n.getNodeType().equals("ELEV")))) {
+          path.addFirst(n);
+        }
+
         cameFromNode = n;
       }
 
