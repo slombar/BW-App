@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
-import static edu.wpi.cs3733.teamO.Controllers.Archive.EditPageController.createFields;
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
 import com.jfoenix.controls.JFXButton;
@@ -39,6 +38,16 @@ public class ReqController implements Initializable {
   @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
   private static String typeOfRequest;
+
+  public static ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+    ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
+    for (String label : labels) {
+      JFXTextField text = new JFXTextField();
+      text.setPromptText(label);
+      listOfFields.add(text);
+    }
+    return listOfFields;
+  }
 
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
