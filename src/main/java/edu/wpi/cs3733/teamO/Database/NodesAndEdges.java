@@ -369,7 +369,7 @@ public class NodesAndEdges {
    * @return
    */
   public static Edge getEdge(String id) throws SQLException {
-    Edge e = new Edge();
+    Edge e = new Edge(id);
 
     PreparedStatement pstmt = null;
     pstmt =
@@ -381,7 +381,6 @@ public class NodesAndEdges {
     e.setID(rset.getString("NODEID"));
     e.setStart(rset.getString("STARTNODE"));
     e.setID(rset.getString("ENDNODE"));
-    e.setLength(rset.getDouble("LENGTH"));
 
     rset.close();
     pstmt.close();
@@ -464,17 +463,15 @@ public class NodesAndEdges {
       String ID = "";
       String startNode = "";
       String endNode = "";
-      double length = 0;
 
-      Edge e = new Edge();
+      Edge e = new Edge(ID, startNode, endNode);
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
         ID = rset.getString("NODEID");
         startNode = rset.getString("STARTNODE");
         endNode = rset.getString("ENDNODE");
-        length = rset.getDouble("LENGTH");
 
-        e = new Edge(ID, startNode, endNode, length);
+        e = new Edge(ID, startNode, endNode);
 
         e.setID(ID);
         e.setStart(startNode);

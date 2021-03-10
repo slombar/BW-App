@@ -25,9 +25,9 @@ public class Opp extends Application {
   }
 
   public void start(Stage ps) {
-    Graph g = GRAPH;
 
     Opp.primaryStage = ps;
+    Graph g = GRAPH;
 
     try {
       BorderPane root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
