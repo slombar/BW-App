@@ -81,8 +81,8 @@ public class TextDirection {
    */
   public static ArrayList<String> textDirections() {
     List<Node> path = GRAPH.getPath();
-    ArrayList<String> Directions = new ArrayList<>();
-    Directions.add(
+    ArrayList<String> directions = new ArrayList<>();
+    directions.add(
         "Start From "
             + path.get(0).getLongName()
             + " --(Walk Straight)--> "
@@ -95,7 +95,7 @@ public class TextDirection {
       double angle = direction(path.get(i), path.get(i + 1), path.get(i + 2));
       // to support floor.
       if (angle == 100) {
-        Directions.add(
+        directions.add(
             path.get(i + 1).getLongName()
                 + " use "
                 + path.get(i + 2).getLongName()
@@ -107,7 +107,7 @@ public class TextDirection {
       } else if (angle < -25) {
         // Lefts
         if (angle < -120) {
-          Directions.add(
+          directions.add(
               path.get(i + 1).getLongName()
                   + " --(Turn Around)--> "
                   + path.get(i + 2).getLongName()
@@ -116,7 +116,7 @@ public class TextDirection {
                   + " ft.)");
 
         } else if (angle < -60) {
-          Directions.add(
+          directions.add(
               path.get(i + 1).getLongName()
                   + " --(Turn Left)--> "
                   + path.get(i + 2).getLongName()
@@ -125,7 +125,7 @@ public class TextDirection {
                   + " ft.)");
 
         } else {
-          Directions.add(
+          directions.add(
               path.get(i + 1).getLongName()
                   + " --(Slightly Left)--> "
                   + path.get(i + 2).getLongName()
@@ -137,7 +137,7 @@ public class TextDirection {
       } else if (angle > 25) {
         // The Rights
         if (angle > 120) {
-          Directions.add(
+          directions.add(
               path.get(i + 1).getLongName()
                   + " --(Turn Around)--> "
                   + path.get(i + 2).getLongName()
@@ -146,7 +146,7 @@ public class TextDirection {
                   + " ft.)");
 
         } else if (angle > 60) {
-          Directions.add(
+          directions.add(
               path.get(i + 1).getLongName()
                   + " --(Turn Right)--> "
                   + path.get(i + 2).getLongName()
@@ -155,7 +155,7 @@ public class TextDirection {
                   + " ft.)");
 
         } else {
-          Directions.add(
+          directions.add(
               path.get(i + 1).getLongName()
                   + " --(Slightly Right)--> "
                   + path.get(i + 2).getLongName()
@@ -164,7 +164,7 @@ public class TextDirection {
                   + " ft.)");
         }
       } else {
-        Directions.add(
+        directions.add(
             path.get(i + 1).getLongName()
                 + " --(Walk Straight)--> "
                 + path.get(i + 2).getLongName()
@@ -174,7 +174,7 @@ public class TextDirection {
       }
     }
 
-    Directions.add("You have reached your destination.");
-    return Directions;
+    directions.add("You have reached your destination.");
+    return directions;
   }
 }

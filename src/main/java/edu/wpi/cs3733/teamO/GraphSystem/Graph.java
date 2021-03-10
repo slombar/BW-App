@@ -87,11 +87,25 @@ public class Graph {
     stringEdgeHashtable = new Hashtable<>();
 
     for (Edge e : listOfEdges) {
-      stringEdgeHashtable.put(e.getID(), e);
       Node nodeA = stringNodeHashtable.get(e.getStart());
       Node nodeB = stringNodeHashtable.get(e.getEnd());
 
+      double dist = -1;
+
+      if (nodeA != null && nodeB != null) {
+        if (nodeA.getNodeType().equals("STAI") && nodeB.getNodeType().equals("STAI")) {
+          dist = 1.0;
+        } else if (nodeA.getNodeType().equals("ELEV") && nodeB.getNodeType().equals("ELEV")) {
+          dist = 0.0;
+        } else {
+          dist = AStarVariant.dist(nodeA, nodeB);
+        }
+      }
+
+      e.setLength(dist);
+
       link(nodeA, nodeB, e);
+      stringEdgeHashtable.put(e.getID(), e);
     }
   }
 
@@ -106,9 +120,6 @@ public class Graph {
    * @param node2 second node
    */
   void link(Node node1, Node node2, Edge edge) {
-    // TODO: calculate edge distance
-    // TODO:   --> if stairs, dist = 1.0, if elevator, dist = 0.0
-
     // check if both exist
     if (listOfNodes.contains(node1) && listOfNodes.contains(node2)) {
       node1.addNeighbour(node2, edge);
