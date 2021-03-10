@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
-import static edu.wpi.cs3733.teamO.Controllers.Archive.EditPageController.createFields;
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
 import com.jfoenix.controls.JFXButton;
@@ -35,10 +34,21 @@ import javafx.scene.text.Text;
 public class ReqController implements Initializable {
 
   @FXML private JFXButton assignButton;
+  @FXML private JFXButton updateButton;
   @FXML private VBox reqBox;
   @FXML private StackPane popUpPane;
   private static ObservableList<Request> reqList;
   private static String typeOfRequest;
+
+  public static ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+    ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
+    for (String label : labels) {
+      JFXTextField text = new JFXTextField();
+      text.setPromptText(label);
+      listOfFields.add(text);
+    }
+    return listOfFields;
+  }
 
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
@@ -162,6 +172,9 @@ public class ReqController implements Initializable {
 
     assignButton.setDisable(!UserHandling.getAdmin());
     assignButton.setVisible(UserHandling.getAdmin());
+
+    updateButton.setDisable(!typeOfRequest.equals("CV19"));
+    updateButton.setVisible(typeOfRequest.equals("CV19"));
   }
 
   /**
