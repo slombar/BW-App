@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 
 public class WaitingPageController implements Initializable {
   private static boolean isSurveyApproved;
+  private static String location;
   @FXML private JFXButton hospitalNavBtn;
   @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
@@ -51,14 +52,20 @@ public class WaitingPageController implements Initializable {
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
       // popup to say you can now continue
+      if (location.toLowerCase().contains("covid")) {
+        PopupMaker.covidEntranceNotif(popupNotification);
+      } else {
+        PopupMaker.mainEntranceNotif(popupNotification);
+      }
       // TODO grab which entrance
-      popupNotification.toFront();
-      PopupMaker.mainEntranceNotif(popupNotification);
-      //      PopupMaker.covidEntranceNotif(popupNotification);
     }
   }
 
   public static void setSurveyApproved(boolean status) {
     isSurveyApproved = status;
+  }
+
+  public static void setEntrance(String entrance) {
+    location = entrance;
   }
 }

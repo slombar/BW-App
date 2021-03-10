@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 // initializer??
 public class SideMenuController implements Initializable {
   public JFXButton aboutBtn1;
+  public JFXButton testBttn;
   @FXML private Label nameLabel;
   @FXML private JFXButton navBtn;
   @FXML private JFXButton mainMenuBtn;
