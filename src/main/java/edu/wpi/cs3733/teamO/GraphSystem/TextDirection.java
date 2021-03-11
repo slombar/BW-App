@@ -44,7 +44,7 @@ public class TextDirection {
     }
 
     // for the outdoor to .
-    if (node3.getNodeType().equals(node2.getNodeType())) {
+    if (node3.getNodeType().equals("EXIT") && (node3.getNodeType().equals(node2.getNodeType()))) {
       return 200.0;
     }
 
@@ -112,7 +112,7 @@ public class TextDirection {
                 + " ft.)");
       }
       // enter the building or leave the building.
-      else if (angle == 200) {
+      if (angle == 200) {
         directions.add(
             "Use " + path.get(i + 1).getLongName() + " to enter " + path.get(i + 2).getLongName());
       } else if (angle < -25) {
