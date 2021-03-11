@@ -6,15 +6,22 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.LANGController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="805.0" style="-fx-background-color: #7E93BE #7E93BE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.LANGController">
    <top>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Icons/translateIconWhite.png" />
+               </image>
+            </ImageView>
             <Label text="Interpreter Service Request" textFill="WHITE">
                <font>
                   <Font name="Leelawadee UI Bold" size="55.0" />
@@ -22,7 +29,7 @@
             </Label>
          </children>
          <BorderPane.margin>
-            <Insets />
+            <Insets top="60.0" />
          </BorderPane.margin>
       </VBox>
    </top>
@@ -33,7 +40,7 @@
                <children>
                   <Label prefWidth="100.0" text="Name" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="20.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -53,7 +60,7 @@
                <children>
                   <Label prefWidth="100.0" text="Date" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="20.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -69,7 +76,7 @@
                <children>
                   <Label prefWidth="100.0" text="Location" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="20.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -89,7 +96,7 @@
                <children>
                   <Label prefWidth="100.0" text="Language" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="20.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -109,7 +116,7 @@
                <children>
                   <Label prefWidth="100.0" text="Summary" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="20.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -135,7 +142,7 @@
                <children>
                   <JFXButton onAction="#back" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="18.0" />
+                        <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
@@ -143,7 +150,7 @@
                   </JFXButton>
                   <JFXButton onAction="#clear" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="18.0" />
+                        <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
@@ -151,7 +158,7 @@
                   </JFXButton>
                   <JFXButton onAction="#submit" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="18.0" />
+                        <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
@@ -164,7 +171,7 @@
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets bottom="100.0" left="100.0" right="100.0" />
+            <Insets bottom="170.0" left="100.0" right="100.0" />
          </BorderPane.margin>
          <opaqueInsets>
             <Insets />

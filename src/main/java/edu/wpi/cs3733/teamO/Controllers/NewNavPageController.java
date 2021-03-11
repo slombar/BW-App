@@ -33,6 +33,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,6 +50,12 @@ public class NewNavPageController implements Initializable {
   public VBox directionvbox;
   public JFXButton alignVButton;
   public JFXButton alignHButton;
+  public Button camp;
+  public Button F1;
+  public Button F2;
+  public Button F3;
+  public Button F4;
+  public Button F5;
   // edit map components
   @FXML private JFXToggleButton editToggle;
   @FXML private VBox editVBox;
@@ -85,7 +92,6 @@ public class NewNavPageController implements Initializable {
   private GraphicsContext gc;
   private double percImageView = 1.0;
   private Rectangle2D currentViewport;
-  private String selectedFloor = "Campus";
   private String sFloor = "G";
   private String sideMenuUrl;
   private String pathFloors = "";
@@ -101,9 +107,9 @@ public class NewNavPageController implements Initializable {
   ObservableList<String> listOfStrats =
       FXCollections.observableArrayList("A*", "Djikstra", "DFS", "BFS");
 
-  ObservableList<String> listOfFloors =
-      FXCollections.observableArrayList(
-          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+  /*ObservableList<String> listOfFloors =
+  FXCollections.observableArrayList(
+      "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");*/
 
   // booleans:
   private boolean editing = false;
@@ -149,8 +155,10 @@ public class NewNavPageController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    floorSelectionBtn.setItems(listOfFloors);
-    floorSelectionBtn.setValue("Campus");
+    // floorSelectionBtn.setItems(listOfFloors);
+    // floorSelectionBtn.setValue("Campus");
+    // camp.setVisible(false);
+    camp.setStyle("-fx-background-color: #fec107;");
     algoStratCBox.setItems(listOfStrats);
 
     mapCanvas.toFront();
@@ -304,52 +312,6 @@ public class NewNavPageController implements Initializable {
     if (UserHandling.getEmployee() || UserHandling.getAdmin())
       MenuUrl = "/Views/StaffMainPage.fxml";
     SwitchScene.goToParent(MenuUrl);
-  }
-
-  /**
-   * switches between images and canvases for different floors selected in the combobox
-   *
-   * @param actionEvent
-   */
-  public void floorSelection(ActionEvent actionEvent) {
-    selectedFloor = floorSelectionBtn.getValue();
-    // System.out.println(floorSelected);
-
-    // switch case basically = if, else if, etc...
-    switch (selectedFloor) {
-      case "Campus":
-        imageView.setImage(campusMap);
-        sFloor = "G";
-        break;
-      case "Floor 1":
-        imageView.setImage(floor1Map);
-        sFloor = "1";
-        break;
-      case "Floor 2":
-        imageView.setImage(floor2Map);
-        sFloor = "2";
-        break;
-      case "Floor 3":
-        imageView.setImage(floor3Map);
-        sFloor = "3";
-        break;
-      case "Floor 4":
-        imageView.setImage(floor4Map);
-        sFloor = "4";
-        break;
-      case "Floor 5":
-        imageView.setImage(floor5Map);
-        sFloor = "5";
-        break;
-    }
-
-    currentViewport =
-        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
-    imageView.setViewport(currentViewport);
-    percImageView = 1.0;
-
-    resizeCanvas();
-    draw();
   }
 
   /**
@@ -1015,4 +977,188 @@ public class NewNavPageController implements Initializable {
     alignList = new ArrayList<>();
     draw();
   }
+
+  public void goCamp(ActionEvent actionEvent) {
+    if (sFloor.equals("G")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #fec107;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(campusMap);
+    sFloor = "G";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF1(ActionEvent actionEvent) {
+    if (sFloor.equals("1")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #fec107;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor1Map);
+    sFloor = "1";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF2(ActionEvent actionEvent) {
+    if (sFloor.equals("2")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #fec107;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor2Map);
+    sFloor = "2";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF3(ActionEvent actionEvent) {
+    if (sFloor.equals("3")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #fec107;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor3Map);
+    sFloor = "3";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF4(ActionEvent actionEvent) {
+    if (sFloor.equals("4")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #fec107;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor4Map);
+    sFloor = "4";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF5(ActionEvent actionEvent) {
+    if (sFloor.equals("5")) {
+      return;
+    }
+
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #fec107;");
+
+    imageView.setImage(floor5Map);
+    sFloor = "5";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
 }
+  /**
+   * switches between images and canvases for different floors selected in the combobox
+   *
+   * @param actionEvent
+   */
+  /*public void floorSelection(ActionEvent actionEvent) {
+    selectedFloor = floorSelectionBtn.getValue();
+    // System.out.println(floorSelected);
+
+    // switch case basically = if, else if, etc...
+    switch (selectedFloor) {
+      case "Campus":
+        imageView.setImage(campusMap);
+        sFloor = "G";
+        break;
+      case "Floor 1":
+        imageView.setImage(floor1Map);
+        sFloor = "1";
+        break;
+      case "Floor 2":
+        imageView.setImage(floor2Map);
+        sFloor = "2";
+        break;
+      case "Floor 3":
+        imageView.setImage(floor3Map);
+        sFloor = "3";
+        break;
+      case "Floor 4":
+        imageView.setImage(floor4Map);
+        sFloor = "4";
+        break;
+      case "Floor 5":
+        imageView.setImage(floor5Map);
+        sFloor = "5";
+        break;
+    }
+
+    currentViewport =
+            new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }*/
