@@ -82,8 +82,16 @@
       </GridPane>
    </center>
    <top>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369ff;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369ff;" BorderPane.alignment="CENTER">
          <children>
+            <Label fx:id="liveTime" text="Label" textFill="WHITE">
+               <VBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Leelawadee UI" size="15.0" />
+               </font>
+            </Label>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
                   <ImageView fitHeight="120.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -91,7 +99,7 @@
                         <Image url="@../bh_bwh_pms_293.png" />
                      </image>
                      <BorderPane.margin>
-                        <Insets bottom="30.0" top="69.0" />
+                        <Insets bottom="30.0" top="35.0" />
                      </BorderPane.margin>
                   </ImageView>
                </top>

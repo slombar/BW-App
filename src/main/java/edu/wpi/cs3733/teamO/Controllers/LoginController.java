@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.AddComponents;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
@@ -18,6 +20,7 @@ import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
 
+  @FXML Label liveTime;
   @FXML private JFXButton loginDodge;
   @FXML private JFXButton exitBtn;
   @FXML private Circle staffBtn;
@@ -30,6 +33,7 @@ public class LoginController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     loginPane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
     loginPane.toBack();
+    AddComponents.dateAndTime(liveTime);
   }
 
   /**
