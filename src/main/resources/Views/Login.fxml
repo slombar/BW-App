@@ -112,7 +112,7 @@
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#goToMobileApp" prefHeight="86.0" prefWidth="110.0">
+            <JFXButton alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" prefHeight="86.0" prefWidth="110.0">
                <graphic>
                   <ImageView fitHeight="79.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>

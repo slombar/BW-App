@@ -5,12 +5,9 @@ import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
 
 public class WaitingPageController implements Initializable {
@@ -25,24 +22,24 @@ public class WaitingPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hospitalNavBtn.setDisable(true);
     entryStatusBtn.setDisable(false);
-/*
-    Task<Void> EntryTask =
-            new Task<Void>() {
+    /*
+       Task<Void> EntryTask =
+               new Task<Void>() {
 
-              @Override
-              protected Void call() throws Exception {
-                checkEntryStatus();
-                return null;
-              }
-            };
+                 @Override
+                 protected Void call() throws Exception {
+                   checkEntryStatus();
+                   return null;
+                 }
+               };
 
 
-    ProgressIndicator progress = new ProgressIndicator();
-    spinnerPane.getChildren().add(progress);
-    progress.setProgress(1.0);
-    progress.progressProperty().bind(EntryTask.progressProperty());
-    spinnerPane.toFront();
- */
+       ProgressIndicator progress = new ProgressIndicator();
+       spinnerPane.getChildren().add(progress);
+       progress.setProgress(1.0);
+       progress.progressProperty().bind(EntryTask.progressProperty());
+       spinnerPane.toFront();
+    */
     // TODO: need to use the following popups
     // enable button once employee edits form and grab location
 
