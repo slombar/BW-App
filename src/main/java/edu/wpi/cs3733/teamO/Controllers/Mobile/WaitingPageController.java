@@ -16,11 +16,30 @@ public class WaitingPageController implements Initializable {
   @FXML private JFXButton hospitalNavBtn;
   @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
+  @FXML private StackPane spinnerPane;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hospitalNavBtn.setDisable(true);
     entryStatusBtn.setDisable(false);
+    /*
+       Task<Void> EntryTask =
+               new Task<Void>() {
+
+                 @Override
+                 protected Void call() throws Exception {
+                   checkEntryStatus();
+                   return null;
+                 }
+               };
+
+
+       ProgressIndicator progress = new ProgressIndicator();
+       spinnerPane.getChildren().add(progress);
+       progress.setProgress(1.0);
+       progress.progressProperty().bind(EntryTask.progressProperty());
+       spinnerPane.toFront();
+    */
     // TODO: need to use the following popups
     // enable button once employee edits form and grab location
 
@@ -49,6 +68,21 @@ public class WaitingPageController implements Initializable {
   }
 
   public void checkEntryStatus(ActionEvent actionEvent) {
+
+    if (isSurveyApproved) {
+      hospitalNavBtn.setDisable(false);
+      // popup to say you can now continue
+      if (location.toLowerCase().contains("covid")) {
+        PopupMaker.covidEntranceNotif(popupNotification);
+      } else {
+        PopupMaker.mainEntranceNotif(popupNotification);
+      }
+      // TODO grab which entrance
+    }
+  }
+
+  public void checkEntryStatus() {
+
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
       // popup to say you can now continue
