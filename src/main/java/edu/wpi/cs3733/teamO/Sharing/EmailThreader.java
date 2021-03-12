@@ -116,60 +116,88 @@ public class EmailThreader extends Thread {
       // Determines start and end nodes
       Graph graph = GRAPH;
       String pathFloors = "";
-      for (Node n : graph.getPath()) {
-        if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
-      }
-
-      // check for campus, check for last thing
-      String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
-      String lastFloor = pathFloors.substring(pathFloors.length() - 1);
-
-      if (firstLast.contains("G")) {
+      if (graph.getPath() == null) {
         DataSource source1 = new FileDataSource(filename1);
         messageBodyPart1.setDataHandler(new DataHandler(source1));
         messageBodyPart1.setFileName("GroundRoute.png");
         multipart.addBodyPart(messageBodyPart1);
-        if (!lastFloor.contains("1")) {
+        DataSource source2 = new FileDataSource(filename2);
+        messageBodyPart2.setDataHandler(new DataHandler(source2));
+        messageBodyPart2.setFileName("Floor1Route.png");
+        multipart.addBodyPart(messageBodyPart2);
+        DataSource source3 = new FileDataSource(filename3);
+        messageBodyPart3.setDataHandler(new DataHandler(source3));
+        messageBodyPart3.setFileName("Floor2Route.png");
+        multipart.addBodyPart(messageBodyPart3);
+        DataSource source4 = new FileDataSource(filename4);
+        messageBodyPart4.setDataHandler(new DataHandler(source4));
+        messageBodyPart4.setFileName("Floor3Route.png");
+        multipart.addBodyPart(messageBodyPart4);
+        DataSource source5 = new FileDataSource(filename5);
+        messageBodyPart5.setDataHandler(new DataHandler(source5));
+        messageBodyPart5.setFileName("Floor4Route.png");
+        multipart.addBodyPart(messageBodyPart5);
+        DataSource source6 = new FileDataSource(filename6);
+        messageBodyPart6.setDataHandler(new DataHandler(source6));
+        messageBodyPart6.setFileName("Floor5Route.png");
+        multipart.addBodyPart(messageBodyPart6);
+      } else {
+        for (Node n : graph.getPath()) {
+          if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+        }
+
+        // check for campus, check for last thing
+        String firstLast =
+            pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
+        String lastFloor = pathFloors.substring(pathFloors.length() - 1);
+
+        if (firstLast.contains("G")) {
+          DataSource source1 = new FileDataSource(filename1);
+          messageBodyPart1.setDataHandler(new DataHandler(source1));
+          messageBodyPart1.setFileName("GroundRoute.png");
+          multipart.addBodyPart(messageBodyPart1);
+          if (!lastFloor.contains("1") && !lastFloor.contains("G")) {
+            DataSource source2 = new FileDataSource(filename2);
+            messageBodyPart2.setDataHandler(new DataHandler(source2));
+            messageBodyPart2.setFileName("Floor1Route.png");
+            multipart.addBodyPart(messageBodyPart2);
+          }
+        }
+
+        if (firstLast.contains("1")) {
           DataSource source2 = new FileDataSource(filename2);
           messageBodyPart2.setDataHandler(new DataHandler(source2));
           messageBodyPart2.setFileName("Floor1Route.png");
           multipart.addBodyPart(messageBodyPart2);
         }
-      }
 
-      if (firstLast.contains("1")) {
-        DataSource source2 = new FileDataSource(filename2);
-        messageBodyPart2.setDataHandler(new DataHandler(source2));
-        messageBodyPart2.setFileName("Floor1Route.png");
-        multipart.addBodyPart(messageBodyPart2);
-      }
+        if (firstLast.contains("2")) {
+          DataSource source3 = new FileDataSource(filename3);
+          messageBodyPart3.setDataHandler(new DataHandler(source3));
+          messageBodyPart3.setFileName("Floor2Route.png");
+          multipart.addBodyPart(messageBodyPart3);
+        }
 
-      if (firstLast.contains("2")) {
-        DataSource source3 = new FileDataSource(filename3);
-        messageBodyPart3.setDataHandler(new DataHandler(source3));
-        messageBodyPart3.setFileName("Floor2Route.png");
-        multipart.addBodyPart(messageBodyPart3);
-      }
+        if (firstLast.contains("3")) {
+          DataSource source4 = new FileDataSource(filename4);
+          messageBodyPart4.setDataHandler(new DataHandler(source4));
+          messageBodyPart4.setFileName("Floor3Route.png");
+          multipart.addBodyPart(messageBodyPart4);
+        }
 
-      if (firstLast.contains("3")) {
-        DataSource source4 = new FileDataSource(filename4);
-        messageBodyPart4.setDataHandler(new DataHandler(source4));
-        messageBodyPart4.setFileName("Floor3Route.png");
-        multipart.addBodyPart(messageBodyPart4);
-      }
+        if (firstLast.contains("4")) {
+          DataSource source5 = new FileDataSource(filename5);
+          messageBodyPart5.setDataHandler(new DataHandler(source5));
+          messageBodyPart5.setFileName("Floor4Route.png");
+          multipart.addBodyPart(messageBodyPart5);
+        }
 
-      if (firstLast.contains("4")) {
-        DataSource source5 = new FileDataSource(filename5);
-        messageBodyPart5.setDataHandler(new DataHandler(source5));
-        messageBodyPart5.setFileName("Floor4Route.png");
-        multipart.addBodyPart(messageBodyPart5);
-      }
-
-      if (firstLast.contains("5")) {
-        DataSource source6 = new FileDataSource(filename6);
-        messageBodyPart6.setDataHandler(new DataHandler(source6));
-        messageBodyPart6.setFileName("Floor5Route.png");
-        multipart.addBodyPart(messageBodyPart6);
+        if (firstLast.contains("5")) {
+          DataSource source6 = new FileDataSource(filename6);
+          messageBodyPart6.setDataHandler(new DataHandler(source6));
+          messageBodyPart6.setFileName("Floor5Route.png");
+          multipart.addBodyPart(messageBodyPart6);
+        }
       }
 
       // Send the complete message parts

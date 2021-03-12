@@ -7,24 +7,34 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #9AA8B5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.GIFTController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #7E93BE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.GIFTController">
    <top>
       <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Icons/giftIconWhite.png" />
+               </image>
+            </ImageView>
             <Label text="Gift Delivery Service " textFill="WHITE">
                <font>
                   <Font name="Leelawadee UI Bold" size="55.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="100.0" top="100.0" />
+                  <Insets bottom="80.0" top="10.0" />
                </VBox.margin>
             </Label>
          </children>
+         <BorderPane.margin>
+            <Insets top="60.0" />
+         </BorderPane.margin>
       </VBox>
    </top>
    <center>
@@ -34,7 +44,7 @@
                <children>
                   <Label prefHeight="25.0" prefWidth="176.0" text="Recipient" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -51,7 +61,7 @@
                <children>
                   <Label prefHeight="25.0" prefWidth="175.0" text="Date           " textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -64,7 +74,7 @@
                <children>
                   <Label prefHeight="25.0" prefWidth="172.0" text="Summary" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -81,7 +91,7 @@
                <children>
                   <Label prefHeight="25.0" prefWidth="171.0" text="Gift Type" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -98,7 +108,7 @@
                <children>
                   <Label prefHeight="25.0" prefWidth="172.0" text="Location" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -115,7 +125,7 @@
                <children>
                   <Label prefHeight="25.0" prefWidth="244.0" text="Require Signature?" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="22.0" />
+                        <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -128,7 +138,7 @@
                <children>
                   <JFXButton onAction="#back" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="18.0" />
+                        <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
@@ -136,7 +146,7 @@
                   </JFXButton>
                   <JFXButton onAction="#clear" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="18.0" />
+                        <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
@@ -144,7 +154,7 @@
                   </JFXButton>
                   <JFXButton onAction="#submit" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
                      <font>
-                        <Font name="Leelawadee UI" size="18.0" />
+                        <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
@@ -157,7 +167,7 @@
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets bottom="100.0" left="100.0" right="100.0" />
+            <Insets bottom="170.0" />
          </BorderPane.margin>
       </VBox>
    </center>

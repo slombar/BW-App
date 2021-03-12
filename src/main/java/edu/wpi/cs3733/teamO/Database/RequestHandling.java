@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import edu.wpi.cs3733.teamO.Controllers.Mobile.WaitingPageController;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -157,7 +158,7 @@ public class RequestHandling {
    * @param reqID
    * @return
    */
-  public Request getRequest(String reqID) {
+  public static Request getRequest(String reqID) {
     Request r = new Request();
 
     try {
@@ -175,7 +176,7 @@ public class RequestHandling {
       r.setFulfilledBy(rset.getString("fulfilledBy"));
       r.setDateRequested(rset.getDate("dateRequested"));
       r.setDateNeeded(rset.getDate("dateNeeded"));
-      r.setRequestType(rset.getString("requestType"));
+      r.setRequestType(rset.getString("reqType"));
       r.setLocationNodeID(rset.getString("location"));
       r.setSummary(rset.getString("summary"));
       r.setPara1(rset.getString("para1"));
@@ -275,10 +276,7 @@ public class RequestHandling {
    * TODO Finish this Allows editing of request
    *
    * @param requestID
-   * @param requestedBy
    * @param fulfilledBy
-   * @param dateRequested
-   * @param dateNeeded
    * @param requestType
    * @param locationNodeID
    * @param summary
@@ -288,10 +286,7 @@ public class RequestHandling {
    */
   public static void editRequest(
       int requestID,
-      String requestedBy,
       String fulfilledBy,
-      Date dateRequested,
-      Date dateNeeded,
       String requestType,
       String locationNodeID,
       String summary,
@@ -299,34 +294,40 @@ public class RequestHandling {
       String customParameter2,
       String customParameter3) {
     String query =
-        "UPDATE REQUESTS SET "
-            + "requestedBy = '"
-            + requestedBy
-            + "', fulfilledBy = '"
-            + fulfilledBy
-            + "', dateRequested = '"
-            + dateRequested
-            + "', dateNeeded = '"
-            + dateNeeded
-            + "', requestType = '"
-            + requestType
-            + "', locationNodeID = '"
-            + locationNodeID
-            + "', summary = '"
-            + summary
-            + "', customParameter1 = '"
-            + customParameter1
-            + "', customParameter2 = '"
-            + customParameter2
-            + "', customParameter3 = '"
-            + customParameter3
-            + "'WHERE requestID = ?";
+        "UPDATE REQUESTS SET fulfilledBy = ?, "
+            + "reqType = ?, location = ?, summary = ?, para1 = ?, "
+            + "para2 = ?, para3 = ? WHERE requestID = ?";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      preparedStmt.setInt(1, Integer.valueOf(requestID));
-      preparedStmt.execute();
+      preparedStmt.setString(1, fulfilledBy);
+      preparedStmt.setString(2, requestType);
+      preparedStmt.setString(3, locationNodeID);
+      preparedStmt.setString(4, summary);
+      preparedStmt.setString(5, customParameter1);
+      preparedStmt.setString(6, customParameter2);
+      preparedStmt.setString(7, customParameter3);
+      preparedStmt.setInt(8, requestID);
+
+      preparedStmt.executeUpdate();
       preparedStmt.close();
+      System.out.println("printed " + query);
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  public static void updateRequest(int requestID, String locationNode) {
+    String query = "UPDATE REQUESTS SET location = ? WHERE requestID = ?";
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, locationNode);
+      preparedStmt.setInt(2, requestID);
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+      System.out.println("printed " + query);
+      WaitingPageController.setEntrance(locationNode);
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();

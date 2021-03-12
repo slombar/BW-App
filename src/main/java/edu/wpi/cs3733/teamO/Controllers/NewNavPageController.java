@@ -6,16 +6,20 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
+import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -29,18 +33,29 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
+  public VBox directionvbox;
+  public JFXButton alignVButton;
+  public JFXButton alignHButton;
+  public Button camp;
+  public Button F1;
+  public Button F2;
+  public Button F3;
+  public Button F4;
+  public Button F5;
   // edit map components
   @FXML private JFXToggleButton editToggle;
   @FXML private VBox editVBox;
@@ -58,7 +73,7 @@ public class NewNavPageController implements Initializable {
   @FXML private JFXTextField endNodeID;
   @FXML private JFXComboBox algoStratCBox;
   @FXML private StackPane nodeWarningPane;
-
+  @FXML private Label displayLongName;
   // side menu
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
@@ -77,23 +92,24 @@ public class NewNavPageController implements Initializable {
   private GraphicsContext gc;
   private double percImageView = 1.0;
   private Rectangle2D currentViewport;
-  private String selectedFloor = "Campus";
   private String sFloor = "G";
   private String sideMenuUrl;
   private String pathFloors = "";
+
+  ArrayList<String> alignList = new ArrayList<>();
 
   Node startNode = null;
   Node endNode = null;
   Node selectedNode = null;
   Node selectedNodeB = null;
 
-  String strategy = "A*";
+  String strategy = Settings.getInstance().getAlgoChoice();
   ObservableList<String> listOfStrats =
       FXCollections.observableArrayList("A*", "Djikstra", "DFS", "BFS");
 
-  ObservableList<String> listOfFloors =
-      FXCollections.observableArrayList(
-          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
+  /*ObservableList<String> listOfFloors =
+  FXCollections.observableArrayList(
+      "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");*/
 
   // booleans:
   private boolean editing = false;
@@ -119,6 +135,7 @@ public class NewNavPageController implements Initializable {
   // private boolean addingEdgeN1 = false;
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
+  private boolean selectingAlign = false;
 
   private void setEditFalse() {
     selectingEditNode = false;
@@ -138,8 +155,10 @@ public class NewNavPageController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    floorSelectionBtn.setItems(listOfFloors);
-    floorSelectionBtn.setValue("Campus");
+    // floorSelectionBtn.setItems(listOfFloors);
+    // floorSelectionBtn.setValue("Campus");
+    // camp.setVisible(false);
+    camp.setStyle("-fx-background-color: #fec107;");
     algoStratCBox.setItems(listOfStrats);
 
     mapCanvas.toFront();
@@ -148,33 +167,6 @@ public class NewNavPageController implements Initializable {
     imageView.setImage(campusMap);
     currentViewport = new Rectangle2D(0, 0, campusMap.getWidth(), campusMap.getHeight());
     imageView.setViewport(currentViewport);
-    //    ObservableValue<Rectangle2D> viewportBind = new ObservableValue<Rectangle2D>() {
-    //      @Override
-    //      public void addListener(ChangeListener<? super Rectangle2D> listener) {
-    //
-    //      }
-    //
-    //      @Override
-    //      public void removeListener(ChangeListener<? super Rectangle2D> listener) {
-    //
-    //      }
-    //
-    //      @Override
-    //      public Rectangle2D getValue() {
-    //        return null;
-    //      }
-    //
-    //      @Override
-    //      public void addListener(InvalidationListener listener) {
-    //
-    //      }
-    //
-    //      @Override
-    //      public void removeListener(InvalidationListener listener) {
-    //
-    //      }
-    //    }
-    //    imageView.viewportProperty().bind();
     resizableWindow();
 
     GRAPH.setGraphicsContext(gc);
@@ -263,7 +255,19 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void editMode(ActionEvent actionEvent) {
-    editing = editToggle.isSelected();
+
+    if (editToggle.isSelected() || GRAPH.allConnected()) {
+      editing = editToggle.isSelected();
+    } else {
+
+      editing = true;
+      editToggle.setSelected(true);
+
+      System.out.println("Incomplete map.");
+      PopupMaker.unconnectedPopup(nodeWarningPane);
+      return;
+    }
+
     editVBox.setVisible(editing);
 
     if (editing) {
@@ -282,6 +286,11 @@ public class NewNavPageController implements Initializable {
    * @param clickedNode
    */
   public void autocompleteEditMap(Node clickedNode) {
+    try {
+      displayLongName.setText(NodesAndEdges.getNodeLongName(clickedNode.getID()));
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
     nodeID.setText(clickedNode.getID());
     xCoord.setText(Integer.toString(clickedNode.getXCoord()));
     yCoord.setText(Integer.toString(clickedNode.getYCoord()));
@@ -306,52 +315,6 @@ public class NewNavPageController implements Initializable {
   }
 
   /**
-   * switches between images and canvases for different floors selected in the combobox
-   *
-   * @param actionEvent
-   */
-  public void floorSelection(ActionEvent actionEvent) {
-    selectedFloor = floorSelectionBtn.getValue();
-    // System.out.println(floorSelected);
-
-    // switch case basically = if, else if, etc...
-    switch (selectedFloor) {
-      case "Campus":
-        imageView.setImage(campusMap);
-        sFloor = "G";
-        break;
-      case "Floor 1":
-        imageView.setImage(floor1Map);
-        sFloor = "1";
-        break;
-      case "Floor 2":
-        imageView.setImage(floor2Map);
-        sFloor = "2";
-        break;
-      case "Floor 3":
-        imageView.setImage(floor3Map);
-        sFloor = "3";
-        break;
-      case "Floor 4":
-        imageView.setImage(floor4Map);
-        sFloor = "4";
-        break;
-      case "Floor 5":
-        imageView.setImage(floor5Map);
-        sFloor = "5";
-        break;
-    }
-
-    currentViewport =
-        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
-    imageView.setViewport(currentViewport);
-    percImageView = 1.0;
-
-    resizeCanvas();
-    draw();
-  }
-
-  /**
    * resets path and creates a new path depending on start and end nodes
    *
    * @param actionEvent
@@ -359,7 +322,7 @@ public class NewNavPageController implements Initializable {
   public void doPathfind(ActionEvent actionEvent) {
     if (startNode != null && endNode != null) {
       GRAPH.resetPath();
-      GRAPH.findPath(strategy, startNode, endNode);
+      GRAPH.findPath(Settings.getInstance().getAlgoChoice(), startNode, endNode);
       displayingRoute = true;
       selectingStart = false;
       selectingEnd = false;
@@ -371,6 +334,9 @@ public class NewNavPageController implements Initializable {
     pathFloors = "";
     for (Node n : GRAPH.getPath()) {
       if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+    }
+    for (String d : Graph.findTextDirection()) {
+      addTextToDirectionBox(d);
     }
   }
 
@@ -384,9 +350,22 @@ public class NewNavPageController implements Initializable {
     Node clickedNode =
         GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
 
+    // block for SHIFT CLICK
+    if (editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      if ((selectingEditNode && selectedNode == null)) {
+        selectedNode = clickedNode;
+
+      } else if (selectingEditNode && selectedNode != null && selectedNode != clickedNode) {
+        alignList.add(clickedNode.getID());
+      }
+      selectedNodeB = null;
+      autocompleteEditMap(clickedNode);
+    }
     // ----------------------
     // block for LEFT CLICK
-    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+    else if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      alignList = new ArrayList<>();
+
       if (!addNodeMode) {
         selectingEditNode = true;
       }
@@ -409,13 +388,8 @@ public class NewNavPageController implements Initializable {
           autocompleteEditMap(clickedNode);
           selectedNode = clickedNode;
         } else if (addNodeMode) {
-          n = getRealXY(sFloor, mouseEvent);
+          n = getRealXY(mouseEvent);
           n.setFloor(sFloor);
-
-          c = new Circle();
-          c.setCenterX(mouseEvent.getX());
-          c.setCenterY(mouseEvent.getY());
-          c.setRadius(mapCanvas.getWidth() * 0.00625);
 
           autocompleteEditMap(n);
         }
@@ -424,9 +398,10 @@ public class NewNavPageController implements Initializable {
       if (addNodeMode) {
         selectedNode = null;
         draw();
-        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView);
+        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView, false);
         addNodeMode = false;
         selectingEditNode = true;
+        return;
       } else {
         draw();
       }
@@ -434,6 +409,7 @@ public class NewNavPageController implements Initializable {
     // ----------------------
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+      alignList = new ArrayList<>();
 
       // if navigating
       if (!editing) {
@@ -459,65 +435,26 @@ public class NewNavPageController implements Initializable {
         endNodeID.setText(selectedNodeB.getID());
       }
 
-      draw();
       /**
        * If the middle mouse is pressed, we want the node to be dragged with the user's cursor. Once
        * it is pressed up, we will drop the node in that location
        */
-    } else if (mouseEvent.getButton().equals(MouseButton.MIDDLE)) {
-
-      Node draggedNode =
-          GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false, imageView);
-
-      Circle draggedCircle;
     }
 
+    draw();
     System.out.println("mapCanvas click");
   }
 
   /**
    * gets the xy coordinates of the mouse and scales it to the image
    *
-   * @param floor
    * @param mouseEvent
    * @return
    */
-  private Node getRealXY(String floor, MouseEvent mouseEvent) {
-    // TODO: don't need this -- want to use other methods below since those accommodate zooming
+  private Node getRealXY(MouseEvent mouseEvent) {
     Node n = new Node();
-    double imgX = 0;
-    double imgY = 0;
-    switch (floor) {
-      case "G":
-        imgX = campusMap.getWidth();
-        imgY = campusMap.getHeight();
-        break;
-      case "1":
-        imgX = floor1Map.getWidth();
-        imgY = floor1Map.getHeight();
-        break;
-      case "2":
-        imgX = floor2Map.getWidth();
-        imgY = floor2Map.getHeight();
-        break;
-      case "3":
-        imgX = floor3Map.getWidth();
-        imgY = floor3Map.getHeight();
-        break;
-      case "4":
-        imgX = floor4Map.getWidth();
-        imgY = floor4Map.getHeight();
-        break;
-      case "5":
-        imgX = floor5Map.getWidth();
-        imgY = floor5Map.getHeight();
-        break;
-    }
-
-    double nPercX = mouseEvent.getX() / gc.getCanvas().getWidth();
-    double nPercY = mouseEvent.getY() / gc.getCanvas().getHeight();
-    n.setXCoord((int) (nPercX * imgX));
-    n.setYCoord((int) (nPercY * imgY));
+    n.setXCoord((int) getImgX(mouseEvent.getX()));
+    n.setYCoord((int) getImgY(mouseEvent.getY()));
     return n;
   }
 
@@ -683,6 +620,7 @@ public class NewNavPageController implements Initializable {
 
     resizeCanvas();
     draw();
+    directionvbox.getChildren().clear();
   }
 
   /**
@@ -930,16 +868,23 @@ public class NewNavPageController implements Initializable {
 
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
+      }
+    }
+
+    if (!alignList.isEmpty()) {
+      for (String s : alignList) {
+        Node n = GRAPH.getNodeByID(s);
+        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView, false);
       }
     }
   }
@@ -948,13 +893,13 @@ public class NewNavPageController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView);
+      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
       if (showingEdges) {
-        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView);
+        GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
       }
     }
   }
@@ -986,5 +931,234 @@ public class NewNavPageController implements Initializable {
    */
   public void chooseStrat(ActionEvent actionEvent) {
     strategy = (String) algoStratCBox.getValue();
+    Settings.getInstance().setAlgoChoice(strategy);
+  }
+
+  /**
+   * Drags the node based on user's mouse x and y coords
+   *
+   * @param mouseEvent
+   */
+  public void nodeDrag(MouseEvent mouseEvent) {
+    Node draggedNode =
+        GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
+
+    int x = (int) (getImgX(mouseEvent.getX()));
+    int y = (int) (getImgY(mouseEvent.getY()));
+
+    draggedNode.setXCoord(x);
+    draggedNode.setYCoord(y);
+    draw();
+  }
+
+  private void addTextToDirectionBox(String text) {
+
+    Text newText = new Text(text + "\n");
+    newText.setFont(Font.font("leelawadee ui", 16.0));
+    directionvbox.getChildren().add(newText);
+  }
+
+  public void alignVertically(ActionEvent actionEvent) {
+    for (String s : alignList) {
+      Node n = GRAPH.getNodeByID(s);
+      n.setYCoord(selectedNode.getYCoord());
+    }
+
+    alignList = new ArrayList<>();
+    draw();
+  }
+
+  public void alignHorizontally(ActionEvent actionEvent) {
+    for (String s : alignList) {
+      Node n = GRAPH.getNodeByID(s);
+      n.setXCoord(selectedNode.getXCoord());
+    }
+
+    alignList = new ArrayList<>();
+    draw();
+  }
+
+  public void goCamp(ActionEvent actionEvent) {
+    if (sFloor.equals("G")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #fec107;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(campusMap);
+    sFloor = "G";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF1(ActionEvent actionEvent) {
+    if (sFloor.equals("1")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #fec107;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor1Map);
+    sFloor = "1";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF2(ActionEvent actionEvent) {
+    if (sFloor.equals("2")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #fec107;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor2Map);
+    sFloor = "2";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF3(ActionEvent actionEvent) {
+    if (sFloor.equals("3")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #fec107;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor3Map);
+    sFloor = "3";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF4(ActionEvent actionEvent) {
+    if (sFloor.equals("4")) {
+      return;
+    }
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #fec107;");
+    F5.setStyle("-fx-background-color: #cfe2f3;");
+
+    imageView.setImage(floor4Map);
+    sFloor = "4";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void goF5(ActionEvent actionEvent) {
+    if (sFloor.equals("5")) {
+      return;
+    }
+
+    camp.setStyle("-fx-background-color: #cfe2f3;");
+    F1.setStyle("-fx-background-color: #cfe2f3;");
+    F2.setStyle("-fx-background-color: #cfe2f3;");
+    F3.setStyle("-fx-background-color: #cfe2f3;");
+    F4.setStyle("-fx-background-color: #cfe2f3;");
+    F5.setStyle("-fx-background-color: #fec107;");
+
+    imageView.setImage(floor5Map);
+    sFloor = "5";
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
   }
 }
+  /**
+   * switches between images and canvases for different floors selected in the combobox
+   *
+   * @param actionEvent
+   */
+  /*public void floorSelection(ActionEvent actionEvent) {
+    selectedFloor = floorSelectionBtn.getValue();
+    // System.out.println(floorSelected);
+
+    // switch case basically = if, else if, etc...
+    switch (selectedFloor) {
+      case "Campus":
+        imageView.setImage(campusMap);
+        sFloor = "G";
+        break;
+      case "Floor 1":
+        imageView.setImage(floor1Map);
+        sFloor = "1";
+        break;
+      case "Floor 2":
+        imageView.setImage(floor2Map);
+        sFloor = "2";
+        break;
+      case "Floor 3":
+        imageView.setImage(floor3Map);
+        sFloor = "3";
+        break;
+      case "Floor 4":
+        imageView.setImage(floor4Map);
+        sFloor = "4";
+        break;
+      case "Floor 5":
+        imageView.setImage(floor5Map);
+        sFloor = "5";
+        break;
+    }
+
+    currentViewport =
+            new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
+
+    resizeCanvas();
+    draw();
+  }*/

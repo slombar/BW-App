@@ -5,13 +5,9 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
-import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -49,12 +45,7 @@ public class StaffSignInPopupController {
    * @param actionEvent
    */
   public void close(ActionEvent actionEvent) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    SwitchScene.goToParent("/Views/Login.fxml");
   }
 
   /**

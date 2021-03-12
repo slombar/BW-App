@@ -1,9 +1,13 @@
 package edu.wpi.cs3733.teamO.Controllers;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import com.jfoenix.controls.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Sharing.ImgurFunctionality;
 import edu.wpi.cs3733.teamO.Sharing.SharingFunctionality;
 import java.awt.image.BufferedImage;
@@ -28,6 +32,7 @@ import javax.imageio.ImageIO;
 
 public class EmailPageController implements Initializable {
 
+  @FXML private JFXButton generateQRBtn;
   @FXML private StackPane spinnerPane;
   @FXML private ImageView mapView5;
   @FXML private ImageView mapView3;
@@ -62,6 +67,8 @@ public class EmailPageController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle res) {
 
+    generateQRBtn.setVisible(false);
+
     mapView0.setImage(screenShot1);
     mapView1.setImage(screenShot2);
     mapView2.setImage(screenShot3);
@@ -78,6 +85,7 @@ public class EmailPageController implements Initializable {
           @Override
           protected Void call() throws Exception {
             prepareQR();
+            generateQRBtn.setVisible(true);
             return null;
           }
         };
@@ -89,33 +97,17 @@ public class EmailPageController implements Initializable {
     QRgeneration(QRtask);
   }
 
+  /**
+   * QR Generation made to pin loading sign on it
+   *
+   * @param QRtask
+   */
   void QRgeneration(Task<Void> QRtask) {
     ProgressIndicator progress = new ProgressIndicator();
     spinnerPane.getChildren().add(progress);
     progress.setProgress(1.0);
     progress.progressProperty().bind(QRtask.progressProperty());
     spinnerPane.toFront();
-
-    /*
-    while (QRtask.isDone()) {
-      // spinnerPane.toBack();
-      // spinnerPane.setVisible(false);
-      String home = System.getProperty("user.home");
-      String inputfile = home + "/Downloads/" + "qr.png";
-      BufferedImage img = null;
-      try {
-        img = ImageIO.read(new File(inputfile));
-      } catch (IOException e) {
-      }
-      Image image = SwingFXUtils.toFXImage(img, null);
-      QRView.setImage(image);
-      QRView.setScaleX(2);
-      QRView.setScaleY(2);
-      QRView.setTranslateY(250);
-      QRView.toFront();
-    }
-
-     */
   }
 
   /**
@@ -193,33 +185,74 @@ public class EmailPageController implements Initializable {
    * @throws UnirestException
    */
   public static void prepareQR() throws IOException, UnirestException {
-    // TODO reimplement regexboi checker for +1 area codes
-    // if (RegexBoi.checkPhoneNum(phoneString)) {
-
     LinkedList<String> albumInfo = ImgurFunctionality.createImgurAlbum();
     String albumID = albumInfo.get(0);
     String albumDeleteHash = albumInfo.get(1);
+    Graph graph = GRAPH;
+    System.out.println("test");
+    if (graph.getPath() == null) {
+      System.out.println("If null statement - success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      System.out.println("Image 1 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+      System.out.println("Image 2 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
+      System.out.println("Image 3 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
+      System.out.println("Image 4 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
+      System.out.println("Image 5 - Success");
+      ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+      System.out.println("All images are uploaded!");
 
-    ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
-    ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+    } else {
+      String pathFloors = "";
+      for (Node n : graph.getPath()) {
+        if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+      }
 
+      String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
+      String lastFloor = pathFloors.substring(pathFloors.length() - 1);
+
+      System.out.println(pathFloors + "\n");
+      System.out.println(firstLast);
+
+      // need this statement to make everything work
+      if (true) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+      }
+      if (firstLast.contains("G")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
+        if (!lastFloor.contains("1")) {
+          ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+        }
+      }
+
+      if (firstLast.contains("1")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("2")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("3")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("4")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
+      }
+
+      if (firstLast.contains("5")) {
+        ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
+      }
+    }
     String albumLink = "https://imgur.com/a/" + albumID;
+    System.out.println(albumLink);
 
     SharingFunctionality.createQR(albumLink);
-
-    // submissionPopup();
-
-    // }
-    /*else {
-      errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
-      System.out.print(errorMsg);
-      invalidPopup();
-    }*/
   }
 
   /**
@@ -298,13 +331,6 @@ public class EmailPageController implements Initializable {
           submissionDialog.close();
           stackPane.toBack();
           SwitchScene.goToParent("/Views/MainPage.fxml");
-          /*AnchorPane root = null;
-          try {
-            root = FXMLLoader.load(getClass().getResource("/Views/MainPage.fxml"));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-          Opp.getPrimaryStage().getScene().setRoot(root);*/
         });
     submissionDialog.show();
   }
@@ -351,7 +377,6 @@ public class EmailPageController implements Initializable {
   }
 
   public void QRCodeGeneration(ActionEvent actionEvent) throws IOException, UnirestException {
-    prepareQR();
     spinnerPane.setVisible(false);
     String home = System.getProperty("user.home");
     String inputfile = home + "/Downloads/" + "qr.png";

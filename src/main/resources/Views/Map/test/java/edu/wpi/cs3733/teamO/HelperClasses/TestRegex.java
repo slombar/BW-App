@@ -30,6 +30,7 @@ public class TestRegex {
     assertFalse(RegexBoi.checkPhoneNum("1234567"));
     assertFalse(RegexBoi.checkPhoneNum("123-4567"));
     assertFalse(RegexBoi.checkPhoneNum("123456g890"));
+    //LMFAO pogg - sadie
     assertFalse(RegexBoi.checkPhoneNum("pogg"));
   }
 }

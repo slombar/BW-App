@@ -491,4 +491,22 @@ public class NodesAndEdges {
     }
     return edgeList;
   }
+
+  public static String getNodeLongName(String id) throws SQLException {
+
+    PreparedStatement pstmt = null;
+    pstmt =
+        DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Nodes WHERE nodeID = ?");
+    pstmt.setString(1, id);
+    ResultSet rset = pstmt.executeQuery();
+
+    // add properties to the node
+    rset.next();
+    String lName = rset.getString("LONGNAME");
+
+    rset.close();
+    pstmt.close();
+
+    return lName;
+  }
 }

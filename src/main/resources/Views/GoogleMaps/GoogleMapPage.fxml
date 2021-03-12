@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.GoogleMaps.GoogleMapPageController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="15.0" />
+      <ColumnConstraints percentWidth="55.0" />
+      <ColumnConstraints hgrow="ALWAYS" percentWidth="35.0" />
+      <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="80.0" vgrow="ALWAYS" />
+   </rowConstraints>
+   <WebView fx:id="mapView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefViewportWidth="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <content>
+         <VBox fx:id="dirVbox">
+            <padding>
+               <Insets left="10.0" right="10.0" />
+            </padding></VBox>
+      </content>
+   </ScrollPane>
+   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="3" GridPane.vgrow="ALWAYS">
+      <JFXButton fx:id="shareBtn" alignment="CENTER" contentDisplay="CENTER" onAction="#shareGoogleRoute" prefHeight="66.0" prefWidth="143.0" style="-fx-background-color: #f2f2f2;" text="Share">
+         <font>
+            <Font name="Leelawadee UI" size="25.0" />
+         </font>
+         <VBox.margin>
+            <Insets right="10.0" top="10.0" />
+         </VBox.margin>
+      </JFXButton>
+   </VBox>
+   <VBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" spacing="15.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Label onMouseClicked="#goToMainMenu" text="Brigham &amp; Women's Faulkner Hospital" textFill="WHITE">
+         <font>
+            <Font name="Leelawadee UI Bold" size="36.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <VBox.margin>
+            <Insets left="100.0" right="100.0" />
+         </VBox.margin>
+         <JFXTextField fx:id="fromBox" onKeyReleased="#checkEnter" promptText="Enter Current Location" style="-fx-background-color: F2F2F2;" GridPane.rowIndex="1">
+            <GridPane.margin>
+               <Insets />
+            </GridPane.margin>
+         </JFXTextField>
+         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
+            <font>
+               <Font name="Leelawadee UI" size="18.0" />
+            </font>
+         </Text>
+         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="To:" GridPane.columnIndex="2">
+            <font>
+               <Font name="Leelawadee UI" size="18.0" />
+            </font>
+         </Text>
+         <JFXTextField fx:id="toBox" onKeyReleased="#checkEnter" style="-fx-background-color: F2F2F2;" text="Brigham And Womans Faulkner Hospital" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         <StackPane fx:id="popupPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      </GridPane>
+   </VBox>
+   <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="402.0" prefWidth="123.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+   <JFXHamburger fx:id="hamburger" style="-fx-background-color: #3a5369;" GridPane.vgrow="ALWAYS" />
+</GridPane>

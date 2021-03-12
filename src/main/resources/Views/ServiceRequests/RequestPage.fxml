@@ -52,7 +52,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="250.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="computerBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToComputerReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Computer Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="computerBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToComputerReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Computer Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -66,7 +66,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="floralBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToFloralReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Floral Delivery" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="floralBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToFloralReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Floral Delivery" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -80,7 +80,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="languageBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToLanguageReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Language Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="languageBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToLanguageReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Language Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -94,7 +94,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="laundryBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToLaundryReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Laundry Service" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="laundryBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToLaundryReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Laundry Service" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -108,7 +108,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="giftBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToGiftReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Gift Delivery" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="giftBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToGiftReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Gift Delivery" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -122,7 +122,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="transportBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToTransportReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Internal Transport" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="transportBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToTransportReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Internal Transport" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -136,7 +136,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="maintenanceBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToMaintenance" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Maintenance" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="maintenanceBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToMaintenance" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Maintenance" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -150,7 +150,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="medicineBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToMedicineReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Medicine Delivery" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="medicineBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToMedicineReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Medicine Delivery" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -164,21 +164,21 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="entryBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToCOVIDSurveyReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Entry Request" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="entryBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToCOVIDSurveyReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Entry Request" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <graphic>
                         <ImageView fitHeight="125.0" fitWidth="200.0" onMouseClicked="#goToLaundryReq" pickOnBounds="true" preserveRatio="true" translateY="-10.0">
                            <image>
-                              <Image url="@../../Icons/laundryIconWhite.png" />
+                              <Image url="@../../Icons/hospitalIconWhite.png" />
                            </image></ImageView>
                      </graphic>
                      <font>
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="securityBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToSecurityReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Security" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="securityBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToSecurityReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Security" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -192,7 +192,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="sanitationBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" onAction="#goToSanitationReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Sanitation Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="sanitationBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" onAction="#goToSanitationReq" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="Sanitation Service" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -206,7 +206,7 @@
                         <Font name="Leelawadee UI Bold" size="22.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="moreBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="200.0" minWidth="200.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="More coming soon..." textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="moreBtn" contentDisplay="TOP" maxHeight="300.0" maxWidth="300.0" minHeight="160.0" minWidth="160.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #3a5369ff;" text="More coming soon..." textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>

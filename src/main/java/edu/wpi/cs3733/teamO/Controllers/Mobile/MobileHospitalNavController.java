@@ -28,7 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -42,6 +41,7 @@ public class MobileHospitalNavController implements Initializable {
   @FXML private JFXNodesList directionsList;
   @FXML private JFXNodesList buttonsList;
 
+  // everything for pathfinding and drawing the hospital map
   private GraphicsContext gc;
   private double percImageView = 1.0;
   private Rectangle2D currentViewport;
@@ -94,10 +94,9 @@ public class MobileHospitalNavController implements Initializable {
   private final JFXButton startBtn = new JFXButton("Start Navigation", startIconView);
   private final JFXButton textBtn = new JFXButton("Text Directions", textIconView);
 
+  // components for location textfields
   JFXTextField startLoc = new JFXTextField();
   JFXTextField endLoc = new JFXTextField();
-
-  HBox hbox = new HBox();
   VBox locBox = new VBox();
 
   @Override
@@ -116,7 +115,7 @@ public class MobileHospitalNavController implements Initializable {
     textIconView.setFitWidth(25);
     textIconView.setFitHeight(25);
 
-    // set prompt text
+    // set up for location selection
     ArrayList<String> longNameNodes = Autocomplete.autoNodeData("longName");
     Autocomplete.autoComplete(longNameNodes, startLoc);
     Autocomplete.autoComplete(longNameNodes, endLoc);
@@ -139,7 +138,7 @@ public class MobileHospitalNavController implements Initializable {
     startBtn.getStyleClass().addAll("nav-buttons");
     locBox.getStyleClass().addAll("nav-text");
 
-    // add them to be in an animated node list
+    // add buttons to bottom right animated node list (additional buttons)
     buttonsList.addAnimatedNode(addBtn);
     buttonsList.addAnimatedNode(textBtn);
     buttonsList.addAnimatedNode(parkingBtn);
@@ -148,14 +147,17 @@ public class MobileHospitalNavController implements Initializable {
     buttonsList.setRotate(180);
     buttonsList.setAlignment(Pos.CENTER_RIGHT);
 
+    // add buttons to top left animated node list (directions)
     directionsList.addAnimatedNode(directionsBtn);
     directionsList.addAnimatedNode(locBox);
     directionsList.addAnimatedNode(startBtn);
     directionsList.setSpacing(10);
     directionsList.setRotate(0);
     directionsList.setAlignment(Pos.CENTER_RIGHT);
-    buttonFunction();
 
+    buttonFunction(); // adds on action functionality to buttons
+
+    // initializing everything for pathfinding and drawing the hospital map
     floorSelectionBtn.setItems(listOfFloors);
     floorSelectionBtn.setValue("Campus");
 
@@ -181,12 +183,11 @@ public class MobileHospitalNavController implements Initializable {
   private void buttonFunction() {
     parkingBtn.setOnAction(
         actionEvent -> {
-          // TODO: save parking spot
+          SwitchScene.goToParentMobile("/Views/MobileApp/SaveParking.fxml", actionEvent);
         });
 
     textBtn.setOnAction(
         actionEvent -> {
-          // page of just text directions
           MainScreenController.isBackGoogle = false;
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
         });
@@ -271,7 +272,7 @@ public class MobileHospitalNavController implements Initializable {
             selectingStart = false;
             selectingEnd = false;
           } else {
-            PopupMaker.invalidPathfind(stackPane);
+            PopupMaker.invalidLocationMobile(stackPane);
           }
 
           draw();
@@ -313,65 +314,9 @@ public class MobileHospitalNavController implements Initializable {
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
       draw();
-
-      /**
-       * If the middle mouse is pressed, we want the node to be dragged with the user's cursor. Once
-       * it is pressed up, we will drop the node in that location
-       */
-    } else if (mouseEvent.getButton().equals(MouseButton.MIDDLE)) {
-
-      Node draggedNode =
-          GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), false, imageView);
-
-      Circle draggedCircle;
     }
 
     System.out.println("mapCanvas click");
-  }
-  /**
-   * gets the xy coordinates of the mouse and scales it to the image
-   *
-   * @param floor
-   * @param mouseEvent
-   * @return
-   */
-  private Node getRealXY(String floor, MouseEvent mouseEvent) {
-    // TODO: don't need this -- want to use other methods below since those accommodate zooming
-    Node n = new Node();
-    double imgX = 0;
-    double imgY = 0;
-    switch (floor) {
-      case "G":
-        imgX = campusMap.getWidth();
-        imgY = campusMap.getHeight();
-        break;
-      case "1":
-        imgX = floor1Map.getWidth();
-        imgY = floor1Map.getHeight();
-        break;
-      case "2":
-        imgX = floor2Map.getWidth();
-        imgY = floor2Map.getHeight();
-        break;
-      case "3":
-        imgX = floor3Map.getWidth();
-        imgY = floor3Map.getHeight();
-        break;
-      case "4":
-        imgX = floor4Map.getWidth();
-        imgY = floor4Map.getHeight();
-        break;
-      case "5":
-        imgX = floor5Map.getWidth();
-        imgY = floor5Map.getHeight();
-        break;
-    }
-
-    double nPercX = mouseEvent.getX() / gc.getCanvas().getWidth();
-    double nPercY = mouseEvent.getY() / gc.getCanvas().getHeight();
-    n.setXCoord((int) (nPercX * imgX));
-    n.setYCoord((int) (nPercY * imgY));
-    return n;
   }
 
   public void onCanvasScroll(ScrollEvent scrollEvent) {
@@ -380,7 +325,9 @@ public class MobileHospitalNavController implements Initializable {
     if (Math.abs(scrollDeltaY) > 10) {
       // if positive, then scrolling up (zooming in)
       if (scrollDeltaY > 0) {
-        if (percImageView <= 0.4) {
+        // selina - this is where you change how far you can zoom in (i lowered it but just letting
+        // you know)
+        if (percImageView <= 0.1) {
           return;
         } else {
           percImageView -= 0.05;
@@ -402,14 +349,21 @@ public class MobileHospitalNavController implements Initializable {
     double vX = percImageView * imageView.getImage().getWidth();
     double vY = percImageView * imageView.getImage().getHeight();
     // zoom option A:
-    currentViewport =
-        new Rectangle2D(
-            (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
-                - vX / 2,
-            (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
-                - vY / 2,
-            vX,
-            vY);
+    /*currentViewport =
+    new Rectangle2D(
+        (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
+            - vX / 2,
+        (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
+            - vY / 2,
+        vX,
+        vY);*/
+    // zoom option B:
+    double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
+    double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
+    currentViewport = new Rectangle2D(a - (percCanvasA * vX), b - (percCanvasB * vY), vX, vY);
+    // i felt like option B actually feels a lot better with the much smaller screen for the mobile
+    // version
+    // but obviously it can be changed back to option A if wanted
     imageView.setViewport(currentViewport);
     draw();
   }
@@ -432,13 +386,18 @@ public class MobileHospitalNavController implements Initializable {
 
     if (!displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView);
+      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, true);
     } else if (displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, true);
     }
   }
 
+  /**
+   * clear button to clear path
+   *
+   * @param actionEvent
+   */
   public void clearPath(ActionEvent actionEvent) {
     setNavFalse();
 
