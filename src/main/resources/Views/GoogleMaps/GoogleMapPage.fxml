@@ -83,7 +83,7 @@
                <Font name="Leelawadee UI" size="18.0" />
             </font>
          </Text>
-         <JFXTextField fx:id="toBox" onKeyReleased="#checkEnter" style="-fx-background-color: F2F2F2;" text="Brigham And Womans Hospital" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         <JFXTextField fx:id="toBox" onKeyReleased="#checkEnter" style="-fx-background-color: F2F2F2;" text="Brigham And Womans Faulkner Hospital" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          <StackPane fx:id="popupPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </GridPane>
    </VBox>
