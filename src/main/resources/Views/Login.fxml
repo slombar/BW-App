@@ -84,14 +84,6 @@
    <top>
       <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369ff;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="liveTime" text="Label" textFill="WHITE">
-               <VBox.margin>
-                  <Insets right="10.0" top="10.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Leelawadee UI" size="15.0" />
-               </font>
-            </Label>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
                   <ImageView fitHeight="120.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -120,6 +112,15 @@
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
+            <JFXButton alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#goToMobileApp" prefHeight="86.0" prefWidth="110.0">
+               <graphic>
+                  <ImageView fitHeight="79.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/thermometerWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
             <JFXButton alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#goToMobileApp" prefHeight="86.0" prefWidth="110.0">
                <graphic>
                   <ImageView fitHeight="79.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
