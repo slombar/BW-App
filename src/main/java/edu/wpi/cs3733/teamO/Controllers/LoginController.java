@@ -2,7 +2,6 @@ package edu.wpi.cs3733.teamO.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
-import edu.wpi.cs3733.teamO.HelperClasses.AddComponents;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,7 +32,7 @@ public class LoginController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     loginPane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
     loginPane.toBack();
-    AddComponents.dateAndTime(liveTime);
+    //    AddComponents.dateAndTime(liveTime);
   }
 
   /**
