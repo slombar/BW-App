@@ -3,18 +3,14 @@ package edu.wpi.cs3733.teamO.Controllers;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Opp;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 // TODO can we make all these type hamburgers into one and use database.getEmployee etc in the
@@ -54,12 +50,7 @@ public class SideMenuStaffController implements Initializable {
   public void toSettings(ActionEvent actionEvent) {}
 
   public void goToLogin(ActionEvent actionEvent) {
-    try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
-      Opp.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    SwitchScene.goToParent("/Views/Login.fxml");
   }
 
   public void toMain(ActionEvent actionEvent) {
