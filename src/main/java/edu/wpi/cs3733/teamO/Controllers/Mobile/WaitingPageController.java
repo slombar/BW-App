@@ -25,8 +25,8 @@ public class WaitingPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hospitalNavBtn.setDisable(true);
     entryStatusBtn.setDisable(false);
-
-    Task<Void> QRtask =
+/*
+    Task<Void> EntryTask =
             new Task<Void>() {
 
               @Override
@@ -40,8 +40,9 @@ public class WaitingPageController implements Initializable {
     ProgressIndicator progress = new ProgressIndicator();
     spinnerPane.getChildren().add(progress);
     progress.setProgress(1.0);
-    progress.progressProperty().bind(QRtask.progressProperty());
+    progress.progressProperty().bind(EntryTask.progressProperty());
     spinnerPane.toFront();
+ */
     // TODO: need to use the following popups
     // enable button once employee edits form and grab location
 
