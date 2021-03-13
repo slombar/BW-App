@@ -112,6 +112,7 @@ public class LoginController implements Initializable {
     SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");
   }
 
-    public void goToTemp(ActionEvent actionEvent) {
-    }
+  public void goToTemp(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ROBOT/TempReading.fxml");
+  }
 }
