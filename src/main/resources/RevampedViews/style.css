@@ -1,6 +1,12 @@
 .buttons{
-    -fx-background-color: #696969;
+    /*-fx-background-color: #696969;*/
+    -fx-background-color: rgba(255, 255, 255, .95);
     -fx-background-radius: 4em;
     -fx-pref-width: 4em;
     -fx-pref-height: 4em;
+}
+
+.directions-box{
+    -fx-background-color: rgba(255, 255, 255, .95);
+    -fx-background-radius: 2em;
 }
