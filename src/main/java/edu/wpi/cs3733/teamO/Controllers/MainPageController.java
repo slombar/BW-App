@@ -54,6 +54,11 @@ public class MainPageController implements Initializable {
           if (drawer.isOpened()) drawer.close(); // this will close slide pane
           else drawer.open(); // this will open slide pane
         });
+
+    navBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    covidBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    googleNavButton.setButtonType(JFXButton.ButtonType.RAISED);
+    parkingBtn.setButtonType(JFXButton.ButtonType.RAISED);
     hoverAllBtn();
   }
 

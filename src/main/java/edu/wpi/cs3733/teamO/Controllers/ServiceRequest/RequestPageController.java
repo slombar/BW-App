@@ -66,6 +66,19 @@ public class RequestPageController implements Initializable {
             drawer.open(); // this will open slide pane
           }
         });
+
+    computerBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    floralBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    languageBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    laundryBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    giftBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    transportBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    maintenanceBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    medicineBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    entryBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    securityBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    sanitationBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    moreBtn.setButtonType(JFXButton.ButtonType.RAISED);
     hoverAllBtn();
   }
 
