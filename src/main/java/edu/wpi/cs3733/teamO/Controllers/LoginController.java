@@ -21,8 +21,8 @@ import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
 
+  @FXML private JFXButton guestBtn;
   @FXML Label liveTime;
-  @FXML private JFXButton loginDodge;
   @FXML private JFXButton exitBtn;
   @FXML private Circle staffBtn;
   @FXML private Circle patientBtn;
@@ -40,6 +40,7 @@ public class LoginController implements Initializable {
     staffBtn.setEffect(dropShadow);
     patientBtn.setEffect(dropShadow);
     adminBtn.setEffect(dropShadow);
+    guestBtn.setButtonType(JFXButton.ButtonType.RAISED);
     //    AddComponents.dateAndTime(liveTime);
   }
 
