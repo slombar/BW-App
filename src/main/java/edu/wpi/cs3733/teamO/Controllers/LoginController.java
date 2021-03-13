@@ -51,11 +51,11 @@ public class LoginController implements Initializable {
    * @param mouseEvent
    */
   public void goToLogin(MouseEvent mouseEvent) {
-    SwitchScene.goToParent("/Views/PatientSignInPopup.fxml");
+    SwitchScene.goToParent("/Views/SignInPage.fxml");
   }
 
   public void goToStaffLogin(MouseEvent mouseEvent) {
-    SwitchScene.goToParent("/Views/StaffSignInPopup.fxml");
+    SwitchScene.goToParent("/Views/SignInPage.fxml");
   }
 
   /**

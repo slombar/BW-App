@@ -35,7 +35,7 @@ public class CovidSurveyController {
    * @param actionEvent
    */
   public void goToLoginMenu(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/Login.fxml");
+    SwitchScene.goToParent("/Views/SignInPage.fxml");
   }
 
   /**

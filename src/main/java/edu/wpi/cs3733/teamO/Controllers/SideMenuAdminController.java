@@ -63,7 +63,7 @@ public class SideMenuAdminController implements Initializable {
    * @param actionEvent
    */
   public void goToLogin(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/Login.fxml");
+    SwitchScene.goToParent("/Views/SignInPage.fxml");
   }
 
   /**

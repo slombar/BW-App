@@ -45,7 +45,7 @@ public class PatientSignInPopupController {
    * @param actionEvent
    */
   public void close(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/Login.fxml");
+    SwitchScene.goToParent("/Views/SignInPage.fxml");
   }
 
   /**
