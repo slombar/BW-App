@@ -30,8 +30,7 @@ public class Opp extends Application {
     Opp.primaryStage = ps;
 
     try {
-      AnchorPane root =
-          FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/Navigation.fxml"));
+      AnchorPane root = FXMLLoader.load(getClass().getResource("/Views/AboutPage.fxml"));
       Scene scene = new Scene(root);
       Image icon =
           new Image(getClass().getResourceAsStream("/Brigham_and_Womens_Hospital_logo.png"));
