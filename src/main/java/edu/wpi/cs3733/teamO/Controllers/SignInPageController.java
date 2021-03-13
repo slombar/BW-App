@@ -53,7 +53,7 @@ public class SignInPageController {
   }
 
   public void createAccount(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/CreatePatientAccount.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/CreatePatientAccount.fxml");
   }
 
   public void forgotPassword(ActionEvent actionEvent) {

@@ -34,7 +34,7 @@ public class CreateAccountController {
         try {
           UserHandling.createAccount(
               user.getText(), pass.getText(), email.getText(), fName.getText(), lName.getText());
-          SwitchScene.goToParent("/Views/SignInPage.fxml");
+          SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
 
         } catch (SQLException throwables) {
           PopupMaker.usernameAlreadyInUse(popupPane);
@@ -54,7 +54,7 @@ public class CreateAccountController {
    * @param actionEvent
    */
   public void close(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/SignInPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 
   /**

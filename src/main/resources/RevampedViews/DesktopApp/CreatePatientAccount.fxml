@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
@@ -15,15 +14,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SignInPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.CreatePatientAccountController">
    <children>
       <ImageView fitHeight="1500.0" fitWidth="2200.0" layoutX="-100.0" layoutY="-150.0" preserveRatio="true">
          <image>
-            <Image url="@../highResBWBackground.jpg" />
+            <Image url="@../../highResBWBackground.jpg" />
          </image>
          <effect>
             <Lighting light="$null" specularConstant="1.0" specularExponent="22.79" surfaceScale="0.0">
@@ -51,26 +49,27 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="-Infinity" percentHeight="15.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="-Infinity" percentHeight="15.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="-Infinity" percentHeight="15.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="39.79998779296875" minHeight="33.4000244140625" percentHeight="10.0" prefHeight="33.4000244140625" vgrow="SOMETIMES" />
-                  <RowConstraints percentHeight="20.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="39.79998779296875" minHeight="33.4000244140625" percentHeight="10.0" prefHeight="33.4000244140625" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="15.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="78.5999755859375" minHeight="10.0" percentHeight="5.0" prefHeight="19.4000244140625" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="82.62858581542969">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create Account" wrappingWidth="205.96192169189453">
                            <font>
                               <Font name="Leelawadee UI" size="30.0" />
                            </font>
                         </Text>
                         <ImageView fitHeight="30.0" fitWidth="100.0" preserveRatio="true">
                            <image>
-                              <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
+                              <Image url="@../../Brigham_and_Womens_Hospital_logo.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -78,58 +77,54 @@
                         <Insets />
                      </GridPane.margin>
                   </HBox>
-                  <JFXTextField fx:id="user" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="first" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="First Name" GridPane.rowIndex="1">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXPasswordField fx:id="pass" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <JFXTextField fx:id="last" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Last Name" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="email" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Email" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="user" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="pass" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXButton onAction="#signIn" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                  <JFXPasswordField fx:id="confirmPass" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Confirm Password" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <JFXButton onAction="#createAccount" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Create Account" textFill="#c5d8e8" GridPane.rowIndex="8">
                      <font>
                         <Font name="Leelawadee UI Bold" size="18.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets top="10.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <Hyperlink contentDisplay="CENTER" onAction="#createAccount" text="Create an account" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Leelawadee UI" size="18.0" />
-                     </font>
-                  </Hyperlink>
-                  <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#forgotPassword" text="Forgot Password?" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                     <font>
-                        <Font name="Leelawadee UI" size="18.0" />
-                     </font>
-                     <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
-                  </Hyperlink>
-                  <JFXButton onAction="#close" prefHeight="37.0" prefWidth="83.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+                  </JFXButton>
+                  <JFXButton onAction="#close" prefHeight="37.0" prefWidth="83.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <Text fill="#000000cd" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                  <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.rowIndex="7">
                      <font>
-                        <Font name="Leelawadee UI Bold" size="16.0" />
+                        <Font name="Leelawadee UI" size="16.0" />
                      </font>
                   </Text>
-                  <Line endX="35.0" startX="-90.0" stroke="#000000cc" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-                  <Line endX="35.0" layoutX="126.0" layoutY="325.0" startX="-90.0" stroke="#000000cc" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New to Brigham And Women's Hospital?" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BASELINE">
-                     <font>
-                        <Font name="Leelawadee UI" size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets top="10.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.rowIndex="3" />
                </children>
                <padding>
                   <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
@@ -145,53 +140,19 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="62.0" nodeOrientation="RIGHT_TO_LEFT" preserveRatio="true">
                      <image>
-                        <Image url="@../Icons/informationIcon.png" />
+                        <Image url="@../../Icons/informationIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
             <ImageView fitWidth="700.0" preserveRatio="true" GridPane.columnSpan="2">
                <image>
-                  <Image url="@../bh_bwh_pms_293.png" />
+                  <Image url="@../../bh_bwh_pms_293.png" />
                </image>
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </ImageView>
-            <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <children>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#exit" prefHeight="89.0" prefWidth="110.0" text=" " textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI" size="32.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Icons/powerIconWhite.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#goToTemp" prefHeight="86.0" prefWidth="52.0">
-                     <graphic>
-                        <ImageView fitHeight="79.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Icons/thermometerWhite.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#goToMobileApp" prefHeight="86.0" prefWidth="110.0">
-                     <graphic>
-                        <ImageView fitHeight="79.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Icons/mobileIconWhite.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </HBox>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
