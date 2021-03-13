@@ -191,6 +191,9 @@ public class NavController implements Initializable {
     currentViewport = new Rectangle2D(0, 0, campusMap.getWidth(), campusMap.getHeight());
     imageView.setViewport(currentViewport);
     //    resizableWindow();
+    // centers expanded image of ground level
+    imageView.setTranslateX(0);
+    imageView.setTranslateY(-250);
 
     GRAPH.setGraphicsContext(gc);
 
@@ -837,6 +840,13 @@ public class NavController implements Initializable {
   public void setMapViewDraw(String floorSelected) {
     if (sFloor.equals(floorSelected)) {
       return;
+    }
+    if (floorSelected.equals("G")) {
+      imageView.setTranslateX(0);
+      imageView.setTranslateY(-250);
+    } else {
+      imageView.setTranslateX(0);
+      imageView.setTranslateY(-50);
     }
     sFloor = floorSelected;
     floorSelectionB.setText(floorSelected);
