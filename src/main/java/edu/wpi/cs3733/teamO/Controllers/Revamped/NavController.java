@@ -9,10 +9,12 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -125,11 +127,12 @@ public class NavController implements Initializable {
     return anchorPane;
   }
 
+  // creating context menu for add/edit/delete functions
   ContextMenu contextMenu = new ContextMenu();
-  // create menuitems
-  MenuItem menuItem1 = new MenuItem("edit");
-  MenuItem menuItem2 = new MenuItem("delete");
-  MenuItem menuItem3 = new MenuItem("add edge");
+  // create menu items
+  MenuItem editNodeMenu = new MenuItem("edit");
+  MenuItem deleteNodeMenu = new MenuItem("delete");
+  MenuItem addEdgeMenu = new MenuItem("add edge");
 
   /**
    * Create buttons for: directions editing help floors
@@ -212,10 +215,10 @@ public class NavController implements Initializable {
     generalButtons();
     setStyles();
 
-    // add menu items to menu
-    contextMenu.getItems().add(menuItem1);
-    contextMenu.getItems().add(menuItem2);
-    contextMenu.getItems().add(menuItem3);
+    // add menu items to context menu
+    contextMenu.getItems().add(editNodeMenu);
+    contextMenu.getItems().add(deleteNodeMenu);
+    contextMenu.getItems().add(addEdgeMenu);
 
     selectingStart = true;
     selectingEnd = false;
@@ -503,12 +506,42 @@ public class NavController implements Initializable {
           f -> {
             contextMenu.show(mapCanvas, f.getScreenX(), f.getScreenY());
           });
+      contextMenuOnActions(selectedNode);
 
     } else if (true) {
       // TODO add dragging functionality
     }
 
     draw();
+  }
+
+  public void contextMenuOnActions(Node selectedNode) {
+    // TODO: add functionality to these
+    editNodeMenu.setOnAction(
+        action -> {
+          System.out.println("editing node");
+        });
+
+    deleteNodeMenu.setOnAction(
+        action -> {
+          //deleting node
+          try {
+            deleteNode(selectedNode);
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        });
+
+    addEdgeMenu.setOnAction(
+        action -> {
+          System.out.println("adding edge");
+        });
+  }
+
+  private void deleteNode(Node selectedNode) throws SQLException {
+      GRAPH.deleteNode(selectedNode.getID());
+      selectedNode = null;
+      draw();
   }
 
   /**
