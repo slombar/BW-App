@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -126,6 +125,12 @@ public class NavController implements Initializable {
     return anchorPane;
   }
 
+  ContextMenu contextMenu = new ContextMenu();
+  // create menuitems
+  MenuItem menuItem1 = new MenuItem("edit");
+  MenuItem menuItem2 = new MenuItem("delete");
+  MenuItem menuItem3 = new MenuItem("add edge");
+
   /**
    * Create buttons for: directions editing help floors
    *
@@ -206,6 +211,11 @@ public class NavController implements Initializable {
     // set onaction events for all buttons
     generalButtons();
     setStyles();
+
+    // add menu items to menu
+    contextMenu.getItems().add(menuItem1);
+    contextMenu.getItems().add(menuItem2);
+    contextMenu.getItems().add(menuItem3);
 
     selectingStart = true;
     selectingEnd = false;
@@ -482,35 +492,17 @@ public class NavController implements Initializable {
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
 
-      ContextMenu contextMenu = new ContextMenu();
-      EventHandler eventH;
-
-      // create menuitems
-      MenuItem menuItem1 = new MenuItem("edit");
-      MenuItem menuItem2 = new MenuItem("delete");
-      MenuItem menuItem3 = new MenuItem("add edge");
-
-      // add menu items to menu
-      contextMenu.getItems().add(menuItem1);
-      contextMenu.getItems().add(menuItem2);
-      contextMenu.getItems().add(menuItem3);
-
       System.out.println("You right clicked!");
       selectedNode = clickedNode;
 
       contextMenu.setAutoHide(true);
-
       if (contextMenu.isShowing()) {
-        mapCanvas.setOnContextMenuRequested(
-            f -> {
-              contextMenu.show(mapCanvas, f.getScreenX(), f.getScreenY());
-            });
-      } else {
-        mapCanvas.setOnContextMenuRequested(
-            f -> {
-              contextMenu.hide();
-            });
+        contextMenu.hide();
       }
+      mapCanvas.setOnContextMenuRequested(
+          f -> {
+            contextMenu.show(mapCanvas, f.getScreenX(), f.getScreenY());
+          });
 
     } else if (true) {
       // TODO add dragging functionality
