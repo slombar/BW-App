@@ -6,6 +6,7 @@ import edu.wpi.cs3733.teamO.Model.Edge;
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.SQLException;
 import java.util.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polyline;
 
 public class Graph {
 
@@ -332,12 +334,6 @@ public class Graph {
     stringEdgeHashtable.remove(eID);
   }
 
-  // ------------------------------
-  // ------------------------------
-  // COMMENTING OUT AND REWRITING DRAWING METHODS...
-  // ------------------------------
-  // ------------------------------
-
   /**
    * Draws all nodes for the given floor + selected node as Color.GREEN, or draws both right-clicked
    * nodes Color.BLUE + a blue edge (to be added/deleted)
@@ -346,7 +342,6 @@ public class Graph {
    */
   /*public void drawAllNodes(
   String floor, Node selectedNodeA, Node selectedNodeB, boolean selectingEditNode) */
-
   public void drawAllNodes(
       String floor,
       Node selectedNodeA,
@@ -407,7 +402,6 @@ public class Graph {
    * @param endNode Node currently set as the end
    */
   /*public void drawVisibleNodes(String floor, Node startNode, Node endNode) */
-
   public void drawVisibleNodes(
       String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     ArrayList<Node> floorNodes = new ArrayList<>();
@@ -444,7 +438,6 @@ public class Graph {
    * @param floor "G", "1", "2", "3", "4", or "5"
    */
   /*public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) */
-
   public void drawAllEdges(
       String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView, boolean isMobile) {
     gc.setStroke(Color.BLACK);
@@ -511,6 +504,28 @@ public class Graph {
     if (endNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, isMobile);
     }
+  }
+
+  public Polyline getPathLine(String floor, ImageView imageView) {
+    Polyline line = new Polyline();
+    double x, y;
+    for (Node n : path) {
+      x = getSceneX(imageView, n.getXCoord());
+      y = getSceneY(imageView, n.getYCoord());
+      // TODO: filter out / ignore(??) points outside canvas
+      line.getPoints().addAll(new Double[] {x, y});
+    }
+    return line;
+  }
+
+  private double getSceneX(ImageView imageView, double imgX) {
+    double imgPercX = imgX / imageView.getImage().getWidth();
+    return ((imgPercX * gc.getCanvas().getWidth()) + gc.getCanvas().getTranslateX());
+  }
+
+  private double getSceneY(ImageView imageView, double imgY) {
+    double imgPercY = imgY / imageView.getImage().getHeight();
+    return ((imgPercY * gc.getCanvas().getHeight()) + gc.getCanvas().getTranslateY());
   }
 
   /**
