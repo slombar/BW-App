@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.sql.SQLException;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.input.KeyCode;
@@ -32,11 +31,11 @@ public class SignInPageController {
 
     if (username.equals("")) {
       user.setStyle("-fx-border-color: red");
-      // TODO explain error
+      errorText.setText("Username cannot be blank\n");
     }
     if (password.equals("")) {
       pass.setStyle("-fx-border-color: red");
-      // TODO explain error
+      errorText.setText(errorText.getText() + "Password cannot be blank");
     } else {
       try {
         UserHandling.login(username, password);
@@ -48,7 +47,7 @@ public class SignInPageController {
       } catch (SQLException e) {
         user.setStyle("-fx-border-color: red");
         pass.setStyle("-fx-border-color: red");
-        // TODO explain error
+        errorText.setText("Incorrect username or password");
       }
     }
   }
@@ -69,8 +68,7 @@ public class SignInPageController {
     Platform.exit();
   }
 
-  public void goToTemp(ActionEvent actionEvent) {
-  }
+  public void goToTemp(ActionEvent actionEvent) {}
 
   public void goToMobileApp(ActionEvent actionEvent) {
     SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");
