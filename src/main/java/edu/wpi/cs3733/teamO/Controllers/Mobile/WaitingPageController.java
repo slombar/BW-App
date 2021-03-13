@@ -17,6 +17,7 @@ public class WaitingPageController implements Initializable {
   @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
   @FXML private StackPane spinnerPane;
+  public static Boolean isMainEntrance = null;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,8 +75,10 @@ public class WaitingPageController implements Initializable {
       // popup to say you can now continue
       if (location.toLowerCase().contains("covid")) {
         PopupMaker.covidEntranceNotif(popupNotification);
+        isMainEntrance = false;
       } else {
         PopupMaker.mainEntranceNotif(popupNotification);
+        isMainEntrance = true;
       }
       // TODO grab which entrance
     }
@@ -88,8 +91,10 @@ public class WaitingPageController implements Initializable {
       // popup to say you can now continue
       if (location.toLowerCase().contains("covid")) {
         PopupMaker.covidEntranceNotif(popupNotification);
+        isMainEntrance = false;
       } else {
         PopupMaker.mainEntranceNotif(popupNotification);
+        isMainEntrance = true;
       }
       // TODO grab which entrance
     }

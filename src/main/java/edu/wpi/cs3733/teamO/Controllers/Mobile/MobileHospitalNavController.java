@@ -99,6 +99,8 @@ public class MobileHospitalNavController implements Initializable {
   JFXTextField endLoc = new JFXTextField();
   VBox locBox = new VBox();
 
+  public boolean isFirstStart = false;
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // set the icons sizes
@@ -175,8 +177,17 @@ public class MobileHospitalNavController implements Initializable {
 
     selectingStart = false;
     selectingEnd = true;
-    doPathfind();
+    pathfindOnActionBtn();
     clearBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    if (WaitingPageController.isMainEntrance) {
+      endLoc.setText("Exit 3 Atrium Main Entrance");
+      endNode = GRAPH.getNodeByLongName(endLoc.getText());
+      isFirstStart = true;
+    } else {
+      endLoc.setText("Exit 2 Emergency Entrance");
+      endNode = GRAPH.getNodeByLongName(endLoc.getText());
+      isFirstStart = true;
+    }
   }
 
   /** adding on action functionality to the buttons in the JFXNodeslist */
@@ -255,31 +266,35 @@ public class MobileHospitalNavController implements Initializable {
 
   /** resets path and creates a new path depending on start and end nodes */
   public void doPathfind() {
+    if (startNode != null && endNode != null) {
+      GRAPH.resetPath();
+      GRAPH.findPath("A*", startNode, endNode);
+      displayingRoute = true;
+      selectingStart = false;
+      selectingEnd = false;
+    } else if (!startLoc.getText().isEmpty() && !endLoc.getText().isEmpty()) {
+      startNode = GRAPH.getNodeByLongName(startLoc.getText());
+      endNode = GRAPH.getNodeByLongName(endLoc.getText());
+      GRAPH.resetPath();
+      GRAPH.findPath("A*", startNode, endNode);
+      displayingRoute = true;
+      selectingStart = false;
+      selectingEnd = false;
+    } else {
+      PopupMaker.invalidLocationMobile(stackPane);
+    }
+
+    draw();
+    pathFloors = "";
+    for (Node n : GRAPH.getPath()) {
+      if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+    }
+  }
+
+  public void pathfindOnActionBtn() {
     startBtn.setOnAction(
         actionEvent -> {
-          if (startNode != null && endNode != null) {
-            GRAPH.resetPath();
-            GRAPH.findPath("A*", startNode, endNode);
-            displayingRoute = true;
-            selectingStart = false;
-            selectingEnd = false;
-          } else if (!startLoc.getText().isEmpty() && !endLoc.getText().isEmpty()) {
-            startNode = GRAPH.getNodeByLongName(startLoc.getText());
-            endNode = GRAPH.getNodeByLongName(endLoc.getText());
-            GRAPH.resetPath();
-            GRAPH.findPath("A*", startNode, endNode);
-            displayingRoute = true;
-            selectingStart = false;
-            selectingEnd = false;
-          } else {
-            PopupMaker.invalidLocationMobile(stackPane);
-          }
-
-          draw();
-          pathFloors = "";
-          for (Node n : GRAPH.getPath()) {
-            if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
-          }
+          doPathfind();
         });
   }
 
@@ -304,9 +319,14 @@ public class MobileHospitalNavController implements Initializable {
       if (selectingStart) {
         startNode = clickedNode;
         startLoc.setText(startNode.getLongName());
+        if (isFirstStart) {
+          isFirstStart = false;
+          doPathfind();
+        }
       } else if (selectingEnd) {
         endNode = clickedNode;
         endLoc.setText(endNode.getLongName());
+        doPathfind();
       }
       draw();
     }

@@ -67,6 +67,11 @@ public class StaffMainPageController implements Initializable {
             drawer.open(); // this will open slide pane
           }
         });
+
+    navBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    requestBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    googleNavButton.setButtonType(JFXButton.ButtonType.RAISED);
+    parkingBtn.setButtonType(JFXButton.ButtonType.RAISED);
     hoverAllBtn();
   }
 
