@@ -399,18 +399,6 @@ public class NavController implements Initializable {
     draw();
   }
 
-  //  /**
-  //   * goes to the main page (changes based on user logged in)
-  //   *
-  //   * @param actionEvent
-  //   */
-  //  public void goToMain(ActionEvent actionEvent) {
-  //    String MenuUrl = "/Views/MainPage.fxml";
-  //    if (UserHandling.getEmployee() || UserHandling.getAdmin())
-  //      MenuUrl = "/Views/StaffMainPage.fxml";
-  //    SwitchScene.goToParent(MenuUrl);
-  //  }
-
   /** resets path and creates a new path depending on start and end nodes */
   public void doPathfind() {
     if (startNode != null && endNode != null) {
@@ -428,6 +416,7 @@ public class NavController implements Initializable {
       selectingStart = false;
       selectingEnd = false;
     } else {
+      // TODO: add stackpane for all warnings
       //      PopupMaker.invalidPathfind(nodeWarningPane);
     }
 
@@ -612,18 +601,6 @@ public class NavController implements Initializable {
     return (currentViewport.getMinY() + ((percCanvasY * currentViewport.getHeight())));
   }
 
-  /** sets the start location for pathfinding */
-  public void startLocSelection() {
-    selectingStart = true;
-    selectingEnd = false;
-  }
-
-  /** sets the end desination for pathfinding */
-  public void endLocSelection() {
-    selectingStart = false;
-    selectingEnd = true;
-  }
-
   //  /**
   //   * creates an output file
   //   *
@@ -715,137 +692,6 @@ public class NavController implements Initializable {
     draw();
     //    directionvbox.getChildren().clear();
   }
-
-  //  /**
-  //   * sets the mode for adding a new node
-  //   *
-  //   * @param actionEvent
-  //   */
-  //  public void addNode(ActionEvent actionEvent) {
-  //    addNodeMode = true;
-  //    addNodeDBMode = true;
-  //    selectingEditNode = false;
-  //    addingEdgeBD = false;
-  //  }
-  //
-  //  /**
-  //   * Edits the node that is currently selected. If the map is page is in adding new node mode,
-  //   * clicking this button will add the new node to the DB. Otherwise, will edit existing node.
-  // Once
-  //   * changes are made, the fields will be cleared
-  //   *
-  //   * @param actionEvent
-  //   */
-  //  public void editNode(ActionEvent actionEvent) {
-  //    // if any fields are empty, show appropriate warning
-  //    if (isNodeInfoEmpty()) {
-  //      PopupMaker.incompletePopup(nodeWarningPane);
-  //    }
-  //    // else, add/edit Node (depending on addNodeDBMode = t/f)
-  //    else {
-  //      try {
-  //        Node n =
-  //                new Node(
-  //                        nodeID.getText(),
-  //                        Integer.parseInt(xCoord.getText()),
-  //                        Integer.parseInt(yCoord.getText()),
-  //                        floor.getText(),
-  //                        building.getText(),
-  //                        nodeType.getText(),
-  //                        longName.getText(),
-  //                        shortName.getText(),
-  //                        "O",
-  //                        setVisibility.isSelected());
-  //
-  //        GRAPH.addNode(n, addNodeDBMode);
-  //        clearNodeInfo();
-  //        selectedNode = null; // when clear Node info, also de-select Node
-  //
-  //      } catch (SQLException throwables) {
-  //        PopupMaker.nodeAlreadyExists(nodeWarningPane);
-  //      }
-  //    }
-  //
-  //    addNodeDBMode = false;
-  //
-  //    selectingEditNode = true;
-  //    draw();
-  //  }
-  //
-  //  /**
-  //   * will delete the node that is currently selected
-  //   *
-  //   * @param actionEvent
-  //   */
-  //  public void deleteNode(ActionEvent actionEvent) {
-  //    // if any fields are empty, show appropriate warning
-  //    if (nodeID.getText().isEmpty()) {
-  //      PopupMaker.incompletePopup(nodeWarningPane);
-  //    }
-  //    // else, delete selected Node
-  //    else {
-  //      try {
-  //        GRAPH.deleteNode(nodeID.getText());
-  //        clearNodeInfo();
-  //        selectedNode = null;
-  //      } catch (SQLException throwables) {
-  //        PopupMaker.nodeDoesntExist(nodeWarningPane);
-  //      }
-  //    }
-  //
-  //    draw();
-  //  }
-  //
-  //  /**
-  //   * will add a new edge based on the start and end node IDs
-  //   *
-  //   * @param actionEvent
-  //   */
-  //  public void addEdge(ActionEvent actionEvent) {
-  //    // if any fields are empty, show appropriate warning
-  //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
-  //      PopupMaker.incompletePopup(nodeWarningPane);
-  //    }
-  //    // else, add appropriate edge
-  //    else {
-  //      try {
-  //        GRAPH.addEdge(startNodeID.getText(), endNodeID.getText());
-  //        clearEdgeInfo(); // when clear info, de-select Nodes
-  //        selectedNode = null;
-  //        selectedNodeB = null;
-  //
-  //      } catch (SQLException throwables) {
-  //        PopupMaker.edgeAlreadyExists(nodeWarningPane);
-  //      }
-  //    }
-  //
-  //    draw();
-  //  }
-  //
-  //  /**
-  //   * will delete a node based on start and end node IDs
-  //   *
-  //   * @param actionEvent
-  //   * @throws SQLException
-  //   */
-  //  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
-  //    // if any fields are empty, show appropriate warning
-  //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
-  //      PopupMaker.incompletePopup(nodeWarningPane);
-  //    } else {
-  //      try {
-  //        GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
-  //        clearEdgeInfo(); // when clear info, de-select Nodes
-  //        selectedNode = null;
-  //        selectedNodeB = null;
-  //
-  //      } catch (SQLException throwables) {
-  //        PopupMaker.edgeDoesntExists(nodeWarningPane);
-  //      }
-  //    }
-  //
-  //    draw();
-  //  }
 
   /** can draw the path, nodes, and edges based on booleans */
   private void draw() {
