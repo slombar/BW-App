@@ -20,27 +20,36 @@ public class SignInPageController {
   }
 
   public void signIn(ActionEvent actionEvent) {
+    user.setStyle("-fx-border-color: none");
+    pass.setStyle("-fx-border-color: none");
     String username = user.getText();
     String password = pass.getText();
 
-    if (username.equals("") || password.equals("")) {
-      // PopupMaker.incompletePopup(popupPane);TODO red boxes
+    if (username.equals("")) {
+      user.setStyle("-fx-border-color: red");
+      // TODO explain error
+    }
+    if (password.equals("")) {
+      pass.setStyle("-fx-border-color: red");
+      // TODO explain error
     } else {
       try {
         UserHandling.login(username, password);
         if (UserHandling.getLoginStatus() && UserHandling.getEmployee()) {
-          SwitchScene.goToParent("/Views/MainPage.fxml");
+          SwitchScene.goToParent("/Views/StaffMainPage.fxml");
         } else {
           SwitchScene.goToParent("/Views/CovidSurvey.fxml");
         }
       } catch (SQLException e) {
-        // PopupMaker.invalidLogin(popupPane); TODO red boxes
+        user.setStyle("-fx-border-color: red");
+        pass.setStyle("-fx-border-color: red");
+        // TODO explain error
       }
     }
   }
 
   public void createAccount(ActionEvent actionEvent) {
-    // TODO
+    SwitchScene.goToParent("/Views/CreatePatientAccount.fxml");
   }
 
   public void forgotPassword(ActionEvent actionEvent) {
