@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polyline;
@@ -479,7 +481,12 @@ public class Graph {
    * @param endNode end Node of path
    */
   public Polyline drawCurrentPath(
-      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
+      String floor,
+      Node startNode,
+      Node endNode,
+      ImageView imageView,
+      HBox rc00,
+      boolean isMobile) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -504,29 +511,32 @@ public class Graph {
       DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, isMobile);
     }
 
-    return DrawHelper.makeDashes(getPathLine(floor, imageView));
+    return DrawHelper.makeDashes(getPathLine(floor, imageView, rc00));
   }
 
-  public Polyline getPathLine(String floor, ImageView imageView) {
+  public Polyline getPathLine(String floor, ImageView imageView, HBox rc00) {
     Polyline line = new Polyline();
     double x, y;
     for (Node n : path) {
-      x = getSceneX(imageView, n.getXCoord());
-      y = getSceneY(imageView, n.getYCoord());
+      x = getSceneX(imageView, n.getXCoord(), rc00);
+      y = getSceneY(imageView, n.getYCoord(), rc00);
+      Bounds boundsInScene = imageView.localToScene(imageView.getBoundsInLocal());
       // TODO: filter out / ignore(??) points outside canvas
       line.getPoints().addAll(new Double[] {x, y});
     }
     return line;
   }
 
-  private double getSceneX(ImageView imageView, double imgX) {
+  private double getSceneX(ImageView imageView, double imgX, HBox rc00) {
     double imgPercX = imgX / imageView.getImage().getWidth();
-    return ((imgPercX * gc.getCanvas().getWidth()) + gc.getCanvas().getTranslateX());
+    double translateX = 0; // imageView.getLayoutX();
+    return ((imgPercX * gc.getCanvas().getWidth()) + translateX);
   }
 
-  private double getSceneY(ImageView imageView, double imgY) {
+  private double getSceneY(ImageView imageView, double imgY, HBox rc00) {
     double imgPercY = imgY / imageView.getImage().getHeight();
-    return ((imgPercY * gc.getCanvas().getHeight()) + gc.getCanvas().getTranslateY());
+    double translateY = 0; // imageView.getLayoutY();
+    return ((imgPercY * gc.getCanvas().getHeight()) + translateY);
   }
 
   /**

@@ -28,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -389,7 +390,8 @@ public class MobileHospitalNavController implements Initializable {
       GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, true);
     } else if (displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, true);
+      // TODO: this probably needs to be changed (currently needs HBox to translate path properly)
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, new HBox(), true);
     }
   }
 
