@@ -10,7 +10,6 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.Model.Node;
-import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.net.URL;
 import java.sql.SQLException;
@@ -209,6 +208,7 @@ public class NavController implements Initializable {
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";
     }
+
     resizeCanvas();
     // draws appropriately accordingly to combination of booleans
     draw(1);
@@ -387,8 +387,10 @@ public class NavController implements Initializable {
    */
   public AnchorPane resizableWindow() {
     imageView.setPreserveRatio(true);
-    //    imageView.fitHeightProperty().bind(Opp.getPrimaryStage().getScene().heightProperty());
-    imageView.fitWidthProperty().bind(Opp.getPrimaryStage().getScene().widthProperty());
+    //    imageView.setFitHeight(mapCanvas.getScene().getWindow().getHeight());
+    //    imageView.fitHeightProperty().bind(mapCanvas.getScene().heightProperty());
+    //
+    // imageView.fitWidthProperty().bind(Opp.getPrimaryStage().getScene().widthProperty());
 
     //     resizeCanvas();
 
@@ -562,6 +564,10 @@ public class NavController implements Initializable {
           draw();
         });
   }
+
+  private void addNode(Node selectedNode) {}
+
+  private void editNode(Node selectedNode) {}
 
   private void deleteNode(Node selectedNode) throws SQLException {
     GRAPH.deleteNode(selectedNode.getID());
@@ -738,7 +744,7 @@ public class NavController implements Initializable {
 
   public void clearSelection() {
     setNavFalse();
-    selectingStart = true;
+    selectingEnd = true;
 
     GRAPH.resetPath();
 
