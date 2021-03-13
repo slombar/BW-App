@@ -15,12 +15,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.SignInPageController">
    <children>
       <ImageView fitHeight="1500.0" fitWidth="2200.0" layoutX="-100.0" layoutY="-150.0" preserveRatio="true">
          <image>
@@ -46,34 +45,6 @@
           <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="775.0" prefWidth="506.0" spacing="18.0" style="-fx-background-color: #F2F2F2;" GridPane.rowIndex="1" GridPane.rowSpan="2">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BRIGHAM">
-                     <font>
-                        <Font name="Leelawadee UI" size="36.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="344.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&amp;">
-                     <font>
-                        <Font name="Leelawadee UI" size="36.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="396.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WOMEN'S">
-                     <font>
-                        <Font name="Leelawadee UI" size="36.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="327.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FAULKNER HOSPITAL">
-                     <font>
-                        <Font name="Leelawadee UI" size="36.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="488.0" fitWidth="433.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
-                     </image>
-                  </ImageView>
-               </children></VBox>
             <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="373.0" scaleX="1.2" scaleY="1.2" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="BASELINE">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -89,19 +60,22 @@
                   <RowConstraints maxHeight="78.5999755859375" minHeight="10.0" percentHeight="5.0" prefHeight="19.4000244140625" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LOG IN" wrappingWidth="104.29525756835938">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="82.62858581542969">
                            <font>
                               <Font name="Leelawadee UI" size="30.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="73.0" fitWidth="100.0" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="100.0" preserveRatio="true">
                            <image>
                               <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
                            </image>
                         </ImageView>
                      </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
                   </HBox>
                   <JFXTextField fx:id="user" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
@@ -136,7 +110,7 @@
                   </Hyperlink>
                   <JFXButton onAction="#close" prefHeight="37.0" prefWidth="83.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="Leelawadee UI" size="16.0" />
+                        <Font name="Leelawadee UI" size="18.0" />
                      </font>
                   </JFXButton>
                   <Text fill="#000000cd" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.halignment="CENTER" GridPane.rowIndex="5">
@@ -167,13 +141,21 @@
                   <Font name="Leelawadee UI" size="20.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="54.0" fitWidth="62.0" nodeOrientation="RIGHT_TO_LEFT" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="62.0" nodeOrientation="RIGHT_TO_LEFT" preserveRatio="true">
                      <image>
                         <Image url="@../Icons/informationIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
+            <ImageView fitWidth="700.0" preserveRatio="true" GridPane.columnSpan="2">
+               <image>
+                  <Image url="@../bh_bwh_pms_293.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets left="25.0" right="25.0" />
+               </GridPane.margin>
+            </ImageView>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

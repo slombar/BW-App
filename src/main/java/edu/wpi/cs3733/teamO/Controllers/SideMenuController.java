@@ -49,7 +49,7 @@ public class SideMenuController implements Initializable {
   public void toSettings(ActionEvent actionEvent) {}
 
   public void goToLogin(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/Login.fxml");
+    SwitchScene.goToParent("/Views/SignInPage.fxml");
   }
 
   public void toMain(ActionEvent actionEvent) {
