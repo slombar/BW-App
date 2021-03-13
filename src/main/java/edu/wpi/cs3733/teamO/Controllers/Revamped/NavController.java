@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
-import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
@@ -128,11 +127,16 @@ public class NavController implements Initializable {
   }
 
   // creating context menu for add/edit/delete functions
-  ContextMenu contextMenu = new ContextMenu();
+  ContextMenu editMapContext = new ContextMenu();
   // create menu items
-  MenuItem editNodeMenu = new MenuItem("edit");
-  MenuItem deleteNodeMenu = new MenuItem("delete");
-  MenuItem addEdgeMenu = new MenuItem("add edge");
+  MenuItem editNodeMenu = new MenuItem("Edit Node");
+  MenuItem deleteNodeMenu = new MenuItem("Delete Node");
+  MenuItem addEdgeMenu = new MenuItem("Add Edge");
+
+  // patient context menu for clearing
+  ContextMenu pathfindContext = new ContextMenu();
+  // create menu items
+  MenuItem clearPathMenu = new MenuItem("Clear Path");
 
   /**
    * Create buttons for: directions editing help floors
@@ -205,7 +209,7 @@ public class NavController implements Initializable {
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";
     }
-
+    resizeCanvas();
     // draws appropriately accordingly to combination of booleans
     draw(1);
 
@@ -216,12 +220,13 @@ public class NavController implements Initializable {
     setStyles();
 
     // add menu items to context menu
-    contextMenu.getItems().add(editNodeMenu);
-    contextMenu.getItems().add(deleteNodeMenu);
-    contextMenu.getItems().add(addEdgeMenu);
+    editMapContext.getItems().add(editNodeMenu);
+    editMapContext.getItems().add(deleteNodeMenu);
+    editMapContext.getItems().add(addEdgeMenu);
+    pathfindContext.getItems().add(clearPathMenu);
 
-    selectingStart = true;
-    selectingEnd = false;
+    selectingStart = false;
+    selectingEnd = true;
   }
 
   public void setStyles() {
@@ -339,7 +344,9 @@ public class NavController implements Initializable {
         e -> {
           // toggle edit mode
           editing = !editing;
-          editMode();
+          if (editing) {
+            editMode();
+          }
         });
     uploadB.setOnAction(
         e -> {
@@ -415,7 +422,6 @@ public class NavController implements Initializable {
     } else {
       setEditFalse();
     }
-
     draw();
   }
 
@@ -498,15 +504,27 @@ public class NavController implements Initializable {
       System.out.println("You right clicked!");
       selectedNode = clickedNode;
 
-      contextMenu.setAutoHide(true);
-      if (contextMenu.isShowing()) {
-        contextMenu.hide();
+      if (editing) { // editing mode
+        editMapContext.setAutoHide(true);
+        if (editMapContext.isShowing()) {
+          editMapContext.hide();
+        }
+        mapCanvas.setOnContextMenuRequested(
+            f -> {
+              editMapContext.show(mapCanvas, f.getScreenX(), f.getScreenY());
+            });
+        contextMenuOnActions(selectedNode);
+      } else { // pathfinding mode
+        pathfindContext.setAutoHide(true);
+        if (pathfindContext.isShowing()) {
+          pathfindContext.hide();
+        }
+        mapCanvas.setOnContextMenuRequested(
+            f -> {
+              pathfindContext.show(mapCanvas, f.getScreenX(), f.getScreenY());
+            });
+        contextMenuOnActions(selectedNode);
       }
-      mapCanvas.setOnContextMenuRequested(
-          f -> {
-            contextMenu.show(mapCanvas, f.getScreenX(), f.getScreenY());
-          });
-      contextMenuOnActions(selectedNode);
 
     } else if (true) {
       // TODO add dragging functionality
@@ -524,9 +542,10 @@ public class NavController implements Initializable {
 
     deleteNodeMenu.setOnAction(
         action -> {
-          //deleting node
+          // deleting node
           try {
             deleteNode(selectedNode);
+            draw();
           } catch (SQLException throwables) {
             throwables.printStackTrace();
           }
@@ -536,12 +555,18 @@ public class NavController implements Initializable {
         action -> {
           System.out.println("adding edge");
         });
+
+    clearPathMenu.setOnAction(
+        action -> {
+          clearSelection();
+          draw();
+        });
   }
 
   private void deleteNode(Node selectedNode) throws SQLException {
-      GRAPH.deleteNode(selectedNode.getID());
-      selectedNode = null;
-      draw();
+    GRAPH.deleteNode(selectedNode.getID());
+    selectedNode = null;
+    draw();
   }
 
   /**
