@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.floor5Map;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
@@ -12,6 +13,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -42,8 +45,8 @@ public class NavController implements Initializable {
   public Canvas mapCanvas;
   public FlowPane hamburger;
   public ImageView imageView;
+  public JFXDrawer drawerBottomRight;
   @FXML private JFXNodesList parking;
-  @FXML private FlowPane bottomRightInfo;
   @FXML private JFXNodesList directionsList;
   @FXML private JFXNodesList editingList;
   @FXML private JFXNodesList help;
@@ -112,6 +115,7 @@ public class NavController implements Initializable {
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
   private boolean selectingAlign = false;
+  String bottomRightBox = "";
 
   private void setEditFalse() {
     selectingEditNode = false;
@@ -227,6 +231,17 @@ public class NavController implements Initializable {
 
     selectingStart = false;
     selectingEnd = true;
+
+    // RevampedViews/DesktopApp/nodeEditing.fxml
+    bottomRightBox = "/RevampedViews/DesktopApp/nodeEditing.fxml";
+    try {
+      VBox vbox = FXMLLoader.load(getClass().getResource(bottomRightBox));
+      drawerBottomRight.setSidePane(vbox);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    drawerBottomRight.close();
   }
 
   public void setStyles() {
@@ -298,12 +313,14 @@ public class NavController implements Initializable {
     submitPath.setOnAction(
         e -> {
           // send path to do pathfinding actions
+          drawerBottomRight.open();
           doPathfind();
         });
 
     clearPath.setOnAction(
         e -> {
           // clear start and end locations
+          drawerBottomRight.close();
           clearSelection();
         });
 
@@ -636,10 +653,6 @@ public class NavController implements Initializable {
                 - vY / 2,
             vX,
             vY);
-    // zoom option B:
-    /*double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
-    double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
-    currentViewport = new Rectangle2D(a - (percCanvasA * vX), b - (percCanvasB * vY), vX, vY);*/
 
     imageView.setViewport(currentViewport);
     draw();
