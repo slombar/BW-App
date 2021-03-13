@@ -9,10 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.AboutController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.AboutController">
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3A5369;" BorderPane.alignment="TOP_CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3A5369;" BorderPane.alignment="TOP_CENTER">
          <children>
             <Label text="About" textFill="#cfe2f3">
                <VBox.margin>
@@ -29,9 +30,9 @@
                   <Image url="@../collab_logo.PNG" />
                </image>
             </ImageView>
-            <Label minHeight="-Infinity" text="This system was brought to you by the WPI Computer Science Department, CS3733-C21 Software Engineering, Prof. Wilson Wong, Michael Clements our team coach, and the team: Sadie Lombardi Lead Software Engineer, Cindy Trac Asst. Lead Software Engineer, Ryan Darcey Asst. Lead Software Engineer, Selina Spry Project Manager, Luke Hoy Scrum Master, Kyle Lopez Documentation Analyst, Nathan Draudt Product Owner, Ke Zhao Algorithms Specialist, Sam Parks UX/UI Design Specialist, and Dinmukhamed Umbetzhan Algorithm Specialist. Special thanks to Brigham and Women’s Hospital and Andrew Shinn for their time and imput." textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
+            <Label minHeight="-Infinity" text="This system was brought to you by the WPI Computer Science Department, CS3733-C21 Software Engineering, Prof. Wilson Wong, Michael Clements our team coach, and the team: Sadie Lombardi Lead Software Engineer, Cindy Trac Asst. Lead Software Engineer, Ryan Darcey Asst. Lead Software Engineer, Selina Spry Project Manager, Luke Hoy Scrum Master, Kyle Lopez Documentation Analyst, Nathan Draudt Product Owner, Ke Zhao Algorithms Specialist, Sam Parks UX/UI Design Specialist, and Dinmukhamed Umbetzhan Algorithm Specialist. &#13;Special thanks to Brigham and Women’s Hospital and Andrew Shinn for their time and imput." textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
                <VBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="10.0" left="45.0" right="45.0" top="10.0" />
                </VBox.margin>
                <font>
                   <Font size="18.0" />
@@ -55,6 +56,23 @@
                   </BorderPane>
                </center>
             </BorderPane>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="For a complete list of APIs used, ">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                  </Text>
+                  <Label accessibleRole="HYPERLINK" onMouseClicked="#goToCreditsPage" onMouseEntered="#handCursor" onMouseExited="#normalCursor" text="click here." textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="45.0" right="45.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children>
          <BorderPane.margin>
             <Insets />

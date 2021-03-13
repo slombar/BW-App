@@ -4,107 +4,122 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #3a5369;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Popups.PatientSignInPopupController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-  </rowConstraints>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <StackPane fx:id="popupPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin></StackPane>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="350.0" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <columnConstraints>
+      <ImageView fitHeight="1500.0" fitWidth="2200.0" layoutX="-100.0" layoutY="-150.0" preserveRatio="true">
+         <image>
+            <Image url="@../highResBWBackground.jpg" />
+         </image>
+         <effect>
+            <Lighting light="$null" specularConstant="1.0" specularExponent="22.79" surfaceScale="0.0">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+            </Lighting>
+         </effect>
+      </ImageView>
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="-Infinity" percentHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
-            <RowConstraints percentHeight="8.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="12.5" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="66.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <ImageView fitHeight="125.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BASELINE">
-               <image>
-                  <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
-               </image>
-            </ImageView>
-            <JFXTextField fx:id="user" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Leelawadee UI" size="15.0" />
-               </font></JFXTextField>
-            <JFXPasswordField fx:id="pass" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Leelawadee UI" size="15.0" />
-               </font></JFXPasswordField>
-            <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="14.0" />
-               </font>
-            </JFXButton>
-            <Hyperlink onAction="#createAccount" text="Create an account" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Leelawadee UI" size="14.0" />
-               </font>
-            </Hyperlink>
-            <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Leelawadee UI" size="15.0" />
-               </font></JFXButton>
-            <Text fill="#000000cd" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="14.0" />
-               </font>
-            </Text>
-            <Line endX="35.0" startX="-90.0" stroke="#000000cc" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <Line endX="35.0" layoutX="126.0" layoutY="325.0" startX="-90.0" stroke="#000000cc" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New to Brigham And Women's Hospital?" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
-               <font>
-                  <Font name="Leelawadee UI" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-            </Text>
-            <GridPane>
+            <VBox alignment="TOP_CENTER" opacity="0.8" spacing="18.0" style="-fx-background-color: #F2F2F2;" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BRIGHAM">
+                     <font>
+                        <Font name="Leelawadee UI" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="344.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&amp;">
+                     <font>
+                        <Font name="Leelawadee UI" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="396.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WOMEN'S">
+                     <font>
+                        <Font name="Leelawadee UI" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="327.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FAULKNER HOSPITAL">
+                     <font>
+                        <Font name="Leelawadee UI" size="36.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="622.0" fitWidth="511.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
+                     </image>
+                  </ImageView>
+               </children></VBox>
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="628.0" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="2" GridPane.rowSpan="2" GridPane.valignment="TOP">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" percentHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" percentHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
+               <children>
+                  <ImageView fitHeight="250.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BASELINE">
+                     <image>
+                        <Image url="@../Brigham_and_Womens_Hospital_logo.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="user" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="pass" maxWidth="300.0" onKeyPressed="#checkEnter" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <JFXButton onAction="#signIn" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #3a5369ff;" text="Sign In" textFill="#c5d8e8" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton onAction="#close" prefHeight="30.0" prefWidth="60.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                     <font>
+                        <Font name="Leelawadee UI" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+               </padding>
             </GridPane>
          </children>
          <padding>
-            <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </GridPane>
    </children>
-   <padding>
-      <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
-   </padding>
-</GridPane>
+   <effect>
+      <Blend />
+   </effect>
+</AnchorPane>

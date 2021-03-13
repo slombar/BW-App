@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.NavController">
+   <children>
+      <ImageView fx:id="imageView" fitWidth="800.0" layoutX="78.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../FaulknerCampus_Updated.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <Canvas fx:id="mapCanvas" height="200.0" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <FlowPane fx:id="hamburger" layoutX="6.0" prefHeight="800.0" prefWidth="49.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <FlowPane fx:id="bottomRightInfo" layoutX="1043.0" layoutY="575.0" minHeight="200.0" minWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <JFXNodesList fx:id="directions" layoutX="77.0" layoutY="46.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.topAnchor="50.0" />
+      <JFXNodesList fx:id="floors" layoutX="78.0" layoutY="763.0" AnchorPane.bottomAnchor="50.0" />
+      <JFXNodesList fx:id="editing" layoutX="1056.0" layoutY="43.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+      <JFXNodesList fx:id="help" layoutX="1062.0" layoutY="127.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0" />
+      <JFXNodesList fx:id="parking" layoutX="922.0" layoutY="208.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0" />
+   </children>
+</AnchorPane>
