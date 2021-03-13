@@ -1,0 +1,6 @@
+.buttons{
+    -fx-background-color: #696969;
+    -fx-background-radius: 4em;
+    -fx-pref-width: 4em;
+    -fx-pref-height: 4em;
+}
