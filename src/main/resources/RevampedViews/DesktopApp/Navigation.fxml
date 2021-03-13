@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXNodesList?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.canvas.Canvas?>
@@ -20,11 +21,11 @@
       </ImageView>
       <Canvas fx:id="mapCanvas" height="200.0" onMouseClicked="#canvasClick" onMouseDragEntered="#nodeDragEnter" onMouseDragExited="#nodeDragRelease" onScroll="#onCanvasScroll" translateY="-50.0" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <FlowPane fx:id="hamburger" layoutX="6.0" prefHeight="800.0" prefWidth="49.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <FlowPane fx:id="bottomRightInfo" layoutX="1043.0" layoutY="575.0" minHeight="200.0" minWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <JFXNodesList fx:id="directionsList" layoutX="77.0" layoutY="46.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.topAnchor="50.0" />
       <JFXNodesList fx:id="floorsList" layoutX="78.0" layoutY="763.0" AnchorPane.bottomAnchor="50.0" />
       <JFXNodesList fx:id="editingList" layoutX="1056.0" layoutY="43.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
       <JFXNodesList fx:id="help" layoutX="1062.0" layoutY="127.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0" />
       <JFXNodesList fx:id="parking" layoutX="922.0" layoutY="208.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0" />
+      <JFXDrawer fx:id="drawerBottomRight" alignment="TOP_LEFT" direction="BOTTOM" layoutX="980.0" layoutY="800.0" minHeight="161.0" minWidth="300.0" miniDrawerSize="0.0" prefHeight="161.0" prefWidth="300.0" AnchorPane.bottomAnchor="-161.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>
