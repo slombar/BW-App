@@ -27,25 +27,13 @@ public class WaitingPageController implements Initializable {
     hospitalNavBtn.setDisable(true);
     entryStatusBtn.setDisable(false);
     spinnerPane.setVisible(true);
-    /*
-    new Thread(new Runnable() {
-        @Override public void run() {
-        for (int i = 1; i <= 1000000; i++) {
-            final int counter = i;
-            Platform.runLater(new Runnable() {
-                @Override public void run() {
-                    bar.setProgress(counter / 1000000.0);
-                }
-            });
-        }
-    }).start();
-     */
+
     Task<Void> EntryTask =
         new Task<Void>() {
 
           @Override
           protected Void call() throws Exception {
-            checkEntryStatus1();
+            checkStatus();
 
             Platform.runLater(
                 new Runnable() {
@@ -53,14 +41,14 @@ public class WaitingPageController implements Initializable {
                   public void run() {
 
                     // popup to say you can now continue
-                    if (location.toLowerCase().contains("covid")) {
-                      spinnerPane.setVisible(false);
-                      PopupMaker.covidEntranceNotif(popupNotification);
-                      isMainEntrance = false;
-                    } else {
+                    if (location.toLowerCase().contains("main")) {
                       spinnerPane.setVisible(false);
                       PopupMaker.mainEntranceNotif(popupNotification);
                       isMainEntrance = true;
+                    } else {
+                      spinnerPane.setVisible(false);
+                      PopupMaker.covidEntranceNotif(popupNotification);
+                      isMainEntrance = false;
                     }
                   }
                 });
@@ -135,7 +123,7 @@ public class WaitingPageController implements Initializable {
     }
   }
 
-  public void checkEntryStatus1() {
+  public void checkStatus() {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
