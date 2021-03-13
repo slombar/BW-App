@@ -18,7 +18,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Canvas fx:id="mapCanvas" height="200.0" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Canvas fx:id="mapCanvas" height="200.0" onDragDetected="#nodeDrag" onMouseClicked="#canvasClick" onScroll="#onCanvasScroll" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <FlowPane fx:id="hamburger" layoutX="6.0" prefHeight="800.0" prefWidth="49.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <FlowPane fx:id="bottomRightInfo" layoutX="1043.0" layoutY="575.0" minHeight="200.0" minWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <JFXNodesList fx:id="directionsList" layoutX="77.0" layoutY="46.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.topAnchor="50.0" />
