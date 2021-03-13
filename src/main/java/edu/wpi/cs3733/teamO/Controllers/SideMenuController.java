@@ -144,7 +144,7 @@ public class SideMenuController implements Initializable {
     SwitchScene.goToParent("/Views/AboutPage.fxml");
   }
   // public void toAbout(ActionEvent actionEvent) {
-  // SwitchScene.goToParent("/RevampedViews/DesktopApp/AboutPage.fxml");  }
+  // SwitchScene.goToParent("/RevampedViews/DesktopApp/RevampedAboutPage.fxml");  }
 
   public void mouseOnAbout(MouseEvent mouseEvent) {
     aboutBtn1.setUnderline(true);
