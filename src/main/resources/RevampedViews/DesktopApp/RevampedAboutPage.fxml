@@ -36,14 +36,14 @@
                </ImageView>
             </children>
          </HBox>
-         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="1231.0">
+         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="1263.0">
             <children>
-               <Label alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="1039.0" text="This system was brought to you by the WPI Computer Science Department, CS3733-C21 Software Engineering, in collaboration with Brigham and Women's Faulkner Hospital." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <Label alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="1049.0" text="This system was brought to you by the WPI Computer Science Department, CS3733-C21 Software Engineering, in collaboration with Brigham and Women's Faulkner Hospital." textAlignment="CENTER" textFill="WHITE" wrapText="true">
                   <font>
                      <Font name="Leelawadee UI Bold" size="20.0" />
                   </font>
                   <HBox.margin>
-                     <Insets top="20.0" />
+                     <Insets />
                   </HBox.margin>
                </Label>
             </children>
@@ -53,7 +53,7 @@
                <Font name="Leelawadee UI Bold" size="24.0" />
             </font>
          </Label>
-         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1231.0">
+         <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="565.0">
             <children>
                <ImageView fx:id="selina" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                   <HBox.margin>
@@ -97,7 +97,7 @@
                </ImageView>
             </children>
          </HBox>
-         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1231.0">
+         <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="470.0">
             <children>
                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                   <HBox.margin>
@@ -182,12 +182,12 @@
                </Label>
             </children>
          </HBox>
-         <HBox alignment="BOTTOM_CENTER" prefHeight="57.0" prefWidth="1240.0" style="-fx-background-color: #3A5369;">
+         <HBox alignment="BOTTOM_CENTER" prefHeight="1000.0" prefWidth="1245.0" style="-fx-background-color: #3A5369;">
             <padding>
-               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
             </padding>
             <children>
-               <Label alignment="CENTER" minHeight="-Infinity" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
+               <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="914.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
                   <font>
                      <Font size="14.0" />
                   </font>
