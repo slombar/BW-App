@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
-import edu.wpi.cs3733.teamO.HelperClasses.PopUp;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
@@ -27,14 +26,15 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.WindowEvent;
 
 public class NavController implements Initializable {
 
@@ -463,13 +463,7 @@ public class NavController implements Initializable {
     else if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
       alignList = new ArrayList<>();
 
-      if (!addNodeMode) {
-        selectingEditNode = true;
-      }
-
       selectedNodeB = null;
-      Circle c = null;
-      Node n = null;
 
       // if navigating
       if (!editing) {
@@ -482,49 +476,65 @@ public class NavController implements Initializable {
           doPathfind();
         }
       }
-      // if editing
-      else {
-        if (selectingEditNode) {
-          selectedNode = clickedNode;
-        } else if (addNodeMode) {
-          n = getRealXY(mouseEvent);
-          n.setFloor(sFloor);
-        }
-      }
 
-      if (addNodeMode) {
-        selectedNode = null;
-        draw();
-        DrawHelper.drawSingleNode(gc, n, Color.BLUE, imageView, false);
-        addNodeMode = false;
-        selectingEditNode = true;
-        return;
-      } else {
-        draw();
-      }
     }
     // ----------------------
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-      // alignList = new ArrayList<>();
+
+      ContextMenu contextMenu = new ContextMenu();
+      EventHandler eventH;
+
+      // create menuitems
+      MenuItem menuItem1 = new MenuItem("edit");
+      MenuItem menuItem2 = new MenuItem("delete");
+      MenuItem menuItem3 = new MenuItem("add edge");
+
+      // add menu items to menu
+      contextMenu.getItems().add(menuItem1);
+      contextMenu.getItems().add(menuItem2);
+      contextMenu.getItems().add(menuItem3);
+
+      System.out.println("You right clicked!");
       selectedNode = clickedNode;
 
-      PopUp nodePop = new PopUp();
+      contextMenu.setAutoHide(true);
 
-      // create window event
-      EventHandler<WindowEvent> event =
-          new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent e) {
-              // TODO highlight node you are changing
-            }
-          };
+      if (contextMenu.isShowing()) {
+        mapCanvas.setOnContextMenuRequested(
+            f -> {
+              contextMenu.show(mapCanvas, f.getScreenX(), f.getScreenY());
+            });
+      } else {
+        mapCanvas.setOnContextMenuRequested(
+            f -> {
+              contextMenu.hide();
+            });
+      }
 
-      // add event
-      nodePop.setShowingProperties(event);
+    } else if (true) {
+      // TODO add dragging functionality
     }
 
     draw();
-    System.out.println("mapCanvas click");
+  }
+
+  /**
+   * Drag the node to change its coords
+   *
+   * @param closest, the node you want to drag
+   * @param xEvent, the x property of mouse event and y event VV
+   * @param yEvent
+   */
+  public void nodeDrag(Node closest, int xEvent, int yEvent) {
+    Node draggedNode = closest;
+
+    int x = (int) (getImgX(xEvent));
+    int y = (int) (getImgY(yEvent));
+
+    draggedNode.setXCoord(x);
+    draggedNode.setYCoord(y);
+    draw();
   }
 
   /**
@@ -741,23 +751,6 @@ public class NavController implements Initializable {
   //    Settings.getInstance().setAlgoChoice(strategy);
   //  }
 
-  /**
-   * Drags the node based on user's mouse x and y coords
-   *
-   * @param mouseEvent
-   */
-  public void nodeDrag(MouseEvent mouseEvent) {
-    Node draggedNode =
-        GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
-
-    int x = (int) (getImgX(mouseEvent.getX()));
-    int y = (int) (getImgY(mouseEvent.getY()));
-
-    draggedNode.setXCoord(x);
-    draggedNode.setYCoord(y);
-    draw();
-  }
-
   //  private void addTextToDirectionBox(String text) {
   //
   //    Text newText = new Text(text + "\n");
@@ -800,4 +793,9 @@ public class NavController implements Initializable {
     resizeCanvas();
     draw();
   }
+
+  // TODO dragging functionality
+  public void nodeDragEnter(MouseDragEvent mouseDragEvent) {}
+
+  public void nodeDragRelease(MouseDragEvent mouseDragEvent) {}
 }
