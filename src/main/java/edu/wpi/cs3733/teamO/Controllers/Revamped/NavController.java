@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
+import edu.wpi.cs3733.teamO.HelperClasses.PopUp;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -32,6 +34,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.WindowEvent;
 
 public class NavController implements Initializable {
 
@@ -117,6 +120,10 @@ public class NavController implements Initializable {
     addingEdgeBD = false;
     showingEdges = false;
     selectedNode = null;
+  }
+
+  public AnchorPane getAnchorPane() {
+    return anchorPane;
   }
 
   /**
@@ -499,34 +506,21 @@ public class NavController implements Initializable {
     // ----------------------
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-      alignList = new ArrayList<>();
+      // alignList = new ArrayList<>();
+      selectedNode = clickedNode;
 
-      // if navigating
-      if (!editing) {
-        draw();
-      }
-      // if editing
-      else {
-        if (selectingEditNode && selectedNode == null) {
-          selectedNode = clickedNode;
-          selectingEditNode = false;
-        } else {
-          selectedNodeB = clickedNode;
-        }
-      }
+      PopUp nodePop = new PopUp();
 
-      // if selectedNode != null or selectedNodeB != null, set those Edge text fields
-      if (selectedNode != null) {
-        startLoc.setText(selectedNode.getLongName());
-      }
-      if (selectedNodeB != null) {
-        endLoc.setText(selectedNodeB.getLongName());
-      }
+      // create window event
+      EventHandler<WindowEvent> event =
+          new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent e) {
+              // TODO highlight node you are changing
+            }
+          };
 
-      /**
-       * If the middle mouse is pressed, we want the node to be dragged with the user's cursor. Once
-       * it is pressed up, we will drop the node in that location
-       */
+      // add event
+      nodePop.setShowingProperties(event);
     }
 
     draw();
