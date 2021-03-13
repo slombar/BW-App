@@ -29,7 +29,7 @@
           <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="263.0" prefWidth="268.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox alignment="TOP_CENTER" prefHeight="313.0" prefWidth="268.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label text="Your COVID-19 Survey is currently being reviewed by hospital staff. Please wait in your car until your entry request has been approved." textFill="WHITE" wrapText="true">
                      <font>
@@ -59,9 +59,10 @@
                         <Insets top="25.0" />
                      </VBox.margin>
                   </JFXButton>
+                  <StackPane fx:id="spinnerPane" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" />
                </children>
             </VBox>
-            <StackPane fx:id="popupNotification" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <StackPane fx:id="popupNotification" alignment="TOP_CENTER" onMouseMoved="#checkEntryStatus" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <JFXButton onAction="#goToSurvey" text="Back" textFill="WHITE" />
