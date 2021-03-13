@@ -6,7 +6,6 @@ import edu.wpi.cs3733.teamO.Model.Edge;
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.SQLException;
 import java.util.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -479,7 +478,7 @@ public class Graph {
    * @param startNode start Node of path
    * @param endNode end Node of path
    */
-  public void drawCurrentPath(
+  public Polyline drawCurrentPath(
       String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -496,7 +495,7 @@ public class Graph {
       }
     }
 
-    drawMidArrows(floor, imageView, isMobile);
+    // drawMidArrows(floor, imageView, isMobile);
 
     if (startNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView, isMobile);
@@ -504,6 +503,8 @@ public class Graph {
     if (endNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, isMobile);
     }
+
+    return DrawHelper.makeDashes(getPathLine(floor, imageView));
   }
 
   public Polyline getPathLine(String floor, ImageView imageView) {

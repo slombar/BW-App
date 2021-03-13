@@ -30,6 +30,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -42,8 +44,10 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 public class NewNavPageController implements Initializable {
@@ -871,7 +875,15 @@ public class NewNavPageController implements Initializable {
       GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+      Polyline path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+      // TODO: replace with polyline stuff
+
+      Group group = new Group(gridPane, path);
+      Stage stage = Opp.getPrimaryStage();
+      stage.setScene(new Scene(group));
+      stage.setFullScreen(true);
+      stage.show();
+
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
