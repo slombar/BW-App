@@ -11,10 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class LoginController implements Initializable {
@@ -32,6 +34,12 @@ public class LoginController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     loginPane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
     loginPane.toBack();
+    DropShadow dropShadow = new DropShadow();
+    dropShadow.setRadius(25);
+    dropShadow.setColor(Color.gray(.15));
+    staffBtn.setEffect(dropShadow);
+    patientBtn.setEffect(dropShadow);
+    adminBtn.setEffect(dropShadow);
     //    AddComponents.dateAndTime(liveTime);
   }
 
