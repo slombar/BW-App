@@ -5,9 +5,12 @@ import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
 
 public class WaitingPageController implements Initializable {
@@ -23,30 +26,77 @@ public class WaitingPageController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hospitalNavBtn.setDisable(true);
     entryStatusBtn.setDisable(false);
+    spinnerPane.setVisible(true);
     /*
-       Task<Void> EntryTask =
-               new Task<Void>() {
+    new Thread(new Runnable() {
+        @Override public void run() {
+        for (int i = 1; i <= 1000000; i++) {
+            final int counter = i;
+            Platform.runLater(new Runnable() {
+                @Override public void run() {
+                    bar.setProgress(counter / 1000000.0);
+                }
+            });
+        }
+    }).start();
+     */
+    Task<Void> EntryTask =
+        new Task<Void>() {
 
-                 @Override
-                 protected Void call() throws Exception {
-                   checkEntryStatus();
-                   return null;
-                 }
-               };
+          @Override
+          protected Void call() throws Exception {
+            checkEntryStatus1();
 
+            Platform.runLater(
+                new Runnable() {
+                  @Override
+                  public void run() {
 
-       ProgressIndicator progress = new ProgressIndicator();
-       spinnerPane.getChildren().add(progress);
-       progress.setProgress(1.0);
-       progress.progressProperty().bind(EntryTask.progressProperty());
-       spinnerPane.toFront();
-    */
+                    // popup to say you can now continue
+                    if (location.toLowerCase().contains("covid")) {
+                      spinnerPane.setVisible(false);
+                      PopupMaker.covidEntranceNotif(popupNotification);
+                      isMainEntrance = false;
+                    } else {
+                      spinnerPane.setVisible(false);
+                      PopupMaker.mainEntranceNotif(popupNotification);
+                      isMainEntrance = true;
+                    }
+                  }
+                });
+            return null;
+          }
+        };
+
+    Thread entryThread = new Thread(EntryTask);
+    entryThread.start();
+    awaitingEntryApproval(EntryTask);
+
     // TODO: need to use the following popups
     // enable button once employee edits form and grab location
 
     //    PopupMaker.mainEntranceNotif(popupNotification);
     //    PopupMaker.covidEntranceNotif(popupNotification);
   }
+
+  void awaitingEntryApproval(Task<Void> EntryTask) {
+    ProgressIndicator progress = new ProgressIndicator();
+    spinnerPane.getChildren().add(progress);
+    progress.setProgress(1.0);
+    progress.progressProperty().bind(EntryTask.progressProperty());
+    spinnerPane.toFront();
+  }
+  /*btn.setOnAction(event -> {
+      iv.setImage(openImage);
+      btn.setGraphic(iv);
+
+      PauseTransition pause = new PauseTransition(Duration.seconds(2));
+      pause.setOnFinished(e -> iv.setImage(unnamedImage));
+      pause.play();
+
+  });
+
+     */
 
   /**
    * go back to the covid 19 survey that will be sent ot the hospital to review entry request
@@ -72,6 +122,7 @@ public class WaitingPageController implements Initializable {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
+      spinnerPane.setVisible(false);
       // popup to say you can now continue
       if (location.toLowerCase().contains("covid")) {
         PopupMaker.covidEntranceNotif(popupNotification);
@@ -84,18 +135,11 @@ public class WaitingPageController implements Initializable {
     }
   }
 
-  public void checkEntryStatus() {
+  public void checkEntryStatus1() {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
-      // popup to say you can now continue
-      if (location.toLowerCase().contains("covid")) {
-        PopupMaker.covidEntranceNotif(popupNotification);
-        isMainEntrance = false;
-      } else {
-        PopupMaker.mainEntranceNotif(popupNotification);
-        isMainEntrance = true;
-      }
+
       // TODO grab which entrance
     }
   }
