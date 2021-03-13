@@ -99,6 +99,8 @@ public class MobileHospitalNavController implements Initializable {
   JFXTextField endLoc = new JFXTextField();
   VBox locBox = new VBox();
 
+  public boolean isFirstStart = false;
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // set the icons sizes
@@ -177,6 +179,15 @@ public class MobileHospitalNavController implements Initializable {
     selectingEnd = true;
     pathfindOnActionBtn();
     clearBtn.setButtonType(JFXButton.ButtonType.RAISED);
+    if (WaitingPageController.isMainEntrance) {
+      endLoc.setText("Exit 3 Atrium Main Entrance");
+      endNode = GRAPH.getNodeByLongName(endLoc.getText());
+      isFirstStart = true;
+    } else {
+      endLoc.setText("Exit 2 Emergency Entrance");
+      endNode = GRAPH.getNodeByLongName(endLoc.getText());
+      isFirstStart = true;
+    }
   }
 
   /** adding on action functionality to the buttons in the JFXNodeslist */
@@ -308,6 +319,10 @@ public class MobileHospitalNavController implements Initializable {
       if (selectingStart) {
         startNode = clickedNode;
         startLoc.setText(startNode.getLongName());
+        if (isFirstStart) {
+          isFirstStart = false;
+          doPathfind();
+        }
       } else if (selectingEnd) {
         endNode = clickedNode;
         endLoc.setText(endNode.getLongName());
