@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 
 public class AboutController implements Initializable {
@@ -15,6 +14,8 @@ public class AboutController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     teamCoaches.setWrapText(true);
+
+    // TODO when you hover over image, displays name and position
     /*
     Tooltip tooltip = new Tooltip();
     tooltip.setGraphic(new ImageView(selina));
