@@ -50,7 +50,7 @@ public class SideMenuStaffController implements Initializable {
   public void toSettings(ActionEvent actionEvent) {}
 
   public void goToLogin(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/Login.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 
   public void toMain(ActionEvent actionEvent) {

@@ -45,7 +45,7 @@ public class StaffSignInPopupController {
    * @param actionEvent
    */
   public void close(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/Login.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 
   /**

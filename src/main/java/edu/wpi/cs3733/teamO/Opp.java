@@ -6,9 +6,9 @@ import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Opp extends Application {
@@ -30,7 +30,8 @@ public class Opp extends Application {
     Opp.primaryStage = ps;
 
     try {
-      BorderPane root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
+      Parent root =
+          FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/SignInPage.fxml"));
       Scene scene = new Scene(root);
       Image icon =
           new Image(getClass().getResourceAsStream("/Brigham_and_Womens_Hospital_logo.png"));

@@ -51,11 +51,11 @@ public class LoginController implements Initializable {
    * @param mouseEvent
    */
   public void goToLogin(MouseEvent mouseEvent) {
-    SwitchScene.goToParent("/Views/PatientSignInPopup.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 
   public void goToStaffLogin(MouseEvent mouseEvent) {
-    SwitchScene.goToParent("/Views/StaffSignInPopup.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 
   /**
@@ -112,6 +112,5 @@ public class LoginController implements Initializable {
     SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");
   }
 
-    public void goToTemp(ActionEvent actionEvent) {
-    }
+  public void goToTemp(ActionEvent actionEvent) {}
 }
