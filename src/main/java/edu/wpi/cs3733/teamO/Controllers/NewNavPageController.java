@@ -864,12 +864,13 @@ public class NewNavPageController implements Initializable {
   /** can draw the path, nodes, and edges based on booleans */
   private void draw() {
     resizeCanvas();
+    gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
 
     // i know these can be simplified but i don't care -- this is more organized imo
 
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
+      // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
@@ -894,7 +895,7 @@ public class NewNavPageController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
+      // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
@@ -941,15 +942,17 @@ public class NewNavPageController implements Initializable {
    * @param mouseEvent
    */
   public void nodeDrag(MouseEvent mouseEvent) {
-    Node draggedNode =
-        GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
+    if (editing) {
+      Node draggedNode =
+          GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
 
-    int x = (int) (getImgX(mouseEvent.getX()));
-    int y = (int) (getImgY(mouseEvent.getY()));
+      int x = (int) (getImgX(mouseEvent.getX()));
+      int y = (int) (getImgY(mouseEvent.getY()));
 
-    draggedNode.setXCoord(x);
-    draggedNode.setYCoord(y);
-    draw();
+      draggedNode.setXCoord(x);
+      draggedNode.setYCoord(y);
+      draw();
+    }
   }
 
   private void addTextToDirectionBox(String text) {
