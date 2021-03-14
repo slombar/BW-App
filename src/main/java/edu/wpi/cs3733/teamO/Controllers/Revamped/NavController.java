@@ -76,7 +76,7 @@ public class NavController implements Initializable {
   private final JFXButton floor3B = new JFXButton("3", null);
   private final JFXButton floor4B = new JFXButton("4", null);
   private final JFXButton floor5B = new JFXButton("5", null);
-  JFXComboBox algoStratBox = new JFXComboBox();
+  private final JFXComboBox<String> algoStratBox = new JFXComboBox<String>();
 
   VBox directionsBox = new VBox();
   HBox directionButtons = new HBox();
