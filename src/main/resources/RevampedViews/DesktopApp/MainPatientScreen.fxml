@@ -42,9 +42,9 @@
                <graphic>
                   <VBox alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="255.0" fitWidth="255.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="navImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                            <image>
                               <Image url="@../../highResBWBackground.jpg" />
@@ -80,9 +80,9 @@
                <graphic>
                   <VBox alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="255.0" fitWidth="255.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="aboutImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                            <image>
                               <Image url="@../../ladyInBed.jpg" />
@@ -118,9 +118,9 @@
                <graphic>
                   <VBox alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="255.0" fitWidth="255.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="googleNavImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                            <image>
                               <Image url="@../../brigham-and-womens-faulkner-hospital-aerial.jpg" />
@@ -161,7 +161,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                            <image>
-                              <Image url="@../../Icons/stethescopeIconWhite.png" />
+                              <Image url="@../../Icons/stethoscopeIconWhite.png" />
                            </image>
                         </ImageView>
                         <VBox alignment="CENTER_LEFT" prefHeight="100.0">
