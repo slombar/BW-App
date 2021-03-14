@@ -4,7 +4,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.util.Date;
 
 public class Request extends RecursiveTreeObject<Request> {
-  private String requestID;
+  private int requestID;
   private String requestedBy;
   public String fulfilledBy;
   private Date dateRequested;
@@ -18,7 +18,7 @@ public class Request extends RecursiveTreeObject<Request> {
   private Boolean hasSymptoms;
 
   public Request(
-      String requestID,
+      int requestID,
       String requestedBy,
       String fulfilledBy,
       Date dateRequested,
@@ -44,7 +44,7 @@ public class Request extends RecursiveTreeObject<Request> {
 
   // ENTRY REQUEST CONSTRUCTOR
   public Request(
-      String requestID,
+      int requestID,
       String requestedBy,
       String fulfilledBy,
       Date dateRequested,
@@ -60,11 +60,11 @@ public class Request extends RecursiveTreeObject<Request> {
 
   public Request() {}
 
-  public String getRequestID() {
+  public int getRequestID() {
     return requestID;
   }
 
-  public void setRequestID(String requestID) {
+  public void setRequestID(int requestID) {
     this.requestID = requestID;
   }
 

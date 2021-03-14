@@ -62,7 +62,9 @@ public class MainPatientScreenController implements Initializable {
     SwitchScene.goToParent("/Views/GoogleMaps/GoogleMapPage.fxml");
   }
 
-  public void goToCovid(ActionEvent actionEvent) { SwitchScene.goToParent("/Views/CovidSurvey.fxml"); }
+  public void goToCovid(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
+  }
 
   public void goToMobile(ActionEvent actionEvent) {
     SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");

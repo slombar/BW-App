@@ -54,7 +54,7 @@ public class ReqController implements Initializable {
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
 
-    String reqID = r.getRequestID();
+    int reqID = r.getRequestID();
     String requestedBy = r.getRequestedBy();
     String fulfilledBy = r.getFulfilledBy();
     Date dateNeeded = r.getDateNeeded();
@@ -70,7 +70,7 @@ public class ReqController implements Initializable {
     addBox.setBackground(
         new Background(
             new BackgroundFill(Color.color(.95, .95, .95), new CornerRadii(5), Insets.EMPTY)));
-    Label id = new Label(reqID);
+    Label id = new Label(String.valueOf(reqID));
     id.setStyle("-fx-max-width: 50; -fx-min-width: 50; " + id.getStyle());
 
     Label reqBy = new Label(requestedBy);
@@ -327,7 +327,7 @@ public class ReqController implements Initializable {
             PopupMaker.incompletePopup(popUpPane);
           } else {
             UserHandling.assignEmployee(
-                listOfFields.get(0).getText(), listOfFields.get(1).getText());
+                Integer.parseInt(listOfFields.get(0).getText()), listOfFields.get(1).getText());
 
             assignStaffDialog.close();
             popUpPane.toBack();
@@ -387,7 +387,8 @@ public class ReqController implements Initializable {
             //           incompletePopup();
             PopupMaker.incompletePopup(popUpPane);
           } else {
-            Request selectedRequest = RequestHandling.getRequest(listOfFields.get(0).getText());
+            Request selectedRequest =
+                RequestHandling.getRequest(Integer.parseInt(listOfFields.get(0).getText()));
             System.out.println(listOfFields.get(0).getText());
             /*RequestHandling.editRequest(
             Integer.parseInt(listOfFields.get(0).getText()),

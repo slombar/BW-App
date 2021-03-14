@@ -352,7 +352,7 @@ public class UserHandling {
    * @param reqID
    * @param employee
    */
-  public static void assignEmployee(String reqID, String employee) {
+  public static void assignEmployee(int reqID, String employee) {
 
     try {
       RequestHandling.setStatus(reqID, "Assigned");
@@ -361,10 +361,7 @@ public class UserHandling {
     }
 
     String query =
-        "UPDATE Requests SET fulfilledBy = '"
-            + employee
-            + "' WHERE requestID = "
-            + Integer.parseInt(reqID);
+        "UPDATE Requests SET fulfilledBy = '" + employee + "' WHERE requestID = " + reqID;
     PreparedStatement preparedStmt = null;
 
     try {
