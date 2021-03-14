@@ -169,6 +169,7 @@ public class RequestHandling {
 
       ResultSet rset = pstmt.executeQuery();
       rset.next();
+
       // add properties to the node
       r.setRequestID(reqID);
       r.setRequestedBy(rset.getString("requestedBy"));
