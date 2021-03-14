@@ -54,11 +54,10 @@
                   <RowConstraints minHeight="-Infinity" percentHeight="15.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="-Infinity" percentHeight="15.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="39.79998779296875" minHeight="33.4000244140625" percentHeight="10.0" prefHeight="33.4000244140625" vgrow="SOMETIMES" />
-                  <RowConstraints percentHeight="20.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="78.5999755859375" minHeight="10.0" percentHeight="5.0" prefHeight="19.4000244140625" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="15.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -109,11 +108,6 @@
                         <Insets />
                      </GridPane.margin>
                   </Hyperlink>
-                  <JFXButton onAction="#close" prefHeight="37.0" prefWidth="83.0" text="Close" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
-                     <font>
-                        <Font name="Leelawadee UI" size="18.0" />
-                     </font>
-                  </JFXButton>
                   <Text fill="#000000cd" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                      <font>
                         <Font name="Leelawadee UI Bold" size="16.0" />
