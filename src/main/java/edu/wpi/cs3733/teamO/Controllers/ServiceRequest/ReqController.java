@@ -387,7 +387,8 @@ public class ReqController implements Initializable {
             //           incompletePopup();
             PopupMaker.incompletePopup(popUpPane);
           } else {
-            Request selectedRequest = RequestHandling.getRequest(Integer.parseInt(listOfFields.get(0).getText()));
+            Request selectedRequest =
+                RequestHandling.getRequest(Integer.parseInt(listOfFields.get(0).getText()));
             System.out.println(listOfFields.get(0).getText());
             /*RequestHandling.editRequest(
             Integer.parseInt(listOfFields.get(0).getText()),
