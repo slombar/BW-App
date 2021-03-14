@@ -165,3 +165,4 @@ public class RequestPageController implements Initializable {
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 }
+
