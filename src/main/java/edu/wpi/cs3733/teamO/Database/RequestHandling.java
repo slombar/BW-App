@@ -122,7 +122,7 @@ public class RequestHandling {
         DatabaseConnection.getConnection()
             .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = ?");
 
-    pstmt.setInt(1, Integer.valueOf(reqID));
+    pstmt.setInt(1, reqID);
 
     ResultSet rset = pstmt.executeQuery();
 
@@ -147,7 +147,7 @@ public class RequestHandling {
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
 
-    pstmt.setInt(1, Integer.valueOf(reqID));
+    pstmt.setInt(1, reqID);
     pstmt.executeUpdate();
     pstmt.close();
   }
@@ -262,7 +262,7 @@ public class RequestHandling {
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      preparedStmt.setInt(1, Integer.valueOf(requestID));
+      preparedStmt.setInt(1, requestID);
 
       preparedStmt.execute();
       preparedStmt.close();
