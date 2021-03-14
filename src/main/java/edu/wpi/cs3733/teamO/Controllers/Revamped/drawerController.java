@@ -41,10 +41,7 @@ public class drawerController {
     return directionsDisplayVbox;
   }
 
-  public void share(ActionEvent actionEvent) {
-
-
-  }
+  public void share(ActionEvent actionEvent) {}
 
   public void saveNode(ActionEvent actionEvent) {}
 }
