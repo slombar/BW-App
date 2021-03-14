@@ -51,7 +51,7 @@ public class MainPatientScreenController implements Initializable {
   }
 
   public void goToNav(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
   }
 
   public void goToAbout(ActionEvent actionEvent) {

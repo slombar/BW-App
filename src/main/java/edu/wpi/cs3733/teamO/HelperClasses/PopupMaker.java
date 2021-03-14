@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class PopupMaker {
@@ -551,33 +552,59 @@ public class PopupMaker {
 
   public static void serviceReqPopup(StackPane popupPane, String reqId) {
     popupPane.toFront();
+    int wrapLength = 650;
+
+    System.out.println("String: " + reqId);
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
     Request request = RequestHandling.getRequest(Integer.parseInt(reqId));
-    warning.setHeading(new Text("Request: " + reqId));
+    Text heading = new Text("Request " + reqId);
+    heading.setStyle(
+        "-fx-font-family: 'Leelawadee UI'; -fx-font-size: 18pt; -fx-font-weight: 700; ");
+    warning.setHeading(heading);
+
     Text reqBy = new Text("Requested By: " + request.getRequestedBy());
+    reqBy.setWrappingWidth(wrapLength);
+
     Text fulfilledBy = new Text("Fulfilled By: " + request.getFulfilledBy());
-    request.getDateRequested().toString();
+    fulfilledBy.setWrappingWidth(wrapLength);
+
     Text dateReq = new Text("Date Requested: " + request.getDateRequested().toString());
+    dateReq.setWrappingWidth(wrapLength);
+
     Text dateNeeded = new Text("Date Needed: " + request.getDateNeeded().toString());
+    dateNeeded.setWrappingWidth(wrapLength);
+
     Text location = new Text("Location: " + request.getLocationNodeID());
+    location.setWrappingWidth(wrapLength);
+
     Text summary = new Text("Summary: " + request.getSummary());
+    summary.setWrappingWidth(wrapLength);
+
     Text p1 = new Text("para1: " + request.getPara1());
+    p1.setWrappingWidth(wrapLength);
+
     Text p2 = new Text("para2: " + request.getPara2());
+    p2.setWrappingWidth(wrapLength);
+
     Text p3 = new Text("para3: " + request.getPara3());
-    // text.setWrappingWidth(200);
-    warning
-        .getBody()
+    p3.setWrappingWidth(wrapLength);
+
+    VBox addvbox = new VBox();
+    addvbox
+        .getChildren()
         .addAll(reqBy, fulfilledBy, dateReq, dateNeeded, location, summary, p1, p2, p3);
+    addvbox.setStyle(
+        "-fx-wrap-text: true; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 16pt; -fx-spacing: 16pt; ");
+    // text.setWrappingWidth(200);
+    warning.setBody(addvbox);
     JFXButton closeButton = new JFXButton("Close");
     warning.setActions(closeButton);
 
     // Creates the actual popup
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
-    warningDialog.setPrefWidth(600);
-    warningDialog.setPrefWidth(600);
     // Closes the popup
     closeButton.setOnAction(
         event -> {

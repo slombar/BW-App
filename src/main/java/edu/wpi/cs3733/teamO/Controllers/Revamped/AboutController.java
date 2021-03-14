@@ -14,15 +14,22 @@ public class AboutController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     teamCoaches.setWrapText(true);
+    selina.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_MOVED,
+        event -> {
+          System.out.println("Tile pressed ");
 
+          event.consume();
+        });
     // TODO when you hover over image, displays name and position
     /*
+
     Tooltip tooltip = new Tooltip();
-    tooltip.setGraphic(new ImageView(selina));
+            tooltip.setGraphic(new ImageView("@../../TeamOPictures/Selina.PNG"));
+              setTooltip(tooltip);
+              Tooltip.install(selina, new Tooltip("Selina Spry, Project Manager"));
 
-    button.setTooltip(tooltip);
-    Tooltip.install(selina, new Tooltip("Selina Spry, Project Manager"));
 
-     */
+       */
   }
 }

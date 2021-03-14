@@ -11,9 +11,9 @@ public class AboutController {
 
   public void goToHome(ActionEvent actionEvent) {
     if (UserHandling.getEmployee()) {
-      SwitchScene.goToParent("/Views/StaffMainPage.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
     } else {
-      SwitchScene.goToParent("/Views/MainPage.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
     }
   }
 
