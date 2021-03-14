@@ -53,11 +53,11 @@ public class SideMenuController implements Initializable {
   }
 
   public void toMain(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/MainPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
   }
 
   public void toNav(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
   }
 
   public void mouseOnNot(MouseEvent mouseEvent) {
@@ -141,7 +141,7 @@ public class SideMenuController implements Initializable {
   }
 
   public void toAbout(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/AboutPage.fxml");
+    SwitchScene.goToParent("RevampedViews/DesktopApp/RevampedAboutPage.fxml");
   }
   // public void toAbout(ActionEvent actionEvent) {
   // SwitchScene.goToParent("/RevampedViews/DesktopApp/RevampedAboutPage.fxml");  }
