@@ -29,7 +29,7 @@ public class RequestHandling {
       ResultSet rset = pstmt.executeQuery();
 
       // temp variables for assignment
-      String reqID = "";
+      int reqID = 0;
       String requestedBy = "";
       String fulfilledBy = "";
       Date dateRequested = new Date();
@@ -43,7 +43,7 @@ public class RequestHandling {
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
-        reqID = rset.getString("requestID");
+        reqID = rset.getInt("requestID");
         requestedBy = rset.getString("requestedBy");
         fulfilledBy = rset.getString("fulfilledBy");
         dateRequested = rset.getDate("dateRequested");
@@ -112,7 +112,7 @@ public class RequestHandling {
    * @param reqID the id of the request you need the status of
    * @return
    */
-  public static String getStatus(String reqID) throws SQLException {
+  public static String getStatus(int reqID) throws SQLException {
 
     String status = "";
 
@@ -122,7 +122,7 @@ public class RequestHandling {
         DatabaseConnection.getConnection()
             .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = ?");
 
-    pstmt.setInt(1, Integer.valueOf(reqID));
+    pstmt.setInt(1, reqID);
 
     ResultSet rset = pstmt.executeQuery();
 
@@ -141,13 +141,13 @@ public class RequestHandling {
    *
    * @param reqID
    */
-  public static void setStatus(String reqID, String status) throws SQLException {
+  public static void setStatus(int reqID, String status) throws SQLException {
     String query = "UPDATE REQUESTS SET STATUS = '" + status + "' WHERE REQUESTID = ?";
 
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
 
-    pstmt.setInt(1, Integer.valueOf(reqID));
+    pstmt.setInt(1, reqID);
     pstmt.executeUpdate();
     pstmt.close();
   }
@@ -158,17 +158,17 @@ public class RequestHandling {
    * @param reqID
    * @return
    */
-  public static Request getRequest(String reqID) {
+  public static Request getRequest(int reqID) {
     Request r = new Request();
 
     try {
-      PreparedStatement pstmt = null;
-      pstmt =
+      PreparedStatement pstmt =
           DatabaseConnection.getConnection()
               .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = ?");
-      pstmt.setInt(1, Integer.valueOf(reqID));
+      pstmt.setInt(1, reqID);
 
       ResultSet rset = pstmt.executeQuery();
+      rset.next();
 
       // add properties to the node
       r.setRequestID(reqID);
@@ -262,7 +262,7 @@ public class RequestHandling {
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      preparedStmt.setInt(1, Integer.valueOf(requestID));
+      preparedStmt.setInt(1, requestID);
 
       preparedStmt.execute();
       preparedStmt.close();

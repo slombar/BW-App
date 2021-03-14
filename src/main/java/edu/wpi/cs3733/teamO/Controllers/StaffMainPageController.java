@@ -83,7 +83,7 @@ public class StaffMainPageController implements Initializable {
   }
 
   public void goToNav(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
   }
 
   public void goToParking(ActionEvent actionEvent) {}
