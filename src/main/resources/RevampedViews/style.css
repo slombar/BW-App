@@ -1,12 +1,19 @@
 .buttons{
     /*-fx-background-color: #696969;*/
-    -fx-background-color: rgba(255, 255, 255, .95);
+    -fx-background-color: rgba(225, 225, 225, .95);
     -fx-background-radius: 4em;
     -fx-pref-width: 4em;
     -fx-pref-height: 4em;
 }
 
 .directions-box{
-    -fx-background-color: rgba(255, 255, 255, .95);
+    -fx-background-color: rgba(225, 225, 225, .95);
     -fx-background-radius: 2em;
+}
+
+.combo-box{
+    -fx-background-color: rgba(225, 225, 225, .95);
+    -fx-background-radius: 1em;
+    -fx-pref-width: 130;
+    -fx-pref-height: 20;
 }

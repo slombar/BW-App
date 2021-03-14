@@ -3,17 +3,16 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.floor5Map;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXNodesList;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
+import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -39,7 +38,16 @@ import javafx.scene.paint.Color;
 
 public class NavController implements Initializable {
 
+  /**
+   * NEED THE FOLLOWING TEXTFIELDS nodeID xCoord yCoord floor building nodeType longName shortName
+   * startNodeID endNodeID
+   *
+   * <p>button for submitting node changes (add and edit changes)
+   *
+   * <p>a toggle for visible nodes *
+   */
   public AnchorPane anchorPane;
+
   public Canvas mapCanvas;
   public FlowPane hamburger;
   public ImageView imageView;
@@ -49,12 +57,14 @@ public class NavController implements Initializable {
   @FXML private JFXNodesList editingList;
   @FXML private JFXNodesList help;
   @FXML private JFXNodesList floorsList;
+  private JFXNodesList algoList = new JFXNodesList();
   private final JFXButton helpB = new JFXButton("H", null);
   private final JFXButton parkingB = new JFXButton("P", null);
   private final JFXButton editB = new JFXButton("E", null);
   private final JFXButton showEdgesB = new JFXButton("sho", null);
   private final JFXButton saveB = new JFXButton("S", null);
   private final JFXButton uploadB = new JFXButton("U", null);
+  private final JFXButton algoB = new JFXButton("A*", null);
   private final JFXButton navB = new JFXButton("N", null);
   private final JFXButton floorSelectionB = new JFXButton("F", null);
   private final JFXButton floorGB = new JFXButton("G", null);
@@ -63,6 +73,7 @@ public class NavController implements Initializable {
   private final JFXButton floor3B = new JFXButton("3", null);
   private final JFXButton floor4B = new JFXButton("4", null);
   private final JFXButton floor5B = new JFXButton("5", null);
+  JFXComboBox algoStratBox = new JFXComboBox();
   VBox directionsBox = new VBox();
   HBox directionButtons = new HBox();
   JFXTextField startLoc = new JFXTextField();
@@ -148,12 +159,22 @@ public class NavController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
+    // autocompletes start and end textfields
+    ArrayList<String> longNameNodes = Autocomplete.autoNodeData("longName");
+    Autocomplete.autoComplete(longNameNodes, startLoc);
+    Autocomplete.autoComplete(longNameNodes, endLoc);
+
     // Add Buttons to their respective list
     /** Add to the editing dropdown * */
     editingList.addAnimatedNode(editB);
     editingList.addAnimatedNode(showEdgesB);
     editingList.addAnimatedNode(saveB);
     editingList.addAnimatedNode(uploadB);
+    editingList.addAnimatedNode(algoList);
+
+    algoList.addAnimatedNode(algoB);
+    algoStratBox.setItems(listOfStrats);
+    algoList.addAnimatedNode(algoStratBox);
 
     /** Add to the floor selection* */
     floorsList.addAnimatedNode(floorSelectionB);
@@ -173,6 +194,7 @@ public class NavController implements Initializable {
     directionsList.addAnimatedNode(navB);
 
     // add stuff to vbox TODO(make horizontal)
+    algoList.setRotate(90);
     directionsList.setRotate(0);
     floorsList.setRotate(270);
 
@@ -252,12 +274,17 @@ public class NavController implements Initializable {
     parking.setSpacing(10);
     directionsList.setSpacing(10);
     floorsList.setSpacing(10);
+    algoList.setSpacing(60);
 
     editingList.toFront();
     help.toFront();
     parking.toFront();
     directionsList.toFront();
     floorsList.toFront();
+    algoList.toFront();
+
+    algoStratBox.setPadding(new Insets(5, 10, 5, 10));
+    algoStratBox.getStyleClass().addAll("combo-box");
 
     directionsList.setAlignment(Pos.TOP_LEFT);
     directionButtons.setAlignment(Pos.CENTER);
@@ -282,6 +309,8 @@ public class NavController implements Initializable {
     saveB.setButtonType(JFXButton.ButtonType.RAISED);
     uploadB.getStyleClass().addAll("buttons");
     uploadB.setButtonType(JFXButton.ButtonType.RAISED);
+    algoB.getStyleClass().addAll("buttons");
+    algoB.setButtonType(JFXButton.ButtonType.RAISED);
     navB.getStyleClass().addAll("buttons");
     navB.setButtonType(JFXButton.ButtonType.RAISED);
     floorSelectionB.getStyleClass().addAll("buttons");
@@ -397,6 +426,12 @@ public class NavController implements Initializable {
           showingEdges = !showingEdges;
           draw();
         });
+
+    algoStratBox.setOnAction(
+        e -> {
+          strategy = (String) algoStratBox.getValue();
+          Settings.getInstance().setAlgoChoice(strategy);
+        });
   }
 
   /**
@@ -406,11 +441,7 @@ public class NavController implements Initializable {
    */
   public AnchorPane resizableWindow() {
     imageView.setPreserveRatio(true);
-    //    imageView.setFitHeight(mapCanvas.getScene().getWindow().getHeight());
-    //    imageView.fitHeightProperty().bind(mapCanvas.getScene().heightProperty());
-    //
     // imageView.fitWidthProperty().bind(Opp.getPrimaryStage().getScene().widthProperty());
-
     //     resizeCanvas();
 
     return anchorPane;
@@ -488,7 +519,7 @@ public class NavController implements Initializable {
     Node clickedNode =
         GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
 
-    // block for SHIFT CLICK
+    // block for SHIFT CLICK --> aligning nodes
     if (editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
       if ((selectingEditNode && selectedNode == null)) {
         selectedNode = clickedNode;
@@ -498,14 +529,36 @@ public class NavController implements Initializable {
       }
       selectedNodeB = null;
     }
-    // block for CTRL CLICK
+    // block for CTRL CLICK --> creating edge?
     else if (editing
         && mouseEvent.isControlDown()
         && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-      // TODO: add edgge
+//      alignList = new ArrayList<>();
+//
+//      // if navigating
+//      if (!editing) {
+//        draw();
+//      }
+//      // if editing
+//      else {
+//        if (selectingEditNode && selectedNode == null) {
+//          selectedNode = clickedNode;
+//          selectingEditNode = false;
+//        } else {
+//          selectedNodeB = clickedNode;
+//        }
+//      }
+//
+//      // if selectedNode != null or selectedNodeB != null, set those Edge text fields
+//      if (selectedNode != null) {
+//        startNodeID.setText(selectedNode.getID());
+//      }
+//      if (selectedNodeB != null) {
+//        endNodeID.setText(selectedNodeB.getID());
+//      }
     }
     // ----------------------
-    // block for LEFT CLICK
+    // block for LEFT CLICK --> regular clicking
     else if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
       alignList = new ArrayList<>();
 
@@ -518,7 +571,7 @@ public class NavController implements Initializable {
           startLoc.setText(startNode.getLongName());
         } else if (selectingEnd) {
           endNode = clickedNode;
-          endLoc.setText(startNode.getLongName());
+          endLoc.setText(endNode.getLongName());
           doPathfind();
         }
       }
@@ -570,13 +623,13 @@ public class NavController implements Initializable {
 
     deleteNodeMenu.setOnAction(
         action -> {
-          //          // deleting node
-          //          try {
-          //            deleteNode(node);
-          //            draw();
-          //          } catch (SQLException throwables) {
-          //            throwables.printStackTrace();
-          //          }
+          // deleting node
+          try {
+            deleteNode(node);
+            draw();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
         });
 
     addEdgeMenu.setOnAction(
@@ -658,20 +711,18 @@ public class NavController implements Initializable {
     draw();
   }
 
-  //  /**
-  //   * will delete the node that is currently selected
-  //   */
-  //  private void deleteNode(Node selectedNode) throws SQLException {
-  //    GRAPH.deleteNode(selectedNode.getID());
-  //    selectedNode = null;
-  //    draw();
-  //  }
-  //
-  //  /**
-  //   * will add a new edge based on the start and end node IDs
-  //   *
-  //   * @param actionEvent
-  //   */
+  /** will delete the node that is currently selected */
+  private void deleteNode(Node selectedNode) throws SQLException {
+    GRAPH.deleteNode(selectedNode.getID());
+    selectedNode = null;
+    draw();
+  }
+
+  /**
+   * will add a new edge based on the start and end node IDs
+   *
+   * @param actionEvent
+   */
   //  public void addEdge(ActionEvent actionEvent) {
   //    // if any fields are empty, show appropriate warning
   //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
@@ -689,16 +740,15 @@ public class NavController implements Initializable {
   //        PopupMaker.edgeAlreadyExists(nodeWarningPane);
   //      }
   //    }
-  //
   //    draw();
   //  }
-  //
-  //  /**
-  //   * will delete a node based on start and end node IDs
-  //   *
-  //   * @param actionEvent
-  //   * @throws SQLException
-  //   */
+
+  /**
+   * will delete an edge based on start and end node IDs
+   *
+   * @param actionEvent
+   * @throws SQLException
+   */
   //  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
   //    // if any fields are empty, show appropriate warning
   //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
@@ -714,15 +764,14 @@ public class NavController implements Initializable {
   //        PopupMaker.edgeDoesntExists(nodeWarningPane);
   //      }
   //    }
-  //
   //    draw();
   //  }
-  //
-  //  /**
-  //   * checks if the any of the node fields are null
-  //   *
-  //   * @return true if any node fields are null
-  //   */
+
+  /**
+   * checks if the any of the node fields are null
+   *
+   * @return true if any node fields are null
+   */
   //  private boolean isNodeInfoNull() {
   //    if ((nodeID.getText() == null)
   //            || (xCoord.getText() == null)
@@ -736,12 +785,12 @@ public class NavController implements Initializable {
   //    }
   //    return false;
   //  }
-  //
-  //  /**
-  //   * checks if the any of the node fields are empty
-  //   *
-  //   * @return true if any node fields are empty
-  //   */
+
+  /**
+   * checks if the any of the node fields are empty
+   *
+   * @return true if any node fields are empty
+   */
   //  private boolean isNodeInfoEmpty() {
   //    if (nodeID.getText().isEmpty()
   //            || xCoord.getText().isEmpty()
@@ -756,7 +805,7 @@ public class NavController implements Initializable {
   //    return false;
   //  }
   //
-  //  /** clears all info in node textfields */
+  /** clears all info in node textfields */
   //  private void clearNodeInfo() {
   //    nodeID.clear();
   //    xCoord.clear();
@@ -769,7 +818,7 @@ public class NavController implements Initializable {
   //    setVisibility.setSelected(false);
   //  }
   //
-  //  /** clears all info in edge textfields */
+  /** clears all info in edge textfields */
   //  private void clearEdgeInfo() {
   //    startNodeID.clear();
   //    endNodeID.clear();
@@ -857,6 +906,8 @@ public class NavController implements Initializable {
     return (currentViewport.getMinY() + ((percCanvasY * currentViewport.getHeight())));
   }
 
+  // TODO: all sharing function!
+
   //  /**
   //   * creates an output file
   //   *
@@ -939,6 +990,8 @@ public class NavController implements Initializable {
   //  }
 
   public void clearSelection() {
+    startLoc.clear();
+    endLoc.clear();
     setNavFalse();
     selectingEnd = true;
 
@@ -992,16 +1045,6 @@ public class NavController implements Initializable {
       }
     }
   }
-
-  //  /**
-  //   * chooses the pathfinding algorithm used
-  //   *
-  //   * @param actionEvent
-  //   */
-  //  public void chooseStrat(ActionEvent actionEvent) {
-  //    strategy = (String) algoStratCBox.getValue();
-  //    Settings.getInstance().setAlgoChoice(strategy);
-  //  }
 
   //  private void addTextToDirectionBox(String text) {
   //

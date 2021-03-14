@@ -30,6 +30,7 @@ public class Opp extends Application {
     Opp.primaryStage = ps;
 
     try {
+
       Parent root =
           FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/Navigation.fxml"));
       Scene scene = new Scene(root);
