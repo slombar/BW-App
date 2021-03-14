@@ -491,6 +491,19 @@ public class NavController implements Initializable {
     draw();
   }
 
+  /**
+   * fills in a nodes info when it is clicked
+   *
+   * @param clickedNode
+   */
+  public void autocompleteEditMap(Node clickedNode) {
+    xCoord.setText(Integer.toString(clickedNode.getXCoord()));
+    yCoord.setText(Integer.toString(clickedNode.getYCoord()));
+    nodeType.setText(clickedNode.getNodeType());
+    longName.setText(clickedNode.getLongName());
+    visible.setSelected(clickedNode.isVisible());
+  }
+
   /** resets path and creates a new path depending on start and end nodes */
   public void doPathfind() {
     if (startNode != null && endNode != null) {
@@ -653,6 +666,7 @@ public class NavController implements Initializable {
       // TODO add dragging functionality
     }
 
+    autocompleteEditMap(clickedNode);
     draw();
   }
 
