@@ -7,14 +7,15 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.sql.SQLException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
 public class SignInPageController {
-  public JFXTextField user;
-  public JFXPasswordField pass;
-  public Text errorText;
+  @FXML private JFXTextField user;
+  @FXML private JFXPasswordField pass;
+  @FXML private Text errorText;
 
   public void checkEnter(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {

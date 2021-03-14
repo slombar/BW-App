@@ -2,10 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Controllers.Mobile.WaitingPageController;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
@@ -24,15 +21,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class ReqController implements Initializable {
 
+  public ScrollPane scrollPane;
   @FXML private JFXButton assignButton;
   @FXML private JFXButton updateButton;
   @FXML private JFXButton addButton;
@@ -42,7 +42,7 @@ public class ReqController implements Initializable {
   private static String typeOfRequest;
 
   public static ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
-    ArrayList<JFXTextField> listOfFields = new ArrayList<JFXTextField>();
+    ArrayList<JFXTextField> listOfFields = new ArrayList<>();
     for (String label : labels) {
       JFXTextField text = new JFXTextField();
       text.setPromptText(label);
@@ -54,7 +54,6 @@ public class ReqController implements Initializable {
   /** Display a single request from the request list */
   public void displayOneRequest(Request r) {
 
-    int counter = 6;
     String reqID = r.getRequestID();
     String requestedBy = r.getRequestedBy();
     String fulfilledBy = r.getFulfilledBy();
@@ -66,19 +65,42 @@ public class ReqController implements Initializable {
     String par3 = r.getPara3();
 
     HBox addBox = new HBox();
-    addBox.setSpacing(10);
+    addBox.setSpacing(30);
+    addBox.setPrefWidth(1400);
+    addBox.setBackground(
+        new Background(
+            new BackgroundFill(Color.color(.95, .95, .95), new CornerRadii(5), Insets.EMPTY)));
+    Label id = new Label(reqID);
+    id.setStyle("-fx-max-width: 50; -fx-min-width: 50; " + id.getStyle());
+
+    Label reqBy = new Label(requestedBy);
+    reqBy.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + reqBy.getStyle());
+
+    Label filledBy = new Label(fulfilledBy);
+    filledBy.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + filledBy.getStyle());
+
+    Label dReq = new Label(dateRequested.toString());
+    dReq.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + dReq.getStyle());
+
+    Label dNeed = new Label(dateNeeded.toString());
+    dNeed.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + dNeed.getStyle());
+
+    Label loc = new Label(location);
+    loc.setStyle("-fx-max-width: 50; -fx-min-width: 50; " + loc.getStyle());
+
+    Label p1 = new Label(par1);
+    p1.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + p1.getStyle());
+
+    Label p2 = new Label(par2);
+    p2.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + p2.getStyle());
+
+    Label p3 = new Label(par3);
+    p3.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + p3.getStyle());
+
+    JFXButton markDone = new JFXButton();
+
     reqBox.setSpacing(15);
 
-    Label id = new Label(reqID);
-    Label reqBy = new Label(requestedBy);
-    Label filledBy = new Label(fulfilledBy);
-    Label dReq = new Label(dateRequested.toString());
-    Label dNeed = new Label(dateNeeded.toString());
-    Label loc = new Label(location);
-    Label p1 = new Label(par1);
-    Label p2 = new Label(par2);
-    Label p3 = new Label(par3);
-    Button markDone = new Button();
     String status = "";
 
     try {
@@ -88,23 +110,20 @@ public class ReqController implements Initializable {
     }
 
     markDone.setOnAction(
-        new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent e) {
-            // mark the thing as done
-            try {
-              RequestHandling.setStatus(reqID, "Complete");
-              SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
-            } catch (SQLException throwables) {
-              // TODO @sam add input scrubbing / verification?
-              throwables.printStackTrace();
-            }
+        e -> {
+          // mark the thing as done
+          try {
+            RequestHandling.setStatus(reqID, "Complete");
+            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+          } catch (SQLException throwables) {
+            // TODO @sam add input scrubbing / verification?
+            throwables.printStackTrace();
           }
         });
 
     markDone.setText("Mark Complete");
     markDone.setStyle(
-        "-fx-background-color: white; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: 800;");
+        "-fx-background-color: #CFE2F3; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: BOLD;");
 
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
@@ -113,40 +132,70 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(dNeed);
     addBox.getChildren().add(loc);
 
-    if (!par1.equals(null) && !par1.equals("null")) {
+    if (par1 != null && !par1.equals("null")) {
       addBox.getChildren().add(p1);
-      counter++;
     }
-    if (!par2.equals(null) && !par2.equals("null")) {
+    if (par2 != null && !par2.equals("null")) {
       addBox.getChildren().add(p2);
-      counter++;
     }
-    if (!par3.equals(null) && !par3.equals("null")) {
+    if (par3 != null && !par3.equals("null")) {
       addBox.getChildren().add(p3);
-      counter++;
     }
 
-    if (status.equals("Not Assigned")) {
-      addBox.setStyle("-fx-border-color:  #ffaca4; -fx-border-width: 2px;");
+    switch (status) {
+      case "Not Assigned":
+        addBox.setStyle("-fx-border-color:  #ffaca4; -fx-border-width: 5px;");
 
-    } else if (status.equals("Assigned")) {
-      addBox.setStyle("-fx-border-color:  #fec107; -fx-border-width: 2px;");
+        break;
+      case "Assigned":
+        addBox.setStyle("-fx-border-color:  #fec107; -fx-border-width: 5px;");
 
-    } else if (status.equals("Complete")) {
-      addBox.setStyle("-fx-border-color:  #72db8e; -fx-border-width: 2px;");
+        break;
+      case "Complete":
+        addBox.setStyle("-fx-border-color:  #72db8e; -fx-border-width: 5px;");
+        break;
     }
     // add button
     addBox.getChildren().add(markDone);
 
-    for (int x = 0; x < counter; x++) {
-
-      // set text to be white
-      addBox
-          .getChildren()
-          .get(x)
-          .setStyle("-fx-text-fill:  #FFFFFF; -fx-min-width:  100; -fx-font-size: 14pt;");
+    for (Node n : addBox.getChildren()) {
+      if (!n.getClass().equals(JFXButton.class)) {
+        String temp = n.getStyle();
+        n.setStyle("-fx-text-fill:  #3A5369; -fx-font-size: 14pt;" + temp);
+      }
     }
-
+    addBox
+        .onMouseClickedProperty()
+        .set(
+            (EventHandler<MouseEvent>)
+                (MouseEvent t) -> {
+                  String minimizedAddBoxStyle = addBox.getStyle();
+                  String minimizedNStyle = id.getStyle();
+                  minimizedNStyle = minimizedNStyle.replace("-fx-max-width: 50;", "");
+                  minimizedNStyle = minimizedNStyle.replace("-fx-min-width: 50;", "");
+                  for (Node n : addBox.getChildren()) {
+                    if (n.getClass().equals(Label.class)) {
+                      n.setStyle(
+                          "-fx-max-height: INFINITY; -fx-min-height: -1; -fx-wrap-text: true; "
+                              + n.getStyle());
+                    }
+                  }
+                  JFXButton minimize = new JFXButton("-");
+                  String finalMinimizedNStyle = minimizedNStyle;
+                  minimize.setOnAction(
+                      e -> {
+                        for (Node n : addBox.getChildren()) {
+                          if (n.getClass().equals(Label.class)) {
+                            n.setStyle(finalMinimizedNStyle);
+                            System.out.println(n.getStyle());
+                          }
+                        }
+                        addBox.setStyle(minimizedAddBoxStyle);
+                      });
+                  addBox.getChildren().add(minimize);
+                  addBox.setStyle(
+                      "-fx-max-height: INFINITY; -fx-min-height: -1; " + addBox.getStyle());
+                });
     reqBox.getChildren().add(addBox);
   }
 
@@ -170,6 +219,7 @@ public class ReqController implements Initializable {
       reqList = DisplayRequest.getSpecificReqList(typeOfRequest);
       displayList(reqList);
     }
+    JFXScrollPane.smoothScrolling(scrollPane);
 
     assignButton.setDisable(!UserHandling.getAdmin());
     assignButton.setVisible(UserHandling.getAdmin());

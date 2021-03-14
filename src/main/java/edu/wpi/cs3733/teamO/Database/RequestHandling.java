@@ -328,6 +328,7 @@ public class RequestHandling {
       preparedStmt.close();
       System.out.println("printed " + query);
       WaitingPageController.setEntrance(locationNode);
+      //      WaitingPageController.notifyUser();
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
