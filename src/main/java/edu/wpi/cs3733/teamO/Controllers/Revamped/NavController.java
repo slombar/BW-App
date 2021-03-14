@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +26,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -128,16 +126,13 @@ public class NavController implements Initializable {
   private boolean selectingAlign = false;
 
   /** Directions + NodeEditing Fields */
-  drawerController informationOnPage = new drawerController();
+  @FXML JFXTextField longName;
 
-  @FXML JFXTextField longName = informationOnPage.getLongName();
-
-  @FXML JFXTextField nodeType = informationOnPage.getNodeType();
-  @FXML JFXTextField xCoord = informationOnPage.getxCoord();
-  @FXML JFXTextField yCoord = informationOnPage.getyCoord();
-  @FXML JFXCheckBox visible = informationOnPage.getVisible();
+  @FXML JFXTextField nodeType;
+  @FXML JFXTextField xCoord;
+  @FXML JFXTextField yCoord;
+  @FXML JFXCheckBox visible;
   public JFXDrawer drawerBottomRight;
-  public JFXScrollPane directionsScrollPane = informationOnPage.getDirectionsScrollPane();
 
   /** end of variable declaration */
   private void setEditFalse() {
@@ -520,34 +515,13 @@ public class NavController implements Initializable {
       }
     }
 
-    addTextToDirectionBox(Graph.findTextDirection());
+    /** DIRECTIONS @sadie */
+
+    // for each direction, add to the directions box.
+    drawerController.addDirectionChildren(Graph.findTextDirection());
 
     // open the directions box at the bottom right
     drawerBottomRight.open();
-  }
-
-  /**
-   * adds text to direction box
-   *
-   * @param textDirection
-   */
-  private void addTextToDirectionBox(List<String> textDirection) {
-    VBox allDirections = new VBox();
-    allDirections.setSpacing(10);
-
-    if (textDirection.size() > 0) {
-
-      // for each direction, add to the directions box.
-      for (String d : textDirection) {
-        // add directions label to vbox
-        allDirections.getChildren().add(new Label(d));
-      }
-
-      informationOnPage.setDirectionsScrollPaneContent(allDirections);
-
-    } else {
-      System.out.println("Directions machine broke");
-    }
   }
 
   /**
