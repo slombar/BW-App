@@ -554,8 +554,8 @@ public class PopupMaker {
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
-    Request request = RequestHandling.getRequest(reqId);
-    warning.setHeading(new Text("Request: " + reqId));
+    Request request = RequestHandling.getRequest(Integer.parseInt(reqId));
+    warning.setHeading(new Text("Request: " + Integer.parseInt(reqId)));
     Text reqBy = new Text("Requested By: " + request.getRequestedBy());
     Text fulfilledBy = new Text("Fulfilled By: " + request.getFulfilledBy());
     request.getDateRequested().toString();
