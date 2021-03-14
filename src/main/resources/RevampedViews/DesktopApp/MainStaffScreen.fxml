@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.MainStaffScreenController">
+   <children>
+      <GridPane layoutX="226.0" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="4.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="4.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="28.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="28.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="28.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="4.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <JFXButton fx:id="navBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToNav" style="-fx-background-color: #3A5369;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fx:id="navImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../../highResBWBackground.jpg" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D height="2500.0" width="2500.0" />
+                           </viewport>
+                        </ImageView>
+                        <Label text="Navigation" textFill="WHITE">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Find a path to your destination within the hospital campus" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Leelawadee UI" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="servReqBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToServReq" style="-fx-background-color: #3A5369;" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fx:id="servReqImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../../ladyInBed.jpg" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D height="600.0" minX="75.0" minY="250.0" width="600.0" />
+                           </viewport>
+                        </ImageView>
+                        <Label text="Service Requests" textFill="WHITE">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Create requests for various hospital services" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Leelawadee UI" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="googleNavBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToGoogleNav" style="-fx-background-color: #3A5369;" text="Getting to the Hospital" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fx:id="googleNavImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../../brigham-and-womens-faulkner-hospital-aerial.jpg" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D height="400.0" minX="200.0" minY="20.0" width="400.0" />
+                           </viewport>
+                        </ImageView>
+                        <Label text="Getting to the Hospital" textFill="WHITE">
+                           <font>
+                              <Font name="Leelawadee UI Bold" size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Get detailed directions to the hospital from your home" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Leelawadee UI" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="covidBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxWidth="1.7976931348623157E308" onAction="#goToCovid" prefHeight="116.0" prefWidth="575.0" style="-fx-background-color: #9AA8B5;" text="Track Symptoms" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../Icons/stethoscopeIconWhite.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="100.0">
+                           <children>
+                              <Label prefHeight="32.0" prefWidth="301.0" text="Symptom Tracker" textFill="WHITE">
+                                 <font>
+                                    <Font name="Leelawadee UI Bold" size="22.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="48.0" prefWidth="349.0" text="Track potential COVID-19 symptoms" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="Leelawadee UI" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </graphic>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton fx:id="entryReqBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxWidth="1.7976931348623157E308" onAction="#goToEntryReq" prefHeight="116.0" prefWidth="359.0" style="-fx-background-color: #9AA8B5;" text="Save Your Parking Spot" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../Icons/mobileIconWhite.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label prefHeight="32.0" prefWidth="301.0" text="Entry Requests" textFill="WHITE">
+                                 <font>
+                                    <Font name="Leelawadee UI Bold" size="22.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="48.0" prefWidth="349.0" text="Notify patients of their designated entrance" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="Leelawadee UI" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </graphic>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </JFXButton>
+            <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6">
+               <children>
+                  <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="29.0" prefWidth="18.0" text="Button">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="25.0" onDragDetected="#goToInfo" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/informationIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="40.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="226.0" text="Hello, ____">
+                                 <font>
+                                    <Font name="Leelawadee UI Bold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="-Infinity" onAction="#goToAccount" prefHeight="39.0" prefWidth="158.0" text="My Account">
+                                 <font>
+                                    <Font name="Leelawadee UI" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="5.0">
+                                       <image>
+                                          <Image url="@../../Icons/userIconColor.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <GridPane.margin>
+                  <Insets top="50.0" />
+               </GridPane.margin>
+            </VBox>
+            <ImageView fitHeight="112.0" fitWidth="383.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../bwfh-logo-opt-2.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="parkingBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxWidth="1.7976931348623157E308" onAction="#goToParking" prefHeight="116.0" prefWidth="359.0" style="-fx-background-color: #9AA8B5;" text="Save Your Parking Spot" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../Icons/parkingIconWhite.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label prefHeight="32.0" prefWidth="301.0" text="Save Parking Spot" textFill="WHITE">
+                                 <font>
+                                    <Font name="Leelawadee UI Bold" size="22.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="48.0" prefWidth="349.0" text="Save the location of your parking spot" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="Leelawadee UI" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

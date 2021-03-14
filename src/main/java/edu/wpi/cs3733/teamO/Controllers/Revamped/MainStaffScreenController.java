@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
@@ -12,20 +13,38 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
-public class MainPatientScreenController implements Initializable {
+public class MainStaffScreenController implements Initializable {
   @FXML private ImageView navImg;
-  @FXML private ImageView aboutImg;
+  @FXML private ImageView servReqImg;
   @FXML private ImageView googleNavImg;
 
   @FXML private JFXButton navBtn;
-  @FXML private JFXButton aboutBtn;
+  @FXML private JFXButton servReqBtn;
   @FXML private JFXButton googleNavBtn;
   @FXML private JFXButton covidBtn;
-  @FXML private JFXButton mobileBtn;
+  @FXML private JFXButton entryReqBtn;
   @FXML private JFXButton parkingBtn;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // determines employee/staff
+    System.out.println("Employee " + UserHandling.getEmployee());
+    System.out.println("Admin " + UserHandling.getAdmin());
+
+    String sideMenuUrl;
+    if (UserHandling.getEmployee()) {
+      System.out.println("EMPLOYEE");
+      sideMenuUrl = "/Views/SideMenuStaff.fxml";
+      if (UserHandling.getAdmin()) {
+        sideMenuUrl = "/Views/SideMenuAdmin.fxml";
+        System.out.println("ADMIN");
+      }
+    } else {
+      sideMenuUrl = "/Views/SideMenu.fxml";
+    }
+    // TODO: add side menu stuff
+
+    // customization
     hoverAllBtn();
     clipImages();
   }
@@ -33,10 +52,10 @@ public class MainPatientScreenController implements Initializable {
   /** hovering over the button will make the buttons darker */
   public void hoverAllBtn() {
     Effects.hoverEffect(navBtn);
-    Effects.hoverEffect(aboutBtn);
+    Effects.hoverEffect(servReqBtn);
     Effects.hoverEffect(googleNavBtn);
     Effects.hoverEffectGray(covidBtn);
-    Effects.hoverEffectGray(mobileBtn);
+    Effects.hoverEffectGray(entryReqBtn);
     Effects.hoverEffectGray(parkingBtn);
   }
 
@@ -46,7 +65,7 @@ public class MainPatientScreenController implements Initializable {
     Circle clip3 = new Circle(150, 150, 150);
 
     navImg.setClip(clip1);
-    aboutImg.setClip(clip2);
+    servReqImg.setClip(clip2);
     googleNavImg.setClip(clip3);
   }
 
@@ -54,23 +73,23 @@ public class MainPatientScreenController implements Initializable {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
-  public void goToAbout(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/RevampedAboutPage.fxml");
+  public void goToServReq(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
   }
 
   public void goToGoogleNav(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/GoogleMaps/GoogleMapPage.fxml");
   }
 
-  public void goToCovid(ActionEvent actionEvent) { SwitchScene.goToParent("/Views/CovidSurvey.fxml"); }
-
-  public void goToMobile(ActionEvent actionEvent) {
-    SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");
+  public void goToCovid(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
+
+  public void goToEntryReq(ActionEvent actionEvent) {}
+
+  public void goToParking(ActionEvent actionEvent) {}
 
   public void goToInfo(MouseEvent mouseEvent) {}
 
   public void goToAccount(ActionEvent actionEvent) {}
-
-  public void goToParking(ActionEvent actionEvent) {}
 }
