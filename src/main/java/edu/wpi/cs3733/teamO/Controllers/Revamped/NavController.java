@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +28,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseDragEvent;
@@ -51,7 +54,7 @@ public class NavController implements Initializable {
   public Canvas mapCanvas;
   public FlowPane hamburger;
   public ImageView imageView;
-  public JFXDrawer drawerBottomRight;
+
   @FXML private JFXNodesList parking;
   @FXML private JFXNodesList directionsList;
   @FXML private JFXNodesList editingList;
@@ -74,6 +77,7 @@ public class NavController implements Initializable {
   private final JFXButton floor4B = new JFXButton("4", null);
   private final JFXButton floor5B = new JFXButton("5", null);
   JFXComboBox algoStratBox = new JFXComboBox();
+
   VBox directionsBox = new VBox();
   HBox directionButtons = new HBox();
   JFXTextField startLoc = new JFXTextField();
@@ -124,8 +128,20 @@ public class NavController implements Initializable {
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
   private boolean selectingAlign = false;
-  String bottomRightBox = "";
 
+  /** Directions + NodeEditing Fields */
+  @FXML JFXTextField longName;
+
+  @FXML JFXTextField nodeType;
+  @FXML JFXTextField xCoord;
+  @FXML JFXTextField yCoord;
+  @FXML JFXCheckBox visible;
+  String bottomRightBox = "";
+  public JFXDrawer drawerBottomRight;
+  public ScrollPane directionsScrollPane;
+  public AnchorPane directionsAnchorPane;
+
+  /** end of variable declaration */
   private void setEditFalse() {
     selectingEditNode = false;
     addNodeMode = false;
@@ -159,11 +175,6 @@ public class NavController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    // autocompletes start and end textfields
-    ArrayList<String> longNameNodes = Autocomplete.autoNodeData("longName");
-    Autocomplete.autoComplete(longNameNodes, startLoc);
-    Autocomplete.autoComplete(longNameNodes, endLoc);
-
     // Add Buttons to their respective list
     /** Add to the editing dropdown * */
     editingList.addAnimatedNode(editB);
@@ -175,6 +186,11 @@ public class NavController implements Initializable {
     algoList.addAnimatedNode(algoB);
     algoStratBox.setItems(listOfStrats);
     algoList.addAnimatedNode(algoStratBox);
+
+    // autocompletes start and end textfields
+    ArrayList<String> longNameNodes = Autocomplete.autoNodeData("longName");
+    Autocomplete.autoComplete(longNameNodes, startLoc);
+    Autocomplete.autoComplete(longNameNodes, endLoc);
 
     /** Add to the floor selection* */
     floorsList.addAnimatedNode(floorSelectionB);
@@ -256,13 +272,12 @@ public class NavController implements Initializable {
     selectingStart = false;
     selectingEnd = true;
 
-    // RevampedViews/DesktopApp/nodeEditing.fxml
-    bottomRightBox = "/RevampedViews/DesktopApp/nodeEditing.fxml";
     try {
-      VBox vbox = FXMLLoader.load(getClass().getResource(bottomRightBox));
-      drawerBottomRight.setSidePane(vbox);
+      drawerBottomRight.setSidePane(
+          FXMLLoader.load(
+              getClass().getResource("/RevampedViews/DesktopApp/directionsDisplay.fxml")));
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("problem with drawer loading");
     }
 
     drawerBottomRight.close();
@@ -344,7 +359,6 @@ public class NavController implements Initializable {
     submitPath.setOnAction(
         e -> {
           // send path to do pathfinding actions
-          drawerBottomRight.open();
           doPathfind();
         });
 
@@ -503,9 +517,40 @@ public class NavController implements Initializable {
     for (Node n : GRAPH.getPath()) {
       if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
     }
-    for (String d : Graph.findTextDirection()) {
-      //      addTextToDirectionBox(d);
+
+    addTextToDirectionBox(Graph.findTextDirection());
+
+    // open the directions box at the bottom right
+    drawerBottomRight.open();
+  }
+
+  /**
+   * adds text to direction box
+   *
+   * @param textDirection
+   */
+  private void addTextToDirectionBox(List<String> textDirection) {
+    VBox allDirections = new VBox();
+
+    allDirections.setSpacing(10);
+
+    ImageView icon = new ImageView("Icons/HomeIconBlack.png");
+    icon.setFitWidth(20);
+
+    // for each direction, add to the directions box.
+    for (String d : textDirection) {
+      HBox singleDirection = new HBox();
+      singleDirection.setSpacing(10);
+      // todo if statement that swaps the image depending on the direction
+      // add the direction and its corresponding label to the directions box
+      singleDirection.getChildren().add(icon);
+      singleDirection.getChildren().add(new Label(d));
+      // add this single direction with its icon to the directionsBox
+      allDirections.getChildren().add(singleDirection);
     }
+
+    directionsScrollPane.setContent(allDirections);
+    directionsScrollPane.setMaxWidth(285);
   }
 
   /**
@@ -514,6 +559,8 @@ public class NavController implements Initializable {
    * @param mouseEvent
    */
   public void canvasClick(MouseEvent mouseEvent) {
+    // close the directions drawer
+    drawerBottomRight.close();
     selectingStart = !selectingStart;
     selectingEnd = !selectingEnd;
     Node clickedNode =
@@ -533,29 +580,29 @@ public class NavController implements Initializable {
     else if (editing
         && mouseEvent.isControlDown()
         && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-//      alignList = new ArrayList<>();
-//
-//      // if navigating
-//      if (!editing) {
-//        draw();
-//      }
-//      // if editing
-//      else {
-//        if (selectingEditNode && selectedNode == null) {
-//          selectedNode = clickedNode;
-//          selectingEditNode = false;
-//        } else {
-//          selectedNodeB = clickedNode;
-//        }
-//      }
-//
-//      // if selectedNode != null or selectedNodeB != null, set those Edge text fields
-//      if (selectedNode != null) {
-//        startNodeID.setText(selectedNode.getID());
-//      }
-//      if (selectedNodeB != null) {
-//        endNodeID.setText(selectedNodeB.getID());
-//      }
+      //      alignList = new ArrayList<>();
+      //
+      //      // if navigating
+      //      if (!editing) {
+      //        draw();
+      //      }
+      //      // if editing
+      //      else {
+      //        if (selectingEditNode && selectedNode == null) {
+      //          selectedNode = clickedNode;
+      //          selectingEditNode = false;
+      //        } else {
+      //          selectedNodeB = clickedNode;
+      //        }
+      //      }
+      //
+      //      // if selectedNode != null or selectedNodeB != null, set those Edge text fields
+      //      if (selectedNode != null) {
+      //        startNodeID.setText(selectedNode.getID());
+      //      }
+      //      if (selectedNodeB != null) {
+      //        endNodeID.setText(selectedNodeB.getID());
+      //      }
     }
     // ----------------------
     // block for LEFT CLICK --> regular clicking
@@ -908,6 +955,10 @@ public class NavController implements Initializable {
 
   // TODO: all sharing function!
 
+  public void share() {
+    System.out.println("The share button was pressed my guy");
+  }
+
   //  /**
   //   * creates an output file
   //   *
@@ -1096,8 +1147,11 @@ public class NavController implements Initializable {
     draw();
   }
 
-  // TODO dragging functionality
+  // TODO dragging functionality @sadie
   public void nodeDragEnter(MouseDragEvent mouseDragEvent) {}
 
   public void nodeDragRelease(MouseDragEvent mouseDragEvent) {}
+
+  // TODO save node functionality in edit box @sadie
+  public void saveNode(ActionEvent actionEvent) {}
 }
