@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
 import com.jfoenix.controls.*;
+import edu.wpi.cs3733.teamO.Database.RequestHandling;
+import edu.wpi.cs3733.teamO.SRequest.Request;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
@@ -538,6 +540,44 @@ public class PopupMaker {
     JFXDialog warningDialog =
         new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
     warningDialog.setPrefWidth(200);
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
+  public static void serviceReqPopup(StackPane popupPane, String reqId) {
+    popupPane.toFront();
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    Request request = RequestHandling.getRequest(reqId);
+    warning.setHeading(new Text("Request: " + reqId));
+    Text reqBy = new Text("Requested By: " + request.getRequestedBy());
+    Text fulfilledBy = new Text("Fulfilled By: " + request.getFulfilledBy());
+    request.getDateRequested().toString();
+    Text dateReq = new Text("Date Requested: " + request.getDateRequested().toString());
+    Text dateNeeded = new Text("Date Needed: " + request.getDateNeeded().toString());
+    Text location = new Text("Location: " + request.getLocationNodeID());
+    Text summary = new Text("Summary: " + request.getSummary());
+    Text p1 = new Text("para1: " + request.getPara1());
+    Text p2 = new Text("para2: " + request.getPara2());
+    Text p3 = new Text("para3: " + request.getPara3());
+    // text.setWrappingWidth(200);
+    warning
+        .getBody()
+        .addAll(reqBy, fulfilledBy, dateReq, dateNeeded, location, summary, p1, p2, p3);
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+    warningDialog.setPrefWidth(600);
+    warningDialog.setPrefWidth(600);
     // Closes the popup
     closeButton.setOnAction(
         event -> {
