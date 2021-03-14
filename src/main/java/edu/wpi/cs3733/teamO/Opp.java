@@ -32,7 +32,7 @@ public class Opp extends Application {
     try {
 
       Parent root =
-      FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/Navigation.fxml"));
+          FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/Navigation.fxml"));
       Scene scene = new Scene(root);
       Image icon =
           new Image(getClass().getResourceAsStream("/Brigham_and_Womens_Hospital_logo.png"));
