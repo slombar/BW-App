@@ -1,6 +1,9 @@
 package edu.wpi.cs3733.teamO.HelperClasses;
 
 import com.jfoenix.controls.*;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
@@ -546,4 +549,32 @@ public class PopupMaker {
         });
     warningDialog.show();
   }
+
+    public static void serviceReqPopup(StackPane popupPane, String reqId) {
+      popupPane.toFront();
+
+      // Creates the content for the popup
+      JFXDialogLayout warning = new JFXDialogLayout();
+      warning.setHeading(new Text("Request: "+ reqId));
+      Text text =
+              new Text();
+      text.setWrappingWidth(200);
+      warning.setBody(text);
+      JFXButton closeButton = new JFXButton("Close");
+      warning.setActions(closeButton);
+
+      // Creates the actual popup
+      JFXDialog warningDialog =
+              new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+      warningDialog.setPrefWidth(600);
+      warningDialog.setPrefWidth(600);
+      // Closes the popup
+      closeButton.setOnAction(
+              event -> {
+                warningDialog.close();
+                popupPane.toBack();
+              });
+      warningDialog.show();
+
+    }
 }
