@@ -6,24 +6,24 @@ import com.jfoenix.controls.JFXTextField;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class drawerController {
-  public static JFXScrollPane directionsScrollPane = new JFXScrollPane();
-  @FXML private static VBox directionsDisplayVbox = new VBox();
+  public JFXScrollPane directionsScrollPane;
+  @FXML private VBox directionsDisplayVbox;
   @FXML private JFXTextField longName;
   @FXML private JFXCheckBox visible;
   @FXML private JFXTextField yCoord;
   @FXML private JFXTextField xCoord;
   @FXML private JFXTextField nodeType;
 
-  public static void addDirectionChildren(List<String> directions) {
+  public void addDirectionChildren(List<String> directions) {
 
     for (String d : directions) {
 
-      Text newText = new Text(d + "\n");
+      Label newText = new Label(d);
       newText.setFont(Font.font("Leelawadee UI", 16.0));
 
       directionsDisplayVbox.getChildren().add(newText);
@@ -33,8 +33,10 @@ public class drawerController {
       // informationOnPage.addDirectionChild(newText);
       // drawerController.addDirectionChild(newText);
     }
+  }
 
-    directionsScrollPane.setContent(directionsDisplayVbox);
+  public void removeDirectionChildren() {
+    directionsDisplayVbox.getChildren().clear();
   }
 
   public VBox getDirectionVBox() {
