@@ -56,6 +56,7 @@ public class NewNavPageController implements Initializable {
   public Button F3;
   public Button F4;
   public Button F5;
+  public JFXToggleButton elevatorOnlyToggle;
   // edit map components
   @FXML private JFXToggleButton editToggle;
   @FXML private VBox editVBox;
@@ -1115,6 +1116,10 @@ public class NewNavPageController implements Initializable {
 
     resizeCanvas();
     draw();
+  }
+
+  public void elevatorOnlyClick(ActionEvent actionEvent) {
+    Settings.getInstance().setElevatorOnly(elevatorOnlyToggle.isSelected());
   }
 }
   /**

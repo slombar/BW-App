@@ -3,6 +3,7 @@ package edu.wpi.cs3733.teamO.GraphSystem;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
 import edu.wpi.cs3733.teamO.Model.Node;
+import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.util.*;
 
 public abstract class AStarVariant {
@@ -68,6 +69,10 @@ public abstract class AStarVariant {
       Set<Node> nList = current.getNeighbourList();
 
       for (Node next : nList) {
+        // if elevator only is selected, ignore all stairs
+        if (Settings.getInstance().isElevatorOnly() && next.getNodeType().equals("STAI")) {
+          continue;
+        }
         // gets next node in neighbours
         // sets next's cost so far to current's cost so far + edge cost
         double newCost = costSoFar.get(current) + current.getDistToNeighbour(next);

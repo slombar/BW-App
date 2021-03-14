@@ -156,6 +156,7 @@
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font></JFXButton>
+                  <JFXToggleButton fx:id="elevatorOnlyToggle" onAction="#elevatorOnlyClick" text="Elevator Only" textFill="WHITE" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
