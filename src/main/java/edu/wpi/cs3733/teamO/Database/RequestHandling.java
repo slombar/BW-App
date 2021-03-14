@@ -169,6 +169,7 @@ public class RequestHandling {
       pstmt.setInt(1, Integer.valueOf(reqID));
 
       ResultSet rset = pstmt.executeQuery();
+      System.out.println(rset.toString());
 
       // add properties to the node
       r.setRequestID(reqID);

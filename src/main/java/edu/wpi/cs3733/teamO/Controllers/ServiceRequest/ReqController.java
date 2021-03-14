@@ -13,17 +13,14 @@ import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -164,7 +161,10 @@ public class ReqController implements Initializable {
     }
     addBox
         .onMouseClickedProperty()
-        .set(e->PopupMaker.serviceReqPopup(popUpPane, ((Label)addBox.getChildren().get(0)).getText()));
+        .set(
+            e ->
+                PopupMaker.serviceReqPopup(
+                    popUpPane, ((Label) addBox.getChildren().get(0)).getText()));
     reqBox.getChildren().add(addBox);
   }
 
