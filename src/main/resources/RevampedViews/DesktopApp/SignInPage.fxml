@@ -155,7 +155,7 @@
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </ImageView>
-            <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <HBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <children>
                   <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#exit" prefHeight="89.0" prefWidth="110.0" text=" " textFill="WHITE">
                      <font>
@@ -171,7 +171,7 @@
                   </JFXButton>
                   <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#goToTemp" prefHeight="86.0" prefWidth="52.0">
                      <graphic>
-                        <ImageView fitHeight="79.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="79.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                            <image>
                               <Image url="@../../Icons/thermometerWhite.png" />
                            </image>
