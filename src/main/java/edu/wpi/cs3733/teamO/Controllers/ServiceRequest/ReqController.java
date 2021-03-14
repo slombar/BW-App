@@ -18,14 +18,12 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -86,7 +84,7 @@ public class ReqController implements Initializable {
     dNeed.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + dNeed.getStyle());
 
     Label loc = new Label(location);
-    loc.setStyle("-fx-max-width: 50; -fx-min-width: 50; " + loc.getStyle());
+    loc.setStyle("-fx-max-width: 150; -fx-min-width: 150; " + loc.getStyle());
 
     Label p1 = new Label(par1);
     p1.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + p1.getStyle());
@@ -167,35 +165,10 @@ public class ReqController implements Initializable {
     addBox
         .onMouseClickedProperty()
         .set(
-            (EventHandler<MouseEvent>)
-                (MouseEvent t) -> {
-                  String minimizedAddBoxStyle = addBox.getStyle();
-                  String minimizedNStyle = id.getStyle();
-                  minimizedNStyle = minimizedNStyle.replace("-fx-max-width: 50;", "");
-                  minimizedNStyle = minimizedNStyle.replace("-fx-min-width: 50;", "");
-                  for (Node n : addBox.getChildren()) {
-                    if (n.getClass().equals(Label.class)) {
-                      n.setStyle(
-                          "-fx-max-height: INFINITY; -fx-min-height: -1; -fx-wrap-text: true; "
-                              + n.getStyle());
-                    }
-                  }
-                  JFXButton minimize = new JFXButton("-");
-                  String finalMinimizedNStyle = minimizedNStyle;
-                  minimize.setOnAction(
-                      e -> {
-                        for (Node n : addBox.getChildren()) {
-                          if (n.getClass().equals(Label.class)) {
-                            n.setStyle(finalMinimizedNStyle);
-                            System.out.println(n.getStyle());
-                          }
-                        }
-                        addBox.setStyle(minimizedAddBoxStyle);
-                      });
-                  addBox.getChildren().add(minimize);
-                  addBox.setStyle(
-                      "-fx-max-height: INFINITY; -fx-min-height: -1; " + addBox.getStyle());
-                });
+            e -> {
+              PopupMaker.serviceReqPopup(
+                  popUpPane, ((Label) addBox.getChildren().get(0)).getText());
+            });
     reqBox.getChildren().add(addBox);
   }
 
@@ -387,7 +360,8 @@ public class ReqController implements Initializable {
             //           incompletePopup();
             PopupMaker.incompletePopup(popUpPane);
           } else {
-            Request selectedRequest = RequestHandling.getRequest(Integer.parseInt(listOfFields.get(0).getText()));
+            Request selectedRequest =
+                RequestHandling.getRequest(Integer.parseInt(listOfFields.get(0).getText()));
             System.out.println(listOfFields.get(0).getText());
             /*RequestHandling.editRequest(
             Integer.parseInt(listOfFields.get(0).getText()),
