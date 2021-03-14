@@ -10,12 +10,10 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
-import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -501,8 +499,10 @@ public class NavController implements Initializable {
       selectedNodeB = null;
     }
     // block for CTRL CLICK
-    else if (editing && mouseEvent.isControlDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-    //TODO: add edgge
+    else if (editing
+        && mouseEvent.isControlDown()
+        && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      // TODO: add edgge
     }
     // ----------------------
     // block for LEFT CLICK
@@ -570,13 +570,13 @@ public class NavController implements Initializable {
 
     deleteNodeMenu.setOnAction(
         action -> {
-//          // deleting node
-//          try {
-//            deleteNode(node);
-//            draw();
-//          } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//          }
+          //          // deleting node
+          //          try {
+          //            deleteNode(node);
+          //            draw();
+          //          } catch (SQLException throwables) {
+          //            throwables.printStackTrace();
+          //          }
         });
 
     addEdgeMenu.setOnAction(
@@ -592,15 +592,15 @@ public class NavController implements Initializable {
   }
 
   private void editNodeMenuSelect(Node selectedNode) {
-//    nodeID.setText(selectedNode.getID());
-//    xCoord.setText(Integer.toString(selectedNode.getXCoord()));
-//    yCoord.setText(Integer.toString(selectedNode.getYCoord()));
-//    floor.setText(selectedNode.getFloor());
-//    building.setText(selectedNode.getBuilding());
-//    nodeType.setText(selectedNode.getNodeType());
-//    longName.setText(selectedNode.getLongName());
-//    shortName.setText(selectedNode.getShortName());
-//    setVisibility.setSelected(selectedNode.isVisible());
+    //    nodeID.setText(selectedNode.getID());
+    //    xCoord.setText(Integer.toString(selectedNode.getXCoord()));
+    //    yCoord.setText(Integer.toString(selectedNode.getYCoord()));
+    //    floor.setText(selectedNode.getFloor());
+    //    building.setText(selectedNode.getBuilding());
+    //    nodeType.setText(selectedNode.getNodeType());
+    //    longName.setText(selectedNode.getLongName());
+    //    shortName.setText(selectedNode.getShortName());
+    //    setVisibility.setSelected(selectedNode.isVisible());
   }
 
   /**
@@ -623,157 +623,157 @@ public class NavController implements Initializable {
    * @param actionEvent
    */
   public void editNode(ActionEvent actionEvent) {
-//    // if any fields are empty, show appropriate warning
-//    if (isNodeInfoEmpty()) {
-//      PopupMaker.incompletePopup(nodeWarningPane);
-//    }
-//    // else, add/edit Node (depending on addNodeDBMode = t/f)
-//    else {
-//      try {
-//        Node n =
-//                new Node(
-//                        nodeID.getText(),
-//                        Integer.parseInt(xCoord.getText()),
-//                        Integer.parseInt(yCoord.getText()),
-//                        floor.getText(),
-//                        building.getText(),
-//                        nodeType.getText(),
-//                        longName.getText(),
-//                        shortName.getText(),
-//                        "O",
-//                        setVisibility.isSelected());
-//
-//        GRAPH.addNode(n, addNodeDBMode);
-//        clearNodeInfo();
-//        selectedNode = null; // when clear Node info, also de-select Node
-//
-//      } catch (SQLException throwables) {
-//        PopupMaker.nodeAlreadyExists(nodeWarningPane);
-//      }
-//    }
-//
-//    addNodeDBMode = false;
-//
-//    selectingEditNode = true;
+    //    // if any fields are empty, show appropriate warning
+    //    if (isNodeInfoEmpty()) {
+    //      PopupMaker.incompletePopup(nodeWarningPane);
+    //    }
+    //    // else, add/edit Node (depending on addNodeDBMode = t/f)
+    //    else {
+    //      try {
+    //        Node n =
+    //                new Node(
+    //                        nodeID.getText(),
+    //                        Integer.parseInt(xCoord.getText()),
+    //                        Integer.parseInt(yCoord.getText()),
+    //                        floor.getText(),
+    //                        building.getText(),
+    //                        nodeType.getText(),
+    //                        longName.getText(),
+    //                        shortName.getText(),
+    //                        "O",
+    //                        setVisibility.isSelected());
+    //
+    //        GRAPH.addNode(n, addNodeDBMode);
+    //        clearNodeInfo();
+    //        selectedNode = null; // when clear Node info, also de-select Node
+    //
+    //      } catch (SQLException throwables) {
+    //        PopupMaker.nodeAlreadyExists(nodeWarningPane);
+    //      }
+    //    }
+    //
+    //    addNodeDBMode = false;
+    //
+    //    selectingEditNode = true;
     draw();
   }
 
-//  /**
-//   * will delete the node that is currently selected
-//   */
-//  private void deleteNode(Node selectedNode) throws SQLException {
-//    GRAPH.deleteNode(selectedNode.getID());
-//    selectedNode = null;
-//    draw();
-//  }
-//
-//  /**
-//   * will add a new edge based on the start and end node IDs
-//   *
-//   * @param actionEvent
-//   */
-//  public void addEdge(ActionEvent actionEvent) {
-//    // if any fields are empty, show appropriate warning
-//    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
-//      PopupMaker.incompletePopup(nodeWarningPane);
-//    }
-//    // else, add appropriate edge
-//    else {
-//      try {
-//        GRAPH.addEdge(startNodeID.getText(), endNodeID.getText());
-//        clearEdgeInfo(); // when clear info, de-select Nodes
-//        selectedNode = null;
-//        selectedNodeB = null;
-//
-//      } catch (SQLException throwables) {
-//        PopupMaker.edgeAlreadyExists(nodeWarningPane);
-//      }
-//    }
-//
-//    draw();
-//  }
-//
-//  /**
-//   * will delete a node based on start and end node IDs
-//   *
-//   * @param actionEvent
-//   * @throws SQLException
-//   */
-//  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
-//    // if any fields are empty, show appropriate warning
-//    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
-//      PopupMaker.incompletePopup(nodeWarningPane);
-//    } else {
-//      try {
-//        GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
-//        clearEdgeInfo(); // when clear info, de-select Nodes
-//        selectedNode = null;
-//        selectedNodeB = null;
-//
-//      } catch (SQLException throwables) {
-//        PopupMaker.edgeDoesntExists(nodeWarningPane);
-//      }
-//    }
-//
-//    draw();
-//  }
-//
-//  /**
-//   * checks if the any of the node fields are null
-//   *
-//   * @return true if any node fields are null
-//   */
-//  private boolean isNodeInfoNull() {
-//    if ((nodeID.getText() == null)
-//            || (xCoord.getText() == null)
-//            || (yCoord.getText() == null)
-//            || (floor.getText() == null)
-//            || (building.getText() == null)
-//            || (nodeType.getText() == null)
-//            || (longName.getText() == null)
-//            || (shortName.getText() == null)) {
-//      return true;
-//    }
-//    return false;
-//  }
-//
-//  /**
-//   * checks if the any of the node fields are empty
-//   *
-//   * @return true if any node fields are empty
-//   */
-//  private boolean isNodeInfoEmpty() {
-//    if (nodeID.getText().isEmpty()
-//            || xCoord.getText().isEmpty()
-//            || yCoord.getText().isEmpty()
-//            || floor.getText().isEmpty()
-//            || building.getText().isEmpty()
-//            || nodeType.getText().isEmpty()
-//            || longName.getText().isEmpty()
-//            || shortName.getText().isEmpty()) {
-//      return true;
-//    }
-//    return false;
-//  }
-//
-//  /** clears all info in node textfields */
-//  private void clearNodeInfo() {
-//    nodeID.clear();
-//    xCoord.clear();
-//    yCoord.clear();
-//    floor.clear();
-//    building.clear();
-//    nodeType.clear();
-//    longName.clear();
-//    shortName.clear();
-//    setVisibility.setSelected(false);
-//  }
-//
-//  /** clears all info in edge textfields */
-//  private void clearEdgeInfo() {
-//    startNodeID.clear();
-//    endNodeID.clear();
-//  }
+  //  /**
+  //   * will delete the node that is currently selected
+  //   */
+  //  private void deleteNode(Node selectedNode) throws SQLException {
+  //    GRAPH.deleteNode(selectedNode.getID());
+  //    selectedNode = null;
+  //    draw();
+  //  }
+  //
+  //  /**
+  //   * will add a new edge based on the start and end node IDs
+  //   *
+  //   * @param actionEvent
+  //   */
+  //  public void addEdge(ActionEvent actionEvent) {
+  //    // if any fields are empty, show appropriate warning
+  //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
+  //      PopupMaker.incompletePopup(nodeWarningPane);
+  //    }
+  //    // else, add appropriate edge
+  //    else {
+  //      try {
+  //        GRAPH.addEdge(startNodeID.getText(), endNodeID.getText());
+  //        clearEdgeInfo(); // when clear info, de-select Nodes
+  //        selectedNode = null;
+  //        selectedNodeB = null;
+  //
+  //      } catch (SQLException throwables) {
+  //        PopupMaker.edgeAlreadyExists(nodeWarningPane);
+  //      }
+  //    }
+  //
+  //    draw();
+  //  }
+  //
+  //  /**
+  //   * will delete a node based on start and end node IDs
+  //   *
+  //   * @param actionEvent
+  //   * @throws SQLException
+  //   */
+  //  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
+  //    // if any fields are empty, show appropriate warning
+  //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
+  //      PopupMaker.incompletePopup(nodeWarningPane);
+  //    } else {
+  //      try {
+  //        GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
+  //        clearEdgeInfo(); // when clear info, de-select Nodes
+  //        selectedNode = null;
+  //        selectedNodeB = null;
+  //
+  //      } catch (SQLException throwables) {
+  //        PopupMaker.edgeDoesntExists(nodeWarningPane);
+  //      }
+  //    }
+  //
+  //    draw();
+  //  }
+  //
+  //  /**
+  //   * checks if the any of the node fields are null
+  //   *
+  //   * @return true if any node fields are null
+  //   */
+  //  private boolean isNodeInfoNull() {
+  //    if ((nodeID.getText() == null)
+  //            || (xCoord.getText() == null)
+  //            || (yCoord.getText() == null)
+  //            || (floor.getText() == null)
+  //            || (building.getText() == null)
+  //            || (nodeType.getText() == null)
+  //            || (longName.getText() == null)
+  //            || (shortName.getText() == null)) {
+  //      return true;
+  //    }
+  //    return false;
+  //  }
+  //
+  //  /**
+  //   * checks if the any of the node fields are empty
+  //   *
+  //   * @return true if any node fields are empty
+  //   */
+  //  private boolean isNodeInfoEmpty() {
+  //    if (nodeID.getText().isEmpty()
+  //            || xCoord.getText().isEmpty()
+  //            || yCoord.getText().isEmpty()
+  //            || floor.getText().isEmpty()
+  //            || building.getText().isEmpty()
+  //            || nodeType.getText().isEmpty()
+  //            || longName.getText().isEmpty()
+  //            || shortName.getText().isEmpty()) {
+  //      return true;
+  //    }
+  //    return false;
+  //  }
+  //
+  //  /** clears all info in node textfields */
+  //  private void clearNodeInfo() {
+  //    nodeID.clear();
+  //    xCoord.clear();
+  //    yCoord.clear();
+  //    floor.clear();
+  //    building.clear();
+  //    nodeType.clear();
+  //    longName.clear();
+  //    shortName.clear();
+  //    setVisibility.setSelected(false);
+  //  }
+  //
+  //  /** clears all info in edge textfields */
+  //  private void clearEdgeInfo() {
+  //    startNodeID.clear();
+  //    endNodeID.clear();
+  //  }
 
   /**
    * Drag the node to change its coords

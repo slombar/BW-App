@@ -1,15 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="nodeVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" style="-fx-background-color: pink;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="nodeVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" spacing="20.0" style="-fx-background-color: cfe2fe;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label prefHeight="47.0" prefWidth="284.0" text="NodeID">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
+      <HBox prefHeight="16.0" prefWidth="276.0">
+         <children>
+            <JFXTextField prefHeight="20.0" prefWidth="150.0" promptText="Name of Location">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Leelawadee UI" size="12.0" />
+               </font>
+            </JFXTextField>
+            <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="120.0">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="30.0" prefWidth="60.0" style="-fx-background-color: #fec107;" text="Save" textFill="#3a5369">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="276.0">
+         <children>
+            <JFXComboBox focusColor="#3a5369" prefHeight="20.0" prefWidth="100.0" promptText="TYPE">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </JFXComboBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="120.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="10.0" text="(">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField alignment="BOTTOM_CENTER" prefHeight="20.0" prefWidth="40.0" promptText="x" style="-fx-font-style: none;" />
+                  <Label prefHeight="20.0" prefWidth="10.0" text=",">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField alignment="BOTTOM_CENTER" prefHeight="20.0" prefWidth="40.0" promptText="y" style="-fx-font-style: none;" />
+                  <Label prefHeight="20.0" prefWidth="10.0" text=")">
+                     <font>
+                        <Font name="Leelawadee UI" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="276.0" spacing="20.0">
+         <children>
+            <JFXTextField prefHeight="25.0" prefWidth="83.0" promptText="Name of Location" text="Building">
+               <font>
+                  <Font name="Leelawadee UI" size="12.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField prefHeight="25.0" prefWidth="80.0" promptText="Name of Location" text="Short Name">
+               <font>
+                  <Font name="Leelawadee UI" size="12.0" />
+               </font>
+            </JFXTextField>
+            <JFXCheckBox alignment="CENTER_RIGHT" checkedColor="#fec107" contentDisplay="RIGHT" prefHeight="20.0" prefWidth="60.0" text="Visible?">
+               <font>
+                  <Font name="Leelawadee UI" size="12.0" />
+               </font>
+            </JFXCheckBox>
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
 </VBox>
