@@ -85,7 +85,9 @@ public class MainStaffScreenController implements Initializable {
     SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
-  public void goToEntryReq(ActionEvent actionEvent) {SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");}
+  public void goToEntryReq(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+  }
 
   public void goToParking(ActionEvent actionEvent) {}
 
