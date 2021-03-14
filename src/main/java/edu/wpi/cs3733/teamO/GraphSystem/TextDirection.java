@@ -44,7 +44,7 @@ public class TextDirection {
     }
 
     // for the outdoor to .
-    if (node3.getNodeType().equals(node2.getNodeType())) {
+    if (node3.getNodeType().equals(node2.getNodeType()) && node3.getNodeType().equals("EXIT")) {
       return 200.0;
     }
 
