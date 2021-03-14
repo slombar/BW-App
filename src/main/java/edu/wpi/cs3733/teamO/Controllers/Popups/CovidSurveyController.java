@@ -50,7 +50,8 @@ public class CovidSurveyController {
         || yes2.isSelected() && No3.isSelected()
         || yes3.isSelected()) {
       if (No1.isSelected() && No2.isSelected() && No3.isSelected()) {
-        SwitchScene.goToParent("/Views/MainPage.fxml");
+        //        SwitchScene.goToParent("/Views/MainPage.fxml");
+        SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
       } else {
         PopupMaker.covidRisk(popupPane);
       }
