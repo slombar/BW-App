@@ -5,7 +5,6 @@ import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +15,7 @@ import javafx.scene.layout.StackPane;
 public class WaitingPageController implements Initializable {
   private static boolean isSurveyApproved;
   private static String location;
+
   @FXML private JFXButton hospitalNavBtn;
   @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
@@ -35,23 +35,26 @@ public class WaitingPageController implements Initializable {
           protected Void call() throws Exception {
             checkStatus();
 
-            Platform.runLater(
-                new Runnable() {
-                  @Override
-                  public void run() {
+            /*Platform.runLater(
+               new Runnable() {
+                 @Override
+                 public void run() {
 
-                    // popup to say you can now continue
-                    if (location.toLowerCase().contains("main")) {
-                      spinnerPane.setVisible(false);
-                      PopupMaker.mainEntranceNotif(popupNotification);
-                      isMainEntrance = true;
-                    } else {
-                      spinnerPane.setVisible(false);
-                      PopupMaker.covidEntranceNotif(popupNotification);
-                      isMainEntrance = false;
-                    }
-                  }
-                });
+                   // popup to say you can now continue
+                   spinnerPane.setOnMouseClicked(null);
+                   if (location.toLowerCase().contains("main")) {
+                     spinnerPane.setVisible(false);
+                     PopupMaker.mainEntranceNotif(popupNotification);
+                     isMainEntrance = true;
+                   } else {
+                     spinnerPane.setVisible(false);
+                     PopupMaker.covidEntranceNotif(popupNotification);
+                     isMainEntrance = false;
+                   }
+                 }
+               });
+
+            */
             return null;
           }
         };
@@ -127,7 +130,15 @@ public class WaitingPageController implements Initializable {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
-
+      spinnerPane.setVisible(false);
+      // popup to say you can now continue
+      if (location.toLowerCase().contains("main")) {
+        PopupMaker.mainEntranceNotif(popupNotification);
+        isMainEntrance = true;
+      } else {
+        PopupMaker.covidEntranceNotif(popupNotification);
+        isMainEntrance = false;
+      }
       // TODO grab which entrance
     }
   }
