@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
-import static edu.wpi.cs3733.teamO.GraphSystem.Graph.floor5Map;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
@@ -30,7 +29,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseDragEvent;
@@ -55,11 +53,11 @@ public class NavController implements Initializable {
   public FlowPane hamburger;
   public ImageView imageView;
 
-  @FXML private JFXNodesList parking;
-  @FXML private JFXNodesList directionsList;
-  @FXML private JFXNodesList editingList;
-  @FXML private JFXNodesList help;
-  @FXML private JFXNodesList floorsList;
+  @FXML private JFXNodesList editingList = new JFXNodesList();
+  @FXML private JFXNodesList parking = new JFXNodesList();
+  @FXML private JFXNodesList directionsList = new JFXNodesList();
+  @FXML private JFXNodesList help = new JFXNodesList();
+  @FXML private JFXNodesList floorsList = new JFXNodesList();
   private JFXNodesList algoList = new JFXNodesList();
   private final JFXButton helpB = new JFXButton("H", null);
   private final JFXButton parkingB = new JFXButton("P", null);
@@ -130,16 +128,16 @@ public class NavController implements Initializable {
   private boolean selectingAlign = false;
 
   /** Directions + NodeEditing Fields */
-  @FXML JFXTextField longName;
+  drawerController informationOnPage = new drawerController();
 
-  @FXML JFXTextField nodeType;
-  @FXML JFXTextField xCoord;
-  @FXML JFXTextField yCoord;
-  @FXML JFXCheckBox visible;
-  String bottomRightBox = "";
+  @FXML JFXTextField longName = informationOnPage.getLongName();
+
+  @FXML JFXTextField nodeType = informationOnPage.getNodeType();
+  @FXML JFXTextField xCoord = informationOnPage.getxCoord();
+  @FXML JFXTextField yCoord = informationOnPage.getyCoord();
+  @FXML JFXCheckBox visible = informationOnPage.getVisible();
   public JFXDrawer drawerBottomRight;
-  public ScrollPane directionsScrollPane;
-  public AnchorPane directionsAnchorPane;
+  public JFXScrollPane directionsScrollPane = informationOnPage.getDirectionsScrollPane();
 
   /** end of variable declaration */
   private void setEditFalse() {
@@ -272,12 +270,14 @@ public class NavController implements Initializable {
     selectingStart = false;
     selectingEnd = true;
 
+    /** Initialize the drawer */
     try {
-      drawerBottomRight.setSidePane(
-          FXMLLoader.load(
-              getClass().getResource("/RevampedViews/DesktopApp/directionsDisplay.fxml")));
+      String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
+      VBox drawerBox = FXMLLoader.load(getClass().getResource(fuck));
+      drawerBottomRight.setSidePane(drawerBox);
+
     } catch (IOException e) {
-      System.out.println("problem with drawer loading");
+      e.printStackTrace();
     }
 
     drawerBottomRight.close();
@@ -515,7 +515,9 @@ public class NavController implements Initializable {
     draw();
     pathFloors = "";
     for (Node n : GRAPH.getPath()) {
-      if (!pathFloors.contains(n.getFloor())) pathFloors += n.getFloor();
+      if (!pathFloors.contains(n.getFloor())) {
+        pathFloors += n.getFloor();
+      }
     }
 
     addTextToDirectionBox(Graph.findTextDirection());
@@ -531,26 +533,21 @@ public class NavController implements Initializable {
    */
   private void addTextToDirectionBox(List<String> textDirection) {
     VBox allDirections = new VBox();
-
     allDirections.setSpacing(10);
 
-    ImageView icon = new ImageView("Icons/HomeIconBlack.png");
-    icon.setFitWidth(20);
+    if (textDirection.size() > 0) {
 
-    // for each direction, add to the directions box.
-    for (String d : textDirection) {
-      HBox singleDirection = new HBox();
-      singleDirection.setSpacing(10);
-      // todo if statement that swaps the image depending on the direction
-      // add the direction and its corresponding label to the directions box
-      singleDirection.getChildren().add(icon);
-      singleDirection.getChildren().add(new Label(d));
-      // add this single direction with its icon to the directionsBox
-      allDirections.getChildren().add(singleDirection);
+      // for each direction, add to the directions box.
+      for (String d : textDirection) {
+        // add directions label to vbox
+        allDirections.getChildren().add(new Label(d));
+      }
+
+      informationOnPage.setDirectionsScrollPaneContent(allDirections);
+
+    } else {
+      System.out.println("Directions machine broke");
     }
-
-    directionsScrollPane.setContent(allDirections);
-    directionsScrollPane.setMaxWidth(285);
   }
 
   /**
@@ -560,7 +557,6 @@ public class NavController implements Initializable {
    */
   public void canvasClick(MouseEvent mouseEvent) {
     // close the directions drawer
-    drawerBottomRight.close();
     selectingStart = !selectingStart;
     selectingEnd = !selectingEnd;
     Node clickedNode =
@@ -1147,11 +1143,8 @@ public class NavController implements Initializable {
     draw();
   }
 
-  // TODO dragging functionality @sadie
+  // TODO better dragging functionality @sadie
   public void nodeDragEnter(MouseDragEvent mouseDragEvent) {}
 
   public void nodeDragRelease(MouseDragEvent mouseDragEvent) {}
-
-  // TODO save node functionality in edit box @sadie
-  public void saveNode(ActionEvent actionEvent) {}
 }

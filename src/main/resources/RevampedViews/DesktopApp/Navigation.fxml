@@ -26,6 +26,6 @@
       <JFXNodesList fx:id="editingList" layoutX="1056.0" layoutY="43.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
       <JFXNodesList fx:id="help" layoutX="1062.0" layoutY="127.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0" />
       <JFXNodesList fx:id="parking" layoutX="922.0" layoutY="208.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0" />
-      <JFXDrawer fx:id="drawerBottomRight" alignment="BOTTOM_CENTER" defaultDrawerSize="350.0" direction="BOTTOM" layoutX="1130.0" layoutY="693.0" prefHeight="200.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <JFXDrawer fx:id="drawerBottomRight" defaultDrawerSize="350.0" direction="BOTTOM" layoutX="902.0" layoutY="174.0" miniDrawerSize="0.0" prefHeight="200.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>
