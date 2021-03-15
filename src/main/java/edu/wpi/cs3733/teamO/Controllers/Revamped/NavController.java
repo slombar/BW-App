@@ -8,6 +8,7 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.IOException;
@@ -1183,19 +1184,35 @@ public class NavController implements Initializable {
 
   public void nodeDragRelease(MouseDragEvent mouseDragEvent) {}
 
-  public void toProfile(ActionEvent actionEvent) {}
+  public void toProfile(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
+  }
 
-  public void toHome(ActionEvent actionEvent) {}
+  public void toHome(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
 
-  public void toNav(ActionEvent actionEvent) {}
+  public void toNav(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
+  }
 
-  public void toTrack(ActionEvent actionEvent) {}
+  public void toTrack(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+  }
 
-  public void toReq(ActionEvent actionEvent) {}
+  public void toReq(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
 
-  public void toPatients(ActionEvent actionEvent) {}
+  public void toPatients(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
 
-  public void toEmployees(ActionEvent actionEvent) {}
+  public void toEmployees(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
 
-  public void toLogin(ActionEvent actionEvent) {}
+  public void toLogin(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
+  }
 }
