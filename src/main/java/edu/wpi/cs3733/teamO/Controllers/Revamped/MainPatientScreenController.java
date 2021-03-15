@@ -67,7 +67,7 @@ public class MainPatientScreenController implements Initializable {
   }
 
   public void goToMobile(ActionEvent actionEvent) {
-    SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");
+    SwitchScene.newWindowParent("/RevampedViews/MobileApp/MainMobileScreen.fxml");
   }
 
   public void goToInfo(MouseEvent mouseEvent) {}
