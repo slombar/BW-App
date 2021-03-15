@@ -10,161 +10,102 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="805.0" style="-fx-background-color: #7E93BE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.LAUNController">
-   <top>
-      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="798.0" BorderPane.alignment="CENTER">
+
+<VBox alignment="CENTER" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #9aa8b5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.LAUNController">
+   <children>
+      <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="293.0" text="Laundry Service Request" textFill="#3a5369">
+         <font>
+            <Font name="Leelawadee UI Bold" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Icons/laundryIconWhite.png" />
+         </image>
+      </ImageView>
+      <VBox spacing="10.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Icons/laundryIconWhite.png" />
-               </image>
-            </ImageView>
-            <Label text="Laundry Request" textFill="WHITE">
+            <Label prefWidth="100.0" text="Date" textFill="#3a5369">
                <font>
-                  <Font name="Leelawadee UI Bold" size="55.0" />
+                  <Font name="Leelawadee UI Bold" size="18.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="80.0" top="10.0" />
-               </VBox.margin>
             </Label>
+            <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
+            <Label prefWidth="100.0" text="Location" textFill="#3a5369">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="locationF" focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+               <font>
+                  <Font name="Leelawadee UI" size="18.0" />
+               </font>
+            </JFXTextField>
+            <Label prefWidth="100.0" text="Summary" textFill="#3a5369">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXTextArea fx:id="summary" prefHeight="0.0" prefWidth="519.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
+               <font>
+                  <Font name="Leelawadee UI" size="18.0" />
+               </font>
+            </JFXTextArea>
+            <Label prefHeight="25.0" prefWidth="100.0" text="Item Type" textFill="#3a5369">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="field1" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="(ex. Sheets)">
+               <font>
+                  <Font name="Leelawadee UI" size="18.0" />
+               </font>
+            </JFXTextField>
+            <Label prefHeight="25.0" prefWidth="100.0" text="Load Size" textFill="#3a5369">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="sizeComboBox" onAction="#comboBoxAction" prefWidth="250.0" style="-fx-background-color: #ffffff;" />
+            <JFXCheckBox fx:id="field2" checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Has this laundry (potentially) come in contact with COVID-19?" textFill="#3a5369" unCheckedColor="#857d7d">
+               <font>
+                  <Font name="Leelawadee UI" size="12.0" />
+               </font>
+            </JFXCheckBox>
          </children>
-         <BorderPane.margin>
-            <Insets top="60.0" />
-         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </VBox>
-   </top>
-   <center>
-      <VBox prefHeight="148.0" prefWidth="605.0" spacing="15.0" BorderPane.alignment="CENTER">
+      <HBox alignment="BOTTOM_CENTER" prefHeight="82.0" prefWidth="380.0" spacing="50.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <Label prefWidth="100.0" text="Location" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField fx:id="locationF" focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
-                     <font>
-                        <Font name="Leelawadee UI" size="18.0" />
-                     </font></JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-               <children>
-                  <Label prefWidth="100.0" text="Date" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefWidth="100.0" text="Summary" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextArea fx:id="summary" prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
-                     <font>
-                        <Font name="Leelawadee UI" size="18.0" />
-                     </font>
-                  </JFXTextArea>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="100.0" text="Item Type" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXTextField fx:id="field1" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="(ex. Sheets)">
-                     <font>
-                        <Font name="Leelawadee UI" size="18.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="100.0" text="Load Size" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXComboBox fx:id="sizeComboBox" onAction="#comboBoxAction" prefWidth="250.0" style="-fx-background-color: #ffffff;" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label minHeight="-Infinity" prefHeight="98.0" prefWidth="300.0" text="Has this laundry (potentially) come in contact with COVID-19?" textFill="WHITE" wrapText="true">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXCheckBox fx:id="field2" checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text=" " textFill="WHITE" unCheckedColor="WHITE" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <JFXButton onAction="#back" style="-fx-background-color: #3a5369;" text="Back" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="50.0" right="50.0" />
-                     </HBox.margin>
-                  </JFXButton>
-                  <JFXButton onAction="#clear" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="50.0" right="50.0" />
-                     </HBox.margin>
-                  </JFXButton>
-                  <JFXButton onAction="#submit" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="50.0" right="50.0" />
-                     </HBox.margin>
-                  </JFXButton>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
+            <JFXButton onAction="#clear" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #3a5369;" text="Clear" textFill="WHITE">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="22.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton onAction="#submit" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #3a5369;" text="Submit" textFill="WHITE">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="22.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </JFXButton>
          </children>
-         <BorderPane.margin>
-            <Insets bottom="170.0" />
-         </BorderPane.margin>
-      </VBox>
-   </center>
-</BorderPane>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

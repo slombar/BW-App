@@ -61,10 +61,18 @@ public class DrawerController {
     // else, add/edit Node (depending on addNodeDBMode = t/f)
     else {
       try {
-        // TODO: get / generate nodeID (?)
+        String nodeID = "";
+
+        if (navController.addingNode) {
+          // TODO: GENERATE NODE ID
+          nodeID = "x";
+        } else {
+          nodeID = navController.selectedNode.getID();
+        }
+
         Node n =
             new Node(
-                "x", // nodeID.getText(),
+                nodeID, // nodeID.getText(),
                 Integer.parseInt(xCoord.getText()),
                 Integer.parseInt(yCoord.getText()),
                 navController.sFloor,
@@ -75,9 +83,21 @@ public class DrawerController {
                 "O",
                 visible.isSelected());
 
-        GRAPH.addNode(n, false);
+        GRAPH.addNode(n, navController.addingNode);
+
+        /*navController.selectedNode.editNode(
+        Integer.parseInt(xCoord.getText()),
+        Integer.parseInt(yCoord.getText()),
+        navController.sFloor,
+        building.getText(),
+        nodeType.getText(),
+        longName.getText(),
+        shortName.getText(),
+        visible.isSelected());*/
+
         clearNodeInfo();
         navController.selectedNode = null; // when clear Node info, also de-select Node
+        navController.addingNode = false;
 
       } catch (SQLException throwables) {
         PopupMaker.nodeAlreadyExists(navController.nodeWarningPane);
@@ -97,13 +117,13 @@ public class DrawerController {
    */
   private boolean isNodeInfoEmpty() {
     // nodeID.getText().isEmpty()
-    return xCoord.getText().isEmpty()
-        || yCoord.getText().isEmpty()
+    return xCoord.getText() == null
+        || yCoord.getText() == null
         // || floor.getText().isEmpty()
-        || building.getText().isEmpty()
-        || nodeType.getText().isEmpty()
-        || longName.getText().isEmpty()
-        || shortName.getText().isEmpty();
+        // || building.getText().isEmpty()
+        || nodeType.getText() == null
+        || longName.getText() == null
+        || shortName.getText() == null;
   }
 
   /** clears all info in node textfields */

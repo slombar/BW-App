@@ -1,10 +1,13 @@
 package edu.wpi.cs3733.teamO.Controllers.RevampedMobile;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 public class MainMobileScreenController implements Initializable {
 
@@ -12,6 +15,7 @@ public class MainMobileScreenController implements Initializable {
       false; // keeps track of whether the last page was the home page
   public static boolean isBackGoogle =
       false; // keeps track of whether the last page was the google nav page
+  @FXML private JFXButton exitAppBtn;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {}
@@ -34,11 +38,8 @@ public class MainMobileScreenController implements Initializable {
     SwitchScene.goToParentMobile("/Views/MobileApp/SaveParking.fxml", actionEvent);
   }
 
-  public void gotToLogin(ActionEvent actionEvent) {}
-
-  public void goToProfile(ActionEvent actionEvent) {
-    SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
+  public void exit(ActionEvent actionEvent) {
+    Stage stage = (Stage) exitAppBtn.getScene().getWindow();
+    stage.close();
   }
-
-  public void goToLogin(ActionEvent actionEvent) {}
 }

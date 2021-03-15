@@ -25,8 +25,8 @@ public class MobileAboutController implements Initializable {
 
   private final JFXButton addBtn = new JFXButton(null, addIconView);
   private final JFXButton exitBtn = new JFXButton("Exit About Us", exitIconView);
-  private final JFXButton hospitalBtn = new JFXButton("Google Nav", googleIconView);
-  private final JFXButton googleBtn = new JFXButton("Hospital Nav", navIconView);
+  private final JFXButton hospitalBtn = new JFXButton("Google Navigation", googleIconView);
+  private final JFXButton googleBtn = new JFXButton("Hospital Navigation", navIconView);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
