@@ -8,8 +8,8 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
-import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.IOException;
@@ -63,9 +63,6 @@ public class NavController implements Initializable {
   @FXML private JFXButton patientsBtn;
   @FXML private JFXButton employeesBtn;
   @FXML private JFXButton loginBtn;
-  public Canvas mapCanvas;
-  public FlowPane hamburger;
-  public ImageView imageView;
   public StackPane nodeWarningPane;
 
   @FXML private JFXNodesList editingList = new JFXNodesList();
