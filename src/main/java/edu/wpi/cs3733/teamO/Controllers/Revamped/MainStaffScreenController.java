@@ -86,7 +86,7 @@ public class MainStaffScreenController implements Initializable {
   }
 
   public void goToEntryReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+    SwitchScene.goToParent("/Views/RevampedViewed/DesktopApp/EntryRequests.fxml");
     // temporary until there is a page for this
   }
 

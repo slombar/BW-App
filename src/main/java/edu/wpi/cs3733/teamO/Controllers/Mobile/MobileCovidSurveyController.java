@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
 import com.jfoenix.controls.JFXRadioButton;
-import edu.wpi.cs3733.teamO.Database.RequestHandling;
+import edu.wpi.cs3733.teamO.Database.EntryRequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
@@ -61,26 +61,26 @@ public class MobileCovidSurveyController implements Initializable {
       long millis = System.currentTimeMillis();
       java.util.Date dateN = new java.sql.Date(millis);
 
-      String requestType = "CV19";
-      String loc = "entrance";
-      String sum = "summary";
-      String f1 = String.valueOf(no1.isSelected());
-      String f2 = String.valueOf(no2.isSelected());
-      String f3 = String.valueOf(no3.isSelected());
-      System.out.println(f1 + f2 + f3);
+      String loc = "Under Review";
+
+      // DETERMINE IF SYMPTOMS
+      Boolean hasSymptoms = false;
+      if (!(no1.isSelected() && no2.isSelected() && no3.isSelected())) hasSymptoms = true;
 
       System.out.println(
           "Adding this to DB: "
               + requestedBy
-              + dateN.toString()
-              + requestType
+              + " "
               + loc
-              + sum
-              + f1
-              + f2
-              + f3);
+              + " "
+              + hasSymptoms
+              + " "
+              + false
+              + " "
+              + false);
 
-      RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
+      // RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
+      EntryRequestHandling.addEntryRequest(requestedBy, loc, hasSymptoms, false, false);
 
     } else {
       popupPane.setVisible(true);
