@@ -121,7 +121,7 @@ public class NavController implements Initializable {
   private boolean selectingEditNode = false;
   private boolean addNodeMode = false;
   private boolean addNodeDBMode = false;
-  private boolean addingEdge = false;
+  private boolean editingEdge = false;
   private boolean deletingEdge = false;
   // private boolean addingEdgeN1 = false;
   // private boolean addingEdgeN2 = false;
@@ -143,7 +143,7 @@ public class NavController implements Initializable {
     // selectingEditNode = false;
     addNodeMode = false;
     addNodeDBMode = false;
-    addingEdge = false;
+    editingEdge = false;
     deletingEdge = false;
     showingEdges = false;
 
@@ -160,7 +160,8 @@ public class NavController implements Initializable {
   // create menu items
   MenuItem editNodeMenu = new MenuItem("Edit Node");
   MenuItem deleteNodeMenu = new MenuItem("Delete Node");
-  MenuItem addEdgeMenu = new MenuItem("Add Edge");
+  MenuItem editingEdgeMenu =
+      new MenuItem("Add/Delete Edge"); // TODO make both add and delete same button
 
   // patient context menu for clearing
   ContextMenu pathfindContext = new ContextMenu();
@@ -266,7 +267,7 @@ public class NavController implements Initializable {
     // add menu items to context menu
     editMapContext.getItems().add(editNodeMenu);
     editMapContext.getItems().add(deleteNodeMenu);
-    editMapContext.getItems().add(addEdgeMenu);
+    editMapContext.getItems().add(editingEdgeMenu);
     pathfindContext.getItems().add(clearPathMenu);
 
     selectingStart = false;
@@ -649,7 +650,7 @@ public class NavController implements Initializable {
             });
 
         // if not adding edge, do normal stuff
-        if (!addingEdge) {
+        if (!editingEdge) {
           selectedNode = clickedNode;
           contextMenuOnActions(selectedNode);
         }
@@ -686,14 +687,14 @@ public class NavController implements Initializable {
         action -> {
           System.out.println("editing node");
           editNodeMenuSelect(node);
-          addingEdge = false;
+          editingEdge = false;
         });
 
     deleteNodeMenu.setOnAction(
         action -> {
           // deleting node
           try {
-            addingEdge = false;
+            editingEdge = false;
             deleteNode(node);
             draw();
           } catch (SQLException throwables) {
@@ -701,28 +702,44 @@ public class NavController implements Initializable {
           }
         });
 
-    addEdgeMenu.setOnAction(
+    editingEdgeMenu.setOnAction(
         action -> {
           System.out.println("adding edge");
-          if (!addingEdge) {
-            addingEdge = true;
+          if (!editingEdge) {
+            editingEdge = true;
           }
           // if adding edge already
           else {
-            try {
-              GRAPH.addEdge(selectedNode.getID(), selectedNodeB.getID());
-              selectedNode = selectedNodeB;
-              selectedNodeB = null;
-            } catch (SQLException throwables) {
-              PopupMaker.edgeAlreadyExists(nodeWarningPane);
+            String id1 = selectedNode.getID();
+            String id2 = selectedNodeB.getID();
+            // if edge doesn't exist, add
+            if (!GRAPH.edgeAlreadyExists(id1, id2)) {
+              try {
+                GRAPH.addEdge(id1, id2);
+                // selectedNode = selectedNodeB;
+                selectedNodeB = null;
+              } catch (SQLException throwables) {
+                PopupMaker.edgeAlreadyExists(nodeWarningPane);
+              }
             }
+            // else, delete
+            else {
+              try {
+                GRAPH.deleteEdge(id1, id2);
+                // selectedNode = selectedNodeB;
+                selectedNodeB = null;
+              } catch (SQLException throwables) {
+                PopupMaker.edgeDoesntExists(nodeWarningPane);
+              }
+            }
+
             draw();
           }
         });
 
     clearPathMenu.setOnAction(
         action -> {
-          addingEdge = false;
+          editingEdge = false;
           clearSelection();
           draw();
         });
@@ -749,7 +766,7 @@ public class NavController implements Initializable {
     addNodeMode = true;
     addNodeDBMode = true;
     selectingEditNode = false;
-    addingEdge = false;
+    editingEdge = false;
   }
 
   /**
