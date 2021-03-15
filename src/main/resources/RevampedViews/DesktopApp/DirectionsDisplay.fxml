@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.NavController"-->
+
+<VBox fx:id="directionVBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="20.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.drawerController">
+   <children>
+      <HBox prefHeight="16.0" prefWidth="200.0">
+         <children>
+            <Label text="Directions">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="200.0">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#share" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #fec107;" text="Share" textFill="#3a5369">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <JFXScrollPane fx:id="directionsScrollPane">
+         <children>
+            <VBox fx:id="directionsDisplayVbox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f2f2f2;" />
+         </children>
+      </JFXScrollPane>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>

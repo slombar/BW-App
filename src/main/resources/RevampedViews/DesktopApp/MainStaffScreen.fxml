@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.MainPatientScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.MainStaffScreenController">
    <children>
       <GridPane layoutX="226.0" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -73,14 +73,14 @@
                   </VBox>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="aboutBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToAbout" style="-fx-background-color: #3A5369;" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="servReqBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToServReq" style="-fx-background-color: #3A5369;" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <font>
                   <Font name="Leelawadee UI Bold" size="24.0" />
                </font>
                <graphic>
                   <VBox alignment="CENTER">
                      <children>
-                        <ImageView fx:id="aboutImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="servReqImg" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
                               <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
@@ -88,10 +88,10 @@
                               <Image url="@../../ladyInBed.jpg" />
                            </image>
                            <viewport>
-                              <Rectangle2D height="600.0" minX="800.0" minY="150.0" width="600.0" />
+                              <Rectangle2D height="600.0" minX="75.0" minY="250.0" width="600.0" />
                            </viewport>
                         </ImageView>
-                        <Label text="About B&amp;W Hospital" textFill="WHITE">
+                        <Label text="Service Requests" textFill="WHITE">
                            <font>
                               <Font name="Leelawadee UI Bold" size="22.0" />
                            </font>
@@ -99,7 +99,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Learn about the hospital and this application" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Label text="Create requests for various hospital services" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Leelawadee UI" size="18.0" />
                            </font>
@@ -191,7 +191,7 @@
                   <Insets />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="mobileBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxWidth="1.7976931348623157E308" onAction="#goToMobile" prefHeight="116.0" prefWidth="359.0" style="-fx-background-color: #9AA8B5;" text="Save Your Parking Spot" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="entryReqBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxWidth="1.7976931348623157E308" onAction="#goToEntryReq" prefHeight="116.0" prefWidth="359.0" style="-fx-background-color: #9AA8B5;" text="Save Your Parking Spot" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <font>
                   <Font name="Leelawadee UI Bold" size="24.0" />
                </font>
@@ -208,7 +208,7 @@
                         </ImageView>
                         <VBox alignment="CENTER_LEFT">
                            <children>
-                              <Label prefHeight="32.0" prefWidth="301.0" text="Mobile App" textFill="WHITE">
+                              <Label prefHeight="32.0" prefWidth="301.0" text="Entry Requests" textFill="WHITE">
                                  <font>
                                     <Font name="Leelawadee UI Bold" size="22.0" />
                                  </font>
@@ -216,7 +216,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Label>
-                              <Label prefHeight="48.0" prefWidth="349.0" text="Check out our mobile version of this app" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Label prefHeight="48.0" prefWidth="349.0" text="Notify patients of their designated entrance" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="Leelawadee UI" size="18.0" />
                                  </font>

@@ -41,7 +41,7 @@ public class SignInPageController {
       try {
         UserHandling.login(username, password);
         if (UserHandling.getLoginStatus() && UserHandling.getEmployee()) {
-          SwitchScene.goToParent("/Views/StaffMainPage.fxml");
+          SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
         } else {
           SwitchScene.goToParent("/Views/CovidSurvey.fxml");
         }
