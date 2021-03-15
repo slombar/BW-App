@@ -89,7 +89,7 @@ public class StaffMainPageController implements Initializable {
   public void goToParking(ActionEvent actionEvent) {}
 
   public void goToRequest(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Services.fxml");
   }
 
   public void goToGoogleNav(ActionEvent actionEvent) {

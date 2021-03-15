@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController">
+   <children>
+      <VBox layoutX="30.0" layoutY="261.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" wrappingWidth="161.275390625">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To view service requests for each type: click on the buttons below. To add a new request, click the &quot;+&quot; button">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Text>
+            <FlowPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="124.0" prefWidth="122.0" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="101.0" text="Language Services" />
+                        <JFXButton onAction="#goToLanguageReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Cindy T." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/translateIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Gift" />
+                        <JFXButton onAction="#goToGiftReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Ke Z." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/giftIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Medicine" />
+                        <JFXButton onAction="#goToMedicineReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Din U." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/medicineIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="110.0" prefWidth="99.0" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="83.0" text="Maintenance">
+                           <VBox.margin>
+                              <Insets right="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <JFXButton onAction="#goToMaintenance" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Nathan D." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/maintenanceIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="58.0" text="Laundry" />
+                        <JFXButton onAction="#goToLaundryReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Ryan D." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/laundryIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Security" />
+                        <JFXButton onAction="#goToSecurityReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Luke H." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/securityIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Sanitize" />
+                        <JFXButton onAction="#goToSanitationReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Sadie L." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/sanitationIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Transport" />
+                        <JFXButton onAction="#goToTransportReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Sam P." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/transportIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Computer" />
+                        <JFXButton onAction="#goToComputerReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Selina S." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/computerServiceIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Floral" />
+                        <JFXButton onAction="#goToFloralReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Kyle L." textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/floralIconWhite.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Leelawadee UI" size="8.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </FlowPane>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="-10.0" layoutY="293.0" spacing="10.0" style="-fx-background-color: cfe2f3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request List" wrappingWidth="161.275390625">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <JFXNodesList />
+                     </children>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </HBox>
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="600.0" spacing="20.0">
+               <children>
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+                  <Label prefWidth="50.0" text="Label" />
+               </children>
+            </HBox>
+            <VBox fx:id="requestList" prefHeight="200.0" prefWidth="100.0" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <JFXDrawer fx:id="sideDrawerForAdd" direction="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>
