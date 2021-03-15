@@ -3,9 +3,7 @@ package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
-import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class RequestPageController implements Initializable {
@@ -51,10 +48,9 @@ public class RequestPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    //todo @luke hamburger
+    // todo @luke hamburger
 
   }
-
 
   public void goToCheckReq(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/RequestStatus.fxml");
@@ -71,7 +67,7 @@ public class RequestPageController implements Initializable {
   public void goToComputerReq(ActionEvent actionEvent) {
     reqType = "COMP";
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
-    //todo display add fxml in side drawer
+    // todo display add fxml in side drawer
   }
 
   public void goToFloralReq(ActionEvent actionEvent) {
@@ -118,5 +114,4 @@ public class RequestPageController implements Initializable {
     reqType = "SANA";
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
-
 }

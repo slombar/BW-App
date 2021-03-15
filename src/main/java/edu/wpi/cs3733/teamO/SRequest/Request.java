@@ -16,7 +16,6 @@ public class Request extends RecursiveTreeObject<Request> {
   private String para2;
   private String para3;
 
-
   public Request(
       int requestID,
       String requestedBy,
@@ -131,6 +130,4 @@ public class Request extends RecursiveTreeObject<Request> {
   public void setPara3(String para3) {
     this.para3 = para3;
   }
-
-
 }
