@@ -7,6 +7,7 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class NavController implements Initializable {
   public Canvas mapCanvas;
   public FlowPane hamburger;
   public ImageView imageView;
+  public StackPane nodeWarningPane;
 
   @FXML private JFXNodesList editingList = new JFXNodesList();
   @FXML private JFXNodesList parking = new JFXNodesList();
@@ -119,7 +121,8 @@ public class NavController implements Initializable {
   private boolean selectingEditNode = false;
   private boolean addNodeMode = false;
   private boolean addNodeDBMode = false;
-  private boolean addingEdgeBD = false;
+  private boolean addingEdge = false;
+  private boolean deletingEdge = false;
   // private boolean addingEdgeN1 = false;
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
@@ -137,12 +140,15 @@ public class NavController implements Initializable {
 
   /** end of variable declaration */
   private void setEditFalse() {
-    selectingEditNode = false;
+    // selectingEditNode = false;
     addNodeMode = false;
     addNodeDBMode = false;
-    addingEdgeBD = false;
+    addingEdge = false;
+    deletingEdge = false;
     showingEdges = false;
+
     selectedNode = null;
+    selectedNodeB = null;
   }
 
   public AnchorPane getAnchorPane() {
@@ -556,6 +562,12 @@ public class NavController implements Initializable {
 
     // block for SHIFT CLICK --> aligning nodes
     if (editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      // hide context menu
+      editMapContext.setAutoHide(true);
+      if (editMapContext.isShowing()) {
+        editMapContext.hide();
+      }
+
       if ((selectingEditNode && selectedNode == null)) {
         selectedNode = clickedNode;
 
@@ -595,9 +607,17 @@ public class NavController implements Initializable {
     // ----------------------
     // block for LEFT CLICK --> regular clicking
     else if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      // hide context menu
+      editMapContext.setAutoHide(true);
+      if (editMapContext.isShowing()) {
+        editMapContext.hide();
+      }
+
       alignList = new ArrayList<>();
 
-      selectedNodeB = null;
+      boolean temp = showingEdges;
+      setEditFalse();
+      showingEdges = temp;
 
       // if navigating
       if (!editing) {
@@ -617,7 +637,6 @@ public class NavController implements Initializable {
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
 
       System.out.println("You right clicked!");
-      selectedNode = clickedNode;
 
       if (editing) { // editing mode
         editMapContext.setAutoHide(true);
@@ -628,8 +647,20 @@ public class NavController implements Initializable {
             f -> {
               editMapContext.show(mapCanvas, f.getScreenX(), f.getScreenY());
             });
-        contextMenuOnActions(selectedNode);
-      } else { // pathfinding mode
+
+        // if not adding edge, do normal stuff
+        if (!addingEdge) {
+          selectedNode = clickedNode;
+          contextMenuOnActions(selectedNode);
+        }
+        // if adding edge, keep first node
+        else {
+          selectedNodeB = clickedNode;
+          contextMenuOnActions(selectedNodeB);
+        }
+      }
+      // pathfinding mode
+      else {
         pathfindContext.setAutoHide(true);
         if (pathfindContext.isShowing()) {
           pathfindContext.hide();
@@ -655,12 +686,14 @@ public class NavController implements Initializable {
         action -> {
           System.out.println("editing node");
           editNodeMenuSelect(node);
+          addingEdge = false;
         });
 
     deleteNodeMenu.setOnAction(
         action -> {
           // deleting node
           try {
+            addingEdge = false;
             deleteNode(node);
             draw();
           } catch (SQLException throwables) {
@@ -671,10 +704,25 @@ public class NavController implements Initializable {
     addEdgeMenu.setOnAction(
         action -> {
           System.out.println("adding edge");
+          if (!addingEdge) {
+            addingEdge = true;
+          }
+          // if adding edge already
+          else {
+            try {
+              GRAPH.addEdge(selectedNode.getID(), selectedNodeB.getID());
+              selectedNode = selectedNodeB;
+              selectedNodeB = null;
+            } catch (SQLException throwables) {
+              PopupMaker.edgeAlreadyExists(nodeWarningPane);
+            }
+            draw();
+          }
         });
 
     clearPathMenu.setOnAction(
         action -> {
+          addingEdge = false;
           clearSelection();
           draw();
         });
@@ -701,7 +749,7 @@ public class NavController implements Initializable {
     addNodeMode = true;
     addNodeDBMode = true;
     selectingEditNode = false;
-    addingEdgeBD = false;
+    addingEdge = false;
   }
 
   /**
