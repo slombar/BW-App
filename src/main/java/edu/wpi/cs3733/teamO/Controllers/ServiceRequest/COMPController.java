@@ -7,7 +7,6 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
-import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +19,8 @@ public class COMPController {
   @FXML private JFXTextField field1;
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+    // close side drawer todo @sadie
+
   }
 
   public void clear(ActionEvent actionEvent) {
@@ -53,7 +53,5 @@ public class COMPController {
             + f3);
 
     RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
-
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 }

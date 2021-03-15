@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
@@ -19,37 +18,32 @@ public class RequestPageController implements Initializable {
   public VBox requestList;
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
-  @FXML private JFXButton computerBtn;
-  @FXML private JFXButton floralBtn;
-  @FXML private JFXButton languageBtn;
-  @FXML private JFXButton laundryBtn;
-  @FXML private JFXButton giftBtn;
-  @FXML private JFXButton transportBtn;
-  @FXML private JFXButton maintenanceBtn;
-  @FXML private JFXButton medicineBtn;
-  @FXML private JFXButton entryBtn;
-  @FXML private JFXButton securityBtn;
-  @FXML private JFXButton sanitationBtn;
-  @FXML private JFXButton moreBtn;
   public static String reqType;
 
   public static String getReqType() {
     return reqType;
   }
 
+  public void closeAddMenu() {
+    sideDrawerForAdd.close();
+  }
+
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // Set drawer to SideMenu
-    String sideMenu = "/Views/SideMenuStaff.fxml";
-    if (UserHandling.getAdmin()) sideMenu = "/Views/SideMenuAdmin.fxml";
+    String sideMenu = "";
+
+    if (UserHandling.getAdmin()) {
+      sideMenu = "/Views/SideMenuAdmin.fxml";
+    } else {
+      sideMenu = "/Views/SideMenuStaff.fxml";
+    }
     try {
       VBox vbox = FXMLLoader.load(getClass().getResource(sideMenu));
       drawer.setSidePane(vbox);
     } catch (IOException e) {
       e.printStackTrace();
     }
-    // todo @luke hamburger
-
   }
 
   public void goToCheckReq(ActionEvent actionEvent) {
@@ -66,8 +60,16 @@ public class RequestPageController implements Initializable {
    */
   public void goToComputerReq(ActionEvent actionEvent) {
     reqType = "COMP";
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
-    // todo display add fxml in side drawer
+
+    try {
+      VBox bp =
+          FXMLLoader.load(
+              getClass().getResource("/Views/ServiceRequests/ComputerServiceRequest.fxml"));
+      sideDrawerForAdd.setSidePane(bp);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    sideDrawerForAdd.open();
   }
 
   public void goToFloralReq(ActionEvent actionEvent) {

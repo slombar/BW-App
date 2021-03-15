@@ -313,10 +313,10 @@ public class NavController implements Initializable {
     selectingEnd = true;
 
     /** Initialize the drawer @sadie */
-    String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
+    String ssss = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
     try {
       // create connection between controllers, in order to display the drawer directions
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ssss));
       VBox drawerBox = fxmlLoader.load();
       drawerController = fxmlLoader.getController();
       drawerBottomRight.setSidePane(drawerBox);
