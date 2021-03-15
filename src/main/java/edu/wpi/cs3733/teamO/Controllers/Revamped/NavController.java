@@ -86,7 +86,7 @@ public class NavController implements Initializable {
   private GraphicsContext gc;
   private double percImageView = 1.0;
   private Rectangle2D currentViewport;
-  private String sFloor = "G";
+  String sFloor = "G";
   private String sideMenuUrl;
   private String pathFloors = "";
 
@@ -94,7 +94,7 @@ public class NavController implements Initializable {
 
   Node startNode = null;
   Node endNode = null;
-  Node selectedNode = null;
+  public Node selectedNode = null;
   Node selectedNodeB = null;
 
   String strategy = Settings.getInstance().getAlgoChoice();
@@ -310,6 +310,7 @@ public class NavController implements Initializable {
       drawerBottomRight.close();
     }
 
+    drawerController.setNavController(this);
     isDrawerDirections = !isDrawerDirections;
   }
 
@@ -1132,7 +1133,7 @@ public class NavController implements Initializable {
   }
 
   /** can draw the path, nodes, and edges based on booleans */
-  private void draw() {
+  void draw() {
     resizeCanvas();
 
     // i know these can be simplified but i don't care -- this is more organized imo
