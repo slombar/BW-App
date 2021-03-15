@@ -13,14 +13,14 @@ public class EntryRequest {
   private Boolean check2;
 
   public EntryRequest(
-          int requestID,
-          String requestedBy,
-          String fulfilledBy,
-          Date dateRequested,
-          String locationNodeID,
-          Boolean hasSymptoms,
-          Boolean check1,
-          Boolean check2) {
+      int requestID,
+      String requestedBy,
+      String fulfilledBy,
+      Date dateRequested,
+      String locationNodeID,
+      Boolean hasSymptoms,
+      Boolean check1,
+      Boolean check2) {
     this.requestID = requestID;
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
@@ -31,9 +31,7 @@ public class EntryRequest {
     this.check2 = check2;
   }
 
-  public EntryRequest() {
-  }
-
+  public EntryRequest() {}
 
   public int getRequestID() {
     return requestID;
@@ -59,7 +57,6 @@ public class EntryRequest {
     this.dateRequested = dateRequested;
   }
 
-
   public String getLocationNodeID() {
     return locationNodeID;
   }
@@ -75,7 +72,6 @@ public class EntryRequest {
   public void setFulfilledBy(String fulfilledBy) {
     this.fulfilledBy = fulfilledBy;
   }
-
 
   public void setCheck1(Boolean check1) {
     this.check1 = check1;
@@ -93,7 +89,6 @@ public class EntryRequest {
     return check2;
   }
 
-
   public Boolean getIfSymptoms() {
     return hasSymptoms;
   }
@@ -102,5 +97,3 @@ public class EntryRequest {
     this.hasSymptoms = b;
   }
 }
-
-
