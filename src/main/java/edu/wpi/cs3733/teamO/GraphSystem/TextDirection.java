@@ -48,6 +48,14 @@ public class TextDirection {
       return 200.0;
     }
 
+    // for go straight out the elevator or stairs.
+    if (node2.getNodeType().equals("STAI")
+        || node3.getNodeType().equals("STAI")
+        || node2.getNodeType().equals("ELEV")
+        || node3.getNodeType().equals("ELEV")) {
+      return 300.0;
+    }
+
     // return ZERO if dot_product is zero.
     if (angle == 0.0) return Math.abs(angle);
 
@@ -112,12 +120,24 @@ public class TextDirection {
                 + " ft.)");
       }
       // enter the building or leave the building.
-      else if (angle == 200) {
+      if (angle == 200) {
         directions.add(
             "Use " + path.get(i + 1).getLongName() + " to enter " + path.get(i + 2).getLongName());
-      } else if (angle < -25) {
+      }
+      if (angle == 300) {
+        directions.add(
+            path.get(i + 1).getLongName()
+                + " --(Walk Straight)--> "
+                + path.get(i + 2).getLongName()
+                + " ("
+                + realDistance(path.get(i + 1), path.get(i + 2))
+                + " ft.)");
+      } else if ((angle < -25)
+          && !(path.get(i + 1).getLongName().equals(path.get(i + 2).getLongName()))) {
         // Lefts
-        if (angle < -120) {
+        if ((angle < -120)
+            && !(path.get(i + 1).equals("STAI"))
+            && !(path.get(i + 1).equals("ELEV"))) {
           directions.add(
               path.get(i + 1).getLongName()
                   + " --(Turn Around)--> "
@@ -145,9 +165,12 @@ public class TextDirection {
                   + " ft.)");
         }
 
-      } else if (angle > 25) {
+      } else if ((angle > 25)
+          && !(path.get(i + 1).getLongName().equals(path.get(i + 2).getLongName()))) {
         // The Rights
-        if (angle > 120) {
+        if ((angle > 120)
+            && !(path.get(i + 1).equals("STAI"))
+            && !(path.get(i + 1).equals("ELEVY"))) {
           directions.add(
               path.get(i + 1).getLongName()
                   + " --(Turn Around)--> "
@@ -174,14 +197,45 @@ public class TextDirection {
                   + realDistance(path.get(i + 1), path.get(i + 2))
                   + " ft.)");
         }
-      } else {
+      } else if ((-25 < angle)
+          && (angle < 25)
+          && !(path.get(i + 1).getLongName().equals(path.get(i + 2).getLongName()))) {
         directions.add(
             path.get(i + 1).getLongName()
-                + " --(Walk Straight)--> "
+                + " --(Continue Straight)--> "
                 + path.get(i + 2).getLongName()
                 + " ("
                 + realDistance(path.get(i + 1), path.get(i + 2))
                 + " ft.)");
+      } else {
+        directions.add("Wait until you reach the destination floor");
+      }
+      for (int j = 0; j < directions.size() - 1; j++) {
+        if (directions.get(j).contains("Continue Straight")
+            && directions.get(j + 1).contains("Continue Straight")) {
+          String temp = directions.get(j).substring(0, directions.get(j).indexOf("to ") + 3);
+          String other =
+              directions
+                  .get(j + 1)
+                  .substring(
+                      directions.get(j + 1).indexOf("to ") + 3, directions.get(j + 1).length());
+          temp = temp + other;
+          directions.set(j, temp);
+          directions.remove(j + 1);
+          j--;
+        } else if (directions.get(j).contains("to go to floor")
+            && directions.get(j + 1).contains("to go to floor")) {
+          String temp = directions.get(j).substring(0, directions.get(j).indexOf("use ") + 4);
+          String other =
+              directions
+                  .get(j + 1)
+                  .substring(
+                      directions.get(j + 1).indexOf("use ") + 4, directions.get(j + 1).length());
+          temp = temp + other;
+          directions.set(j, temp);
+          directions.remove(j + 1);
+          j--;
+        }
       }
     }
 
