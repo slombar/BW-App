@@ -183,6 +183,8 @@ public class NavController implements Initializable {
   // patient context menu for clearing
   ContextMenu pathfindContext = new ContextMenu();
   // create menu items
+  MenuItem setStart = new MenuItem("Set as Start");
+  MenuItem setEnd = new MenuItem("Set as Destination");
   MenuItem clearPathMenu = new MenuItem("Clear Path");
 
   /**
@@ -321,6 +323,9 @@ public class NavController implements Initializable {
     editMapContext.getItems().add(deleteNodeMenu);
     editMapContext.getItems().add(editingEdgeMenu);
     editMapContext.getItems().add(addNodeMenu);
+
+    pathfindContext.getItems().add(setStart);
+    pathfindContext.getItems().add(setEnd);
     pathfindContext.getItems().add(clearPathMenu);
 
     selectingStart = false;
@@ -673,6 +678,10 @@ public class NavController implements Initializable {
       if (editMapContext.isShowing()) {
         editMapContext.hide();
       }
+      pathfindContext.setAutoHide(true);
+      if (pathfindContext.isShowing()) {
+        pathfindContext.hide();
+      }
 
       clearAlignList();
 
@@ -682,19 +691,6 @@ public class NavController implements Initializable {
       if (editing) {
         drawerBottomRight.close();
       }
-
-      // if navigating
-      if (!editing) {
-        if (selectingStart) {
-          startNode = clickedNode;
-          startLoc.setText(startNode.getLongName());
-        } else if (selectingEnd) {
-          endNode = clickedNode;
-          endLoc.setText(endNode.getLongName());
-          doPathfind();
-        }
-      }
-
     }
     // ----------------------
     // block for RIGHT CLICK
@@ -742,7 +738,8 @@ public class NavController implements Initializable {
             f -> {
               pathfindContext.show(mapCanvas, f.getScreenX(), f.getScreenY());
             });
-        contextMenuOnActions(selectedNode, mouseEvent);
+
+        contextMenuOnActions(clickedNode, mouseEvent);
       }
 
     } else if (true) {
@@ -823,13 +820,6 @@ public class NavController implements Initializable {
           addingNode = true;
         });
 
-    clearPathMenu.setOnAction(
-        action -> {
-          editingEdge = false;
-          clearSelection();
-          draw();
-        });
-
     alignHorizontally.setOnAction(
         action -> {
           alignHorizontally();
@@ -838,6 +828,35 @@ public class NavController implements Initializable {
     alignVertically.setOnAction(
         action -> {
           alignVertically();
+        });
+
+    // NAVIGATING:
+
+    clearPathMenu.setOnAction(
+        action -> {
+          editingEdge = false;
+          clearSelection();
+          draw();
+        });
+
+    setStart.setOnAction(
+        action -> {
+          startNode = node;
+          startLoc.setText(startNode.getLongName());
+          if (startNode != null && endNode != null) {
+            doPathfind();
+          }
+          draw();
+        });
+
+    setEnd.setOnAction(
+        action -> {
+          endNode = node;
+          endLoc.setText(endNode.getLongName());
+          if (startNode != null && endNode != null) {
+            doPathfind();
+          }
+          draw();
         });
   }
 
@@ -1219,7 +1238,13 @@ public class NavController implements Initializable {
 
     if (!editing && !displayingRoute) {
       // draw the visible Node (navigating) on sFloor + highlight start and end (if selected)
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
+      // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
+      if (startNode != null) {
+        DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView, false);
+      }
+      if (endNode != null) {
+        DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, false);
+      }
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
       directionsList.animateList(true);
@@ -1245,7 +1270,13 @@ public class NavController implements Initializable {
   private void draw(int i) {
     // i know these can be simplified but i don't care -- this is more organized
     if (!editing && !displayingRoute) {
-      GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
+      // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
+      if (startNode != null) {
+        DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView, false);
+      }
+      if (endNode != null) {
+        DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, false);
+      }
     } else if (!editing && displayingRoute) {
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
