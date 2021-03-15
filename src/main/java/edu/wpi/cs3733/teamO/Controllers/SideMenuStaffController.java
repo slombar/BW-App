@@ -54,11 +54,11 @@ public class SideMenuStaffController implements Initializable {
   }
 
   public void toMain(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/StaffMainPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
   }
 
   public void toNav(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
   }
 
   public void toReq(ActionEvent actionEvent) {

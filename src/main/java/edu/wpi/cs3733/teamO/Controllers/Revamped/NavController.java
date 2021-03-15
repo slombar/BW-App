@@ -128,6 +128,7 @@ public class NavController implements Initializable {
   /** Directions + NodeEditing Fields */
   @FXML JFXTextField longName;
 
+  drawerController drawerController;
   @FXML JFXTextField nodeType;
   @FXML JFXTextField xCoord;
   @FXML JFXTextField yCoord;
@@ -265,17 +266,20 @@ public class NavController implements Initializable {
     selectingStart = false;
     selectingEnd = true;
 
-    /** Initialize the drawer */
+    /** Initialize the drawer @sadie */
+    String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
     try {
-      String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
-      VBox drawerBox = FXMLLoader.load(getClass().getResource(fuck));
+      // create connection between controllers, in order to display the drawer directions
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
+      VBox drawerBox = fxmlLoader.load();
+      drawerController = fxmlLoader.getController();
       drawerBottomRight.setSidePane(drawerBox);
 
     } catch (IOException e) {
       e.printStackTrace();
     }
 
-    drawerBottomRight.close();
+    //   drawerBottomRight.close();
   }
 
   public void setStyles() {
@@ -360,6 +364,7 @@ public class NavController implements Initializable {
     clearPath.setOnAction(
         e -> {
           // clear start and end locations
+          drawerController.removeDirectionChildren();
           drawerBottomRight.close();
           clearSelection();
         });
@@ -492,11 +497,11 @@ public class NavController implements Initializable {
    * @param clickedNode
    */
   public void autocompleteEditMap(Node clickedNode) {
-    xCoord.setText(Integer.toString(clickedNode.getXCoord()));
-    yCoord.setText(Integer.toString(clickedNode.getYCoord()));
-    nodeType.setText(clickedNode.getNodeType());
-    longName.setText(clickedNode.getLongName());
-    visible.setSelected(clickedNode.isVisible());
+    // xCoord.setText(Integer.toString(clickedNode.getXCoord()));
+    // yCoord.setText(Integer.toString(clickedNode.getYCoord()));
+    // nodeType.setText(clickedNode.getNodeType());
+    // longName.setText(clickedNode.getLongName());
+    // visible.setSelected(clickedNode.isVisible());
   }
 
   /** resets path and creates a new path depending on start and end nodes */
