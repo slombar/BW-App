@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import jssc.SerialPort;
 import jssc.SerialPortException;
-import jssc.SerialPortList;
 
 /**
  * Packt Book: JavaFX 8 essentials Chapter 7. Monitoring & Controlling Arduino with JavaFX
@@ -21,16 +20,9 @@ public final class Serial {
 
   private static final List<String> USUAL_PORTS =
       asList(
-          "/dev/tty.usbmodem",
-          "/dev/tty.usbserial", // Mac OS X
-          "/dev/usbdev",
-          "/dev/ttyUSB",
-          "/dev/ttyACM",
-          "/dev/serial", // Linux
           // "COM3",
           // "COM4",
-          "COM5",
-          "COM6" // Windows
+          "COM5", "COM6" // Windows
           );
   private final String ardPort;
   private SerialPort serPort;
@@ -54,45 +46,37 @@ public final class Serial {
    */
   public boolean connect() {
     out.println("Serial port is opening now...");
-    asList(SerialPortList.getPortNames()).stream()
-        .filter(
-            name ->
-                ((!ardPort.isEmpty() && name.equals(ardPort))
-                    || (ardPort.isEmpty()
-                        && USUAL_PORTS.stream().anyMatch(p -> name.startsWith(p)))))
-        .findFirst()
-        .ifPresent(
-            name -> {
-              try {
-                serPort = new SerialPort(name);
-                out.println("Connecting to " + serPort.getPortName());
-                if (serPort.openPort()) {
-                  out.println("Before Params");
-                  serPort.setParams(BAUDRATE_9600, DATABITS_8, STOPBITS_1, PARITY_NONE);
-                  out.println("after Params");
-                  serPort.setEventsMask(MASK_RXCHAR);
-                  out.println("after Set events");
-                  serPort.addEventListener(
-                      event -> {
-                        if (event.isRXCHAR()) {
-                          try {
-                            sb.append(serPort.readString(event.getEventValue()));
-                            String ch = sb.toString();
-                            if (ch.endsWith("\r\n")) {
 
-                              line.set(ch.substring(0, ch.indexOf("\r\n")));
-                              sb = new StringBuilder();
-                            }
-                          } catch (SerialPortException e) {
-                            out.println("SerialEvent error:" + e.toString());
-                          }
-                        }
-                      });
+    try {
+      serPort = new SerialPort("COM5");
+      out.println("Connecting to " + serPort.getPortName());
+      // out.println(serPort.openPort());
+      if (serPort.openPort()) {
+        out.println("Before Params");
+        serPort.setParams(BAUDRATE_9600, DATABITS_8, STOPBITS_1, PARITY_NONE);
+        out.println("after Params");
+        serPort.setEventsMask(MASK_RXCHAR);
+        out.println("after Set events");
+        serPort.addEventListener(
+            event -> {
+              if (event.isRXCHAR()) {
+                try {
+                  sb.append(serPort.readString(event.getEventValue()));
+                  String ch = sb.toString();
+                  if (ch.endsWith("\r\n")) {
+
+                    line.set(ch.substring(0, ch.indexOf("\r\n")));
+                    sb = new StringBuilder();
+                  }
+                } catch (SerialPortException e) {
+                  out.println("SerialEvent error:" + e.toString());
                 }
-              } catch (SerialPortException ex) {
-                out.println("ERROR: Port '" + name + "': " + ex.toString());
               }
             });
+      }
+    } catch (SerialPortException ex) {
+      out.println("ERROR: Port '" + serPort.getPortName() + "': " + ex.toString());
+    }
     return serPort != null;
   }
 
