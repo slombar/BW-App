@@ -21,7 +21,9 @@ public class MainMobileScreenController implements Initializable {
     SwitchScene.goToParentMobile("/Views/MobileApp/MobileCovidSurvey.fxml", actionEvent);
   }
 
-  public void goToAbout(ActionEvent actionEvent) {}
+  public void goToAbout(ActionEvent actionEvent) {
+    SwitchScene.goToParentMobile("/RevampedViews/MobileApp/MobileAbout.fxml", actionEvent);
+  }
 
   public void goToGoogleNav(ActionEvent actionEvent) {
     SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);
