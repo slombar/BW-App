@@ -224,4 +224,21 @@ public class EntryRequestHandling {
       throwables.printStackTrace();
     }
   }
+
+  public static void setEntrance(int reqID, String status) throws SQLException {
+    String query = "";
+
+    if (status.equals("Main")) {
+      query = "UPDATE ENTRY_REQUESTS SET LOCATION = 'MAIN' WHERE ENTRYREQID = ?";
+    } else {
+      query = "UPDATE ENTRY_REQUESTS SET LOCATION = 'EMERGENCY' WHERE ENTRYREQID = ?";
+    }
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    pstmt.setInt(1, reqID);
+    pstmt.executeUpdate();
+    pstmt.close();
+  }
 }

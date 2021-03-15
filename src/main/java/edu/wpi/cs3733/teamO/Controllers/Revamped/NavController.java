@@ -698,6 +698,10 @@ public class NavController implements Initializable {
       if (editMapContext.isShowing()) {
         editMapContext.hide();
       }
+      pathfindContext.setAutoHide(true);
+      if (pathfindContext.isShowing()) {
+        pathfindContext.hide();
+      }
 
       if ((selectingEditNode && selectedNode == null)) {
         selectedNode = clickedNode;
@@ -847,6 +851,25 @@ public class NavController implements Initializable {
 
             draw();
           }
+        });
+
+    addNodeMenu.setOnAction(
+        action -> {
+          selectedNode = null;
+          draw();
+          selectedNode = getRealXY(mouseEvent);
+          // TODO: isMobile t/f?
+          DrawHelper.drawSingleNode(gc, selectedNode, Color.BLUE, imageView, false);
+
+          drawerBottomRight.open();
+          editNodeMenuSelect(selectedNode);
+
+          addingNode = true;
+        });
+
+    alignHorizontally.setOnAction(
+        action -> {
+          alignHorizontally();
         });
 
     addNodeMenu.setOnAction(
@@ -1340,7 +1363,7 @@ public class NavController implements Initializable {
   public void alignVertically() {
     for (String s : alignList) {
       Node n = GRAPH.getNodeByID(s);
-      n.setXCoord(selectedNode.getXCoord());
+      n.setYCoord(selectedNode.getYCoord());
     }
 
     clearAlignList();
@@ -1350,7 +1373,7 @@ public class NavController implements Initializable {
   public void alignHorizontally() {
     for (String s : alignList) {
       Node n = GRAPH.getNodeByID(s);
-      n.setYCoord(selectedNode.getYCoord());
+      n.setXCoord(selectedNode.getXCoord());
     }
 
     clearAlignList();

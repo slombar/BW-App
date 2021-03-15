@@ -64,7 +64,7 @@ public class EntryRequestController implements Initializable {
 
     Label filledByHeading = new Label(" Assigned To");
     filledByHeading.setStyle(
-        "-fx-max-width: 150; -fx-min-width: 150; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+        "-fx-max-width: 110; -fx-min-width: 110; -fx-text-fill: #000000; -fx-font-size: 13pt; "
             + filledByHeading.getStyle());
 
     Label dReqHeading = new Label(" Date");
@@ -132,7 +132,7 @@ public class EntryRequestController implements Initializable {
     reqBy.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + reqBy.getStyle());
 
     Label filledBy = new Label(fulfilledBy);
-    filledBy.setStyle("-fx-max-width: 150; -fx-min-width: 150; " + filledBy.getStyle());
+    filledBy.setStyle("-fx-max-width: 110; -fx-min-width: 110; " + filledBy.getStyle());
 
     Label dReq = new Label(dateRequested.toString());
     dReq.setStyle("-fx-max-width: 125; -fx-min-width: 125; " + dReq.getStyle());
@@ -155,7 +155,8 @@ public class EntryRequestController implements Initializable {
     Label loc = new Label(location);
     loc.setStyle("-fx-max-width: 200; -fx-min-width: 200; " + loc.getStyle());
 
-    JFXButton markDone = new JFXButton();
+    JFXButton mainEntrance = new JFXButton();
+    JFXButton covidEntrance = new JFXButton();
 
     reqBox.setSpacing(15);
 
@@ -167,20 +168,36 @@ public class EntryRequestController implements Initializable {
       throwables.printStackTrace();
     }
 
-    markDone.setOnAction(
+    mainEntrance.setOnAction(
         e -> {
           // mark the thing as done
           try {
-            EntryRequestHandling.setStatus(reqID, "Complete");
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            EntryRequestHandling.setEntrance(reqID, "Main");
+            SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
           } catch (SQLException throwables) {
             // TODO @sam add input scrubbing / verification?
             throwables.printStackTrace();
           }
         });
 
-    markDone.setText("Mark Complete");
-    markDone.setStyle(
+    covidEntrance.setOnAction(
+        t -> {
+          // mark the thing as done
+          try {
+            EntryRequestHandling.setEntrance(reqID, "Emergency");
+            SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
+          } catch (SQLException throwables) {
+            // TODO @sam add input scrubbing / verification?
+            throwables.printStackTrace();
+          }
+        });
+
+    mainEntrance.setText("Main");
+    mainEntrance.setStyle(
+        "-fx-background-color: #CFE2F3; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: BOLD;");
+
+    covidEntrance.setText("Emergency");
+    covidEntrance.setStyle(
         "-fx-background-color: #CFE2F3; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: BOLD;");
 
     addBox.getChildren().add(id);
@@ -218,7 +235,8 @@ public class EntryRequestController implements Initializable {
         break;
     }
     // add button
-    addBox.getChildren().add(markDone);
+    addBox.getChildren().add(mainEntrance);
+    addBox.getChildren().add(covidEntrance);
 
     for (Node n : addBox.getChildren()) {
       if (!n.getClass().equals(JFXButton.class)) {
@@ -230,8 +248,7 @@ public class EntryRequestController implements Initializable {
         .onMouseClickedProperty()
         .set(
             e -> {
-              PopupMaker.serviceReqPopup(
-                  popUpPane, ((Label) addBox.getChildren().get(0)).getText());
+              PopupMaker.entryReqPopup(popUpPane, ((Label) addBox.getChildren().get(0)).getText());
             });
     reqBox.getChildren().add(addBox);
   }
