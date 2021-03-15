@@ -72,6 +72,6 @@ public class SignInPageController {
   public void goToTemp(ActionEvent actionEvent) {}
 
   public void goToMobileApp(ActionEvent actionEvent) {
-    SwitchScene.newWindowParent("/Views/MobileApp/MainScreen.fxml");
+    SwitchScene.newWindowParent("/RevampedViews/MobileApp/MainMobileScreen.fxml");
   }
 }
