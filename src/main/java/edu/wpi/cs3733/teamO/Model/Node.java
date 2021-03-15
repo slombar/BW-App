@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.teamO.Model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -11,7 +13,6 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
 
   // added from GraphNode
   private HashSet<Node> neighbourList;
-  // TODO: have each neighbour stored with it's Edge
   private Hashtable<Node, Edge> nodeEdgeHashtable;
   private double priority;
   private boolean visited;
@@ -233,5 +234,37 @@ public class Node extends RecursiveTreeObject<Node> implements Comparable<Node> 
     } else {
       return -1;
     }
+  }
+
+  public void editNode(
+      int x,
+      int y,
+      String sFloor,
+      String building,
+      String nodeType,
+      String longName,
+      String shortName,
+      boolean visible)
+      throws SQLException {
+    this.xCoord = x;
+    this.yCoord = y;
+    this.building = building;
+    // TODO: if node type is changed -> change ID? (would also have to change stuff in graph then)
+    this.nodeType = nodeType;
+    this.longName = longName;
+    this.shortName = shortName;
+    this.visible = visible;
+
+    NodesAndEdges.editNode(
+        this.getID(),
+        this.getXCoord(),
+        this.getYCoord(),
+        this.getFloor(),
+        this.getBuilding(),
+        this.getNodeType(),
+        this.getLongName(),
+        this.getShortName(),
+        "O",
+        this.isVisible());
   }
 }
