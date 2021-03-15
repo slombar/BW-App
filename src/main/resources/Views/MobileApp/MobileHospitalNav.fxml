@@ -23,8 +23,8 @@
       <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <JFXNodesList fx:id="buttonsList" alignment="CENTER" stylesheets="@MobileStyle.css" translateX="-15.0" translateY="-10.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      <JFXNodesList fx:id="directionsList" alignment="CENTER" prefHeight="83.0" prefWidth="2.0" stylesheets="@MobileStyle.css" translateX="-15.0" translateY="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+      <JFXNodesList fx:id="buttonsList" alignment="CENTER" stylesheets="@MobileStyle.css" translateX="-20.0" translateY="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <JFXNodesList fx:id="directionsList" alignment="CENTER" stylesheets="@MobileStyle.css" translateX="-20.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
       <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <ImageView fx:id="imageView" fitHeight="603.0" fitWidth="741.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowSpan="4" GridPane.valignment="CENTER">
          <image>
@@ -33,6 +33,6 @@
       </ImageView>
       <Canvas fx:id="mapCanvas" height="603.0" onMouseClicked="#canvasClick" onScroll="#onCanvasScroll" width="343.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowSpan="4" GridPane.valignment="CENTER" />
       <JFXButton fx:id="clearBtn" onAction="#clearPath" styleClass="back-buttons" stylesheets="@MobileStyle.css" text="Clear" translateX="10.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-      <JFXNodesList fx:id="floorList" GridPane.columnIndex="2" />
+      <JFXNodesList fx:id="floorList" translateX="15.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

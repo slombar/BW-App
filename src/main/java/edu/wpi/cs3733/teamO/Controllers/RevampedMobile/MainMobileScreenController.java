@@ -25,7 +25,9 @@ public class MainMobileScreenController implements Initializable {
 
   public void gotToLogin(ActionEvent actionEvent) {}
 
-  public void goToProfile(ActionEvent actionEvent) {}
+  public void goToProfile(ActionEvent actionEvent) {
+    //    SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
+  }
 
   public void goToLogin(ActionEvent actionEvent) {}
 }
