@@ -135,6 +135,7 @@ public class NavController implements Initializable {
   private boolean addNodeDBMode = false;
   private boolean editingEdge = false;
   private boolean deletingEdge = false;
+  public boolean addingNode = false;
   // private boolean addingEdgeN1 = false;
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
@@ -175,6 +176,9 @@ public class NavController implements Initializable {
   MenuItem editNodeMenu = new MenuItem("Edit Node");
   MenuItem deleteNodeMenu = new MenuItem("Delete Node");
   MenuItem editingEdgeMenu = new MenuItem("Add/Delete Edge");
+  MenuItem addNodeMenu = new MenuItem("Add Node");
+  MenuItem alignHorizontally = new MenuItem("Align Nodes Horizontally");
+  MenuItem alignVertically = new MenuItem("Align Nodes Vertically");
 
   // patient context menu for clearing
   ContextMenu pathfindContext = new ContextMenu();
@@ -316,6 +320,7 @@ public class NavController implements Initializable {
     editMapContext.getItems().add(editNodeMenu);
     editMapContext.getItems().add(deleteNodeMenu);
     editMapContext.getItems().add(editingEdgeMenu);
+    editMapContext.getItems().add(addNodeMenu);
     pathfindContext.getItems().add(clearPathMenu);
 
     selectingStart = false;
@@ -489,8 +494,11 @@ public class NavController implements Initializable {
           editing = !editing;
           if (editing) {
             editMode();
+          } else {
+            setEditFalse();
           }
           switchDrawer();
+          draw();
         });
     uploadB.setOnAction(
         e -> {
@@ -645,39 +653,17 @@ public class NavController implements Initializable {
 
       if ((selectingEditNode && selectedNode == null)) {
         selectedNode = clickedNode;
+        drawerBottomRight.open();
+        editNodeMenuSelect(selectedNode);
 
       } else if (selectingEditNode && selectedNode != null && selectedNode != clickedNode) {
         alignList.add(clickedNode.getID());
+        if (!editMapContext.getItems().contains(alignHorizontally)) {
+          editMapContext.getItems().add(alignHorizontally);
+          editMapContext.getItems().add(alignVertically);
+        }
       }
       selectedNodeB = null;
-    }
-    // block for CTRL CLICK --> creating edge?
-    else if (editing
-        && mouseEvent.isControlDown()
-        && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-      //      alignList = new ArrayList<>();
-      //
-      //      // if navigating
-      //      if (!editing) {
-      //        draw();
-      //      }
-      //      // if editing
-      //      else {
-      //        if (selectingEditNode && selectedNode == null) {
-      //          selectedNode = clickedNode;
-      //          selectingEditNode = false;
-      //        } else {
-      //          selectedNodeB = clickedNode;
-      //        }
-      //      }
-      //
-      //      // if selectedNode != null or selectedNodeB != null, set those Edge text fields
-      //      if (selectedNode != null) {
-      //        startNodeID.setText(selectedNode.getID());
-      //      }
-      //      if (selectedNodeB != null) {
-      //        endNodeID.setText(selectedNodeB.getID());
-      //      }
     }
     // ----------------------
     // block for LEFT CLICK --> regular clicking
@@ -688,11 +674,14 @@ public class NavController implements Initializable {
         editMapContext.hide();
       }
 
-      alignList = new ArrayList<>();
+      clearAlignList();
 
       boolean temp = showingEdges;
       setEditFalse();
       showingEdges = temp;
+      if (editing) {
+        drawerBottomRight.close();
+      }
 
       // if navigating
       if (!editing) {
@@ -723,15 +712,24 @@ public class NavController implements Initializable {
               editMapContext.show(mapCanvas, f.getScreenX(), f.getScreenY());
             });
 
-        // if not adding edge, do normal stuff
-        if (!editingEdge) {
-          selectedNode = clickedNode;
-          contextMenuOnActions(selectedNode);
+        // if align list is empty, do normal stuff
+        if (alignList.size() == 0) {
+          // if not adding edge, do normal stuff
+          if (!editingEdge) {
+            selectedNode = clickedNode;
+            drawerBottomRight.open();
+            editNodeMenuSelect(selectedNode);
+            contextMenuOnActions(selectedNode, mouseEvent);
+          }
+          // if adding edge, keep first node
+          else {
+            selectedNodeB = clickedNode;
+            contextMenuOnActions(selectedNodeB, mouseEvent);
+          }
         }
-        // if adding edge, keep first node
+        // otherwise, option
         else {
-          selectedNodeB = clickedNode;
-          contextMenuOnActions(selectedNodeB);
+          contextMenuOnActions(selectedNode, mouseEvent);
         }
       }
       // pathfinding mode
@@ -744,23 +742,23 @@ public class NavController implements Initializable {
             f -> {
               pathfindContext.show(mapCanvas, f.getScreenX(), f.getScreenY());
             });
-        contextMenuOnActions(selectedNode);
+        contextMenuOnActions(selectedNode, mouseEvent);
       }
 
     } else if (true) {
       // TODO add dragging functionality
     }
 
-    autocompleteEditMap(clickedNode);
+    // autocompleteEditMap(clickedNode);
     draw();
   }
 
-  public void contextMenuOnActions(Node node) {
+  public void contextMenuOnActions(Node node, MouseEvent mouseEvent) {
     // TODO: add functionality to these
     editNodeMenu.setOnAction(
         action -> {
           System.out.println("editing node");
-          editNodeMenuSelect(node);
+          // editNodeMenuSelect(node);
           editingEdge = false;
         });
 
@@ -811,12 +809,44 @@ public class NavController implements Initializable {
           }
         });
 
+    addNodeMenu.setOnAction(
+        action -> {
+          selectedNode = null;
+          draw();
+          selectedNode = getRealXY(mouseEvent);
+          // TODO: isMobile t/f?
+          DrawHelper.drawSingleNode(gc, selectedNode, Color.BLUE, imageView, false);
+
+          drawerBottomRight.open();
+          editNodeMenuSelect(selectedNode);
+
+          addingNode = true;
+        });
+
     clearPathMenu.setOnAction(
         action -> {
           editingEdge = false;
           clearSelection();
           draw();
         });
+
+    alignHorizontally.setOnAction(
+        action -> {
+          alignHorizontally();
+        });
+
+    alignVertically.setOnAction(
+        action -> {
+          alignVertically();
+        });
+  }
+
+  private void clearAlignList() {
+    alignList = new ArrayList<>();
+    if (editMapContext.getItems().contains(alignHorizontally)) {
+      editMapContext.getItems().remove(alignHorizontally);
+      editMapContext.getItems().remove(alignVertically);
+    }
   }
 
   private void editNodeMenuSelect(Node selectedNode) {
@@ -1232,23 +1262,23 @@ public class NavController implements Initializable {
   //    directionvbox.getChildren().add(newText);
   //  }
 
-  public void alignVertically(ActionEvent actionEvent) {
-    for (String s : alignList) {
-      Node n = GRAPH.getNodeByID(s);
-      n.setYCoord(selectedNode.getYCoord());
-    }
-
-    alignList = new ArrayList<>();
-    draw();
-  }
-
-  public void alignHorizontally(ActionEvent actionEvent) {
+  public void alignVertically() {
     for (String s : alignList) {
       Node n = GRAPH.getNodeByID(s);
       n.setXCoord(selectedNode.getXCoord());
     }
 
-    alignList = new ArrayList<>();
+    clearAlignList();
+    draw();
+  }
+
+  public void alignHorizontally() {
+    for (String s : alignList) {
+      Node n = GRAPH.getNodeByID(s);
+      n.setYCoord(selectedNode.getYCoord());
+    }
+
+    clearAlignList();
     draw();
   }
 
