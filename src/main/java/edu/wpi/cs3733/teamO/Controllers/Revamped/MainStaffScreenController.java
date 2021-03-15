@@ -74,7 +74,7 @@ public class MainStaffScreenController implements Initializable {
   }
 
   public void goToServReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Services.fxml");
   }
 
   public void goToGoogleNav(ActionEvent actionEvent) {
