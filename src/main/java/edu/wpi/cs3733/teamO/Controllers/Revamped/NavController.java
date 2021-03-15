@@ -174,8 +174,7 @@ public class NavController implements Initializable {
   // create menu items
   MenuItem editNodeMenu = new MenuItem("Edit Node");
   MenuItem deleteNodeMenu = new MenuItem("Delete Node");
-  MenuItem editingEdgeMenu =
-      new MenuItem("Add/Delete Edge"); // TODO make both add and delete same button
+  MenuItem editingEdgeMenu = new MenuItem("Add/Delete Edge");
 
   // patient context menu for clearing
   ContextMenu pathfindContext = new ContextMenu();
