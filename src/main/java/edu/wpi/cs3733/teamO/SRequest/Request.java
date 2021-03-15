@@ -15,7 +15,7 @@ public class Request extends RecursiveTreeObject<Request> {
   private String para1;
   private String para2;
   private String para3;
-  private Boolean hasSymptoms;
+
 
   public Request(
       int requestID,
@@ -40,22 +40,6 @@ public class Request extends RecursiveTreeObject<Request> {
     this.para1 = para1;
     this.para2 = para2;
     this.para3 = para3;
-  }
-
-  // ENTRY REQUEST CONSTRUCTOR
-  public Request(
-      int requestID,
-      String requestedBy,
-      String fulfilledBy,
-      Date dateRequested,
-      String locationNodeID,
-      Boolean hasSymptoms) {
-    this.requestID = requestID;
-    this.requestedBy = requestedBy;
-    this.fulfilledBy = fulfilledBy;
-    this.dateRequested = dateRequested;
-    this.locationNodeID = locationNodeID;
-    this.hasSymptoms = hasSymptoms;
   }
 
   public Request() {}
@@ -148,11 +132,5 @@ public class Request extends RecursiveTreeObject<Request> {
     this.para3 = para3;
   }
 
-  public Boolean getIfSymptoms() {
-    return hasSymptoms;
-  }
 
-  public void setIfSymptoms(Boolean b) {
-    this.hasSymptoms = b;
-  }
 }

@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.Controllers.Mobile;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -13,8 +12,6 @@ import edu.wpi.cs3733.teamO.Model.Node;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,13 +30,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 public class MobileHospitalNavController implements Initializable {
+
   @FXML private JFXButton clearBtn;
-  @FXML private JFXComboBox<String> floorSelectionBtn;
   @FXML private ImageView imageView;
   @FXML private Canvas mapCanvas;
   @FXML private StackPane stackPane;
   @FXML private JFXNodesList directionsList;
   @FXML private JFXNodesList buttonsList;
+  @FXML private JFXNodesList floorList;
 
   // everything for pathfinding and drawing the hospital map
   private GraphicsContext gc;
@@ -54,10 +52,6 @@ public class MobileHospitalNavController implements Initializable {
   Node endNode = null;
   Node selectedNode = null;
   Node selectedNodeB = null;
-
-  ObservableList<String> listOfFloors =
-      FXCollections.observableArrayList(
-          "Campus", "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5");
 
   // navigating bools:
   private boolean selectingStart = false;
@@ -93,6 +87,15 @@ public class MobileHospitalNavController implements Initializable {
   private final JFXButton directionsBtn = new JFXButton(null, navIconView);
   private final JFXButton startBtn = new JFXButton("Start Navigation", startIconView);
   private final JFXButton textBtn = new JFXButton("Text Directions", textIconView);
+
+  // floor buttons
+  private final JFXButton floorSelectionB = new JFXButton("F", null);
+  private final JFXButton floorGB = new JFXButton("G", null);
+  private final JFXButton floor1B = new JFXButton("1", null);
+  private final JFXButton floor2B = new JFXButton("2", null);
+  private final JFXButton floor3B = new JFXButton("3", null);
+  private final JFXButton floor4B = new JFXButton("4", null);
+  private final JFXButton floor5B = new JFXButton("5", null);
 
   // components for location textfields
   JFXTextField startLoc = new JFXTextField();
@@ -140,6 +143,21 @@ public class MobileHospitalNavController implements Initializable {
     startBtn.getStyleClass().addAll("nav-buttons");
     locBox.getStyleClass().addAll("nav-text");
 
+    floorSelectionB.getStyleClass().addAll("nav-menu-button");
+    floorSelectionB.setButtonType(JFXButton.ButtonType.RAISED);
+    floorGB.getStyleClass().addAll("floor-boxes");
+    floorGB.setButtonType(JFXButton.ButtonType.RAISED);
+    floor1B.getStyleClass().addAll("floor-boxes");
+    floor1B.setButtonType(JFXButton.ButtonType.RAISED);
+    floor2B.getStyleClass().addAll("floor-boxes");
+    floor2B.setButtonType(JFXButton.ButtonType.RAISED);
+    floor3B.getStyleClass().addAll("floor-boxes");
+    floor3B.setButtonType(JFXButton.ButtonType.RAISED);
+    floor4B.getStyleClass().addAll("floor-boxes");
+    floor4B.setButtonType(JFXButton.ButtonType.RAISED);
+    floor5B.getStyleClass().addAll("floor-boxes");
+    floor5B.setButtonType(JFXButton.ButtonType.RAISED);
+
     // add buttons to bottom right animated node list (additional buttons)
     buttonsList.addAnimatedNode(addBtn);
     buttonsList.addAnimatedNode(textBtn);
@@ -157,11 +175,18 @@ public class MobileHospitalNavController implements Initializable {
     directionsList.setRotate(0);
     directionsList.setAlignment(Pos.CENTER_RIGHT);
 
-    buttonFunction(); // adds on action functionality to buttons
+    /** Add to the floor selection* */
+    floorList.addAnimatedNode(floorSelectionB);
+    floorList.addAnimatedNode(floorGB);
+    floorList.addAnimatedNode(floor1B);
+    floorList.addAnimatedNode(floor2B);
+    floorList.addAnimatedNode(floor3B);
+    floorList.addAnimatedNode(floor4B);
+    floorList.addAnimatedNode(floor5B);
+    floorList.setSpacing(4);
+    floorList.setRotate(90);
 
-    // initializing everything for pathfinding and drawing the hospital map
-    floorSelectionBtn.setItems(listOfFloors);
-    floorSelectionBtn.setValue("Campus");
+    buttonFunction(); // adds on action functionality to buttons
 
     mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
@@ -174,6 +199,8 @@ public class MobileHospitalNavController implements Initializable {
 
     buttonsList.toFront();
     directionsList.toFront();
+    floorList.toFront();
+    clearBtn.toFront();
 
     selectingStart = false;
     selectingEnd = true;
@@ -207,6 +234,38 @@ public class MobileHospitalNavController implements Initializable {
         actionEvent -> {
           SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
         });
+
+    /** Floor onactions* */
+    floorGB.setOnAction(
+        e -> {
+          imageView.setImage(campusMap);
+          setMapViewDraw("G");
+        });
+    floor1B.setOnAction(
+        e -> {
+          imageView.setImage(floor1Map);
+          setMapViewDraw("1");
+        });
+    floor2B.setOnAction(
+        e -> {
+          imageView.setImage(floor2Map);
+          setMapViewDraw("2");
+        });
+    floor3B.setOnAction(
+        e -> {
+          imageView.setImage(floor3Map);
+          setMapViewDraw("3");
+        });
+    floor4B.setOnAction(
+        e -> {
+          imageView.setImage(floor4Map);
+          setMapViewDraw("4");
+        });
+    floor5B.setOnAction(
+        e -> {
+          imageView.setImage(floor5Map);
+          setMapViewDraw("5");
+        });
   }
 
   /** Resizes Canvas to be the current size of the Image */
@@ -216,52 +275,6 @@ public class MobileHospitalNavController implements Initializable {
 
     mapCanvas.heightProperty().setValue(imageView.getBoundsInParent().getHeight());
     mapCanvas.widthProperty().setValue(imageView.getBoundsInParent().getWidth());
-  }
-
-  /**
-   * switches between images and canvases for different floors selected in the combobox
-   *
-   * @param actionEvent
-   */
-  public void floorSelection(ActionEvent actionEvent) {
-    selectedFloor = floorSelectionBtn.getValue();
-    // System.out.println(floorSelected);
-
-    // switch case basically = if, else if, etc...
-    switch (selectedFloor) {
-      case "Campus":
-        imageView.setImage(campusMap);
-        sFloor = "G";
-        break;
-      case "Floor 1":
-        imageView.setImage(floor1Map);
-        sFloor = "1";
-        break;
-      case "Floor 2":
-        imageView.setImage(floor2Map);
-        sFloor = "2";
-        break;
-      case "Floor 3":
-        imageView.setImage(floor3Map);
-        sFloor = "3";
-        break;
-      case "Floor 4":
-        imageView.setImage(floor4Map);
-        sFloor = "4";
-        break;
-      case "Floor 5":
-        imageView.setImage(floor5Map);
-        sFloor = "5";
-        break;
-    }
-
-    currentViewport =
-        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
-    imageView.setViewport(currentViewport);
-    percImageView = 1.0;
-
-    resizeCanvas();
-    draw();
   }
 
   /** resets path and creates a new path depending on start and end nodes */
@@ -356,7 +369,7 @@ public class MobileHospitalNavController implements Initializable {
       }
       // else, scrolling down (zooming out)
       else {
-        if (percImageView >= 1.0) {
+        if (percImageView >= 2.0) {
           return;
         } else {
           percImageView += 0.05;
@@ -422,6 +435,22 @@ public class MobileHospitalNavController implements Initializable {
     setNavFalse();
 
     GRAPH.resetPath();
+
+    resizeCanvas();
+    draw();
+  }
+
+  public void setMapViewDraw(String floorSelected) {
+    if (sFloor.equals(floorSelected)) {
+      return;
+    }
+    sFloor = floorSelected;
+    floorSelectionB.setText(floorSelected);
+
+    currentViewport =
+        new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+    imageView.setViewport(currentViewport);
+    percImageView = 1.0;
 
     resizeCanvas();
     draw();
