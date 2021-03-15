@@ -28,7 +28,7 @@
       </Label>
       <JFXNodesList fx:id="buttonsList" alignment="CENTER" translateX="10.0" translateY="-15.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <JFXNodesList fx:id="directionsList" alignment="CENTER" stylesheets="@MobileStyle.css" translateX="20.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <WebView fx:id="mapView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <WebView fx:id="mapView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowSpan="3" />
       <StackPane fx:id="popupPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
 </GridPane>
