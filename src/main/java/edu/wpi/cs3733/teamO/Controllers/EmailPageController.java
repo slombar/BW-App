@@ -376,6 +376,13 @@ public class EmailPageController implements Initializable {
     submissionDialog.show();
   }
 
+  /**
+   * Triggers action to create qr code
+   *
+   * @param actionEvent
+   * @throws IOException
+   * @throws UnirestException
+   */
   public void QRCodeGeneration(ActionEvent actionEvent) throws IOException, UnirestException {
     spinnerPane.setVisible(false);
     String home = System.getProperty("user.home");

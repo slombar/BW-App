@@ -166,6 +166,17 @@ public class Graph {
    */
   /*public void createCircle(Node n) */
 
+  public boolean edgeAlreadyExists(String startID, String endID) {
+    String eID = "not set yet";
+    String eID1 = startID + "_" + endID;
+    String eID2 = endID + "_" + startID;
+    // if edge exists (as either eID 1 or 2) return true, else false
+    if (stringEdgeHashtable.containsKey(eID1)) {
+      return true;
+    }
+    return stringEdgeHashtable.containsKey(eID2);
+  }
+
   /**
    * adds the given Node to the graph appropriately
    *

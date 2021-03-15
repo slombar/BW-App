@@ -158,14 +158,14 @@ public class MobileHospitalNavController implements Initializable {
     floor5B.getStyleClass().addAll("floor-boxes");
     floor5B.setButtonType(JFXButton.ButtonType.RAISED);
 
-    // add buttons to bottom right animated node list (additional buttons)
+    // add buttons to bottom left animated node list (additional buttons)
     buttonsList.addAnimatedNode(addBtn);
     buttonsList.addAnimatedNode(textBtn);
     buttonsList.addAnimatedNode(parkingBtn);
     buttonsList.addAnimatedNode(exitBtn);
     buttonsList.setSpacing(20);
     buttonsList.setRotate(180);
-    buttonsList.setAlignment(Pos.CENTER_RIGHT);
+    buttonsList.setAlignment(Pos.CENTER_LEFT);
 
     // add buttons to top left animated node list (directions)
     directionsList.addAnimatedNode(directionsBtn);
@@ -177,12 +177,12 @@ public class MobileHospitalNavController implements Initializable {
 
     /** Add to the floor selection* */
     floorList.addAnimatedNode(floorSelectionB);
-    floorList.addAnimatedNode(floorGB);
-    floorList.addAnimatedNode(floor1B);
-    floorList.addAnimatedNode(floor2B);
-    floorList.addAnimatedNode(floor3B);
-    floorList.addAnimatedNode(floor4B);
     floorList.addAnimatedNode(floor5B);
+    floorList.addAnimatedNode(floor4B);
+    floorList.addAnimatedNode(floor3B);
+    floorList.addAnimatedNode(floor2B);
+    floorList.addAnimatedNode(floor1B);
+    floorList.addAnimatedNode(floorGB);
     floorList.setSpacing(4);
     floorList.setRotate(90);
 
