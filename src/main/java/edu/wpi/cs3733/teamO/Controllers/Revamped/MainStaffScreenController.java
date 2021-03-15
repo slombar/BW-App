@@ -74,7 +74,7 @@ public class MainStaffScreenController implements Initializable {
   }
 
   public void goToServReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Services.fxml");
   }
 
   public void goToGoogleNav(ActionEvent actionEvent) {
@@ -87,7 +87,6 @@ public class MainStaffScreenController implements Initializable {
 
   public void goToEntryReq(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
-    // temporary until there is a page for this
   }
 
   public void goToParking(ActionEvent actionEvent) {}

@@ -18,6 +18,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class RequestPageController implements Initializable {
+  public JFXDrawer sideDrawerForAdd;
+  public VBox requestList;
   @FXML private JFXDrawer drawer;
   @FXML private JFXHamburger hamburger;
   @FXML private JFXButton computerBtn;
@@ -49,54 +51,10 @@ public class RequestPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    //todo @luke hamburger
 
-    // transition animation of Hamburger icon
-    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-    transition.setRate(-1);
-
-    // click event - mouse click
-    hamburger.addEventHandler(
-        MouseEvent.MOUSE_PRESSED,
-        (e) -> {
-          transition.setRate(transition.getRate() * -1);
-          transition.play();
-          if (drawer.isOpened()) {
-            drawer.close(); // this will close slide pane
-          } else {
-            drawer.open(); // this will open slide pane
-          }
-        });
-
-    computerBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    floralBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    languageBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    laundryBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    giftBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    transportBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    maintenanceBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    medicineBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    entryBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    securityBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    sanitationBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    moreBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    hoverAllBtn();
   }
 
-  /** hovering over the button will make the buttons darker */
-  public void hoverAllBtn() {
-    Effects.hoverEffect(computerBtn);
-    Effects.hoverEffect(floralBtn);
-    Effects.hoverEffect(languageBtn);
-    Effects.hoverEffect(laundryBtn);
-    Effects.hoverEffect(giftBtn);
-    Effects.hoverEffect(transportBtn);
-    Effects.hoverEffect(maintenanceBtn);
-    Effects.hoverEffect(medicineBtn);
-    Effects.hoverEffect(entryBtn);
-    Effects.hoverEffect(securityBtn);
-    Effects.hoverEffect(sanitationBtn);
-    Effects.hoverEffect(moreBtn);
-  }
 
   public void goToCheckReq(ActionEvent actionEvent) {
     SwitchScene.goToParent("/Views/RequestStatus.fxml");
@@ -113,6 +71,7 @@ public class RequestPageController implements Initializable {
   public void goToComputerReq(ActionEvent actionEvent) {
     reqType = "COMP";
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+    //todo display add fxml in side drawer
   }
 
   public void goToFloralReq(ActionEvent actionEvent) {
@@ -160,8 +119,4 @@ public class RequestPageController implements Initializable {
     SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
   }
 
-  public void goToCOVIDSurveyReq(ActionEvent actionEvent) {
-    reqType = "CV19";
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
-  }
 }
