@@ -253,8 +253,7 @@ public class NavController implements Initializable {
 
     GRAPH.setGraphicsContext(gc);
 
-    // TODO: temp for testing should be false
-    editB.setVisible(true);
+    editB.setVisible(false);
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
@@ -288,8 +287,16 @@ public class NavController implements Initializable {
           burgerTransition.setRate(burgerTransition.getRate() * -1);
           burgerTransition.play();
 
-          if (drawer.isOpened()) drawer.close(); // this will close slide pane
-          else drawer.open(); // this will open slide pane
+          if (drawer.isOpened()) {
+            drawer.close(); // this will close slide pane
+            floorsList.setTranslateX(0);
+            directionsList.setTranslateX(0);
+
+          } else {
+            drawer.open(); // this will open slide pane
+            floorsList.setTranslateX(280);
+            directionsList.setTranslateX(280);
+          }
         });
 
     // transition animation of Hamburger icon
@@ -362,14 +369,14 @@ public class NavController implements Initializable {
     floorsList.setSpacing(10);
     algoList.setSpacing(60);
 
+    drawer.toFront();
+    menuVBox.toFront();
     editingList.toFront();
     help.toFront();
     parking.toFront();
     directionsList.toFront();
     floorsList.toFront();
     algoList.toFront();
-    drawer.toFront();
-    menuVBox.toFront();
 
     algoStratBox.setPadding(new Insets(5, 10, 5, 10));
     algoStratBox.getStyleClass().addAll("combo-box");

@@ -1,21 +1,19 @@
 package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
+import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
+
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextField;
-
-import java.sql.SQLException;
-import java.util.List;
-
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Model.Node;
+import java.sql.SQLException;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
-import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
 public class DrawerController {
   private NavController navController;
@@ -65,17 +63,17 @@ public class DrawerController {
       try {
         // TODO: get / generate nodeID (?)
         Node n =
-          new Node(
-            "x",//nodeID.getText(),
-            Integer.parseInt(xCoord.getText()),
-            Integer.parseInt(yCoord.getText()),
-            navController.sFloor,
-            building.getText(),
-            nodeType.getText(),
-            longName.getText(),
-            shortName.getText(),
-            "O",
-            visible.isSelected());
+            new Node(
+                "x", // nodeID.getText(),
+                Integer.parseInt(xCoord.getText()),
+                Integer.parseInt(yCoord.getText()),
+                navController.sFloor,
+                building.getText(),
+                nodeType.getText(),
+                longName.getText(),
+                shortName.getText(),
+                "O",
+                visible.isSelected());
 
         GRAPH.addNode(n, false);
         clearNodeInfo();
@@ -86,9 +84,9 @@ public class DrawerController {
       }
     }
 
-    //addNodeDBMode = false;
+    // addNodeDBMode = false;
 
-    //selectingEditNode = true;
+    // selectingEditNode = true;
     navController.draw();
   }
 
@@ -98,22 +96,22 @@ public class DrawerController {
    * @return true if any node fields are empty
    */
   private boolean isNodeInfoEmpty() {
-    //nodeID.getText().isEmpty()
+    // nodeID.getText().isEmpty()
     return xCoord.getText().isEmpty()
-      || yCoord.getText().isEmpty()
-      //|| floor.getText().isEmpty()
-      || building.getText().isEmpty()
-      || nodeType.getText().isEmpty()
-      || longName.getText().isEmpty()
-      || shortName.getText().isEmpty();
+        || yCoord.getText().isEmpty()
+        // || floor.getText().isEmpty()
+        || building.getText().isEmpty()
+        || nodeType.getText().isEmpty()
+        || longName.getText().isEmpty()
+        || shortName.getText().isEmpty();
   }
 
   /** clears all info in node textfields */
   private void clearNodeInfo() {
-    //nodeID.clear();
+    // nodeID.clear();
     xCoord.clear();
     yCoord.clear();
-    //floor.clear();
+    // floor.clear();
     building.clear();
     nodeType.clear();
     longName.clear();
