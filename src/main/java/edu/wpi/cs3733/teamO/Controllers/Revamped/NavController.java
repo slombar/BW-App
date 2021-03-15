@@ -1193,6 +1193,7 @@ public class NavController implements Initializable {
       GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
+      directionsList.animateList(true);
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)

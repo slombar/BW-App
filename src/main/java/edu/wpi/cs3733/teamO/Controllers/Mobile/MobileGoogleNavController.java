@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Controllers.GoogleMaps.Maps.Directions;
+import edu.wpi.cs3733.teamO.Controllers.RevampedMobile.MainMobileScreenController;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;
@@ -130,14 +131,15 @@ public class MobileGoogleNavController implements Initializable {
     textBtn.setOnAction(
         actionEvent -> {
           // page of just text directions
-          MainScreenController.isBackGoogle = true;
+          MainMobileScreenController.isBackGoogle = true;
           SwitchScene.goToParentMobile("/Views/MobileApp/MobileDirections.fxml", actionEvent);
         });
 
     exitBtn.setOnAction(
         // exits to main phone screen page
         actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
+          SwitchScene.goToParentMobile(
+              "/RevampedViews/MobileApp/MainMobileScreen.fxml", actionEvent);
         });
 
     startBtn.setOnAction(

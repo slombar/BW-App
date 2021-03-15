@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.Mobile;
 
 import com.jfoenix.controls.JFXRadioButton;
+import edu.wpi.cs3733.teamO.Controllers.RevampedMobile.MainMobileScreenController;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -33,12 +34,12 @@ public class MobileCovidSurveyController implements Initializable {
    * @param actionEvent
    */
   public void goBack(ActionEvent actionEvent) {
-    if (MainScreenController.isBackHome) {
-      SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
-      MainScreenController.isBackHome = false;
+    if (MainMobileScreenController.isBackHome) {
+      SwitchScene.goToParentMobile("/RevampedViews/MobileApp/MainMobileScreen.fxml", actionEvent);
+      MainMobileScreenController.isBackHome = false;
     } else {
       SwitchScene.goToParentMobile("/Views/MobileApp/MobileGoogleNav.fxml", actionEvent);
-      MainScreenController.isBackHome = false;
+      MainMobileScreenController.isBackHome = false;
     }
   }
 
