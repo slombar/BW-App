@@ -36,7 +36,7 @@
                   <VBox alignment="BOTTOM_CENTER" prefHeight="124.0" prefWidth="122.0" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="101.0" text="Language Services" />
-                        <JFXButton onAction="#goToLanguageReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Cindy T." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToLanguageReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Cindy T." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -56,7 +56,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Gift" />
-                        <JFXButton onAction="#goToGiftReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Ke Z." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToGiftReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Ke Z." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -76,7 +76,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Medicine" />
-                        <JFXButton onAction="#goToMedicineReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Din U." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToMedicineReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Din U." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -100,7 +100,7 @@
                               <Insets right="5.0" />
                            </VBox.margin>
                         </Label>
-                        <JFXButton onAction="#goToMaintenance" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Nathan D." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToMaintenance" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Nathan D." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -123,7 +123,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="58.0" text="Laundry" />
-                        <JFXButton onAction="#goToLaundryReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Ryan D." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToLaundryReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Ryan D." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -143,7 +143,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Security" />
-                        <JFXButton onAction="#goToSecurityReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Luke H." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToSecurityReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Luke H." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -163,7 +163,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Sanitize" />
-                        <JFXButton onAction="#goToSanitationReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Sadie L." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToSanitationReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Sadie L." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -183,7 +183,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Transport" />
-                        <JFXButton onAction="#goToTransportReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Sam P." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToTransportReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Sam P." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -203,7 +203,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Computer" />
-                        <JFXButton onAction="#goToComputerReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Selina S." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToComputerReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Selina S." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -223,7 +223,7 @@
                   <VBox alignment="BOTTOM_CENTER" spacing="5.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Floral" />
-                        <JFXButton onAction="#goToFloralReq" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Kyle L." textFill="WHITE">
+                        <JFXButton alignment="CENTER" contentDisplay="TOP" onAction="#goToFloralReq" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #3a5369;" text="Kyle L." textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -296,6 +296,10 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <JFXDrawer fx:id="sideDrawerForAdd" direction="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXDrawer fx:id="sideDrawerForAdd" alignment="TOP_LEFT" defaultDrawerSize="400.0" direction="RIGHT" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton onAction="#closeAddMenu" text="x" textFill="WHITE" />
+         </children></JFXDrawer>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="350.0" layoutX="-148.0" layoutY="161.0" miniDrawerSize="0.0" prefHeight="637.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
