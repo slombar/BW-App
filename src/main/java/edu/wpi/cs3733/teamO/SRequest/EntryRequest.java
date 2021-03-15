@@ -9,5 +9,98 @@ public class EntryRequest {
   private Date dateRequested;
   private String locationNodeID;
   private Boolean hasSymptoms;
-  private String status;
+  private Boolean check1;
+  private Boolean check2;
+
+  public EntryRequest(
+          int requestID,
+          String requestedBy,
+          String fulfilledBy,
+          Date dateRequested,
+          String locationNodeID,
+          Boolean hasSymptoms,
+          Boolean check1,
+          Boolean check2) {
+    this.requestID = requestID;
+    this.requestedBy = requestedBy;
+    this.dateRequested = dateRequested;
+    this.fulfilledBy = fulfilledBy;
+    this.locationNodeID = locationNodeID;
+    this.hasSymptoms = hasSymptoms;
+    this.check1 = check1;
+    this.check2 = check2;
+  }
+
+  public EntryRequest() {
+  }
+
+
+  public int getRequestID() {
+    return requestID;
+  }
+
+  public void setRequestID(int requestID) {
+    this.requestID = requestID;
+  }
+
+  public String getRequestedBy() {
+    return requestedBy;
+  }
+
+  public void setRequestedBy(String requestedBy) {
+    this.requestedBy = requestedBy;
+  }
+
+  public Date getDateRequested() {
+    return dateRequested;
+  }
+
+  public void setDateRequested(Date dateRequested) {
+    this.dateRequested = dateRequested;
+  }
+
+
+  public String getLocationNodeID() {
+    return locationNodeID;
+  }
+
+  public void setLocationNodeID(String locationNodeID) {
+    this.locationNodeID = locationNodeID;
+  }
+
+  public String getFulfilledBy() {
+    return fulfilledBy;
+  }
+
+  public void setFulfilledBy(String fulfilledBy) {
+    this.fulfilledBy = fulfilledBy;
+  }
+
+
+  public void setCheck1(Boolean check1) {
+    this.check1 = check1;
+  }
+
+  public Boolean getCheck1() {
+    return check1;
+  }
+
+  public void setCheck2(Boolean check2) {
+    this.check2 = check2;
+  }
+
+  public Boolean getCheck2() {
+    return check2;
+  }
+
+
+  public Boolean getIfSymptoms() {
+    return hasSymptoms;
+  }
+
+  public void setIfSymptoms(Boolean b) {
+    this.hasSymptoms = b;
+  }
 }
+
+

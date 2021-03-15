@@ -110,6 +110,17 @@ public class DrawHelper {
       gc.fillOval(circleX, circleY, diameter, diameter);
       gc.setGlobalAlpha(1.0);
       gc.strokeOval(circleX, circleY, diameter, diameter);
+
+      //////////////////// FOR TESTING: ////////////////////
+      gc.setStroke(Color.RED);
+      gc.setLineWidth(3.0);
+      gc.strokeOval(0, 0, 5, 5);
+      gc.strokeOval(0, mapcanvas.getHeight(), 5, 5);
+      gc.strokeOval(mapcanvas.getWidth(), 0, 5, 5);
+      gc.strokeOval(mapcanvas.getWidth(), mapcanvas.getHeight(), 5, 5);
+      gc.strokeRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+      gc.strokeLine(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
+      gc.strokeLine(0, mapcanvas.getHeight(), mapcanvas.getWidth(), 0);
     }
   }
 
