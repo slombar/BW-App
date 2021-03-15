@@ -3,6 +3,7 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -45,11 +46,21 @@ public class NavController implements Initializable {
    *
    * <p>a toggle for visible nodes *
    */
-  public AnchorPane anchorPane;
+  @FXML private AnchorPane anchorPane;
 
-  public Canvas mapCanvas;
-  public FlowPane hamburger;
-  public ImageView imageView;
+  @FXML private VBox menuVBox;
+  @FXML private JFXDrawer drawer;
+  @FXML private JFXHamburger hamburger;
+  @FXML private Canvas mapCanvas;
+  @FXML private ImageView imageView;
+  @FXML private JFXButton profileBtn;
+  @FXML private JFXButton homeBtn;
+  @FXML private JFXButton navBtn;
+  @FXML private JFXButton trackBtn;
+  @FXML private JFXButton reqBtn;
+  @FXML private JFXButton patientsBtn;
+  @FXML private JFXButton employeesBtn;
+  @FXML private JFXButton loginBtn;
 
   @FXML private JFXNodesList editingList = new JFXNodesList();
   @FXML private JFXNodesList parking = new JFXNodesList();
@@ -247,6 +258,34 @@ public class NavController implements Initializable {
       sideMenuUrl = "/Views/SideMenu.fxml";
     }
 
+    try {
+      VBox vbox =
+          FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/NewSideMenu.fxml"));
+      drawer.setSidePane(vbox);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    // transition animation of Hamburger icon
+    HamburgerBackArrowBasicTransition burgerTransition =
+        new HamburgerBackArrowBasicTransition(hamburger);
+    burgerTransition.setRate(-1);
+
+    // click event - mouse click
+    hamburger.addEventHandler(
+        MouseEvent.MOUSE_PRESSED,
+        (e) -> {
+          burgerTransition.setRate(burgerTransition.getRate() * -1);
+          burgerTransition.play();
+
+          if (drawer.isOpened()) drawer.close(); // this will close slide pane
+          else drawer.open(); // this will open slide pane
+        });
+
+    // transition animation of Hamburger icon
+    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+    transition.setRate(-1);
+
     resizeCanvas();
     // draws appropriately accordingly to combination of booleans
     draw(1);
@@ -296,9 +335,12 @@ public class NavController implements Initializable {
     directionsList.toFront();
     floorsList.toFront();
     algoList.toFront();
+    drawer.toFront();
+    menuVBox.toFront();
 
     algoStratBox.setPadding(new Insets(5, 10, 5, 10));
     algoStratBox.getStyleClass().addAll("combo-box");
+    menuVBox.getHeight();
 
     directionsList.setAlignment(Pos.TOP_LEFT);
     directionButtons.setAlignment(Pos.CENTER);
@@ -1140,4 +1182,20 @@ public class NavController implements Initializable {
   public void nodeDragEnter(MouseDragEvent mouseDragEvent) {}
 
   public void nodeDragRelease(MouseDragEvent mouseDragEvent) {}
+
+  public void toProfile(ActionEvent actionEvent) {}
+
+  public void toHome(ActionEvent actionEvent) {}
+
+  public void toNav(ActionEvent actionEvent) {}
+
+  public void toTrack(ActionEvent actionEvent) {}
+
+  public void toReq(ActionEvent actionEvent) {}
+
+  public void toPatients(ActionEvent actionEvent) {}
+
+  public void toEmployees(ActionEvent actionEvent) {}
+
+  public void toLogin(ActionEvent actionEvent) {}
 }
