@@ -56,7 +56,7 @@ public class ManageEmployeesController implements Initializable {
    * @param actionEvent
    */
   public void close(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/StaffMainPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
   }
 
   /**

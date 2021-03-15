@@ -72,7 +72,7 @@ public class SideMenuAdminController implements Initializable {
    * @param actionEvent
    */
   public void toMain(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/StaffMainPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
   }
 
   /**
@@ -81,7 +81,7 @@ public class SideMenuAdminController implements Initializable {
    * @param actionEvent
    */
   public void toNav(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
   }
 
   /**
