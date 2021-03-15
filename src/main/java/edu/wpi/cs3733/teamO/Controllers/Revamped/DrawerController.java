@@ -10,14 +10,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class drawerController {
+public class DrawerController {
   public JFXScrollPane directionsScrollPane;
   @FXML private VBox directionsDisplayVbox;
-  @FXML private JFXTextField longName;
-  @FXML private JFXCheckBox visible;
-  @FXML private JFXTextField yCoord;
-  @FXML private JFXTextField xCoord;
-  @FXML private JFXTextField nodeType;
+  public JFXTextField longName;
+  public JFXCheckBox visible;
+  public JFXTextField yCoord;
+  public JFXTextField xCoord;
+  public JFXTextField nodeType;
+  public JFXTextField building;
+  public JFXTextField shortName;
 
   public void addDirectionChildren(List<String> directions) {
 
@@ -31,7 +33,7 @@ public class drawerController {
       // add directions label to vbox
       // informationOnPage.getDirectionVBox().getChildren().add(newText);
       // informationOnPage.addDirectionChild(newText);
-      // drawerController.addDirectionChild(newText);
+      // DrawerController.addDirectionChild(newText);
     }
   }
 

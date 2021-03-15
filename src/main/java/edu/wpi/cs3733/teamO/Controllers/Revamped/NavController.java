@@ -128,10 +128,12 @@ public class NavController implements Initializable {
   private boolean showingEdges = false;
   private boolean selectingAlign = false;
 
+  private boolean isDrawerDirections = false;
+
   /** Directions + NodeEditing Fields */
   @FXML JFXTextField longName;
 
-  drawerController drawerController;
+  DrawerController drawerController;
   @FXML JFXTextField nodeType;
   @FXML JFXTextField xCoord;
   @FXML JFXTextField yCoord;
@@ -226,7 +228,7 @@ public class NavController implements Initializable {
     // TODO: add algo strat box
     //    algoStratCBox.setItems(listOfStrats);
 
-    mapCanvas.toFront();
+    // mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
 
     imageView.setImage(campusMap);
@@ -274,19 +276,41 @@ public class NavController implements Initializable {
     selectingEnd = true;
 
     /** Initialize the drawer @sadie */
-    String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
-    try {
-      // create connection between controllers, in order to display the drawer directions
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
-      VBox drawerBox = fxmlLoader.load();
-      drawerController = fxmlLoader.getController();
-      drawerBottomRight.setSidePane(drawerBox);
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    switchDrawer();
 
     //   drawerBottomRight.close();
+  }
+
+  public void switchDrawer() {
+    if (isDrawerDirections) {
+      String fuck = "/RevampedViews/DesktopApp/NodeEditing.fxml";
+      try {
+        // create connection between controllers, in order to display the drawer directions
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
+        VBox drawerBox = fxmlLoader.load();
+        drawerController = fxmlLoader.getController();
+        drawerBottomRight.setSidePane(drawerBox);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      drawerBottomRight.open();
+    } else {
+      String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
+      try {
+        // create connection between controllers, in order to display the drawer directions
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
+        VBox drawerBox = fxmlLoader.load();
+        drawerController = fxmlLoader.getController();
+        drawerBottomRight.setSidePane(drawerBox);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      drawerBottomRight.close();
+    }
+
+    isDrawerDirections = !isDrawerDirections;
   }
 
   public void setStyles() {
@@ -416,6 +440,7 @@ public class NavController implements Initializable {
           if (editing) {
             editMode();
           }
+          switchDrawer();
         });
     uploadB.setOnAction(
         e -> {
@@ -480,7 +505,6 @@ public class NavController implements Initializable {
 
   /** switches between editing and pathfinding for admin users */
   public void editMode() {
-
     if (!GRAPH.allConnected()) {
       editing = true;
 
@@ -746,15 +770,15 @@ public class NavController implements Initializable {
   }
 
   private void editNodeMenuSelect(Node selectedNode) {
-    //    nodeID.setText(selectedNode.getID());
-    //    xCoord.setText(Integer.toString(selectedNode.getXCoord()));
-    //    yCoord.setText(Integer.toString(selectedNode.getYCoord()));
-    //    floor.setText(selectedNode.getFloor());
-    //    building.setText(selectedNode.getBuilding());
-    //    nodeType.setText(selectedNode.getNodeType());
-    //    longName.setText(selectedNode.getLongName());
-    //    shortName.setText(selectedNode.getShortName());
-    //    setVisibility.setSelected(selectedNode.isVisible());
+    // nodeID.setText(selectedNode.getID());
+    drawerController.xCoord.setText(Integer.toString(selectedNode.getXCoord()));
+    drawerController.yCoord.setText(Integer.toString(selectedNode.getYCoord()));
+    // floor.setText(selectedNode.getFloor());
+    drawerController.building.setText(selectedNode.getBuilding());
+    drawerController.nodeType.setText(selectedNode.getNodeType());
+    drawerController.longName.setText(selectedNode.getLongName());
+    drawerController.shortName.setText(selectedNode.getShortName());
+    drawerController.visible.setSelected(selectedNode.isVisible());
   }
 
   /**
