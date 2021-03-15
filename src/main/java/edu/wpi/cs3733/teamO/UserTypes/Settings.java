@@ -8,6 +8,7 @@ public class Settings {
 
   private Settings() {
     algoChoice = "A*";
+    elevatorOnly = false;
   }
 
   public static Settings getInstance() {
@@ -23,6 +24,7 @@ public class Settings {
   // --------------------
 
   String algoChoice;
+  boolean elevatorOnly;
 
   public String getAlgoChoice() {
     return algoChoice;
@@ -30,5 +32,13 @@ public class Settings {
 
   public void setAlgoChoice(String algoChoice) {
     this.algoChoice = algoChoice;
+  }
+
+  public boolean isElevatorOnly() {
+    return elevatorOnly;
+  }
+
+  public void setElevatorOnly(boolean elevatorOnly) {
+    this.elevatorOnly = elevatorOnly;
   }
 }
