@@ -3,6 +3,7 @@ package edu.wpi.cs3733.teamO.Controllers.Mobile;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.Controllers.RevampedMobile.MainMobileScreenController;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -40,7 +41,13 @@ public class SaveParkingController implements Initializable {
    * @param actionEvent
    */
   public void goBack(ActionEvent actionEvent) {
-    SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
+    if (MainMobileScreenController.isBackHome) {
+      SwitchScene.goToParentMobile("/RevampedViews/MobileApp/MainMobileScreen.fxml", actionEvent);
+      MainMobileScreenController.isBackHome = false;
+    } else {
+      SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
+      MainMobileScreenController.isBackHome = false;
+    }
   }
 
   public void saveSpot(ActionEvent actionEvent) {

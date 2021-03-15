@@ -12,7 +12,7 @@ public class DisplayRequest {
     reqList = RequestHandling.getRequests();
     ObservableList<Request> specList = FXCollections.observableArrayList();
 
-    if (reqList != null) {
+    if (reqList.size() > 0) {
       for (int x = 0; x < reqList.size(); x++) {
 
         if (reqList.get(x).getRequestType().equals(typeOfRequest)) {

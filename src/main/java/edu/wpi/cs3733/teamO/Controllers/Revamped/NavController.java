@@ -98,7 +98,7 @@ public class NavController implements Initializable {
   private GraphicsContext gc;
   private double percImageView = 1.0;
   private Rectangle2D currentViewport;
-  private String sFloor = "G";
+  String sFloor = "G";
   private String sideMenuUrl;
   private String pathFloors = "";
 
@@ -106,7 +106,7 @@ public class NavController implements Initializable {
 
   Node startNode = null;
   Node endNode = null;
-  Node selectedNode = null;
+  public Node selectedNode = null;
   Node selectedNodeB = null;
 
   String strategy = Settings.getInstance().getAlgoChoice();
@@ -133,17 +133,19 @@ public class NavController implements Initializable {
   private boolean selectingEditNode = false;
   private boolean addNodeMode = false;
   private boolean addNodeDBMode = false;
-  private boolean addingEdge = false;
+  private boolean editingEdge = false;
   private boolean deletingEdge = false;
   // private boolean addingEdgeN1 = false;
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
   private boolean selectingAlign = false;
 
+  private boolean isDrawerDirections = false;
+
   /** Directions + NodeEditing Fields */
   @FXML JFXTextField longName;
 
-  drawerController drawerController;
+  DrawerController drawerController;
   @FXML JFXTextField nodeType;
   @FXML JFXTextField xCoord;
   @FXML JFXTextField yCoord;
@@ -155,7 +157,7 @@ public class NavController implements Initializable {
     // selectingEditNode = false;
     addNodeMode = false;
     addNodeDBMode = false;
-    addingEdge = false;
+    editingEdge = false;
     deletingEdge = false;
     showingEdges = false;
 
@@ -172,7 +174,8 @@ public class NavController implements Initializable {
   // create menu items
   MenuItem editNodeMenu = new MenuItem("Edit Node");
   MenuItem deleteNodeMenu = new MenuItem("Delete Node");
-  MenuItem addEdgeMenu = new MenuItem("Add Edge");
+  MenuItem editingEdgeMenu =
+      new MenuItem("Add/Delete Edge"); // TODO make both add and delete same button
 
   // patient context menu for clearing
   ContextMenu pathfindContext = new ContextMenu();
@@ -237,7 +240,7 @@ public class NavController implements Initializable {
     // TODO: add algo strat box
     //    algoStratCBox.setItems(listOfStrats);
 
-    mapCanvas.toFront();
+    // mapCanvas.toFront();
     gc = mapCanvas.getGraphicsContext2D();
 
     imageView.setImage(campusMap);
@@ -250,8 +253,7 @@ public class NavController implements Initializable {
 
     GRAPH.setGraphicsContext(gc);
 
-    // TODO: temp for testing should be false
-    editB.setVisible(true);
+    editB.setVisible(false);
 
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
@@ -285,8 +287,16 @@ public class NavController implements Initializable {
           burgerTransition.setRate(burgerTransition.getRate() * -1);
           burgerTransition.play();
 
-          if (drawer.isOpened()) drawer.close(); // this will close slide pane
-          else drawer.open(); // this will open slide pane
+          if (drawer.isOpened()) {
+            drawer.close(); // this will close slide pane
+            floorsList.setTranslateX(0);
+            directionsList.setTranslateX(0);
+
+          } else {
+            drawer.open(); // this will open slide pane
+            floorsList.setTranslateX(280);
+            directionsList.setTranslateX(280);
+          }
         });
 
     // transition animation of Hamburger icon
@@ -306,26 +316,49 @@ public class NavController implements Initializable {
     // add menu items to context menu
     editMapContext.getItems().add(editNodeMenu);
     editMapContext.getItems().add(deleteNodeMenu);
-    editMapContext.getItems().add(addEdgeMenu);
+    editMapContext.getItems().add(editingEdgeMenu);
     pathfindContext.getItems().add(clearPathMenu);
 
     selectingStart = false;
     selectingEnd = true;
 
     /** Initialize the drawer @sadie */
-    String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
-    try {
-      // create connection between controllers, in order to display the drawer directions
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
-      VBox drawerBox = fxmlLoader.load();
-      drawerController = fxmlLoader.getController();
-      drawerBottomRight.setSidePane(drawerBox);
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    switchDrawer();
 
     //   drawerBottomRight.close();
+  }
+
+  public void switchDrawer() {
+    if (isDrawerDirections) {
+      String fuck = "/RevampedViews/DesktopApp/NodeEditing.fxml";
+      try {
+        // create connection between controllers, in order to display the drawer directions
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
+        VBox drawerBox = fxmlLoader.load();
+        drawerController = fxmlLoader.getController();
+        drawerBottomRight.setSidePane(drawerBox);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      drawerBottomRight.open();
+    } else {
+      String fuck = "/RevampedViews/DesktopApp/DirectionsDisplay.fxml";
+      try {
+        // create connection between controllers, in order to display the drawer directions
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fuck));
+        VBox drawerBox = fxmlLoader.load();
+        drawerController = fxmlLoader.getController();
+        drawerBottomRight.setSidePane(drawerBox);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      drawerBottomRight.close();
+    }
+
+    drawerController.setNavController(this);
+    isDrawerDirections = !isDrawerDirections;
   }
 
   public void setStyles() {
@@ -336,14 +369,14 @@ public class NavController implements Initializable {
     floorsList.setSpacing(10);
     algoList.setSpacing(60);
 
+    drawer.toFront();
+    menuVBox.toFront();
     editingList.toFront();
     help.toFront();
     parking.toFront();
     directionsList.toFront();
     floorsList.toFront();
     algoList.toFront();
-    drawer.toFront();
-    menuVBox.toFront();
 
     algoStratBox.setPadding(new Insets(5, 10, 5, 10));
     algoStratBox.getStyleClass().addAll("combo-box");
@@ -458,6 +491,7 @@ public class NavController implements Initializable {
           if (editing) {
             editMode();
           }
+          switchDrawer();
         });
     uploadB.setOnAction(
         e -> {
@@ -522,7 +556,6 @@ public class NavController implements Initializable {
 
   /** switches between editing and pathfinding for admin users */
   public void editMode() {
-
     if (!GRAPH.allConnected()) {
       editing = true;
 
@@ -692,7 +725,7 @@ public class NavController implements Initializable {
             });
 
         // if not adding edge, do normal stuff
-        if (!addingEdge) {
+        if (!editingEdge) {
           selectedNode = clickedNode;
           contextMenuOnActions(selectedNode);
         }
@@ -729,14 +762,14 @@ public class NavController implements Initializable {
         action -> {
           System.out.println("editing node");
           editNodeMenuSelect(node);
-          addingEdge = false;
+          editingEdge = false;
         });
 
     deleteNodeMenu.setOnAction(
         action -> {
           // deleting node
           try {
-            addingEdge = false;
+            editingEdge = false;
             deleteNode(node);
             draw();
           } catch (SQLException throwables) {
@@ -744,43 +777,59 @@ public class NavController implements Initializable {
           }
         });
 
-    addEdgeMenu.setOnAction(
+    editingEdgeMenu.setOnAction(
         action -> {
           System.out.println("adding edge");
-          if (!addingEdge) {
-            addingEdge = true;
+          if (!editingEdge) {
+            editingEdge = true;
           }
           // if adding edge already
           else {
-            try {
-              GRAPH.addEdge(selectedNode.getID(), selectedNodeB.getID());
-              selectedNode = selectedNodeB;
-              selectedNodeB = null;
-            } catch (SQLException throwables) {
-              PopupMaker.edgeAlreadyExists(nodeWarningPane);
+            String id1 = selectedNode.getID();
+            String id2 = selectedNodeB.getID();
+            // if edge doesn't exist, add
+            if (!GRAPH.edgeAlreadyExists(id1, id2)) {
+              try {
+                GRAPH.addEdge(id1, id2);
+                // selectedNode = selectedNodeB;
+                selectedNodeB = null;
+              } catch (SQLException throwables) {
+                PopupMaker.edgeAlreadyExists(nodeWarningPane);
+              }
             }
+            // else, delete
+            else {
+              try {
+                GRAPH.deleteEdge(id1, id2);
+                // selectedNode = selectedNodeB;
+                selectedNodeB = null;
+              } catch (SQLException throwables) {
+                PopupMaker.edgeDoesntExists(nodeWarningPane);
+              }
+            }
+
             draw();
           }
         });
 
     clearPathMenu.setOnAction(
         action -> {
-          addingEdge = false;
+          editingEdge = false;
           clearSelection();
           draw();
         });
   }
 
   private void editNodeMenuSelect(Node selectedNode) {
-    //    nodeID.setText(selectedNode.getID());
-    //    xCoord.setText(Integer.toString(selectedNode.getXCoord()));
-    //    yCoord.setText(Integer.toString(selectedNode.getYCoord()));
-    //    floor.setText(selectedNode.getFloor());
-    //    building.setText(selectedNode.getBuilding());
-    //    nodeType.setText(selectedNode.getNodeType());
-    //    longName.setText(selectedNode.getLongName());
-    //    shortName.setText(selectedNode.getShortName());
-    //    setVisibility.setSelected(selectedNode.isVisible());
+    // nodeID.setText(selectedNode.getID());
+    drawerController.xCoord.setText(Integer.toString(selectedNode.getXCoord()));
+    drawerController.yCoord.setText(Integer.toString(selectedNode.getYCoord()));
+    // floor.setText(selectedNode.getFloor());
+    drawerController.building.setText(selectedNode.getBuilding());
+    drawerController.nodeType.setText(selectedNode.getNodeType());
+    drawerController.longName.setText(selectedNode.getLongName());
+    drawerController.shortName.setText(selectedNode.getShortName());
+    drawerController.visible.setSelected(selectedNode.isVisible());
   }
 
   /**
@@ -792,7 +841,7 @@ public class NavController implements Initializable {
     addNodeMode = true;
     addNodeDBMode = true;
     selectingEditNode = false;
-    addingEdge = false;
+    editingEdge = false;
   }
 
   /**
@@ -1134,7 +1183,7 @@ public class NavController implements Initializable {
   }
 
   /** can draw the path, nodes, and edges based on booleans */
-  private void draw() {
+  void draw() {
     resizeCanvas();
 
     // i know these can be simplified but i don't care -- this is more organized imo
@@ -1144,6 +1193,7 @@ public class NavController implements Initializable {
       GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
+      directionsList.animateList(true);
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)

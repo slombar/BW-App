@@ -378,6 +378,7 @@ public class EmailPageController implements Initializable {
 
   /**
    * Triggers action to create qr code
+   *
    * @param actionEvent
    * @throws IOException
    * @throws UnirestException
