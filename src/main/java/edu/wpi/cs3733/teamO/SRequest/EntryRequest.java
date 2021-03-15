@@ -3,7 +3,7 @@ package edu.wpi.cs3733.teamO.SRequest;
 import java.util.Date;
 
 public class EntryRequest {
-  private int requestID;
+  private int entryreqID;
   private String requestedBy;
   public String fulfilledBy;
   private Date dateRequested;
@@ -13,7 +13,7 @@ public class EntryRequest {
   private Boolean check2;
 
   public EntryRequest(
-      int requestID,
+      int entryreqID,
       String requestedBy,
       String fulfilledBy,
       Date dateRequested,
@@ -21,7 +21,7 @@ public class EntryRequest {
       Boolean hasSymptoms,
       Boolean check1,
       Boolean check2) {
-    this.requestID = requestID;
+    this.entryreqID = entryreqID;
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
     this.fulfilledBy = fulfilledBy;
@@ -34,11 +34,11 @@ public class EntryRequest {
   public EntryRequest() {}
 
   public int getRequestID() {
-    return requestID;
+    return entryreqID;
   }
 
   public void setRequestID(int requestID) {
-    this.requestID = requestID;
+    this.entryreqID = requestID;
   }
 
   public String getRequestedBy() {

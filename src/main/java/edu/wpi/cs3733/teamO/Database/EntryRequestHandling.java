@@ -36,7 +36,7 @@ public class EntryRequestHandling {
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
-        reqID = rset.getInt("requestID");
+        reqID = rset.getInt("entryReqID");
         requestedBy = rset.getString("requestedBy");
         fulfilledBy = rset.getString("fulfilledBy");
         dateRequested = rset.getDate("dateRequested");
@@ -94,7 +94,7 @@ public class EntryRequestHandling {
 
     pstmt =
         DatabaseConnection.getConnection()
-            .prepareStatement("SELECT * FROM Entry_Requests WHERE REQUESTID = ?");
+            .prepareStatement("SELECT * FROM Entry_Requests WHERE ENTRYREQID = ?");
 
     pstmt.setInt(1, reqID);
 
@@ -116,7 +116,7 @@ public class EntryRequestHandling {
    * @param reqID
    */
   public static void setStatus(int reqID, String status) throws SQLException {
-    String query = "UPDATE ENTRY_REQUESTS SET STATUS = '" + status + "' WHERE REQUESTID = ?";
+    String query = "UPDATE ENTRY_REQUESTS SET STATUS = '" + status + "' WHERE ENTRYREQID = ?";
 
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -138,7 +138,7 @@ public class EntryRequestHandling {
     try {
       PreparedStatement pstmt =
           DatabaseConnection.getConnection()
-              .prepareStatement("SELECT * FROM Entry_Requests WHERE REQUESTID = ?");
+              .prepareStatement("SELECT * FROM Entry_Requests WHERE ENTRYREQID = ?");
       pstmt.setInt(1, reqID);
 
       ResultSet rset = pstmt.executeQuery();
@@ -210,7 +210,7 @@ public class EntryRequestHandling {
    * @param requestID
    */
   public static void deleteEntryRequest(int requestID) {
-    String query = "DELETE FROM ENTRY_REQUESTS WHERE REQUESTID = ?";
+    String query = "DELETE FROM ENTRY_REQUESTS WHERE ENTRYREQID = ?";
 
     try {
       PreparedStatement preparedStmt = null;

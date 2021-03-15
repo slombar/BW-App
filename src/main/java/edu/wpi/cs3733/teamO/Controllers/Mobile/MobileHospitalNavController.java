@@ -206,15 +206,15 @@ public class MobileHospitalNavController implements Initializable {
     selectingEnd = true;
     pathfindOnActionBtn();
     clearBtn.setButtonType(JFXButton.ButtonType.RAISED);
-    if (WaitingPageController.isMainEntrance) {
-      endLoc.setText("Exit 3 Atrium Main Entrance");
-      endNode = GRAPH.getNodeByLongName(endLoc.getText());
-      isFirstStart = true;
-    } else {
-      endLoc.setText("Exit 2 Emergency Entrance");
-      endNode = GRAPH.getNodeByLongName(endLoc.getText());
-      isFirstStart = true;
-    }
+    //    if (WaitingPageController.isMainEntrance) {
+    //      endLoc.setText("Exit 3 Atrium Main Entrance");
+    //      endNode = GRAPH.getNodeByLongName(endLoc.getText());
+    //      isFirstStart = true;
+    //    } else {
+    //      endLoc.setText("Exit 2 Emergency Entrance");
+    //      endNode = GRAPH.getNodeByLongName(endLoc.getText());
+    //      isFirstStart = true;
+    //    }
   }
 
   /** adding on action functionality to the buttons in the JFXNodeslist */
@@ -232,7 +232,8 @@ public class MobileHospitalNavController implements Initializable {
 
     exitBtn.setOnAction(
         actionEvent -> {
-          SwitchScene.goToParentMobile("/Views/MobileApp/MainScreen.fxml", actionEvent);
+          SwitchScene.goToParentMobile(
+              "/RevampedViews/MobileApp/MainMobileScreen.fxml", actionEvent);
         });
 
     /** Floor onactions* */
