@@ -16,7 +16,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <JFXButton alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#goToAboutPage" text=" " textFill="WHITE">
+            <JFXButton fx:id="back" alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" onAction="#goToAboutPage" text=" " textFill="WHITE">
                <font>
                   <Font name="Leelawadee UI" size="32.0" />
                </font>
