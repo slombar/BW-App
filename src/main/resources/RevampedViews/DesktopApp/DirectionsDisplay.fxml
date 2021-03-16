@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -19,15 +18,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="200.0">
-               <children>
-                  <JFXButton fx:id="shareBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#share" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #fec107;" text="Share" textFill="#3a5369">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="200.0" />
          </children>
       </HBox>
       <JFXScrollPane fx:id="directionsScrollPane">
