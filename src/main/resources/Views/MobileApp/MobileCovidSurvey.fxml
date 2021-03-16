@@ -132,7 +132,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="53.0" prefWidth="268.0">
                      <children>
-                        <TextField prefHeight="25.0" prefWidth="273.0" />
+                        <TextField fx:id="specificSymptoms" prefHeight="25.0" prefWidth="273.0" />
                      </children>
                   </HBox>
                </children>

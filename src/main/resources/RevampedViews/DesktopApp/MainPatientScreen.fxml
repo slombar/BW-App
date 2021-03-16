@@ -447,15 +447,6 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="patientsBtn" onAction="#toPatients" prefHeight="100.0" prefWidth="283.0" text=" ">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
-                     <image>
-                        <Image url="@../../Icons/patientIconBlack.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
             <JFXButton fx:id="employeesBtn" onAction="#toEmployees" prefHeight="100.0" prefWidth="283.0" text=" ">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
@@ -465,7 +456,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="loginBtn" onAction="#toLogin" prefHeight="100.0" prefWidth="283.0" text=" " translateY="150.0">
+            <JFXButton fx:id="loginBtn" onAction="#toLogin" prefHeight="100.0" prefWidth="283.0" text=" " translateY="250.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
                      <image>

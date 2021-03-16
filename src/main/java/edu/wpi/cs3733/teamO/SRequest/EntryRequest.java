@@ -11,6 +11,7 @@ public class EntryRequest {
   private Boolean hasSymptoms;
   private Boolean check1;
   private Boolean check2;
+  private String spec_symptoms;
 
   public EntryRequest(
       int entryreqID,
@@ -20,7 +21,8 @@ public class EntryRequest {
       String locationNodeID,
       Boolean hasSymptoms,
       Boolean check1,
-      Boolean check2) {
+      Boolean check2,
+      String spec_symptoms) {
     this.entryreqID = entryreqID;
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
@@ -29,6 +31,7 @@ public class EntryRequest {
     this.hasSymptoms = hasSymptoms;
     this.check1 = check1;
     this.check2 = check2;
+    this.spec_symptoms = spec_symptoms;
   }
 
   public EntryRequest() {}
@@ -95,5 +98,13 @@ public class EntryRequest {
 
   public void setIfSymptoms(Boolean b) {
     this.hasSymptoms = b;
+  }
+
+  public String getSpecificSymptoms() {
+    return spec_symptoms;
+  }
+
+  public void setSpecificSymptoms(String locationNodeID) {
+    this.spec_symptoms = spec_symptoms;
   }
 }

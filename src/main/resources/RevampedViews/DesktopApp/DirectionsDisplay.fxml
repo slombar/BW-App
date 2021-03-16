@@ -21,7 +21,7 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="200.0">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#share" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #fec107;" text="Share" textFill="#3a5369">
+                  <JFXButton fx:id="shareBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#share" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #fec107;" text="Share" textFill="#3a5369">
                      <font>
                         <Font name="Leelawadee UI Bold" size="14.0" />
                      </font>

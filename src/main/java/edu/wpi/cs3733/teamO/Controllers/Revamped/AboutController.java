@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +26,6 @@ public class AboutController implements Initializable {
   @FXML private JFXButton navBtn;
   @FXML private JFXButton trackBtn;
   @FXML private JFXButton reqBtn;
-  @FXML private JFXButton patientsBtn;
   @FXML private JFXButton employeesBtn;
   @FXML private JFXButton loginBtn;
   @FXML private JFXDrawer drawer;
@@ -34,6 +34,17 @@ public class AboutController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    if (!UserHandling.getEmployee()) {
+      reqBtn.setVisible(false);
+      reqBtn.setDisable(true);
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    } else if (!UserHandling.getAdmin() && UserHandling.getEmployee()) {
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    }
+
     teamCoaches.setWrapText(true);
     selina.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_MOVED,
@@ -89,7 +100,9 @@ public class AboutController implements Initializable {
   }
 
   public void toHome(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    String sideMenu = "/RevampedViews/DesktopApp/MainStaffScreen.fxml";
+    if (!UserHandling.getEmployee()) sideMenu = "/RevampedViews/DesktopApp/MainPatientScreen.fxml";
+    SwitchScene.goToParent(sideMenu);
   }
 
   public void toNav(ActionEvent actionEvent) {
@@ -97,22 +110,22 @@ public class AboutController implements Initializable {
   }
 
   public void toTrack(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
-  }
-
-  public void toPatients(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
   }
 
   public void toEmployees(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
   public void toLogin(ActionEvent actionEvent) {
     SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
+  }
+
+  public void goCredit(MouseEvent mouseEvent) {
+    SwitchScene.goToParent("/Views/CreditsPage.fxml");
   }
 }
