@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -115,6 +116,23 @@
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
                         </JFXRadioButton>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="75.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Describe the symptoms you are experiencing." textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Leelawadee UI" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="268.0">
+                     <children>
+                        <TextField prefHeight="25.0" prefWidth="273.0" />
                      </children>
                   </HBox>
                </children>

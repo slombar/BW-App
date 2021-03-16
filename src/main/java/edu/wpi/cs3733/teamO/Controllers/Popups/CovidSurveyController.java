@@ -3,12 +3,16 @@ package edu.wpi.cs3733.teamO.Controllers.Popups;
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 
-public class CovidSurveyController {
+public class CovidSurveyController implements Initializable {
   @FXML private JFXRadioButton No2;
   @FXML private JFXRadioButton No3;
   @FXML private JFXRadioButton No1;
@@ -19,6 +23,7 @@ public class CovidSurveyController {
   @FXML private ToggleGroup diagnosed;
   @FXML private ToggleGroup contact;
   @FXML private ToggleGroup symptoms;
+  @FXML private ComboBox comboBox;
 
   /**
    * this is connected to a link and shows the covid symptom popup
@@ -59,4 +64,7 @@ public class CovidSurveyController {
       PopupMaker.incompletePopup(popupPane);
     }
   }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {}
 }
