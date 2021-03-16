@@ -31,7 +31,7 @@
       <JFXNodesList fx:id="help" layoutX="1062.0" layoutY="127.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0" />
       <JFXNodesList fx:id="parking" layoutX="922.0" layoutY="208.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0" />
       <JFXDrawer fx:id="drawerBottomRight" defaultDrawerSize="350.0" direction="BOTTOM" layoutX="902.0" layoutY="174.0" miniDrawerSize="0.0" prefHeight="200.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <VBox fx:id="menuVBox" prefHeight="469.0" prefWidth="100.0" style="-fx-background-color: #f2f2f2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="menuVBox" prefHeight="469.0" prefWidth="100.0" style="-fx-background-color: a9a9a9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXHamburger fx:id="hamburger" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" style="-fx-background-color: gray;" />
             <Line endX="100.0" />

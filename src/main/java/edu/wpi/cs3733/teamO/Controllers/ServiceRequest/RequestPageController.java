@@ -41,8 +41,11 @@ switch (type) {
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.io.IOException;
 import java.net.URL;
@@ -55,6 +58,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -66,6 +70,17 @@ public class RequestPageController implements Initializable {
   public JFXComboBox typeOfRequestCombo;
   public JFXComboBox assignedEmployeeCombo;
   public JFXComboBox dateNeededCombo;
+  @FXML private VBox menuVBox;
+  @FXML private JFXHamburger hamburger;
+  @FXML private JFXButton profileBtn;
+  @FXML private JFXButton homeBtn;
+  @FXML private JFXButton navBtn1;
+  @FXML private JFXButton trackBtn;
+  @FXML private JFXButton reqBtn;
+  @FXML private JFXButton patientsBtn;
+  @FXML private JFXButton employeesBtn;
+  @FXML private JFXButton loginBtn;
+  @FXML private JFXDrawer drawerSM;
   @FXML private JFXDrawer drawer;
   public static String reqType;
 
@@ -119,6 +134,39 @@ public class RequestPageController implements Initializable {
     }
 
     displayServiceList(RequestHandling.getRequests("ALL"));
+
+    try {
+      VBox vbox =
+          FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/NewSideMenu.fxml"));
+      drawerSM.setSidePane(vbox);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    // transition animation of Hamburger icon
+    HamburgerBackArrowBasicTransition burgerTransition =
+        new HamburgerBackArrowBasicTransition(hamburger);
+    burgerTransition.setRate(-1);
+
+    // click event - mouse click
+    hamburger.addEventHandler(
+        MouseEvent.MOUSE_PRESSED,
+        (e) -> {
+          burgerTransition.setRate(burgerTransition.getRate() * -1);
+          burgerTransition.play();
+          if (drawerSM.isOpened()) {
+            drawerSM.close(); // this will close slide pane
+            drawerSM.toBack();
+          } else {
+            drawerSM.open(); // this will open slide pane
+            drawerSM.toFront();
+            menuVBox.toFront();
+          }
+        });
+
+    // transition animation of Hamburger icon
+    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+    transition.setRate(-1);
   }
 
   public static String getReqType() {
@@ -289,5 +337,37 @@ public class RequestPageController implements Initializable {
   public void goToSanitationReq(ActionEvent actionEvent) {
     reqType = "SANA";
     switchAddBox("/RevampedViews/DesktopApp/ServiceRequests/SANA.fxml");
+  }
+
+  public void toProfile(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
+  }
+
+  public void toHome(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toNav(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
+  }
+
+  public void toTrack(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+  }
+
+  public void toReq(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toPatients(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toEmployees(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toLogin(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 }
