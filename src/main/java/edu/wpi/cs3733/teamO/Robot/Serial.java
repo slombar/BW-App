@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO.Robot;
 
+import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
 import static java.util.Arrays.asList;
 import static jssc.SerialPort.*;
@@ -11,13 +12,11 @@ import javafx.beans.property.StringProperty;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
-/**
- * Packt Book: JavaFX 8 essentials Chapter 7. Monitoring & Controlling Arduino with JavaFX
- *
- * @author Mohamed Taman
- */
+
 public final class Serial {
-  /* List of usual serial ports. Add more or remove those you don't need */
+
+
+  public static String str = "";
 
   private static final List<String> USUAL_PORTS =
       asList(
@@ -30,6 +29,9 @@ public final class Serial {
   private StringBuilder sb = new StringBuilder();
   private final StringProperty line = new SimpleStringProperty("");
   private long startTime;
+  private int feverCounter = 0;
+  private int noFeverCounter = 0;
+  private int undetectedCounter = 0;
 
   public Serial() {
     ardPort = "";
@@ -60,7 +62,7 @@ public final class Serial {
         out.println("after Params");
         serPort.setEventsMask(MASK_RXCHAR);
         out.println("after Set events");
-
+        startTime = currentTimeMillis();
         serPort.addEventListener(
             event -> {
               if (event.isRXCHAR()) {
@@ -70,24 +72,18 @@ public final class Serial {
                   out.println(ch);
 
                   // Checks for Crit Temp
-                  if (ch.contains("1")) {
+                  if (ch.contains("0")) {
+                    // Reads a value for a healthy temp
+                    SwitchScene.goToParent("/Views/ROBOT/NoFever.fxml");
                     disconnect();
-                    String MenuUrl = "/Views/CovidSurvey.fxml";
-                    SwitchScene.goToParent(MenuUrl);
-                  }
-
-                  // Checks if no person detected
-                  if (ch.contains("2")) {
+                  } else if (ch.contains("1")) {
+                    // Reads a value of a fever
+                    SwitchScene.goToParent("/Views/ROBOT/Fever.fxml");
                     disconnect();
-                    String MenuUrl = "/Views/Login.fxml";
-                    SwitchScene.goToParent(MenuUrl);
-                  }
-
-                  // Sends person to main page if they have a a good reading after 4 secs
-                  if ((System.currentTimeMillis() - startTime) > 4000) {
+                  } else if (ch.contains("2")) {
+                    // Reads a value of a fever
+                    SwitchScene.goToParent("/Views/ROBOT/Undetected.fxml");
                     disconnect();
-                    String MenuUrl = "/Views/AboutPage.fxml";
-                    SwitchScene.goToParent(MenuUrl);
                   }
 
                   if (ch.endsWith("\r\n")) {
@@ -107,6 +103,10 @@ public final class Serial {
     return serPort != null;
   }
 
+  /**
+   * Disconnects the arduino from the serial and stops reading data coming from
+   * the Arduino
+   */
   public void disconnect() {
     if (serPort != null) {
       try {
@@ -128,6 +128,7 @@ public final class Serial {
   public String getPortName() {
     return serPort != null ? serPort.getPortName() : "";
   }
+
 
   public static void main(String args[]) {
     Serial sPort = new Serial();
