@@ -38,15 +38,18 @@ switch (type) {
     }
  */
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +58,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -66,6 +71,18 @@ public class RequestPageController implements Initializable {
   public JFXComboBox typeOfRequestCombo;
   public JFXComboBox assignedEmployeeCombo;
   public JFXComboBox dateNeededCombo;
+  public StackPane popUpPane;
+  @FXML private VBox menuVBox;
+  @FXML private JFXHamburger hamburger;
+  @FXML private JFXButton profileBtn;
+  @FXML private JFXButton homeBtn;
+  @FXML private JFXButton navBtn1;
+  @FXML private JFXButton trackBtn;
+  @FXML private JFXButton reqBtn;
+  @FXML private JFXButton patientsBtn;
+  @FXML private JFXButton employeesBtn;
+  @FXML private JFXButton loginBtn;
+  @FXML private JFXDrawer drawerSM;
   @FXML private JFXDrawer drawer;
   public static String reqType;
 
@@ -85,14 +102,11 @@ public class RequestPageController implements Initializable {
 
   public void assignedComboAction(ActionEvent actionEvent) {
     String employee = (String) assignedEmployeeCombo.getValue();
-    String firstName = employee.split(" ")[0];
-    String lastName = employee.split(" ")[1];
-    displayServiceList(RequestHandling.getEmployeeRequests(firstName, lastName));
+    displayServiceList(RequestHandling.getEmployeeRequests(employee));
   }
 
   public void dateComboAction(ActionEvent actionEvent) {
     String dateAction = (String) dateNeededCombo.getValue();
-
     displayServiceList(RequestHandling.getDateSortedRequests(dateAction));
   }
 
@@ -119,10 +133,115 @@ public class RequestPageController implements Initializable {
     }
 
     displayServiceList(RequestHandling.getRequests("ALL"));
+
+    try {
+      VBox vbox =
+          FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/NewSideMenu.fxml"));
+      drawerSM.setSidePane(vbox);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    // transition animation of Hamburger icon
+    HamburgerBackArrowBasicTransition burgerTransition =
+        new HamburgerBackArrowBasicTransition(hamburger);
+    burgerTransition.setRate(-1);
+
+    // click event - mouse click
+    hamburger.addEventHandler(
+        MouseEvent.MOUSE_PRESSED,
+        (e) -> {
+          burgerTransition.setRate(burgerTransition.getRate() * -1);
+          burgerTransition.play();
+          if (drawerSM.isOpened()) {
+            drawerSM.close(); // this will close slide pane
+            drawerSM.toBack();
+          } else {
+            drawerSM.open(); // this will open slide pane
+            drawerSM.toFront();
+            menuVBox.toFront();
+          }
+        });
+
+    // transition animation of Hamburger icon
+    HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+    transition.setRate(-1);
   }
 
   public static String getReqType() {
     return reqType;
+  }
+
+  public static ArrayList<JFXTextField> createFields(ArrayList<String> labels) {
+    ArrayList<JFXTextField> listOfFields = new ArrayList<>();
+    for (String label : labels) {
+      JFXTextField text = new JFXTextField();
+      text.setPromptText(label);
+      listOfFields.add(text);
+    }
+    return listOfFields;
+  }
+
+  /**
+   * Button functionality that will assign the user to the request
+   *
+   * @param actionEvent
+   */
+  public void assignStaff(ActionEvent actionEvent, int reqid) {
+
+    // addEdgePopup has the content of the popup
+    // addEdgeDialog creates the dialog popup
+
+    JFXDialogLayout assignStaffLayout = new JFXDialogLayout();
+    assignStaffLayout.setHeading(new Text("Assign Staff to Service Request"));
+    VBox assignStaffVBox = new VBox(12);
+
+    // Creating an HBox of buttons
+    HBox buttonBox = new HBox(20);
+    JFXButton closeButton = new JFXButton("Close");
+    JFXButton submitButton = new JFXButton("Assign");
+    buttonBox.getChildren().addAll(closeButton, submitButton);
+
+    // Creating a list of labels to create the textfields
+    ArrayList<String> assignStaffLabels =
+        new ArrayList<String>(Arrays.asList("Request ID", "Employee Name"));
+    ArrayList<JFXTextField> listOfFields = createFields(assignStaffLabels);
+    listOfFields.get(0).setText(String.valueOf(reqid));
+    // Creating the form with a VBox
+    assignStaffVBox.getChildren().addAll(listOfFields.get(0), listOfFields.get(1), buttonBox);
+    assignStaffLayout.setBody(assignStaffVBox);
+
+    // Bringing the popup screen to the front and disabling the background
+    popUpPane.toFront();
+    JFXDialog assignStaffDialog =
+        new JFXDialog(popUpPane, assignStaffLayout, JFXDialog.DialogTransition.BOTTOM);
+
+    // Closing the popup
+    closeButton.setOnAction(
+        event -> {
+          assignStaffDialog.close();
+          popUpPane.toBack();
+          displayServiceList(RequestHandling.getRequests("ALL"));
+        });
+
+    // Submits edit to the database
+    submitButton.setOnAction(
+        event -> {
+          // If incomplete form, sends an error msg
+          // Otherwise, sends to database and closes popup
+          if (listOfFields.get(0).getText().isEmpty() || listOfFields.get(1).getText().isEmpty()) {
+            //              incompletePopup();
+            PopupMaker.incompletePopup(popUpPane);
+          } else {
+            RequestHandling.assignEmployee(
+                Integer.parseInt(listOfFields.get(0).getText()), listOfFields.get(1).getText());
+
+            assignStaffDialog.close();
+            popUpPane.toBack();
+            displayServiceList(RequestHandling.getRequests("ALL"));
+          }
+        });
+    assignStaffDialog.show();
   }
 
   /**
@@ -142,8 +261,10 @@ public class RequestPageController implements Initializable {
       Label id = new Label(String.valueOf(toDisplay.getRequestID()));
       Label requestedOn = new Label(toDisplay.getDateRequested().toString());
       Label requestedBy = new Label(toDisplay.getRequestedBy());
+      System.out.println("Print out reqby: " + requestedBy.getText());
       Label needBy = new Label(toDisplay.getDateNeeded().toString());
       Label assigned = new Label(toDisplay.getAssignedTo());
+      System.out.println("Print out inside: " + toDisplay.getAssignedTo());
       Label rLocation = new Label(toDisplay.getRequestLocation());
       Label summary = new Label(toDisplay.getSummary());
       Label status = new Label(toDisplay.getStatus());
@@ -154,11 +275,7 @@ public class RequestPageController implements Initializable {
 
       assign.setOnAction(
           e -> {
-            String employee = "";
-            // popup that allows person to enter employee name todo @sadie
-
-            RequestHandling.assignEmployee(toDisplay.getRequestID(), employee);
-            displayServiceList(RequestHandling.getRequests("ALL"));
+            assignStaff(e, toDisplay.getRequestID());
           });
 
       updateStatus.setOnAction(
@@ -289,5 +406,37 @@ public class RequestPageController implements Initializable {
   public void goToSanitationReq(ActionEvent actionEvent) {
     reqType = "SANA";
     switchAddBox("/RevampedViews/DesktopApp/ServiceRequests/SANA.fxml");
+  }
+
+  public void toProfile(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
+  }
+
+  public void toHome(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toNav(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
+  }
+
+  public void toTrack(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+  }
+
+  public void toReq(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toPatients(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toEmployees(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+  }
+
+  public void toLogin(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 }

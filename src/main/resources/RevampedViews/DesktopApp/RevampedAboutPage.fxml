@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="799.0" prefWidth="1273.0" style="-fx-background-color: #3A5369;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.AboutController">
-    <FlowPane fx:id="hamburger" layoutX="6.0" prefHeight="800.0" prefWidth="49.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
    <VBox alignment="TOP_CENTER" layoutX="-6.0" prefHeight="800.0" prefWidth="1286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <HBox alignment="CENTER" prefHeight="79.0" prefWidth="1231.0">
@@ -213,5 +215,84 @@
       <padding>
          <Insets left="49.0" />
       </padding></VBox>
+   <JFXDrawer fx:id="drawer" defaultDrawerSize="375.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="1080.0" prefWidth="275.0" AnchorPane.leftAnchor="100.0" />
+   <VBox fx:id="menuVBox" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: a9a9a9;">
+      <children>
+         <JFXHamburger fx:id="hamburger" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" style="-fx-background-color: gray;" />
+         <Line endX="100.0" />
+         <JFXButton fx:id="profileBtn" onAction="#toProfile" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/profileIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="homeBtn" onAction="#toHome" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/HomeIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="navBtn" onAction="#toNav" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/simpleNavIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="trackBtn" onAction="#toTrack" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/stethoscopeIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="reqBtn" onAction="#toReq" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/formIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="patientsBtn" onAction="#toPatients" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/patientIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="employeesBtn" onAction="#toEmployees" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/doctorIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="loginBtn" onAction="#toLogin" prefHeight="100.0" prefWidth="283.0" text=" " translateY="150.0">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/exitBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+      </children>
+   </VBox>
 
 </AnchorPane>

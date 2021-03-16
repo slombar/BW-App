@@ -88,8 +88,8 @@ public class UserHandling {
         uname = rset.getString("USERNAME");
         pword = rset.getString("PASSWORD");
         email = rset.getString("EMAIL");
-        fName = rset.getString("fName");
-        lName = rset.getString("lName");
+        fName = rset.getString("FIRSTNAME");
+        lName = rset.getString("LASTNAME");
         employee = rset.getBoolean("EMPLOYEE");
         admin = rset.getBoolean("ADMIN");
 
@@ -402,5 +402,29 @@ public class UserHandling {
 
   public static void setFirstName(String f) {
     fName = f;
+  }
+
+  public static String getUserByName(String employee) {
+    String uname = "";
+    String first = employee.split(" ")[0];
+    String last = employee.split(" ")[1];
+    String query = "SELECT USERNAME FROM USERS WHERE FIRSTNAME = ? AND LASTNAME = ?";
+
+    // database statement to grab values
+    try {
+      PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      pstmt.setString(1, first);
+      pstmt.setString(2, last);
+
+      // returns the results from query
+      ResultSet rset = pstmt.executeQuery();
+      rset.next();
+      uname = rset.getString("USERNAME");
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return uname;
   }
 }
