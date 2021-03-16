@@ -52,6 +52,11 @@
                                 <Font name="Leelawadee UI" size="18.0" />
                             </font>
                         </JFXButton>
+                  <JFXButton onAction="#getApprovedPatients" style="-fx-background-color: #3A5369;" text="Approved Patients" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                  </JFXButton>
                     </children>
                     <GridPane.margin>
                         <Insets bottom="10.0" />
@@ -69,4 +74,3 @@
         </GridPane>
     </children>
 </AnchorPane>
-

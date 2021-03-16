@@ -2,11 +2,13 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Model.Node;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class DrawerController {
+  public JFXButton shareBtn;
   private NavController navController;
   public JFXScrollPane directionsScrollPane;
   @FXML private VBox directionsDisplayVbox;
@@ -51,7 +54,11 @@ public class DrawerController {
     return directionsDisplayVbox;
   }
 
-  public void share(ActionEvent actionEvent) {}
+  public void share(ActionEvent actionEvent) throws IOException {
+    // NavController.share();
+    // get email/number/display qr here
+
+  }
 
   public void saveNode(ActionEvent actionEvent) {
     // if any fields are empty, show appropriate warning
@@ -141,5 +148,14 @@ public class DrawerController {
 
   public void setNavController(NavController nc) {
     navController = nc;
+  }
+
+  public void QRCodeGeneration(ActionEvent actionEvent) {
+  }
+
+  public void sendText(ActionEvent actionEvent) {
+  }
+
+  public void sendEmail(ActionEvent actionEvent) {
   }
 }

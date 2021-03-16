@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 
@@ -24,6 +25,7 @@ public class MobileCovidSurveyController implements Initializable {
   @FXML private ToggleGroup closeContact;
   @FXML private ToggleGroup diagnosis;
   @FXML private ToggleGroup symptoms;
+  @FXML private TextField specificSymptoms;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {}
@@ -68,10 +70,18 @@ public class MobileCovidSurveyController implements Initializable {
       if (!(no1.isSelected() && no2.isSelected() && no3.isSelected())) hasSymptoms = true;
 
       System.out.println(
-          "Adding this to DB: " + requestedBy + dateN.toString() + loc + symptoms + false + false);
+          "Adding this to DB: "
+              + requestedBy
+              + dateN.toString()
+              + loc
+              + symptoms
+              + false
+              + false
+              + specificSymptoms.getText());
 
       // RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
-      EntryRequestHandling.addEntryRequest(requestedBy, loc, hasSymptoms, false, false);
+      EntryRequestHandling.addEntryRequest(
+          requestedBy, loc, hasSymptoms, false, false, specificSymptoms.getText());
 
     } else {
       popupPane.setVisible(true);

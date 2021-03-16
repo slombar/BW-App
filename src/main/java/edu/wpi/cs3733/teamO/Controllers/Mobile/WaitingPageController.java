@@ -95,7 +95,7 @@ public class WaitingPageController extends JComponent implements Initializable {
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
       // spinnerPane.setVisible(false);
-      // popup to say you can now continue
+      // popup to say you can now continue c
       if (location.toLowerCase().contains("covid")) {
         PopupMaker.covidEntranceNotif(popupNotification);
         isMainEntrance = false;
