@@ -1,9 +1,12 @@
 .buttons{
     /*-fx-background-color: #696969;*/
-    -fx-background-color: rgba(225, 225, 225, .95);
+    -fx-background-color: rgba(207, 226, 243, .95);
     -fx-background-radius: 4em;
     -fx-pref-width: 4em;
     -fx-pref-height: 4em;
+    -fx-text-fill: black;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 
 .directions-box{
