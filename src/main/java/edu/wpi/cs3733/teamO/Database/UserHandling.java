@@ -520,12 +520,11 @@ public class UserHandling {
     return email;
   }
 
-  /**
-   * Edit the profile for the current user
-   */
-  public static void editSessionUser(String first, String last, String email){
+  /** Edit the profile for the current user */
+  public static void editSessionUser(String first, String last, String email) {
 
-    String query = "UPDATE USERS SET FIRSTNAME = ?, LASTNAME = ?, EMAIL = ?, PASSWORD = ?,  WHERE USERNAME = ?";
+    String query =
+        "UPDATE USERS SET FIRSTNAME = ?, LASTNAME = ?, EMAIL = ?, PASSWORD = ?,  WHERE USERNAME = ?";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -541,5 +540,4 @@ public class UserHandling {
       throwables.printStackTrace();
     }
   }
-
 }

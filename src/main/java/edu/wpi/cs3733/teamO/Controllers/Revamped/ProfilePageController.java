@@ -5,6 +5,7 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -53,12 +54,12 @@ public class ProfilePageController implements Initializable {
       isGood = false;
       lastNameBox.setStyle("-fx-border-color: red");
     }
-    if(!RegexBoi.checkEmail(newEMail)){
+    if (!RegexBoi.checkEmail(newEMail)) {
       isGood = false;
       emailBox.setStyle("-fx-border-color: red");
     }
-    if(isGood){
-      UserHandling.editSessionUser(newFName, newLName, newEMail);
+    if (isGood) {
+      UserHandling.editSessionUser(newFName, newLName, newEMail.toLowerCase(Locale.ROOT));
     }
   }
 
