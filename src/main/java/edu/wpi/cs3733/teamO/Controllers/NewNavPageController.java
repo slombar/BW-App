@@ -5,7 +5,6 @@ import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
@@ -42,6 +41,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
@@ -817,7 +817,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void uploadN(ActionEvent actionEvent) {
-    DataHandling.importExcelData(true);
+    // DataHandling.importExcelData(true);
     // TODO: re-initialize Graph after uploading excel file?
   }
 
@@ -827,7 +827,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void uploadE(ActionEvent actionEvent) {
-    DataHandling.importExcelData(false);
+    // DataHandling.importExcelData(false);
     // TODO: re-initialize Graph after uploading excel file?
   }
 
@@ -837,7 +837,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void saveN(ActionEvent actionEvent) {
-    DataHandling.save(true);
+    // DataHandling.save(true);
   }
 
   /**
@@ -846,7 +846,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void saveE(ActionEvent actionEvent) {
-    DataHandling.save(false);
+    // DataHandling.save(false);
   }
 
   /**
@@ -873,7 +873,17 @@ public class NewNavPageController implements Initializable {
       // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+      Polyline path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+
+      // stackPane.getChildren().add(path);
+      // TODO: fix this if necessary (it's jank rn)
+      //      gridPane.setMinWidth(1920);
+      //      Group group = new Group(gridPane, path);
+      //      Stage stage = Opp.getPrimaryStage();
+      //      stage.getScene().setRoot(group);
+      //      // stage.setFullScreen(true);
+      //      stage.show();
+
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);

@@ -307,9 +307,9 @@ public class RequestPageController implements Initializable {
           });
 
       id.setPrefWidth(40);
-      requestedOn.setPrefWidth(70);
+      requestedOn.setPrefWidth(80);
       requestedBy.setPrefWidth(100);
-      needBy.setPrefWidth(70);
+      needBy.setPrefWidth(80);
       assigned.setPrefWidth(100);
       rLocation.setPrefWidth(100);
       summary.setPrefWidth(250);
