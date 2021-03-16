@@ -53,6 +53,16 @@ public class GoogleMapPageController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    if (!UserHandling.getEmployee()) {
+      reqBtn.setVisible(false);
+      reqBtn.setDisable(true);
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    } else if (!UserHandling.getAdmin() && UserHandling.getEmployee()) {
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    }
+
     // transition animation of Hamburger icon
     HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
     transition.setRate(-1);
@@ -146,7 +156,9 @@ public class GoogleMapPageController implements Initializable {
   }
 
   public void toHome(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    String sideMenu = "/RevampedViews/DesktopApp/MainStaffScreen.fxml";
+    if (!UserHandling.getEmployee()) sideMenu = "/RevampedViews/DesktopApp/MainPatientScreen.fxml";
+    SwitchScene.goToParent(sideMenu);
   }
 
   public void toNav(ActionEvent actionEvent) {
@@ -154,19 +166,15 @@ public class GoogleMapPageController implements Initializable {
   }
 
   public void toTrack(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
-  }
-
-  public void toPatients(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
   }
 
   public void toEmployees(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
   public void toLogin(ActionEvent actionEvent) {
