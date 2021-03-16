@@ -49,7 +49,7 @@ public class MainPatientScreenController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    usernameTextBox.setText(UserHandling.getUsername());
+    usernameTextBox.setText(UserHandling.getSessionUsername());
     infoPane.toBack();
     infoPane.setVisible(false);
     infoBox.toBack();

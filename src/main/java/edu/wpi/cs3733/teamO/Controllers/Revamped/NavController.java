@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
@@ -84,9 +85,9 @@ public class NavController implements Initializable {
   ImageView editIconView = new ImageView(editIcon);
   Image edgesIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/edges.png"));
   ImageView edgesIconView = new ImageView(edgesIcon);
-  Image saveIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/upload.png"));
+  Image saveIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/download.png"));
   ImageView saveIconView = new ImageView(saveIcon);
-  Image uploadIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/download.png"));
+  Image uploadIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/upload.png"));
   ImageView uploadIconView = new ImageView(uploadIcon);
   Image algoIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/algo.png"));
   ImageView algoIconView = new ImageView(algoIcon);
@@ -551,27 +552,11 @@ public class NavController implements Initializable {
         });
     uploadB.setOnAction(
         e -> {
-          // upload csv to DB
-          // TODO:figure out whether its a node or edge upload
-
-          //          //uploading node
-          //          DataHandling.importExcelData(true);
-          //          // TODO: re-initialize Graph after uploading excel file?
-          //
-          //          //uploading edge
-          //          DataHandling.importExcelData(false);
-          //          // TODO: re-initialize Graph after uploading excel file?
+          DataHandling.importExcelData();
         });
     saveB.setOnAction(
         e -> {
-          // save csv to computer
-          // TODO:figure out whether its a node or edge save
-
-          //          // saving node csv
-          //          DataHandling.save(true);
-          //
-          //          // saving edge csv
-          //          DataHandling.save(false);
+          DataHandling.save();
         });
     showEdgesB.setOnAction(
         e -> {
