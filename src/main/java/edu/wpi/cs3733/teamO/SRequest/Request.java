@@ -12,9 +12,6 @@ public class Request extends RecursiveTreeObject<Request> {
   private String summary;
   private String requestType;
   private String locationNodeID;
-  private String para1;
-  private String para2;
-  private String para3;
 
   public Request(
       int requestID,
@@ -24,21 +21,15 @@ public class Request extends RecursiveTreeObject<Request> {
       Date dateNeeded,
       String requestType,
       String locationNodeID,
-      String summary,
-      String para1,
-      String para2,
-      String para3) {
+      String summary) {
     this.requestID = requestID;
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
     this.requestType = requestType;
     this.fulfilledBy = fulfilledBy;
     this.dateNeeded = dateNeeded;
-    this.summary = summary;
     this.locationNodeID = locationNodeID;
-    this.para1 = para1;
-    this.para2 = para2;
-    this.para3 = para3;
+    this.summary = summary;
   }
 
   public Request() {}
@@ -105,29 +96,5 @@ public class Request extends RecursiveTreeObject<Request> {
 
   public void setRequestType(String requestType) {
     this.requestType = requestType;
-  }
-
-  public String getPara1() {
-    return para1;
-  }
-
-  public void setPara1(String para1) {
-    this.para1 = para1;
-  }
-
-  public String getPara2() {
-    return para2;
-  }
-
-  public void setPara2(String para2) {
-    this.para2 = para2;
-  }
-
-  public String getPara3() {
-    return para3;
-  }
-
-  public void setPara3(String para3) {
-    this.para3 = para3;
   }
 }

@@ -90,7 +90,7 @@ public class SideMenuAdminController implements Initializable {
    * @param actionEvent
    */
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/RequestPage.fxml");
   }
 
   /**

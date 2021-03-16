@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -14,65 +15,68 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox alignment="CENTER" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #9aa8b5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.SANAController">
+<VBox alignment="CENTER" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #9aa8b5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.SECUController">
    <children>
-      <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="342.0" text="Sanitation Service Request" textFill="#3a5369">
+      <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="292.0" text="Security Service Request" textFill="#3a5369">
          <font>
             <Font name="Leelawadee UI Bold" size="25.0" />
          </font>
       </Label>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Icons/sanitationIconWhite.png" />
+            <Image url="@../../../Icons/securityIconWhite.png" />
          </image>
       </ImageView>
-      <VBox spacing="10.0">
+      <VBox prefHeight="148.0" prefWidth="605.0" spacing="10.0">
          <children>
-            <Label prefWidth="220.0" text="Location for Request" textFill="#3a5369">
+            <Label prefWidth="100.0" text="Date" textFill="#3a5369">
                <font>
-                  <Font name="Leelawadee UI Bold" size="22.0" />
+                  <Font name="Leelawadee UI Bold" size="20.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="locationF" prefWidth="250.0" promptText="Location " style="-fx-background-color: #ffffff;">
+            <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefWidth="250.0" promptText="Date Needed By" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
+            <Label prefWidth="100.0" text="Location" textFill="#3a5369">
                <font>
-                  <Font name="Leelawadee UI" size="18.0" />
+                  <Font name="Leelawadee UI Bold" size="20.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="locationF" focusColor="BLACK" prefWidth="250.0" promptText="Hospital Location" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" unFocusColor="#ffffff00">
+               <font>
+                  <Font name="Georgia" size="18.0" />
                </font>
             </JFXTextField>
-            <Label prefWidth="220.0" text="Date Needed By" textFill="#3a5369">
+            <Label prefWidth="100.0" text="Summary" textFill="#3a5369">
                <font>
-                  <Font name="Leelawadee UI Bold" size="22.0" />
+                  <Font name="Leelawadee UI Bold" size="20.0" />
                </font>
             </Label>
-            <JFXDatePicker fx:id="dateNeeded" defaultColor="#0000009a" prefWidth="250.0" style="-fx-font-size: 18px; -fx-font-family: Leelawadee UI; -fx-background-color: #ffffff;" />
-            <Label prefWidth="220.0" text="Summary" textFill="#3a5369">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="22.0" />
-               </font>
-            </Label>
-            <JFXTextArea fx:id="summary" prefHeight="0.0" prefWidth="380.0" promptText="Summary" style="-fx-background-color: #ffffff;" wrapText="true">
+            <JFXTextArea fx:id="summary" prefWidth="250.0" promptText="Request Summary" style="-fx-background-color: #ffffff;" wrapText="true">
                <font>
                   <Font name="Leelawadee UI" size="18.0" />
                </font>
             </JFXTextArea>
-            <Label prefHeight="25.0" prefWidth="220.0" text="Special Instructions" textFill="#3a5369">
+            <Label prefHeight="25.0" prefWidth="100.0" text="Threat" textFill="#3a5369">
                <font>
-                  <Font name="Leelawadee UI Bold" size="22.0" />
+                  <Font name="Leelawadee UI Bold" size="20.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="field1" prefWidth="250.0" promptText="Instructions" style="-fx-background-color: #ffffff;">
+            <JFXTextField fx:id="field1" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;">
                <font>
                   <Font name="Leelawadee UI" size="18.0" />
                </font>
             </JFXTextField>
-            <JFXCheckBox fx:id="field2" alignment="CENTER" checkedColor="#3a5369" contentDisplay="RIGHT" text="PPE Required?" textFill="#3a5369" unCheckedColor="WHITE">
+            <Label prefHeight="25.0" prefWidth="100.0" text="Urgency" textFill="#3a5369">
                <font>
-                  <Font name="Leelawadee UI Bold" size="18.0" />
+                  <Font name="Leelawadee UI Bold" size="20.0" />
+               </font>
+            </Label>
+            <JFXSlider fx:id="field2" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" prefWidth="250.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+            <JFXCheckBox fx:id="field3" checkedColor="#3a5369" contentDisplay="CENTER" prefHeight="18.0" prefWidth="195.0" text="Armed Security?" textFill="#3a5369" unCheckedColor="WHITE">
+               <font>
+                  <Font name="Leelawadee UI" size="18.0" />
                </font>
             </JFXCheckBox>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>

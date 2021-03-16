@@ -58,9 +58,6 @@ public class ReqController implements Initializable {
     Date dateNeeded = r.getDateNeeded();
     Date dateRequested = r.getDateRequested();
     String location = r.getLocationNodeID();
-    String par1 = r.getPara1();
-    String par2 = r.getPara2();
-    String par3 = r.getPara3();
 
     HBox addBox = new HBox();
     addBox.setSpacing(30);
@@ -86,15 +83,6 @@ public class ReqController implements Initializable {
     Label loc = new Label(location);
     loc.setStyle("-fx-max-width: 150; -fx-min-width: 150; " + loc.getStyle());
 
-    Label p1 = new Label(par1);
-    p1.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + p1.getStyle());
-
-    Label p2 = new Label(par2);
-    p2.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + p2.getStyle());
-
-    Label p3 = new Label(par3);
-    p3.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + p3.getStyle());
-
     JFXButton markDone = new JFXButton();
 
     reqBox.setSpacing(15);
@@ -112,7 +100,7 @@ public class ReqController implements Initializable {
           // mark the thing as done
           try {
             RequestHandling.setStatus(reqID, "Complete");
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           } catch (SQLException throwables) {
             // TODO @sam add input scrubbing / verification?
             throwables.printStackTrace();
@@ -129,16 +117,6 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(dReq);
     addBox.getChildren().add(dNeed);
     addBox.getChildren().add(loc);
-
-    if (par1 != null && !par1.equals("null")) {
-      addBox.getChildren().add(p1);
-    }
-    if (par2 != null && !par2.equals("null")) {
-      addBox.getChildren().add(p2);
-    }
-    if (par3 != null && !par3.equals("null")) {
-      addBox.getChildren().add(p3);
-    }
 
     switch (status) {
       case "Not Assigned":
@@ -211,35 +189,39 @@ public class ReqController implements Initializable {
    */
   public void addNewRequest(ActionEvent actionEvent) {
     if (typeOfRequest.equals("COMP")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/ComputerServiceRequest.fxml");
+      SwitchScene.goToParent(
+          "/RevampedViews/DesktopApp/ServiceRequests/ComputerServiceRequest.fxml");
     }
     if (typeOfRequest.equals("GIFT")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/GiftDeliveryService.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/GiftDeliveryService.fxml");
     }
     if (typeOfRequest.equals("TRAN")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/InternalTransportForm.fxml");
+      SwitchScene.goToParent(
+          "/RevampedViews/DesktopApp/ServiceRequests/InternalTransportForm.fxml");
     }
     if (typeOfRequest.equals("LAUN")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/LaundryRequest.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/LaundryRequest.fxml");
     }
     if (typeOfRequest.equals("MEDI")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/MedicineDeliveryService.fxml");
+      SwitchScene.goToParent(
+          "/RevampedViews/DesktopApp/ServiceRequests/MedicineDeliveryService.fxml");
     }
     if (typeOfRequest.equals("SECU")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/SecurityRequest.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/SecurityRequest.fxml");
     }
     if (typeOfRequest.equals("MAIT")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/FacilitiesMaintenanceRequest.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/mait.fxml");
     }
     if (typeOfRequest.equals("LANG")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/InterpreterForm.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/InterpreterForm.fxml");
     }
     if (typeOfRequest.equals("SANA")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/SANA.fxml");
+      SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/SANA.fxml");
     }
 
     if (typeOfRequest.equals("FLOR")) {
-      SwitchScene.goToParent("/Views/ServiceRequests/FloralDeliveryRequest.fxml");
+      SwitchScene.goToParent(
+          "/RevampedViews/DesktopApp/ServiceRequests/FloralDeliveryRequest.fxml");
     }
     // TODO change this
     if (typeOfRequest.equals("CV19")) {
@@ -304,14 +286,14 @@ public class ReqController implements Initializable {
 
             assignStaffDialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           }
         });
     assignStaffDialog.show();
   }
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/RequestPage.fxml");
   }
 
   /**
@@ -379,7 +361,7 @@ public class ReqController implements Initializable {
 
             dialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           }
         });
     dialog.show();
@@ -434,7 +416,7 @@ public class ReqController implements Initializable {
 
             dialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           }
         });
     dialog.show();

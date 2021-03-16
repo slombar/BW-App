@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
-import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +18,6 @@ public class FLORController {
   @FXML private JFXTextArea summary;
   @FXML private JFXTextField field1;
   @FXML private JFXTextArea field2;
-
-  public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
-  }
 
   public void clear(ActionEvent actionEvent) {
     locationF.clear();
@@ -40,21 +36,14 @@ public class FLORController {
     String sum = summary.getText();
     String f1 = field1.getText();
     String f2 = field2.getText();
-    String f3 = null;
 
-    System.out.println(
-        "Adding this to DB: "
-            + requestedBy
-            + dateN.toString()
-            + requestType
-            + loc
-            + sum
-            + f1
-            + f2
-            + f3);
-
-    RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
-
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+    Request r = new Request();
+    r.setRequestedBy(requestedBy);
+    r.setDateNeeded(dateN);
+    r.setRequestType(requestType);
+    r.setLocationNodeID(loc);
+    sum += " Flower Type: " + f1 + "Message: " + f2;
+    r.setSummary(sum);
+    RequestHandling.addRequest(r);
   }
 }

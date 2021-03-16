@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
+import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,11 +18,6 @@ public class COMPController {
   @FXML private JFXTextField locationF;
   @FXML private JFXTextArea summary;
   @FXML private JFXTextField field1;
-
-  public void back(ActionEvent actionEvent) {
-    // close side drawer todo @sadie
-
-  }
 
   public void clear(ActionEvent actionEvent) {
     locationF.clear();
@@ -38,20 +34,14 @@ public class COMPController {
     String loc = locationF.getText();
     String sum = summary.getText();
     String f1 = field1.getText();
-    String f2 = null;
-    String f3 = null;
 
-    System.out.println(
-        "Adding this to DB: "
-            + requestedBy
-            + dateN.toString()
-            + requestType
-            + loc
-            + sum
-            + f1
-            + f2
-            + f3);
-
-    RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
+    Request r = new Request();
+    r.setRequestedBy(requestedBy);
+    r.setDateNeeded(dateN);
+    r.setRequestType(requestType);
+    r.setLocationNodeID(loc);
+    sum += " Requested For: " + f1;
+    r.setSummary(sum);
+    RequestHandling.addRequest(r);
   }
 }

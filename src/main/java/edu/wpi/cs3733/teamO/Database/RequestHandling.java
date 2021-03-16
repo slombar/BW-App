@@ -14,20 +14,43 @@ public class RequestHandling {
   // TODO: add function to set employee assigned
 
   /**
-   * Retrieve all service requests from database
+   * Retrieve all service requests from database, depending on their type
    *
+   * @param type the type of request you want return. For all use "ALL"
    * @return
    */
-  public static ObservableList<Request> getRequests() {
+  public static ObservableList<Request> getRequests(String type) {
     ObservableList<Request> requestList = FXCollections.observableArrayList();
-    try {
-      String query = "SELECT * FROM Requests";
-      // database statement to grab values
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
-      // returns the results from query
-      ResultSet rset = pstmt.executeQuery();
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+    String query = "";
 
+    if (type.equals("ALL")) {
+      query = "SELECT * FROM SRS";
+
+      try {
+        // database statement to grab values
+        pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+        // returns the results from query
+        rset = pstmt.executeQuery();
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+
+    } else {
+      query = "SELECT * FROM SRS WHERE REQTYPE = ?";
+      try {
+        // database statement to grab values
+        pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+        pstmt.setString(1, type);
+        // returns the results from query
+        rset = pstmt.executeQuery();
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+    }
+
+    try {
       // temp variables for assignment
       int reqID = 0;
       String requestedBy = "";
@@ -37,9 +60,6 @@ public class RequestHandling {
       String requestType = "";
       String location = "";
       String summary = "";
-      String para1 = "";
-      String para2 = "";
-      String para3 = "";
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
@@ -51,9 +71,6 @@ public class RequestHandling {
         requestType = rset.getString("reqtype");
         location = rset.getString("location");
         summary = rset.getString("summary");
-        para1 = rset.getString("para1");
-        para2 = rset.getString("para2");
-        para3 = rset.getString("para3");
 
         Request req =
             new Request(
@@ -64,10 +81,7 @@ public class RequestHandling {
                 dateNeeded,
                 requestType,
                 location,
-                summary,
-                para1,
-                para2,
-                para3);
+                summary);
 
         System.out.println(
             "Retrieved this from Services: "
@@ -85,13 +99,7 @@ public class RequestHandling {
                 + ", "
                 + location
                 + ", "
-                + summary
-                + ", "
-                + para1
-                + ", "
-                + para2
-                + ", "
-                + para3);
+                + summary);
 
         requestList.add(req);
       }
@@ -179,9 +187,6 @@ public class RequestHandling {
       r.setRequestType(rset.getString("reqType"));
       r.setLocationNodeID(rset.getString("location"));
       r.setSummary(rset.getString("summary"));
-      r.setPara1(rset.getString("para1"));
-      r.setPara2(rset.getString("para2"));
-      r.setPara3(rset.getString("para3"));
 
       rset.close();
       pstmt.close();
@@ -193,56 +198,23 @@ public class RequestHandling {
     return r;
   }
 
-  /**
-   * Add request to DB
-   *
-   * @param requestedBy
-   * @param dateNeeded
-   * @param requestType
-   * @param locationNodeID
-   * @param summary
-   * @param customParameter1
-   * @param customParameter2
-   * @param customParameter3
-   */
-  public static void addRequest(
-      String requestedBy,
-      Date dateNeeded,
-      String requestType,
-      String locationNodeID,
-      String summary,
-      String customParameter1,
-      String customParameter2,
-      String customParameter3) {
-
+  public static void addRequest(Request r) {
     // get current date
     long millis = System.currentTimeMillis();
-    Date dateRequested = new java.sql.Date(millis);
+    java.sql.Date dateRequested = new java.sql.Date(millis);
 
     String query =
-        "INSERT INTO REQUESTS (requestedBy, dateRequested, dateNeeded, REQTYPE, LOCATION, SUMMARY, PARA1, PARA2, PARA3) "
-            + "VALUES( '"
-            + requestedBy
-            + "', '"
-            + dateRequested
-            + "', '"
-            + dateNeeded
-            + "', '"
-            + requestType
-            + "', '"
-            + locationNodeID
-            + "', '"
-            + summary
-            + "', '"
-            + customParameter1
-            + "', '"
-            + customParameter2
-            + "', '"
-            + customParameter3
-            + "')";
+        "INSERT INTO SRS (PERSON, DATECREATED, DATENEEDED, REQUESTTYPE, SUMMARY, STATUS, LOCATION) VALUES(?, ?, ?, ?, ?, ?, ?)";
     try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, r.getRequestedBy());
+      preparedStmt.setDate(2, dateRequested);
+      preparedStmt.setDate(3, (java.sql.Date) r.getDateNeeded());
+      preparedStmt.setString(4, r.getRequestType());
+      preparedStmt.setString(5, r.getSummary());
+      preparedStmt.setString(6, "Not Assigned");
+      preparedStmt.setString(7, r.getLocationNodeID());
+
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -293,10 +265,12 @@ public class RequestHandling {
       String customParameter1,
       String customParameter2,
       String customParameter3) {
+
+    summary += customParameter1 + customParameter2 + customParameter3;
+
     String query =
         "UPDATE REQUESTS SET fulfilledBy = ?, "
-            + "reqType = ?, location = ?, summary = ?, para1 = ?, "
-            + "para2 = ?, para3 = ? WHERE requestID = ?";
+            + "reqType = ?, location = ?, summary = ? WHERE requestID = ?";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -304,10 +278,7 @@ public class RequestHandling {
       preparedStmt.setString(2, requestType);
       preparedStmt.setString(3, locationNodeID);
       preparedStmt.setString(4, summary);
-      preparedStmt.setString(5, customParameter1);
-      preparedStmt.setString(6, customParameter2);
-      preparedStmt.setString(7, customParameter3);
-      preparedStmt.setInt(8, requestID);
+      preparedStmt.setInt(5, requestID);
 
       preparedStmt.executeUpdate();
       preparedStmt.close();

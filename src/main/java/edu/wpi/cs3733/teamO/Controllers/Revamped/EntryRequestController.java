@@ -103,7 +103,7 @@ public class EntryRequestController implements Initializable {
           // mark the thing as done
           try {
             EntryRequestHandling.setStatus(reqID, "Complete");
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           } catch (SQLException throwables) {
             // TODO @sam add input scrubbing / verification?
             throwables.printStackTrace();
@@ -250,14 +250,14 @@ public class EntryRequestController implements Initializable {
 
             assignStaffDialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           }
         });
     assignStaffDialog.show();
   }
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/RequestPage.fxml");
   }
 
   /**
@@ -382,7 +382,7 @@ public class EntryRequestController implements Initializable {
 
             dialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           }
         });
     dialog.show();
