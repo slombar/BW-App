@@ -10,8 +10,71 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class RequestHandling {
+  /**
+   * Get the request from the database based off of the ID
+   *
+   * @param reqID
+   * @return
+   */
+  public static Request getRequest(int reqID) {
+    Request r = new Request();
 
-  // TODO: add function to set employee assigned
+    try {
+      String query = "SELECT * FROM SRS WHERE REQUESTID = ?";
+      PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(query);
+      ps.setInt(1, reqID);
+
+      ResultSet rset = ps.executeQuery();
+      rset.next();
+
+      // add properties to the node
+      r.setRequestID(reqID);
+      r.setRequestedBy(rset.getString("PERSON"));
+      r.setFulfilledBy(rset.getString("ASSIGNED"));
+      r.setDateRequested(rset.getDate("DATECREATED"));
+      r.setDateNeeded(rset.getDate("DATENEEDED"));
+      r.setRequestType(rset.getString("REQUESTTYPE"));
+      r.setRequestLocation(rset.getString("LOCATION"));
+      r.setSummary(rset.getString("SUMMARY"));
+
+      rset.close();
+      ps.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return r;
+  }
+
+  /**
+   * assign an employee to a service request
+   *
+   * @param reqID
+   * @param employee
+   */
+  public static void assignEmployee(int reqID, String employee) {
+
+    try {
+      RequestHandling.setStatus(reqID, "Assigned");
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    String query = "UPDATE SRS SET ASSIGNED = ? WHERE ID = ?";
+
+    try {
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setInt(1, reqID);
+      preparedStmt.setString(1, employee);
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      return;
+    }
+  }
 
   /**
    * Retrieve all service requests from database, depending on their type
@@ -38,7 +101,7 @@ public class RequestHandling {
       }
 
     } else {
-      query = "SELECT * FROM SRS WHERE REQTYPE = ?";
+      query = "SELECT * FROM SRS WHERE REQUESTTYPE = ?";
       try {
         // database statement to grab values
         pstmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -63,15 +126,16 @@ public class RequestHandling {
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
-        reqID = rset.getInt("requestID");
-        requestedBy = rset.getString("requestedBy");
-        fulfilledBy = rset.getString("fulfilledBy");
-        dateRequested = rset.getDate("dateRequested");
-        dateNeeded = rset.getDate("dateNeeded");
-        requestType = rset.getString("reqtype");
-        location = rset.getString("location");
-        summary = rset.getString("summary");
+        reqID = rset.getInt("ID");
+        requestedBy = rset.getString("PERSON");
+        fulfilledBy = rset.getString("ASSIGNED");
+        dateRequested = rset.getDate("DATECREATED");
+        dateNeeded = rset.getDate("DATENEEDED");
+        requestType = rset.getString("REQUESTTYPE");
+        location = rset.getString("LOCATION");
+        summary = rset.getString("SUMMARY");
 
+        // requests generate here
         Request req =
             new Request(
                 reqID,
@@ -82,24 +146,6 @@ public class RequestHandling {
                 requestType,
                 location,
                 summary);
-
-        System.out.println(
-            "Retrieved this from Services: "
-                + reqID
-                + ", "
-                + requestedBy
-                + ", "
-                + fulfilledBy
-                + ", "
-                + dateRequested.toString()
-                + ", "
-                + dateNeeded.toString()
-                + ", "
-                + requestType
-                + ", "
-                + location
-                + ", "
-                + summary);
 
         requestList.add(req);
       }
@@ -128,15 +174,13 @@ public class RequestHandling {
 
     pstmt =
         DatabaseConnection.getConnection()
-            .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = ?");
+            .prepareStatement("SELECT STATUS FROM Requests WHERE ID = ?");
 
     pstmt.setInt(1, reqID);
 
     ResultSet rset = pstmt.executeQuery();
-
-    while (rset.next()) {
-      status = rset.getString("STATUS");
-    }
+    rset.next();
+    status = rset.getString("STATUS");
 
     rset.close();
     pstmt.close();
@@ -150,52 +194,15 @@ public class RequestHandling {
    * @param reqID
    */
   public static void setStatus(int reqID, String status) throws SQLException {
-    String query = "UPDATE REQUESTS SET STATUS = '" + status + "' WHERE REQUESTID = ?";
+    String query = "UPDATE SRS SET STATUS = ? WHERE REQUESTID = ?";
 
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
 
-    pstmt.setInt(1, reqID);
+    pstmt.setString(1, status);
+    pstmt.setInt(2, reqID);
     pstmt.executeUpdate();
     pstmt.close();
-  }
-
-  /**
-   * Get the request from the database based off of the ID
-   *
-   * @param reqID
-   * @return
-   */
-  public static Request getRequest(int reqID) {
-    Request r = new Request();
-
-    try {
-      PreparedStatement pstmt =
-          DatabaseConnection.getConnection()
-              .prepareStatement("SELECT * FROM Requests WHERE REQUESTID = ?");
-      pstmt.setInt(1, reqID);
-
-      ResultSet rset = pstmt.executeQuery();
-      rset.next();
-
-      // add properties to the node
-      r.setRequestID(reqID);
-      r.setRequestedBy(rset.getString("requestedBy"));
-      r.setFulfilledBy(rset.getString("fulfilledBy"));
-      r.setDateRequested(rset.getDate("dateRequested"));
-      r.setDateNeeded(rset.getDate("dateNeeded"));
-      r.setRequestType(rset.getString("reqType"));
-      r.setLocationNodeID(rset.getString("location"));
-      r.setSummary(rset.getString("summary"));
-
-      rset.close();
-      pstmt.close();
-
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
-
-    return r;
   }
 
   public static void addRequest(Request r) {
@@ -213,7 +220,7 @@ public class RequestHandling {
       preparedStmt.setString(4, r.getRequestType());
       preparedStmt.setString(5, r.getSummary());
       preparedStmt.setString(6, "Not Assigned");
-      preparedStmt.setString(7, r.getLocationNodeID());
+      preparedStmt.setString(7, r.getRequestLocation());
 
       preparedStmt.execute();
       preparedStmt.close();
@@ -229,7 +236,7 @@ public class RequestHandling {
    * @param requestID
    */
   public static void deleteRequest(int requestID) {
-    String query = "DELETE FROM REQUESTS WHERE REQUESTID = ?";
+    String query = "DELETE FROM SRS WHERE REQUESTID = ?";
 
     try {
       PreparedStatement preparedStmt = null;
@@ -245,51 +252,87 @@ public class RequestHandling {
   }
 
   /**
-   * TODO Finish this Allows editing of request
+   * Edit the request in the database Updates the request type, summary, location for this specific
+   * request
    *
-   * @param requestID
-   * @param fulfilledBy
-   * @param requestType
-   * @param locationNodeID
-   * @param summary
-   * @param customParameter1
-   * @param customParameter2
-   * @param customParameter3
+   * @param r
    */
-  public static void editRequest(
-      int requestID,
-      String fulfilledBy,
-      String requestType,
-      String locationNodeID,
-      String summary,
-      String customParameter1,
-      String customParameter2,
-      String customParameter3) {
+  public static void editRequest(Request r) {
 
-    summary += customParameter1 + customParameter2 + customParameter3;
-
-    String query =
-        "UPDATE REQUESTS SET fulfilledBy = ?, "
-            + "reqType = ?, location = ?, summary = ? WHERE requestID = ?";
+    String query = "UPDATE SRS SET REQUESTTYPE = ?, SUMMARY = ?, LOCATION = ? WHERE requestID = ?";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      preparedStmt.setString(1, fulfilledBy);
-      preparedStmt.setString(2, requestType);
-      preparedStmt.setString(3, locationNodeID);
-      preparedStmt.setString(4, summary);
-      preparedStmt.setInt(5, requestID);
+      preparedStmt.setString(1, r.getRequestType());
+      preparedStmt.setString(2, r.getSummary());
+      preparedStmt.setString(3, r.getRequestLocation());
+      preparedStmt.setInt(4, r.getRequestID());
 
       preparedStmt.executeUpdate();
       preparedStmt.close();
-      System.out.println("printed " + query);
+
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
   }
 
+  /**
+   * Get every request for the given employee
+   *
+   * @param firstName
+   * @param lastName
+   * @return
+   */
+  public static ObservableList<Request> getEmployeeRequests(String firstName, String lastName) {
+    String employeeUsername = "";
+    ObservableList<Request> requests = FXCollections.observableArrayList();
+    try {
+      // get the employee based on first and last name
+      PreparedStatement getEMP =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT USERNAME FROM USERS WHERE fName = ? AND lName = ?");
+
+      getEMP.setString(1, firstName);
+      getEMP.setString(2, lastName);
+
+      ResultSet employeeR = getEMP.executeQuery();
+      employeeR.next();
+      employeeUsername = employeeR.getString("USERNAME");
+
+      employeeR.close();
+      getEMP.close();
+
+      // get the requests
+      PreparedStatement requestPS =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT * FROM SRS WHERE ASSIGNED = ?");
+      requestPS.setString(1, employeeUsername);
+
+      ResultSet requestSet = requestPS.executeQuery();
+
+      while (requestSet.next()) {
+        Request r = new Request();
+        r.setRequestID(requestSet.getInt("ID"));
+        r.setAssignedTo(requestSet.getString("ASSIGNED"));
+        r.setDateRequested(requestSet.getDate("DATECREATED"));
+        r.setDateNeeded(requestSet.getDate("DATENEEDED"));
+        r.setSummary(requestSet.getString("SUMMARY"));
+        r.setRequestType(requestSet.getString("REQUESTTYPE"));
+        r.setStatus(requestSet.getString("STATUS"));
+        r.setRequestLocation(requestSet.getString("LOCATION"));
+
+        requests.add(r);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return requests;
+  }
+
   public static void updateRequest(int requestID, String locationNode) {
-    String query = "UPDATE REQUESTS SET location = ? WHERE requestID = ?";
+    String query = "UPDATE SRS SET LOCATION = ? WHERE ID = ?";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -297,12 +340,56 @@ public class RequestHandling {
       preparedStmt.setInt(2, requestID);
       preparedStmt.executeUpdate();
       preparedStmt.close();
-      System.out.println("printed " + query);
       WaitingPageController.setEntrance(locationNode);
       //      WaitingPageController.notifyUser();
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+  }
+
+  /**
+   * returns a sorted list based on the users choice of filter. (ascending/descending)
+   *
+   * @param dateAction
+   * @return
+   */
+  public static ObservableList<Request> getDateSortedRequests(String dateAction) {
+    ObservableList<Request> requests = FXCollections.observableArrayList();
+    String query = "";
+
+    if (dateAction.contains("Old")) {
+      query = "SELECT * FROM SRS ORDER BY DATENEEDED DESC";
+    } else {
+      query = "SELECT * FROM SRS ORDER BY DATENEEDED ASC";
+    }
+
+    try {
+      PreparedStatement preparedStatement =
+          DatabaseConnection.getConnection().prepareStatement(query);
+
+      ResultSet rset = preparedStatement.executeQuery();
+      while (rset.next()) {
+        Request r = new Request();
+        r.setRequestID(rset.getInt("ID"));
+        r.setAssignedTo(rset.getString("ASSIGNED"));
+        r.setDateRequested(rset.getDate("DATECREATED"));
+        r.setDateNeeded(rset.getDate("DATENEEDED"));
+        r.setSummary(rset.getString("SUMMARY"));
+        r.setRequestType(rset.getString("REQUESTTYPE"));
+        r.setStatus(rset.getString("STATUS"));
+        r.setRequestLocation(rset.getString("LOCATION"));
+
+        requests.add(r);
+      }
+      preparedStatement.close();
+
+      //      WaitingPageController.notifyUser();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return requests;
   }
 }

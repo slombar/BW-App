@@ -46,7 +46,7 @@ public class GIFTController {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += " GiftType: " + f1 + " Message: " + f2 + "Signature?: " + f3;
     r.setSummary(sum);
     RequestHandling.addRequest(r);

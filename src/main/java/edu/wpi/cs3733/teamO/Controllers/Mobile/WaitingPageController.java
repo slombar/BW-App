@@ -6,27 +6,31 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.concurrent.Task;
+import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
+import javax.swing.*;
 
-public class WaitingPageController implements Initializable {
+public class WaitingPageController extends JComponent implements Initializable {
   private static boolean isSurveyApproved;
   private static String location;
 
   @FXML private JFXButton hospitalNavBtn;
   @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
-  @FXML private StackPane spinnerPane;
+//  @FXML private StackPane spinnerPane;
+  @FXML private JFXPanel jfxPanel;
   public static boolean isMainEntrance;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hospitalNavBtn.setDisable(true);
     entryStatusBtn.setDisable(false);
-    spinnerPane.setVisible(true);
+   // spinnerPane.setVisible(true);
 
     Task<Void> EntryTask =
         new Task<Void>() {
@@ -42,19 +46,17 @@ public class WaitingPageController implements Initializable {
     entryThread.start();
     awaitingEntryApproval(EntryTask);
 
-    // TODO: need to use the following popups
-    // enable button once employee edits form and grab location
-
-    //    PopupMaker.mainEntranceNotif(popupNotification);
-    //    PopupMaker.covidEntranceNotif(popupNotification);
+    SwingNode s = new SwingNode();
+    WaitingPageController c = new WaitingPageController();
+    s.setContent(c);
   }
 
   void awaitingEntryApproval(Task<Void> EntryTask) {
     ProgressIndicator progress = new ProgressIndicator();
-    spinnerPane.getChildren().add(progress);
+   // spinnerPane.getChildren().add(progress);
     progress.setProgress(1.0);
     progress.progressProperty().bind(EntryTask.progressProperty());
-    spinnerPane.toFront();
+    //spinnerPane.toFront();
   }
   /*btn.setOnAction(event -> {
       iv.setImage(openImage);
@@ -92,7 +94,7 @@ public class WaitingPageController implements Initializable {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
-      spinnerPane.setVisible(false);
+     // spinnerPane.setVisible(false);
       // popup to say you can now continue
       if (location.toLowerCase().contains("covid")) {
         PopupMaker.covidEntranceNotif(popupNotification);
@@ -109,7 +111,7 @@ public class WaitingPageController implements Initializable {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
-      spinnerPane.setVisible(false);
+     // spinnerPane.setVisible(false);
       // popup to say you can now continue
       if (location.toLowerCase().contains("main")) {
         PopupMaker.mainEntranceNotif(popupNotification);

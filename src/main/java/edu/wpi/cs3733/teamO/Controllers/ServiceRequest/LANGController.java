@@ -42,7 +42,7 @@ public class LANGController {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += " Language Needed: " + f1 + " Person: " + f2;
     r.setSummary(sum);
     RequestHandling.addRequest(r);
