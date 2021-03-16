@@ -578,7 +578,7 @@ public class PopupMaker {
     Text dateNeeded = new Text("Date Needed: " + request.getDateNeeded().toString());
     dateNeeded.setWrappingWidth(wrapLength);
 
-    Text location = new Text("Location: " + request.getLocationNodeID());
+    Text location = new Text("Location: " + request.getRequestLocation());
     location.setWrappingWidth(wrapLength);
 
     Text summary = new Text("Summary: " + request.getSummary());

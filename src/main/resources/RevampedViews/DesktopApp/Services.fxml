@@ -296,17 +296,17 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <JFXComboBox fx:id="typeOfRequestCombo" prefHeight="25.0" prefWidth="150.0" promptText="Type of Request">
+                        <JFXComboBox fx:id="typeOfRequestCombo" onAction="#typeComboAction" prefHeight="25.0" prefWidth="150.0" promptText="Type of Request">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </JFXComboBox>
-                        <JFXComboBox fx:id="assignedEmployeeCombo" prefHeight="25.0" prefWidth="150.0" promptText="Assigned Employee">
+                        <JFXComboBox fx:id="assignedEmployeeCombo" onAction="#assignedComboAction" prefHeight="25.0" prefWidth="150.0" promptText="Assigned Employee">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </JFXComboBox>
-                        <JFXComboBox fx:id="dateNeededCombo" prefHeight="25.0" prefWidth="150.0" promptText="Date Needed">
+                        <JFXComboBox fx:id="dateNeededCombo" onAction="#dateComboAction" prefHeight="25.0" prefWidth="150.0" promptText="Date Needed">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
@@ -318,21 +318,22 @@
                   </HBox>
                </children>
             </GridPane>
-            <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="600.0" spacing="20.0">
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
                <children>
-                  <Label prefWidth="100.0" text="ID #">
+                  <Label prefWidth="40.0" text="ID #">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
-                  <Label prefWidth="100.0" text="Requested On">
+                  <Label prefWidth="70.0" text="Date">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
-                  <Label prefWidth="100.0" text="Requested By">
+                  <Label layoutX="70.0" layoutY="10.0" prefWidth="100.0" text="Requested By">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
-                     </font></Label>
-                  <Label prefWidth="100.0" text="Need By">
+                     </font>
+                  </Label>
+                  <Label prefWidth="70.0" text="Need By">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
@@ -344,6 +345,11 @@
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
+                  <Label layoutX="610.0" layoutY="10.0" prefWidth="80.0" text="Status">
+                     <font>
+                        <Font name="Leelawadee UI" size="14.0" />
+                     </font>
+                  </Label>
                   <Label prefWidth="100.0" text="Summary">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />

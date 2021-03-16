@@ -42,7 +42,7 @@ public class MEDIController {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += " Medicine: " + f1 + " Dosage: " + f2 + "Prescription?: " + f3;
     r.setSummary(sum);
     RequestHandling.addRequest(r);

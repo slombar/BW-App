@@ -37,11 +37,16 @@ switch (type) {
         throw new IllegalStateException("Unexpected value: " + requestType);
     }
  */
+
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
+import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +54,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -62,41 +69,42 @@ public class RequestPageController implements Initializable {
   @FXML private JFXDrawer drawer;
   public static String reqType;
 
-  public static String getReqType() {
-    return reqType;
-  }
-
-  /** Display all service requests of the specific type OR all. */
-  public void displayServiceList() {
-    // display all requests
-    if (reqType.equals("ALL")) {
-      // get all service requests from database
-
-    } else {
-      // get only the specific type of requests from the database
-
-    }
-  }
-
-  private ObservableList<String> listOfSizes =
+  private final ObservableList<String> listOfTypes =
       FXCollections.observableArrayList(
           "ALL", "COMP", "FLOR", "LANG", "LAUN", "GIFT", "TRAN", "MAIT", "MEDI", "SECU", "SANA");
 
+  private final ObservableList<String> listOfAssigned = UserHandling.getEmployeeNames();
+
+  private final ObservableList<String> listOfDates =
+      FXCollections.observableArrayList("Old First", "New First");
+
   public void typeComboAction(ActionEvent actionEvent) {
     reqType = (String) typeOfRequestCombo.getValue();
-    displayServiceList();
+    displayServiceList(RequestHandling.getRequests(reqType));
   }
 
-  public void closeAddMenu() {
+  public void assignedComboAction(ActionEvent actionEvent) {
+    String employee = (String) assignedEmployeeCombo.getValue();
+    String firstName = employee.split(" ")[0];
+    String lastName = employee.split(" ")[1];
+    displayServiceList(RequestHandling.getEmployeeRequests(firstName, lastName));
+  }
 
-    sideDrawerForAdd.close();
-    sideDrawerForAdd.toBack();
+  public void dateComboAction(ActionEvent actionEvent) {
+    String dateAction = (String) dateNeededCombo.getValue();
+
+    displayServiceList(RequestHandling.getDateSortedRequests(dateAction));
   }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // Set drawer to SideMenu
     String sideMenu = "";
+
+    // set items for my combo boxes
+    typeOfRequestCombo.setItems(listOfTypes);
+    assignedEmployeeCombo.setItems(listOfAssigned);
+    dateNeededCombo.setItems(listOfDates);
 
     if (UserHandling.getAdmin()) {
       sideMenu = "/Views/SideMenuAdmin.fxml";
@@ -109,8 +117,106 @@ public class RequestPageController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    displayServiceList(RequestHandling.getRequests("ALL"));
   }
 
+  public static String getReqType() {
+    return reqType;
+  }
+
+  /**
+   * Display all service requests of the specific type OR all.
+   *
+   * @param requests
+   */
+  public void displayServiceList(ObservableList<Request> requests) {
+    // display all requests on page into fxml by adding hboxes dynamically. all should be sized: 100
+    // in width besides summary and spacing: 10
+    requestList.getChildren().clear();
+
+    for (Request toDisplay : requests) {
+      HBox oneRow = new HBox();
+      oneRow.setSpacing(20);
+
+      Label id = new Label(String.valueOf(toDisplay.getRequestID()));
+      Label requestedOn = new Label(toDisplay.getDateRequested().toString());
+      Label requestedBy = new Label(toDisplay.getRequestedBy());
+      Label needBy = new Label(toDisplay.getDateNeeded().toString());
+      Label assigned = new Label(toDisplay.getAssignedTo());
+      Label rLocation = new Label(toDisplay.getRequestLocation());
+      Label summary = new Label(toDisplay.getSummary());
+      Label status = new Label(toDisplay.getStatus());
+      JFXButton assign = new JFXButton("Assign Staff");
+      JFXButton updateStatus = new JFXButton("Complete");
+      JFXButton delete = new JFXButton("Delete");
+      // JFXButton edit = new JFXButton(); todo maybe? @sadie
+
+      assign.setOnAction(
+          e -> {
+            String employee = "";
+            // popup that allows person to enter employee name todo @sadie
+
+            RequestHandling.assignEmployee(toDisplay.getRequestID(), employee);
+            displayServiceList(RequestHandling.getRequests("ALL"));
+          });
+
+      updateStatus.setOnAction(
+          e -> {
+            try {
+              RequestHandling.setStatus(toDisplay.getRequestID(), "Complete");
+            } catch (SQLException throwables) {
+              throwables.printStackTrace();
+            }
+            displayServiceList(RequestHandling.getRequests("ALL"));
+          });
+
+      delete.setOnAction(
+          e -> {
+            // mark the thing as done
+            RequestHandling.deleteRequest(toDisplay.getRequestID());
+
+            displayServiceList(RequestHandling.getRequests("ALL"));
+          });
+
+      id.setPrefWidth(40);
+      requestedOn.setPrefWidth(70);
+      requestedBy.setPrefWidth(100);
+      needBy.setPrefWidth(70);
+      assigned.setPrefWidth(100);
+      rLocation.setPrefWidth(100);
+      summary.setPrefWidth(250);
+      status.setPrefWidth(80);
+
+      oneRow
+          .getChildren()
+          .addAll(
+              id,
+              requestedOn,
+              requestedBy,
+              needBy,
+              assigned,
+              rLocation,
+              status,
+              summary,
+              assign,
+              delete,
+              updateStatus);
+      requestList.getChildren().add(oneRow);
+    }
+  }
+
+  public void closeAddMenu() {
+
+    sideDrawerForAdd.close();
+    sideDrawerForAdd.toBack();
+  }
+
+  /**
+   * switches the drawer fxml out for a new one to add requests
+   *
+   * @param url
+   */
   public void switchAddBox(String url) {
     if (sideDrawerForAdd.isOpened()) {
       sideDrawerForAdd.close();
@@ -129,8 +235,7 @@ public class RequestPageController implements Initializable {
   }
 
   /**
-   * below are all on action methods for the buttons on the request page it uses the goToRequest
-   * helper and then leads to the specific form
+   * Adding functionality (:
    *
    * <p>type variable is for getting to the proper fxml document
    *

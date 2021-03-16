@@ -487,6 +487,7 @@ public class NavController implements Initializable {
     helpB.setOnAction(
         e -> {
           // show tutorial/help
+          SwitchScene.goToParent("/RevampedViews/DesktopApp/NavHelp.fxml");
         });
 
     submitPath.setOnAction(

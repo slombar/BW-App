@@ -57,7 +57,7 @@ public class ReqController implements Initializable {
     String fulfilledBy = r.getFulfilledBy();
     Date dateNeeded = r.getDateNeeded();
     Date dateRequested = r.getDateRequested();
-    String location = r.getLocationNodeID();
+    String location = r.getRequestLocation();
 
     HBox addBox = new HBox();
     addBox.setSpacing(30);
@@ -118,19 +118,6 @@ public class ReqController implements Initializable {
     addBox.getChildren().add(dNeed);
     addBox.getChildren().add(loc);
 
-    switch (status) {
-      case "Not Assigned":
-        addBox.setStyle("-fx-border-color:  #ffaca4; -fx-border-width: 5px;");
-
-        break;
-      case "Assigned":
-        addBox.setStyle("-fx-border-color:  #fec107; -fx-border-width: 5px;");
-
-        break;
-      case "Complete":
-        addBox.setStyle("-fx-border-color:  #72db8e; -fx-border-width: 5px;");
-        break;
-    }
     // add button
     addBox.getChildren().add(markDone);
 
@@ -281,7 +268,7 @@ public class ReqController implements Initializable {
             //              incompletePopup();
             PopupMaker.incompletePopup(popUpPane);
           } else {
-            UserHandling.assignEmployee(
+            RequestHandling.assignEmployee(
                 Integer.parseInt(listOfFields.get(0).getText()), listOfFields.get(1).getText());
 
             assignStaffDialog.close();

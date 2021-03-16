@@ -34,8 +34,9 @@ public class RequestHandling {
       r.setDateRequested(rset.getDate("DATECREATED"));
       r.setDateNeeded(rset.getDate("DATENEEDED"));
       r.setRequestType(rset.getString("REQUESTTYPE"));
-      r.setLocationNodeID(rset.getString("LOCATION"));
+      r.setRequestLocation(rset.getString("LOCATION"));
       r.setSummary(rset.getString("SUMMARY"));
+      r.setStatus(rset.getString("STATUS"));
 
       rset.close();
       ps.close();
@@ -45,6 +46,35 @@ public class RequestHandling {
     }
 
     return r;
+  }
+
+  /**
+   * assign an employee to a service request
+   *
+   * @param reqID
+   * @param employee
+   */
+  public static void assignEmployee(int reqID, String employee) {
+
+    try {
+      RequestHandling.setStatus(reqID, "Assigned");
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    String query = "UPDATE SRS SET ASSIGNED = ? WHERE ID = ?";
+
+    try {
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setInt(1, reqID);
+      preparedStmt.setString(1, employee);
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      return;
+    }
   }
 
   /**
@@ -94,6 +124,7 @@ public class RequestHandling {
       String requestType = "";
       String location = "";
       String summary = "";
+      String status = "";
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
@@ -105,6 +136,7 @@ public class RequestHandling {
         requestType = rset.getString("REQUESTTYPE");
         location = rset.getString("LOCATION");
         summary = rset.getString("SUMMARY");
+        status = (rset.getString("STATUS"));
 
         // requests generate here
         Request req =
@@ -117,6 +149,7 @@ public class RequestHandling {
                 requestType,
                 location,
                 summary);
+        req.setStatus(status);
 
         requestList.add(req);
       }
@@ -165,7 +198,7 @@ public class RequestHandling {
    * @param reqID
    */
   public static void setStatus(int reqID, String status) throws SQLException {
-    String query = "UPDATE SRS SET STATUS = ? WHERE REQUESTID = ?";
+    String query = "UPDATE SRS SET STATUS = ? WHERE ID = ?";
 
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -190,8 +223,8 @@ public class RequestHandling {
       preparedStmt.setDate(3, (java.sql.Date) r.getDateNeeded());
       preparedStmt.setString(4, r.getRequestType());
       preparedStmt.setString(5, r.getSummary());
-      preparedStmt.setString(6, "Not Assigned");
-      preparedStmt.setString(7, r.getLocationNodeID());
+      preparedStmt.setString(6, r.getStatus());
+      preparedStmt.setString(7, r.getRequestLocation());
 
       preparedStmt.execute();
       preparedStmt.close();
@@ -207,7 +240,7 @@ public class RequestHandling {
    * @param requestID
    */
   public static void deleteRequest(int requestID) {
-    String query = "DELETE FROM SRS WHERE REQUESTID = ?";
+    String query = "DELETE FROM SRS WHERE ID = ?";
 
     try {
       PreparedStatement preparedStmt = null;
@@ -236,7 +269,7 @@ public class RequestHandling {
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
       preparedStmt.setString(1, r.getRequestType());
       preparedStmt.setString(2, r.getSummary());
-      preparedStmt.setString(3, r.getLocationNodeID());
+      preparedStmt.setString(3, r.getRequestLocation());
       preparedStmt.setInt(4, r.getRequestID());
 
       preparedStmt.executeUpdate();
@@ -245,6 +278,61 @@ public class RequestHandling {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+  }
+
+  /**
+   * Get every request for the given employee
+   *
+   * @param firstName
+   * @param lastName
+   * @return
+   */
+  public static ObservableList<Request> getEmployeeRequests(String firstName, String lastName) {
+    String employeeUsername = "";
+    ObservableList<Request> requests = FXCollections.observableArrayList();
+    try {
+      // get the employee based on first and last name
+      PreparedStatement getEMP =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT USERNAME FROM USERS WHERE fName = ? AND lName = ?");
+
+      getEMP.setString(1, firstName);
+      getEMP.setString(2, lastName);
+
+      ResultSet employeeR = getEMP.executeQuery();
+      employeeR.next();
+      employeeUsername = employeeR.getString("USERNAME");
+
+      employeeR.close();
+      getEMP.close();
+
+      // get the requests
+      PreparedStatement requestPS =
+          DatabaseConnection.getConnection()
+              .prepareStatement("SELECT * FROM SRS WHERE ASSIGNED = ?");
+      requestPS.setString(1, employeeUsername);
+
+      ResultSet requestSet = requestPS.executeQuery();
+
+      while (requestSet.next()) {
+        Request r = new Request();
+        r.setRequestID(requestSet.getInt("ID"));
+        r.setAssignedTo(requestSet.getString("ASSIGNED"));
+        r.setDateRequested(requestSet.getDate("DATECREATED"));
+        r.setDateNeeded(requestSet.getDate("DATENEEDED"));
+        r.setSummary(requestSet.getString("SUMMARY"));
+        r.setRequestType(requestSet.getString("REQUESTTYPE"));
+        r.setStatus(requestSet.getString("STATUS"));
+        r.setRequestLocation(requestSet.getString("LOCATION"));
+
+        requests.add(r);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return requests;
   }
 
   public static void updateRequest(int requestID, String locationNode) {
@@ -262,5 +350,50 @@ public class RequestHandling {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+  }
+
+  /**
+   * returns a sorted list based on the users choice of filter. (ascending/descending)
+   *
+   * @param dateAction
+   * @return
+   */
+  public static ObservableList<Request> getDateSortedRequests(String dateAction) {
+    ObservableList<Request> requests = FXCollections.observableArrayList();
+    String query = "";
+
+    if (dateAction.contains("Old")) {
+      query = "SELECT * FROM SRS ORDER BY DATENEEDED DESC";
+    } else {
+      query = "SELECT * FROM SRS ORDER BY DATENEEDED ASC";
+    }
+
+    try {
+      PreparedStatement preparedStatement =
+          DatabaseConnection.getConnection().prepareStatement(query);
+
+      ResultSet rset = preparedStatement.executeQuery();
+      while (rset.next()) {
+        Request r = new Request();
+        r.setRequestID(rset.getInt("ID"));
+        r.setAssignedTo(rset.getString("ASSIGNED"));
+        r.setDateRequested(rset.getDate("DATECREATED"));
+        r.setDateNeeded(rset.getDate("DATENEEDED"));
+        r.setSummary(rset.getString("SUMMARY"));
+        r.setRequestType(rset.getString("REQUESTTYPE"));
+        r.setStatus(rset.getString("STATUS"));
+        r.setRequestLocation(rset.getString("LOCATION"));
+
+        requests.add(r);
+      }
+      preparedStatement.close();
+
+      //      WaitingPageController.notifyUser();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return requests;
   }
 }

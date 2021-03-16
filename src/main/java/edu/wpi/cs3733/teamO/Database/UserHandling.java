@@ -21,6 +21,19 @@ public class UserHandling {
 
   public static void setParkingSpot(String parkingSpot) {
     UserHandling.parkingSpot = parkingSpot;
+
+    String query = "UPDATE USERS SET";
+
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+      preparedStmt.execute();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
   }
 
   /**
@@ -319,6 +332,26 @@ public class UserHandling {
   }
 
   /**
+   * get the employee names for every user in DB (firstname lastname)
+   *
+   * @return a string list to be displayed in dropdown of combobox
+   */
+  public static ObservableList<String> getEmployeeNames() {
+
+    ObservableList<User> allUsers = getUsers();
+    ObservableList<String> employeeNames = FXCollections.observableArrayList();
+
+    for (User u : allUsers) {
+
+      if (u.isEmployee()) {
+        employeeNames.add(u.getFirstName() + " " + u.getLastName());
+      }
+    }
+
+    return employeeNames;
+  }
+
+  /**
    * get true if the current user is an employee
    *
    * @return
@@ -344,37 +377,6 @@ public class UserHandling {
     }
 
     return b;
-  }
-
-  /**
-   * assign an employee to a service request
-   *
-   * @param reqID
-   * @param employee
-   */
-  public static void assignEmployee(int reqID, String employee) {
-
-    try {
-      RequestHandling.setStatus(reqID, "Assigned");
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
-
-    String query =
-        "UPDATE Requests SET fulfilledBy = '" + employee + "' WHERE requestID = " + reqID;
-    PreparedStatement preparedStmt = null;
-
-    try {
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      preparedStmt.executeUpdate();
-      preparedStmt.close();
-
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-      return;
-    }
-    System.out.println(
-        "Request with ID: " + reqID + "has been assigned employee: " + employee + ".");
   }
 
   public static String getUsername() {

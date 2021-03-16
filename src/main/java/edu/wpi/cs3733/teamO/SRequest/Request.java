@@ -6,12 +6,14 @@ import java.util.Date;
 public class Request extends RecursiveTreeObject<Request> {
   private int requestID;
   private String requestedBy;
+  private String assignedTo;
   public String fulfilledBy;
   private Date dateRequested;
   private Date dateNeeded;
   private String summary;
   private String requestType;
-  private String locationNodeID;
+  private String requestLocation;
+  private String status;
 
   public Request(
       int requestID,
@@ -20,7 +22,7 @@ public class Request extends RecursiveTreeObject<Request> {
       Date dateRequested,
       Date dateNeeded,
       String requestType,
-      String locationNodeID,
+      String requestLocation,
       String summary) {
     this.requestID = requestID;
     this.requestedBy = requestedBy;
@@ -28,14 +30,33 @@ public class Request extends RecursiveTreeObject<Request> {
     this.requestType = requestType;
     this.fulfilledBy = fulfilledBy;
     this.dateNeeded = dateNeeded;
-    this.locationNodeID = locationNodeID;
+    this.requestLocation = requestLocation;
     this.summary = summary;
+    this.status = "Not Assigned";
   }
 
-  public Request() {}
+  public Request() {
+    this.status = "Not Assigned";
+  }
+
+  public String getAssignedTo() {
+    return assignedTo;
+  }
+
+  public void setAssignedTo(String assignedTo) {
+    this.assignedTo = assignedTo;
+  }
 
   public int getRequestID() {
     return requestID;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public void setRequestID(int requestID) {
@@ -74,12 +95,12 @@ public class Request extends RecursiveTreeObject<Request> {
     this.summary = summary;
   }
 
-  public String getLocationNodeID() {
-    return locationNodeID;
+  public String getRequestLocation() {
+    return requestLocation;
   }
 
-  public void setLocationNodeID(String locationNodeID) {
-    this.locationNodeID = locationNodeID;
+  public void setRequestLocation(String requestLocation) {
+    this.requestLocation = requestLocation;
   }
 
   public String getFulfilledBy() {
