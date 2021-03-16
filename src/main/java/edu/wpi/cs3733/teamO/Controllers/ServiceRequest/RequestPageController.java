@@ -143,6 +143,7 @@ public class RequestPageController implements Initializable {
     }
 
     displayServiceList(RequestHandling.getRequests("ALL"));
+    drawerSM.toBack();
 
     try {
       VBox vbox =
