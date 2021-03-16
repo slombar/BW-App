@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
@@ -15,6 +16,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -135,7 +138,7 @@
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </GridPane>
-            <JFXButton contentDisplay="RIGHT" prefHeight="75.0" prefWidth="250.0" style="-fx-background-color: #F2F2F2;" text="Need Help?   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <JFXButton contentDisplay="RIGHT" onAction="#needHelp" prefHeight="75.0" prefWidth="250.0" style="-fx-background-color: #F2F2F2;" text="Need Help?   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Leelawadee UI" size="20.0" />
                </font>
@@ -194,6 +197,114 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </GridPane>
+      <StackPane fx:id="infoPane" layoutX="20.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: rgba(0,0,0,0.5);;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="infoBox" alignment="CENTER" maxHeight="600.0" maxWidth="800.0" minHeight="100.0" minWidth="100.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CFE2F3;" StackPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../bwfh-logo-opt-2.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Welcome to Brigham &amp; Women's Faulkner Hospital" textAlignment="CENTER" textFill="#3a5369">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="1153 Centre Street, Boston, MA 02130&#10;Main Phone: 617-983-7000" textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="If you are logging in as an employee of the hospital, please log in using your hospital credentials." textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="25.0" right="25.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="If you are logging in as a patient, please log in with your patient account. If you do not have an existing account, you can create one with the &quot;Create an account&quot; button. If you can not remember the correct password for your account, you can select the &quot;Forgot Password?&quot; button which will lead to a page that helps to reset your password." textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Have a nice day!" textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXButton buttonType="RAISED" onAction="#nextInfo" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: #3A5369;" text="Next" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <StackPane fx:id="infoPane2" layoutX="30.0" layoutY="30.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: rgba(0,0,0,0.5);;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="infoBox2" alignment="CENTER" maxHeight="600.0" maxWidth="800.0" minHeight="100.0" minWidth="100.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CFE2F3;" StackPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../bwfh-logo-opt-2.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Additional Button Functionality" textAlignment="CENTER" textFill="#3a5369">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="97.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../HelpImages/loginButtons.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label text="Going from left to right there is the:&#10;&quot;Power&quot; button, &quot;Temperature Robot&quot; button, and &quot;Mobile App&quot; button." textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="The &quot;Power&quot; button exits the desktop application. The &quot;Temperature Robot&quot; button initiates a covid survey that will also detect the user's temperature. The &quot;Mobile App&quot; button launches the mobile application made for hospital patients." textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="25.0" right="25.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXButton buttonType="RAISED" onAction="#exitInfo" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: #3A5369;" text="Exit" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
    </children>
    <effect>
       <Blend />

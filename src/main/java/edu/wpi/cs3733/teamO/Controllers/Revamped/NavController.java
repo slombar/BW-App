@@ -102,7 +102,7 @@ public class NavController implements Initializable {
   private final JFXButton uploadB = new JFXButton(null, uploadIconView);
   private final JFXButton algoB = new JFXButton(null, algoIconView);
   private final JFXButton navB = new JFXButton(null, navIconView);
-  private final JFXButton floorSelectionB = new JFXButton(null, floorsIconView);
+  private final JFXButton floorSelectionB = new JFXButton("G", floorsIconView);
   private final JFXButton floorGB = new JFXButton("G", null);
   private final JFXButton floor1B = new JFXButton("1", null);
   private final JFXButton floor2B = new JFXButton("2", null);
