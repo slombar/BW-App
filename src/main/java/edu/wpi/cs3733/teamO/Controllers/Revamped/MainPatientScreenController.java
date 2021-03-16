@@ -126,11 +126,11 @@ public class MainPatientScreenController implements Initializable {
   }
 
   public void goToAccount(ActionEvent actionEvent) {
-    SwitchScene.newWindowParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
   }
 
   public void goToParking(ActionEvent actionEvent) {
-    SwitchScene.newWindowParent("/RevampedViews/DesktopApp/SaveParkingPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SaveParkingPage.fxml");
   }
 
   public void exitInfo(ActionEvent actionEvent) {

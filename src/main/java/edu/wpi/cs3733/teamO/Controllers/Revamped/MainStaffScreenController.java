@@ -148,9 +148,13 @@ public class MainStaffScreenController implements Initializable {
     // temporary until there is a page for this
   }
 
-  public void goToParking(ActionEvent actionEvent) {}
+  public void goToParking(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SaveParkingPage.fxml");
+  }
 
-  public void goToAccount(ActionEvent actionEvent) {}
+  public void goToAccount(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
+  }
 
   public void exitInfo(ActionEvent actionEvent) {
     infoPane.toBack();

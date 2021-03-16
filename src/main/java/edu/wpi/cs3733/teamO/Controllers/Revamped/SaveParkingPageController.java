@@ -3,7 +3,6 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
 import com.jfoenix.controls.JFXTextField;
-import edu.wpi.cs3733.teamO.Controllers.RevampedMobile.MainMobileScreenController;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -35,20 +34,10 @@ public class SaveParkingPageController implements Initializable {
     Autocomplete.autoComplete(parkingNodes, input);
   }
 
-  /**
-   * returns the previous map page based on booleans
-   *
-   * @param actionEvent
-   */
   public void goBack(ActionEvent actionEvent) {
-    if (MainMobileScreenController.isBackHome) {
-      SwitchScene.goToParentMobile("/RevampedViews/MobileApp/MainMobileScreen.fxml", actionEvent);
-      MainMobileScreenController.isBackHome = false;
-    } else {
-      SwitchScene.goToParentMobile("/Views/MobileApp/MobileHospitalNav.fxml", actionEvent);
-      MainMobileScreenController.isBackHome = false;
-    }
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
   }
+
 
   public void saveSpot(ActionEvent actionEvent) {
     String spot = input.getText().substring(13);
