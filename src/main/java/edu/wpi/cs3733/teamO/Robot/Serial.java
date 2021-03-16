@@ -50,7 +50,7 @@ public final class Serial {
     try {
       serPort = new SerialPort("COM5");
       out.println("Connecting to " + serPort.getPortName());
-      // out.println(serPort.openPort());
+
       if (serPort.openPort()) {
         out.println("Before Params");
         serPort.setParams(BAUDRATE_9600, DATABITS_8, STOPBITS_1, PARITY_NONE);
