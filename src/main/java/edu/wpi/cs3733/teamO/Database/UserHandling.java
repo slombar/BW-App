@@ -12,29 +12,7 @@ public class UserHandling {
 
   private static String username;
   private static Boolean isLoggedIn;
-  private static String fName;
   private static String parkingSpot;
-
-  public static String getParkingSpot() {
-    return parkingSpot;
-  }
-
-  public static void setParkingSpot(String parkingSpot) {
-    UserHandling.parkingSpot = parkingSpot;
-
-    String query = "UPDATE USERS SET";
-
-    try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-
-      preparedStmt.execute();
-      preparedStmt.close();
-
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
-  }
 
   /**
    * Delete the given user from the database based on Username
@@ -88,8 +66,8 @@ public class UserHandling {
         uname = rset.getString("USERNAME");
         pword = rset.getString("PASSWORD");
         email = rset.getString("EMAIL");
-        fName = rset.getString("fName");
-        lName = rset.getString("lName");
+        fName = rset.getString("FIRSTNAME");
+        lName = rset.getString("LASTNAME");
         employee = rset.getBoolean("EMPLOYEE");
         admin = rset.getBoolean("ADMIN");
 
@@ -225,7 +203,7 @@ public class UserHandling {
     u = u.toLowerCase();
 
     setLoginStatus(true);
-    setUsername(u);
+    setSessionUsername(u);
 
     String encodedPass = "";
     encodedPass = Encrypter.encryptPassword(p);
@@ -268,7 +246,7 @@ public class UserHandling {
 
     // setFirstName(fName);
     setLoginStatus(true);
-    setUsername(u);
+    setSessionUsername(u);
 
     String encodedPass = "";
     encodedPass = Encrypter.encryptPassword(p);
@@ -379,15 +357,6 @@ public class UserHandling {
     return b;
   }
 
-  public static String getUsername() {
-    return username;
-  }
-
-  // gettas and settas
-  public static void setUsername(String u) {
-    username = u;
-  }
-
   public static Boolean getLoginStatus() {
     return isLoggedIn;
   }
@@ -396,11 +365,178 @@ public class UserHandling {
     isLoggedIn = b;
   }
 
-  public static String getFirstName() {
-    return fName;
+  public static String getSessionUsername() {
+    return username;
   }
 
-  public static void setFirstName(String f) {
-    fName = f;
+  public static void setSessionUsername(String u) {
+    username = u;
+  }
+
+  public static String getUserByName(String employee) {
+    String uname = "";
+    String first = employee.split(" ")[0];
+    String last = employee.split(" ")[1];
+    String query = "SELECT USERNAME FROM USERS WHERE FIRSTNAME = ? AND LASTNAME = ?";
+
+    // database statement to grab values
+    try {
+      PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      pstmt.setString(1, first);
+      pstmt.setString(2, last);
+
+      // returns the results from query
+      ResultSet rset = pstmt.executeQuery();
+      rset.next();
+      uname = rset.getString("USERNAME");
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return uname;
+  }
+
+  /**
+   * get all data about current user based on the username in the session
+   *
+   * @return
+   */
+  public static User getSessionUser() {
+    User thisUser = new User();
+    String query = "SELECT * FROM USERS WHERE USERNAME = ?";
+
+    // database statement to grab values
+    try {
+      PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      pstmt.setString(1, username);
+
+      // returns the results from query
+      ResultSet rset = pstmt.executeQuery();
+
+      rset.next();
+
+      thisUser.setFirstName(rset.getString("FIRSTNAME"));
+      thisUser.setLastName(rset.getString("LASTNAME"));
+      thisUser.setEmail(rset.getString("EMAIL"));
+      thisUser.setPassword(rset.getString("PASSWORD"));
+      thisUser.setParkingSpot(rset.getString("PARKINGSPOT"));
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return thisUser;
+  }
+
+  public static String getParkingSpot() {
+    return parkingSpot;
+  }
+
+  public static void setParkingSpot(String ps) {
+    parkingSpot = ps;
+
+    String query = "UPDATE USERS SET PARKINGSPOT = ?";
+
+    try {
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, ps);
+
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  /**
+   * Get the parking spot of the session user
+   *
+   * @return
+   */
+  public static String getSessionParkingSpot() {
+    String ps = "";
+
+    User u = getSessionUser();
+    ps = u.getParkingSpot();
+
+    return ps;
+  }
+
+  /**
+   * Returns the password of the session user
+   *
+   * @return
+   */
+  public static String getSessionPassword() {
+    String pass = "";
+
+    User u = getSessionUser();
+    pass = u.getPassword();
+
+    return pass;
+  }
+
+  /**
+   * get the firstName of the session user
+   *
+   * @return
+   */
+  public static String getSessionFirstName() {
+    String first = "";
+
+    User u = getSessionUser();
+    first = u.getFirstName();
+
+    return first;
+  }
+
+  /**
+   * Get the last name of the session user
+   *
+   * @return
+   */
+  public static String getSessionLastName() {
+    String last = "";
+
+    User u = getSessionUser();
+    last = u.getLastName();
+
+    return last;
+  }
+
+  /**
+   * Get the email of the session user
+   *
+   * @return
+   */
+  public static String getSessionEmail() {
+    String email = "";
+
+    User u = getSessionUser();
+    email = u.getEmail();
+
+    return email;
+  }
+
+  /** Edit the profile for the current user */
+  public static void editSessionUser(String first, String last, String email) {
+
+    String query = "UPDATE USERS SET FIRSTNAME = ?, LASTNAME = ?, EMAIL = ? WHERE USERNAME = ?";
+    try {
+      PreparedStatement preparedStmt = null;
+      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, first);
+      preparedStmt.setString(2, last);
+      preparedStmt.setString(3, email);
+      preparedStmt.setString(4, username);
+
+      preparedStmt.executeUpdate();
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
   }
 }

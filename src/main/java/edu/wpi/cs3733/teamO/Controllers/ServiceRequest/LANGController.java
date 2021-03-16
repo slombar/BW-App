@@ -29,7 +29,7 @@ public class LANGController {
 
   public void submit(ActionEvent actionEvent) {
     // send values to DB
-    String requestedBy = UserHandling.getUsername();
+    String requestedBy = UserHandling.getSessionUsername();
     java.sql.Date dateN = Date.valueOf(dateNeeded.getValue());
     String requestType = getReqType();
     String loc = locationF.getText();

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.NavController"-->
+
+<VBox fx:id="directionVBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="20.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.Revamped.DrawerController">
+   <children>
+      <HBox prefHeight="16.0" prefWidth="200.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="290.0">
+               <children>
+                  <JFXTextField fx:id="email" prefHeight="25.0" prefWidth="187.0" promptText="example@mail.com">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXButton fx:id="confirmBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#sendEmail" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #fec107;" text="Email it!" textFill="#3a5369">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="200.0">
+         <children>
+            <JFXTextField fx:id="phoneNum" prefHeight="25.0" prefWidth="187.0" promptText="+1 123 456 7890">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </JFXTextField>
+            <JFXButton fx:id="textButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#sendText" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #fec107;" text="Text it!" textFill="#3a5369">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <GridPane alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="10.0" prefWidth="18.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="253.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="2.0" prefWidth="20.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="93.0" minHeight="28.0" prefHeight="28.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="162.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="60.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <JFXButton fx:id="generateQRBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#QRCodeGeneration" prefHeight="25.0" prefWidth="160.0" text="Generate QR Code" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <ImageView fx:id="QRView" fitHeight="162.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.Popups;
 
 import com.jfoenix.controls.JFXRadioButton;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
@@ -56,7 +57,10 @@ public class CovidSurveyController implements Initializable {
         || yes3.isSelected()) {
       if (No1.isSelected() && No2.isSelected() && No3.isSelected()) {
         //        SwitchScene.goToParent("/Views/MainPage.fxml");
-        SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+        String sideMenu = "/RevampedViews/DesktopApp/MainStaffScreen.fxml";
+        if (!UserHandling.getEmployee())
+          sideMenu = "/RevampedViews/DesktopApp/MainPatientScreen.fxml";
+        SwitchScene.goToParent(sideMenu);
       } else {
         PopupMaker.covidRisk(popupPane);
       }

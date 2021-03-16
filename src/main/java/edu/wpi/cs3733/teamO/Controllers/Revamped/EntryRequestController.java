@@ -48,7 +48,7 @@ public class EntryRequestController implements Initializable {
   public void displayHeadings() {
     HBox addBoxHead = new HBox();
     addBoxHead.setSpacing(30);
-    addBoxHead.setPrefWidth(1400);
+    addBoxHead.setPrefWidth(1440);
     addBoxHead.setBackground(
         new Background(
             new BackgroundFill(
@@ -60,12 +60,12 @@ public class EntryRequestController implements Initializable {
 
     Label reqByHeading = new Label(" Requester");
     reqByHeading.setStyle(
-        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+        "-fx-max-width: 90; -fx-min-width: 90; -fx-text-fill: #000000; -fx-font-size: 13pt; "
             + reqByHeading.getStyle());
 
     Label filledByHeading = new Label(" Assigned To");
     filledByHeading.setStyle(
-        "-fx-max-width: 110; -fx-min-width: 110; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt; "
             + filledByHeading.getStyle());
 
     Label dReqHeading = new Label(" Date");
@@ -75,22 +75,28 @@ public class EntryRequestController implements Initializable {
 
     Label sympHeading = new Label(" Symptoms?");
     sympHeading.setStyle(
-        "-fx-max-width: 175; -fx-min-width: 175; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt; "
             + sympHeading.getStyle());
+
+    Label specSympHeading = new Label(" Details");
+    specSympHeading.setStyle(
+        "-fx-max-width: 150; -fx-min-width: 150; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + specSympHeading.getStyle());
 
     Label c1Heading = new Label(" Entry Check");
     c1Heading.setStyle(
         "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt; "
             + c1Heading.getStyle());
 
-    Label c2Heading = new Label(" Exit Check");
-    c2Heading.setStyle(
-        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt;  "
-            + c2Heading.getStyle());
+    //    Label c2Heading = new Label(" Exit Check");
+    //    c2Heading.setStyle(
+    //        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt;
+    // "
+    //            + c2Heading.getStyle());
 
-    Label locHeading = new Label(" Approved Entrance");
+    Label locHeading = new Label(" Designated Entrance");
     locHeading.setStyle(
-        "-fx-max-width: 200; -fx-min-width: 200; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+        "-fx-max-width: 348; -fx-min-width: 348; -fx-text-fill: #000000; -fx-font-size: 13pt; "
             + locHeading.getStyle());
 
     JFXButton markDone = new JFXButton();
@@ -102,9 +108,11 @@ public class EntryRequestController implements Initializable {
     addBoxHead.getChildren().add(filledByHeading);
     addBoxHead.getChildren().add(dReqHeading);
     addBoxHead.getChildren().add(sympHeading);
-    addBoxHead.getChildren().add(c1Heading);
-    addBoxHead.getChildren().add(c2Heading);
+    addBoxHead.getChildren().add(specSympHeading);
+
+    // addBoxHead.getChildren().add(c2Heading);
     addBoxHead.getChildren().add(locHeading);
+    addBoxHead.getChildren().add(c1Heading);
     reqBox.getChildren().add(addBoxHead);
   }
 
@@ -119,10 +127,11 @@ public class EntryRequestController implements Initializable {
     Boolean symptoms = r.getIfSymptoms();
     Boolean check1 = r.getCheck1();
     Boolean check2 = r.getCheck2();
+    String specSymp = r.getSpecificSymptoms();
 
     HBox addBox = new HBox();
     addBox.setSpacing(30);
-    addBox.setPrefWidth(1400);
+    addBox.setPrefWidth(1440);
     addBox.setBackground(
         new Background(
             new BackgroundFill(Color.color(.95, .95, .95), new CornerRadii(5), Insets.EMPTY)));
@@ -130,36 +139,40 @@ public class EntryRequestController implements Initializable {
     id.setStyle("-fx-max-width: 50; -fx-min-width: 50; " + id.getStyle());
 
     Label reqBy = new Label(requestedBy);
-    reqBy.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + reqBy.getStyle());
+    reqBy.setStyle("-fx-max-width: 90; -fx-min-width: 90; " + reqBy.getStyle());
 
     Label filledBy = new Label(fulfilledBy);
-    filledBy.setStyle("-fx-max-width: 110; -fx-min-width: 110; " + filledBy.getStyle());
+    filledBy.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + filledBy.getStyle());
 
     Label dReq = new Label(dateRequested.toString());
     dReq.setStyle("-fx-max-width: 125; -fx-min-width: 125; " + dReq.getStyle());
 
     Label symp = new Label("");
     if (symptoms) {
-      symp = new Label("Potential Symptoms");
-      symp.setStyle("-fx-max-width: 175; -fx-min-width: 175; " + symp.getStyle());
+      symp = new Label("Potential");
+      symp.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + symp.getStyle());
     } else {
-      symp = new Label("No Symptoms");
-      symp.setStyle("-fx-max-width: 175; -fx-min-width: 175; " + symp.getStyle());
+      symp = new Label("None");
+      symp.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + symp.getStyle());
     }
+
+    Label spec_symp = new Label(specSymp);
+    spec_symp.setStyle("-fx-max-width: 150; -fx-min-width: 150; " + spec_symp.getStyle());
 
     Label c1 = new Label(String.valueOf(check1));
     c1.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + c1.getStyle());
 
-    Label c2 = new Label(String.valueOf(check2));
-    c2.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + c2.getStyle());
+    //    Label c2 = new Label(String.valueOf(check2));
+    //    c2.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + c2.getStyle());
 
     Label loc = new Label(location);
-    loc.setStyle("-fx-max-width: 200; -fx-min-width: 200; " + loc.getStyle());
+    loc.setStyle("-fx-max-width: 150; -fx-min-width: 150; " + loc.getStyle());
 
     JFXButton mainEntrance = new JFXButton();
     JFXButton covidEntrance = new JFXButton();
+    JFXButton approvedEntry = new JFXButton();
 
-    reqBox.setSpacing(15);
+    reqBox.setSpacing(10);
 
     String status = "";
 
@@ -175,7 +188,6 @@ public class EntryRequestController implements Initializable {
             EntryRequestHandling.setEntrance(reqID, "Main");
             SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
           } catch (SQLException throwables) {
-            // TODO @sam add input scrubbing / verification?
             throwables.printStackTrace();
           }
         });
@@ -186,7 +198,16 @@ public class EntryRequestController implements Initializable {
             EntryRequestHandling.setEntrance(reqID, "Emergency");
             SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
           } catch (SQLException throwables) {
-            // TODO @sam add input scrubbing / verification?
+            throwables.printStackTrace();
+          }
+        });
+
+    approvedEntry.setOnAction(
+        t -> {
+          try {
+            EntryRequestHandling.setCheck1(reqID, true);
+            SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
+          } catch (SQLException throwables) {
             throwables.printStackTrace();
           }
         });
@@ -199,13 +220,18 @@ public class EntryRequestController implements Initializable {
     covidEntrance.setStyle(
         "-fx-background-color: #CFE2F3; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: BOLD;");
 
+    approvedEntry.setText("Approve");
+    approvedEntry.setStyle(
+        "-fx-background-color: #FEC107; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: BOLD;");
+
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
     addBox.getChildren().add(filledBy);
     addBox.getChildren().add(dReq);
     addBox.getChildren().add(symp);
-    addBox.getChildren().add(c1);
-    addBox.getChildren().add(c2);
+    addBox.getChildren().add(spec_symp);
+
+    // addBox.getChildren().add(c2);
     addBox.getChildren().add(loc);
     /*
        if (par1 != null && !par1.equals("null")) {
@@ -236,6 +262,8 @@ public class EntryRequestController implements Initializable {
     // add button
     addBox.getChildren().add(mainEntrance);
     addBox.getChildren().add(covidEntrance);
+    addBox.getChildren().add(c1);
+    addBox.getChildren().add(approvedEntry);
 
     for (Node n : addBox.getChildren()) {
       if (!n.getClass().equals(JFXButton.class)) {
@@ -418,6 +446,12 @@ public class EntryRequestController implements Initializable {
       dialog.show();
     }
   */
+
+  public void getApprovedPatients(ActionEvent actionEvent) {
+    // TODO
+
+  }
+
   /**
    * Delete button functionality. will delete service request from DB
    *
@@ -468,7 +502,7 @@ public class EntryRequestController implements Initializable {
 
             dialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/RequestList.fxml");
+            SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
           }
         });
     dialog.show();

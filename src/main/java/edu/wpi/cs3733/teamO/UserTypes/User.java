@@ -11,6 +11,7 @@ public class User {
   public String password;
   public boolean admin;
   public boolean employee;
+  public String parkingSpot;
   @FXML private JFXButton guestButton;
 
   /**
@@ -39,6 +40,17 @@ public class User {
     this.lastName = lName;
     this.admin = admin;
     this.employee = employee;
+    this.parkingSpot = null;
+  }
+
+  public User() {}
+
+  public String getParkingSpot() {
+    return parkingSpot;
+  }
+
+  public void setParkingSpot(String parkingSpot) {
+    this.parkingSpot = parkingSpot;
   }
 
   public String getFirstName() {

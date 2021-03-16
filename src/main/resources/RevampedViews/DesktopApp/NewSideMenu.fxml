@@ -58,17 +58,12 @@
             <Font name="Leelawadee UI" size="31.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="patientsBtn" alignment="BASELINE_LEFT" onAction="#toPatients" prefHeight="100.0" prefWidth="275.0" text="Patients">
-         <font>
-            <Font name="Leelawadee UI" size="31.0" />
-         </font>
-      </JFXButton>
       <JFXButton fx:id="employeesBtn" alignment="BASELINE_LEFT" onAction="#toEmployees" prefHeight="100.0" prefWidth="275.0" text="Employees">
          <font>
             <Font name="Leelawadee UI" size="31.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="loginBtn" alignment="BASELINE_LEFT" onAction="#toLogin" prefHeight="100.0" prefWidth="275.0" text="Log Out" translateY="150.0">
+      <JFXButton fx:id="loginBtn" alignment="BASELINE_LEFT" onAction="#toLogin" prefHeight="100.0" prefWidth="275.0" text="Log Out" translateY="250.0">
          <font>
             <Font name="Leelawadee UI" size="31.0" />
          </font>

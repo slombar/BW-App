@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,13 +15,17 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController">
    <children>
+      <StackPane fx:id="popUpPane" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="350.0" layoutX="-148.0" layoutY="161.0" miniDrawerSize="0.0" prefHeight="637.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="350.0" layoutX="-148.0" layoutY="161.0" miniDrawerSize="0.0" prefHeight="637.0" prefWidth="350.0" translateX="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <JFXDrawer fx:id="sideDrawerForAdd" alignment="TOP_LEFT" defaultDrawerSize="400.0" direction="RIGHT" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXButton onAction="#closeAddMenu" text="x" textFill="#f2f2f2">
@@ -28,7 +33,7 @@
                   <Font size="18.0" />
                </font></JFXButton>
          </children></JFXDrawer>
-      <VBox layoutX="30.0" layoutY="261.0" prefHeight="300.0" style="-fx-background-color: #f2f2f2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="30.0" layoutY="261.0" prefHeight="300.0" prefWidth="1180.0" style="-fx-background-color: #f2f2f2;" translateX="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" wrappingWidth="496.386474609375">
                <font>
@@ -264,7 +269,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <VBox layoutX="-10.0" layoutY="293.0" spacing="10.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
+      <VBox layoutX="-10.0" layoutY="293.0" prefHeight="500.0" prefWidth="1180.0" spacing="10.0" style="-fx-background-color: white;" translateX="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="300.0">
          <children>
             <GridPane>
               <columnConstraints>
@@ -324,7 +329,7 @@
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
-                  <Label prefWidth="70.0" text="Date">
+                  <Label prefWidth="80.0" text="Date">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
@@ -333,7 +338,7 @@
                         <Font name="Leelawadee UI" size="14.0" />
                      </font>
                   </Label>
-                  <Label prefWidth="70.0" text="Need By">
+                  <Label prefWidth="80.0" text="Need By">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
@@ -356,7 +361,7 @@
                      </font></Label>
                </children>
             </HBox>
-            <ScrollPane prefHeight="300.0" prefWidth="1236.0">
+            <ScrollPane prefWidth="1136.0">
                <content>
                   <VBox fx:id="requestList" minHeight="400.0" minWidth="400.0" />
                </content>
@@ -365,6 +370,76 @@
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
+      </VBox>
+      <JFXDrawer fx:id="drawerSM" defaultDrawerSize="375.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="1080.0" prefWidth="275.0" resizableOnDrag="true" AnchorPane.leftAnchor="100.0" />
+      <VBox fx:id="menuVBox" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: a9a9a9;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXHamburger fx:id="hamburger" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" style="-fx-background-color: gray;" />
+            <Line endX="100.0" />
+            <JFXButton fx:id="profileBtn" onAction="#toProfile" prefHeight="100.0" prefWidth="283.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                     <image>
+                        <Image url="@../../Icons/profileIconBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="homeBtn" onAction="#toHome" prefHeight="100.0" prefWidth="283.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                     <image>
+                        <Image url="@../../Icons/HomeIconBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="navBtn1" onAction="#toNav" prefHeight="100.0" prefWidth="283.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                     <image>
+                        <Image url="@../../Icons/simpleNavIconBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="trackBtn" onAction="#toTrack" prefHeight="100.0" prefWidth="283.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                     <image>
+                        <Image url="@../../Icons/stethoscopeIconBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="reqBtn" onAction="#toReq" prefHeight="100.0" prefWidth="283.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                     <image>
+                        <Image url="@../../Icons/formIconBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="employeesBtn" onAction="#toEmployees" prefHeight="100.0" prefWidth="283.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                     <image>
+                        <Image url="@../../Icons/doctorIconBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="loginBtn" onAction="#toLogin" prefHeight="100.0" prefWidth="283.0" text=" " translateY="250.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                     <image>
+                        <Image url="@../../Icons/exitBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
       </VBox>
    </children>
 </AnchorPane>

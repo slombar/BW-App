@@ -23,9 +23,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="gridPane" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
+<GridPane fx:id="gridPane" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.NewNavPageController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="15.0" prefWidth="100.0" />
+    <ColumnConstraints fx:id="column0" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="15.0" prefWidth="100.0" />
     <ColumnConstraints fx:id="col1" percentWidth="70.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="15.0" />
   </columnConstraints>
@@ -46,13 +46,13 @@
       <GridPane fx:id="innerGrid" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <StackPane fx:id="nodeWarningPane" prefHeight="27.0" prefWidth="248.0" />
-            <StackPane fx:id="stackPane" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" />
-            <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <ImageView fx:id="imageView" fitHeight="399.0" fitWidth="552.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../FaulknerCampus_Updated.png" />
                </image>
             </ImageView>
-            <Canvas fx:id="mapCanvas" height="955.0" onDragDetected="#nodeDrag" onMouseClicked="#canvasClick" onScroll="#onCanvasScroll" width="1160.0" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Canvas fx:id="mapCanvas" height="955.0" onDragDetected="#nodeDrag" onMouseClicked="#canvasClick" onScroll="#onCanvasScroll" width="1160.0" />
+            <StackPane fx:id="stackPane" alignment="TOP_CENTER" />
          </children>
          <columnConstraints>
             <ColumnConstraints />
@@ -165,6 +165,7 @@
          </children>
       </VBox>
       <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="402.0" prefWidth="123.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+      <HBox fx:id="rc00" />
       <JFXHamburger fx:id="hamburger" style="-fx-background-color: #3a5369;" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <children>

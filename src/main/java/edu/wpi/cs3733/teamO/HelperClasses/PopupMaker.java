@@ -569,7 +569,7 @@ public class PopupMaker {
     Text reqBy = new Text("Requested By: " + request.getRequestedBy());
     reqBy.setWrappingWidth(wrapLength);
 
-    Text fulfilledBy = new Text("Fulfilled By: " + request.getFulfilledBy());
+    Text fulfilledBy = new Text("Fulfilled By: " + request.getAssignedTo());
     fulfilledBy.setWrappingWidth(wrapLength);
 
     Text dateReq = new Text("Date Requested: " + request.getDateRequested().toString());
@@ -606,6 +606,62 @@ public class PopupMaker {
   }
 
   public static void entryReqPopup(StackPane popupPane, String reqId) {
+    popupPane.toFront();
+    int wrapLength = 650;
+
+    System.out.println("String: " + reqId);
+
+    // Creates the content for the popup
+    JFXDialogLayout warning = new JFXDialogLayout();
+    EntryRequest request = EntryRequestHandling.getRequest(Integer.parseInt(reqId));
+    Text heading = new Text("Request " + reqId);
+    heading.setStyle(
+        "-fx-font-family: 'Leelawadee UI'; -fx-font-size: 18pt; -fx-font-weight: 700; ");
+    warning.setHeading(heading);
+
+    Text reqBy = new Text("Requested By: " + request.getRequestedBy());
+    reqBy.setWrappingWidth(wrapLength);
+
+    Text fulfilledBy = new Text("Fulfilled By: " + request.getFulfilledBy());
+    fulfilledBy.setWrappingWidth(wrapLength);
+
+    Text dateReq = new Text("Date Requested: " + request.getDateRequested().toString());
+    dateReq.setWrappingWidth(wrapLength);
+
+    Text location = new Text("Location: " + request.getLocationNodeID());
+    location.setWrappingWidth(wrapLength);
+
+    Text symptoms = new Text("Summary: " + request.getIfSymptoms());
+    symptoms.setWrappingWidth(wrapLength);
+
+    Text check1 = new Text("para1: " + request.getCheck1());
+    check1.setWrappingWidth(wrapLength);
+
+    Text check2 = new Text("para2: " + request.getCheck2());
+    check2.setWrappingWidth(wrapLength);
+
+    VBox addvbox = new VBox();
+    addvbox.getChildren().addAll(reqBy, fulfilledBy, dateReq, location, symptoms, check1, check2);
+    addvbox.setStyle(
+        "-fx-wrap-text: true; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 16pt; -fx-spacing: 16pt; ");
+    // text.setWrappingWidth(200);
+    warning.setBody(addvbox);
+    JFXButton closeButton = new JFXButton("Close");
+    warning.setActions(closeButton);
+
+    // Creates the actual popup
+    JFXDialog warningDialog =
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+    // Closes the popup
+    closeButton.setOnAction(
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
+    warningDialog.show();
+  }
+
+  public static void approvedPatients(StackPane popupPane, String reqId) {
     popupPane.toFront();
     int wrapLength = 650;
 
