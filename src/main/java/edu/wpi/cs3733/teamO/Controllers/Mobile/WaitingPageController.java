@@ -6,13 +6,15 @@ import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
+import javax.swing.*;
 
-public class WaitingPageController implements Initializable {
+public class WaitingPageController extends JComponent implements Initializable {
   private static boolean isSurveyApproved;
   private static String location;
 
@@ -42,11 +44,9 @@ public class WaitingPageController implements Initializable {
     entryThread.start();
     awaitingEntryApproval(EntryTask);
 
-    // TODO: need to use the following popups
-    // enable button once employee edits form and grab location
-
-    //    PopupMaker.mainEntranceNotif(popupNotification);
-    //    PopupMaker.covidEntranceNotif(popupNotification);
+    SwingNode s = new SwingNode();
+    WaitingPageController c = new WaitingPageController();
+    s.setContent(c);
   }
 
   void awaitingEntryApproval(Task<Void> EntryTask) {
