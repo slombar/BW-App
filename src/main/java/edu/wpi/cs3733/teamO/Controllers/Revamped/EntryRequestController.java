@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.EntryRequestHandling;
+import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
@@ -330,7 +331,7 @@ public class EntryRequestController implements Initializable {
             //              incompletePopup();
             PopupMaker.incompletePopup(popUpPane);
           } else {
-            UserHandling.assignEmployee(
+            RequestHandling.assignEmployee(
                 Integer.parseInt(listOfFields.get(0).getText()), listOfFields.get(1).getText());
 
             assignStaffDialog.close();

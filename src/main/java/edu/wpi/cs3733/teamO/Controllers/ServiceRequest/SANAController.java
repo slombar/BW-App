@@ -43,7 +43,7 @@ public class SANAController {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += " Instructions: " + f1 + " CV19: " + f2;
     r.setSummary(sum);
     RequestHandling.addRequest(r);

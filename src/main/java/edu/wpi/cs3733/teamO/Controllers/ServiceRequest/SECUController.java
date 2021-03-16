@@ -42,7 +42,7 @@ public class SECUController {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += " Threat Level: " + f2 + " Armed?: " + f3 + "Situation: " + f1;
     r.setSummary(sum);
     RequestHandling.addRequest(r);

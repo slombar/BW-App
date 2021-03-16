@@ -39,7 +39,7 @@ public class COMPController {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += " Requested For: " + f1;
     r.setSummary(sum);
     RequestHandling.addRequest(r);

@@ -57,7 +57,7 @@ public class ReqController implements Initializable {
     String fulfilledBy = r.getFulfilledBy();
     Date dateNeeded = r.getDateNeeded();
     Date dateRequested = r.getDateRequested();
-    String location = r.getLocationNodeID();
+    String location = r.getRequestLocation();
 
     HBox addBox = new HBox();
     addBox.setSpacing(30);
@@ -281,7 +281,7 @@ public class ReqController implements Initializable {
             //              incompletePopup();
             PopupMaker.incompletePopup(popUpPane);
           } else {
-            UserHandling.assignEmployee(
+            RequestHandling.assignEmployee(
                 Integer.parseInt(listOfFields.get(0).getText()), listOfFields.get(1).getText());
 
             assignStaffDialog.close();
