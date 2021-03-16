@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.teamO.DinoGame.components;
 
+import edu.wpi.cs3733.teamO.DinoGame.utility.Resource;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import edu.wpi.cs3733.teamO.DinoGame.utility.Resource;
 
 public class Dino {
   private static int dinoBaseY, dinoTopY, dinoStartX, dinoEndX;
