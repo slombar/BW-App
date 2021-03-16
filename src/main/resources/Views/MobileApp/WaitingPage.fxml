@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -62,13 +63,21 @@
                   <StackPane fx:id="spinnerPane" alignment="TOP_CENTER" onMouseMoved="#checkStatus" prefHeight="109.0" prefWidth="268.0" />
                </children>
             </VBox>
+            <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <AnchorPane fx:id="wPageAnchorPane" prefHeight="150.0" prefWidth="200.0" />
+               </children>
+            </StackPane>
             <StackPane fx:id="popupNotification" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <JFXButton onAction="#goToSurvey" text="Back" textFill="WHITE" />
+                  <JFXButton onAction="#goToSurvey" text="Back" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></JFXButton>
                   <JFXButton fx:id="hospitalNavBtn" onAction="#goToHospitalNav" text="Continue" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="125.0" />
+                        <Insets left="125.0" top="10.0" />
                      </HBox.margin>
                   </JFXButton>
                </children>
