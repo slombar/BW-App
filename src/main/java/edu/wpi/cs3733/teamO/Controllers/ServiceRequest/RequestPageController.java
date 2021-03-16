@@ -303,6 +303,7 @@ public class RequestPageController implements Initializable {
       assigned.setPrefWidth(100);
       rLocation.setPrefWidth(100);
       summary.setPrefWidth(250);
+      summary.setWrapText(true);
       status.setPrefWidth(80);
 
       oneRow
