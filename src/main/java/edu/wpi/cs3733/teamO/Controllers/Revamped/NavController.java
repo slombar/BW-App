@@ -139,14 +139,9 @@ public class NavController implements Initializable {
   // booleans:
   private boolean editing = false;
 
-  // navigating bools:
-  private boolean selectingStart = false;
-  private boolean selectingEnd = false;
   private boolean displayingRoute = false;
 
   private void setNavFalse() {
-    selectingStart = false;
-    selectingEnd = false;
     displayingRoute = false;
     startNode = null;
     endNode = null;
@@ -351,9 +346,6 @@ public class NavController implements Initializable {
     pathfindContext.getItems().add(setEnd);
     pathfindContext.getItems().add(clearPathMenu);
 
-    selectingStart = false;
-    selectingEnd = true;
-
     /** Initialize the drawer @sadie */
     switchDrawer();
 
@@ -506,33 +498,33 @@ public class NavController implements Initializable {
     /** Floor onactions* */
     floorGB.setOnAction(
         e -> {
-          imageView.setImage(campusMap);
-          setMapViewDraw("G");
+          setFloor("G");
+          draw();
         });
     floor1B.setOnAction(
         e -> {
-          imageView.setImage(floor1Map);
-          setMapViewDraw("1");
+          setFloor("1");
+          draw();
         });
     floor2B.setOnAction(
         e -> {
-          imageView.setImage(floor2Map);
-          setMapViewDraw("2");
+          setFloor("2");
+          draw();
         });
     floor3B.setOnAction(
         e -> {
-          imageView.setImage(floor3Map);
-          setMapViewDraw("3");
+          setFloor("3");
+          draw();
         });
     floor4B.setOnAction(
         e -> {
-          imageView.setImage(floor4Map);
-          setMapViewDraw("4");
+          setFloor("4");
+          draw();
         });
     floor5B.setOnAction(
         e -> {
-          imageView.setImage(floor5Map);
-          setMapViewDraw("5");
+          setFloor("5");
+          draw();
         });
 
     /** Edit onactions* */
@@ -545,6 +537,7 @@ public class NavController implements Initializable {
           } else {
             setEditFalse();
           }
+          resetFloorButtons();
           switchDrawer();
           draw();
         });
@@ -647,21 +640,18 @@ public class NavController implements Initializable {
       GRAPH.resetPath();
       GRAPH.findPath(Settings.getInstance().getAlgoChoice(), startNode, endNode);
       displayingRoute = true;
-      selectingStart = false;
-      selectingEnd = false;
-    } else if (!startLoc.getText().isEmpty() && !endLoc.getText().isEmpty()) {
+    } else if (startLoc.getText() != null && endLoc.getText() != null) {
       startNode = GRAPH.getNodeByLongName(startLoc.getText());
       endNode = GRAPH.getNodeByLongName(endLoc.getText());
       GRAPH.resetPath();
-      GRAPH.findPath("A*", startNode, endNode);
+      GRAPH.findPath(Settings.getInstance().getAlgoChoice(), startNode, endNode);
       displayingRoute = true;
-      selectingStart = false;
-      selectingEnd = false;
     } else {
       // TODO: add stackpane for all warnings
       //      PopupMaker.invalidPathfind(nodeWarningPane);
     }
 
+    setFloor(startNode.getFloor());
     draw();
     pathFloors = "";
     for (Node n : GRAPH.getPath()) {
@@ -669,6 +659,7 @@ public class NavController implements Initializable {
         pathFloors += n.getFloor();
       }
     }
+    disableFloorButtons();
 
     /** DIRECTIONS @sadie */
 
@@ -686,8 +677,6 @@ public class NavController implements Initializable {
    */
   public void canvasClick(MouseEvent mouseEvent) {
     // close the directions drawer
-    selectingStart = !selectingStart;
-    selectingEnd = !selectingEnd;
     Node clickedNode =
         GRAPH.closestNode(sFloor, mouseEvent.getX(), mouseEvent.getY(), editing, imageView);
 
@@ -958,161 +947,12 @@ public class NavController implements Initializable {
     editingEdge = false;
   }
 
-  /**
-   * Edits the node that is currently selected. If the map is page is in adding new node mode,
-   * clicking this button will add the new node to the DB. Otherwise, will edit existing node. Once
-   * changes are made, the fields will be cleared
-   *
-   * @param actionEvent
-   */
-  public void editNode(ActionEvent actionEvent) {
-    //    // if any fields are empty, show appropriate warning
-    //    if (isNodeInfoEmpty()) {
-    //      PopupMaker.incompletePopup(nodeWarningPane);
-    //    }
-    //    // else, add/edit Node (depending on addNodeDBMode = t/f)
-    //    else {
-    //      try {
-    //        Node n =
-    //                new Node(
-    //                        nodeID.getText(),
-    //                        Integer.parseInt(xCoord.getText()),
-    //                        Integer.parseInt(yCoord.getText()),
-    //                        floor.getText(),
-    //                        building.getText(),
-    //                        nodeType.getText(),
-    //                        longName.getText(),
-    //                        shortName.getText(),
-    //                        "O",
-    //                        setVisibility.isSelected());
-    //
-    //        GRAPH.addNode(n, addNodeDBMode);
-    //        clearNodeInfo();
-    //        selectedNode = null; // when clear Node info, also de-select Node
-    //
-    //      } catch (SQLException throwables) {
-    //        PopupMaker.nodeAlreadyExists(nodeWarningPane);
-    //      }
-    //    }
-    //
-    //    addNodeDBMode = false;
-    //
-    //    selectingEditNode = true;
-    draw();
-  }
-
   /** will delete the node that is currently selected */
   private void deleteNode(Node selectedNode) throws SQLException {
     GRAPH.deleteNode(selectedNode.getID());
     selectedNode = null;
     draw();
   }
-
-  /**
-   * will add a new edge based on the start and end node IDs
-   *
-   * @param actionEvent
-   */
-  //  public void addEdge(ActionEvent actionEvent) {
-  //    // if any fields are empty, show appropriate warning
-  //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
-  //      PopupMaker.incompletePopup(nodeWarningPane);
-  //    }
-  //    // else, add appropriate edge
-  //    else {
-  //      try {
-  //        GRAPH.addEdge(startNodeID.getText(), endNodeID.getText());
-  //        clearEdgeInfo(); // when clear info, de-select Nodes
-  //        selectedNode = null;
-  //        selectedNodeB = null;
-  //
-  //      } catch (SQLException throwables) {
-  //        PopupMaker.edgeAlreadyExists(nodeWarningPane);
-  //      }
-  //    }
-  //    draw();
-  //  }
-
-  /**
-   * will delete an edge based on start and end node IDs
-   *
-   * @param actionEvent
-   * @throws SQLException
-   */
-  //  public void deleteEdge(ActionEvent actionEvent) throws SQLException {
-  //    // if any fields are empty, show appropriate warning
-  //    if (startNodeID.getText().isEmpty() || endNodeID.getText().isEmpty()) {
-  //      PopupMaker.incompletePopup(nodeWarningPane);
-  //    } else {
-  //      try {
-  //        GRAPH.deleteEdge(startNodeID.getText(), endNodeID.getText());
-  //        clearEdgeInfo(); // when clear info, de-select Nodes
-  //        selectedNode = null;
-  //        selectedNodeB = null;
-  //
-  //      } catch (SQLException throwables) {
-  //        PopupMaker.edgeDoesntExists(nodeWarningPane);
-  //      }
-  //    }
-  //    draw();
-  //  }
-
-  /**
-   * checks if the any of the node fields are null
-   *
-   * @return true if any node fields are null
-   */
-  //  private boolean isNodeInfoNull() {
-  //    if ((nodeID.getText() == null)
-  //            || (xCoord.getText() == null)
-  //            || (yCoord.getText() == null)
-  //            || (floor.getText() == null)
-  //            || (building.getText() == null)
-  //            || (nodeType.getText() == null)
-  //            || (longName.getText() == null)
-  //            || (shortName.getText() == null)) {
-  //      return true;
-  //    }
-  //    return false;
-  //  }
-
-  /**
-   * checks if the any of the node fields are empty
-   *
-   * @return true if any node fields are empty
-   */
-  //  private boolean isNodeInfoEmpty() {
-  //    if (nodeID.getText().isEmpty()
-  //            || xCoord.getText().isEmpty()
-  //            || yCoord.getText().isEmpty()
-  //            || floor.getText().isEmpty()
-  //            || building.getText().isEmpty()
-  //            || nodeType.getText().isEmpty()
-  //            || longName.getText().isEmpty()
-  //            || shortName.getText().isEmpty()) {
-  //      return true;
-  //    }
-  //    return false;
-  //  }
-  //
-  /** clears all info in node textfields */
-  //  private void clearNodeInfo() {
-  //    nodeID.clear();
-  //    xCoord.clear();
-  //    yCoord.clear();
-  //    floor.clear();
-  //    building.clear();
-  //    nodeType.clear();
-  //    longName.clear();
-  //    shortName.clear();
-  //    setVisibility.setSelected(false);
-  //  }
-  //
-  /** clears all info in edge textfields */
-  //  private void clearEdgeInfo() {
-  //    startNodeID.clear();
-  //    endNodeID.clear();
-  //  }
 
   /**
    * Drag the node to change its coords
@@ -1202,103 +1042,76 @@ public class NavController implements Initializable {
     System.out.println("The share button was pressed my guy");
   }
 
-  //  /**
-  //   * creates an output file
-  //   *
-  //   * @param fileName
-  //   * @return file
-  //   */
-  //  public File createOutputFile(String fileName) {
-  //    String home = System.getProperty("user.home");
-  //    File outputFile = new File(home + "/Downloads/" + fileName);
-  //    return outputFile;
-  //  }
-  //
-  //  /**
-  //   * grabs an image from a floor and gives it an output file
-  //   *
-  //   * @param image
-  //   * @param floor
-  //   * @param outputFile
-  //   * @return WritableImage
-  //   * @throws IOException
-  //   */
-  //  public WritableImage grabImage(Image image, String floor, File outputFile) throws IOException
-  // {
-  //
-  //    imageView.setImage(image);
-  //    sFloor = floor;
-  //    resizeCanvas();
-  //    draw();
-  //    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
-  //    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
-  //    return map;
-  //  }
-  //
-  //  /**
-  //   * takes pictures of every floor to email and navigates to email page
-  //   *
-  //   * @param actionEvent
-  //   * @throws IOException
-  //   */
-  //  public void toSharePage(ActionEvent actionEvent) throws IOException, UnirestException {
-  //
-  //    GraphicsContext gc = mapCanvas.getGraphicsContext2D();
-  //    mapCanvas.getGraphicsContext2D();
-  //    // TODO: Insert method call that write qr.png to download folder
-  //    //    SharingFunctionality.createQRCode(
-  //    //        "mapimg1.png", "mapimg2.png", "mapimg3.png", "mapimg4.png", "mapimg5.png",
-  //    // "mapimg6.png");
-  //
-  //    WritableImage map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
-  //    WritableImage map2 = grabImage(floor1Map, "1", createOutputFile("mapimg2.png"));
-  //    WritableImage map3 = grabImage(floor2Map, "2", createOutputFile("mapimg3.png"));
-  //    WritableImage map4 = grabImage(floor3Map, "3", createOutputFile("mapimg4.png"));
-  //    WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
-  //    WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
-  //    LinkedList<WritableImage> listOfImages = new LinkedList<>();
-  //    if (pathFloors.contains("G")) {
-  //      listOfImages.add(map1);
-  //    }
-  //    if (pathFloors.contains("1")) {
-  //      listOfImages.add(map2);
-  //    }
-  //    if (pathFloors.contains("2")) {
-  //      listOfImages.add(map3);
-  //    }
-  //    if (pathFloors.contains("3")) {
-  //      listOfImages.add(map4);
-  //    }
-  //    if (pathFloors.contains("4")) {
-  //      listOfImages.add(map5);
-  //    }
-  //    if (pathFloors.contains("5")) {
-  //      listOfImages.add(map6);
-  //    }
-  //    if (listOfImages.isEmpty()) {
-  //      // TODO: Throw a error "you did not do pathfind"
-  //    }
-  //    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
-  //    // EmailPageController.setScreenShot(listOfImages);
-  //    SwitchScene.goToParent("/Views/EmailPage.fxml");
-  //  }
-
   public void clearSelection() {
+    startNode = null;
+    endNode = null;
     startLoc.clear();
     endLoc.clear();
     setNavFalse();
-    selectingEnd = true;
 
     GRAPH.resetPath();
+    pathFloors = "";
+    resetFloorButtons();
 
     resizeCanvas();
     draw();
     //    directionvbox.getChildren().clear();
   }
 
+  /** disables and hides floor buttons for floors that aren't in the current path */
+  public void disableFloorButtons() {
+    if (!pathFloors.contains("G")) {
+      floorGB.setDisable(true);
+      floorGB.setVisible(false);
+    }
+    if (!pathFloors.contains("1")) {
+      floor1B.setDisable(true);
+      floor1B.setVisible(false);
+    }
+    if (!pathFloors.contains("2")) {
+      floor2B.setDisable(true);
+      floor2B.setVisible(false);
+    }
+    if (!pathFloors.contains("3")) {
+      floor3B.setDisable(true);
+      floor3B.setVisible(false);
+    }
+    if (!pathFloors.contains("4")) {
+      floor4B.setDisable(true);
+      floor4B.setVisible(false);
+    }
+    if (!pathFloors.contains("5")) {
+      floor5B.setDisable(true);
+      floor5B.setVisible(false);
+    }
+  }
+
+  /** resets (enables and un-hides) all floor buttons */
+  public void resetFloorButtons() {
+    floorGB.setDisable(false);
+    floorGB.setVisible(true);
+
+    floor1B.setDisable(false);
+    floor1B.setVisible(true);
+
+    floor2B.setDisable(false);
+    floor2B.setVisible(true);
+
+    floor3B.setDisable(false);
+    floor3B.setVisible(true);
+
+    floor4B.setDisable(false);
+    floor4B.setVisible(true);
+
+    floor5B.setDisable(false);
+    floor5B.setVisible(true);
+  }
+
   /** can draw the path, nodes, and edges based on booleans */
   void draw() {
     resizeCanvas();
+
+    gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
 
     // i know these can be simplified but i don't care -- this is more organized imo
 
@@ -1380,6 +1193,34 @@ public class NavController implements Initializable {
     draw();
   }
 
+  public void setFloor(String floor) {
+    if (sFloor.equals(floor)) {
+      return;
+    }
+    switch (floor) {
+      case "G":
+        imageView.setImage(campusMap);
+        break;
+      case "1":
+        imageView.setImage(floor1Map);
+        break;
+      case "2":
+        imageView.setImage(floor2Map);
+        break;
+      case "3":
+        imageView.setImage(floor3Map);
+        break;
+      case "4":
+        imageView.setImage(floor4Map);
+        break;
+      case "5":
+        imageView.setImage(floor5Map);
+        break;
+    }
+
+    setMapViewDraw(floor);
+  }
+
   public void setMapViewDraw(String floorSelected) {
     if (sFloor.equals(floorSelected)) {
       return;
@@ -1391,6 +1232,7 @@ public class NavController implements Initializable {
       imageView.setTranslateX(0);
       imageView.setTranslateY(-50);
     }
+
     sFloor = floorSelected;
     floorSelectionB.setText(floorSelected);
 

@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.teamO.DinoGame;
 
-import javafx.stage.Stage;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import javafx.stage.Stage;
 import javax.imageio.*;
 import javax.swing.*;
 
@@ -17,7 +16,6 @@ public class UserInterface {
 
   public void createAndShowGUI() {
     mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
     Container container = mainWindow.getContentPane();
 
