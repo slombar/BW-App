@@ -22,7 +22,7 @@ public class WaitingPageController extends JComponent implements Initializable {
   @FXML private JFXButton hospitalNavBtn;
   @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
-//  @FXML private StackPane spinnerPane;
+  //  @FXML private StackPane spinnerPane;
   @FXML private JFXPanel jfxPanel;
   public static boolean isMainEntrance;
 
@@ -30,7 +30,7 @@ public class WaitingPageController extends JComponent implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hospitalNavBtn.setDisable(true);
     entryStatusBtn.setDisable(false);
-   // spinnerPane.setVisible(true);
+    // spinnerPane.setVisible(true);
 
     Task<Void> EntryTask =
         new Task<Void>() {
@@ -53,10 +53,10 @@ public class WaitingPageController extends JComponent implements Initializable {
 
   void awaitingEntryApproval(Task<Void> EntryTask) {
     ProgressIndicator progress = new ProgressIndicator();
-   // spinnerPane.getChildren().add(progress);
+    // spinnerPane.getChildren().add(progress);
     progress.setProgress(1.0);
     progress.progressProperty().bind(EntryTask.progressProperty());
-    //spinnerPane.toFront();
+    // spinnerPane.toFront();
   }
   /*btn.setOnAction(event -> {
       iv.setImage(openImage);
@@ -94,7 +94,7 @@ public class WaitingPageController extends JComponent implements Initializable {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
-     // spinnerPane.setVisible(false);
+      // spinnerPane.setVisible(false);
       // popup to say you can now continue
       if (location.toLowerCase().contains("covid")) {
         PopupMaker.covidEntranceNotif(popupNotification);
@@ -111,7 +111,7 @@ public class WaitingPageController extends JComponent implements Initializable {
 
     if (isSurveyApproved) {
       hospitalNavBtn.setDisable(false);
-     // spinnerPane.setVisible(false);
+      // spinnerPane.setVisible(false);
       // popup to say you can now continue
       if (location.toLowerCase().contains("main")) {
         PopupMaker.mainEntranceNotif(popupNotification);

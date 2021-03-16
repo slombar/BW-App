@@ -7,7 +7,6 @@ public class Request extends RecursiveTreeObject<Request> {
   private int requestID;
   private String requestedBy;
   private String assignedTo;
-  public String fulfilledBy;
   private Date dateRequested;
   private Date dateNeeded;
   private String summary;
@@ -28,16 +27,14 @@ public class Request extends RecursiveTreeObject<Request> {
     this.requestedBy = requestedBy;
     this.dateRequested = dateRequested;
     this.requestType = requestType;
-    this.fulfilledBy = fulfilledBy;
+    this.assignedTo = fulfilledBy;
     this.dateNeeded = dateNeeded;
     this.requestLocation = requestLocation;
     this.summary = summary;
     this.status = "Not Assigned";
   }
 
-  public Request() {
-    this.status = "Not Assigned";
-  }
+  public Request() {}
 
   public String getAssignedTo() {
     return assignedTo;
@@ -101,14 +98,6 @@ public class Request extends RecursiveTreeObject<Request> {
 
   public void setRequestLocation(String requestLocation) {
     this.requestLocation = requestLocation;
-  }
-
-  public String getFulfilledBy() {
-    return fulfilledBy;
-  }
-
-  public void setFulfilledBy(String fulfilledBy) {
-    this.fulfilledBy = fulfilledBy;
   }
 
   public String getRequestType() {
