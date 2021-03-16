@@ -36,6 +36,7 @@ public class RequestHandling {
       r.setRequestType(rset.getString("REQUESTTYPE"));
       r.setRequestLocation(rset.getString("LOCATION"));
       r.setSummary(rset.getString("SUMMARY"));
+      r.setStatus(rset.getString("STATUS"));
 
       rset.close();
       ps.close();
@@ -123,6 +124,7 @@ public class RequestHandling {
       String requestType = "";
       String location = "";
       String summary = "";
+      String status = "";
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
@@ -134,6 +136,7 @@ public class RequestHandling {
         requestType = rset.getString("REQUESTTYPE");
         location = rset.getString("LOCATION");
         summary = rset.getString("SUMMARY");
+        status = (rset.getString("STATUS"));
 
         // requests generate here
         Request req =
@@ -146,6 +149,7 @@ public class RequestHandling {
                 requestType,
                 location,
                 summary);
+        req.setStatus(status);
 
         requestList.add(req);
       }
@@ -194,7 +198,7 @@ public class RequestHandling {
    * @param reqID
    */
   public static void setStatus(int reqID, String status) throws SQLException {
-    String query = "UPDATE SRS SET STATUS = ? WHERE REQUESTID = ?";
+    String query = "UPDATE SRS SET STATUS = ? WHERE ID = ?";
 
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -219,7 +223,7 @@ public class RequestHandling {
       preparedStmt.setDate(3, (java.sql.Date) r.getDateNeeded());
       preparedStmt.setString(4, r.getRequestType());
       preparedStmt.setString(5, r.getSummary());
-      preparedStmt.setString(6, "Not Assigned");
+      preparedStmt.setString(6, r.getStatus());
       preparedStmt.setString(7, r.getRequestLocation());
 
       preparedStmt.execute();
@@ -236,7 +240,7 @@ public class RequestHandling {
    * @param requestID
    */
   public static void deleteRequest(int requestID) {
-    String query = "DELETE FROM SRS WHERE REQUESTID = ?";
+    String query = "DELETE FROM SRS WHERE ID = ?";
 
     try {
       PreparedStatement preparedStmt = null;

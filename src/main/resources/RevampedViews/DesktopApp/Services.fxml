@@ -320,19 +320,20 @@
             </GridPane>
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                <children>
-                  <Label prefWidth="100.0" text="ID #">
+                  <Label prefWidth="40.0" text="ID #">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
-                  <Label prefWidth="100.0" text="Requested On">
+                  <Label prefWidth="70.0" text="Date">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
-                  <Label prefWidth="100.0" text="Requested By">
+                  <Label layoutX="70.0" layoutY="10.0" prefWidth="100.0" text="Requested By">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
-                     </font></Label>
-                  <Label prefWidth="100.0" text="Need By">
+                     </font>
+                  </Label>
+                  <Label prefWidth="70.0" text="Need By">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
@@ -344,6 +345,11 @@
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
                      </font></Label>
+                  <Label layoutX="610.0" layoutY="10.0" prefWidth="80.0" text="Status">
+                     <font>
+                        <Font name="Leelawadee UI" size="14.0" />
+                     </font>
+                  </Label>
                   <Label prefWidth="100.0" text="Summary">
                      <font>
                         <Font name="Leelawadee UI" size="14.0" />
