@@ -48,6 +48,7 @@ public final class Serial {
    */
   public boolean connect() {
     out.println("Serial port is opening now...");
+    startTime = System.currentTimeMillis();
 
     try {
       serPort = new SerialPort("COM5");
@@ -59,7 +60,7 @@ public final class Serial {
         out.println("after Params");
         serPort.setEventsMask(MASK_RXCHAR);
         out.println("after Set events");
-        startTime = System.currentTimeMillis();
+
         serPort.addEventListener(
             event -> {
               if (event.isRXCHAR()) {
@@ -67,13 +68,23 @@ public final class Serial {
                   sb.append(serPort.readString(event.getEventValue()));
                   String ch = sb.toString();
                   out.println(ch);
-                  if (ch.equals("1")) {
+
+                  // Checks for Crit Temp
+                  if (ch.contains("1")) {
                     disconnect();
                     String MenuUrl = "/Views/CovidSurvey.fxml";
                     SwitchScene.goToParent(MenuUrl);
                   }
 
-                  if ((startTime - System.currentTimeMillis()) > 3000) {
+                  // Checks if no person detected
+                  if (ch.contains("2")) {
+                    disconnect();
+                    String MenuUrl = "/Views/Login.fxml";
+                    SwitchScene.goToParent(MenuUrl);
+                  }
+
+                  // Sends person to main page if they have a a good reading after 4 secs
+                  if ((System.currentTimeMillis() - startTime) > 4000) {
                     disconnect();
                     String MenuUrl = "/Views/AboutPage.fxml";
                     SwitchScene.goToParent(MenuUrl);

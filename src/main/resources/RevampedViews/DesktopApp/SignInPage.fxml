@@ -169,7 +169,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#goToTemp" prefHeight="86.0" prefWidth="52.0">
+                  <JFXButton fx:id="tempBttn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#goToTemp" prefHeight="86.0" prefWidth="52.0">
                      <graphic>
                         <ImageView fitHeight="79.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                            <image>
