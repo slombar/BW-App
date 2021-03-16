@@ -125,9 +125,13 @@ public class MainPatientScreenController implements Initializable {
     SwitchScene.newWindowParent("/RevampedViews/MobileApp/MainMobileScreen.fxml");
   }
 
-  public void goToAccount(ActionEvent actionEvent) {}
+  public void goToAccount(ActionEvent actionEvent) {
+    SwitchScene.newWindowParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
+  }
 
-  public void goToParking(ActionEvent actionEvent) {}
+  public void goToParking(ActionEvent actionEvent) {
+    SwitchScene.newWindowParent("/RevampedViews/DesktopApp/SaveParkingPage.fxml");
+  }
 
   public void exitInfo(ActionEvent actionEvent) {
     infoPane.toBack();

@@ -3,13 +3,12 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ProfilePageController implements Initializable {
   @FXML private JFXButton backBtn;
@@ -28,9 +27,7 @@ public class ProfilePageController implements Initializable {
     SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
   }
 
-  public void edit(ActionEvent actionEvent) {
-  }
+  public void edit(ActionEvent actionEvent) {}
 
-  public void saveChanges(ActionEvent actionEvent) {
-  }
+  public void saveChanges(ActionEvent actionEvent) {}
 }
