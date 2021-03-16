@@ -30,6 +30,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseDragEvent;
@@ -71,15 +72,37 @@ public class NavController implements Initializable {
   @FXML private JFXNodesList help = new JFXNodesList();
   @FXML private JFXNodesList floorsList = new JFXNodesList();
   private JFXNodesList algoList = new JFXNodesList();
-  private final JFXButton helpB = new JFXButton("H", null);
-  private final JFXButton parkingB = new JFXButton("P", null);
-  private final JFXButton editB = new JFXButton("E", null);
-  private final JFXButton showEdgesB = new JFXButton("sho", null);
-  private final JFXButton saveB = new JFXButton("S", null);
-  private final JFXButton uploadB = new JFXButton("U", null);
-  private final JFXButton algoB = new JFXButton("A*", null);
-  private final JFXButton navB = new JFXButton("N", null);
-  private final JFXButton floorSelectionB = new JFXButton("F", null);
+
+  // creating icons for buttons
+  Image helpIcon = new Image(getClass().getResourceAsStream("/Icons/informationIcon.png"));
+  ImageView helpIconView = new ImageView(helpIcon);
+  Image parkingIcon =
+      new Image(getClass().getResourceAsStream("/Icons/navPageIcons/parkingBox.png"));
+  ImageView parkingIconView = new ImageView(parkingIcon);
+  Image editIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/edit.png"));
+  ImageView editIconView = new ImageView(editIcon);
+  Image edgesIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/edges.png"));
+  ImageView edgesIconView = new ImageView(edgesIcon);
+  Image saveIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/upload.png"));
+  ImageView saveIconView = new ImageView(saveIcon);
+  Image uploadIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/download.png"));
+  ImageView uploadIconView = new ImageView(uploadIcon);
+  Image algoIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/algo.png"));
+  ImageView algoIconView = new ImageView(algoIcon);
+  Image navIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/directions.png"));
+  ImageView navIconView = new ImageView(navIcon);
+  Image floorsIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/floors.png"));
+  ImageView floorsIconView = new ImageView(floorsIcon);
+
+  private final JFXButton helpB = new JFXButton(null, helpIconView);
+  private final JFXButton parkingB = new JFXButton(null, parkingIconView);
+  private final JFXButton editB = new JFXButton(null, editIconView);
+  private final JFXButton showEdgesB = new JFXButton(null, edgesIconView);
+  private final JFXButton saveB = new JFXButton(null, saveIconView);
+  private final JFXButton uploadB = new JFXButton(null, uploadIconView);
+  private final JFXButton algoB = new JFXButton(null, algoIconView);
+  private final JFXButton navB = new JFXButton(null, navIconView);
+  private final JFXButton floorSelectionB = new JFXButton(null, floorsIconView);
   private final JFXButton floorGB = new JFXButton("G", null);
   private final JFXButton floor1B = new JFXButton("1", null);
   private final JFXButton floor2B = new JFXButton("2", null);
@@ -371,6 +394,26 @@ public class NavController implements Initializable {
   }
 
   public void setStyles() {
+
+    helpIconView.setFitWidth(35);
+    helpIconView.setFitHeight(35);
+    parkingIconView.setFitWidth(35);
+    parkingIconView.setFitHeight(35);
+    editIconView.setFitWidth(35);
+    editIconView.setFitHeight(35);
+    edgesIconView.setFitWidth(35);
+    edgesIconView.setFitHeight(35);
+    saveIconView.setFitWidth(35);
+    saveIconView.setFitHeight(35);
+    uploadIconView.setFitWidth(35);
+    uploadIconView.setFitHeight(35);
+    algoIconView.setFitWidth(35);
+    algoIconView.setFitHeight(35);
+    navIconView.setFitWidth(35);
+    navIconView.setFitHeight(35);
+    floorsIconView.setFitWidth(20);
+    floorsIconView.setFitHeight(20);
+
     editingList.setSpacing(10);
     help.setSpacing(10);
     parking.setSpacing(10);
@@ -655,6 +698,10 @@ public class NavController implements Initializable {
       if (editMapContext.isShowing()) {
         editMapContext.hide();
       }
+      pathfindContext.setAutoHide(true);
+      if (pathfindContext.isShowing()) {
+        pathfindContext.hide();
+      }
 
       if ((selectingEditNode && selectedNode == null)) {
         selectedNode = clickedNode;
@@ -804,6 +851,25 @@ public class NavController implements Initializable {
 
             draw();
           }
+        });
+
+    addNodeMenu.setOnAction(
+        action -> {
+          selectedNode = null;
+          draw();
+          selectedNode = getRealXY(mouseEvent);
+          // TODO: isMobile t/f?
+          DrawHelper.drawSingleNode(gc, selectedNode, Color.BLUE, imageView, false);
+
+          drawerBottomRight.open();
+          editNodeMenuSelect(selectedNode);
+
+          addingNode = true;
+        });
+
+    alignHorizontally.setOnAction(
+        action -> {
+          alignHorizontally();
         });
 
     addNodeMenu.setOnAction(
@@ -1297,7 +1363,7 @@ public class NavController implements Initializable {
   public void alignVertically() {
     for (String s : alignList) {
       Node n = GRAPH.getNodeByID(s);
-      n.setXCoord(selectedNode.getXCoord());
+      n.setYCoord(selectedNode.getYCoord());
     }
 
     clearAlignList();
@@ -1307,7 +1373,7 @@ public class NavController implements Initializable {
   public void alignHorizontally() {
     for (String s : alignList) {
       Node n = GRAPH.getNodeByID(s);
-      n.setYCoord(selectedNode.getYCoord());
+      n.setXCoord(selectedNode.getXCoord());
     }
 
     clearAlignList();

@@ -20,7 +20,7 @@ public class WaitingPageController implements Initializable {
   @FXML private JFXButton entryStatusBtn;
   @FXML private StackPane popupNotification;
   @FXML private StackPane spinnerPane;
-  public static Boolean isMainEntrance = null;
+  public static boolean isMainEntrance;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,27 +34,6 @@ public class WaitingPageController implements Initializable {
           @Override
           protected Void call() throws Exception {
             checkStatus();
-
-            /*Platform.runLater(
-               new Runnable() {
-                 @Override
-                 public void run() {
-
-                   // popup to say you can now continue
-                   spinnerPane.setOnMouseClicked(null);
-                   if (location.toLowerCase().contains("main")) {
-                     spinnerPane.setVisible(false);
-                     PopupMaker.mainEntranceNotif(popupNotification);
-                     isMainEntrance = true;
-                   } else {
-                     spinnerPane.setVisible(false);
-                     PopupMaker.covidEntranceNotif(popupNotification);
-                     isMainEntrance = false;
-                   }
-                 }
-               });
-
-            */
             return null;
           }
         };

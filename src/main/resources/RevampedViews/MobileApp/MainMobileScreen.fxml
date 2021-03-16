@@ -25,19 +25,22 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="4.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" percentHeight="12.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="18.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToNav" style="-fx-background-color: #82BAEC;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToNav" style="-fx-background-color: #82BAEC;" styleClass="main-box" stylesheets="@../../Views/MobileApp/MobileStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <graphic>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="128.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="289.0">
                            <children>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
@@ -47,7 +50,7 @@
                                     <Image url="@../../Icons/mapColor.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="68.0" prefWidth="95.0" text="Navigate inside the Hopsital" textFill="WHITE" wrapText="true">
+                              <Label prefHeight="56.0" prefWidth="673.0" text="Navigate inside the Hopsital" textFill="WHITE" wrapText="true">
                                  <HBox.margin>
                                     <Insets left="6.0" />
                                  </HBox.margin>
@@ -57,7 +60,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label text="Pathfind to your destination within the hospital" textFill="WHITE" wrapText="true">
+                        <Label prefHeight="155.0" prefWidth="285.0" text="Pathfind to your destination within the hospital with interactive maps" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Leelawadee UI" size="14.0" />
                            </font>
@@ -69,11 +72,11 @@
                   </VBox>
                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToAbout" style="-fx-background-color: #82BAEC;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToAbout" style="-fx-background-color: #82BAEC;" styleClass="main-box" stylesheets="@../../Views/MobileApp/MobileStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7">
                <graphic>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="128.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="289.0">
                            <children>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
@@ -83,7 +86,7 @@
                                     <Image url="@../../Brigham_and_Womens_Hospital_logo.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="68.0" prefWidth="95.0" text="About B&amp;W Hospital" textFill="WHITE" wrapText="true">
+                              <Label prefHeight="56.0" prefWidth="401.0" text="About B&amp;W Hospital" textFill="WHITE" wrapText="true">
                                  <HBox.margin>
                                     <Insets left="6.0" />
                                  </HBox.margin>
@@ -93,7 +96,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label text="Learn about the hospital and this application" textFill="WHITE" wrapText="true">
+                        <Label prefHeight="152.0" prefWidth="276.0" text="Learn more about the hospital and this application" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Leelawadee UI" size="14.0" />
                            </font>
@@ -105,11 +108,11 @@
                   </VBox>
                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToGoogleNav" style="-fx-background-color: #82BAEC;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToGoogleNav" style="-fx-background-color: #82BAEC;" styleClass="main-box" stylesheets="@../../Views/MobileApp/MobileStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <graphic>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="128.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="289.0">
                            <children>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
@@ -119,7 +122,7 @@
                                     <Image url="@../../Icons/gMapsColor.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="68.0" prefWidth="95.0" text="Navigate to the Hospital" textFill="WHITE" wrapText="true">
+                              <Label prefHeight="56.0" prefWidth="539.0" text="Navigate to the Hospital" textFill="WHITE" wrapText="true">
                                  <HBox.margin>
                                     <Insets left="6.0" />
                                  </HBox.margin>
@@ -129,7 +132,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label text="Get directions to the hospital from your home" textFill="WHITE" wrapText="true">
+                        <Label prefHeight="238.0" prefWidth="284.0" text="Get detailed directions to the hospital from your home" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Leelawadee UI" size="14.0" />
                            </font>
@@ -141,11 +144,11 @@
                   </VBox>
                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToParking" style="-fx-background-color: #82BAEC;" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#goToParking" style="-fx-background-color: #82BAEC;" styleClass="main-box" stylesheets="@../../Views/MobileApp/MobileStyle.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
                <graphic>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="128.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="289.0">
                            <children>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
@@ -155,7 +158,7 @@
                                     <Image url="@../../Icons/parkingColor.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="68.0" prefWidth="95.0" text="Save Your Parking" textFill="WHITE" wrapText="true">
+                              <Label prefHeight="56.0" prefWidth="476.0" text="Save Your Parking" textFill="WHITE" wrapText="true">
                                  <HBox.margin>
                                     <Insets left="6.0" />
                                  </HBox.margin>
@@ -165,7 +168,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label text="Save the location of your parking spot at the hospital" textFill="WHITE" wrapText="true">
+                        <Label text="Save the location of your parking spot while at the hospital" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Leelawadee UI" size="14.0" />
                            </font>
@@ -182,14 +185,14 @@
                   <Image url="@../../bwfh-logo-opt-2.png" />
                </image>
             </ImageView>
-            <JFXNodesList translateX="20.0" translateY="-30.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+            <JFXNodesList translateX="20.0" translateY="-30.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </JFXNodesList>
-            <JFXButton onAction="#gotToLogin" text="Log out" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton fx:id="exitAppBtn" onAction="#exit" text="Exit app" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
-                  <Insets top="15.0" />
+                  <Insets top="25.0" />
                </GridPane.margin>
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
@@ -202,76 +205,6 @@
                   <Font name="Leelawadee UI Bold" size="15.0" />
                </font>
             </JFXButton>
-            <VBox maxHeight="100.0" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CFE2F3;" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
-               <children>
-                  <Label prefHeight="21.0" prefWidth="103.0" text="My Account" wrapText="true">
-                     <font>
-                        <Font name="Leelawadee UI Bold" size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="128.0">
-                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets bottom="2.0" left="15.0" right="2.0" top="2.0" />
-                           </HBox.margin>
-                           <image>
-                              <Image url="@../../Icons/userIconColor.png" />
-                           </image>
-                        </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label text="Name">
-                                 <font>
-                                    <Font name="Leelawadee UI" size="13.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Email">
-                                 <font>
-                                    <Font name="Leelawadee UI" size="13.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <JFXButton onAction="#goToProfile" text="View Profile" underline="true">
-                           <font>
-                              <Font name="Leelawadee UI" size="13.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="30.0" right="30.0" top="2.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton onAction="#goToLogin" text="Log Out" underline="true">
-                           <font>
-                              <Font name="Leelawadee UI" size="13.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="30.0" right="30.0" top="2.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
          </children>
       </GridPane>
    </children>

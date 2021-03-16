@@ -44,6 +44,69 @@ public class EntryRequestController implements Initializable {
     return listOfFields;
   }
 
+  public void displayHeadings() {
+    HBox addBoxHead = new HBox();
+    addBoxHead.setSpacing(30);
+    addBoxHead.setPrefWidth(1400);
+    addBoxHead.setBackground(
+        new Background(
+            new BackgroundFill(
+                Color.color(.81176, .88627, .95294), new CornerRadii(5), Insets.EMPTY)));
+    Label idHeading = new Label(" ID #");
+    idHeading.setStyle(
+        "-fx-max-width: 50; -fx-min-width: 50; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + idHeading.getStyle());
+
+    Label reqByHeading = new Label(" Requester");
+    reqByHeading.setStyle(
+        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + reqByHeading.getStyle());
+
+    Label filledByHeading = new Label(" Assigned To");
+    filledByHeading.setStyle(
+        "-fx-max-width: 110; -fx-min-width: 110; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + filledByHeading.getStyle());
+
+    Label dReqHeading = new Label(" Date");
+    dReqHeading.setStyle(
+        "-fx-max-width: 125; -fx-min-width: 125; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + dReqHeading.getStyle());
+
+    Label sympHeading = new Label(" Symptoms?");
+    sympHeading.setStyle(
+        "-fx-max-width: 175; -fx-min-width: 175; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + sympHeading.getStyle());
+
+    Label c1Heading = new Label(" Entry Check");
+    c1Heading.setStyle(
+        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + c1Heading.getStyle());
+
+    Label c2Heading = new Label(" Exit Check");
+    c2Heading.setStyle(
+        "-fx-max-width: 100; -fx-min-width: 100; -fx-text-fill: #000000; -fx-font-size: 13pt;  "
+            + c2Heading.getStyle());
+
+    Label locHeading = new Label(" Approved Entrance");
+    locHeading.setStyle(
+        "-fx-max-width: 200; -fx-min-width: 200; -fx-text-fill: #000000; -fx-font-size: 13pt; "
+            + locHeading.getStyle());
+
+    JFXButton markDone = new JFXButton();
+
+    reqBox.setSpacing(15);
+
+    addBoxHead.getChildren().add(idHeading);
+    addBoxHead.getChildren().add(reqByHeading);
+    addBoxHead.getChildren().add(filledByHeading);
+    addBoxHead.getChildren().add(dReqHeading);
+    addBoxHead.getChildren().add(sympHeading);
+    addBoxHead.getChildren().add(c1Heading);
+    addBoxHead.getChildren().add(c2Heading);
+    addBoxHead.getChildren().add(locHeading);
+    reqBox.getChildren().add(addBoxHead);
+  }
+
   /** Display a single request from the request list */
   public void displayOneRequest(EntryRequest r) {
 
@@ -69,16 +132,19 @@ public class EntryRequestController implements Initializable {
     reqBy.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + reqBy.getStyle());
 
     Label filledBy = new Label(fulfilledBy);
-    filledBy.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + filledBy.getStyle());
+    filledBy.setStyle("-fx-max-width: 110; -fx-min-width: 110; " + filledBy.getStyle());
 
     Label dReq = new Label(dateRequested.toString());
-    dReq.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + dReq.getStyle());
+    dReq.setStyle("-fx-max-width: 125; -fx-min-width: 125; " + dReq.getStyle());
 
-    Label loc = new Label(location);
-    loc.setStyle("-fx-max-width: 150; -fx-min-width: 150; " + loc.getStyle());
-
-    Label symp = new Label(String.valueOf(symptoms));
-    symp.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + symp.getStyle());
+    Label symp = new Label("");
+    if (symptoms) {
+      symp = new Label("Potential Symptoms");
+      symp.setStyle("-fx-max-width: 175; -fx-min-width: 175; " + symp.getStyle());
+    } else {
+      symp = new Label("No Symptoms");
+      symp.setStyle("-fx-max-width: 175; -fx-min-width: 175; " + symp.getStyle());
+    }
 
     Label c1 = new Label(String.valueOf(check1));
     c1.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + c1.getStyle());
@@ -86,7 +152,11 @@ public class EntryRequestController implements Initializable {
     Label c2 = new Label(String.valueOf(check2));
     c2.setStyle("-fx-max-width: 100; -fx-min-width: 100; " + c2.getStyle());
 
-    JFXButton markDone = new JFXButton();
+    Label loc = new Label(location);
+    loc.setStyle("-fx-max-width: 200; -fx-min-width: 200; " + loc.getStyle());
+
+    JFXButton mainEntrance = new JFXButton();
+    JFXButton covidEntrance = new JFXButton();
 
     reqBox.setSpacing(15);
 
@@ -98,30 +168,44 @@ public class EntryRequestController implements Initializable {
       throwables.printStackTrace();
     }
 
-    markDone.setOnAction(
+    mainEntrance.setOnAction(
         e -> {
-          // mark the thing as done
           try {
-            EntryRequestHandling.setStatus(reqID, "Complete");
-            SwitchScene.goToParent("/Views/RequestList.fxml");
+            EntryRequestHandling.setEntrance(reqID, "Main");
+            SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
           } catch (SQLException throwables) {
             // TODO @sam add input scrubbing / verification?
             throwables.printStackTrace();
           }
         });
 
-    markDone.setText("Mark Complete");
-    markDone.setStyle(
+    covidEntrance.setOnAction(
+        t -> {
+          try {
+            EntryRequestHandling.setEntrance(reqID, "Emergency");
+            SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
+          } catch (SQLException throwables) {
+            // TODO @sam add input scrubbing / verification?
+            throwables.printStackTrace();
+          }
+        });
+
+    mainEntrance.setText("Main");
+    mainEntrance.setStyle(
+        "-fx-background-color: #CFE2F3; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: BOLD;");
+
+    covidEntrance.setText("Emergency");
+    covidEntrance.setStyle(
         "-fx-background-color: #CFE2F3; -fx-text-fill: #3a5369; -fx-border-radius: 5px; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 10pt; -fx-font-weight: BOLD;");
 
     addBox.getChildren().add(id);
     addBox.getChildren().add(reqBy);
     addBox.getChildren().add(filledBy);
     addBox.getChildren().add(dReq);
-    addBox.getChildren().add(loc);
     addBox.getChildren().add(symp);
     addBox.getChildren().add(c1);
     addBox.getChildren().add(c2);
+    addBox.getChildren().add(loc);
     /*
        if (par1 != null && !par1.equals("null")) {
          addBox.getChildren().add(p1);
@@ -137,7 +221,7 @@ public class EntryRequestController implements Initializable {
 
     switch (status) {
       case "Not Assigned":
-        addBox.setStyle("-fx-border-color:  #ffaca4; -fx-border-width: 5px;");
+        addBox.setStyle("-fx-border-color:  #ffaca4; -fx-border-width: 5px; ");
 
         break;
       case "Assigned":
@@ -149,7 +233,8 @@ public class EntryRequestController implements Initializable {
         break;
     }
     // add button
-    addBox.getChildren().add(markDone);
+    addBox.getChildren().add(mainEntrance);
+    addBox.getChildren().add(covidEntrance);
 
     for (Node n : addBox.getChildren()) {
       if (!n.getClass().equals(JFXButton.class)) {
@@ -161,8 +246,7 @@ public class EntryRequestController implements Initializable {
         .onMouseClickedProperty()
         .set(
             e -> {
-              PopupMaker.serviceReqPopup(
-                  popUpPane, ((Label) addBox.getChildren().get(0)).getText());
+              PopupMaker.entryReqPopup(popUpPane, ((Label) addBox.getChildren().get(0)).getText());
             });
     reqBox.getChildren().add(addBox);
   }
@@ -181,6 +265,7 @@ public class EntryRequestController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    displayHeadings();
     reqList = DisplayRequest.getSpecificEntryReqList();
     displayList(reqList);
     JFXScrollPane.smoothScrolling(scrollPane);
@@ -257,7 +342,7 @@ public class EntryRequestController implements Initializable {
   }
 
   public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/ServiceRequests/RequestPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
   }
 
   /**

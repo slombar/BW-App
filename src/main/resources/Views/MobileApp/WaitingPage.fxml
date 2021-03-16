@@ -54,7 +54,7 @@
                         <Insets top="50.0" />
                      </VBox.margin>
                   </ImageView>
-                  <JFXButton fx:id="entryStatusBtn" onAction="#checkEntryStatus" text="Get Entry Status" textFill="WHITE">
+                  <JFXButton fx:id="entryStatusBtn" onAction="#checkEntryStatus" onMouseClicked="#checkEntryStatus" text="Get Entry Status" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="25.0" />
                      </VBox.margin>

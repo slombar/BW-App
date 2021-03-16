@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.teamO.Database;
 
+import edu.wpi.cs3733.teamO.Controllers.Mobile.WaitingPageController;
 import edu.wpi.cs3733.teamO.SRequest.EntryRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -223,5 +224,25 @@ public class EntryRequestHandling {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+  }
+
+  public static void setEntrance(int reqID, String status) throws SQLException {
+    String query = "";
+
+    if (status.equals("Main")) {
+      query = "UPDATE ENTRY_REQUESTS SET LOCATION = 'MAIN' WHERE ENTRYREQID = ?";
+      WaitingPageController.setEntrance("Main");
+    } else {
+      query = "UPDATE ENTRY_REQUESTS SET LOCATION = 'EMERGENCY' WHERE ENTRYREQID = ?";
+      WaitingPageController.setEntrance("Covid");
+    }
+    WaitingPageController.setSurveyApproved(true);
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    pstmt.setInt(1, reqID);
+    pstmt.executeUpdate();
+    pstmt.close();
   }
 }

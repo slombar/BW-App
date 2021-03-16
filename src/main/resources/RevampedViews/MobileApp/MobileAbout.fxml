@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.RevampedMobile.MobileAboutController">
    <children>
-      <JFXNodesList fx:id="buttonsList" stylesheets="@../../Views/MobileApp/MobileStyle.css" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="40.0" />
+      <JFXNodesList fx:id="buttonsList" stylesheets="@../../Views/MobileApp/MobileStyle.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="40.0" />
       <ScrollPane layoutX="10.0" layoutY="10.0" pannable="true" prefHeight="565.0" prefWidth="301.0" style="-fx-background-color: #3A5369;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="316.0" style="-fx-background-color: #3A5369;">
