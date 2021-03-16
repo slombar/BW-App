@@ -525,11 +525,11 @@ public class Graph {
     Bounds boundsInScene = gc.getCanvas().localToScene(gc.getCanvas().getBoundsInLocal());
 
     for (Node n : path) {
-      if(n.getFloor().equals(floor)) {
+      if (n.getFloor().equals(floor)) {
         x = getSceneX(imageView, n.getXCoord(), boundsInScene);
         y = getSceneY(imageView, n.getYCoord(), boundsInScene);
         // TODO: filter out / ignore(??) points outside canvas
-        line.getPoints().addAll(new Double[]{x, y});
+        line.getPoints().addAll(new Double[] {x, y});
       }
     }
     return line;
