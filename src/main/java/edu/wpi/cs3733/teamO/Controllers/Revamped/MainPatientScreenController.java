@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.HelperClasses.Effects;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -20,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 public class MainPatientScreenController implements Initializable {
+  @FXML private Label usernameTextBox;
   @FXML private VBox menuVBox;
   @FXML private JFXHamburger hamburger;
   @FXML private JFXButton profileBtn;
@@ -46,6 +49,7 @@ public class MainPatientScreenController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    usernameTextBox.setText(UserHandling.getUsername());
     infoPane.toBack();
     infoPane.setVisible(false);
     infoBox.toBack();
