@@ -5,7 +5,6 @@ import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
@@ -817,7 +816,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void uploadN(ActionEvent actionEvent) {
-    DataHandling.importExcelData(true);
+    // DataHandling.importExcelData(true);
     // TODO: re-initialize Graph after uploading excel file?
   }
 
@@ -827,7 +826,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void uploadE(ActionEvent actionEvent) {
-    DataHandling.importExcelData(false);
+    // DataHandling.importExcelData(false);
     // TODO: re-initialize Graph after uploading excel file?
   }
 
@@ -837,7 +836,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void saveN(ActionEvent actionEvent) {
-    DataHandling.save(true);
+    // DataHandling.save(true);
   }
 
   /**
@@ -846,7 +845,7 @@ public class NewNavPageController implements Initializable {
    * @param actionEvent
    */
   public void saveE(ActionEvent actionEvent) {
-    DataHandling.save(false);
+    // DataHandling.save(false);
   }
 
   /**
