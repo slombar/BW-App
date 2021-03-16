@@ -523,7 +523,7 @@ public class UserHandling {
   /**
    * Edit the profile for the current user
    */
-  public static void editSessionUser(String first, String last, String email, String pass){
+  public static void editSessionUser(String first, String last, String email){
 
     String query = "UPDATE USERS SET FIRSTNAME = ?, LASTNAME = ?, EMAIL = ?, PASSWORD = ?,  WHERE USERNAME = ?";
     try {
@@ -532,8 +532,7 @@ public class UserHandling {
       preparedStmt.setString(1, first);
       preparedStmt.setString(2, last);
       preparedStmt.setString(3, email);
-      preparedStmt.setString(4, pass);
-      preparedStmt.setString(5, username);
+      preparedStmt.setString(4, username);
 
       preparedStmt.executeUpdate();
       preparedStmt.close();
