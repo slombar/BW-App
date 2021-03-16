@@ -2,11 +2,17 @@ package edu.wpi.cs3733.teamO.HelperClasses;
 
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.util.ArrayList;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polyline;
+import javafx.util.Duration;
 
 // class that SOLEY draws shit
 public class DrawHelper {
@@ -202,6 +208,28 @@ public class DrawHelper {
     }
 
     gc.strokeLine(ax, ay, bx, by);
+  }
+
+  public static Polyline makeDashes(Polyline polyline) {
+
+    polyline.getStrokeDashArray().setAll(25d, 20d, 5d, 20d);
+    polyline.setStrokeWidth(2);
+
+    final double maxOffset = polyline.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                new KeyValue(polyline.strokeDashOffsetProperty(), 0, Interpolator.LINEAR)),
+            new KeyFrame(
+                Duration.seconds(2),
+                new KeyValue(polyline.strokeDashOffsetProperty(), maxOffset, Interpolator.LINEAR)));
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.setRate(-1);
+    timeline.play();
+
+    return polyline;
   }
 
   public static void drawEdge(

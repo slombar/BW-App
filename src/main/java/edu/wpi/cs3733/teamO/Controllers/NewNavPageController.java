@@ -42,6 +42,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
@@ -873,7 +874,17 @@ public class NewNavPageController implements Initializable {
       // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+      Polyline path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, rc00, false);
+
+      //stackPane.getChildren().add(path);
+      // TODO: fix this if necessary (it's jank rn)
+      //      gridPane.setMinWidth(1920);
+      //      Group group = new Group(gridPane, path);
+      //      Stage stage = Opp.getPrimaryStage();
+      //      stage.getScene().setRoot(group);
+      //      // stage.setFullScreen(true);
+      //      stage.show();
+
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
@@ -897,7 +908,7 @@ public class NewNavPageController implements Initializable {
     if (!editing && !displayingRoute) {
       // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, rc00, false);
     } else if (editing) {
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
       if (showingEdges) {

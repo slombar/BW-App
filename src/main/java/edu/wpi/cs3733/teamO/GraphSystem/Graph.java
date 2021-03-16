@@ -8,12 +8,15 @@ import java.sql.SQLException;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polyline;
 
 public class Graph {
 
@@ -343,12 +346,6 @@ public class Graph {
     stringEdgeHashtable.remove(eID);
   }
 
-  // ------------------------------
-  // ------------------------------
-  // COMMENTING OUT AND REWRITING DRAWING METHODS...
-  // ------------------------------
-  // ------------------------------
-
   /**
    * Draws all nodes for the given floor + selected node as Color.GREEN, or draws both right-clicked
    * nodes Color.BLUE + a blue edge (to be added/deleted)
@@ -357,7 +354,6 @@ public class Graph {
    */
   /*public void drawAllNodes(
   String floor, Node selectedNodeA, Node selectedNodeB, boolean selectingEditNode) */
-
   public void drawAllNodes(
       String floor,
       Node selectedNodeA,
@@ -418,7 +414,6 @@ public class Graph {
    * @param endNode Node currently set as the end
    */
   /*public void drawVisibleNodes(String floor, Node startNode, Node endNode) */
-
   public void drawVisibleNodes(
       String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
     ArrayList<Node> floorNodes = new ArrayList<>();
@@ -455,7 +450,6 @@ public class Graph {
    * @param floor "G", "1", "2", "3", "4", or "5"
    */
   /*public void drawAllEdges(String floor, Node selectedNodeA, Node selectedNodeB) */
-
   public void drawAllEdges(
       String floor, Node selectedNodeA, Node selectedNodeB, ImageView imageView, boolean isMobile) {
     gc.setStroke(Color.BLACK);
@@ -497,8 +491,13 @@ public class Graph {
    * @param startNode start Node of path
    * @param endNode end Node of path
    */
-  public void drawCurrentPath(
-      String floor, Node startNode, Node endNode, ImageView imageView, boolean isMobile) {
+  public Polyline drawCurrentPath(
+      String floor,
+      Node startNode,
+      Node endNode,
+      ImageView imageView,
+      HBox rc00,
+      boolean isMobile) {
     Canvas canvas = gc.getCanvas();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -514,7 +513,7 @@ public class Graph {
       }
     }
 
-    drawMidArrows(floor, imageView, isMobile);
+    // drawMidArrows(floor, imageView, isMobile);
 
     if (startNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, startNode, Color.BLUE, imageView, isMobile);
@@ -522,6 +521,33 @@ public class Graph {
     if (endNode.getFloor().equals(floor)) {
       DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, isMobile);
     }
+
+    return DrawHelper.makeDashes(getPathLine(floor, imageView, rc00));
+  }
+
+  public Polyline getPathLine(String floor, ImageView imageView, HBox rc00) {
+    Polyline line = new Polyline();
+    double x, y;
+    for (Node n : path) {
+      x = getSceneX(imageView, n.getXCoord(), rc00);
+      y = getSceneY(imageView, n.getYCoord(), rc00);
+      Bounds boundsInScene = imageView.localToScene(imageView.getBoundsInLocal());
+      // TODO: filter out / ignore(??) points outside canvas
+      line.getPoints().addAll(new Double[] {x, y});
+    }
+    return line;
+  }
+
+  private double getSceneX(ImageView imageView, double imgX, HBox rc00) {
+    double imgPercX = imgX / imageView.getImage().getWidth();
+    double translateX = 0; // imageView.getLayoutX();
+    return ((imgPercX * gc.getCanvas().getWidth()) + translateX);
+  }
+
+  private double getSceneY(ImageView imageView, double imgY, HBox rc00) {
+    double imgPercY = imgY / imageView.getImage().getHeight();
+    double translateY = 0; // imageView.getLayoutY();
+    return ((imgPercY * gc.getCanvas().getHeight()) + translateY);
   }
 
   /**
