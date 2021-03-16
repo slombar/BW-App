@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javax.swing.*;
 
@@ -40,10 +39,11 @@ public class DinoGameController implements Initializable {
     final SwingNode swingNode = new SwingNode();
 
     createSwingContent(swingNode);
+    // swingNode.minWidth(200);
+    // swingNode.maxHeight(150);
 
     // TODO: should be Stack Pane existing in fxml
 
-    anchorPane.getChildren().add(new Label("test label"));
     anchorPane.getChildren().add(swingNode);
 
     // Scene scene = new Scene(anchorPane, WIDTH, HEIGHT);
@@ -74,7 +74,11 @@ public class DinoGameController implements Initializable {
             gamePanel.addKeyListener(gamePanel);
             gamePanel.setFocusable(true);
 
+            swingNode.minWidth(200);
+            swingNode.minHeight(150);
+
             swingNode.setContent(gamePanel);
+            // swingNode.setContent(new JButton("test button"));
           }
         });
   }

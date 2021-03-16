@@ -1122,10 +1122,6 @@ public class NavController implements Initializable {
     if (path != null && anchorPane.getChildren().contains(path)) {
       anchorPane.getChildren().remove(path);
     }
-    //    Group group = new Group(anchorPane);
-    //    Stage stage = Opp.getPrimaryStage();
-    //    stage.getScene().setRoot(group);
-    //    stage.show();
 
     resizeCanvas();
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
@@ -1149,10 +1145,6 @@ public class NavController implements Initializable {
 
       anchorPane.getChildren().add(path);
       path.toFront();
-      //      group = new Group(anchorPane, path);
-      //      stage = Opp.getPrimaryStage();
-      //      stage.getScene().setRoot(group);
-      //      stage.show();
 
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
