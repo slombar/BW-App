@@ -69,7 +69,9 @@ public class SignInPageController {
     Platform.exit();
   }
 
-  public void goToTemp(ActionEvent actionEvent) {}
+  public void goToTemp(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/TempChecker.fxml");
+  }
 
   public void goToMobileApp(ActionEvent actionEvent) {
     SwitchScene.newWindowParent("/RevampedViews/MobileApp/MainMobileScreen.fxml");

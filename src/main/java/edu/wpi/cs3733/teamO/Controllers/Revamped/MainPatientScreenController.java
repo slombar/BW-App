@@ -9,10 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 public class MainPatientScreenController implements Initializable {
+  @FXML private StackPane infoPane;
+  @FXML private VBox infoBox;
   @FXML private ImageView navImg;
   @FXML private ImageView aboutImg;
   @FXML private ImageView googleNavImg;
@@ -26,6 +29,10 @@ public class MainPatientScreenController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    infoPane.toBack();
+    infoPane.setVisible(false);
+    infoBox.toBack();
+    infoBox.setVisible(false);
     hoverAllBtn();
     clipImages();
   }
@@ -70,9 +77,21 @@ public class MainPatientScreenController implements Initializable {
     SwitchScene.newWindowParent("/RevampedViews/MobileApp/MainMobileScreen.fxml");
   }
 
-  public void goToInfo(MouseEvent mouseEvent) {}
-
   public void goToAccount(ActionEvent actionEvent) {}
 
   public void goToParking(ActionEvent actionEvent) {}
+
+  public void exitInfo(ActionEvent actionEvent) {
+    infoPane.toBack();
+    infoPane.setVisible(false);
+    infoBox.toBack();
+    infoBox.setVisible(false);
+  }
+
+  public void goToInfo(ActionEvent actionEvent) {
+    infoPane.toFront();
+    infoPane.setVisible(true);
+    infoBox.toFront();
+    infoBox.setVisible(true);
+  }
 }

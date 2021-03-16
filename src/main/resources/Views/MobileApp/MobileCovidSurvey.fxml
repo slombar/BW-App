@@ -32,7 +32,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label text="In the last 14 days, have you had close contact with someone with COVID-19?" textFill="WHITE" wrapText="true" VBox.vgrow="NEVER">
+                  <Label maxHeight="55.0" minHeight="55.0" prefHeight="55.0" prefWidth="268.0" text="In the last 14 days, have you had close contact with someone with COVID-19?" textFill="WHITE" wrapText="true" VBox.vgrow="NEVER">
                      <font>
                         <Font name="Leelawadee UI" size="15.0" />
                      </font>
@@ -41,7 +41,7 @@
                      <children>
                         <JFXRadioButton fx:id="yes1" contentDisplay="RIGHT" graphicTextGap="2.0" text="Yes" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets left="10.0" top="6.0" />
                            </HBox.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="closeContact" />
@@ -52,7 +52,7 @@
                         </JFXRadioButton>
                         <JFXRadioButton fx:id="no1" contentDisplay="RIGHT" graphicTextGap="2.0" text="No" textFill="WHITE" toggleGroup="$closeContact">
                            <HBox.margin>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets left="10.0" top="6.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
@@ -61,7 +61,7 @@
 
                            </children>
                   </HBox>
-                  <Label text="In the last 14 days, have you been diagnosed with COVID-19?" textFill="WHITE" wrapText="true" VBox.vgrow="NEVER">
+                  <Label maxHeight="55.0" minHeight="55.0" prefHeight="55.0" prefWidth="268.0" text="In the last 14 days, have you been diagnosed with COVID-19?" textFill="WHITE" wrapText="true" VBox.vgrow="NEVER">
                      <font>
                         <Font name="Leelawadee UI" size="15.0" />
                      </font>
@@ -70,7 +70,7 @@
                      <children>
                         <JFXRadioButton fx:id="yes2" contentDisplay="RIGHT" graphicTextGap="2.0" text="Yes" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets left="10.0" top="6.0" />
                            </HBox.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="diagnosis" />
@@ -81,7 +81,7 @@
                         </JFXRadioButton>
                         <JFXRadioButton fx:id="no2" contentDisplay="RIGHT" graphicTextGap="2.0" text="No" textFill="WHITE" toggleGroup="$diagnosis">
                            <HBox.margin>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets left="10.0" top="6.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
@@ -90,7 +90,7 @@
 
                            </children>
                   </HBox>
-                  <Label text="Are you experiencing any symptoms of COVID-19?" textFill="WHITE" wrapText="true" VBox.vgrow="NEVER">
+                  <Label maxHeight="55.0" minHeight="55.0" prefHeight="55.0" text="Are you experiencing any symptoms of COVID-19?" textFill="WHITE" wrapText="true" VBox.vgrow="NEVER">
                      <font>
                         <Font name="Leelawadee UI" size="15.0" />
                      </font>
@@ -99,7 +99,7 @@
                      <children>
                         <JFXRadioButton fx:id="yes3" contentDisplay="RIGHT" graphicTextGap="2.0" text="Yes" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets left="10.0" top="6.0" />
                            </HBox.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="symptoms" />
@@ -110,7 +110,7 @@
                         </JFXRadioButton>
                         <JFXRadioButton fx:id="no3" contentDisplay="RIGHT" graphicTextGap="2.0" text="No" textFill="WHITE" toggleGroup="$symptoms">
                            <HBox.margin>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets left="10.0" top="6.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
@@ -120,7 +120,7 @@
                   </HBox>
                   <HBox prefHeight="75.0" prefWidth="200.0">
                      <children>
-                        <Label text="Describe the symptoms you are experiencing." textFill="WHITE" wrapText="true">
+                        <Label maxHeight="55.0" minHeight="55.0" prefHeight="55.0" text="Describe the symptoms you are experiencing." textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
