@@ -46,7 +46,6 @@ public class UserInterface extends Pane {
     mainStage.setScene(scene);
     mainStage.show();
 
-
     // ! mainWindow.setSize(WIDTH, HEIGHT);
     // ! mainWindow.setResizable(false);
     // ! mainWindow.setVisible(true);
