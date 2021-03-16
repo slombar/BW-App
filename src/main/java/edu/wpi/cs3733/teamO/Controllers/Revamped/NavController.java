@@ -11,7 +11,6 @@ import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
-import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +26,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
@@ -41,7 +39,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
-import javafx.stage.Stage;
 
 public class NavController implements Initializable {
 
@@ -130,6 +127,7 @@ public class NavController implements Initializable {
   String sFloor = "G";
   private String sideMenuUrl;
   private String pathFloors = "";
+  Polyline path = null;
 
   ArrayList<String> alignList = new ArrayList<>();
 
@@ -1121,10 +1119,13 @@ public class NavController implements Initializable {
   void draw() {
     resizeCanvas();
 
-    Group group = new Group(anchorPane);
-    Stage stage = Opp.getPrimaryStage();
-    stage.getScene().setRoot(group);
-    stage.show();
+    if (path != null && anchorPane.getChildren().contains(path)) {
+      anchorPane.getChildren().remove(path);
+    }
+    //    Group group = new Group(anchorPane);
+    //    Stage stage = Opp.getPrimaryStage();
+    //    stage.getScene().setRoot(group);
+    //    stage.show();
 
     resizeCanvas();
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
@@ -1144,12 +1145,14 @@ public class NavController implements Initializable {
       directionsList.animateList(true);
 
       // draw the portion on sFloor + highlight start and end
-      Polyline path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+      path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
 
-      group = new Group(anchorPane, path);
-      stage = Opp.getPrimaryStage();
-      stage.getScene().setRoot(group);
-      stage.show();
+      anchorPane.getChildren().add(path);
+      path.toFront();
+      //      group = new Group(anchorPane, path);
+      //      stage = Opp.getPrimaryStage();
+      //      stage.getScene().setRoot(group);
+      //      stage.show();
 
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
