@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.teamO.DinoGame.components;
 
+import edu.wpi.cs3733.teamO.DinoGame.utility.Resource;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.*;
-import edu.wpi.cs3733.teamO.DinoGame.utility.Resource;
 
 public class Ground {
 

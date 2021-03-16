@@ -290,7 +290,7 @@ public class RequestHandling {
       // get the employee based on first and last name
       PreparedStatement getEMP =
           DatabaseConnection.getConnection()
-              .prepareStatement("SELECT USERNAME FROM USERS WHERE FNAME = ? AND LNAME = ?");
+              .prepareStatement("SELECT USERNAME FROM USERS WHERE fName = ? AND lName = ?");
 
       getEMP.setString(1, firstName);
       getEMP.setString(2, lastName);
@@ -314,7 +314,7 @@ public class RequestHandling {
         Request r = new Request();
         r.setRequestID(requestSet.getInt("ID"));
         r.setAssignedTo(requestSet.getString("ASSIGNED"));
-        r.setDateNeeded(requestSet.getDate("DATECREATED"));
+        r.setDateRequested(requestSet.getDate("DATECREATED"));
         r.setDateNeeded(requestSet.getDate("DATENEEDED"));
         r.setSummary(requestSet.getString("SUMMARY"));
         r.setRequestType(requestSet.getString("REQUESTTYPE"));
@@ -373,7 +373,7 @@ public class RequestHandling {
         Request r = new Request();
         r.setRequestID(rset.getInt("ID"));
         r.setAssignedTo(rset.getString("ASSIGNED"));
-        r.setDateNeeded(rset.getDate("DATECREATED"));
+        r.setDateRequested(rset.getDate("DATECREATED"));
         r.setDateNeeded(rset.getDate("DATENEEDED"));
         r.setSummary(rset.getString("SUMMARY"));
         r.setRequestType(rset.getString("REQUESTTYPE"));

@@ -1,12 +1,12 @@
 package edu.wpi.cs3733.teamO.DinoGame.components;
 
+import edu.wpi.cs3733.teamO.DinoGame.utility.Resource;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
-import edu.wpi.cs3733.teamO.DinoGame.utility.Resource;
 
 public class Obstacles {
   private class Obstacle {

@@ -38,6 +38,7 @@ switch (type) {
     }
  */
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
@@ -140,10 +141,13 @@ public class RequestPageController implements Initializable {
       Label id = new Label(String.valueOf(toDisplay.getRequestID()));
       Label requestedOn = new Label(toDisplay.getDateRequested().toString());
       Label requestedBy = new Label(toDisplay.getRequestedBy());
-      Label needBy = new Label(toDisplay.getDateRequested().toString());
+      Label needBy = new Label(toDisplay.getDateNeeded().toString());
       Label assigned = new Label(toDisplay.getAssignedTo());
       Label rLocation = new Label(toDisplay.getRequestLocation());
       Label summary = new Label(toDisplay.getSummary());
+      JFXButton assignEmployee = new JFXButton("A");
+      JFXButton delete = new JFXButton("D");
+      // todo JFXButton edit = new JFXButton("D"); @sadie make this edit button work
 
       id.setPrefWidth(100);
       requestedOn.setPrefWidth(100);
