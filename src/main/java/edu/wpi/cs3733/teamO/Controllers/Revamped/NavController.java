@@ -118,6 +118,8 @@ public class NavController implements Initializable {
   private final JFXButton submitPath = new JFXButton("GO");
   private final JFXButton clearPath = new JFXButton("Clear");
 
+  private String helpPageUrl;
+
   private GraphicsContext gc;
   private double percImageView = 1.0;
   private Rectangle2D currentViewport;
@@ -286,13 +288,16 @@ public class NavController implements Initializable {
     if (UserHandling.getEmployee()) {
       System.out.println("EMPLOYEE");
       sideMenuUrl = "/Views/SideMenuStaff.fxml";
+      helpPageUrl = "/RevampedViews/DesktopApp/NavPatientHelp.fxml";
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
+        helpPageUrl = "/RevampedViews/DesktopApp/NavStaffHelp.fxml";
         System.out.println("ADMIN");
         editB.setVisible(true);
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";
+      helpPageUrl = "/RevampedViews/DesktopApp/NavPatientHelp.fxml";
     }
 
     try {
@@ -487,7 +492,7 @@ public class NavController implements Initializable {
     helpB.setOnAction(
         e -> {
           // show tutorial/help
-          SwitchScene.goToParent("/RevampedViews/DesktopApp/NavStaffHelp.fxml");
+          SwitchScene.goToParent(helpPageUrl);
         });
 
     submitPath.setOnAction(
