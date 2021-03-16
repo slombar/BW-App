@@ -427,4 +427,14 @@ public class UserHandling {
 
     return uname;
   }
+
+  public static String getLastName() {
+    // TODO
+    return "Wong";
+  }
+
+  public static String getEmail() {
+    // TODO
+    return "todo@todo.com";
+  }
 }
