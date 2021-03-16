@@ -12,6 +12,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.DrawHelper;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
+import edu.wpi.cs3733.teamO.Opp;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
@@ -39,6 +41,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
+import javafx.stage.Stage;
 
 public class NavController implements Initializable {
 
@@ -1102,6 +1106,12 @@ public class NavController implements Initializable {
   void draw() {
     resizeCanvas();
 
+    Group group = new Group(anchorPane);
+    Stage stage = Opp.getPrimaryStage();
+    stage.getScene().setRoot(group);
+    stage.show();
+
+    resizeCanvas();
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
 
     // i know these can be simplified but i don't care -- this is more organized imo
@@ -1116,9 +1126,16 @@ public class NavController implements Initializable {
         DrawHelper.drawSingleNode(gc, endNode, Color.RED, imageView, false);
       }
     } else if (!editing && displayingRoute) {
-      // draw the portion on sFloor + highlight start and end
       directionsList.animateList(true);
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+
+      // draw the portion on sFloor + highlight start and end
+      Polyline path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
+
+      group = new Group(anchorPane, path);
+      stage = Opp.getPrimaryStage();
+      stage.getScene().setRoot(group);
+      stage.show();
+
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);

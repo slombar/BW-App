@@ -242,7 +242,7 @@
                <children>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#goToInfo" prefHeight="29.0" prefWidth="18.0" text="Button">
+                        <JFXButton alignment="BOTTOM_RIGHT" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#goToInfo" text="Button">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>

@@ -423,6 +423,7 @@ public class MobileHospitalNavController implements Initializable {
       GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, true);
     } else if (displayingRoute) {
       // draw the portion on sFloor + highlight start and end
+      // TODO: this probably needs to be changed (currently needs HBox to translate path properly)
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, true);
     }
   }
