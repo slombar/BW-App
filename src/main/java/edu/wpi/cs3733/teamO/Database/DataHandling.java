@@ -29,10 +29,6 @@ public class DataHandling {
     return filePath;
   }
 
-  private static void uploadEdges() {}
-
-  private static void uploadNodes() {}
-
   /** imports data from csv (delimiter = ,|\n) and determines which database to add it to */
   public static void importExcelData() {
     fileChooser.setTitle("Import your Node File");
@@ -93,7 +89,7 @@ public class DataHandling {
         longName = scan.next();
         shortName = scan.next();
         teamAssigned = scan.next();
-        visible = true;
+        visible = Boolean.getBoolean(scan.next());
 
         try {
           NodesAndEdges.addNode(
@@ -110,22 +106,23 @@ public class DataHandling {
         } catch (SQLException throwables) {
           throwables.printStackTrace();
         }
-
-        scan.close();
       }
+
+      scan.close();
     } else {
       System.out.println("File is empty");
     }
 
+    Scanner scanedge = null;
     /** Edges upload */
     fileChooser.setTitle("Import your Edge File");
-    scan = null;
+
     url = explorer(Opp.getPrimaryStage());
     // Open file chooser instead of asking for user input
 
     // try to open file
     try {
-      scan = new Scanner(new File(url)).useDelimiter(d);
+      scanedge = new Scanner(new File(url)).useDelimiter(d);
       System.out.println("File read! Importing data...");
 
     } catch (FileNotFoundException e) {
@@ -133,7 +130,7 @@ public class DataHandling {
     }
 
     // if the file isn't empty, read it in
-    if (scan.hasNext()) {
+    if (scanedge.hasNext()) {
       String startNode = "";
       String endNode = "";
 
@@ -149,10 +146,10 @@ public class DataHandling {
         throwables.printStackTrace();
       }
 
-      while (scan.hasNext()) {
-        scan.next();
-        startNode = scan.next();
-        endNode = scan.next();
+      while (scanedge.hasNext()) {
+        scanedge.next();
+        startNode = scanedge.next();
+        endNode = scanedge.next();
 
         try {
           NodesAndEdges.addNewEdge(startNode, endNode);
@@ -160,6 +157,10 @@ public class DataHandling {
           throwables.printStackTrace();
         }
       }
+
+      scanedge.close();
+    } else {
+      System.out.println("File is empty.");
     }
   }
 
@@ -201,6 +202,21 @@ public class DataHandling {
 
       BufferedWriter bw;
       bw = new BufferedWriter(new FileWriter(url));
+      String firstLine =
+          String.format(
+              "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+              "NodeID",
+              "xCoordinate",
+              "yCoordinate",
+              "Floor",
+              "Building",
+              "Type",
+              "LongName",
+              "ShortName",
+              "Team",
+              "Visible?");
+      bw.write(firstLine);
+      bw.newLine();
       while (rset.next()) {
         nodeID = rset.getString("nodeid");
         xcoord = rset.getInt("xcoord");
@@ -215,7 +231,7 @@ public class DataHandling {
 
         String line =
             String.format(
-                "%s,%d,%d,%s,%s,%s,%s,%s,%s,%b ",
+                "%s,%d,%d,%s,%s,%s,%s,%s,%s,%b",
                 nodeID,
                 xcoord,
                 ycoord,
@@ -228,8 +244,8 @@ public class DataHandling {
                 visible);
 
         // writes "enter", so we more to the next line
-        bw.newLine();
         bw.write(line);
+        bw.newLine();
       }
 
       rset.close();
@@ -253,26 +269,27 @@ public class DataHandling {
     String ID = "";
     String startNode = "";
     String endNode = "";
-    double length = 0;
 
     // Process the results
-
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM Edges");
       ResultSet rset = pstmt.executeQuery();
 
-      // String url = "C:\\Users\\Kyle Lopez\\Project-BWApp\\MapOEdges.csv";
       BufferedWriter bw;
       bw = new BufferedWriter(new FileWriter(url));
+      String firstLine = String.format("%s,%s,%s", "EdgeID", "StartNode", "EndNode");
+      bw.write(firstLine);
+      bw.newLine();
       while (rset.next()) {
         ID = rset.getString("nodeid");
         startNode = rset.getString("startNode");
         endNode = rset.getString("endNode");
-        length = rset.getDouble("length");
-        String line = String.format("%s,%s,%s,%d ", ID, startNode, endNode);
-        bw.newLine();
+
+        String line = String.format("%s,%s,%s", ID, startNode, endNode);
+
         bw.write(line);
+        bw.newLine();
       }
 
       rset.close();
