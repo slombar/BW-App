@@ -65,7 +65,7 @@
             </VBox>
             <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <AnchorPane fx:id="wPageAnchorPane" prefHeight="150.0" prefWidth="200.0" />
+                  <AnchorPane fx:id="wPageAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="200.0" />
                </children>
             </StackPane>
             <StackPane fx:id="popupNotification" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

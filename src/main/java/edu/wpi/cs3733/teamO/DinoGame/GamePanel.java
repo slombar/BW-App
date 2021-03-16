@@ -5,9 +5,10 @@ import edu.wpi.cs3733.teamO.DinoGame.components.Ground;
 import edu.wpi.cs3733.teamO.DinoGame.components.Obstacles;
 import java.awt.*;
 import java.awt.event.*;
+import javafx.embed.swing.JFXPanel;
 import javax.swing.*;
 
-public class GamePanel extends JPanel implements KeyListener, Runnable {
+public class GamePanel extends JFXPanel implements KeyListener, Runnable {
 
   public static int WIDTH;
   public static int HEIGHT;
@@ -23,8 +24,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
   private int score;
 
   public GamePanel() {
-    WIDTH = DinoGameController.WIDTH;
-    HEIGHT = DinoGameController.HEIGHT;
+    WIDTH = 200;
+    HEIGHT = 150;
 
     ground = new Ground(HEIGHT);
     dino = new Dino();
