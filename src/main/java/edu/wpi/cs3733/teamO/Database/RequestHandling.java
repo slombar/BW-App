@@ -47,7 +47,6 @@ public class RequestHandling {
     return r;
   }
 
-
   /**
    * Retrieve all service requests from database, depending on their type
    *
@@ -107,8 +106,9 @@ public class RequestHandling {
         location = rset.getString("LOCATION");
         summary = rset.getString("SUMMARY");
 
-        //requests generate here
-        Request req = new Request(
+        // requests generate here
+        Request req =
+            new Request(
                 reqID,
                 requestedBy,
                 fulfilledBy,
@@ -176,7 +176,6 @@ public class RequestHandling {
     pstmt.close();
   }
 
-
   public static void addRequest(Request r) {
     // get current date
     long millis = System.currentTimeMillis();
@@ -224,14 +223,14 @@ public class RequestHandling {
   }
 
   /**
-   * Edit the request in the database
-   * Updates the request type, summary, location for this specific request
+   * Edit the request in the database Updates the request type, summary, location for this specific
+   * request
+   *
    * @param r
    */
   public static void editRequest(Request r) {
 
-    String query =
-        "UPDATE SRS SET REQUESTTYPE = ?, SUMMARY = ?, LOCATION = ? WHERE requestID = ?";
+    String query = "UPDATE SRS SET REQUESTTYPE = ?, SUMMARY = ?, LOCATION = ? WHERE requestID = ?";
     try {
       PreparedStatement preparedStmt = null;
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
