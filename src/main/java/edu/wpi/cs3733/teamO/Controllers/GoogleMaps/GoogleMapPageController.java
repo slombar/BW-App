@@ -28,6 +28,15 @@ import javafx.scene.web.WebView;
 
 public class GoogleMapPageController implements Initializable {
 
+  public VBox menuVBox;
+  public JFXButton profileBtn;
+  public JFXButton homeBtn;
+  public JFXButton navBtn1;
+  public JFXButton trackBtn;
+  public JFXButton reqBtn;
+  public JFXButton patientsBtn;
+  public JFXButton employeesBtn;
+  public JFXButton loginBtn;
   @FXML private ScrollPane scrollPane;
   @FXML private WebView mapView;
   @FXML private JFXButton shareBtn;
@@ -44,17 +53,16 @@ public class GoogleMapPageController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    String sideMenuUrl;
-    if (UserHandling.getEmployee()) {
-      System.out.println("EMPLOYEE");
-      sideMenuUrl = "/Views/SideMenuStaff.fxml";
-      if (UserHandling.getAdmin()) {
-        sideMenuUrl = "/Views/SideMenuAdmin.fxml";
-        System.out.println("ADMIN");
-      }
-    } else {
-      sideMenuUrl = "/Views/SideMenu.fxml";
+    if (!UserHandling.getEmployee()) {
+      reqBtn.setVisible(false);
+      reqBtn.setDisable(true);
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    } else if (!UserHandling.getAdmin() && UserHandling.getEmployee()) {
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
     }
+
     // transition animation of Hamburger icon
     HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
     transition.setRate(-1);
@@ -72,7 +80,8 @@ public class GoogleMapPageController implements Initializable {
 
     // Set drawer to SideMenu
     try {
-      VBox vbox = FXMLLoader.load(getClass().getResource(sideMenuUrl));
+      VBox vbox =
+          FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/NewSideMenu.fxml"));
       drawer.setSidePane(vbox);
     } catch (IOException e) {
       e.printStackTrace();
@@ -140,5 +149,35 @@ public class GoogleMapPageController implements Initializable {
 
   public static ArrayList<DirectionsStep> getDirections() {
     return directions;
+  }
+
+  public void toProfile(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/ProfilePage.fxml");
+  }
+
+  public void toHome(ActionEvent actionEvent) {
+    String sideMenu = "/RevampedViews/DesktopApp/MainStaffScreen.fxml";
+    if (!UserHandling.getEmployee()) sideMenu = "/RevampedViews/DesktopApp/MainPatientScreen.fxml";
+    SwitchScene.goToParent(sideMenu);
+  }
+
+  public void toNav(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
+  }
+
+  public void toTrack(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
+  }
+
+  public void toReq(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
+  }
+
+  public void toEmployees(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ManageEmployees.fxml");
+  }
+
+  public void toLogin(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 }

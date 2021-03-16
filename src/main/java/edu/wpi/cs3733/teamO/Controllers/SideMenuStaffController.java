@@ -34,7 +34,7 @@ public class SideMenuStaffController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    nameLabel.setText(UserHandling.getUsername());
+    nameLabel.setText(UserHandling.getSessionUsername());
   }
 
   public void exit(ActionEvent actionEvent) {

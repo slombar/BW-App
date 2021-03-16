@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -21,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 public class MainStaffScreenController implements Initializable {
+  @FXML private Label usernameTextBox;
   @FXML private JFXDrawer drawer;
   @FXML private VBox menuVBox;
   @FXML private JFXHamburger hamburger;
@@ -47,6 +49,18 @@ public class MainStaffScreenController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    if (!UserHandling.getEmployee()) {
+      reqBtn.setVisible(false);
+      reqBtn.setDisable(true);
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    } else if (!UserHandling.getAdmin() && UserHandling.getEmployee()) {
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    }
+
+    usernameTextBox.setText(UserHandling.getSessionUsername());
     infoPane.toBack();
     infoPane.setVisible(false);
     infoBox.toBack();
@@ -90,6 +104,7 @@ public class MainStaffScreenController implements Initializable {
           burgerTransition.play();
           if (drawer.isOpened()) {
             drawer.close(); // this will close slide pane
+            drawer.toBack();
           } else {
             drawer.open(); // this will open slide pane
             drawer.toFront();
@@ -175,7 +190,9 @@ public class MainStaffScreenController implements Initializable {
   }
 
   public void toHome(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    String sideMenu = "/RevampedViews/DesktopApp/MainStaffScreen.fxml";
+    if (!UserHandling.getEmployee()) sideMenu = "/RevampedViews/DesktopApp/MainPatientScreen.fxml";
+    SwitchScene.goToParent(sideMenu);
   }
 
   public void toNav(ActionEvent actionEvent) {
@@ -183,19 +200,15 @@ public class MainStaffScreenController implements Initializable {
   }
 
   public void toTrack(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
-  }
-
-  public void toPatients(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
   }
 
   public void toEmployees(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
   public void toLogin(ActionEvent actionEvent) {

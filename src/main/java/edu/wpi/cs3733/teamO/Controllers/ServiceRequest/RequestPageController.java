@@ -112,6 +112,16 @@ public class RequestPageController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    if (!UserHandling.getEmployee()) {
+      reqBtn.setVisible(false);
+      reqBtn.setDisable(true);
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    } else if (!UserHandling.getAdmin() && UserHandling.getEmployee()) {
+      employeesBtn.setVisible(false);
+      employeesBtn.setDisable(true);
+    }
+
     // Set drawer to SideMenu
     String sideMenu = "";
 
@@ -297,9 +307,9 @@ public class RequestPageController implements Initializable {
           });
 
       id.setPrefWidth(40);
-      requestedOn.setPrefWidth(70);
+      requestedOn.setPrefWidth(80);
       requestedBy.setPrefWidth(100);
-      needBy.setPrefWidth(70);
+      needBy.setPrefWidth(80);
       assigned.setPrefWidth(100);
       rLocation.setPrefWidth(100);
       summary.setPrefWidth(250);
@@ -413,7 +423,9 @@ public class RequestPageController implements Initializable {
   }
 
   public void toHome(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    String sideMenu = "/RevampedViews/DesktopApp/MainStaffScreen.fxml";
+    if (!UserHandling.getEmployee()) sideMenu = "/RevampedViews/DesktopApp/MainPatientScreen.fxml";
+    SwitchScene.goToParent(sideMenu);
   }
 
   public void toNav(ActionEvent actionEvent) {
@@ -421,19 +433,15 @@ public class RequestPageController implements Initializable {
   }
 
   public void toTrack(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+    SwitchScene.goToParent("/Views/CovidSurvey.fxml");
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
-  }
-
-  public void toPatients(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
   }
 
   public void toEmployees(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    SwitchScene.goToParent("/Views/ManageEmployees.fxml");
   }
 
   public void toLogin(ActionEvent actionEvent) {

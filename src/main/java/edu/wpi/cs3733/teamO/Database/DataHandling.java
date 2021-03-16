@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 public class DataHandling {
 
   private Desktop desktop = Desktop.getDesktop();
+  private static FileChooser fileChooser = new FileChooser();
 
   /**
    * Opens the explorer and sends back the chosen file path
@@ -22,26 +23,26 @@ public class DataHandling {
    * @return
    */
   public static String explorer(Stage stage) {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Upload your file to the database.");
     File file = fileChooser.showOpenDialog(stage);
-
     String filePath = file.getAbsolutePath();
 
     return filePath;
   }
 
-  /**
-   * imports data from csv (delimiter = ,|\n) and determines which database to add it to
-   *
-   * @param node, whether or not this file is a node file or an edge file
-   */
-  public static void importExcelData(boolean node) {
+  private static void uploadEdges() {}
+
+  private static void uploadNodes() {}
+
+  /** imports data from csv (delimiter = ,|\n) and determines which database to add it to */
+  public static void importExcelData() {
+    fileChooser.setTitle("Import your Node File");
     String url = explorer(Opp.getPrimaryStage());
     // Open file chooser instead of asking for user input
 
     Scanner scan = null;
     Pattern d = Pattern.compile(",|\r\n");
+
+    /** Nodes upload */
 
     // try to open file
     try {
@@ -57,111 +58,120 @@ public class DataHandling {
       // remove header line in beginning of file
       System.out.println("Removing header line: " + scan.nextLine());
 
-      if (node) {
-        // function variables for simplicity
-        String nodeID = "";
-        String xcoord = "";
-        String ycoord = "";
-        String floor = "";
-        String building = "";
-        String nodeType = "";
-        String longName = "";
-        String shortName = "";
-        String teamAssigned = "";
-        boolean visible = false;
+      // function variables for simplicity
+      String nodeID = "";
+      String xcoord = "";
+      String ycoord = "";
+      String floor = "";
+      String building = "";
+      String nodeType = "";
+      String longName = "";
+      String shortName = "";
+      String teamAssigned = "";
+      boolean visible = false;
 
-        // delete current nodes
-        PreparedStatement pstmt = null;
+      // delete current nodes
+      PreparedStatement pstmt = null;
+
+      try {
+        pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Nodes");
+
+        pstmt.execute();
+        pstmt.close();
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+
+      // while the file is not at its end
+      while (scan.hasNext()) {
+        nodeID = scan.next();
+        xcoord = scan.next();
+        ycoord = scan.next();
+        floor = scan.next();
+        building = scan.next();
+        nodeType = scan.next();
+        longName = scan.next();
+        shortName = scan.next();
+        teamAssigned = scan.next();
+        visible = true;
 
         try {
-          pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Nodes");
-
-          pstmt.execute();
-          pstmt.close();
+          NodesAndEdges.addNode(
+              nodeID,
+              xcoord,
+              ycoord,
+              floor,
+              building,
+              nodeType,
+              longName,
+              shortName,
+              teamAssigned,
+              visible);
         } catch (SQLException throwables) {
           throwables.printStackTrace();
         }
 
-        // while the file is not at its end
-        while (scan.hasNext()) {
-          nodeID = scan.next();
-          xcoord = scan.next();
-          ycoord = scan.next();
-          floor = scan.next();
-          building = scan.next();
-          nodeType = scan.next();
-          longName = scan.next();
-          shortName = scan.next();
-          teamAssigned = scan.next();
-          visible = true;
-
-          try {
-            NodesAndEdges.addNode(
-                nodeID,
-                xcoord,
-                ycoord,
-                floor,
-                building,
-                nodeType,
-                longName,
-                shortName,
-                teamAssigned,
-                visible);
-          } catch (SQLException throwables) {
-            throwables.printStackTrace();
-          }
-        }
         scan.close();
-
-      } else {
-        String nodeID = "";
-        String startNode = "";
-        String endNode = "";
-        double length = 0;
-
-        // delete current nodes
-        PreparedStatement pstmt = null;
-
-        try {
-          pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Edges");
-
-          pstmt.execute();
-          pstmt.close();
-
-        } catch (SQLException throwables) {
-          throwables.printStackTrace();
-        }
-
-        while (scan.hasNext()) {
-          scan.next();
-          startNode = scan.next();
-          endNode = scan.next();
-          length = 0;
-
-          try {
-            NodesAndEdges.addNewEdge(startNode, endNode);
-          } catch (SQLException throwables) {
-            throwables.printStackTrace();
-          }
-        }
       }
     } else {
-      System.out.println("File is empty.");
+      System.out.println("File is empty");
+    }
+
+    /** Edges upload */
+    fileChooser.setTitle("Import your Edge File");
+    scan = null;
+    url = explorer(Opp.getPrimaryStage());
+    // Open file chooser instead of asking for user input
+
+    // try to open file
+    try {
+      scan = new Scanner(new File(url)).useDelimiter(d);
+      System.out.println("File read! Importing data...");
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    // if the file isn't empty, read it in
+    if (scan.hasNext()) {
+      String startNode = "";
+      String endNode = "";
+
+      // delete current nodes
+      PreparedStatement pstmt = null;
+      try {
+        pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Edges");
+
+        pstmt.execute();
+        pstmt.close();
+
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+
+      while (scan.hasNext()) {
+        scan.next();
+        startNode = scan.next();
+        endNode = scan.next();
+
+        try {
+          NodesAndEdges.addNewEdge(startNode, endNode);
+        } catch (SQLException throwables) {
+          throwables.printStackTrace();
+        }
+      }
     }
   }
 
-  /**
-   * Save both the nodes and the edges files
-   *
-   * @param node
-   */
-  public static void save(boolean node) {
+  /** Save both the nodes and the edges files */
+  public static void save() {
+    fileChooser.setTitle("Choose the file to save Nodes to");
     String url = explorer(Opp.getPrimaryStage());
-    if (node) {
-      saveNodes(url);
-    } else {
-      saveEdges(url);
-    }
+    saveNodes(url);
+
+    fileChooser.setTitle("Choose the file to save Edges to");
+    url = explorer(Opp.getPrimaryStage());
+    saveEdges(url);
   }
 
   /**
@@ -170,7 +180,6 @@ public class DataHandling {
    * @param url
    */
   public static void saveNodes(String url) {
-
     String nodeID = "";
     int xcoord = 0;
     int ycoord = 0;
@@ -215,7 +224,8 @@ public class DataHandling {
                 nodeType,
                 longName,
                 shortName,
-                teamAssigned);
+                teamAssigned,
+                visible);
 
         // writes "enter", so we more to the next line
         bw.newLine();

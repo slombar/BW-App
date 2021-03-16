@@ -97,7 +97,7 @@ public class EmailThreader extends Thread {
       if (UserHandling.getLoginStatus())
         messageBodyPart0.setText(
             "Hello "
-                + UserHandling.getUsername()
+                + UserHandling.getSessionUsername()
                 + "! Below is the image of your pathfinding route.");
       else messageBodyPart0.setText("Hello! Below is the image of your pathfinding route.");
 

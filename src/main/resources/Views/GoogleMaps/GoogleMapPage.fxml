@@ -7,16 +7,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.GoogleMaps.GoogleMapPageController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="2186.0" style="-fx-background-color: #3a5369;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.GoogleMaps.GoogleMapPageController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="15.0" />
       <ColumnConstraints percentWidth="70.0" />
@@ -25,9 +28,12 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="80.0" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="ALWAYS" />
    </rowConstraints>
-   <WebView fx:id="mapView" prefWidth="388.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+   <WebView fx:id="mapView" prefWidth="388.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
+      <GridPane.margin>
+         <Insets left="100.0" />
+      </GridPane.margin></WebView>
    <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefViewportWidth="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
       <content>
          <VBox fx:id="dirVbox">
@@ -87,6 +93,78 @@
          <StackPane fx:id="popupPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </GridPane>
    </VBox>
-   <JFXDrawer fx:id="drawer" alignment="TOP_LEFT" defaultDrawerSize="350.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="402.0" prefWidth="123.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
-   <JFXHamburger fx:id="hamburger" style="-fx-background-color: #3a5369;" GridPane.vgrow="ALWAYS" />
+   <JFXDrawer fx:id="drawer" defaultDrawerSize="375.0" maxWidth="-Infinity" minWidth="-Infinity" miniDrawerSize="0.0" prefHeight="1080.0" prefWidth="275.0" resizableOnDrag="true" GridPane.rowSpan="2147483647">
+      <GridPane.margin>
+         <Insets left="100.0" />
+      </GridPane.margin>
+   </JFXDrawer>
+   <VBox fx:id="menuVBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: a9a9a9;" GridPane.rowSpan="2147483647">
+      <children>
+         <JFXHamburger fx:id="hamburger" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" style="-fx-background-color: gray;" />
+         <Line endX="100.0" />
+         <JFXButton fx:id="profileBtn" onAction="#toProfile" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/profileIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="homeBtn" onAction="#toHome" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/HomeIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="navBtn1" onAction="#toNav" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/simpleNavIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="trackBtn" onAction="#toTrack" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/stethoscopeIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="reqBtn" onAction="#toReq" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/formIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="employeesBtn" onAction="#toEmployees" prefHeight="100.0" prefWidth="283.0" text=" ">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/doctorIconBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="loginBtn" onAction="#toLogin" prefHeight="100.0" prefWidth="283.0" text=" " translateY="250.0">
+            <graphic>
+               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
+                  <image>
+                     <Image url="@../../Icons/exitBlack.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </JFXButton>
+      </children>
+   </VBox>
 </GridPane>

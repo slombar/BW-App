@@ -242,7 +242,7 @@
                <children>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#goToInfo" prefHeight="29.0" prefWidth="18.0" text="Button">
+                        <JFXButton alignment="BOTTOM_RIGHT" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#goToInfo" text="Button">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
@@ -259,14 +259,20 @@
                         </JFXButton>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="226.0" text="Hello, ____">
-                                 <font>
-                                    <Font name="Leelawadee UI Bold" size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Hello, ">
+                                       <font>
+                                          <Font name="Leelawadee UI Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="usernameTextBox" text="...">
+                                       <font>
+                                          <Font name="Leelawadee UI Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                               <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="-Infinity" onAction="#goToAccount" prefHeight="39.0" prefWidth="158.0" text="My Account">
                                  <font>
                                     <Font name="Leelawadee UI" size="18.0" />
@@ -441,15 +447,6 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="patientsBtn" onAction="#toPatients" prefHeight="100.0" prefWidth="283.0" text=" ">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
-                     <image>
-                        <Image url="@../../Icons/patientIconBlack.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
             <JFXButton fx:id="employeesBtn" onAction="#toEmployees" prefHeight="100.0" prefWidth="283.0" text=" ">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
@@ -459,7 +456,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="loginBtn" onAction="#toLogin" prefHeight="100.0" prefWidth="283.0" text=" " translateY="150.0">
+            <JFXButton fx:id="loginBtn" onAction="#toLogin" prefHeight="100.0" prefWidth="283.0" text=" " translateY="250.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
                      <image>
