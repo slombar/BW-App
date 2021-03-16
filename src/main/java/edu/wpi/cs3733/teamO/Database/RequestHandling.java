@@ -30,7 +30,7 @@ public class RequestHandling {
       // add properties to the node
       r.setRequestID(reqID);
       r.setRequestedBy(rset.getString("PERSON"));
-      r.setFulfilledBy(rset.getString("ASSIGNED"));
+      r.setAssignedTo(rset.getString("ASSIGNED"));
       r.setDateRequested(rset.getDate("DATECREATED"));
       r.setDateNeeded(rset.getDate("DATENEEDED"));
       r.setRequestType(rset.getString("REQUESTTYPE"));
@@ -52,24 +52,24 @@ public class RequestHandling {
    * assign an employee to a service request
    *
    * @param reqID
-   * @param employee
+   * @param employee, either takes in a name like Sadie Lombardi or a username like slombardi
    */
   public static void assignEmployee(int reqID, String employee) {
-
-    try {
-      RequestHandling.setStatus(reqID, "Assigned");
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
-
     String query = "UPDATE SRS SET ASSIGNED = ? WHERE ID = ?";
+
+    // if this is a name like "Sadie Lombardi" we will parse it and grab employee username
+    if (employee.contains(" ")) {
+      employee = UserHandling.getUserByName(employee);
+    }
 
     try {
       PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      preparedStmt.setInt(1, reqID);
       preparedStmt.setString(1, employee);
+      preparedStmt.setInt(2, reqID);
       preparedStmt.executeUpdate();
       preparedStmt.close();
+
+      RequestHandling.setStatus(reqID, "Assigned");
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
@@ -117,8 +117,8 @@ public class RequestHandling {
     try {
       // temp variables for assignment
       int reqID = 0;
+      String assignedto = "";
       String requestedBy = "";
-      String fulfilledBy = "";
       Date dateRequested = new Date();
       Date dateNeeded = new Date();
       String requestType = "";
@@ -130,7 +130,7 @@ public class RequestHandling {
       while (rset.next()) {
         reqID = rset.getInt("ID");
         requestedBy = rset.getString("PERSON");
-        fulfilledBy = rset.getString("ASSIGNED");
+        assignedto = rset.getString("ASSIGNED");
         dateRequested = rset.getDate("DATECREATED");
         dateNeeded = rset.getDate("DATENEEDED");
         requestType = rset.getString("REQUESTTYPE");
@@ -138,20 +138,21 @@ public class RequestHandling {
         summary = rset.getString("SUMMARY");
         status = (rset.getString("STATUS"));
 
+        System.out.println("Assigned to:" + assignedto);
         // requests generate here
-        Request req =
-            new Request(
-                reqID,
-                requestedBy,
-                fulfilledBy,
-                dateRequested,
-                dateNeeded,
-                requestType,
-                location,
-                summary);
-        req.setStatus(status);
+        Request r = new Request();
+        // add properties to the node
+        r.setRequestID(reqID);
+        r.setRequestedBy(rset.getString("PERSON"));
+        r.setAssignedTo(rset.getString("ASSIGNED"));
+        r.setDateRequested(rset.getDate("DATECREATED"));
+        r.setDateNeeded(rset.getDate("DATENEEDED"));
+        r.setRequestType(rset.getString("REQUESTTYPE"));
+        r.setRequestLocation(rset.getString("LOCATION"));
+        r.setSummary(rset.getString("SUMMARY"));
+        r.setStatus(rset.getString("STATUS"));
 
-        requestList.add(req);
+        requestList.add(r);
       }
 
       // must close these for update to occur
@@ -283,29 +284,13 @@ public class RequestHandling {
   /**
    * Get every request for the given employee
    *
-   * @param firstName
-   * @param lastName
+   * @param employee the first and last name of an employee, in this format ('Sadie Lombardi')
    * @return
    */
-  public static ObservableList<Request> getEmployeeRequests(String firstName, String lastName) {
-    String employeeUsername = "";
+  public static ObservableList<Request> getEmployeeRequests(String employee) {
+    String employeeUsername = UserHandling.getUserByName(employee);
     ObservableList<Request> requests = FXCollections.observableArrayList();
     try {
-      // get the employee based on first and last name
-      PreparedStatement getEMP =
-          DatabaseConnection.getConnection()
-              .prepareStatement("SELECT USERNAME FROM USERS WHERE fName = ? AND lName = ?");
-
-      getEMP.setString(1, firstName);
-      getEMP.setString(2, lastName);
-
-      ResultSet employeeR = getEMP.executeQuery();
-      employeeR.next();
-      employeeUsername = employeeR.getString("USERNAME");
-
-      employeeR.close();
-      getEMP.close();
-
       // get the requests
       PreparedStatement requestPS =
           DatabaseConnection.getConnection()

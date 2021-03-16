@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -22,56 +22,34 @@ public class UserInterface extends Pane {
   public static int HEIGHT = 500;
 
   public void createAndShowGUI() throws IOException {
-    //    mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // ! mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    mainStage.setOnCloseRequest(
-        event -> {
-          event.consume();
-        });
-
-    // build scene from pane
-    //    Container container = mainWindow.getContentPane();
-    Parent root =
-        FXMLLoader.load(getClass().getResource("/RevampedViews/DesktopApp/SignInPage.fxml"));
-    Scene scene = new Scene(root);
-    // Scene scene = new Scene(root, 600, 400);
+    //    mainStage.setOnCloseRequest(
+    //        event -> {
+    //          event.consume();
+    //        });
 
     GamePanel gamePanel = new GamePanel();
-    //    gamePanel.addKeyListener(gamePanel);
-    //    gamePanel.setFocusable(true);
+    gamePanel.addKeyListener(gamePanel);
+    gamePanel.setFocusable(true);
+
+    // build scene from pane
+    // ! Container container = mainWindow.getContentPane();
+
+    Group rt1 = new Group((Collection<Node>) gamePanel);
+    Scene scene = new Scene(rt1, WIDTH, HEIGHT);
 
     // just a borderpane
-    //    container.setLayout(new BorderLayout());
-    //    container.add(gamePanel, BorderLayout.CENTER);
+    // ! container.setLayout(new BorderLayout());
+    // ! container.add(gamePanel, BorderLayout.CENTER);
 
-    BorderPane border = new BorderPane();
-    AnchorPane anchor = new AnchorPane();
-    HBox hbox = new HBox();
-    VBox vbox = new VBox();
+    mainStage.setScene(scene);
+    mainStage.show();
 
-    border.setTop(hbox);
-    //    anchor.getChildren().add(new ImageView(gamePanel));
 
-    // anchor.getChildren().add(gamePanel); //HOW TO PASS IN GAMEPANEL
-    // vbox.getChildren().add(gamePanel);
-
-    // public GamePanel() {
-    //      WIDTH = UserInterface.WIDTH;
-    //      HEIGHT = UserInterface.HEIGHT;
-    //
-    //      ground = new Ground(HEIGHT);
-    //      dino = new Dino();
-    //      obstacles = new Obstacles((int) (WIDTH * 1.5));
-    //
-    //      score = 0;
-    //
-    //      setSize(WIDTH, HEIGHT);
-    //      setVisible(true);
-    ////    }
-
-    //    mainWindow.setSize(WIDTH, HEIGHT);
-    //    mainWindow.setResizable(false);
-    //    mainWindow.setVisible(true);
+    // ! mainWindow.setSize(WIDTH, HEIGHT);
+    // ! mainWindow.setResizable(false);
+    // ! mainWindow.setVisible(true);
 
     mainStage.setMaxWidth(WIDTH);
     mainStage.setMaxHeight(HEIGHT);

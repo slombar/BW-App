@@ -54,7 +54,7 @@ public class ReqController implements Initializable {
 
     int reqID = r.getRequestID();
     String requestedBy = r.getRequestedBy();
-    String fulfilledBy = r.getFulfilledBy();
+    String fulfilledBy = r.getAssignedTo();
     Date dateNeeded = r.getDateNeeded();
     Date dateRequested = r.getDateRequested();
     String location = r.getRequestLocation();

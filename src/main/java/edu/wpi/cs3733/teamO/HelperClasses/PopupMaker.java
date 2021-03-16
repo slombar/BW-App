@@ -569,7 +569,7 @@ public class PopupMaker {
     Text reqBy = new Text("Requested By: " + request.getRequestedBy());
     reqBy.setWrappingWidth(wrapLength);
 
-    Text fulfilledBy = new Text("Fulfilled By: " + request.getFulfilledBy());
+    Text fulfilledBy = new Text("Fulfilled By: " + request.getAssignedTo());
     fulfilledBy.setWrappingWidth(wrapLength);
 
     Text dateReq = new Text("Date Requested: " + request.getDateRequested().toString());
