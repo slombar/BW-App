@@ -4,9 +4,9 @@ import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import edu.wpi.cs3733.teamO.Database.DataHandling;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.wpi.cs3733.teamO.Controllers.EmailPageController;
+import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
 import edu.wpi.cs3733.teamO.HelperClasses.Autocomplete;
