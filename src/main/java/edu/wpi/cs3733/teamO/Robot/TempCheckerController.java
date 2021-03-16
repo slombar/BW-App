@@ -14,6 +14,8 @@ import javafx.scene.layout.StackPane;
 
 public class TempCheckerController extends Thread implements Initializable {
 
+  @FXML public JFXRadioButton yes4;
+  @FXML public JFXRadioButton No4;
   @FXML private JFXRadioButton No2;
   @FXML private JFXRadioButton No3;
   @FXML private JFXRadioButton No1;
@@ -56,18 +58,16 @@ public class TempCheckerController extends Thread implements Initializable {
     if (No1.isSelected()
         || yes1.isSelected() && No2.isSelected()
         || yes2.isSelected() && No3.isSelected()
-        || yes3.isSelected()) {
-      if (No1.isSelected() && No2.isSelected() && No3.isSelected()) {
-        //        SwitchScene.goToParent("/Views/MainPage.fxml");
-        // SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+        || yes3.isSelected() && No4.isSelected()
+        || yes4.isSelected()) {
+      if (No1.isSelected() && No2.isSelected() && No3.isSelected() && yes4.isSelected()) {
+        connectArduino();
       } else {
         PopupMaker.covidRisk(popupPane);
       }
     } else {
       PopupMaker.incompletePopup(popupPane);
     }
-
-    connectArduino();
   }
 
   private void connectArduino() {

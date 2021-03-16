@@ -12,9 +12,7 @@ import javafx.beans.property.StringProperty;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
-
 public final class Serial {
-
 
   public static String str = "";
 
@@ -103,10 +101,7 @@ public final class Serial {
     return serPort != null;
   }
 
-  /**
-   * Disconnects the arduino from the serial and stops reading data coming from
-   * the Arduino
-   */
+  /** Disconnects the arduino from the serial and stops reading data coming from the Arduino */
   public void disconnect() {
     if (serPort != null) {
       try {
@@ -128,7 +123,6 @@ public final class Serial {
   public String getPortName() {
     return serPort != null ? serPort.getPortName() : "";
   }
-
 
   public static void main(String args[]) {
     Serial sPort = new Serial();
