@@ -38,7 +38,6 @@ public class SaveParkingPageController implements Initializable {
     SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
   }
 
-
   public void saveSpot(ActionEvent actionEvent) {
     String spot = input.getText().substring(13);
     UserHandling.setParkingSpot(spot);
