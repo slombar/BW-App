@@ -2,6 +2,7 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
+import edu.wpi.cs3733.teamO.HelperClasses.RegexBoi;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +24,7 @@ public class ProfilePageController implements Initializable {
     emailBox.setText(UserHandling.getSessionEmail());
     parkingNumberBox.setText(UserHandling.getParkingSpot());
     usernameBox.setText(UserHandling.getSessionUsername());
+    usernameBox.setDisable(true);
   }
 
   public void goBack(ActionEvent actionEvent) {
@@ -34,7 +36,30 @@ public class ProfilePageController implements Initializable {
   }
 
   public void saveChanges(ActionEvent actionEvent) {
-    // TODO we have none of this functionality
+    firstNameBox.setStyle("-fx-border-color: none");
+    lastNameBox.setStyle("-fx-border-color: none");
+    emailBox.setStyle("-fx-border-color: none");
+
+    String newFName = firstNameBox.getText();
+    String newLName = lastNameBox.getText();
+    String newEMail = emailBox.getText();
+    boolean isGood = true;
+
+    if (newFName.equals("")) {
+      isGood = false;
+      firstNameBox.setStyle("-fx-border-color: red");
+    }
+    if (newLName.equals("")) {
+      isGood = false;
+      lastNameBox.setStyle("-fx-border-color: red");
+    }
+    if(!RegexBoi.checkEmail(newEMail)){
+      isGood = false;
+      emailBox.setStyle("-fx-border-color: red");
+    }
+    if(isGood){
+      UserHandling.editSessionUser(newFName, newLName, newEMail);
+    }
   }
 
   public void goToParkingSpot(ActionEvent actionEvent) {
