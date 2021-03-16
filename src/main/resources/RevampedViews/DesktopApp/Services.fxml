@@ -20,7 +20,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: cfe2f3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController">
    <children>
-      <VBox layoutX="30.0" layoutY="261.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f2f2f2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="350.0" layoutX="-148.0" layoutY="161.0" miniDrawerSize="0.0" prefHeight="637.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXDrawer fx:id="sideDrawerForAdd" alignment="TOP_LEFT" defaultDrawerSize="400.0" direction="RIGHT" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton onAction="#closeAddMenu" text="x" textFill="#f2f2f2">
+               <font>
+                  <Font size="18.0" />
+               </font></JFXButton>
+         </children></JFXDrawer>
+      <VBox layoutX="30.0" layoutY="261.0" prefHeight="300.0" style="-fx-background-color: #f2f2f2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" wrappingWidth="496.386474609375">
                <font>
@@ -256,7 +264,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <VBox layoutX="-10.0" layoutY="293.0" spacing="10.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <VBox layoutX="-10.0" layoutY="293.0" spacing="10.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
          <children>
             <GridPane>
               <columnConstraints>
@@ -342,7 +350,7 @@
                      </font></Label>
                </children>
             </HBox>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane prefHeight="300.0" prefWidth="1236.0">
                <content>
                   <VBox fx:id="requestList" minHeight="400.0" minWidth="400.0" />
                </content>
@@ -352,13 +360,5 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <JFXDrawer fx:id="sideDrawerForAdd" alignment="TOP_LEFT" defaultDrawerSize="400.0" direction="RIGHT" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <JFXButton onAction="#closeAddMenu" text="x" textFill="#f2f2f2">
-               <font>
-                  <Font size="18.0" />
-               </font></JFXButton>
-         </children></JFXDrawer>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="350.0" layoutX="-148.0" layoutY="161.0" miniDrawerSize="0.0" prefHeight="637.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

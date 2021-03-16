@@ -62,7 +62,8 @@ public class SideMenuStaffController implements Initializable {
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestPage.fxml");
+    // todo @sadie change this
+    SwitchScene.goToParent("");
   }
 
   public void mouseOnNot(MouseEvent mouseEvent) {

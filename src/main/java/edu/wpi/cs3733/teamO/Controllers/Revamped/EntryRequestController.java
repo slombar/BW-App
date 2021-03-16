@@ -335,7 +335,7 @@ public class EntryRequestController implements Initializable {
 
             assignStaffDialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           }
         });
     assignStaffDialog.show();
@@ -467,7 +467,7 @@ public class EntryRequestController implements Initializable {
 
             dialog.close();
             popUpPane.toBack();
-            SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+            SwitchScene.goToParent("/Views/RequestList.fxml");
           }
         });
     dialog.show();

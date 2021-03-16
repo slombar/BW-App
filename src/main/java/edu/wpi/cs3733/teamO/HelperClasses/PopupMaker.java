@@ -584,19 +584,8 @@ public class PopupMaker {
     Text summary = new Text("Summary: " + request.getSummary());
     summary.setWrappingWidth(wrapLength);
 
-    Text p1 = new Text("para1: " + request.getPara1());
-    p1.setWrappingWidth(wrapLength);
-
-    Text p2 = new Text("para2: " + request.getPara2());
-    p2.setWrappingWidth(wrapLength);
-
-    Text p3 = new Text("para3: " + request.getPara3());
-    p3.setWrappingWidth(wrapLength);
-
     VBox addvbox = new VBox();
-    addvbox
-        .getChildren()
-        .addAll(reqBy, fulfilledBy, dateReq, dateNeeded, location, summary, p1, p2, p3);
+    addvbox.getChildren().addAll(reqBy, fulfilledBy, dateReq, dateNeeded, location, summary);
     addvbox.setStyle(
         "-fx-wrap-text: true; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 16pt; -fx-spacing: 16pt; ");
     // text.setWrappingWidth(200);

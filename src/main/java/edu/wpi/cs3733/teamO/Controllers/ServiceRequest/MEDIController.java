@@ -5,7 +5,7 @@ import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
-import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
+import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +18,6 @@ public class MEDIController {
   @FXML private JFXTextField field1;
   @FXML private JFXTextField field2;
   @FXML private JFXCheckBox field3;
-
-  public void back(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
-  }
 
   public void clear(ActionEvent actionEvent) {
     locationF.clear();
@@ -42,19 +38,13 @@ public class MEDIController {
     String f2 = field2.getText();
     String f3 = String.valueOf(field3.isSelected());
 
-    System.out.println(
-        "Adding this to DB: "
-            + requestedBy
-            + dateN.toString()
-            + requestType
-            + loc
-            + sum
-            + f1
-            + f2
-            + f3);
-
-    RequestHandling.addRequest(requestedBy, dateN, requestType, loc, sum, f1, f2, f3);
-
-    SwitchScene.goToParent("/Views/ServiceRequests/RequestList.fxml");
+    Request r = new Request();
+    r.setRequestedBy(requestedBy);
+    r.setDateNeeded(dateN);
+    r.setRequestType(requestType);
+    r.setLocationNodeID(loc);
+    sum += " Medicine: " + f1 + " Dosage: " + f2 + "Prescription?: " + f3;
+    r.setSummary(sum);
+    RequestHandling.addRequest(r);
   }
 }

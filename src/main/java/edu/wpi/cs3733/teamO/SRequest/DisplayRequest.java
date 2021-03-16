@@ -11,20 +11,8 @@ public class DisplayRequest {
   private static ObservableList<EntryRequest> entryReqList;
 
   public static ObservableList<Request> getSpecificReqList(String typeOfRequest) {
-    reqList = RequestHandling.getRequests();
-    ObservableList<Request> specList = FXCollections.observableArrayList();
-
-    if (reqList.size() > 0) {
-      for (int x = 0; x < reqList.size(); x++) {
-
-        if (reqList.get(x).getRequestType().equals(typeOfRequest)) {
-          specList.add(reqList.get(x));
-
-          System.out.println(reqList.get(x).getRequestID());
-        }
-      }
-    }
-    return specList;
+    reqList = RequestHandling.getRequests(typeOfRequest);
+    return reqList;
   }
 
   public static ObservableList<EntryRequest> getSpecificEntryReqList() {
