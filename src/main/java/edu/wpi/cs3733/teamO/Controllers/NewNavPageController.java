@@ -874,9 +874,9 @@ public class NewNavPageController implements Initializable {
       // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
       // draw the portion on sFloor + highlight start and end
-      Polyline path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, rc00, false);
+      Polyline path = GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
 
-      //stackPane.getChildren().add(path);
+      // stackPane.getChildren().add(path);
       // TODO: fix this if necessary (it's jank rn)
       //      gridPane.setMinWidth(1920);
       //      Group group = new Group(gridPane, path);
@@ -908,7 +908,7 @@ public class NewNavPageController implements Initializable {
     if (!editing && !displayingRoute) {
       // GRAPH.drawVisibleNodes(sFloor, startNode, endNode, imageView, false);
     } else if (!editing && displayingRoute) {
-      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, rc00, false);
+      GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
       GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
       if (showingEdges) {
