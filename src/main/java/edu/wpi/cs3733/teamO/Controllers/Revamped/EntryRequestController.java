@@ -170,7 +170,6 @@ public class EntryRequestController implements Initializable {
 
     mainEntrance.setOnAction(
         e -> {
-          // mark the thing as done
           try {
             EntryRequestHandling.setEntrance(reqID, "Main");
             SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
@@ -182,7 +181,6 @@ public class EntryRequestController implements Initializable {
 
     covidEntrance.setOnAction(
         t -> {
-          // mark the thing as done
           try {
             EntryRequestHandling.setEntrance(reqID, "Emergency");
             SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
