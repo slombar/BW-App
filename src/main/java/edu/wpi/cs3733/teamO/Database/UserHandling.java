@@ -14,8 +14,6 @@ public class UserHandling {
   private static Boolean isLoggedIn;
   private static String parkingSpot;
 
-
-
   /**
    * Delete the given user from the database based on Username
    *
@@ -358,6 +356,7 @@ public class UserHandling {
 
     return b;
   }
+
   public static Boolean getLoginStatus() {
     return isLoggedIn;
   }
@@ -400,9 +399,10 @@ public class UserHandling {
 
   /**
    * get all data about current user based on the username in the session
+   *
    * @return
    */
-  public static User getSessionUser(){
+  public static User getSessionUser() {
     User thisUser = new User();
     String query = "SELECT * FROM USERS WHERE USERNAME = ?";
 
@@ -452,9 +452,10 @@ public class UserHandling {
 
   /**
    * Get the parking spot of the session user
+   *
    * @return
    */
-  public static String getSessionParkingSpot(){
+  public static String getSessionParkingSpot() {
     String ps = "";
 
     User u = getSessionUser();
@@ -465,9 +466,10 @@ public class UserHandling {
 
   /**
    * Returns the password of the session user
+   *
    * @return
    */
-  public static String getSessionPassword(){
+  public static String getSessionPassword() {
     String pass = "";
 
     User u = getSessionUser();
@@ -478,9 +480,10 @@ public class UserHandling {
 
   /**
    * get the firstName of the session user
+   *
    * @return
    */
-  public static String getSessionFirstName(){
+  public static String getSessionFirstName() {
     String first = "";
 
     User u = getSessionUser();
@@ -491,6 +494,7 @@ public class UserHandling {
 
   /**
    * Get the last name of the session user
+   *
    * @return
    */
   public static String getSessionLastName() {
@@ -504,6 +508,7 @@ public class UserHandling {
 
   /**
    * Get the email of the session user
+   *
    * @return
    */
   public static String getSessionEmail() {

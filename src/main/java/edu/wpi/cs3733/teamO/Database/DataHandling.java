@@ -29,14 +29,9 @@ public class DataHandling {
     return filePath;
   }
 
-  private static void uploadEdges(){
+  private static void uploadEdges() {}
 
-  }
-
-  private static void uploadNodes(){
-    
-  }
-
+  private static void uploadNodes() {}
 
   /** imports data from csv (delimiter = ,|\n) and determines which database to add it to */
   public static void importExcelData() {
