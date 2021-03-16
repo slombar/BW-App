@@ -124,4 +124,8 @@ public class AboutController implements Initializable {
   public void toLogin(ActionEvent actionEvent) {
     SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
+
+  public void goCredit(MouseEvent mouseEvent) {
+    SwitchScene.goToParent("/Views/CreditsPage.fxml");
+  }
 }

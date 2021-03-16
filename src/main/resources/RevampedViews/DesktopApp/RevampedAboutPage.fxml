@@ -189,7 +189,7 @@
                      <Insets top="30.0" />
                   </HBox.margin>
                </Text>
-               <Label accessibleRole="HYPERLINK" text="click here." textFill="WHITE">
+               <Label accessibleRole="BUTTON" onMouseReleased="#goCredit" text="click here." textFill="WHITE">
                   <font>
                      <Font name="Leelawadee UI" size="16.0" />
                   </font>

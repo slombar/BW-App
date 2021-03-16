@@ -4,6 +4,8 @@ import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.wpi.cs3733.teamO.Controllers.EmailPageController;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
@@ -13,13 +15,16 @@ import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,12 +32,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +47,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
+import javax.imageio.ImageIO;
 
 public class NavController implements Initializable {
 
@@ -67,6 +75,7 @@ public class NavController implements Initializable {
   @FXML private JFXButton employeesBtn;
   @FXML private JFXButton loginBtn;
   public StackPane nodeWarningPane;
+  @FXML private GridPane innerGrid;
 
   @FXML private JFXNodesList editingList = new JFXNodesList();
   @FXML private JFXNodesList parking = new JFXNodesList();
@@ -1041,8 +1050,84 @@ public class NavController implements Initializable {
 
   // TODO: all sharing function!
 
-  public void share() {
-    System.out.println("The share button was pressed my guy");
+  /**
+   * creates an output file
+   *
+   * @param fileName
+   * @return file
+   */
+  public File createOutputFile(String fileName) {
+    String home = System.getProperty("user.home");
+    File outputFile = new File(home + "/Downloads/" + fileName);
+    return outputFile;
+  }
+
+  /**
+   * grabs an image from a floor and gives it an output file
+   *
+   * @param image
+   * @param floor
+   * @param outputFile
+   * @return WritableImage
+   * @throws IOException
+   */
+  public WritableImage grabImage(Image image, String floor, File outputFile) throws IOException {
+
+    imageView.setImage(image);
+    sFloor = floor;
+    resizeCanvas();
+    draw();
+    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
+    ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
+    return map;
+  }
+
+  /**
+   * takes pictures of every floor to email and navigates to email page
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
+  public void share(ActionEvent actionEvent) throws IOException, UnirestException {
+
+    GraphicsContext gc = mapCanvas.getGraphicsContext2D();
+    mapCanvas.getGraphicsContext2D();
+    // TODO: Insert method call that write qr.png to download folder
+    //    SharingFunctionality.createQRCode(
+    //        "mapimg1.png", "mapimg2.png", "mapimg3.png", "mapimg4.png", "mapimg5.png",
+    // "mapimg6.png");
+
+    WritableImage map1 = grabImage(campusMap, "G", createOutputFile("mapimg1.png"));
+    WritableImage map2 = grabImage(floor1Map, "1", createOutputFile("mapimg2.png"));
+    WritableImage map3 = grabImage(floor2Map, "2", createOutputFile("mapimg3.png"));
+    WritableImage map4 = grabImage(floor3Map, "3", createOutputFile("mapimg4.png"));
+    WritableImage map5 = grabImage(floor4Map, "4", createOutputFile("mapimg5.png"));
+    WritableImage map6 = grabImage(floor5Map, "5", createOutputFile("mapimg6.png"));
+    LinkedList<WritableImage> listOfImages = new LinkedList<>();
+    if (pathFloors.contains("G")) {
+      listOfImages.add(map1);
+    }
+    if (pathFloors.contains("1")) {
+      listOfImages.add(map2);
+    }
+    if (pathFloors.contains("2")) {
+      listOfImages.add(map3);
+    }
+    if (pathFloors.contains("3")) {
+      listOfImages.add(map4);
+    }
+    if (pathFloors.contains("4")) {
+      listOfImages.add(map5);
+    }
+    if (pathFloors.contains("5")) {
+      listOfImages.add(map6);
+    }
+    if (listOfImages.isEmpty()) {
+      // TODO: Throw a error "you did not do pathfind"
+    }
+    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
+    // EmailPageController.setScreenShot(listOfImages);
+    SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
 
   public void clearSelection() {

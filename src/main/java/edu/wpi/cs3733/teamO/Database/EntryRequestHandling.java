@@ -34,6 +34,7 @@ public class EntryRequestHandling {
       Boolean symptoms = null;
       Boolean check1 = false;
       Boolean check2 = false;
+      String spec_symptoms = "";
 
       // grab everything from the result set and add to observable list for processing
       while (rset.next()) {
@@ -45,10 +46,19 @@ public class EntryRequestHandling {
         symptoms = rset.getBoolean("symptoms");
         check1 = rset.getBoolean("check1");
         check2 = rset.getBoolean("check2");
+        spec_symptoms = rset.getString("specific_symptoms");
 
         EntryRequest req =
             new EntryRequest(
-                reqID, requestedBy, fulfilledBy, dateRequested, location, symptoms, check1, check2);
+                reqID,
+                requestedBy,
+                fulfilledBy,
+                dateRequested,
+                location,
+                symptoms,
+                check1,
+                check2,
+                spec_symptoms);
 
         System.out.println(
             "Retrieved this from Services: "
@@ -66,7 +76,9 @@ public class EntryRequestHandling {
                 + ", "
                 + check1
                 + ", "
-                + check2);
+                + check2
+                + ", "
+                + spec_symptoms);
 
         requestList.add(req);
       }
@@ -154,6 +166,7 @@ public class EntryRequestHandling {
       r.setIfSymptoms(rset.getBoolean("symptoms"));
       r.setCheck1(rset.getBoolean("check1"));
       r.setCheck2(rset.getBoolean("check2"));
+      r.setSpecificSymptoms(rset.getString("specific_symptoms"));
 
       rset.close();
       pstmt.close();
@@ -173,14 +186,19 @@ public class EntryRequestHandling {
    * @param check2
    */
   public static void addEntryRequest(
-      String requestedBy, String locationNodeID, Boolean symptoms, Boolean check1, Boolean check2) {
+      String requestedBy,
+      String locationNodeID,
+      Boolean symptoms,
+      Boolean check1,
+      Boolean check2,
+      String spec_symptoms) {
 
     // get current date
     long millis = System.currentTimeMillis();
     Date dateRequested = new java.sql.Date(millis);
 
     String query =
-        "INSERT INTO ENTRY_REQUESTS (requestedBy, dateRequested, LOCATION, SYMPTOMS, CHECK1, CHECK2) "
+        "INSERT INTO ENTRY_REQUESTS (requestedBy, dateRequested, LOCATION, SYMPTOMS, CHECK1, CHECK2, SPECIFIC_SYMPTOMS) "
             + "VALUES( '"
             + requestedBy
             + "', '"
@@ -193,6 +211,8 @@ public class EntryRequestHandling {
             + check1
             + "', '"
             + check2
+            + "', '"
+            + spec_symptoms
             + "')";
     try {
       PreparedStatement preparedStmt = null;
@@ -237,6 +257,17 @@ public class EntryRequestHandling {
       WaitingPageController.setEntrance("Covid");
     }
     WaitingPageController.setSurveyApproved(true);
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    pstmt.setInt(1, reqID);
+    pstmt.executeUpdate();
+    pstmt.close();
+  }
+
+  public static void setCheck1(int reqID, Boolean isApproved) throws SQLException {
+    String query = "UPDATE ENTRY_REQUESTS SET CHECK1 = '" + isApproved + "' WHERE ENTRYREQID = ?";
 
     PreparedStatement pstmt = null;
     pstmt = DatabaseConnection.getConnection().prepareStatement(query);
