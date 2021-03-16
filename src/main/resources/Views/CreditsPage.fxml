@@ -58,7 +58,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="JavaMail" GridPane.rowIndex="5">
@@ -126,11 +125,6 @@
                   <Font name="Leelawadee UI" size="18.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="TestFX" GridPane.rowIndex="10">
-               <font>
-                  <Font name="Leelawadee UI" size="18.0" />
-               </font>
-            </Text>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Testing basic java scripts and codes" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font name="Leelawadee UI" size="18.0" />
@@ -142,11 +136,6 @@
                </font>
             </Text>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Texting API to send SMS and MMS messages" GridPane.columnIndex="1" GridPane.rowIndex="9">
-               <font>
-                  <Font name="Leelawadee UI" size="18.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="APIs:" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <font>
                   <Font name="Leelawadee UI" size="18.0" />
                </font>
