@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.teamO.Controllers.ServiceRequest;
 
 import static edu.wpi.cs3733.teamO.Controllers.ServiceRequest.RequestPageController.getReqType;
-import static edu.wpi.cs3733.teamO.Database.UserHandling.getUsername;
+import static edu.wpi.cs3733.teamO.Database.UserHandling.getSessionUsername;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
@@ -29,7 +29,7 @@ public class MEDIController {
 
   public void submit(ActionEvent actionEvent) {
 
-    String requestedBy = getUsername();
+    String requestedBy = getSessionUsername();
     java.sql.Date dateN = Date.valueOf(dateNeeded.getValue());
     String requestType = getReqType();
     String loc = locationF.getText();

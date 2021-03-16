@@ -4,106 +4,122 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
 public class User {
-  public String firstName;
-  public String lastName;
-  public String username;
-  public String email;
-  public String password;
-  public boolean admin;
-  public boolean employee;
-  @FXML private JFXButton guestButton;
+    public String firstName;
+    public String lastName;
+    public String username;
+    public String email;
+    public String password;
+    public boolean admin;
+    public boolean employee;
+    public String parkingSpot;
+    @FXML
+    private JFXButton guestButton;
 
-  /**
-   * Constructor for user
-   *
-   * @param uname
-   * @param pass
-   * @param email
-   * @param fName
-   * @param lName
-   * @param employee
-   * @param admin
-   */
-  public User(
-      String uname,
-      String pass,
-      String email,
-      String fName,
-      String lName,
-      boolean employee,
-      boolean admin) {
-    this.username = uname;
-    this.password = pass;
-    this.email = email;
-    this.firstName = fName;
-    this.lastName = lName;
-    this.admin = admin;
-    this.employee = employee;
-  }
+    /**
+     * Constructor for user
+     *
+     * @param uname
+     * @param pass
+     * @param email
+     * @param fName
+     * @param lName
+     * @param employee
+     * @param admin
+     */
+    public User(
+            String uname,
+            String pass,
+            String email,
+            String fName,
+            String lName,
+            boolean employee,
+            boolean admin) {
+        this.username = uname;
+        this.password = pass;
+        this.email = email;
+        this.firstName = fName;
+        this.lastName = lName;
+        this.admin = admin;
+        this.employee = employee;
+        this.parkingSpot = null;
+    }
 
-  public String getFirstName() {
-    return firstName;
-  }
+    public User() {
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+    }
 
-  public String getLastName() {
-    return lastName;
-  }
+    public String getParkingSpot() {
+        return parkingSpot;
+    }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+    public void setParkingSpot(String parkingSpot) {
+        this.parkingSpot = parkingSpot;
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public boolean isAdmin() {
-    return admin;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setAdmin(boolean admin) {
-    this.admin = admin;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public boolean isEmployee() {
-    return employee;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public void setEmployee(boolean employee) {
-    this.employee = employee;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public JFXButton getGuestButton() {
-    return guestButton;
-  }
+    public boolean isAdmin() {
+        return admin;
+    }
 
-  public void setGuestButton(JFXButton guestButton) {
-    this.guestButton = guestButton;
-  }
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 
-  public void asGuest() {}
+    public boolean isEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(boolean employee) {
+        this.employee = employee;
+    }
+
+    public JFXButton getGuestButton() {
+        return guestButton;
+    }
+
+    public void setGuestButton(JFXButton guestButton) {
+        this.guestButton = guestButton;
+    }
+
+    public void asGuest() {
+    }
 }

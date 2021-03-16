@@ -18,11 +18,11 @@ public class ProfilePageController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    firstNameBox.setText(UserHandling.getFirstName());
-    lastNameBox.setText(UserHandling.getLastName());
-    emailBox.setText(UserHandling.getEmail());
+    firstNameBox.setText(UserHandling.getSessionFirstName());
+    lastNameBox.setText(UserHandling.getSessionLastName());
+    emailBox.setText(UserHandling.getSessionEmail());
     parkingNumberBox.setText(UserHandling.getParkingSpot());
-    usernameBox.setText(UserHandling.getUsername());
+    usernameBox.setText(UserHandling.getSessionUsername());
   }
 
   public void goBack(ActionEvent actionEvent) {
