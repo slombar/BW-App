@@ -104,9 +104,15 @@ public class NavController implements Initializable {
   ImageView navIconView = new ImageView(navIcon);
   Image floorsIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/floors.png"));
   ImageView floorsIconView = new ImageView(floorsIcon);
+  Image addIcon = new Image(getClass().getResourceAsStream("/Icons/addBlack.png"));
+  ImageView addIconView = new ImageView(addIcon);
+  Image shareIcon = new Image(getClass().getResourceAsStream("/Icons/navPageIcons/share.png"));
+  ImageView shareIconView = new ImageView(shareIcon);
 
   private final JFXButton helpB = new JFXButton(null, helpIconView);
   private final JFXButton parkingB = new JFXButton(null, parkingIconView);
+  private final JFXButton addB = new JFXButton(null, addIconView);
+  private final JFXButton shareB = new JFXButton(null, shareIconView);
   private final JFXButton editB = new JFXButton(null, editIconView);
   private final JFXButton showEdgesB = new JFXButton(null, edgesIconView);
   private final JFXButton saveB = new JFXButton(null, saveIconView);
@@ -256,7 +262,9 @@ public class NavController implements Initializable {
     /** hELP?* */
     help.addAnimatedNode(helpB);
     // parking
+    parking.addAnimatedNode(addB);
     parking.addAnimatedNode(parkingB);
+    parking.addAnimatedNode(shareB);
 
     /** Navigation Button* */
     directionsList.addAnimatedNode(navB);
@@ -418,6 +426,10 @@ public class NavController implements Initializable {
     helpIconView.setFitHeight(35);
     parkingIconView.setFitWidth(35);
     parkingIconView.setFitHeight(35);
+    addIconView.setFitWidth(35);
+    addIconView.setFitHeight(35);
+    shareIconView.setFitWidth(35);
+    shareIconView.setFitHeight(35);
     editIconView.setFitWidth(35);
     editIconView.setFitHeight(35);
     edgesIconView.setFitWidth(35);
@@ -468,6 +480,10 @@ public class NavController implements Initializable {
     helpB.setButtonType(JFXButton.ButtonType.RAISED);
     parkingB.getStyleClass().addAll("buttons");
     parkingB.setButtonType(JFXButton.ButtonType.RAISED);
+    addB.getStyleClass().addAll("buttons");
+    addB.setButtonType(JFXButton.ButtonType.RAISED);
+    shareB.getStyleClass().addAll("buttons");
+    shareB.setButtonType(JFXButton.ButtonType.RAISED);
     editB.getStyleClass().addAll("buttons");
     editB.setButtonType(JFXButton.ButtonType.RAISED);
     showEdgesB.getStyleClass().addAll("buttons");
@@ -501,6 +517,11 @@ public class NavController implements Initializable {
     parkingB.setOnAction(
         e -> {
           // change the first location field to the saved parking spot
+          SwitchScene.goToParent("RevampedViews/DesktopApp/SaveParkingPage.fxml");
+        });
+    shareB.setOnAction(
+        e -> {
+          // TODO SHARING FUNCTIoNALITY
         });
 
     helpB.setOnAction(
@@ -1150,27 +1171,27 @@ public class NavController implements Initializable {
   public void disableFloorButtons() {
     if (!pathFloors.contains("G")) {
       floorGB.setDisable(true);
-      floorGB.setVisible(false);
+      //      floorGB.setVisible(false);
     }
     if (!pathFloors.contains("1")) {
       floor1B.setDisable(true);
-      floor1B.setVisible(false);
+      //      floor1B.setVisible(false);
     }
     if (!pathFloors.contains("2")) {
       floor2B.setDisable(true);
-      floor2B.setVisible(false);
+      //      floor2B.setVisible(false);
     }
     if (!pathFloors.contains("3")) {
       floor3B.setDisable(true);
-      floor3B.setVisible(false);
+      //      floor3B.setVisible(false);
     }
     if (!pathFloors.contains("4")) {
       floor4B.setDisable(true);
-      floor4B.setVisible(false);
+      //      floor4B.setVisible(false);
     }
     if (!pathFloors.contains("5")) {
       floor5B.setDisable(true);
-      floor5B.setVisible(false);
+      //      floor5B.setVisible(false);
     }
   }
 

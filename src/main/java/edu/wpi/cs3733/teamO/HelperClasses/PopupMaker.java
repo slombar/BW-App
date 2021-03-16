@@ -672,7 +672,7 @@ public class PopupMaker {
     EntryRequest request = EntryRequestHandling.getRequest(Integer.parseInt(reqId));
     Text heading = new Text("Request " + reqId);
     heading.setStyle(
-            "-fx-font-family: 'Leelawadee UI'; -fx-font-size: 18pt; -fx-font-weight: 700; ");
+        "-fx-font-family: 'Leelawadee UI'; -fx-font-size: 18pt; -fx-font-weight: 700; ");
     warning.setHeading(heading);
 
     Text reqBy = new Text("Requested By: " + request.getRequestedBy());
@@ -699,7 +699,7 @@ public class PopupMaker {
     VBox addvbox = new VBox();
     addvbox.getChildren().addAll(reqBy, fulfilledBy, dateReq, location, symptoms, check1, check2);
     addvbox.setStyle(
-            "-fx-wrap-text: true; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 16pt; -fx-spacing: 16pt; ");
+        "-fx-wrap-text: true; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 16pt; -fx-spacing: 16pt; ");
     // text.setWrappingWidth(200);
     warning.setBody(addvbox);
     JFXButton closeButton = new JFXButton("Close");
@@ -707,14 +707,13 @@ public class PopupMaker {
 
     // Creates the actual popup
     JFXDialog warningDialog =
-            new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
+        new JFXDialog(popupPane, warning, JFXDialog.DialogTransition.CENTER, false);
     // Closes the popup
     closeButton.setOnAction(
-            event -> {
-              warningDialog.close();
-              popupPane.toBack();
-            });
+        event -> {
+          warningDialog.close();
+          popupPane.toBack();
+        });
     warningDialog.show();
   }
-
 }
