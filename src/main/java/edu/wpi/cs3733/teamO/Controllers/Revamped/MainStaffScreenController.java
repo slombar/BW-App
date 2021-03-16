@@ -10,10 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 public class MainStaffScreenController implements Initializable {
+  @FXML private VBox infoBox;
+  @FXML private StackPane infoPane;
   @FXML private ImageView navImg;
   @FXML private ImageView servReqImg;
   @FXML private ImageView googleNavImg;
@@ -27,6 +30,11 @@ public class MainStaffScreenController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    infoPane.toBack();
+    infoPane.setVisible(false);
+    infoBox.toBack();
+    infoBox.setVisible(false);
+
     // determines employee/staff
     System.out.println("Employee " + UserHandling.getEmployee());
     System.out.println("Admin " + UserHandling.getAdmin());
@@ -93,7 +101,19 @@ public class MainStaffScreenController implements Initializable {
 
   public void goToParking(ActionEvent actionEvent) {}
 
-  public void goToInfo(MouseEvent mouseEvent) {}
-
   public void goToAccount(ActionEvent actionEvent) {}
+
+  public void exitInfo(ActionEvent actionEvent) {
+    infoPane.toBack();
+    infoPane.setVisible(false);
+    infoBox.toBack();
+    infoBox.setVisible(false);
+  }
+
+  public void goToInfo(ActionEvent actionEvent) {
+    infoPane.toFront();
+    infoPane.setVisible(true);
+    infoBox.toFront();
+    infoBox.setVisible(true);
+  }
 }

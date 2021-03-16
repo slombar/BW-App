@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -237,12 +238,12 @@
                <children>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="29.0" prefWidth="18.0" text="Button">
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#goToInfo" prefHeight="29.0" prefWidth="18.0" text="Button">
                            <font>
                               <Font name="Leelawadee UI" size="15.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="25.0" onDragDetected="#goToInfo" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../Icons/informationIcon.png" />
                                  </image>
@@ -329,5 +330,63 @@
             </JFXButton>
          </children>
       </GridPane>
+      <StackPane fx:id="infoPane" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: rgba(0,0,0,0.5);;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="infoBox" alignment="CENTER" maxHeight="600.0" maxWidth="800.0" minHeight="100.0" minWidth="100.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CFE2F3;" StackPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../bwfh-logo-opt-2.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Welcome to Brigham &amp; Women's Faulkner Hospital" textAlignment="CENTER" textFill="#3a5369">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="1153 Centre Street, Boston, MA 02130&#10;Main Phone: 617-983-7000" textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="If you are seeking information about a patient's condition or looking for their room number/telephone number you can call 617-983-7101 or go to the 3rd floor Information Desk. " textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="25.0" right="25.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="If you have questions about our visitation policies or would like to share complaints or compliments about your experience with us, please contact our Patient and Family Relations team by calling 617-983-4507 between the hours of 8 am and 4 pm, Monday through Friday, or email us at BWFHPFR@partners.org." textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Have a nice day!" textAlignment="CENTER" textFill="#3a5369" wrapText="true">
+                     <font>
+                        <Font name="Leelawadee UI" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXButton buttonType="RAISED" onAction="#exitInfo" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: #3A5369;" text="Exit" textFill="WHITE">
+                     <font>
+                        <Font name="Leelawadee UI Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

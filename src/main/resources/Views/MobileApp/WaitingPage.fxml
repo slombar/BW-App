@@ -31,19 +31,19 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="313.0" prefWidth="268.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label text="Your COVID-19 Survey is currently being reviewed by hospital staff. Please wait in your car until your entry request has been approved." textFill="WHITE" wrapText="true">
+                  <Label maxHeight="90.0" maxWidth="270.0" minHeight="90.0" prefHeight="90.0" prefWidth="268.0" text="Your COVID-19 Survey is currently being reviewed by hospital staff. Please wait in your car until your entry request has been approved." textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="15.0" />
                      </font>
                   </Label>
-                  <Label text="Once approved, you will be notified of which entrance to enter the hospital." textFill="WHITE" wrapText="true">
+                  <Label maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="268.0" text="Once approved, you will be notified of which entrance to enter the hospital." textFill="WHITE" wrapText="true">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Thank you for your patience. Have a great day!" textFill="WHITE" wrapText="true">
+                  <Label maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="268.0" text="Thank you for your patience. Have a great day!" textFill="WHITE" wrapText="true">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -51,15 +51,15 @@
                         <Image url="@../../bh_bwh_pms_293.png" />
                      </image>
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                   </ImageView>
                   <JFXButton fx:id="entryStatusBtn" onAction="#checkEntryStatus" onMouseClicked="#checkEntryStatus" text="Get Entry Status" textFill="WHITE">
                      <VBox.margin>
-                        <Insets top="25.0" />
+                        <Insets />
                      </VBox.margin>
                   </JFXButton>
-                  <StackPane fx:id="spinnerPane" alignment="TOP_CENTER" onMouseMoved="#checkStatus" prefHeight="150.0" prefWidth="200.0" />
+                  <StackPane fx:id="spinnerPane" alignment="TOP_CENTER" onMouseMoved="#checkStatus" prefHeight="109.0" prefWidth="268.0" />
                </children>
             </VBox>
             <StackPane fx:id="popupNotification" alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

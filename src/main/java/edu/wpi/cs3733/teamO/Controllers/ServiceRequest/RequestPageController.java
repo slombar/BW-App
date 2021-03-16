@@ -46,6 +46,7 @@ import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.SRequest.Request;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -130,10 +131,10 @@ public class RequestPageController implements Initializable {
    * @param requests
    */
   public void displayServiceList(ObservableList<Request> requests) {
-    // todo @sadie
     // display all requests on page into fxml by adding hboxes dynamically. all should be sized: 100
     // in width besides summary and spacing: 10
     requestList.getChildren().clear();
+
     for (Request toDisplay : requests) {
       HBox oneRow = new HBox();
       oneRow.setSpacing(20);
@@ -145,21 +146,62 @@ public class RequestPageController implements Initializable {
       Label assigned = new Label(toDisplay.getAssignedTo());
       Label rLocation = new Label(toDisplay.getRequestLocation());
       Label summary = new Label(toDisplay.getSummary());
-      JFXButton assignEmployee = new JFXButton("A");
-      JFXButton delete = new JFXButton("D");
-      // todo JFXButton edit = new JFXButton("D"); @sadie make this edit button work
+      Label status = new Label(toDisplay.getStatus());
+      JFXButton assign = new JFXButton("Assign Staff");
+      JFXButton updateStatus = new JFXButton("Complete");
+      JFXButton delete = new JFXButton("Delete");
+      // JFXButton edit = new JFXButton(); todo maybe? @sadie
 
-      id.setPrefWidth(100);
-      requestedOn.setPrefWidth(100);
+      assign.setOnAction(
+          e -> {
+            String employee = "";
+            // popup that allows person to enter employee name todo @sadie
+
+            RequestHandling.assignEmployee(toDisplay.getRequestID(), employee);
+            displayServiceList(RequestHandling.getRequests("ALL"));
+          });
+
+      updateStatus.setOnAction(
+          e -> {
+            try {
+              RequestHandling.setStatus(toDisplay.getRequestID(), "Complete");
+            } catch (SQLException throwables) {
+              throwables.printStackTrace();
+            }
+            displayServiceList(RequestHandling.getRequests("ALL"));
+          });
+
+      delete.setOnAction(
+          e -> {
+            // mark the thing as done
+            RequestHandling.deleteRequest(toDisplay.getRequestID());
+
+            displayServiceList(RequestHandling.getRequests("ALL"));
+          });
+
+      id.setPrefWidth(40);
+      requestedOn.setPrefWidth(70);
       requestedBy.setPrefWidth(100);
-      needBy.setPrefWidth(100);
+      needBy.setPrefWidth(70);
       assigned.setPrefWidth(100);
       rLocation.setPrefWidth(100);
-      summary.setPrefWidth(200);
+      summary.setPrefWidth(250);
+      status.setPrefWidth(80);
 
       oneRow
           .getChildren()
-          .addAll(id, requestedOn, requestedBy, needBy, assigned, rLocation, summary);
+          .addAll(
+              id,
+              requestedOn,
+              requestedBy,
+              needBy,
+              assigned,
+              rLocation,
+              status,
+              summary,
+              assign,
+              delete,
+              updateStatus);
       requestList.getChildren().add(oneRow);
     }
   }

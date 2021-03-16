@@ -32,9 +32,12 @@ public class Request extends RecursiveTreeObject<Request> {
     this.dateNeeded = dateNeeded;
     this.requestLocation = requestLocation;
     this.summary = summary;
+    this.status = "Not Assigned";
   }
 
-  public Request() {}
+  public Request() {
+    this.status = "Not Assigned";
+  }
 
   public String getAssignedTo() {
     return assignedTo;
