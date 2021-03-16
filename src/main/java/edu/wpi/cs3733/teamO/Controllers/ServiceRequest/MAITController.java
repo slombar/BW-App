@@ -60,7 +60,7 @@ public class MAITController implements Initializable {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += " Type: " + f2 + "Personnel: " + f1;
     r.setSummary(sum);
     RequestHandling.addRequest(r);

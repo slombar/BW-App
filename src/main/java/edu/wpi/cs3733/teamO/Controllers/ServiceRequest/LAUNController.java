@@ -55,7 +55,7 @@ public class LAUNController implements Initializable {
     r.setRequestedBy(requestedBy);
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
-    r.setLocationNodeID(loc);
+    r.setRequestLocation(loc);
     sum += "Load Size: " + f2 + "CV19?: " + f2 + "Instructions: " + f1;
     r.setSummary(sum);
     RequestHandling.addRequest(r);
