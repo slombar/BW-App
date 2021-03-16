@@ -609,7 +609,7 @@ public class NewNavPageController implements Initializable {
     if (listOfImages.isEmpty()) {
       // TODO: Throw a error "you did not do pathfind"
     }
-    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
+    SharingPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
     // EmailPageController.setScreenShot(listOfImages);
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }

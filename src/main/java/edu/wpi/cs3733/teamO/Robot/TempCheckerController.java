@@ -1,9 +1,8 @@
-package edu.wpi.cs3733.teamO.Controllers.Popups;
+package edu.wpi.cs3733.teamO.Robot;
 
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
-import edu.wpi.cs3733.teamO.Robot.Serial;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
@@ -11,11 +10,12 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 
 public class TempCheckerController extends Thread implements Initializable {
+
+  @FXML public JFXRadioButton yes4;
+  @FXML public JFXRadioButton No4;
   @FXML private JFXRadioButton No2;
   @FXML private JFXRadioButton No3;
   @FXML private JFXRadioButton No1;
@@ -23,13 +23,12 @@ public class TempCheckerController extends Thread implements Initializable {
   @FXML private JFXRadioButton yes2;
   @FXML private JFXRadioButton yes3;
   @FXML private StackPane popupPane;
-  @FXML private ToggleGroup diagnosed;
-  @FXML private ToggleGroup contact;
-  @FXML private ToggleGroup symptoms;
-  @FXML private ComboBox comboBox;
 
   private final Serial serial = new Serial();
   private final BooleanProperty connection = new SimpleBooleanProperty(false);
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {}
 
   /**
    * this is connected to a link and shows the covid symptom popup
@@ -46,7 +45,7 @@ public class TempCheckerController extends Thread implements Initializable {
    * @param actionEvent
    */
   public void backTempCheck(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/SignInPage.fxml");
   }
 
   /**
@@ -59,26 +58,24 @@ public class TempCheckerController extends Thread implements Initializable {
     if (No1.isSelected()
         || yes1.isSelected() && No2.isSelected()
         || yes2.isSelected() && No3.isSelected()
-        || yes3.isSelected()) {
-      if (No1.isSelected() && No2.isSelected() && No3.isSelected()) {
-        //        SwitchScene.goToParent("/Views/MainPage.fxml");
-        // SwitchScene.goToParent("/RevampedViews/DesktopApp/MainPatientScreen.fxml");
+        || yes3.isSelected() && No4.isSelected()
+        || yes4.isSelected()) {
+      if (No1.isSelected() && No2.isSelected() && No3.isSelected() && yes4.isSelected()) {
+        connectArduino();
       } else {
         PopupMaker.covidRisk(popupPane);
       }
     } else {
       PopupMaker.incompletePopup(popupPane);
     }
-
-    connectArduino();
   }
 
   private void connectArduino() {
     // Connect to Arduino port and start listening
-    serial.connect();
-    connection.set(!serial.getPortName().isEmpty());
-  }
+    if (!connection.get()) {
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {}
+      serial.connect();
+      connection.set(!serial.getPortName().isEmpty());
+    }
+  }
 }

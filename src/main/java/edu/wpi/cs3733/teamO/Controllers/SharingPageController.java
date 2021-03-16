@@ -30,7 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 
-public class EmailPageController implements Initializable {
+public class SharingPageController implements Initializable {
 
   @FXML private JFXButton generateQRBtn;
   @FXML private StackPane spinnerPane;

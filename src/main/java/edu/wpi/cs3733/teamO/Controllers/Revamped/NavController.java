@@ -5,7 +5,7 @@ import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import edu.wpi.cs3733.teamO.Controllers.EmailPageController;
+import edu.wpi.cs3733.teamO.Controllers.SharingPageController;
 import edu.wpi.cs3733.teamO.Database.DataHandling;
 import edu.wpi.cs3733.teamO.Database.UserHandling;
 import edu.wpi.cs3733.teamO.GraphSystem.Graph;
@@ -1146,7 +1146,7 @@ public class NavController implements Initializable {
     if (listOfImages.isEmpty()) {
       // TODO: Throw a error "you did not do pathfind"
     }
-    EmailPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
+    SharingPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
     // EmailPageController.setScreenShot(listOfImages);
     SwitchScene.goToParent("/Views/EmailPage.fxml");
   }
