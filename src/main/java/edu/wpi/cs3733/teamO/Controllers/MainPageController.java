@@ -79,6 +79,10 @@ public class MainPageController implements Initializable {
     SwitchScene.goToParent("/Views/NewNavPage.fxml");
   }
 
+  public void goToTemp(ActionEvent actionEvent) {
+    SwitchScene.goToParent("/Views/ROBOT/TempReading.fxml");
+  }
+
   public void goToGifts(ActionEvent actionEvent) {}
 
   public void goToCovid(

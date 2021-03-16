@@ -17,6 +17,7 @@
    <center>
       <AnchorPane prefHeight="597.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
+            <JFXButton fx:id="tempButton" onAction="#goToTemp" text="TEMP" AnchorPane.rightAnchor="120.0" />
             <GridPane alignment="CENTER" translateX="-175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

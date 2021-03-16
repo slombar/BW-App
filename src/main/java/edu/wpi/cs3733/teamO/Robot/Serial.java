@@ -4,6 +4,7 @@ import static java.lang.System.out;
 import static java.util.Arrays.asList;
 import static jssc.SerialPort.*;
 
+import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -63,6 +64,13 @@ public final class Serial {
                 try {
                   sb.append(serPort.readString(event.getEventValue()));
                   String ch = sb.toString();
+                  out.println(ch);
+                  if (ch.equals("1")) {
+                    disconnect();
+                    String MenuUrl = "/Views/CovidSurvey.fxml";
+                    SwitchScene.goToParent(MenuUrl);
+                  }
+
                   if (ch.endsWith("\r\n")) {
 
                     line.set(ch.substring(0, ch.indexOf("\r\n")));

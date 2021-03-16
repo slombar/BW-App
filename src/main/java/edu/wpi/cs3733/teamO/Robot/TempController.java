@@ -4,11 +4,16 @@ import static jssc.SerialPort.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 public class TempController extends Thread implements Initializable {
+
+  private final Serial serial = new Serial();
+  private final BooleanProperty connection = new SimpleBooleanProperty(false);
 
   public Label tempLabel;
   // <--- get the port
@@ -31,7 +36,12 @@ public class TempController extends Thread implements Initializable {
   }
 
   public void submit(ActionEvent actionEvent) {
-    // AdruinoCon.closeConnection();
+    if (!(connection.get())) {
+      connectArduino();
+    } else {
+      serial.disconnect();
+      connection.set(false);
+    }
   }
 
   @Override
@@ -46,5 +56,11 @@ public class TempController extends Thread implements Initializable {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  private void connectArduino() {
+    // Connect to Arduino port and start listining
+    serial.connect();
+    connection.set(!serial.getPortName().isEmpty());
   }
 }
