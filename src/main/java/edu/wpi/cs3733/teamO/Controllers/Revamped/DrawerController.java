@@ -150,12 +150,9 @@ public class DrawerController {
     navController = nc;
   }
 
-  public void QRCodeGeneration(ActionEvent actionEvent) {
-  }
+  public void QRCodeGeneration(ActionEvent actionEvent) {}
 
-  public void sendText(ActionEvent actionEvent) {
-  }
+  public void sendText(ActionEvent actionEvent) {}
 
-  public void sendEmail(ActionEvent actionEvent) {
-  }
+  public void sendEmail(ActionEvent actionEvent) {}
 }
