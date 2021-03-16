@@ -5,12 +5,9 @@ import edu.wpi.cs3733.teamO.DinoGame.components.Ground;
 import edu.wpi.cs3733.teamO.DinoGame.components.Obstacles;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import javafx.embed.swing.JFXPanel;
-import javax.imageio.*;
 import javax.swing.*;
 
-public class GamePanel extends JFXPanel implements KeyListener, Runnable {
+public class GamePanel extends JPanel implements KeyListener, Runnable {
 
   public static int WIDTH;
   public static int HEIGHT;
@@ -26,8 +23,8 @@ public class GamePanel extends JFXPanel implements KeyListener, Runnable {
   private int score;
 
   public GamePanel() {
-    WIDTH = UserInterface.WIDTH;
-    HEIGHT = UserInterface.HEIGHT;
+    WIDTH = DinoGameController.WIDTH;
+    HEIGHT = DinoGameController.HEIGHT;
 
     ground = new Ground(HEIGHT);
     dino = new Dino();
@@ -97,6 +94,7 @@ public class GamePanel extends JFXPanel implements KeyListener, Runnable {
         dino.startRunning();
       } else {
         dino.jump();
+        System.out.println("Dino jumps");
       }
     }
   }
