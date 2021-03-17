@@ -5,7 +5,6 @@ import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -139,31 +138,18 @@ public class NodesAndEdges {
    */
   public static void deleteAllEdges(String nodeID) {
 
-    ArrayList<String> edgesList = new ArrayList<>();
-    String query =
-        "SELECT * FROM Edges WHERE startNode = '" + nodeID + "' OR endNode ='" + nodeID + "'";
+    String query = "DELETE FROM Edges WHERE startNode = ? OR endNode = ?";
 
     try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      ResultSet rset = preparedStmt.executeQuery();
-
-      while (rset.next()) {
-        edgesList.add(rset.getString("nodeID"));
-      }
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, nodeID);
+      preparedStmt.setString(2, nodeID);
+      preparedStmt.execute();
 
       preparedStmt.close();
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
-    }
-
-    for (String edgeID : edgesList) {
-      try {
-        deleteEdge(edgeID);
-      } catch (SQLException throwables) {
-        throwables.printStackTrace();
-      }
     }
   }
 

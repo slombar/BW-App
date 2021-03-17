@@ -57,47 +57,65 @@
       </Hyperlink>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OR" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
-            <Font name="Leelawadee UI Bold" size="18.0" />
+            <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
       </Text>
-      <JFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textLink" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Text me the link!" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textLink" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" style="-fx-background-color: #3A5369;" text="Text me the link!" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </GridPane.margin>
       </JFXButton>
-      <JFXButton layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textDir" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Text me the directions!" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textDir" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" style="-fx-background-color: #3A5369;" text="Text me the directions!" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </GridPane.margin>
       </JFXButton>
-      <JFXButton layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textBoth" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefHeight="700.0" prefWidth="300.0" text="Text me both!" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#textBoth" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #3A5369;" text="Text me both!" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </GridPane.margin>
       </JFXButton>
-      <JFXButton layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailLink" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Email me the link!" GridPane.rowIndex="3">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailLink" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" style="-fx-background-color: #3A5369;" text="Email me the link!" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.rowIndex="3">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </GridPane.margin>
       </JFXButton>
-      <JFXButton layoutX="10.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailDir" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Email me the directions!" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailDir" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" style="-fx-background-color: #3A5369;" text="Email me the directions!" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </GridPane.margin>
       </JFXButton>
-      <JFXButton layoutX="10.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailBoth" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" text="Email me both!" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#emailBoth" onMouseEntered="#mouseEnteredButton" onMouseExited="#mouseExitedButton" prefWidth="300.0" style="-fx-background-color: #3A5369;" text="Email me both!" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </GridPane.margin>
       </JFXButton>
       <JFXTextField fx:id="emailInput" promptText="Email" GridPane.rowIndex="1">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI" size="20.0" />
          </font>
       </JFXTextField>
       <JFXTextField fx:id="textInput" layoutX="10.0" layoutY="148.0" promptText="Cell Number" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
-            <Font name="Leelawadee UI" size="16.0" />
+            <Font name="Leelawadee UI" size="20.0" />
          </font>
       </JFXTextField>
    </GridPane>

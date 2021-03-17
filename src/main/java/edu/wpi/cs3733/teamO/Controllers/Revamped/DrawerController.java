@@ -31,23 +31,14 @@ public class DrawerController {
   public JFXTextField shortName;
 
   public void addDirectionChildren(List<String> directions) {
-
+    directionsDisplayVbox.getChildren().clear();
     for (String d : directions) {
 
       Label newText = new Label(d);
       newText.setFont(Font.font("Leelawadee UI", 16.0));
 
       directionsDisplayVbox.getChildren().add(newText);
-
-      // add directions label to vbox
-      // informationOnPage.getDirectionVBox().getChildren().add(newText);
-      // informationOnPage.addDirectionChild(newText);
-      // DrawerController.addDirectionChild(newText);
     }
-  }
-
-  public void removeDirectionChildren() {
-    directionsDisplayVbox.getChildren().clear();
   }
 
   public VBox getDirectionVBox() {
