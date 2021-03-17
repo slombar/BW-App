@@ -15,6 +15,7 @@ import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.HelperClasses.SwitchScene;
 import edu.wpi.cs3733.teamO.Model.Node;
 import edu.wpi.cs3733.teamO.UserTypes.Settings;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -40,10 +41,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
@@ -136,6 +134,7 @@ public class NavController implements Initializable {
   private final JFXButton clearPath = new JFXButton("Clear");
 
   private String helpPageUrl;
+  private String parkingPageUrl = "RevampedViews/DesktopApp/SaveParkingPage.fxml";
 
   private GraphicsContext gc;
   private double percImageView = 1.0;
@@ -517,7 +516,19 @@ public class NavController implements Initializable {
     parkingB.setOnAction(
         e -> {
           // change the first location field to the saved parking spot
-          SwitchScene.goToParent("RevampedViews/DesktopApp/SaveParkingPage.fxml");
+          System.out.println(startLoc.getText());
+          System.out.println(endLoc.getText());
+          if (startLoc.getText().equals("") && !endLoc.getText().equals("")) {
+            startLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
+            System.out.println("Parking Spot " + UserHandling.getParkingSpot());
+          } else if (!startLoc.getText().equals("") && endLoc.getText().equals("")) {
+            endLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
+            System.out.println("Parking Spot " + UserHandling.getParkingSpot());
+          } else {
+            // TODO: add stackpane for all warnings
+            //      PopupMaker.invalidPathfind(nodeWarningPane);
+          }
+          doPathfind();
         });
     shareB.setOnAction(
         e -> {
@@ -538,8 +549,20 @@ public class NavController implements Initializable {
 
     submitPath.setOnAction(
         e -> {
-          // send path to do pathfinding actions
-          doPathfind();
+          startLoc.setStyle("-fx-border-color: none; ");
+          endLoc.setStyle("-fx-border-color: none; ");
+          boolean gtg = true;
+          if (startLoc.getText().equals("")) {
+            gtg = false;
+            startLoc.setStyle("-fx-border-color: red; ");
+          }
+          if (endLoc.getText().equals("")) {
+            gtg = false;
+            endLoc.setStyle("-fx-border-color: red; ");
+          }
+          if (gtg) {
+            doPathfind();
+          }
         });
 
     clearPath.setOnAction(
