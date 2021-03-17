@@ -40,7 +40,7 @@ public class COMPController {
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
     r.setRequestLocation(loc);
-    sum += " Requested For: " + f1;
+    sum += " Requested For: " + f1 + ".";
     r.setSummary(sum);
     RequestHandling.addRequest(r);
   }

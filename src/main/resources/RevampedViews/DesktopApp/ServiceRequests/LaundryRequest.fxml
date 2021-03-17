@@ -60,7 +60,7 @@
                   <Font name="Leelawadee UI Bold" size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="field1" prefWidth="250.0" promptText="Type of Threat" style="-fx-background-color: #ffffff;" text="(ex. Sheets)">
+            <JFXTextField fx:id="field1" prefWidth="250.0" promptText="ex. Sheets" style="-fx-background-color: #ffffff;" >
                <font>
                   <Font name="Leelawadee UI" size="18.0" />
                </font>

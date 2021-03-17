@@ -37,7 +37,7 @@ public class TRANController {
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
     r.setRequestLocation(loc);
-    sum += ", Transport to: " + f1;
+    sum += ". New Location: " + f1 + ".";
     r.setSummary(sum);
     RequestHandling.addRequest(r);
   }

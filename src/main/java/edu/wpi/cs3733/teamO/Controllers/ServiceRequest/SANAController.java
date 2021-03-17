@@ -44,7 +44,7 @@ public class SANAController {
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
     r.setRequestLocation(loc);
-    sum += " Instructions: " + f1 + " CV19: " + f2;
+    sum += ". Instructions: " + f1 + ". PPE Required?: " + f2 + ".";
     r.setSummary(sum);
     RequestHandling.addRequest(r);
   }

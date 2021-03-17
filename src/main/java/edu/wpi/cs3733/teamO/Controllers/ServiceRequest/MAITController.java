@@ -61,7 +61,7 @@ public class MAITController implements Initializable {
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
     r.setRequestLocation(loc);
-    sum += " Type: " + f2 + "Personnel: " + f1;
+    sum += ". Type of Maintenance: " + f2 + ". Personnel: " + f1 + ".";
     r.setSummary(sum);
     RequestHandling.addRequest(r);
   }

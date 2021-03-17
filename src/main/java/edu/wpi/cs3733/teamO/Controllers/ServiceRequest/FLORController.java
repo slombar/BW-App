@@ -42,7 +42,7 @@ public class FLORController {
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
     r.setRequestLocation(loc);
-    sum += " Flower Type: " + f1 + "Message: " + f2;
+    sum += " Flower Type: " + f1 + ". Attached Card Message: " + f2 + ".";
     r.setSummary(sum);
     RequestHandling.addRequest(r);
   }
