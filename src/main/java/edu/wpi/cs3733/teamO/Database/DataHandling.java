@@ -118,7 +118,7 @@ public class DataHandling {
     /** Edges upload */
     Scanner scanedge = null;
     fileChooser.setTitle("Import your Edge File");
-    //String uedges = ;
+    // String uedges = ;
     url = explorer(Opp.getPrimaryStage());
     // Open file chooser instead of asking for user input
 
