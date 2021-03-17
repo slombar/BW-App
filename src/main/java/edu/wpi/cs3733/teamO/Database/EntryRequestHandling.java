@@ -5,6 +5,7 @@ import edu.wpi.cs3733.teamO.SRequest.EntryRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -275,5 +276,38 @@ public class EntryRequestHandling {
     pstmt.setInt(1, reqID);
     pstmt.executeUpdate();
     pstmt.close();
+  }
+
+  public static void assignEmployee(int parseInt, String text) throws SQLException {
+    String query = "UPDATE ENTRY_REQUESTS SET FULFUILLEDBY = '" + text + "' WHERE ENTRYREQID = ?";
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    pstmt.setInt(1, parseInt);
+    pstmt.executeUpdate();
+    pstmt.close();
+  }
+
+  public static ArrayList<Integer> getApprovedPatients() throws SQLException {
+    String query = "SELECT * FROM ENTRY_REQUESTS WHERE CHECK1 = TRUE";
+    ArrayList<Integer> approvedList = new ArrayList<Integer>();
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    int reqID;
+    ResultSet rset = pstmt.executeQuery();
+
+    // Process the results
+    while (rset.next()) {
+      reqID = rset.getInt("ENTRYREQID");
+      System.out.println("Entry Request ID: " + reqID + "\n");
+      approvedList.add(reqID);
+    } // end while
+
+    pstmt.close();
+
+    return approvedList;
   }
 }
