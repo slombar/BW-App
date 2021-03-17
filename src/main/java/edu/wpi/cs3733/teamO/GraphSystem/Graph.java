@@ -220,7 +220,6 @@ public class Graph {
       return;
     }
 
-
     // adding new Node and Circle:
 
     // add circle for n
