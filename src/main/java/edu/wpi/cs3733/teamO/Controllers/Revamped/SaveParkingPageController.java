@@ -35,7 +35,9 @@ public class SaveParkingPageController implements Initializable {
   }
 
   public void goBack(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/MainStaffScreen.fxml");
+    String sideMenu = "/RevampedViews/DesktopApp/MainStaffScreen.fxml";
+    if (!UserHandling.getEmployee()) sideMenu = "/RevampedViews/DesktopApp/MainPatientScreen.fxml";
+    SwitchScene.goToParent(sideMenu);
   }
 
   public void saveSpot(ActionEvent actionEvent) {
