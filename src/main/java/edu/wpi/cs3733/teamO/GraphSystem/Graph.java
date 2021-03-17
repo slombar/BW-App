@@ -269,26 +269,33 @@ public class Graph {
    * @param nodeID the Node to be removed
    */
   public void deleteNode(String nodeID) throws SQLException {
-    // (try) deleting from DB
-    NodesAndEdges.deleteNode(nodeID);
-
     Node n = stringNodeHashtable.get(nodeID);
 
-    ArrayList<Edge> edgesToDelete = new ArrayList<>();
-    // removes all edges for each neighbor of the given deleting node
-    for (Edge e : listOfEdges) {
-      if (e.getStart().equals(nodeID) || e.getEnd().equals(nodeID)) {
-        try {
-          this.deleteEdge(e.getStart(), e.getEnd());
-        } catch (SQLException throwables) {
-          throwables.printStackTrace();
-        }
-        edgesToDelete.add(e);
-      }
-    }
+    // returns the list of all edges connected to the node we want to delete
+    ArrayList<String> deletedEdges = NodesAndEdges.deleteNode(n.getID());
 
-    for (Edge e : edgesToDelete) {
-      this.deleteEdge(e.getStart(), e.getEnd());
+    // removes all edges for each neighbor of the given deleting node
+    for (String eid : deletedEdges) {
+      Edge e = stringEdgeHashtable.get(eid);
+      // delete edge from graph
+      // go into neighbor list, unlink the startnode and endnode of the edge
+
+      // retrieve start and end nodes
+      String sNode = e.getStart();
+      String eNode = e.getEnd();
+
+      // get the proper nodes to delete edges from
+      Node node1 = stringNodeHashtable.get(sNode);
+      Node node2 = stringNodeHashtable.get(eNode);
+
+      node1.getNeighbourList().remove(node2);
+      node1.getNodeEdgeHashtable().remove(node2);
+      node2.getNeighbourList().remove(node1);
+      node2.getNodeEdgeHashtable().remove(node1);
+
+      // remove edge from list
+      listOfEdges.remove(e);
+      stringEdgeHashtable.remove(eid);
     }
 
     // remove from graph
