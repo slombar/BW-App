@@ -220,18 +220,6 @@ public class Graph {
       return;
     }
 
-    // try adding to DB (throws SQLException)
-    NodesAndEdges.addNode(
-        n.getID(),
-        Integer.toString(n.getXCoord()),
-        Integer.toString(n.getYCoord()),
-        n.getFloor(),
-        n.getBuilding(),
-        n.getNodeType(),
-        n.getLongName(),
-        n.getShortName(),
-        "O",
-        n.isVisible());
 
     // adding new Node and Circle:
 
