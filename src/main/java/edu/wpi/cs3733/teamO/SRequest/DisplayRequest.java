@@ -16,7 +16,7 @@ public class DisplayRequest {
   }
 
   public static ObservableList<EntryRequest> getSpecificEntryReqList() {
-    entryReqList = EntryRequestHandling.getRequests();
+    entryReqList = EntryRequestHandling.getEntryRequests();
     ObservableList<EntryRequest> specList = FXCollections.observableArrayList();
 
     if (entryReqList.size() > 0) {

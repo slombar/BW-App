@@ -16,13 +16,12 @@ public class EntryRequestHandling {
    *
    * @return
    */
-  public static ObservableList<EntryRequest> getRequests() {
+  public static ObservableList<EntryRequest> getEntryRequests() {
     ObservableList<EntryRequest> requestList = FXCollections.observableArrayList();
     try {
-      String query = "SELECT * FROM Entry_Requests";
+      String query = "SELECT * FROM ENTRY_REQUESTS";
       // database statement to grab values
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query);
       // returns the results from query
       ResultSet rset = pstmt.executeQuery();
 
@@ -60,26 +59,7 @@ public class EntryRequestHandling {
                 check1,
                 check2,
                 spec_symptoms);
-
-        System.out.println(
-            "Retrieved this from Services: "
-                + reqID
-                + ", "
-                + requestedBy
-                + ", "
-                + fulfilledBy
-                + ", "
-                + dateRequested.toString()
-                + ", "
-                + location
-                + ", "
-                + symptoms
-                + ", "
-                + check1
-                + ", "
-                + check2
-                + ", "
-                + spec_symptoms);
+        req.setFulfilledBy(fulfilledBy);
 
         requestList.add(req);
       }
@@ -108,7 +88,7 @@ public class EntryRequestHandling {
 
     pstmt =
         DatabaseConnection.getConnection()
-            .prepareStatement("SELECT * FROM Entry_Requests WHERE ENTRYREQID = ?");
+            .prepareStatement("SELECT STATUS FROM Entry_Requests WHERE ENTRYREQID = ?");
 
     pstmt.setInt(1, reqID);
 
