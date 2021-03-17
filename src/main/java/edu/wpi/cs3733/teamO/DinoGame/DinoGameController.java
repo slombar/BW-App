@@ -47,7 +47,6 @@ public class DinoGameController implements Initializable {
     anchorPane.getChildren().add(swingNode);
 
     // Scene scene = new Scene(anchorPane, WIDTH, HEIGHT);
-    System.out.println("dino game initialized?");
 
     // just a borderpane
     // ! container.setLayout(new BorderLayout());

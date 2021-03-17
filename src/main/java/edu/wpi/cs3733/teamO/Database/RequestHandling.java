@@ -138,7 +138,6 @@ public class RequestHandling {
         summary = rset.getString("SUMMARY");
         status = (rset.getString("STATUS"));
 
-        System.out.println("Assigned to:" + assignedto);
         // requests generate here
         Request r = new Request();
         // add properties to the node

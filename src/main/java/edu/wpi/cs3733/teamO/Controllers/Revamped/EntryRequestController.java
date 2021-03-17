@@ -318,7 +318,6 @@ public class EntryRequestController implements Initializable {
     // addEdgePopup has the content of the popup
     // addEdgeDialog creates the dialog popup
 
-    System.out.println("Running!");
     JFXDialogLayout assignStaffLayout = new JFXDialogLayout();
     assignStaffLayout.setHeading(new Text("Assign Staff to Service Request"));
     VBox assignStaffVBox = new VBox(12);
@@ -423,7 +422,7 @@ public class EntryRequestController implements Initializable {
           } else {
             EntryRequest selectedRequest =
                 EntryRequestHandling.getRequest(Integer.parseInt(listOfFields.get(0).getText()));
-            System.out.println(listOfFields.get(0).getText());
+
             /*RequestHandling.editRequest(
             Integer.parseInt(listOfFields.get(0).getText()),
             selectedRequest.getFulfilledBy(),

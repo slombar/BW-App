@@ -69,7 +69,6 @@ public class LoginController implements Initializable {
       SwitchScene.goToParent("/Views/CovidSurvey.fxml");
     } catch (SQLException throwables) {
       throwables.printStackTrace();
-      System.out.println("Did you delete the guest account????????? >:( ");
     }
   }
 

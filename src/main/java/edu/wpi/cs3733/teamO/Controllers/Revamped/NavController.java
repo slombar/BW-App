@@ -179,6 +179,7 @@ public class NavController implements Initializable {
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
   private boolean selectingAlign = false;
+  private boolean editingNode = false;
 
   private boolean isDrawerDirections = false;
 
@@ -200,6 +201,7 @@ public class NavController implements Initializable {
     editingEdge = false;
     deletingEdge = false;
     showingEdges = false;
+    editingNode = false;
 
     selectedNode = null;
     selectedNodeB = null;
@@ -312,13 +314,13 @@ public class NavController implements Initializable {
     }
 
     if (UserHandling.getEmployee()) {
-      System.out.println("EMPLOYEE");
+
       sideMenuUrl = "/Views/SideMenuStaff.fxml";
       helpPageUrl = "/RevampedViews/DesktopApp/NavPatientHelp.fxml";
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         helpPageUrl = "/RevampedViews/DesktopApp/NavStaffHelp.fxml";
-        System.out.println("ADMIN");
+
         editB.setVisible(true);
       }
     } else {
@@ -365,8 +367,6 @@ public class NavController implements Initializable {
     resizeCanvas();
     // draws appropriately accordingly to combination of booleans
     draw(1);
-
-    System.out.println("NavController Initialized");
 
     // set onaction events for all buttons
     generalButtons();
@@ -659,7 +659,6 @@ public class NavController implements Initializable {
     if (!GRAPH.allConnected()) {
       editing = true;
 
-      System.out.println("Incomplete map.");
       //      PopupMaker.unconnectedPopup(nodeWarningPane);
       return;
     }
@@ -734,6 +733,7 @@ public class NavController implements Initializable {
 
     // block for SHIFT CLICK --> aligning nodes
     if (editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+      editingNode = false;
       // hide context menu
       editMapContext.setAutoHide(true);
       if (editMapContext.isShowing()) {
@@ -761,30 +761,33 @@ public class NavController implements Initializable {
     // ----------------------
     // block for LEFT CLICK --> regular clicking
     else if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-      // hide context menu
-      editMapContext.setAutoHide(true);
-      if (editMapContext.isShowing()) {
-        editMapContext.hide();
-      }
-      pathfindContext.setAutoHide(true);
-      if (pathfindContext.isShowing()) {
-        pathfindContext.hide();
-      }
+      // if not editing node, clear selection and whatnot
+      if (!editingNode) {
+        // hide context menu
+        editMapContext.setAutoHide(true);
+        if (editMapContext.isShowing()) {
+          editMapContext.hide();
+        }
+        pathfindContext.setAutoHide(true);
+        if (pathfindContext.isShowing()) {
+          pathfindContext.hide();
+        }
 
-      clearAlignList();
+        clearAlignList();
 
-      boolean temp = showingEdges;
-      setEditFalse();
-      showingEdges = temp;
-      if (editing) {
-        drawerBottomRight.close();
+        boolean temp = showingEdges;
+        setEditFalse();
+        showingEdges = temp;
+        if (editing) {
+          drawerBottomRight.close();
+        }
       }
+      // else, dragging node
     }
     // ----------------------
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-
-      System.out.println("You right clicked!");
+      editingNode = false;
 
       if (editing) { // editing mode
         editMapContext.setAutoHide(true);
@@ -832,6 +835,7 @@ public class NavController implements Initializable {
 
     } else if (true) {
       // TODO add dragging functionality
+      //  (will probably be a separate circle object)
     }
 
     // autocompleteEditMap(clickedNode);
@@ -843,6 +847,7 @@ public class NavController implements Initializable {
     editNodeMenu.setOnAction(
         action -> {
           System.out.println("editing node");
+          editingNode = true;
           // editNodeMenuSelect(node);
           editingEdge = false;
         });
@@ -861,7 +866,6 @@ public class NavController implements Initializable {
 
     editingEdgeMenu.setOnAction(
         action -> {
-          System.out.println("adding edge");
           if (!editingEdge) {
             editingEdge = true;
           }
@@ -1038,44 +1042,50 @@ public class NavController implements Initializable {
   }
 
   public void onCanvasScroll(ScrollEvent scrollEvent) {
-    double scrollDeltaY = scrollEvent.getDeltaY();
-    // if scroll is at least a certain amount, then zoom (idk, maybe change this??)
-    if (Math.abs(scrollDeltaY) > 10) {
-      // if positive, then scrolling up (zooming in)
-      if (scrollDeltaY > 0) {
-        if (percImageView <= 0.4) {
-          return;
-        } else {
-          percImageView -= 0.05;
+    // don't allow zooming when displaying path
+    if (!displayingRoute) {
+      double scrollDeltaY = scrollEvent.getDeltaY();
+      // if scroll is at least a certain amount, then zoom (idk, maybe change this??)
+      if (Math.abs(scrollDeltaY) > 10) {
+        // if positive, then scrolling up (zooming in)
+        if (scrollDeltaY > 0) {
+          if (percImageView <= 0.4) {
+            return;
+          } else {
+            percImageView -= 0.05;
+          }
         }
+        // else, scrolling down (zooming out)
+        else {
+          if (percImageView >= 2.0) {
+            return;
+          } else {
+            percImageView += 0.05;
+          }
+        }
+      }
 
-      }
-      // else, scrolling down (zooming out)
-      else {
-        if (percImageView >= 1.0) {
-          return;
-        } else {
-          percImageView += 0.05;
-        }
-      }
+      double a = getImgX(scrollEvent.getX());
+      double b = getImgY(scrollEvent.getY());
+      double vX = percImageView * imageView.getImage().getWidth();
+      double vY = percImageView * imageView.getImage().getHeight();
+      // zoom option A:
+      /*currentViewport =
+      new Rectangle2D(
+          (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
+              - vX / 2,
+          (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
+              - vY / 2,
+          vX,
+          vY);*/
+      // zoom option B:
+      double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
+      double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
+      currentViewport = new Rectangle2D(a - (percCanvasA * vX), b - (percCanvasB * vY), vX, vY);
+
+      imageView.setViewport(currentViewport);
+      draw();
     }
-
-    double a = getImgX(scrollEvent.getX());
-    double b = getImgY(scrollEvent.getY());
-    double vX = percImageView * imageView.getImage().getWidth();
-    double vY = percImageView * imageView.getImage().getHeight();
-    // zoom option A:
-    currentViewport =
-        new Rectangle2D(
-            (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
-                - vX / 2,
-            (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
-                - vY / 2,
-            vX,
-            vY);
-
-    imageView.setViewport(currentViewport);
-    draw();
   }
 
   public double getImgX(double canvasX) {
