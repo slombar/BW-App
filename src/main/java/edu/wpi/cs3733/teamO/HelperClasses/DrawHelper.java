@@ -31,7 +31,7 @@ public class DrawHelper {
    * Draws every Circle from the given Hashtable corresponding to each Node in the ArrayList
    *
    * @param gc the GraphicsContext on which the Circles will be drawn
-   * @param ncTable the Hashtable in which the Circles are stored
+   * @param //ncTable the Hashtable in which the Circles are stored
    * @param nodeList the list of Nodes whose Circles should be drawn
    */
   /*public static void drawNodeCircles(
@@ -84,8 +84,15 @@ public class DrawHelper {
         diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
       }
 
-      double circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
-      double circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;
+      double circleX = 0;
+      double circleY = 0;
+      if (!isMobile) {
+        circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
+        circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;
+      } else {
+        circleX = (((nxp - vpX) / wp) * canvasW);
+        circleY = (((nyp - vpY / 1.5) / hp) * canvasH) * 1.5;
+      }
 
       // ------------------
       // color stuff:
@@ -138,9 +145,9 @@ public class DrawHelper {
   /**
    * Draws a single line with an arrowhead halfway from point a to point b
    *
-   * @param gc
-   * @param circleA
-   * @param circleB
+   * @param //gc
+   * @param //circleA
+   * @param //circleB
    */
   public static void drawMidArrow(
       GraphicsContext gc, Node nodeA, Node nodeB, ImageView imageView, boolean isMobile) {
@@ -286,7 +293,7 @@ public class DrawHelper {
    * Draws the given Circle in the given color WITHOUT CLEARING CANVAS FIRST
    *
    * @param gc GraphicsContext on which to draw
-   * @param circle circle (node) being drawn
+   * @param //circle circle (node) being drawn
    * @param paint Color.COLOR being drawn
    */
   public static void drawSingleNode(
