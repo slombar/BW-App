@@ -518,10 +518,14 @@ public class NavController implements Initializable {
     parkingB.setOnAction(
         e -> {
           // change the first location field to the saved parking spot
-          if (startLoc.getText() == null && endLoc.getText() != null) {
+          System.out.println(startLoc.getText());
+          System.out.println(endLoc.getText());
+          if (startLoc.getText().equals("") && !endLoc.getText().equals("")) {
             startLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
-          } else if (startLoc.getText() != null && endLoc.getText() == null) {
+            System.out.println("Parking Spot " + UserHandling.getParkingSpot());
+          } else if (!startLoc.getText().equals("") && endLoc.getText().equals("")) {
             endLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
+            System.out.println("Parking Spot " + UserHandling.getParkingSpot());
           } else {
             // TODO: add stackpane for all warnings
             //      PopupMaker.invalidPathfind(nodeWarningPane);
