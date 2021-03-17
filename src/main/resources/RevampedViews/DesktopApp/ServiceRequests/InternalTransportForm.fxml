@@ -12,10 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="CENTER" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #9aa8b5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.teamO.Controllers.ServiceRequest.TRANController">
    <children>
-      <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="315.0" text="Computer Service Request" textFill="#3a5369">
+      <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="315.0" text="Internal Transport Request" textFill="#3a5369">
          <font>
             <Font name="Leelawadee UI Bold" size="25.0" />
          </font>
