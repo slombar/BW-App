@@ -534,11 +534,11 @@ public class NavController implements Initializable {
           System.out.println(startLoc.getText());
           System.out.println(endLoc.getText());
           if (startLoc.getText().equals("") && !endLoc.getText().equals("")) {
-            startLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
-            System.out.println("Parking Spot " + UserHandling.getParkingSpot());
+            startLoc.setText("Parking Spot " + UserHandling.getSessionParkingSpot());
+            System.out.println("Parking Spot " + UserHandling.getSessionParkingSpot());
           } else if (!startLoc.getText().equals("") && endLoc.getText().equals("")) {
-            endLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
-            System.out.println("Parking Spot " + UserHandling.getParkingSpot());
+            endLoc.setText("Parking Spot " + UserHandling.getSessionParkingSpot());
+            System.out.println("Parking Spot " + UserHandling.getSessionParkingSpot());
           } else {
             // TODO: add stackpane for all warnings
             //      PopupMaker.invalidPathfind(nodeWarningPane);
