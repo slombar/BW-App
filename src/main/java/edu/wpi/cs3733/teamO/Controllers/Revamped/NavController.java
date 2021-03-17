@@ -136,6 +136,7 @@ public class NavController implements Initializable {
   private final JFXButton clearPath = new JFXButton("Clear");
 
   private String helpPageUrl;
+  private String parkingPageUrl = "RevampedViews/DesktopApp/SaveParkingPage.fxml";
 
   private GraphicsContext gc;
   private double percImageView = 1.0;
@@ -517,7 +518,15 @@ public class NavController implements Initializable {
     parkingB.setOnAction(
         e -> {
           // change the first location field to the saved parking spot
-          SwitchScene.goToParent("RevampedViews/DesktopApp/SaveParkingPage.fxml");
+          if (startLoc.getText() == null && endLoc.getText() != null) {
+            startLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
+          } else if (startLoc.getText() != null && endLoc.getText() == null) {
+            endLoc.setText("Parking Spot " + UserHandling.getParkingSpot());
+          } else {
+            // TODO: add stackpane for all warnings
+            //      PopupMaker.invalidPathfind(nodeWarningPane);
+          }
+          doPathfind();
         });
     shareB.setOnAction(
         e -> {
