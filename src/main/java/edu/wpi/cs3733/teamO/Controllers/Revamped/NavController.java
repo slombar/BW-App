@@ -855,7 +855,6 @@ public class NavController implements Initializable {
 
         contextMenuOnActions(clickedNode, mouseEvent);
       }
-
     }
 
     // autocompleteEditMap(clickedNode);
@@ -1134,6 +1133,8 @@ public class NavController implements Initializable {
           }
         }
       }
+      Bounds boundsInScene = mapCanvas.localToScene(mapCanvas.getBoundsInLocal());
+      // TODO: zooming is messed up on Campus Map
 
       double a = getImgX(scrollEvent.getX());
       double b = getImgY(scrollEvent.getY());
