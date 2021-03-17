@@ -864,10 +864,6 @@ public class NavController implements Initializable {
 
         contextMenuOnActions(clickedNode, mouseEvent);
       }
-
-    } else if (true) {
-      // TODO add dragging functionality
-      //  (will probably be a separate circle object)
     }
 
     // autocompleteEditMap(clickedNode);
@@ -875,7 +871,6 @@ public class NavController implements Initializable {
   }
 
   public void contextMenuOnActions(Node node, MouseEvent mouseEvent) {
-    // TODO: add functionality to these
     editNodeMenu.setOnAction(
         action -> {
           System.out.println("editing node");
@@ -1147,6 +1142,8 @@ public class NavController implements Initializable {
           }
         }
       }
+      Bounds boundsInScene = mapCanvas.localToScene(mapCanvas.getBoundsInLocal());
+      // TODO: zooming is messed up on Campus Map
 
       double a = getImgX(scrollEvent.getX());
       double b = getImgY(scrollEvent.getY());
