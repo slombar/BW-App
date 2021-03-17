@@ -397,7 +397,8 @@ public class NavController implements Initializable {
     switchDrawer();
     drawer.toBack();
 
-    //   drawerBottomRight.close();
+    drawerBottomRight.toBack();
+    imageView.toBack();
   }
 
   public void switchDrawer() {
@@ -584,6 +585,8 @@ public class NavController implements Initializable {
           // clear start and end locations
           drawerController.removeDirectionChildren();
           drawerBottomRight.close();
+          drawerBottomRight.toBack();
+          imageView.toBack();
           clearSelection();
         });
 
@@ -743,6 +746,7 @@ public class NavController implements Initializable {
 
     // open the directions box at the bottom right
     drawerBottomRight.open();
+    drawerBottomRight.toFront();
   }
 
   /**
@@ -832,6 +836,7 @@ public class NavController implements Initializable {
           if (!editingEdge) {
             selectedNode = clickedNode;
             drawerBottomRight.open();
+            drawerBottomRight.toFront();
             editNodeMenuSelect(selectedNode);
             contextMenuOnActions(selectedNode, mouseEvent);
           }
