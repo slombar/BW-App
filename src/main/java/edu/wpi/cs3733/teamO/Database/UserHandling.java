@@ -158,26 +158,19 @@ public class UserHandling {
     String encodedPass = null;
     encodedPass = Encrypter.encryptPassword(password);
 
-    String query =
-        "INSERT INTO USERS VALUES('"
-            + username
-            + "', '"
-            + encodedPass
-            + "', '"
-            + email
-            + "', '"
-            + fName
-            + "', '"
-            + lName
-            + "', "
-            + true
-            + ", "
-            + admin
-            + ")";
+    String query = "INSERT INTO USERS VALUES(?,?,?,?,?,?,?,?)";
 
     PreparedStatement preparedStmt = null;
     try {
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, username);
+      preparedStmt.setString(2, encodedPass);
+      preparedStmt.setString(3, email);
+      preparedStmt.setString(4, fName);
+      preparedStmt.setString(5, lName);
+      preparedStmt.setBoolean(6, true);
+      preparedStmt.setBoolean(7, admin);
+      preparedStmt.setString(8, "");
       preparedStmt.execute();
       preparedStmt.close();
     } catch (SQLException throwables) {
