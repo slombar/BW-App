@@ -45,7 +45,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
-                  <Label text="The temperature checker recorded a body temperature above 102 degrees Farenheit." textAlignment="CENTER" wrapText="true">
+                  <Label text="The temperature checker recorded a body temperature above 102 degrees Fahrenheit." textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
