@@ -42,18 +42,25 @@
             </padding></VBox>
       </content>
    </ScrollPane>
-   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="3" GridPane.vgrow="ALWAYS">
-      <JFXButton fx:id="shareBtn" alignment="CENTER" contentDisplay="CENTER" onAction="#shareGoogleRoute" prefHeight="66.0" prefWidth="143.0" style="-fx-background-color: #f2f2f2;" text="Share">
+   <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+      <JFXButton fx:id="shareBtn" alignment="CENTER" buttonType="RAISED" onAction="#shareGoogleRoute" prefHeight="66.0" prefWidth="143.0" style="-fx-background-color: #f2f2f2;" text="Share">
          <font>
-            <Font name="Leelawadee UI" size="25.0" />
+            <Font name="Leelawadee UI Bold" size="25.0" />
          </font>
          <VBox.margin>
-            <Insets right="10.0" top="10.0" />
+            <Insets right="40.0" top="40.0" />
          </VBox.margin>
+         <graphic>
+            <ImageView fitHeight="41.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+               <image>
+                  <Image url="@../../Icons/navPageIcons/share.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
    </VBox>
    <VBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="977.0" spacing="15.0" style="-fx-background-color: #3a5369;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-      <Label onMouseClicked="#goToMainMenu" text="Brigham &amp; Women's Faulkner Hospital" textFill="WHITE">
+      <Label onMouseClicked="#goToMainMenu" prefHeight="0.0" prefWidth="661.0" text="Brigham &amp; Women's Faulkner Hospital" textFill="WHITE">
          <font>
             <Font name="Leelawadee UI Bold" size="36.0" />
          </font>
@@ -68,8 +75,8 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="33.0" minHeight="10.0" percentHeight="50.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="10.0" percentHeight="50.0" prefHeight="27.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <VBox.margin>
             <Insets left="100.0" right="100.0" />
@@ -78,18 +85,24 @@
             <GridPane.margin>
                <Insets />
             </GridPane.margin>
+            <font>
+               <Font name="Leelawadee UI" size="18.0" />
+            </font>
          </JFXTextField>
          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
             <font>
-               <Font name="Leelawadee UI" size="18.0" />
+               <Font name="Leelawadee UI Bold" size="18.0" />
             </font>
          </Text>
          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="To:" GridPane.columnIndex="2">
             <font>
-               <Font name="Leelawadee UI" size="18.0" />
+               <Font name="Leelawadee UI Bold" size="18.0" />
             </font>
          </Text>
-         <JFXTextField fx:id="toBox" onKeyReleased="#checkEnter" style="-fx-background-color: F2F2F2;" text="Brigham And Womans Faulkner Hospital" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         <JFXTextField fx:id="toBox" onKeyReleased="#checkEnter" style="-fx-background-color: F2F2F2;" text="Brigham And Womans Faulkner Hospital" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <font>
+               <Font name="Leelawadee UI" size="18.0" />
+            </font></JFXTextField>
          <StackPane fx:id="popupPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </GridPane>
    </VBox>
