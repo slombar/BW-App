@@ -1115,7 +1115,7 @@ public class NavController implements Initializable {
   }
 
   public void onCanvasScroll(ScrollEvent scrollEvent) {
-    // don't allow zooming when displaying path
+    /*// don't allow zooming when displaying path
     if (!displayingRoute) {
       double scrollDeltaY = scrollEvent.getDeltaY();
       // if scroll is at least a certain amount, then zoom (idk, maybe change this??)
@@ -1145,14 +1145,14 @@ public class NavController implements Initializable {
       double vX = percImageView * imageView.getImage().getWidth();
       double vY = percImageView * imageView.getImage().getHeight();
       // zoom option A:
-      /*currentViewport =
+      currentViewport =
       new Rectangle2D(
           (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
               - vX / 2,
           (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
               - vY / 2,
           vX,
-          vY);*/
+          vY);
       // zoom option B:
       double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
       double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
@@ -1160,7 +1160,7 @@ public class NavController implements Initializable {
 
       imageView.setViewport(currentViewport);
       draw();
-    }
+    }*/
   }
 
   public double getImgX(double canvasX) {
