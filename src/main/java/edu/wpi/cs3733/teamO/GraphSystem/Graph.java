@@ -365,7 +365,8 @@ public class Graph {
       Node selectedNodeB,
       boolean selectingEditNode,
       ImageView imageView,
-      boolean isMobile) {
+      boolean isMobile,
+      boolean editingNode) {
 
     ArrayList<Node> floorNodes = new ArrayList<>();
 
@@ -374,10 +375,12 @@ public class Graph {
     }
 
     // draws given Nodes
-    DrawHelper.drawNodeCircles(gc, floorNodes, null, null, imageView, isMobile);
+    DrawHelper.drawNodeCircles(
+        gc, floorNodes, null, null, imageView, isMobile, editingNode, selectedNodeA);
 
     // if one Node selected, draws it as green
-    if (selectedNodeB == null
+    if (!editingNode
+        && selectedNodeB == null
         && listOfNodes.contains(selectedNodeA)
         && selectedNodeA.getFloor().equals(floor)) {
 
@@ -402,7 +405,8 @@ public class Graph {
       }
 
       // currently has first selectedNode always GREEN
-      if (isFloorA) {
+      // only draws selectedNode if NOT editingNode (bc then it's a Circle)
+      if (!editingNode && isFloorA) {
         DrawHelper.drawSingleNode(gc, selectedNodeA, Color.GREEN, imageView, isMobile);
       }
       if (isFloorB) {
@@ -429,7 +433,8 @@ public class Graph {
       }
     }
 
-    DrawHelper.drawNodeCircles(gc, floorNodes, startNode, endNode, imageView, isMobile);
+    DrawHelper.drawNodeCircles(
+        gc, floorNodes, startNode, endNode, imageView, isMobile, false, null);
   }
 
   /**
@@ -532,8 +537,8 @@ public class Graph {
 
     for (Node n : path) {
       if (n.getFloor().equals(floor)) {
-        x = getSceneX(imageView, n.getXCoord(), boundsInScene);
-        y = getSceneY(imageView, n.getYCoord(), boundsInScene);
+        x = getSceneX(imageView, gc.getCanvas(), n.getXCoord(), boundsInScene);
+        y = getSceneY(imageView, gc.getCanvas(), n.getYCoord(), boundsInScene);
         // TODO: filter out / ignore(??) points outside canvas
         line.getPoints().addAll(new Double[] {x, y});
       }
@@ -541,16 +546,18 @@ public class Graph {
     return line;
   }
 
-  private double getSceneX(ImageView imageView, double imgX, Bounds bounds) {
+  public static double getSceneX(
+      ImageView imageView, Canvas mapCanvas, double imgX, Bounds bounds) {
     double imgPercX = imgX / imageView.getImage().getWidth();
     double translateX = bounds.getMinX();
-    return ((imgPercX * gc.getCanvas().getWidth()) + translateX);
+    return ((imgPercX * mapCanvas.getWidth()) + translateX);
   }
 
-  private double getSceneY(ImageView imageView, double imgY, Bounds bounds) {
+  public static double getSceneY(
+      ImageView imageView, Canvas mapCanvas, double imgY, Bounds bounds) {
     double imgPercY = imgY / imageView.getImage().getHeight();
     double translateY = bounds.getMinY();
-    return ((imgPercY * gc.getCanvas().getHeight()) + translateY);
+    return ((imgPercY * mapCanvas.getHeight()) + translateY);
   }
 
   /**

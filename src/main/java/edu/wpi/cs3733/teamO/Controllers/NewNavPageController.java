@@ -882,7 +882,8 @@ public class NewNavPageController implements Initializable {
 
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
+      GRAPH.drawAllNodes(
+          sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false, false);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
         GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
@@ -905,7 +906,8 @@ public class NewNavPageController implements Initializable {
     } else if (!editing && displayingRoute) {
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
+      GRAPH.drawAllNodes(
+          sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false, false);
       if (showingEdges) {
         GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
       }
