@@ -150,7 +150,6 @@ public class SharingPageController implements Initializable {
   public void sendText(ActionEvent actionEvent) throws IOException, UnirestException {
 
     String phoneString = phoneNum.getText();
-    System.out.println(phoneString);
 
     // TODO reimplement regexboi checker for +1 area codes
     // if (RegexBoi.checkPhoneNum(phoneString)) {
@@ -173,7 +172,7 @@ public class SharingPageController implements Initializable {
     // }
     // else {
     /*errorMsg = "Phone number is invalid. Try again with only numerical characters. (0-9)";
-    System.out.print(errorMsg);
+
     invalidPopup();
     // }*/
   }
@@ -189,22 +188,21 @@ public class SharingPageController implements Initializable {
     String albumID = albumInfo.get(0);
     String albumDeleteHash = albumInfo.get(1);
     Graph graph = GRAPH;
-    System.out.println("test");
+
     if (graph.getPath() == null) {
-      System.out.println("If null statement - success");
+
       ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
       ImgurFunctionality.uploadToImgurAlbum("mapimg1.png", albumDeleteHash);
-      System.out.println("Image 1 - Success");
+
       ImgurFunctionality.uploadToImgurAlbum("mapimg2.png", albumDeleteHash);
-      System.out.println("Image 2 - Success");
+
       ImgurFunctionality.uploadToImgurAlbum("mapimg3.png", albumDeleteHash);
-      System.out.println("Image 3 - Success");
+
       ImgurFunctionality.uploadToImgurAlbum("mapimg4.png", albumDeleteHash);
-      System.out.println("Image 4 - Success");
+
       ImgurFunctionality.uploadToImgurAlbum("mapimg5.png", albumDeleteHash);
-      System.out.println("Image 5 - Success");
+
       ImgurFunctionality.uploadToImgurAlbum("mapimg6.png", albumDeleteHash);
-      System.out.println("All images are uploaded!");
 
     } else {
       String pathFloors = "";
@@ -214,9 +212,6 @@ public class SharingPageController implements Initializable {
 
       String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
       String lastFloor = pathFloors.substring(pathFloors.length() - 1);
-
-      System.out.println(pathFloors + "\n");
-      System.out.println(firstLast);
 
       // need this statement to make everything work
       if (true) {
@@ -250,7 +245,6 @@ public class SharingPageController implements Initializable {
       }
     }
     String albumLink = "https://imgur.com/a/" + albumID;
-    System.out.println(albumLink);
 
     SharingFunctionality.createQR(albumLink);
   }
@@ -287,7 +281,7 @@ public class SharingPageController implements Initializable {
     } else {
       errorMsg =
           "Email is invalid. Make sure your email is spelled correctly and follows typical conventions. (email@company.com)";
-      System.out.print("Email invalid.");
+
       invalidPopup();
     }
   }

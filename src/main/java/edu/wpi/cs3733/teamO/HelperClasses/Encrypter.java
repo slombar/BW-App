@@ -17,7 +17,7 @@ public class Encrypter {
   public static String encryptPassword(String text) {
     MessageDigest digest = MessageDigest.getInstance("SHA-256");
     byte[] encodedBytes = digest.digest(text.getBytes(StandardCharsets.UTF_8));
-    //    System.out.println(encodedString);
+    //
     return Base64.getEncoder().encodeToString(encodedBytes);
   }
 }
