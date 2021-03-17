@@ -125,8 +125,6 @@ public class UserHandling {
             + false
             + ")";
 
-    System.out.println("CREATE ACCT QUERY: " + query);
-
     PreparedStatement preparedStmt = null;
     try {
       preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -176,8 +174,6 @@ public class UserHandling {
             + ", "
             + admin
             + ")";
-
-    System.out.println("CREATE ACCT QUERY: " + query);
 
     PreparedStatement preparedStmt = null;
     try {
@@ -298,7 +294,6 @@ public class UserHandling {
       res.next();
 
       b = res.getBoolean("admin");
-      System.out.println("Admin check : " + b);
 
       res.close();
       pstmt.close();
@@ -346,7 +341,6 @@ public class UserHandling {
       res.next();
 
       b = res.getBoolean("employee");
-      System.out.println("Employee check : " + b);
 
       res.close();
       pstmt.close();

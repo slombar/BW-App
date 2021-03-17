@@ -89,8 +89,6 @@ public class MainPatientScreenController implements Initializable {
             drawer.close(); // this will close slide pane
           } else {
             drawer.open(); // this will open slide pane
-            drawer.toFront();
-            menuVBox.toFront();
           }
         });
 
@@ -180,7 +178,7 @@ public class MainPatientScreenController implements Initializable {
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Services.fxml");
   }
 
   public void toEmployees(ActionEvent actionEvent) {

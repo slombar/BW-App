@@ -58,6 +58,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -72,6 +73,7 @@ public class RequestPageController implements Initializable {
   public JFXComboBox assignedEmployeeCombo;
   public JFXComboBox dateNeededCombo;
   public StackPane popUpPane;
+  public ScrollPane scrollPane;
   @FXML private VBox menuVBox;
   @FXML private JFXHamburger hamburger;
   @FXML private JFXButton profileBtn;
@@ -120,6 +122,7 @@ public class RequestPageController implements Initializable {
     } else if (!UserHandling.getAdmin() && UserHandling.getEmployee()) {
       employeesBtn.setVisible(false);
       employeesBtn.setDisable(true);
+      JFXScrollPane.smoothScrolling(scrollPane);
     }
 
     // Set drawer to SideMenu
@@ -272,10 +275,10 @@ public class RequestPageController implements Initializable {
       Label id = new Label(String.valueOf(toDisplay.getRequestID()));
       Label requestedOn = new Label(toDisplay.getDateRequested().toString());
       Label requestedBy = new Label(toDisplay.getRequestedBy());
-      System.out.println("Print out reqby: " + requestedBy.getText());
+
       Label needBy = new Label(toDisplay.getDateNeeded().toString());
       Label assigned = new Label(toDisplay.getAssignedTo());
-      System.out.println("Print out inside: " + toDisplay.getAssignedTo());
+
       Label rLocation = new Label(toDisplay.getRequestLocation());
       Label summary = new Label(toDisplay.getSummary());
       Label status = new Label(toDisplay.getStatus());
@@ -439,7 +442,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Services.fxml");
   }
 
   public void toEmployees(ActionEvent actionEvent) {

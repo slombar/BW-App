@@ -2,10 +2,10 @@ package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.GRAPH;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.teamO.Database.NodesAndEdges;
 import edu.wpi.cs3733.teamO.HelperClasses.PopupMaker;
 import edu.wpi.cs3733.teamO.Model.Node;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class DrawerController {
-  public JFXButton shareBtn;
+  public JFXTextField nodeID;
   private NavController navController;
   public JFXScrollPane directionsScrollPane;
   @FXML private VBox directionsDisplayVbox;
@@ -31,23 +31,14 @@ public class DrawerController {
   public JFXTextField shortName;
 
   public void addDirectionChildren(List<String> directions) {
-
+    directionsDisplayVbox.getChildren().clear();
     for (String d : directions) {
 
       Label newText = new Label(d);
       newText.setFont(Font.font("Leelawadee UI", 16.0));
 
       directionsDisplayVbox.getChildren().add(newText);
-
-      // add directions label to vbox
-      // informationOnPage.getDirectionVBox().getChildren().add(newText);
-      // informationOnPage.addDirectionChild(newText);
-      // DrawerController.addDirectionChild(newText);
     }
-  }
-
-  public void removeDirectionChildren() {
-    directionsDisplayVbox.getChildren().clear();
   }
 
   public VBox getDirectionVBox() {
@@ -61,6 +52,17 @@ public class DrawerController {
   }
 
   public void saveNode(ActionEvent actionEvent) {
+    String nid = nodeID.getText();
+    String x = xCoord.getText();
+    String y = yCoord.getText();
+    String f = navController.sFloor;
+    String b = building.getText();
+    String nt = nodeType.getText();
+    String ln = longName.getText();
+    String sn = shortName.getText();
+    String t = "O";
+    boolean v = visible.isSelected();
+
     // if any fields are empty, show appropriate warning
     if (isNodeInfoEmpty()) {
       PopupMaker.incompletePopup(navController.nodeWarningPane);
@@ -68,39 +70,17 @@ public class DrawerController {
     // else, add/edit Node (depending on addNodeDBMode = t/f)
     else {
       try {
-        String nodeID = "";
 
         if (navController.addingNode) {
-          // TODO: GENERATE NODE ID
-          nodeID = "x";
         } else {
-          nodeID = navController.selectedNode.getID();
+          nid = navController.selectedNode.getID();
         }
 
-        Node n =
-            new Node(
-                nodeID, // nodeID.getText(),
-                Integer.parseInt(xCoord.getText()),
-                Integer.parseInt(yCoord.getText()),
-                navController.sFloor,
-                building.getText(),
-                nodeType.getText(),
-                longName.getText(),
-                shortName.getText(),
-                "O",
-                visible.isSelected());
+        Node n = new Node(nid, Integer.parseInt(x), Integer.parseInt(y), f, b, nt, ln, sn, t, v);
+
+        NodesAndEdges.addNode(nid, x, y, f, b, nt, ln, sn, t, v);
 
         GRAPH.addNode(n, navController.addingNode);
-
-        /*navController.selectedNode.editNode(
-        Integer.parseInt(xCoord.getText()),
-        Integer.parseInt(yCoord.getText()),
-        navController.sFloor,
-        building.getText(),
-        nodeType.getText(),
-        longName.getText(),
-        shortName.getText(),
-        visible.isSelected());*/
 
         clearNodeInfo();
         navController.selectedNode = null; // when clear Node info, also de-select Node
@@ -111,9 +91,6 @@ public class DrawerController {
       }
     }
 
-    // addNodeDBMode = false;
-
-    // selectingEditNode = true;
     navController.draw();
   }
 
@@ -155,4 +132,8 @@ public class DrawerController {
   public void sendText(ActionEvent actionEvent) {}
 
   public void sendEmail(ActionEvent actionEvent) {}
+
+  public void removeDirectionChildren() {
+    directionsDisplayVbox.getChildren().clear();
+  }
 }

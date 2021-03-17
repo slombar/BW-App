@@ -175,11 +175,11 @@ public class NewNavPageController implements Initializable {
     editToggle.setVisible(false);
 
     if (UserHandling.getEmployee()) {
-      System.out.println("EMPLOYEE");
+
       sideMenuUrl = "/Views/SideMenuStaff.fxml";
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
-        System.out.println("ADMIN");
+
         editToggle.setVisible(true);
       }
     } else {
@@ -198,8 +198,6 @@ public class NewNavPageController implements Initializable {
     draw(1);
 
     // just for testing
-
-    System.out.println("NewNavPageController Initialized");
 
     // transition animation of Hamburger icon
     HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
@@ -264,7 +262,6 @@ public class NewNavPageController implements Initializable {
       editing = true;
       editToggle.setSelected(true);
 
-      System.out.println("Incomplete map.");
       PopupMaker.unconnectedPopup(nodeWarningPane);
       return;
     }
@@ -443,7 +440,6 @@ public class NewNavPageController implements Initializable {
     }
 
     draw();
-    System.out.println("mapCanvas click");
   }
 
   /**
@@ -1142,7 +1138,7 @@ public class NewNavPageController implements Initializable {
    */
   /*public void floorSelection(ActionEvent actionEvent) {
     selectedFloor = floorSelectionBtn.getValue();
-    // System.out.println(floorSelected);
+    //
 
     // switch case basically = if, else if, etc...
     switch (selectedFloor) {

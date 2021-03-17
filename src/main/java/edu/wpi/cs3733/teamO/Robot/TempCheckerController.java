@@ -55,11 +55,10 @@ public class TempCheckerController extends Thread implements Initializable {
    */
   public void checkTemp(ActionEvent actionEvent) {
     // TODO we should do something with this data, also i think this should use the toggle group
-    if (No1.isSelected()
-        || yes1.isSelected() && No2.isSelected()
-        || yes2.isSelected() && No3.isSelected()
-        || yes3.isSelected() && No4.isSelected()
-        || yes4.isSelected()) {
+    if ((No1.isSelected() || yes1.isSelected())
+        && (No2.isSelected() || yes2.isSelected())
+        && (No3.isSelected() || yes3.isSelected())
+        && (No4.isSelected() || yes4.isSelected())) {
       if (No1.isSelected() && No2.isSelected() && No3.isSelected() && yes4.isSelected()) {
         connectArduino();
       } else {

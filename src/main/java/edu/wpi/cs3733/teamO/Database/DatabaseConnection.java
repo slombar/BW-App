@@ -25,22 +25,20 @@ public class DatabaseConnection {
    */
   public static boolean establishConnection() {
 
-    System.out.println("Connecting to DB...");
     try {
       Class.forName(driver);
       connection = DriverManager.getConnection(dbUrl);
 
     } catch (ClassNotFoundException e) {
-      System.out.println("Error: Embedded driver not found");
+
       e.printStackTrace();
       return false;
     } catch (SQLException t) {
-      System.out.println("Error: Connection Failed.");
+
       t.printStackTrace();
       return false;
     }
 
-    System.out.println("...Connected!");
     return true;
   }
 
@@ -48,9 +46,9 @@ public class DatabaseConnection {
   public static void shutDownDB() {
     try {
       DriverManager.getConnection(dbUrl + ";shutdown=true");
-      System.out.println("Database Shutting down...");
+
     } catch (SQLException throwables) {
-      System.out.println("Database Disconnected");
+
     }
   }
 }

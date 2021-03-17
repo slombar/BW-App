@@ -5,7 +5,6 @@ import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -34,46 +33,22 @@ public class NodesAndEdges {
       String teamAssigned,
       boolean visible)
       throws SQLException {
-    String query =
-        "INSERT INTO Nodes VALUES("
-            + "'"
-            + nodeID
-            + "'"
-            + ", "
-            + xcoord
-            + ", "
-            + ycoord
-            + ", "
-            + "'"
-            + floor
-            + "'"
-            + ", "
-            + "'"
-            + building
-            + "'"
-            + ", "
-            + "'"
-            + nodeType
-            + "'"
-            + ", "
-            + "'"
-            + longName
-            + "'"
-            + ", "
-            + "'"
-            + shortName
-            + "'"
-            + ", "
-            + "'"
-            + teamAssigned
-            + "'"
-            + ", "
-            + visible
-            + ")";
+
+    String query = "INSERT INTO Nodes VALUES(?,?,?,?,?,?,?,?,?,?)";
 
     try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, nodeID);
+      preparedStmt.setInt(2, Integer.parseInt(xcoord));
+      preparedStmt.setInt(3, Integer.parseInt(ycoord));
+      preparedStmt.setString(4, floor);
+      preparedStmt.setString(5, building);
+      preparedStmt.setString(6, nodeType);
+      preparedStmt.setString(7, longName);
+      preparedStmt.setString(8, shortName);
+      preparedStmt.setString(9, teamAssigned);
+      preparedStmt.setBoolean(10, visible);
+
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -107,8 +82,7 @@ public class NodesAndEdges {
             + 0
             + ")";
     try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
 
       preparedStmt.execute();
       preparedStmt.close();
@@ -164,31 +138,18 @@ public class NodesAndEdges {
    */
   public static void deleteAllEdges(String nodeID) {
 
-    ArrayList<String> edgesList = new ArrayList<>();
-    String query =
-        "SELECT * FROM Edges WHERE startNode = '" + nodeID + "' OR endNode ='" + nodeID + "'";
+    String query = "DELETE FROM Edges WHERE startNode = ? OR endNode = ?";
 
     try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-      ResultSet rset = preparedStmt.executeQuery();
-
-      while (rset.next()) {
-        edgesList.add(rset.getString("nodeID"));
-      }
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, nodeID);
+      preparedStmt.setString(2, nodeID);
+      preparedStmt.execute();
 
       preparedStmt.close();
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();
-    }
-
-    for (String edgeID : edgesList) {
-      try {
-        deleteEdge(edgeID);
-      } catch (SQLException throwables) {
-        throwables.printStackTrace();
-      }
     }
   }
 
@@ -199,11 +160,10 @@ public class NodesAndEdges {
    * @throws SQLException
    */
   public static void deleteNode(String nodeID) throws SQLException {
-    String query = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
+    String query = "DELETE FROM Nodes WHERE nodeID = ?";
     try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, nodeID);
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -223,12 +183,11 @@ public class NodesAndEdges {
    */
   public static void deleteEdge(String nodeID) throws SQLException {
     // get the edge to throw error if it doesn't exist.
-    String query = "DELETE FROM Edges WHERE nodeID = '" + nodeID + "'";
+    String query = "DELETE FROM Edges WHERE nodeID = ?";
 
     try {
-      PreparedStatement preparedStmt = null;
-      preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
-
+      PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
+      preparedStmt.setString(1, nodeID);
       preparedStmt.execute();
       preparedStmt.close();
 
@@ -288,7 +247,6 @@ public class NodesAndEdges {
       throwables.printStackTrace();
       throw throwables;
     }
-    System.out.println("Node with ID: " + nodeID + "has been changed.");
   }
 
   /**
@@ -319,7 +277,6 @@ public class NodesAndEdges {
       throwables.printStackTrace();
       return;
     }
-    System.out.println("Edge with ID: " + nodeID + "has been changed.");
   }
 
   /**
