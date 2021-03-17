@@ -856,9 +856,6 @@ public class NavController implements Initializable {
         contextMenuOnActions(clickedNode, mouseEvent);
       }
 
-    } else if (true) {
-      // TODO add dragging functionality
-      //  (will probably be a separate circle object)
     }
 
     // autocompleteEditMap(clickedNode);
@@ -866,7 +863,6 @@ public class NavController implements Initializable {
   }
 
   public void contextMenuOnActions(Node node, MouseEvent mouseEvent) {
-    // TODO: add functionality to these
     editNodeMenu.setOnAction(
         action -> {
           System.out.println("editing node");
