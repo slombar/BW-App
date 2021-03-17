@@ -30,7 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 
-public class EmailPageController implements Initializable {
+public class SharingPageController implements Initializable {
 
   @FXML private JFXButton generateQRBtn;
   @FXML private StackPane spinnerPane;
@@ -137,7 +137,7 @@ public class EmailPageController implements Initializable {
    * @throws IOException
    */
   public void back(ActionEvent actionEvent) throws IOException {
-    SwitchScene.goToParent("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
   }
 
   /**

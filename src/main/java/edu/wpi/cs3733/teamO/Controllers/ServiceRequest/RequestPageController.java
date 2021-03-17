@@ -439,7 +439,7 @@ public class RequestPageController implements Initializable {
   }
 
   public void toReq(ActionEvent actionEvent) {
-    SwitchScene.goToParent("/RevampedViews/DesktopApp/EntryRequests.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Services.fxml");
   }
 
   public void toEmployees(ActionEvent actionEvent) {
