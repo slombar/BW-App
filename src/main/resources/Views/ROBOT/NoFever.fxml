@@ -45,7 +45,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
-                  <Label text="The temperature checker recorded a body temperature below 102 degrees Farenheit." textAlignment="CENTER" wrapText="true">
+                  <Label text="The temperature checker recorded a body temperature below 102 degrees Farenheit. You are not at risk of spreading Covid-19." textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <Insets bottom="10.0" left="60.0" right="60.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="You are permitted to continue your business at B&amp;W Hospital." textAlignment="CENTER" wrapText="true">
+                  <Label text="You are permitted to continue your business at B&amp;W's Hospital. Remember to wear a mask at all times while visiting. " textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Leelawadee UI" size="18.0" />
                      </font>
