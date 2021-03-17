@@ -138,8 +138,7 @@ public class NodesAndEdges {
    */
   public static void deleteAllEdges(String nodeID) {
 
-    String query =
-        "DELETE FROM Edges WHERE startNode = ? OR endNode = ?";
+    String query = "DELETE FROM Edges WHERE startNode = ? OR endNode = ?";
 
     try {
       PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
