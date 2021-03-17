@@ -84,8 +84,15 @@ public class DrawHelper {
         diameter = Math.max(dmin, dperc * (1 - wp) * imageW);
       }
 
-      double circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
-      double circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;
+      double circleX = 0;
+      double circleY = 0;
+      if (!isMobile) {
+        circleX = (((nxp - vpX) / wp) * canvasW) - diameter / 2;
+        circleY = (((nyp - vpY) / hp) * canvasH) - diameter / 2;
+      } else {
+        circleX = (((nxp - vpX) / wp) * canvasW);
+        circleY = (((nyp - vpY / 1.5) / hp) * canvasH) * 1.5;
+      }
 
       // ------------------
       // color stuff:
