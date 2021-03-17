@@ -261,7 +261,6 @@ public class NodesAndEdges {
       throwables.printStackTrace();
       throw throwables;
     }
-    System.out.println("Node with ID: " + nodeID + "has been changed.");
   }
 
   /**
@@ -292,7 +291,6 @@ public class NodesAndEdges {
       throwables.printStackTrace();
       return;
     }
-    System.out.println("Edge with ID: " + nodeID + "has been changed.");
   }
 
   /**

@@ -19,7 +19,7 @@ public class DFS implements AlgorithmStrategy {
 
   @Override
   public ArrayList<Node> findRoute(Node startNode, Node targetNode) {
-    System.out.println("Running BFS");
+
     return findRouteforBFS(startNode, targetNode);
   }
 
@@ -60,7 +60,7 @@ public class DFS implements AlgorithmStrategy {
   /*  public List<Node> findRouteForDFS(Node startNode, Node targetNode) {
     path.add(startNode);
     startNode.setVisited(true);
-    System.out.print(startNode.getLongName() + " ");
+
 
     HashSet<Node> allNeighbors = startNode.getNeighbourList();
     if (targetNode.equals(startNode)) {
@@ -68,7 +68,7 @@ public class DFS implements AlgorithmStrategy {
     } else {
       for (Node neighbor : allNeighbors) {
         if (!neighbor.isVisited()) {
-          System.out.println(path);
+
           findRouteForDFS(neighbor, targetNode);
         }
       }
@@ -83,10 +83,8 @@ public class DFS implements AlgorithmStrategy {
       N.setVisited(false);
     }
 
-    if (startNode.equals(targetNode)) {
-      System.out.println("Goal Node Found at 0 depth");
-      System.out.println(startNode);
-    }
+    if (startNode.equals(targetNode)) {}
+
     Stack<Node> nodeStack = new Stack<>();
     ArrayList<Node> visitedNodes = new ArrayList<>();
 
@@ -96,13 +94,12 @@ public class DFS implements AlgorithmStrategy {
       Node current = nodeStack.pop();
       if (!current.isVisited()) {
         if (current.equals(targetNode)) {
-          System.out.print(visitedNodes);
-          System.out.println("Goal node found");
+
           visitedNodes.add(current);
           return visitedNodes;
         } else {
           current.setVisited(true);
-          System.out.println("asd");
+
           visitedNodes.add(current);
           nodeStack.addAll(current.getNeighbourList());
         }

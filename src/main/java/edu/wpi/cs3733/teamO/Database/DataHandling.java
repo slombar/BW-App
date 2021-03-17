@@ -44,7 +44,6 @@ public class DataHandling {
     // try to open file
     try {
       scan = new Scanner(new File(url)).useDelimiter(d);
-      System.out.println("File read! Importing data...");
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -53,7 +52,6 @@ public class DataHandling {
     // if the file is not empty
     if (scan.hasNext()) {
       // remove header line in beginning of file
-      System.out.println("Removing header line: " + scan.nextLine());
 
       // function variables for simplicity
       String nodeID = "";
@@ -112,7 +110,7 @@ public class DataHandling {
 
       scan.close();
     } else {
-      System.out.println("File is empty");
+
     }
 
     /** Edges upload */
@@ -125,7 +123,6 @@ public class DataHandling {
     // try to open file
     try {
       scanedge = new Scanner(new File(url)).useDelimiter(d);
-      System.out.println("File read! Importing data...");
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -134,7 +131,6 @@ public class DataHandling {
     // if the file isn't empty, read it in
     if (scanedge.hasNext()) {
       // remove header line in beginning of file
-      System.out.println("Removing header line: " + scanedge.nextLine());
 
       String startNode = "";
       String endNode = "";
@@ -165,7 +161,7 @@ public class DataHandling {
 
       scanedge.close();
     } else {
-      System.out.println("File is empty.");
+
     }
   }
 
@@ -258,7 +254,7 @@ public class DataHandling {
 
       bw.close();
     } catch (IOException | SQLException e) {
-      System.out.println("Save Node CSV Information: Failed!");
+
       e.printStackTrace();
       return;
     }
@@ -302,7 +298,7 @@ public class DataHandling {
 
       bw.close();
     } catch (IOException | SQLException e) {
-      System.out.println("Save Edge CSV Information: Failed!");
+
       e.printStackTrace();
       return;
     }

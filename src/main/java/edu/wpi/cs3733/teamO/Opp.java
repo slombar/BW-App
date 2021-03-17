@@ -21,7 +21,7 @@ public class Opp extends Application {
 
   public void init() {
     // This happens every time a scene starts up. Kinda cool but not currently useful
-    System.out.println("Starting Up");
+
   }
 
   public void start(Stage ps) {
@@ -48,6 +48,5 @@ public class Opp extends Application {
   public void stop() {
     // shut down database and print message to user
 
-    System.out.println("Shutting Down");
   }
 }

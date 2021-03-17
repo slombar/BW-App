@@ -23,8 +23,6 @@ public class DisplayRequest {
       for (int x = 0; x < entryReqList.size(); x++) {
 
         specList.add(entryReqList.get(x));
-
-        System.out.println(entryReqList.get(x).getRequestID());
       }
     }
     return specList;

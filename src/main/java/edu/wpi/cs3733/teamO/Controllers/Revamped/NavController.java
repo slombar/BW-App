@@ -313,13 +313,13 @@ public class NavController implements Initializable {
     }
 
     if (UserHandling.getEmployee()) {
-      System.out.println("EMPLOYEE");
+
       sideMenuUrl = "/Views/SideMenuStaff.fxml";
       helpPageUrl = "/RevampedViews/DesktopApp/NavPatientHelp.fxml";
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
         helpPageUrl = "/RevampedViews/DesktopApp/NavStaffHelp.fxml";
-        System.out.println("ADMIN");
+
         editB.setVisible(true);
       }
     } else {
@@ -366,8 +366,6 @@ public class NavController implements Initializable {
     resizeCanvas();
     // draws appropriately accordingly to combination of booleans
     draw(1);
-
-    System.out.println("NavController Initialized");
 
     // set onaction events for all buttons
     generalButtons();
@@ -648,7 +646,6 @@ public class NavController implements Initializable {
     if (!GRAPH.allConnected()) {
       editing = true;
 
-      System.out.println("Incomplete map.");
       //      PopupMaker.unconnectedPopup(nodeWarningPane);
       return;
     }
@@ -779,8 +776,6 @@ public class NavController implements Initializable {
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
       editingNode = false;
 
-      System.out.println("You right clicked!");
-
       if (editing) { // editing mode
         editMapContext.setAutoHide(true);
         if (editMapContext.isShowing()) {
@@ -858,7 +853,6 @@ public class NavController implements Initializable {
 
     editingEdgeMenu.setOnAction(
         action -> {
-          System.out.println("adding edge");
           if (!editingEdge) {
             editingEdge = true;
           }

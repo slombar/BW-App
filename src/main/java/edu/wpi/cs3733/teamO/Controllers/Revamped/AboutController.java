@@ -49,8 +49,6 @@ public class AboutController implements Initializable {
     selina.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_MOVED,
         event -> {
-          System.out.println("Tile pressed ");
-
           event.consume();
         });
 

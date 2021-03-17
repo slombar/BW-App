@@ -67,16 +67,13 @@ public class MainStaffScreenController implements Initializable {
     infoBox.setVisible(false);
 
     // determines employee/staff
-    System.out.println("Employee " + UserHandling.getEmployee());
-    System.out.println("Admin " + UserHandling.getAdmin());
 
     String sideMenuUrl;
     if (UserHandling.getEmployee()) {
-      System.out.println("EMPLOYEE");
+
       sideMenuUrl = "/Views/SideMenuStaff.fxml";
       if (UserHandling.getAdmin()) {
         sideMenuUrl = "/Views/SideMenuAdmin.fxml";
-        System.out.println("ADMIN");
       }
     } else {
       sideMenuUrl = "/Views/SideMenu.fxml";

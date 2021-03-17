@@ -70,7 +70,6 @@ public class SharingFunctionality {
                       URI.create(linkToFile6)))
               .create();
 
-      System.out.println(message.getSid());
     } else {
       String pathFloors = "";
       for (Node n : graph.getPath()) {
@@ -80,7 +79,6 @@ public class SharingFunctionality {
       // check for campus, check for last thing
       String firstLast = pathFloors.substring(0, 1) + pathFloors.substring(pathFloors.length() - 1);
       String lastFloor = pathFloors.substring(pathFloors.length() - 1);
-      System.out.println(firstLast);
 
       // this time, i made a list of the links we need since the constructor to make the text !=
       // allow
@@ -97,7 +95,6 @@ public class SharingFunctionality {
       if (firstLast.contains("3")) toPrint.add(linkToFile4);
       if (firstLast.contains("4")) toPrint.add(linkToFile5);
       if (firstLast.contains("5")) toPrint.add(linkToFile6);
-      System.out.println(toPrint.get(0));
 
       // check how many links we need to send, calls message constructor with that amount of URLs
       if (toPrint.size() == 1) {
@@ -110,9 +107,6 @@ public class SharingFunctionality {
                     "Hello! Here are your map images!")
                 .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0))))
                 .create();
-        System.out.println(message.getSid());
-
-        System.out.println(message.getSid());
 
       } else if (toPrint.size() == 2) {
         Message message =
@@ -124,9 +118,6 @@ public class SharingFunctionality {
                     "Hello! Here are your map images!")
                 .setMediaUrl(Arrays.asList(URI.create(toPrint.get(0)), URI.create(toPrint.get(1))))
                 .create();
-        System.out.println(message.getSid());
-
-        System.out.println(message.getSid());
 
       } else if (toPrint.size() == 3) {
         Message message =
@@ -142,7 +133,7 @@ public class SharingFunctionality {
                         URI.create(toPrint.get(1)),
                         URI.create(toPrint.get(2))))
                 .create();
-        System.out.println(message.getSid());
+
         // if not 1,2,3, then just send all 6 maps for now
 
       }
@@ -238,7 +229,7 @@ public class SharingFunctionality {
               + "Check your code here: "
               + filePath);
     } catch (WriterException e) {
-      System.out.println("\nSorry.. Something went wrong...\n");
+
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();

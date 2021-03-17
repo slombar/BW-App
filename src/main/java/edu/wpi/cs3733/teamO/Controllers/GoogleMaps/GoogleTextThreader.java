@@ -42,7 +42,6 @@ public class GoogleTextThreader extends Thread {
 
   public void run() {
 
-    System.out.println("starting text");
     String ACCOUNT_SID = "ACccaa37332a0f79e457bfcb6f393b25e8";
     String AUTH_TOKEN = "23c75ae104565d6197a504786ae1e335";
 
