@@ -52,7 +52,7 @@ public class DataHandling {
     // if the file is not empty
     if (scan.hasNext()) {
       // remove header line in beginning of file
-      System.out.println("Removing Header Line: " + scan.next());
+      System.out.println("Removing Header Line: " + scan.nextLine());
 
       // function variables for simplicity
       String nodeID = "";
@@ -132,7 +132,7 @@ public class DataHandling {
     // if the file isn't empty, read it in
     if (scanedge.hasNext()) {
       // remove header line in beginning of file
-      System.out.println("Removing Header Line: " + scanedge.next());
+      System.out.println("Removing Header Line: " + scanedge.nextLine());
       String startNode = "";
       String endNode = "";
 
