@@ -223,7 +223,7 @@ public class RequestHandling {
       preparedStmt.setDate(3, (java.sql.Date) r.getDateNeeded());
       preparedStmt.setString(4, r.getRequestType());
       preparedStmt.setString(5, r.getSummary());
-      preparedStmt.setString(6, r.getStatus());
+      preparedStmt.setString(6, "Not Assigned");
       preparedStmt.setString(7, r.getRequestLocation());
 
       preparedStmt.execute();
