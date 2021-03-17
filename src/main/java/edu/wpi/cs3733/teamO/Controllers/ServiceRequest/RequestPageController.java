@@ -339,9 +339,9 @@ public class RequestPageController implements Initializable {
   }
 
   public void closeAddMenu() {
-
     sideDrawerForAdd.close();
     sideDrawerForAdd.toBack();
+    displayServiceList(RequestHandling.getRequests(reqType));
   }
 
   /**
