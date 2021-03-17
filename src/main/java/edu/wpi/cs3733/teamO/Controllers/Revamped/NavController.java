@@ -521,7 +521,13 @@ public class NavController implements Initializable {
         });
     shareB.setOnAction(
         e -> {
-          // TODO SHARING FUNCTIoNALITY
+          try {
+            share();
+          } catch (IOException ioException) {
+            ioException.printStackTrace();
+          } catch (UnirestException unirestException) {
+            unirestException.printStackTrace();
+          }
         });
 
     helpB.setOnAction(
@@ -1098,7 +1104,7 @@ public class NavController implements Initializable {
     sFloor = floor;
     resizeCanvas();
     draw();
-    WritableImage map = innerGrid.snapshot(new SnapshotParameters(), null);
+    WritableImage map = anchorPane.snapshot(new SnapshotParameters(), null);
     ImageIO.write(SwingFXUtils.fromFXImage(map, null), "png", outputFile);
     return map;
   }
@@ -1106,10 +1112,9 @@ public class NavController implements Initializable {
   /**
    * takes pictures of every floor to email and navigates to email page
    *
-   * @param actionEvent
    * @throws IOException
    */
-  public void share(ActionEvent actionEvent) throws IOException, UnirestException {
+  public void share() throws IOException, UnirestException {
 
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
     mapCanvas.getGraphicsContext2D();
@@ -1148,7 +1153,7 @@ public class NavController implements Initializable {
     }
     SharingPageController.setScreenShot(map1, map2, map3, map4, map5, map6);
     // EmailPageController.setScreenShot(listOfImages);
-    SwitchScene.goToParent("/Views/EmailPage.fxml");
+    SwitchScene.goToParent("/Views/SharingPage.fxml");
   }
 
   public void clearSelection() {

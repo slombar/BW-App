@@ -137,7 +137,7 @@ public class SharingPageController implements Initializable {
    * @throws IOException
    */
   public void back(ActionEvent actionEvent) throws IOException {
-    SwitchScene.goToParent("/Views/NewNavPage.fxml");
+    SwitchScene.goToParent("/RevampedViews/DesktopApp/Navigation.fxml");
   }
 
   /**
