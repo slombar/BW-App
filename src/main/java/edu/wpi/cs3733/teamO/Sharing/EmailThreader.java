@@ -205,7 +205,6 @@ public class EmailThreader extends Thread {
 
       // Send Email
       Transport.send(message);
-      System.out.println("Sent message successfully...");
 
     } catch (MessagingException mex) {
       mex.printStackTrace();

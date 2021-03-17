@@ -43,7 +43,6 @@ public class BFS implements AlgorithmStrategy {
 
       // Mark the node as visited
       currentFirst.setVisited(true);
-      System.out.print(currentFirst.getID() + " ");
 
       HashSet<Node> allNeighbors = currentFirst.getNeighbourList();
       // We have to check whether the list of neighbors is null before proceeding, otherwise

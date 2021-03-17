@@ -272,10 +272,10 @@ public class RequestPageController implements Initializable {
       Label id = new Label(String.valueOf(toDisplay.getRequestID()));
       Label requestedOn = new Label(toDisplay.getDateRequested().toString());
       Label requestedBy = new Label(toDisplay.getRequestedBy());
-      System.out.println("Print out reqby: " + requestedBy.getText());
+
       Label needBy = new Label(toDisplay.getDateNeeded().toString());
       Label assigned = new Label(toDisplay.getAssignedTo());
-      System.out.println("Print out inside: " + toDisplay.getAssignedTo());
+
       Label rLocation = new Label(toDisplay.getRequestLocation());
       Label summary = new Label(toDisplay.getSummary());
       Label status = new Label(toDisplay.getStatus());

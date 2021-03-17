@@ -152,7 +152,7 @@ public class ReqController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     typeOfRequest = getReqType();
-    System.out.println("RequestType: " + typeOfRequest);
+
     if (typeOfRequest != null) {
       reqList = DisplayRequest.getSpecificReqList(typeOfRequest);
       displayList(reqList);
@@ -227,7 +227,6 @@ public class ReqController implements Initializable {
     // addEdgePopup has the content of the popup
     // addEdgeDialog creates the dialog popup
 
-    System.out.println("Running!");
     JFXDialogLayout assignStaffLayout = new JFXDialogLayout();
     assignStaffLayout.setHeading(new Text("Assign Staff to Service Request"));
     VBox assignStaffVBox = new VBox(12);
@@ -331,7 +330,7 @@ public class ReqController implements Initializable {
           } else {
             Request selectedRequest =
                 RequestHandling.getRequest(Integer.parseInt(listOfFields.get(0).getText()));
-            System.out.println(listOfFields.get(0).getText());
+
             /*RequestHandling.editRequest(
             Integer.parseInt(listOfFields.get(0).getText()),
             selectedRequest.getFulfilledBy(),

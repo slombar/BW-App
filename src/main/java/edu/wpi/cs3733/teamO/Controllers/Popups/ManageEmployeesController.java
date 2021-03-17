@@ -80,7 +80,7 @@ public class ManageEmployeesController implements Initializable {
     int i = emp.indexOf(' ');
     String username = emp.substring(0, i);
 
-    // System.out.println("deleting " + username);
+    //
     UserHandling.deleteUser(username);
 
     SwitchScene.goToParent("/Views/ManageEmployees.fxml");

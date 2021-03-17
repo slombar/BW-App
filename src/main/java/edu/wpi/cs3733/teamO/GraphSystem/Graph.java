@@ -287,6 +287,7 @@ public class Graph {
 
     Node n = stringNodeHashtable.get(nodeID);
 
+    ArrayList<Edge> edgesToDelete = new ArrayList<>();
     // removes all edges for each neighbor of the given deleting node
     for (Edge e : listOfEdges) {
       if (e.getStart().equals(nodeID) || e.getEnd().equals(nodeID)) {
@@ -295,7 +296,12 @@ public class Graph {
         } catch (SQLException throwables) {
           throwables.printStackTrace();
         }
+        edgesToDelete.add(e);
       }
+    }
+
+    for (Edge e : edgesToDelete) {
+      this.deleteEdge(e.getStart(), e.getEnd());
     }
 
     // remove from graph
