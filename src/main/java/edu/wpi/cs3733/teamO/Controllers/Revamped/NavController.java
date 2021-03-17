@@ -358,11 +358,14 @@ public class NavController implements Initializable {
 
           if (drawer.isOpened()) {
             drawer.close(); // this will close slide pane
+            drawer.toBack();
             floorsList.setTranslateX(0);
             directionsList.setTranslateX(0);
 
           } else {
             drawer.open(); // this will open slide pane
+            drawer.toFront();
+            menuVBox.toFront();
             floorsList.setTranslateX(280);
             directionsList.setTranslateX(280);
           }
@@ -392,6 +395,7 @@ public class NavController implements Initializable {
 
     /** Initialize the drawer @sadie */
     switchDrawer();
+    drawer.toBack();
 
     //   drawerBottomRight.close();
   }
