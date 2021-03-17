@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.teamO.Controllers.Revamped;
 
 import static edu.wpi.cs3733.teamO.GraphSystem.Graph.*;
+import static java.awt.Cursor.*;
+import static javafx.scene.Cursor.HAND;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -30,6 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -44,6 +47,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polyline;
 import javax.imageio.ImageIO;
 
@@ -177,7 +181,13 @@ public class NavController implements Initializable {
   // private boolean addingEdgeN2 = false;
   private boolean showingEdges = false;
   private boolean selectingAlign = false;
-  private boolean editingNode = false;
+
+  public boolean editingNode = false;
+  private Circle dragCircle = null;
+
+  public void unpairCircle() {
+    anchorPane.getChildren().remove(dragCircle);
+  }
 
   private boolean isDrawerDirections = false;
 
@@ -744,6 +754,8 @@ public class NavController implements Initializable {
     // block for SHIFT CLICK --> aligning nodes
     if (editing && mouseEvent.isShiftDown() && mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
       editingNode = false;
+      anchorPane.getChildren().remove(dragCircle);
+
       // hide context menu
       editMapContext.setAutoHide(true);
       if (editMapContext.isShowing()) {
@@ -798,6 +810,7 @@ public class NavController implements Initializable {
     // block for RIGHT CLICK
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
       editingNode = false;
+      anchorPane.getChildren().remove(dragCircle);
 
       if (editing) { // editing mode
         editMapContext.setAutoHide(true);
@@ -858,8 +871,14 @@ public class NavController implements Initializable {
         action -> {
           System.out.println("editing node");
           editingNode = true;
+
+          createDragCircle();
+          anchorPane.getChildren().add(dragCircle);
+          dragCircle.toFront();
+
           // editNodeMenuSelect(node);
           editingEdge = false;
+          draw();
         });
 
     deleteNodeMenu.setOnAction(
@@ -981,6 +1000,51 @@ public class NavController implements Initializable {
         });
   }
 
+  double orgSceneX, orgSceneY;
+
+  public void createDragCircle() {
+    Bounds boundsInScene = mapCanvas.localToScene(mapCanvas.getBoundsInLocal());
+    double x = Graph.getSceneX(imageView, mapCanvas, selectedNode.getXCoord(), boundsInScene);
+    double y = Graph.getSceneY(imageView, mapCanvas, selectedNode.getYCoord(), boundsInScene);
+
+    double imageW = imageView.getImage().getWidth();
+    double wp = imageView.getViewport().getWidth() / imageW;
+    double diameter = Math.max(DrawHelper.dmin, DrawHelper.dperc * (1 - wp) * imageW);
+
+    Circle circle = new Circle(x, y, diameter / 2, Color.GREEN);
+
+    circle.setCursor(HAND);
+
+    circle.setOnMousePressed(
+        (t) -> {
+          orgSceneX = t.getSceneX();
+          orgSceneY = t.getSceneY();
+
+          Circle c = (Circle) (t.getSource());
+          c.toFront();
+        });
+    circle.setOnMouseDragged(
+        (t) -> {
+          double offsetX = t.getSceneX() - orgSceneX;
+          double offsetY = t.getSceneY() - orgSceneY;
+
+          Circle c = (Circle) (t.getSource());
+
+          c.setCenterX(c.getCenterX() + offsetX);
+          c.setCenterY(c.getCenterY() + offsetY);
+
+          orgSceneX = t.getSceneX();
+          orgSceneY = t.getSceneY();
+
+          drawerController.xCoord.setText(
+              Integer.toString((int) getImgX(circle.getCenterX() - boundsInScene.getMinX())));
+          drawerController.yCoord.setText(
+              Integer.toString((int) getImgY(circle.getCenterY() - boundsInScene.getMinY())));
+        });
+
+    dragCircle = circle;
+  }
+
   private void clearAlignList() {
     alignList = new ArrayList<>();
     if (editMapContext.getItems().contains(alignHorizontally)) {
@@ -990,7 +1054,7 @@ public class NavController implements Initializable {
   }
 
   private void editNodeMenuSelect(Node selectedNode) {
-    // nodeID.setText(selectedNode.getID());
+    drawerController.nodeID.setText(selectedNode.getID());
     drawerController.xCoord.setText(Integer.toString(selectedNode.getXCoord()));
     drawerController.yCoord.setText(Integer.toString(selectedNode.getYCoord()));
     // floor.setText(selectedNode.getFloor());
@@ -1287,7 +1351,8 @@ public class NavController implements Initializable {
 
     } else if (editing) {
       // draw ALL the nodes (editing) + highlight selected node (if selected)
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
+      GRAPH.drawAllNodes(
+          sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false, editingNode);
       // and if "show edges" is selected, draw them as well
       if (showingEdges) {
         GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
@@ -1316,7 +1381,8 @@ public class NavController implements Initializable {
     } else if (!editing && displayingRoute) {
       GRAPH.drawCurrentPath(sFloor, startNode, endNode, imageView, false);
     } else if (editing) {
-      GRAPH.drawAllNodes(sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false);
+      GRAPH.drawAllNodes(
+          sFloor, selectedNode, selectedNodeB, selectingEditNode, imageView, false, editingNode);
       if (showingEdges) {
         GRAPH.drawAllEdges(sFloor, selectedNode, selectedNodeB, imageView, false);
       }

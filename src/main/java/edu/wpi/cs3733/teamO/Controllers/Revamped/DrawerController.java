@@ -91,6 +91,7 @@ public class DrawerController {
       }
     }
 
+    navController.unpairCircle();
     navController.draw();
   }
 

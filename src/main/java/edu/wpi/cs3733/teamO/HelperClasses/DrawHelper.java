@@ -22,10 +22,10 @@ public class DrawHelper {
   //  -> dmin is the minimum diameter (in pixels), so if you're zoomed out too much, they won't be
   // too small
   // which is used is based on Math.MAX()
-  private static double dperc = 0.015;
-  private static double dmin = 10;
-  private static double dpercMOBILE = 0.005;
-  private static double dminMOBILE = 4;
+  public static double dperc = 0.015;
+  public static double dmin = 10;
+  public static double dpercMOBILE = 0.005;
+  public static double dminMOBILE = 4;
 
   /**
    * Draws every Circle from the given Hashtable corresponding to each Node in the ArrayList
@@ -47,7 +47,9 @@ public class DrawHelper {
       Node startNode,
       Node endNode,
       ImageView imageView,
-      boolean isMobile) {
+      boolean isMobile,
+      boolean editingNode,
+      Node selectedNode) {
 
     Canvas mapcanvas = gc.getCanvas();
     gc.clearRect(0, 0, mapcanvas.getWidth(), mapcanvas.getHeight());
@@ -64,6 +66,9 @@ public class DrawHelper {
     double hp = imageView.getViewport().getHeight() / imageH;
 
     for (Node n : nodeList) {
+      if (editingNode && n.equals(selectedNode)) {
+        continue;
+      }
       gc.setGlobalAlpha(1.0);
       gc.setFill(Color.YELLOW);
       gc.setStroke(Color.BLACK);
