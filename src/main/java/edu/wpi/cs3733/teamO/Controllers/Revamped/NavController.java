@@ -397,7 +397,8 @@ public class NavController implements Initializable {
     switchDrawer();
     drawer.toBack();
 
-    //   drawerBottomRight.close();
+    drawerBottomRight.toBack();
+    imageView.toBack();
   }
 
   public void switchDrawer() {
@@ -584,6 +585,8 @@ public class NavController implements Initializable {
           // clear start and end locations
           drawerController.removeDirectionChildren();
           drawerBottomRight.close();
+          drawerBottomRight.toBack();
+          imageView.toBack();
           clearSelection();
         });
 
@@ -743,6 +746,7 @@ public class NavController implements Initializable {
 
     // open the directions box at the bottom right
     drawerBottomRight.open();
+    drawerBottomRight.toFront();
   }
 
   /**
@@ -832,6 +836,7 @@ public class NavController implements Initializable {
           if (!editingEdge) {
             selectedNode = clickedNode;
             drawerBottomRight.open();
+            drawerBottomRight.toFront();
             editNodeMenuSelect(selectedNode);
             contextMenuOnActions(selectedNode, mouseEvent);
           }
@@ -859,10 +864,6 @@ public class NavController implements Initializable {
 
         contextMenuOnActions(clickedNode, mouseEvent);
       }
-
-    } else if (true) {
-      // TODO add dragging functionality
-      //  (will probably be a separate circle object)
     }
 
     // autocompleteEditMap(clickedNode);
@@ -870,7 +871,6 @@ public class NavController implements Initializable {
   }
 
   public void contextMenuOnActions(Node node, MouseEvent mouseEvent) {
-    // TODO: add functionality to these
     editNodeMenu.setOnAction(
         action -> {
           System.out.println("editing node");
@@ -1120,7 +1120,7 @@ public class NavController implements Initializable {
   }
 
   public void onCanvasScroll(ScrollEvent scrollEvent) {
-    // don't allow zooming when displaying path
+    /*// don't allow zooming when displaying path
     if (!displayingRoute) {
       double scrollDeltaY = scrollEvent.getDeltaY();
       // if scroll is at least a certain amount, then zoom (idk, maybe change this??)
@@ -1142,20 +1142,22 @@ public class NavController implements Initializable {
           }
         }
       }
+      Bounds boundsInScene = mapCanvas.localToScene(mapCanvas.getBoundsInLocal());
+      // TODO: zooming is messed up on Campus Map
 
       double a = getImgX(scrollEvent.getX());
       double b = getImgY(scrollEvent.getY());
       double vX = percImageView * imageView.getImage().getWidth();
       double vY = percImageView * imageView.getImage().getHeight();
       // zoom option A:
-      /*currentViewport =
+      currentViewport =
       new Rectangle2D(
           (a * (1 - percImageView) + imageView.getImage().getWidth() * 0.5 * percImageView)
               - vX / 2,
           (b * (1 - percImageView) + imageView.getImage().getHeight() * 0.5 * percImageView)
               - vY / 2,
           vX,
-          vY);*/
+          vY);
       // zoom option B:
       double percCanvasA = scrollEvent.getX() / mapCanvas.getWidth();
       double percCanvasB = scrollEvent.getY() / mapCanvas.getHeight();
@@ -1163,7 +1165,7 @@ public class NavController implements Initializable {
 
       imageView.setViewport(currentViewport);
       draw();
-    }
+    }*/
   }
 
   public double getImgX(double canvasX) {
