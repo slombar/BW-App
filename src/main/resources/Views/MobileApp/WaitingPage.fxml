@@ -60,7 +60,7 @@
                         <Insets />
                      </VBox.margin>
                   </JFXButton>
-                  <StackPane fx:id="spinnerPane" alignment="TOP_CENTER" onMouseMoved="#checkStatus" prefHeight="109.0" prefWidth="268.0" />
+                  <StackPane fx:id="spinnerPane" alignment="TOP_CENTER" prefHeight="109.0" prefWidth="268.0" />
                </children>
             </VBox>
             <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
