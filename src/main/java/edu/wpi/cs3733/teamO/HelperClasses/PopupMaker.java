@@ -5,6 +5,8 @@ import edu.wpi.cs3733.teamO.Database.EntryRequestHandling;
 import edu.wpi.cs3733.teamO.Database.RequestHandling;
 import edu.wpi.cs3733.teamO.SRequest.EntryRequest;
 import edu.wpi.cs3733.teamO.SRequest.Request;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -656,42 +658,33 @@ public class PopupMaker {
         });
     warningDialog.show();
   }
-
-  public static void approvedPatients(StackPane popupPane, String reqId) {
+  // change String reqID to list of reqID that have approved users
+  public static void approvedPatients(StackPane popupPane, ArrayList<Integer> approvedList)
+      throws SQLException {
     popupPane.toFront();
     int wrapLength = 650;
 
+    // grabs list of all approved patients who submitted
+
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
-    EntryRequest request = EntryRequestHandling.getRequest(Integer.parseInt(reqId));
-    Text heading = new Text("Request " + reqId);
-    heading.setStyle(
-        "-fx-font-family: 'Leelawadee UI'; -fx-font-size: 18pt; -fx-font-weight: 700; ");
-    warning.setHeading(heading);
-
-    Text reqBy = new Text("Requested By: " + request.getRequestedBy());
-    reqBy.setWrappingWidth(wrapLength);
-
-    Text fulfilledBy = new Text("Fulfilled By: " + request.getFulfilledBy());
-    fulfilledBy.setWrappingWidth(wrapLength);
-
-    Text dateReq = new Text("Date Requested: " + request.getDateRequested().toString());
-    dateReq.setWrappingWidth(wrapLength);
-
-    Text location = new Text("Location: " + request.getLocationNodeID());
-    location.setWrappingWidth(wrapLength);
-
-    Text symptoms = new Text("Summary: " + request.getIfSymptoms());
-    symptoms.setWrappingWidth(wrapLength);
-
-    Text check1 = new Text("para1: " + request.getCheck1());
-    check1.setWrappingWidth(wrapLength);
-
-    Text check2 = new Text("para2: " + request.getCheck2());
-    check2.setWrappingWidth(wrapLength);
-
     VBox addvbox = new VBox();
-    addvbox.getChildren().addAll(reqBy, fulfilledBy, dateReq, location, symptoms, check1, check2);
+    for (int i = 0; i < approvedList.size(); i++) {
+      EntryRequest request = EntryRequestHandling.getRequest(approvedList.get(i));
+
+      Text patient =
+          new Text(
+              "Request: "
+                  + request.getRequestID()
+                  + "\t Patient Username: "
+                  + request.getRequestedBy());
+      patient.setStyle(
+          "-fx-font-family: 'Leelawadee UI'; -fx-font-size: 18pt; -fx-font-weight: 700; ");
+      warning.setHeading(patient);
+
+      addvbox.getChildren().add(patient);
+    }
+
     addvbox.setStyle(
         "-fx-wrap-text: true; -fx-font-family: 'Leelawadee UI'; -fx-font-size: 16pt; -fx-spacing: 16pt; ");
     // text.setWrappingWidth(200);

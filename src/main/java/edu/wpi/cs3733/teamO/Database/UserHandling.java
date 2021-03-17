@@ -285,11 +285,12 @@ public class UserHandling {
   public static boolean getAdmin() {
     boolean b = false;
 
-    String query = "SELECT * FROM USERS WHERE USERNAME = '" + username + "'";
+    String query = "SELECT * FROM USERS WHERE USERNAME = ?";
 
     try {
       PreparedStatement pstmt = null;
       pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      pstmt.setString(1, username);
       ResultSet res = pstmt.executeQuery();
       res.next();
 
