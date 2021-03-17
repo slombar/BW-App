@@ -31,6 +31,7 @@ public class DataHandling {
 
   /** imports data from csv (delimiter = ,|\n) and determines which database to add it to */
   public static void importExcelData() {
+
     fileChooser.setTitle("Import your Node File");
     String url = explorer(Opp.getPrimaryStage());
     // Open file chooser instead of asking for user input
@@ -43,7 +44,6 @@ public class DataHandling {
     // try to open file
     try {
       scan = new Scanner(new File(url)).useDelimiter(d);
-      System.out.println("File read! Importing data...");
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -52,7 +52,6 @@ public class DataHandling {
     // if the file is not empty
     if (scan.hasNext()) {
       // remove header line in beginning of file
-      System.out.println("Removing header line: " + scan.nextLine());
 
       // function variables for simplicity
       String nodeID = "";
@@ -64,13 +63,13 @@ public class DataHandling {
       String longName = "";
       String shortName = "";
       String teamAssigned = "";
-      boolean visible = false;
+      String visible = "";
+      boolean vBool = false;
 
       // delete current nodes
-      PreparedStatement pstmt = null;
-
       try {
-        pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Nodes");
+        PreparedStatement pstmt =
+            DatabaseConnection.getConnection().prepareStatement("DELETE FROM Nodes");
 
         pstmt.execute();
         pstmt.close();
@@ -89,7 +88,8 @@ public class DataHandling {
         longName = scan.next();
         shortName = scan.next();
         teamAssigned = scan.next();
-        visible = Boolean.getBoolean(scan.next());
+        visible = scan.next();
+        vBool = Boolean.parseBoolean(visible);
 
         try {
           NodesAndEdges.addNode(
@@ -102,7 +102,7 @@ public class DataHandling {
               longName,
               shortName,
               teamAssigned,
-              visible);
+              vBool);
         } catch (SQLException throwables) {
           throwables.printStackTrace();
         }
@@ -110,20 +110,19 @@ public class DataHandling {
 
       scan.close();
     } else {
-      System.out.println("File is empty");
+
     }
 
-    Scanner scanedge = null;
     /** Edges upload */
+    Scanner scanedge = null;
     fileChooser.setTitle("Import your Edge File");
-
+    // String uedges = ;
     url = explorer(Opp.getPrimaryStage());
     // Open file chooser instead of asking for user input
 
     // try to open file
     try {
       scanedge = new Scanner(new File(url)).useDelimiter(d);
-      System.out.println("File read! Importing data...");
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -131,16 +130,18 @@ public class DataHandling {
 
     // if the file isn't empty, read it in
     if (scanedge.hasNext()) {
+      // remove header line in beginning of file
+
       String startNode = "";
       String endNode = "";
 
       // delete current nodes
-      PreparedStatement pstmt = null;
+      PreparedStatement ps = null;
       try {
-        pstmt = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Edges");
+        ps = DatabaseConnection.getConnection().prepareStatement("DELETE FROM Edges");
 
-        pstmt.execute();
-        pstmt.close();
+        ps.execute();
+        ps.close();
 
       } catch (SQLException throwables) {
         throwables.printStackTrace();
@@ -160,7 +161,7 @@ public class DataHandling {
 
       scanedge.close();
     } else {
-      System.out.println("File is empty.");
+
     }
   }
 
@@ -253,7 +254,7 @@ public class DataHandling {
 
       bw.close();
     } catch (IOException | SQLException e) {
-      System.out.println("Save Node CSV Information: Failed!");
+
       e.printStackTrace();
       return;
     }
@@ -297,7 +298,7 @@ public class DataHandling {
 
       bw.close();
     } catch (IOException | SQLException e) {
-      System.out.println("Save Edge CSV Information: Failed!");
+
       e.printStackTrace();
       return;
     }

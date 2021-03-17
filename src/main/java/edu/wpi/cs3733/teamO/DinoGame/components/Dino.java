@@ -47,7 +47,6 @@ public class Dino {
 
     switch (state) {
       case STAND_STILL:
-        System.out.println("stand");
         g.drawImage(image, dinoStartX, dinoTopY, null);
         break;
 

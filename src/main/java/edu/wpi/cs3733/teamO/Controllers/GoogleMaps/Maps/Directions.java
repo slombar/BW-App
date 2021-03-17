@@ -43,16 +43,16 @@ public class Directions {
       result = dirReq.await();
     } catch (ApiException e) { // TODO find what these exceptions mean to display to user;
       e.printStackTrace();
-      System.out.println("HELP");
+
       throw e;
     } catch (InterruptedException e) {
       e.printStackTrace();
-      System.out.println("HELP1");
+
       throw e;
 
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println("HELP2");
+
       throw e;
     }
 
@@ -72,8 +72,8 @@ public class Directions {
 
     //    polyline shit that we dont use
     //    for (DirectionsRoute r : route) {
-    //      System.out.println(r.overviewPolyline.getEncodedPath());
-    //      System.out.println(decodePoly(r.overviewPolyline.getEncodedPath()));
+    //
+    //
     //    }
 
     geo.shutdown();

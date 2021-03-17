@@ -349,8 +349,6 @@ public class MobileHospitalNavController implements Initializable {
     else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
       draw();
     }
-
-    System.out.println("mapCanvas click");
   }
 
   public void onCanvasScroll(ScrollEvent scrollEvent) {

@@ -556,8 +556,6 @@ public class PopupMaker {
     popupPane.toFront();
     int wrapLength = 650;
 
-    System.out.println("String: " + reqId);
-
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
     Request request = RequestHandling.getRequest(Integer.parseInt(reqId));
@@ -608,8 +606,6 @@ public class PopupMaker {
   public static void entryReqPopup(StackPane popupPane, String reqId) {
     popupPane.toFront();
     int wrapLength = 650;
-
-    System.out.println("String: " + reqId);
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();
@@ -664,8 +660,6 @@ public class PopupMaker {
   public static void approvedPatients(StackPane popupPane, String reqId) {
     popupPane.toFront();
     int wrapLength = 650;
-
-    System.out.println("String: " + reqId);
 
     // Creates the content for the popup
     JFXDialogLayout warning = new JFXDialogLayout();

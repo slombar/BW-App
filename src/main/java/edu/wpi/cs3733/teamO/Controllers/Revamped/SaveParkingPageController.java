@@ -43,7 +43,7 @@ public class SaveParkingPageController implements Initializable {
   public void saveSpot(ActionEvent actionEvent) {
     String spot = input.getText().substring(13);
     UserHandling.setParkingSpot(spot);
-    System.out.println(spot);
+
     currentSpot.setText(spot);
   }
 }

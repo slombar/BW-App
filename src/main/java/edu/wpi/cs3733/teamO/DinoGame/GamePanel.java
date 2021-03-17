@@ -72,39 +72,37 @@ public class GamePanel extends JFXPanel implements KeyListener, Runnable {
       repaint();
       running = false;
       gameOver = true;
-      System.out.println("collide");
     }
     // game complete condition
   }
 
   public void reset() {
     score = 0;
-    System.out.println("reset");
+
     obstacles.resume();
     gameOver = false;
   }
 
   public void keyTyped(KeyEvent e) {
-    // System.out.println(e);
+    //
     if (e.getKeyChar() == ' ') {
       if (gameOver) reset();
       if (animator == null || !running) {
-        System.out.println("Game starts");
+
         animator = new Thread(this);
         animator.start();
         dino.startRunning();
       } else {
         dino.jump();
-        System.out.println("Dino jumps");
       }
     }
   }
 
   public void keyPressed(KeyEvent e) {
-    // System.out.println("keyPressed: "+e);
+    //
   }
 
   public void keyReleased(KeyEvent e) {
-    // System.out.println("keyReleased: "+e);
+    //
   }
 }
