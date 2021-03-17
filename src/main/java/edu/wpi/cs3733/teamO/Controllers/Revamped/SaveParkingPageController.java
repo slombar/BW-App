@@ -32,6 +32,7 @@ public class SaveParkingPageController implements Initializable {
     }
     // actually autocompleting with the parking nodes (displays the long name)
     Autocomplete.autoComplete(parkingNodes, input);
+    currentSpot.setText(UserHandling.getSessionParkingSpot());
   }
 
   public void goBack(ActionEvent actionEvent) {
@@ -43,7 +44,6 @@ public class SaveParkingPageController implements Initializable {
   public void saveSpot(ActionEvent actionEvent) {
     String spot = input.getText().substring(13);
     UserHandling.setParkingSpot(spot);
-
     currentSpot.setText(spot);
   }
 }

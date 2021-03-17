@@ -5,6 +5,7 @@ import edu.wpi.cs3733.teamO.Model.Node;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -136,10 +137,29 @@ public class NodesAndEdges {
    * @param nodeID, the node that you want to delete all edges from
    * @return
    */
-  public static void deleteAllEdges(String nodeID) {
+  public static ArrayList<String> deleteAllEdges(String nodeID) {
+
+    ArrayList<String> eids = new ArrayList<>();
+
+    String getStuff = "SELECT NODEID FROM Edges WHERE startNode = ? OR endNode = ?";
+    try {
+      PreparedStatement preparedStmt =
+          DatabaseConnection.getConnection().prepareStatement(getStuff);
+      preparedStmt.setString(1, nodeID);
+      preparedStmt.setString(2, nodeID);
+      ResultSet r = preparedStmt.executeQuery();
+
+      while (r.next()) {
+        eids.add(r.getString("NODEID"));
+      }
+
+      preparedStmt.close();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
 
     String query = "DELETE FROM Edges WHERE startNode = ? OR endNode = ?";
-
     try {
       PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
       preparedStmt.setString(1, nodeID);
@@ -151,6 +171,7 @@ public class NodesAndEdges {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+    return eids;
   }
 
   /**
@@ -158,8 +179,10 @@ public class NodesAndEdges {
    *
    * @param nodeID
    * @throws SQLException
+   * @return
    */
-  public static void deleteNode(String nodeID) throws SQLException {
+  public static ArrayList<String> deleteNode(String nodeID) throws SQLException {
+
     String query = "DELETE FROM Nodes WHERE nodeID = ?";
     try {
       PreparedStatement preparedStmt = DatabaseConnection.getConnection().prepareStatement(query);
@@ -173,7 +196,10 @@ public class NodesAndEdges {
     }
 
     // delete all corresponding edges
-    deleteAllEdges(nodeID);
+
+    ArrayList<String> deleteedges = deleteAllEdges(nodeID);
+
+    return deleteedges;
   }
 
   /**

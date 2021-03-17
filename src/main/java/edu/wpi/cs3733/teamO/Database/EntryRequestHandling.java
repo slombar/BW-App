@@ -5,6 +5,7 @@ import edu.wpi.cs3733.teamO.SRequest.EntryRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +16,12 @@ public class EntryRequestHandling {
    *
    * @return
    */
-  public static ObservableList<EntryRequest> getRequests() {
+  public static ObservableList<EntryRequest> getEntryRequests() {
     ObservableList<EntryRequest> requestList = FXCollections.observableArrayList();
     try {
-      String query = "SELECT * FROM Entry_Requests";
+      String query = "SELECT * FROM ENTRY_REQUESTS";
       // database statement to grab values
-      PreparedStatement pstmt = null;
-      pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+      PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query);
       // returns the results from query
       ResultSet rset = pstmt.executeQuery();
 
@@ -59,26 +59,7 @@ public class EntryRequestHandling {
                 check1,
                 check2,
                 spec_symptoms);
-
-        System.out.println(
-            "Retrieved this from Services: "
-                + reqID
-                + ", "
-                + requestedBy
-                + ", "
-                + fulfilledBy
-                + ", "
-                + dateRequested.toString()
-                + ", "
-                + location
-                + ", "
-                + symptoms
-                + ", "
-                + check1
-                + ", "
-                + check2
-                + ", "
-                + spec_symptoms);
+        req.setFulfilledBy(fulfilledBy);
 
         requestList.add(req);
       }
@@ -107,7 +88,7 @@ public class EntryRequestHandling {
 
     pstmt =
         DatabaseConnection.getConnection()
-            .prepareStatement("SELECT * FROM Entry_Requests WHERE ENTRYREQID = ?");
+            .prepareStatement("SELECT STATUS FROM Entry_Requests WHERE ENTRYREQID = ?");
 
     pstmt.setInt(1, reqID);
 
@@ -275,5 +256,38 @@ public class EntryRequestHandling {
     pstmt.setInt(1, reqID);
     pstmt.executeUpdate();
     pstmt.close();
+  }
+
+  public static void assignEmployee(int parseInt, String text) throws SQLException {
+    String query = "UPDATE ENTRY_REQUESTS SET FULFUILLEDBY = '" + text + "' WHERE ENTRYREQID = ?";
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    pstmt.setInt(1, parseInt);
+    pstmt.executeUpdate();
+    pstmt.close();
+  }
+
+  public static ArrayList<Integer> getApprovedPatients() throws SQLException {
+    String query = "SELECT * FROM ENTRY_REQUESTS WHERE CHECK1 = TRUE";
+    ArrayList<Integer> approvedList = new ArrayList<Integer>();
+
+    PreparedStatement pstmt = null;
+    pstmt = DatabaseConnection.getConnection().prepareStatement(query);
+
+    int reqID;
+    ResultSet rset = pstmt.executeQuery();
+
+    // Process the results
+    while (rset.next()) {
+      reqID = rset.getInt("ENTRYREQID");
+      System.out.println("Entry Request ID: " + reqID + "\n");
+      approvedList.add(reqID);
+    } // end while
+
+    pstmt.close();
+
+    return approvedList;
   }
 }

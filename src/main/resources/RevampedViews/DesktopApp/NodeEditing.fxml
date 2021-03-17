@@ -15,7 +15,7 @@
    <children>
       <HBox prefHeight="16.0" prefWidth="276.0">
          <children>
-            <JFXTextField fx:id="nodeID" prefHeight="20.0" prefWidth="150.0" promptText="Name of Location" text="NodeID">
+            <JFXTextField fx:id="nodeID" prefHeight="20.0" prefWidth="150.0" promptText="NodeID">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -80,19 +80,19 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="276.0" spacing="20.0">
          <children>
-            <JFXTextField fx:id="building" prefHeight="25.0" prefWidth="100.0" promptText="Name of Location" text="Building">
+            <JFXTextField fx:id="building" prefHeight="25.0" prefWidth="100.0" promptText="Building">
                <font>
                   <Font name="Leelawadee UI" size="12.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="shortName" prefHeight="25.0" prefWidth="100.0" promptText="Name of Location" text="Short Name">
+            <JFXTextField fx:id="shortName" prefHeight="25.0" prefWidth="100.0" promptText="Short Name">
                <font>
                   <Font name="Leelawadee UI" size="12.0" />
                </font>
             </JFXTextField>
          </children>
       </HBox>
-      <JFXTextField fx:id="longName" prefHeight="20.0" prefWidth="150.0" promptText="Name of Location" text="Long Name">
+      <JFXTextField fx:id="longName" prefHeight="20.0" prefWidth="150.0" promptText="LongName">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font>

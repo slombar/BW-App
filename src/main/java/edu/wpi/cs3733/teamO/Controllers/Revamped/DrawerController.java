@@ -70,15 +70,17 @@ public class DrawerController {
     // else, add/edit Node (depending on addNodeDBMode = t/f)
     else {
       try {
-
+        Node n = null;
         if (navController.addingNode) {
+          n = new Node(nid, Integer.parseInt(x), Integer.parseInt(y), f, b, nt, ln, sn, t, v);
+          NodesAndEdges.addNode(nid, x, y, f, b, nt, ln, sn, t, v);
+
         } else {
+          n = new Node(nid, Integer.parseInt(x), Integer.parseInt(y), f, b, nt, ln, sn, t, v);
+          NodesAndEdges.editNode(
+              nid, Integer.parseInt(x), Integer.parseInt(y), f, b, nt, ln, sn, t, v);
           nid = navController.selectedNode.getID();
         }
-
-        Node n = new Node(nid, Integer.parseInt(x), Integer.parseInt(y), f, b, nt, ln, sn, t, v);
-
-        NodesAndEdges.addNode(nid, x, y, f, b, nt, ln, sn, t, v);
 
         GRAPH.addNode(n, navController.addingNode);
 
@@ -91,6 +93,7 @@ public class DrawerController {
       }
     }
 
+    navController.unpairCircle();
     navController.draw();
   }
 
