@@ -43,7 +43,8 @@ public class MEDIController {
     r.setDateNeeded(dateN);
     r.setRequestType(requestType);
     r.setRequestLocation(loc);
-    sum += ". Type of Medicine: " + f1 + ". Dose (mg): " + f2 + "Prescription Required?: " + f3 + ".";
+    sum +=
+        ". Type of Medicine: " + f1 + ". Dose (mg): " + f2 + "Prescription Required?: " + f3 + ".";
     r.setSummary(sum);
     RequestHandling.addRequest(r);
   }
